@@ -174,7 +174,7 @@ class UrbanTripOptimizedV4(BaseAgent):
         self.least_plan_schema, self.least_plan_comm, self.least_plan_logic = None, None, None
         self.least_plan_logical_pass = -1
         self.least_plan_hard_pass = -1
-        self.least_plan_commonsense_pass = False
+        self.least_plan_objective_consistency_pass = False
         self.least_plan_activity_count = -1
         self._current_dfs_plan = None
         # 提取用户需求
@@ -723,18 +723,24 @@ class UrbanTripOptimizedV4(BaseAgent):
             return 0
         return sum(len(day.get("activities", [])) for day in itinerary)
 
-    def _is_better_plan_score(self, hard_pass, commonsense_pass, activity_count):
+    def _is_better_plan_score(self, hard_pass, objective_consistency_pass, activity_count):
+        """Rank fallback plans without changing the search objective.
+
+        objective_consistency_pass is the boolean returned by
+        func_commonsense_constraints(): all objective/commonsense checkers
+        passed, including transport, POI, time, and space consistency.
+        """
         if hard_pass > self.least_plan_hard_pass:
             return True
         if hard_pass < self.least_plan_hard_pass:
             return False
-        if commonsense_pass and not self.least_plan_commonsense_pass:
+        if objective_consistency_pass and not self.least_plan_objective_consistency_pass:
             return True
-        if not commonsense_pass and self.least_plan_commonsense_pass:
+        if not objective_consistency_pass and self.least_plan_objective_consistency_pass:
             return False
         return activity_count > self.least_plan_activity_count
 
-    def _update_best_plan(self, query, res_plan, commonsense_pass, logical_result):
+    def _update_best_plan(self, query, res_plan, objective_consistency_pass, logical_result):
         itinerary = res_plan.get("itinerary")
         activity_count = self._plan_activity_count(itinerary)
         if activity_count == 0:
@@ -745,16 +751,16 @@ class UrbanTripOptimizedV4(BaseAgent):
 
         self.least_plan_schema = deepcopy(res_plan)
 
-        if self._is_better_plan_score(hard_pass, commonsense_pass, activity_count):
+        if self._is_better_plan_score(hard_pass, objective_consistency_pass, activity_count):
             self.least_plan_comm = deepcopy(res_plan)
             self.least_plan_hard_pass = hard_pass
             self.least_plan_logical_pass = hard_pass
-            self.least_plan_commonsense_pass = commonsense_pass
+            self.least_plan_objective_consistency_pass = objective_consistency_pass
             self.least_plan_activity_count = activity_count
             self.least_plan_comm["hard_pass_count"] = hard_pass
-            self.least_plan_comm["commonsense_pass"] = commonsense_pass
+            self.least_plan_comm["commonsense_pass"] = objective_consistency_pass
 
-        if commonsense_pass and logical_pass and self.least_plan_logic is None:
+        if objective_consistency_pass and logical_pass and self.least_plan_logic is None:
             self.least_plan_logic = deepcopy(res_plan)
 
     def _update_best_plan_from_partial(self, query, plan):
