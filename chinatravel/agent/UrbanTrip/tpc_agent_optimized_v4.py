@@ -112,9 +112,9 @@ class UrbanTripOptimizedV4(BaseAgent):
                 succ = True
 
             elif self.least_plan_comm is not None:
-                plan_out = self.least_plan_comm
+                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_comm) or self.least_plan_comm
             elif self.least_plan_schema is not None:
-                plan_out = self.least_plan_schema
+                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_schema) or self.least_plan_schema
             else:
                 plan_out = {}
 
@@ -177,6 +177,8 @@ class UrbanTripOptimizedV4(BaseAgent):
         self.least_plan_objective_consistency_pass = False
         self.least_plan_activity_count = -1
         self._current_dfs_plan = None
+        self._current_poi_plan = None
+        self.FALLBACK_COMPLETE_SEC = 10
         # 提取用户需求
         # 获取用户约束信息
         # constraints_json = self.extract_user_constraints(query)
@@ -382,7 +384,7 @@ class UrbanTripOptimizedV4(BaseAgent):
             for back_i in ranking_back:
                 if time.time() > self.time_before_search + self.TIME_CUT:
                     self.default_plan["backtrack_count"] = self.backtrack_count
-                    return True, self._best_effort_plan()
+                    return True, self._best_effort_plan(query, None, poi_plan)
 
                 back_info_i = back_info.iloc[back_i]  # 获取当前返程交通信息
                 if pd.isna(back_info_i["Cost"]):
@@ -465,6 +467,7 @@ class UrbanTripOptimizedV4(BaseAgent):
                                 continue
 
                         print("search: ...")
+                        self._current_poi_plan = poi_plan
                         # 尝试通过 DFS 搜索 POI 计划
                         try:
                             success, plan = self.dfs_poi(
@@ -485,7 +488,7 @@ class UrbanTripOptimizedV4(BaseAgent):
                         else:
                             if time.time() > self.time_before_search + self.TIME_CUT:
                                 self.default_plan["backtrack_count"] = self.backtrack_count
-                                return True, self._best_effort_plan()
+                                return True, self._best_effort_plan(query, plan, poi_plan)
 
                             self.backtrack_count += 1
                             print("search failed given the intercity-transport and hotels, backtrack...")
@@ -558,6 +561,7 @@ class UrbanTripOptimizedV4(BaseAgent):
                                 continue
 
                         print("search: ...")
+                        self._current_poi_plan = poi_plan
                         # 尝试通过 DFS 搜索 POI 计划
                         try:
                             success, plan = self.dfs_poi(
@@ -579,7 +583,7 @@ class UrbanTripOptimizedV4(BaseAgent):
                         else:
                             if time.time() > self.time_before_search + self.TIME_CUT:
                                 self.default_plan["backtrack_count"] = self.backtrack_count
-                                return True, self._best_effort_plan()
+                                return True, self._best_effort_plan(query, plan, poi_plan)
 
                             self.backtrack_count += 1
                             print("search failed given the intercity-transport and hotels, backtrack...")
@@ -667,7 +671,7 @@ class UrbanTripOptimizedV4(BaseAgent):
                             else:
                                 if time.time() > self.time_before_search + self.TIME_CUT:
                                     self.default_plan["backtrack_count"] = self.backtrack_count
-                                    return True, self._best_effort_plan()
+                                    return True, self._best_effort_plan(query, None, poi_plan)
 
                                 self.backtrack_count += 1
                                 print("search failed given the intercity-transport and hotels, backtrack...")
@@ -711,7 +715,7 @@ class UrbanTripOptimizedV4(BaseAgent):
                     else:
                         if time.time() > self.time_before_search + self.TIME_CUT:
                             self.default_plan["backtrack_count"] = self.backtrack_count
-                            return True, self._best_effort_plan()
+                            return True, self._best_effort_plan(query, None, poi_plan)
 
                         self.backtrack_count += 1
                         print("search failed given the intercity-transport and hotels, backtrack...")
@@ -778,21 +782,347 @@ class UrbanTripOptimizedV4(BaseAgent):
         logical_result = evaluate_constraints_py(query["hard_logic_py"], res_plan, verbose=False)
         self._update_best_plan(query, res_plan, False, logical_result)
 
-    def _best_effort_plan(self, query=None, plan=None):
+    def _time_minutes(self, time_str):
+        if not time_str:
+            return 0
+        time_str = str(time_str).split("次日")[-1]
+        parts = time_str.split(":")
+        return int(parts[0]) * 60 + int(parts[1])
+
+    def _is_intercity_activity(self, activity):
+        if not isinstance(activity, dict):
+            return False
+        if activity.get("type") in ("train", "airplane"):
+            return True
+        return "TrainID" in activity or "FlightID" in activity
+
+    def _activity_position(self, activity):
+        if not isinstance(activity, dict):
+            return ""
+        if activity.get("position"):
+            return activity["position"]
+        if self._is_intercity_activity(activity):
+            return activity.get("end", "")
+        return ""
+
+    def _res_plan_shell(self, query, itinerary):
+        return {
+            "people_number": query["people_number"],
+            "start_city": query["start_city"],
+            "target_city": query["target_city"],
+            "itinerary": itinerary,
+        }
+
+    def _commonsense_passes(self, query, res_plan):
+        return bool(func_commonsense_constraints(query, res_plan, verbose=False))
+
+    def _repair_itinerary_times(self, itinerary):
+        for day in itinerary:
+            for act in day.get("activities", []):
+                if self._is_intercity_activity(act):
+                    continue
+                transports = act.get("transports") or []
+                for tr in transports:
+                    if tr.get("end_time") and self._time_minutes(tr["end_time"]) >= 24 * 60:
+                        tr["end_time"] = "23:59"
+                st = act.get("start_time")
+                et = act.get("end_time")
+                if transports:
+                    te = transports[-1].get("end_time")
+                    if te and (not st or self._time_minutes(te) > self._time_minutes(st)):
+                        act["start_time"] = te
+                        st = te
+                if not st or not et:
+                    continue
+                if self._time_minutes(st) < self._time_minutes(et):
+                    continue
+                if act.get("type") == "accommodation":
+                    if self._time_minutes(st) >= 24 * 60:
+                        act["start_time"] = "23:00"
+                    act["end_time"] = "24:00"
+                else:
+                    act["end_time"] = add_time_delta(st, 60)
+
+    def _drop_broken_activities(self, itinerary):
+        for day in itinerary:
+            cleaned = []
+            for act in day.get("activities", []):
+                if self._is_intercity_activity(act):
+                    cleaned.append(act)
+                    continue
+                st = act.get("start_time")
+                et = act.get("end_time")
+                transports = act.get("transports") or []
+                broken = False
+                if not st or not et:
+                    broken = True
+                elif self._time_minutes(st) >= self._time_minutes(et) and act.get("type") != "accommodation":
+                    broken = True
+                elif transports:
+                    te = transports[-1].get("end_time")
+                    if te and self._time_minutes(te) > self._time_minutes(st):
+                        broken = True
+                if not broken:
+                    cleaned.append(act)
+            day["activities"] = cleaned
+
+    def _ensure_day_count(self, query, itinerary):
+        target_days = query["days"]
+        while len(itinerary) < target_days:
+            itinerary.append({"day": len(itinerary) + 1, "activities": []})
+        while len(itinerary) > target_days:
+            itinerary.pop()
+        for idx, day in enumerate(itinerary):
+            day["day"] = idx + 1
+
+    def _extract_tail_state(self, itinerary):
+        last_day_idx = -1
+        last_act = None
+        for d_idx, day in enumerate(itinerary):
+            acts = day.get("activities", [])
+            if acts:
+                last_day_idx = d_idx
+                last_act = acts[-1]
+        if last_act is None:
+            return 0, "", ""
+        return last_day_idx, last_act.get("end_time", ""), self._activity_position(last_act)
+
+    def _required_rooms_for_hotel(self, query, hotel_sel):
+        room_type = hotel_sel["numbed"]
+        if self.room_number is not None:
+            return self.room_number
+        return int((query["people_number"] - 1) / room_type) + 1
+
+    def _add_breakfast_on_day(self, itinerary, day_idx, poi_plan, transports_sel=None):
+        if "accommodation" not in poi_plan:
+            return False
+        hotel_name = poi_plan["accommodation"]["name"]
+        itinerary[day_idx]["activities"] = self.add_poi(
+            activities=itinerary[day_idx]["activities"],
+            position=hotel_name,
+            poi_type="breakfast",
+            price=0,
+            cost=0,
+            start_time="08:00",
+            end_time="08:30",
+            innercity_transports=transports_sel or [],
+        )
+        return True
+
+    def _try_append_hotel_stay(self, query, poi_plan, itinerary, day_idx, current_time, current_position, deadline):
+        if time.time() > deadline:
+            return None
+        if "accommodation" not in poi_plan:
+            return None
+        hotel_sel = poi_plan["accommodation"]
+        required_rooms = self._required_rooms_for_hotel(query, hotel_sel)
+        transports_ranking = self.innercity_transports_ranking
+        if self.transport_rules_by_distance is not None:
+            temp_distance = self.calculate_distance(query, current_position, hotel_sel["name"])
+            transports_ranking = self.get_transport_by_distance(temp_distance)
+        for trans_type_sel in transports_ranking:
+            if time.time() > deadline:
+                return None
+            if current_position == hotel_sel["name"]:
+                transports_sel = []
+                arrived_time = current_time
+            else:
+                transports_sel = self.collect_innercity_transport(
+                    query["target_city"],
+                    current_position,
+                    hotel_sel["name"],
+                    current_time,
+                    trans_type_sel,
+                )
+                if not isinstance(transports_sel, list):
+                    continue
+                arrived_time = transports_sel[-1]["end_time"] if transports_sel else current_time
+            if self._time_minutes(arrived_time) >= 24 * 60:
+                continue
+            self.add_accommodation(
+                current_plan=itinerary,
+                hotel_sel=hotel_sel,
+                current_day=day_idx,
+                arrived_time=arrived_time,
+                required_rooms=required_rooms,
+                transports_sel=transports_sel,
+            )
+            return day_idx, "00:00", hotel_sel["name"]
+        return None
+
+    def _try_append_return_transport(self, query, poi_plan, itinerary, day_idx, current_time, current_position, deadline):
+        if time.time() > deadline or "back_transport" not in poi_plan:
+            return False
+        back_transport = poi_plan["back_transport"]
+        transports_ranking = self.innercity_transports_ranking
+        if self.transport_rules_by_distance is not None:
+            temp_distance = self.calculate_distance(query, current_position, back_transport["From"])
+            transports_ranking = self.get_transport_by_distance(temp_distance)
+        for trans_type_sel in transports_ranking:
+            if time.time() > deadline:
+                return False
+            transports_sel = self.collect_innercity_transport(
+                query["target_city"],
+                current_position,
+                back_transport["From"],
+                current_time,
+                trans_type_sel,
+            )
+            if not isinstance(transports_sel, list):
+                continue
+            arrived_time = transports_sel[-1]["end_time"] if transports_sel else current_time
+            if not time_compare_if_earlier_equal(arrived_time, back_transport["BeginTime"]):
+                continue
+            acts = itinerary[day_idx]["activities"]
+            if acts and self._is_intercity_activity(acts[-1]):
+                acts.pop()
+            itinerary[day_idx]["activities"] = self.add_intercity_transport(
+                itinerary[day_idx]["activities"],
+                back_transport,
+                innercity_transports=transports_sel,
+                tickets=query["people_number"],
+            )
+            return True
+        return False
+
+    def _fallback_complete_for_commonsense(self, query, poi_plan, seed_plan):
+        if not seed_plan or not poi_plan or "go_transport" not in poi_plan or "back_transport" not in poi_plan:
+            return None
+
+        deadline = time.time() + self.FALLBACK_COMPLETE_SEC
+        itinerary = deepcopy(seed_plan.get("itinerary", []))
+        if self._plan_activity_count(itinerary) == 0:
+            return None
+
+        self._repair_itinerary_times(itinerary)
+        self._drop_broken_activities(itinerary)
+        self._ensure_day_count(query, itinerary)
+
+        if self._commonsense_passes(query, self._res_plan_shell(query, itinerary)):
+            completed = self._res_plan_shell(query, itinerary)
+            completed.update({
+                k: v for k, v in seed_plan.items()
+                if k not in completed and k != "itinerary"
+            })
+            completed["commonsense_pass"] = True
+            completed["fallback_completed"] = True
+            return completed
+
+        day_idx, current_time, current_position = self._extract_tail_state(itinerary)
+        last_day_idx = query["days"] - 1
+
+        if day_idx < 0:
+            day_idx = 0
+            current_time = poi_plan["go_transport"]["EndTime"]
+            current_position = poi_plan["go_transport"]["To"]
+
+        while day_idx < last_day_idx:
+            if time.time() > deadline:
+                break
+            acts = itinerary[day_idx].get("activities", [])
+            last_act = acts[-1] if acts else None
+            if last_act and last_act.get("type") == "accommodation":
+                day_idx += 1
+                if not self._add_breakfast_on_day(itinerary, day_idx, poi_plan):
+                    break
+                current_time = "08:30"
+                current_position = poi_plan["accommodation"]["name"]
+                continue
+            state = self._try_append_hotel_stay(
+                query, poi_plan, itinerary, day_idx, current_time, current_position, deadline
+            )
+            if state is None:
+                break
+            day_idx, current_time, current_position = state
+            if day_idx < last_day_idx:
+                day_idx += 1
+                if not self._add_breakfast_on_day(itinerary, day_idx, poi_plan):
+                    break
+                current_time = "08:30"
+                current_position = poi_plan["accommodation"]["name"]
+
+        if day_idx == last_day_idx:
+            acts = itinerary[day_idx].get("activities", [])
+            if current_time in ("", "00:00") and "accommodation" in poi_plan:
+                has_breakfast = any(a.get("type") == "breakfast" for a in acts)
+                if not has_breakfast:
+                    self._add_breakfast_on_day(itinerary, day_idx, poi_plan)
+                    current_time = "08:30"
+                    current_position = poi_plan["accommodation"]["name"]
+            elif current_time == "00:00" and acts:
+                last_act = acts[-1]
+                current_time = last_act.get("end_time", current_time)
+                current_position = self._activity_position(last_act) or current_position
+
+            if not (acts and self._is_intercity_activity(acts[-1])):
+                self._try_append_return_transport(
+                    query, poi_plan, itinerary, day_idx, current_time, current_position, deadline
+                )
+
+        self._repair_itinerary_times(itinerary)
+        self._drop_broken_activities(itinerary)
+        self._ensure_day_count(query, itinerary)
+
+        completed = self._res_plan_shell(query, itinerary)
+        if not self._commonsense_passes(query, completed):
+            last_day = itinerary[last_day_idx]
+            acts = last_day.get("activities", [])
+            while len(acts) > 1 and time.time() < deadline:
+                acts.pop()
+                self._try_append_return_transport(
+                    query, poi_plan, itinerary, last_day_idx,
+                    self._extract_tail_state(itinerary)[1],
+                    self._extract_tail_state(itinerary)[2],
+                    deadline,
+                )
+                self._repair_itinerary_times(itinerary)
+                self._drop_broken_activities(itinerary)
+                completed = self._res_plan_shell(query, itinerary)
+                if self._commonsense_passes(query, completed):
+                    break
+
+        if not self._commonsense_passes(query, completed):
+            return None
+
+        logical_result = evaluate_constraints_py(query["hard_logic_py"], completed, verbose=False)
+        completed["hard_pass_count"] = int(np.sum(logical_result))
+        completed["commonsense_pass"] = True
+        completed["fallback_completed"] = True
+        completed["backtrack_count"] = self.backtrack_count
+        return completed
+
+    def _finalize_best_effort_plan(self, query, seed_plan, poi_plan=None):
+        poi_plan = poi_plan or self._current_poi_plan
+        if seed_plan is None:
+            return None
+        if poi_plan and seed_plan.get("itinerary"):
+            completed = self._fallback_complete_for_commonsense(query, poi_plan, seed_plan)
+            if completed is not None:
+                print("Timeout fallback: completed plan passes commonsense checks.")
+                return completed
+            print("Timeout fallback: could not repair plan to commonsense; returning best partial.")
+        seed_plan = deepcopy(seed_plan)
+        seed_plan["backtrack_count"] = self.backtrack_count
+        seed_plan["commonsense_pass"] = False
+        seed_plan["fallback_completed"] = False
+        return seed_plan
+
+    def _best_effort_plan(self, query=None, plan=None, poi_plan=None):
         """
-        超时兜底：优先返回搜索过程中已缓存的、交通合法的部分计划，
-        而非空的 default_plan，避免白丢 EPR-micro / 软分。
-        降级顺序与 run() 一致：logic > comm > schema > default。
+        超时兜底：取 hard constraint 通过最多的 partial plan，再 fallback 补全为
+        commonsense 合法路径；避免直接返回缺天数/缺返程的残缺行程。
         """
         query = query if query is not None else self.query
+        poi_plan = poi_plan or self._current_poi_plan
         plan = plan if plan is not None else self._current_dfs_plan
         if query is not None and plan is not None:
             self._update_best_plan_from_partial(query, plan)
 
         for cand in (self.least_plan_logic, self.least_plan_comm, self.least_plan_schema):
             if cand is not None and cand.get("itinerary"):
-                cand["backtrack_count"] = self.backtrack_count
-                return cand
+                finalized = self._finalize_best_effort_plan(query, cand, poi_plan)
+                if finalized is not None:
+                    return finalized
         return {
             "error": "No solution found before search cutoff",
             "backtrack_count": self.backtrack_count,
@@ -812,6 +1142,7 @@ class UrbanTripOptimizedV4(BaseAgent):
 
     def dfs_poi(self, query, poi_plan, plan, current_time, current_position, current_day=0):
         self._current_dfs_plan = plan
+        self._current_poi_plan = poi_plan
         print("----------------------------------calling dfs_poi-----------------------------------------")
         # print(f"plan: {plan}")
         print(f"current_day: {current_day}")
@@ -825,7 +1156,7 @@ class UrbanTripOptimizedV4(BaseAgent):
             self.too_many_backtrack = True
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
-            return True, self._best_effort_plan(query, plan)
+            return True, self._best_effort_plan(query, plan, poi_plan)
 
         if not self.all_satisfy_flag and not self.too_many_backtrack:
             ok, backtrack = self.check_requirement(plan)
@@ -840,11 +1171,11 @@ class UrbanTripOptimizedV4(BaseAgent):
         # 检查是否超时
         if self.stop_search:
             self.default_plan["backtrack_count"] = self.backtrack_count
-            return True, self._best_effort_plan(query, plan)
+            return True, self._best_effort_plan(query, plan, poi_plan)
         if time.time() - self.time_before_search > self.TIME_CUT + self.llm_inference_time_count:
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
-            return True, self._best_effort_plan(query, plan)
+            return True, self._best_effort_plan(query, plan, poi_plan)
 
         # 检查当前时间是否太晚，无法前往酒店或返程交通
         print("check if too late")
