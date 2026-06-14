@@ -27,6 +27,14 @@ from chinatravel.agent.UrbanTrip.utils import (
     get_time_delta,
     TimeOutError,
 )
+from chinatravel.agent.UrbanTrip.segment_index import SegmentIndex
+from chinatravel.agent.UrbanTrip.plan_graph import (
+    forward_time_chain,
+    incremental_commonsense_ok,
+    incremental_space_time_ok,
+    repair_full_itinerary,
+    sync_itinerary_commonsense,
+)
 
 # from chinatravel.eval.utils import load_json_file, validate_json, save_json_file
 from chinatravel.data.load_datasets import load_json_file, save_json_file
@@ -63,8 +71,18 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.TIME_CUT = 60 * 5 - 10
         self.top_k_candidates = kwargs.get("top_k_candidates", 50)  # 候选截断数，提速后放宽以缓解"正解排第 n+1 不可达"
         self.debug = kwargs.get("debug", False)
-        self.poi_search = Poi(lang=kwargs.get("lang"))
+        self.lang = kwargs.get("lang", "zh")
+        self.poi_search = Poi(lang=self.lang)
         self._distance_cache = {}  # (city, frozenset({start, end})) -> 球面距离，单次搜索内复用
+        self.use_segments = kwargs.get("use_segments", True)
+        self.segment_top_k = kwargs.get("segment_top_k", 50)
+        self.segment_index = None
+        if self.use_segments:
+            self.segment_index = SegmentIndex(
+                lang=self.lang,
+                segment_dir=kwargs.get("segment_dir"),
+                top_k=self.segment_top_k,
+            )
 
         self.visited_attractions = set()
         self.visited_restaurants = set()
@@ -178,6 +196,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.least_plan_activity_count = -1
         self._current_dfs_plan = None
         self._current_poi_plan = None
+        self._enable_plan_sync = True
         self.FALLBACK_COMPLETE_SEC = 10
         # 提取用户需求
         # 获取用户约束信息
@@ -833,32 +852,13 @@ class UrbanTripOptimizedV5(BaseAgent):
     def _commonsense_passes(self, query, res_plan):
         return bool(func_commonsense_constraints(query, res_plan, verbose=False))
 
+    def _after_append_activity(self, query, plan, day_idx):
+        if not getattr(self, "_enable_plan_sync", False):
+            return True
+        return sync_itinerary_commonsense(self, query, plan, day_idx)
+
     def _repair_itinerary_times(self, itinerary):
-        for day in itinerary:
-            for act in day.get("activities", []):
-                if self._is_intercity_activity(act):
-                    continue
-                transports = act.get("transports") or []
-                for tr in transports:
-                    if tr.get("end_time") and self._time_minutes(tr["end_time"]) >= 24 * 60:
-                        tr["end_time"] = "23:59"
-                st = act.get("start_time")
-                et = act.get("end_time")
-                if transports:
-                    te = transports[-1].get("end_time")
-                    if te and (not st or self._time_minutes(te) > self._time_minutes(st)):
-                        act["start_time"] = te
-                        st = te
-                if not st or not et:
-                    continue
-                if self._time_minutes(st) < self._time_minutes(et):
-                    continue
-                if act.get("type") == "accommodation":
-                    if self._time_minutes(st) >= 24 * 60:
-                        act["start_time"] = "23:00"
-                    act["end_time"] = "24:00"
-                else:
-                    act["end_time"] = add_time_delta(st, 60)
+        forward_time_chain(itinerary)
 
     def _drop_broken_activities(self, itinerary):
         for day in itinerary:
@@ -914,6 +914,13 @@ class UrbanTripOptimizedV5(BaseAgent):
         if "accommodation" not in poi_plan:
             return False
         hotel_name = poi_plan["accommodation"]["name"]
+        prev_pos = ""
+        acts = itinerary[day_idx].get("activities", [])
+        if acts:
+            prev_pos = self._activity_position(acts[-1])
+        innercity = transports_sel or []
+        if prev_pos and prev_pos != hotel_name:
+            innercity = None
         itinerary[day_idx]["activities"] = self.add_poi(
             activities=itinerary[day_idx]["activities"],
             position=hotel_name,
@@ -922,8 +929,12 @@ class UrbanTripOptimizedV5(BaseAgent):
             cost=0,
             start_time="08:00",
             end_time="08:30",
-            innercity_transports=transports_sel or [],
+            innercity_transports=innercity if innercity is not None else [],
         )
+        if getattr(self, "query", None) is not None:
+            if not self._after_append_activity(self.query, itinerary, day_idx):
+                itinerary[day_idx]["activities"].pop()
+                return False
         return True
 
     def _try_append_hotel_stay(self, query, poi_plan, itinerary, day_idx, current_time, current_position, deadline):
@@ -1015,6 +1026,9 @@ class UrbanTripOptimizedV5(BaseAgent):
         self._drop_broken_activities(itinerary)
         self._ensure_day_count(query, itinerary)
 
+        if not incremental_commonsense_ok(query, itinerary, lang=getattr(self, "lang", None)):
+            repair_full_itinerary(self, query, itinerary)
+
         if self._commonsense_passes(query, self._res_plan_shell(query, itinerary)):
             completed = self._res_plan_shell(query, itinerary)
             completed.update({
@@ -1079,6 +1093,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self._repair_itinerary_times(itinerary)
         self._drop_broken_activities(itinerary)
         self._ensure_day_count(query, itinerary)
+        repair_full_itinerary(self, query, itinerary)
 
         completed = self._res_plan_shell(query, itinerary)
         if not self._commonsense_passes(query, completed):
@@ -1117,7 +1132,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             if completed is not None:
                 print("Timeout fallback: completed plan passes commonsense checks.")
                 return completed
-            print("Timeout fallback: could not repair plan to commonsense; returning best partial.")
+            print("Timeout fallback: could not repair plan to commonsense; trying next candidate.")
+            return None
         seed_plan = deepcopy(seed_plan)
         seed_plan["backtrack_count"] = self.backtrack_count
         seed_plan["commonsense_pass"] = False
@@ -1158,6 +1174,9 @@ class UrbanTripOptimizedV5(BaseAgent):
         return False
 
     def dfs_poi(self, query, poi_plan, plan, current_time, current_position, current_day=0):
+        if current_day >= query["days"]:
+            return False, plan
+
         self._current_dfs_plan = plan
         self._current_poi_plan = poi_plan
         print("----------------------------------calling dfs_poi-----------------------------------------")
@@ -1381,6 +1400,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                             plan[current_day]["activities"].pop()
                             return False, plan
 
+                    repair_full_itinerary(self, query, plan)
+
                     # 验证计划是否满足所有约束
                     res_bool, res_plan = self.constraints_validation(
                         query, plan, poi_plan
@@ -1580,6 +1601,15 @@ class UrbanTripOptimizedV5(BaseAgent):
                             axis=1
                         )
                         candidate_attr_ranked = candidate_res_filtered.sort_values(by="distance").reset_index(drop=True)
+
+                    if self.segment_index is not None:
+                        candidate_attr_ranked = self.segment_index.rank_poi(
+                            self._segment_query(query),
+                            current_position,
+                            "restaurant",
+                            candidate_attr_ranked,
+                            self._segment_constraints(),
+                        )
 
                     n = self.top_k_candidates  # 选取前 n 个
 
@@ -2206,6 +2236,15 @@ class UrbanTripOptimizedV5(BaseAgent):
                         candidate_attr_ranked = candidate_attr_filtered.sort_values(by="distance").reset_index(
                             drop=True)
 
+                    if self.segment_index is not None:
+                        candidate_attr_ranked = self.segment_index.rank_poi(
+                            self._segment_query(query),
+                            current_position,
+                            "attraction",
+                            candidate_attr_ranked,
+                            self._segment_constraints(),
+                        )
+
                     # 检查时间段
                     stage = 0
                     if current_day == 0 and time_compare_if_earlier_equal("14:00", current_time) and "dinner" in candidates_type:
@@ -2404,6 +2443,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                                     self.query["people_number"]
                                 )
 
+                                if self._enable_plan_sync and not self._after_append_activity(
+                                    query, plan, current_day
+                                ):
+                                    plan[current_day]["activities"].pop()
+                                    self.backtrack_count += 1
+                                    continue
+
                                 pn = poi_sel["name"]
                                 pc = poi_sel["type"]
                                 print(f"add attraction: {pn}, type: {pc}")
@@ -2594,6 +2640,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                                     self.query["people_number"]
                                 )
 
+                                if self._enable_plan_sync and not self._after_append_activity(
+                                    query, plan, current_day
+                                ):
+                                    plan[current_day]["activities"].pop()
+                                    self.backtrack_count += 1
+                                    continue
+
                                 pn = poi_sel["name"]
                                 pc = poi_sel["type"]
                                 print(f"add attraction: {pn}, type: {pc}")
@@ -2779,6 +2832,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 self.query["people_number"]
                             )
 
+                            if self._enable_plan_sync and not self._after_append_activity(
+                                query, plan, current_day
+                            ):
+                                plan[current_day]["activities"].pop()
+                                self.backtrack_count += 1
+                                continue
+
                             pn = poi_sel["name"]
                             pc = poi_sel["type"]
                             print(f"add attraction: {pn}, type: {pc}")
@@ -2894,6 +2954,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 plan[current_day]["activities"].pop()
                                 return False, plan
 
+                        repair_full_itinerary(self, query, plan)
+
                         # 验证计划是否满足所有约束
                         res_bool, res_plan = self.constraints_validation(
                             query, plan, poi_plan
@@ -2906,7 +2968,7 @@ class UrbanTripOptimizedV5(BaseAgent):
                         continue
 
                 # 如果不是最后一天且天数大于 1
-                elif self.query["days"] > 1:
+                elif self.query["days"] > 1 and current_day < query["days"] - 1:
                     # go to hotel
                     hotel_sel = poi_plan["accommodation"]  # 获取选定的酒店信息
                     self.search_nodes += 1
@@ -3274,8 +3336,38 @@ class UrbanTripOptimizedV5(BaseAgent):
                     return True
         return False
 
+    def _segment_query(self, query):
+        segment_query = dict(query)
+        segment_query.update(self._segment_constraints())
+        return segment_query
+
+    def _segment_constraints(self):
+        return {
+            "must_see_attraction": self.must_see_attraction,
+            "must_see_attraction_type": self.must_see_attraction_type,
+            "must_visit_restaurant": self.must_visit_restaurant,
+            "must_visit_restaurant_type": self.must_visit_restaurant_type,
+            "must_depart_transport": self.must_depart_transport,
+            "must_return_transport": self.must_return_transport,
+            "must_not_depart_transport": self.must_not_depart_transport,
+            "must_not_return_transport": self.must_not_return_transport,
+            "innercity_budget": self.innercity_budget,
+        }
+
     def _rank_hotels_for_innercity_budget(self, ranking_idx, hotel_info, query, poi_plan):
-        if not self._innercity_budget_saver_enabled() or not ranking_idx:
+        if not ranking_idx:
+            return ranking_idx
+
+        if self.segment_index is not None:
+            ranking_idx = self.segment_index.rank_hotels(
+                self._segment_query(query),
+                hotel_info,
+                poi_plan.get("go_transport"),
+                poi_plan.get("back_transport"),
+                ranking_idx,
+            )
+
+        if not self._innercity_budget_saver_enabled():
             return ranking_idx
 
         anchors = []
@@ -3299,6 +3391,91 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         scored.sort(key=lambda item: (item[1], item[2]))
         return [idx for idx, _, _ in scored]
+
+    def _estimate_intracity_travel_minutes(self, city, start, end):
+        if self.segment_index is not None:
+            seg = self.segment_index._best_intracity_segment(city, start, end)
+            if seg is not None:
+                duration = seg.get("duration")
+                if duration is not None:
+                    return max(int(round(float(duration))), 0)
+        return 45
+
+    def _can_reach_poi_after_arrival(self, query, go_row, poi_names, poi_df):
+        if not poi_names or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        if not arrival_station or not arrival_time:
+            return True
+        city = query["target_city"]
+        min_visit_buffer = 30
+        for name in poi_names:
+            matches = poi_df[poi_df["name"] == name]
+            if matches.empty:
+                continue
+            poi = matches.iloc[0]
+            opentime, endtime = poi["opentime"], poi["endtime"]
+            travel_min = self._estimate_intracity_travel_minutes(
+                city, arrival_station, name
+            )
+            arrived = add_time_delta(arrival_time, travel_min)
+            if time_compare_if_earlier_equal(endtime, arrived):
+                return False
+            visit_start = (
+                opentime
+                if time_compare_if_earlier_equal(arrived, opentime)
+                else arrived
+            )
+            if time_compare_if_earlier_equal(
+                endtime, add_time_delta(visit_start, min_visit_buffer)
+            ):
+                return False
+        return True
+
+    def _can_visit_must_see_after_go_arrival(self, query, go_row):
+        if not self.must_see_attraction:
+            return True
+        return self._can_reach_poi_after_arrival(
+            query,
+            go_row,
+            self.must_see_attraction,
+            self.memory.get("attractions"),
+        )
+
+    def _can_visit_must_restaurant_after_go_arrival(self, query, go_row):
+        if not self.must_visit_restaurant:
+            return True
+        return self._can_reach_poi_after_arrival(
+            query,
+            go_row,
+            self.must_visit_restaurant,
+            self.memory.get("restaurants"),
+        )
+
+    def _can_satisfy_required_poi_after_go_arrival(self, query, go_row):
+        return self._can_visit_must_see_after_go_arrival(
+            query, go_row
+        ) and self._can_visit_must_restaurant_after_go_arrival(query, go_row)
+
+    def _prioritize_required_poi_feasible_go_trains(
+        self, transport_info, query, ordered_indices
+    ):
+        if not self.must_see_attraction and not self.must_visit_restaurant:
+            return ordered_indices
+        feasible = []
+        infeasible = []
+        for idx in ordered_indices:
+            if self._can_satisfy_required_poi_after_go_arrival(
+                query, transport_info.iloc[idx]
+            ):
+                feasible.append(idx)
+            else:
+                infeasible.append(idx)
+        if not feasible:
+            return ordered_indices
+        feasible.sort(key=lambda i: transport_info.iloc[i].get("EndTime", "99:99"))
+        return feasible + infeasible
 
     def ranking_intercity_transport_go(self, transport_info, query):
         time_list = transport_info["BeginTime"].tolist()
@@ -3329,7 +3506,19 @@ class UrbanTripOptimizedV5(BaseAgent):
             combined_ranking = time_ranking + price_ranking
             sorted_indices = list(np.argsort(combined_ranking))
 
-        return sorted_indices
+        sorted_indices = list(sorted_indices)
+        if self.segment_index is not None:
+            segment_order = self.segment_index.rank_intercity(
+                self._segment_query(query), "go", transport_info
+            )
+            allowed = set(sorted_indices)
+            reranked = [idx for idx in segment_order if idx in allowed]
+            reranked.extend(idx for idx in sorted_indices if idx not in set(reranked))
+            sorted_indices = reranked
+
+        return self._prioritize_required_poi_feasible_go_trains(
+            transport_info, query, sorted_indices
+        )
 
     def ranking_intercity_transport_back(self, transport_info, query, selected_go):
         time_list = transport_info["BeginTime"].tolist()
@@ -3339,7 +3528,15 @@ class UrbanTripOptimizedV5(BaseAgent):
         for i, idx in enumerate(sorted_indices):
             time_ranking[idx] = i + 1
 
-        ranking_idx = np.argsort(time_ranking)
+        ranking_idx = list(np.argsort(time_ranking))
+        if self.segment_index is not None:
+            segment_order = self.segment_index.rank_intercity(
+                self._segment_query(query), "back", transport_info
+            )
+            allowed = set(ranking_idx)
+            reranked = [idx for idx in segment_order if idx in allowed]
+            reranked.extend(idx for idx in ranking_idx if idx not in set(reranked))
+            ranking_idx = reranked
 
         return ranking_idx
 
@@ -3411,10 +3608,23 @@ class UrbanTripOptimizedV5(BaseAgent):
         return ranking_idx
 
     def select_and_add_breakfast(self, plan, poi_plan, current_day, current_time, current_position, transports_sel):
-        # have breakfast at hotel
-        plan[current_day]["activities"] = self.add_poi(plan[current_day]["activities"],
-                                                       poi_plan["accommodation"]["name"], "breakfast", 0, 0, "08:00",
-                                                       "08:30", innercity_transports=transports_sel)
+        hotel_name = poi_plan["accommodation"]["name"]
+        innercity = transports_sel or []
+        if current_position == hotel_name:
+            innercity = []
+        plan[current_day]["activities"] = self.add_poi(
+            plan[current_day]["activities"],
+            hotel_name,
+            "breakfast",
+            0,
+            0,
+            "08:00",
+            "08:30",
+            innercity_transports=innercity,
+        )
+        if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
+            if not self._after_append_activity(self.query, plan, current_day):
+                plan[current_day]["activities"].pop()
         return plan
 
     def select_next_poi_type(self, candidates_type, plan, poi_plan, current_day, current_time, current_position):
@@ -3843,6 +4053,10 @@ class UrbanTripOptimizedV5(BaseAgent):
         current_plan[current_day]["activities"][-1]["room_type"] = hotel_sel["numbed"]
         current_plan[current_day]["activities"][-1]["rooms"] = required_rooms
 
+        if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
+            if not self._after_append_activity(self.query, current_plan, current_day):
+                current_plan[current_day]["activities"].pop()
+
         return current_plan
 
     def add_restaurant(
@@ -3907,6 +4121,9 @@ class UrbanTripOptimizedV5(BaseAgent):
             end_time=act_end_time,
             innercity_transports=transports_sel,
         )
+        if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
+            if not self._after_append_activity(self.query, current_plan, current_day):
+                current_plan[current_day]["activities"].pop()
         return current_plan
 
     def add_attraction(
@@ -3947,6 +4164,10 @@ class UrbanTripOptimizedV5(BaseAgent):
             innercity_transports=transports_sel,
         )
         current_plan[current_day]["activities"][-1]["tickets"] = self.query["people_number"]
+
+        if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
+            if not self._after_append_activity(self.query, current_plan, current_day):
+                current_plan[current_day]["activities"].pop()
 
         return current_plan
 
