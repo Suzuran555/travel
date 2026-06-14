@@ -1,0 +1,730 @@
+{
+    "people_number": 3,
+    "start_city": "Nanjing",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:52",
+                    "end_time": "08:44",
+                    "start": "Nanjing Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 563.16,
+                    "cost": 1689.48,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "K283",
+                    "type": "train"
+                },
+                {
+                    "position": "Chengfei Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:03",
+                    "end_time": "10:33",
+                    "transports": [
+                        {
+                            "start": "Chengdu West Railway Station",
+                            "end": "Chengdu West Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:44",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chengdu West Railway Station-Metro Station",
+                            "end": "Huangtianba-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:47",
+                            "end_time": "08:50",
+                            "cost": 6,
+                            "distance": 1.68,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Huangtianba-Metro Station",
+                            "end": "Chengfei Park",
+                            "mode": "walk",
+                            "start_time": "08:50",
+                            "end_time": "09:03",
+                            "cost": 0,
+                            "distance": 1.13,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shu Jiu Xiang Hot Pot (Jinsha Branch)",
+                    "type": "lunch",
+                    "price": 111,
+                    "cost": 333,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Chengfei Park",
+                            "end": "Huangtianba-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:33",
+                            "end_time": "10:46",
+                            "cost": 0,
+                            "distance": 1.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huangtianba-Metro Station",
+                            "end": "Qingjiang West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:46",
+                            "end_time": "10:53",
+                            "cost": 6,
+                            "distance": 3.51,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qingjiang West Road-Metro Station",
+                            "end": "Shu Jiu Xiang Hot Pot (Jinsha Branch)",
+                            "mode": "walk",
+                            "start_time": "10:53",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Qingyang District Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:15",
+                    "end_time": "13:45",
+                    "transports": [
+                        {
+                            "start": "Shu Jiu Xiang Hot Pot (Jinsha Branch)",
+                            "end": "Qingjiang West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:07",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qingjiang West Road-Metro Station",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:07",
+                            "end_time": "12:09",
+                            "cost": 6,
+                            "distance": 1.14,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Qingyang District Library",
+                            "mode": "walk",
+                            "start_time": "12:09",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chengdu New Lightspeed Karting Club (Wuhou Branch)",
+                    "type": "attraction",
+                    "price": 128,
+                    "cost": 384,
+                    "start_time": "14:10",
+                    "end_time": "15:40",
+                    "transports": [
+                        {
+                            "start": "Qingyang District Library",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:45",
+                            "end_time": "13:51",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Dongpo Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:51",
+                            "end_time": "13:53",
+                            "cost": 6,
+                            "distance": 1.27,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Dongpo Road-Metro Station",
+                            "end": "Chengdu New Lightspeed Karting Club (Wuhou Branch)",
+                            "mode": "walk",
+                            "start_time": "13:53",
+                            "end_time": "14:10",
+                            "cost": 0,
+                            "distance": 1.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Tavie Land",
+                    "type": "dinner",
+                    "price": 135,
+                    "cost": 405,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu New Lightspeed Karting Club (Wuhou Branch)",
+                            "end": "Dongpo Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:40",
+                            "end_time": "15:57",
+                            "cost": 0,
+                            "distance": 1.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongpo Road-Metro Station",
+                            "end": "Qingjiang West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:57",
+                            "end_time": "16:00",
+                            "cost": 6,
+                            "distance": 1.96,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qingjiang West Road-Metro Station",
+                            "end": "Tavie Land",
+                            "mode": "walk",
+                            "start_time": "16:00",
+                            "end_time": "16:13",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Cat Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:20",
+                    "end_time": "19:50",
+                    "transports": [
+                        {
+                            "start": "Tavie Land",
+                            "end": "Qingjiang West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:13",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qingjiang West Road-Metro Station",
+                            "end": "Chengdu West Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:13",
+                            "end_time": "18:17",
+                            "cost": 6,
+                            "distance": 2.24,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chengdu West Railway Station-Metro Station",
+                            "end": "Cat Museum",
+                            "mode": "walk",
+                            "start_time": "18:17",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chengdu International Intangible Cultural Heritage Expo Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:10",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Cat Museum",
+                            "end": "Chengdu West Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:50",
+                            "end_time": "19:53",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chengdu West Railway Station-Metro Station",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:53",
+                            "end_time": "19:59",
+                            "cost": 6,
+                            "distance": 3.39,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "mode": "walk",
+                            "start_time": "19:59",
+                            "end_time": "20:10",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Celebrity Upper Class Hotel",
+                    "type": "accommodation",
+                    "price": 338,
+                    "cost": 676,
+                    "start_time": "21:46",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:11",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:11",
+                            "end_time": "21:37",
+                            "cost": 12,
+                            "distance": 13.32,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Celebrity Upper Class Hotel",
+                            "mode": "walk",
+                            "start_time": "21:37",
+                            "end_time": "21:46",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Celebrity Upper Class Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Manjushri Lane",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Celebrity Upper Class Hotel",
+                            "end": "Manjushri Lane",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shu Art Theater: Face-Changing Sichuan Opera with Covered Bowl Tea",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 147,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane",
+                            "end": "Shu Art Theater: Face-Changing Sichuan Opera with Covered Bowl Tea",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "lunch",
+                    "price": 17,
+                    "cost": 51,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Shu Art Theater: Face-Changing Sichuan Opera with Covered Bowl Tea",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Manjushri Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:30",
+                    "end_time": "14:00",
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "Manjushri Temple",
+                            "mode": "taxi",
+                            "start_time": "12:30",
+                            "end_time": "12:30",
+                            "cost": 11.0,
+                            "distance": 0.5,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chengdu Unicorn Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 147,
+                    "start_time": "14:12",
+                    "end_time": "15:42",
+                    "transports": [
+                        {
+                            "start": "Manjushri Temple",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:00",
+                            "end_time": "14:05",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:05",
+                            "end_time": "14:09",
+                            "cost": 6,
+                            "distance": 2.39,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Chengdu Unicorn Starry Sky Art Museum",
+                            "mode": "walk",
+                            "start_time": "14:09",
+                            "end_time": "14:12",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Friend's Visit Small Seafood (Taisheng South Road Branch)",
+                    "type": "dinner",
+                    "price": 87,
+                    "cost": 261,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Unicorn Starry Sky Art Museum",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:42",
+                            "end_time": "15:45",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:45",
+                            "end_time": "15:46",
+                            "cost": 6,
+                            "distance": 0.83,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Friend's Visit Small Seafood (Taisheng South Road Branch)",
+                            "mode": "walk",
+                            "start_time": "15:46",
+                            "end_time": "15:49",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:13",
+                    "end_time": "19:43",
+                    "transports": [
+                        {
+                            "start": "Friend's Visit Small Seafood (Taisheng South Road Branch)",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:03",
+                            "end_time": "18:06",
+                            "cost": 6,
+                            "distance": 1.99,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "18:06",
+                            "end_time": "18:13",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Celebrity Upper Class Hotel",
+                    "type": "accommodation",
+                    "price": 338,
+                    "cost": 676,
+                    "start_time": "20:06",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:43",
+                            "end_time": "19:50",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:50",
+                            "end_time": "19:57",
+                            "cost": 6,
+                            "distance": 3.6,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Celebrity Upper Class Hotel",
+                            "mode": "walk",
+                            "start_time": "19:57",
+                            "end_time": "20:06",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Celebrity Upper Class Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Moon City Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:46",
+                    "end_time": "10:16",
+                    "transports": [
+                        {
+                            "start": "Celebrity Upper Class Hotel",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:39",
+                            "end_time": "08:42",
+                            "cost": 6,
+                            "distance": 1.74,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Moon City Lake",
+                            "mode": "walk",
+                            "start_time": "08:42",
+                            "end_time": "08:46",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "23:28",
+                    "end_time": "01:13",
+                    "start": "Chengdu Shuangliu International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 735.4,
+                    "cost": 2206.2,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Moon City Lake",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:16",
+                            "end_time": "10:20",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:20",
+                            "end_time": "10:58",
+                            "cost": 15,
+                            "distance": 19.12,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Chengdu Shuangliu International Airport",
+                            "mode": "walk",
+                            "start_time": "10:58",
+                            "end_time": "11:13",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL473",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 8.420471906661987,
+    "llm_inference_time_sec": 0
+}

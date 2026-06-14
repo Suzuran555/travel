@@ -1,0 +1,790 @@
+{
+    "people_number": 1,
+    "start_city": "Beijing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:11",
+                    "end_time": "03:36",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 923.58,
+                    "cost": 923.58,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL095",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:36",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Fuyong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "03:47",
+                            "cost": 2,
+                            "distance": 3.4,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Fuyong-Metro Station",
+                            "end": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                            "mode": "walk",
+                            "start_time": "03:47",
+                            "end_time": "03:48",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Phoenix Ancient Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:11",
+                    "end_time": "10:41",
+                    "transports": [
+                        {
+                            "start": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                            "end": "Fuyong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fuyong-Metro Station",
+                            "end": "Tangwei-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:37",
+                            "cost": 2,
+                            "distance": 3.38,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tangwei-Metro Station",
+                            "end": "Phoenix Ancient Village",
+                            "mode": "walk",
+                            "start_time": "08:37",
+                            "end_time": "09:11",
+                            "cost": 0,
+                            "distance": 2.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Yuhua Seafood (Fuyong Branch)",
+                    "type": "lunch",
+                    "price": 170,
+                    "cost": 170,
+                    "start_time": "11:24",
+                    "end_time": "12:24",
+                    "transports": [
+                        {
+                            "start": "Phoenix Ancient Village",
+                            "end": "Tangwei-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:41",
+                            "end_time": "11:15",
+                            "cost": 0,
+                            "distance": 2.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tangwei-Metro Station",
+                            "end": "Huaide-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:15",
+                            "end_time": "11:22",
+                            "cost": 2,
+                            "distance": 3.92,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Huaide-Metro Station",
+                            "end": "Yuhua Seafood (Fuyong Branch)",
+                            "mode": "walk",
+                            "start_time": "11:22",
+                            "end_time": "11:24",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "OAO Art Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:40",
+                    "end_time": "14:10",
+                    "transports": [
+                        {
+                            "start": "Yuhua Seafood (Fuyong Branch)",
+                            "end": "Huaide-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:24",
+                            "end_time": "12:26",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huaide-Metro Station",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:26",
+                            "end_time": "12:31",
+                            "cost": 2,
+                            "distance": 2.51,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "OAO Art Space",
+                            "mode": "walk",
+                            "start_time": "12:31",
+                            "end_time": "12:40",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Lixin Lake Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:40",
+                    "end_time": "16:10",
+                    "transports": [
+                        {
+                            "start": "OAO Art Space",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:10",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "Tangwei-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:19",
+                            "end_time": "14:22",
+                            "cost": 2,
+                            "distance": 1.7,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tangwei-Metro Station",
+                            "end": "Lixin Lake Park",
+                            "mode": "walk",
+                            "start_time": "14:22",
+                            "end_time": "14:40",
+                            "cost": 0,
+                            "distance": 1.58,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Baolilai International Grand Hotel - Phoenix Pavilion Revolving Restaurant",
+                    "type": "dinner",
+                    "price": 330,
+                    "cost": 330,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lixin Lake Park",
+                            "end": "Tangwei-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:10",
+                            "end_time": "16:28",
+                            "cost": 0,
+                            "distance": 1.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tangwei-Metro Station",
+                            "end": "Huaide-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:28",
+                            "end_time": "16:35",
+                            "cost": 2,
+                            "distance": 3.92,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Huaide-Metro Station",
+                            "end": "Shenzhen Baolilai International Grand Hotel - Phoenix Pavilion Revolving Restaurant",
+                            "mode": "walk",
+                            "start_time": "16:35",
+                            "end_time": "16:48",
+                            "cost": 0,
+                            "distance": 1.09,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Rainbow Planet Amusement Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:49",
+                    "end_time": "20:19",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Baolilai International Grand Hotel - Phoenix Pavilion Revolving Restaurant",
+                            "end": "Huaide-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:13",
+                            "cost": 0,
+                            "distance": 1.09,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huaide-Metro Station",
+                            "end": "Shajing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:13",
+                            "end_time": "18:27",
+                            "cost": 3,
+                            "distance": 7.13,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shajing-Metro Station",
+                            "end": "Rainbow Planet Amusement Park",
+                            "mode": "walk",
+                            "start_time": "18:27",
+                            "end_time": "18:49",
+                            "cost": 0,
+                            "distance": 1.84,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shajing Ancient Market",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:22",
+                    "end_time": "21:52",
+                    "transports": [
+                        {
+                            "start": "Rainbow Planet Amusement Park",
+                            "end": "Shajing Ancient Market",
+                            "mode": "taxi",
+                            "start_time": "20:19",
+                            "end_time": "20:22",
+                            "cost": 13.27,
+                            "distance": 2.45,
+                            "price": 13.27,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                    "type": "accommodation",
+                    "price": 570,
+                    "cost": 570,
+                    "start_time": "22:26",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shajing Ancient Market",
+                            "end": "Houting-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:52",
+                            "end_time": "22:07",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Houting-Metro Station",
+                            "end": "Fuyong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:07",
+                            "end_time": "22:25",
+                            "cost": 4,
+                            "distance": 9.01,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Fuyong-Metro Station",
+                            "end": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                            "mode": "walk",
+                            "start_time": "22:25",
+                            "end_time": "22:26",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Bao'an Jesus the King Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:12",
+                    "end_time": "10:42",
+                    "transports": [
+                        {
+                            "start": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                            "end": "Fuyong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fuyong-Metro Station",
+                            "end": "Xingdong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "09:01",
+                            "cost": 5,
+                            "distance": 15.43,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xingdong-Metro Station",
+                            "end": "Bao'an Jesus the King Church",
+                            "mode": "walk",
+                            "start_time": "09:01",
+                            "end_time": "09:12",
+                            "cost": 0,
+                            "distance": 0.95,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "East Sea Palace Seafood Restaurant",
+                    "type": "lunch",
+                    "price": 90,
+                    "cost": 90,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Bao'an Jesus the King Church",
+                            "end": "Xingdong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:42",
+                            "end_time": "10:53",
+                            "cost": 0,
+                            "distance": 0.95,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xingdong-Metro Station",
+                            "end": "Lingzhi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:53",
+                            "end_time": "10:57",
+                            "cost": 2,
+                            "distance": 2.09,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lingzhi-Metro Station",
+                            "end": "East Sea Palace Seafood Restaurant",
+                            "mode": "walk",
+                            "start_time": "10:57",
+                            "end_time": "10:57",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Bao'an Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:11",
+                    "end_time": "13:41",
+                    "transports": [
+                        {
+                            "start": "East Sea Palace Seafood Restaurant",
+                            "end": "Lingzhi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:00",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingzhi-Metro Station",
+                            "end": "Xin'an Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:00",
+                            "end_time": "12:02",
+                            "cost": 2,
+                            "distance": 1.01,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xin'an Park-Metro Station",
+                            "end": "Bao'an Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "12:02",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Kexing Science and Technology Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:18",
+                    "end_time": "15:48",
+                    "transports": [
+                        {
+                            "start": "Bao'an Science and Technology Museum",
+                            "end": "Xin'an Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:41",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xin'an Park-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:50",
+                            "end_time": "14:00",
+                            "cost": 3,
+                            "distance": 5.05,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Kexing Science and Technology Park",
+                            "mode": "walk",
+                            "start_time": "14:00",
+                            "end_time": "14:18",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Hibiscus Tree (Xunmei Branch)",
+                    "type": "dinner",
+                    "price": 97,
+                    "cost": 97,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Kexing Science and Technology Park",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:48",
+                            "end_time": "16:06",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:06",
+                            "end_time": "16:08",
+                            "cost": 2,
+                            "distance": 1.01,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Hibiscus Tree (Xunmei Branch)",
+                            "mode": "walk",
+                            "start_time": "16:08",
+                            "end_time": "16:18",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:09",
+                    "end_time": "19:39",
+                    "transports": [
+                        {
+                            "start": "Hibiscus Tree (Xunmei Branch)",
+                            "end": "Shenzhen University Town",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 26.33,
+                            "distance": 6.18,
+                            "price": 26.33,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                    "type": "accommodation",
+                    "price": 570,
+                    "cost": 570,
+                    "start_time": "20:43",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:39",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Fuyong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:59",
+                            "end_time": "20:42",
+                            "cost": 6,
+                            "distance": 21.94,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Fuyong-Metro Station",
+                            "end": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                            "mode": "walk",
+                            "start_time": "20:42",
+                            "end_time": "20:43",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:26",
+                    "end_time": "10:56",
+                    "transports": [
+                        {
+                            "start": "Vienna Hotel (Shenzhen Fuyong Metro Station)",
+                            "end": "Fuyong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fuyong-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "09:18",
+                            "cost": 6,
+                            "distance": 23.67,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "09:18",
+                            "end_time": "09:26",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Runyuan Four Seasons Coconut Chicken Hot Pot (OCT Loft Branch)",
+                    "type": "lunch",
+                    "price": 125,
+                    "cost": 125,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Runyuan Four Seasons Coconut Chicken Hot Pot (OCT Loft Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:56",
+                            "end_time": "10:58",
+                            "cost": 11.0,
+                            "distance": 1.36,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:24",
+                    "end_time": "01:49",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 1006.35,
+                    "cost": 1006.35,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Runyuan Four Seasons Coconut Chicken Hot Pot (OCT Loft Branch)",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:08",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:08",
+                            "end_time": "12:49",
+                            "cost": 5,
+                            "distance": 20.57,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "12:49",
+                            "end_time": "12:54",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL174",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 10.868311882019043,
+    "llm_inference_time_sec": 0
+}

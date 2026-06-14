@@ -1,0 +1,729 @@
+{
+    "people_number": 3,
+    "start_city": "Wuhan",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:39",
+                    "end_time": "03:46",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 410.74,
+                    "cost": 1232.22,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL590",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:46",
+                            "end_time": "03:51",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:51",
+                            "end_time": "04:26",
+                            "cost": 15,
+                            "distance": 17.94,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                            "mode": "walk",
+                            "start_time": "04:26",
+                            "end_time": "04:44",
+                            "cost": 0,
+                            "distance": 1.52,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Kexing Science and Technology Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                            "end": "Kexing Science and Technology Park",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.16,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Dashabe Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:03",
+                    "end_time": "11:33",
+                    "transports": [
+                        {
+                            "start": "Kexing Science and Technology Park",
+                            "end": "Dashabe Park",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:03",
+                            "cost": 12.08,
+                            "distance": 2.11,
+                            "price": 12.08,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nature Drunken Goose (Nanshan Branch)",
+                    "type": "lunch",
+                    "price": 92,
+                    "cost": 276,
+                    "start_time": "11:52",
+                    "end_time": "12:52",
+                    "transports": [
+                        {
+                            "start": "Dashabe Park",
+                            "end": "Longjing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:33",
+                            "end_time": "11:41",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longjing-Metro Station",
+                            "end": "Zhuguang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:41",
+                            "end_time": "11:44",
+                            "cost": 6,
+                            "distance": 1.53,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhuguang-Metro Station",
+                            "end": "Nature Drunken Goose (Nanshan Branch)",
+                            "mode": "walk",
+                            "start_time": "11:44",
+                            "end_time": "11:52",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Sky City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:07",
+                    "end_time": "14:37",
+                    "transports": [
+                        {
+                            "start": "Nature Drunken Goose (Nanshan Branch)",
+                            "end": "Zhuguang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:52",
+                            "end_time": "13:00",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhuguang-Metro Station",
+                            "end": "Longjing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:00",
+                            "end_time": "13:03",
+                            "cost": 6,
+                            "distance": 1.53,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Longjing-Metro Station",
+                            "end": "Shenzhen Sky City",
+                            "mode": "walk",
+                            "start_time": "13:03",
+                            "end_time": "13:07",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:54",
+                    "end_time": "16:24",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Sky City",
+                            "end": "Longjing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:37",
+                            "end_time": "14:41",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longjing-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:41",
+                            "end_time": "14:46",
+                            "cost": 6,
+                            "distance": 2.67,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "14:46",
+                            "end_time": "14:54",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wild Hunan (Qiaochengfang Branch)",
+                    "type": "dinner",
+                    "price": 129,
+                    "cost": 387,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:24",
+                            "end_time": "16:32",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:32",
+                            "end_time": "16:35",
+                            "cost": 6,
+                            "distance": 1.91,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Wild Hunan (Qiaochengfang Branch)",
+                            "mode": "walk",
+                            "start_time": "16:35",
+                            "end_time": "16:45",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Overseas Chinese Town Creative Culture Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:17",
+                    "end_time": "19:47",
+                    "transports": [
+                        {
+                            "start": "Wild Hunan (Qiaochengfang Branch)",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Shenkang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:10",
+                            "end_time": "18:14",
+                            "cost": 6,
+                            "distance": 2.29,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shenkang-Metro Station",
+                            "end": "Overseas Chinese Town Creative Culture Park",
+                            "mode": "walk",
+                            "start_time": "18:14",
+                            "end_time": "18:17",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Zhaojun Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:47",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Creative Culture Park",
+                            "end": "Zhaojun Tomb",
+                            "mode": "taxi",
+                            "start_time": "19:47",
+                            "end_time": "19:47",
+                            "cost": 11.0,
+                            "distance": 0.65,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Splendid China - Ethnic Minority Folk Houses",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:00",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Zhaojun Tomb",
+                            "end": "Splendid China - Ethnic Minority Folk Houses",
+                            "mode": "taxi",
+                            "start_time": "20:00",
+                            "end_time": "20:00",
+                            "cost": 11.0,
+                            "distance": 0.11,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                    "type": "accommodation",
+                    "price": 401,
+                    "cost": 1203,
+                    "start_time": "21:32",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Splendid China - Ethnic Minority Folk Houses",
+                            "end": "Qiaocheng East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:06",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng East-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:06",
+                            "end_time": "21:14",
+                            "cost": 9,
+                            "distance": 4.49,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                            "mode": "walk",
+                            "start_time": "21:14",
+                            "end_time": "21:32",
+                            "cost": 0,
+                            "distance": 1.52,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:22",
+                    "end_time": "10:52",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:48",
+                            "cost": 0,
+                            "distance": 1.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:48",
+                            "end_time": "09:02",
+                            "cost": 9,
+                            "distance": 7.26,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Shenzhen University Town",
+                            "mode": "walk",
+                            "start_time": "09:02",
+                            "end_time": "09:22",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Bolin Tianrui Sheraton Hotel · Tianrui Xuan · Cantonese Restaurant",
+                    "type": "lunch",
+                    "price": 287,
+                    "cost": 861,
+                    "start_time": "11:27",
+                    "end_time": "12:27",
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:52",
+                            "end_time": "11:12",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "University Town-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:12",
+                            "end_time": "11:19",
+                            "cost": 6,
+                            "distance": 3.65,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "University Town-Metro Station",
+                            "end": "Shenzhen Bolin Tianrui Sheraton Hotel · Tianrui Xuan · Cantonese Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:19",
+                            "end_time": "11:27",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "He Xiangning Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:50",
+                    "end_time": "14:20",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bolin Tianrui Sheraton Hotel · Tianrui Xuan · Cantonese Restaurant",
+                            "end": "University Town-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:27",
+                            "end_time": "12:35",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "University Town-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:35",
+                            "end_time": "12:44",
+                            "cost": 9,
+                            "distance": 4.87,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "He Xiangning Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:44",
+                            "end_time": "12:50",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanshan Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:47",
+                    "end_time": "16:17",
+                    "transports": [
+                        {
+                            "start": "He Xiangning Art Museum",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:20",
+                            "end_time": "14:26",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:26",
+                            "end_time": "14:39",
+                            "cost": 9,
+                            "distance": 6.71,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Nanshan Museum",
+                            "mode": "walk",
+                            "start_time": "14:39",
+                            "end_time": "14:47",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Haida Steamed Seafood Theme Restaurant (Joyful Song Branch)",
+                    "type": "dinner",
+                    "price": 159,
+                    "cost": 477,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanshan Museum",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:17",
+                            "end_time": "16:25",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Daxin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:25",
+                            "end_time": "16:27",
+                            "cost": 6,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Daxin-Metro Station",
+                            "end": "Haida Steamed Seafood Theme Restaurant (Joyful Song Branch)",
+                            "mode": "walk",
+                            "start_time": "16:27",
+                            "end_time": "16:33",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                    "type": "accommodation",
+                    "price": 401,
+                    "cost": 1203,
+                    "start_time": "18:32",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Haida Steamed Seafood Theme Restaurant (Joyful Song Branch)",
+                            "end": "Daxin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxin-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:14",
+                            "cost": 9,
+                            "distance": 4.09,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                            "mode": "walk",
+                            "start_time": "18:14",
+                            "end_time": "18:32",
+                            "cost": 0,
+                            "distance": 1.52,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "17:50",
+                    "end_time": "23:23",
+                    "start": "Shenzhen North Railway Station",
+                    "end": "Wuhan Station",
+                    "price": 582.03,
+                    "cost": 1746.09,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Nanshan Science and Technology Park Kexing Branch)",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:48",
+                            "cost": 0,
+                            "distance": 1.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:48",
+                            "end_time": "09:10",
+                            "cost": 12,
+                            "distance": 11.06,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "Shenzhen North Railway Station",
+                            "mode": "walk",
+                            "start_time": "09:10",
+                            "end_time": "09:11",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G2708",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 17.10830855369568,
+    "llm_inference_time_sec": 0
+}

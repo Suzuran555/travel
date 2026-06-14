@@ -1,0 +1,872 @@
+{
+    "people_number": 2,
+    "start_city": "Guangzhou",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:36",
+                    "end_time": "02:43",
+                    "start": "Guangzhou Baiyun International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 101.77,
+                    "cost": 203.54,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL264",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:43",
+                            "end_time": "02:48",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:48",
+                            "end_time": "02:54",
+                            "cost": 4,
+                            "distance": 3.01,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "mode": "walk",
+                            "start_time": "02:54",
+                            "end_time": "03:03",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Xibay Seaside Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:53",
+                    "end_time": "10:23",
+                    "transports": [
+                        {
+                            "start": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Gushu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:39",
+                            "end_time": "08:45",
+                            "cost": 4,
+                            "distance": 3.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Gushu-Metro Station",
+                            "end": "Xibay Seaside Park",
+                            "mode": "walk",
+                            "start_time": "08:45",
+                            "end_time": "08:53",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Sea Rainbow",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:25",
+                    "end_time": "11:55",
+                    "transports": [
+                        {
+                            "start": "Xibay Seaside Park",
+                            "end": "Sea Rainbow",
+                            "mode": "taxi",
+                            "start_time": "10:23",
+                            "end_time": "10:25",
+                            "cost": 11.54,
+                            "distance": 1.95,
+                            "price": 11.54,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Shenzhen Airport Hyatt Hotel · Market Café Buffet · Joyful Family Restaurant",
+                    "type": "lunch",
+                    "price": 228,
+                    "cost": 456,
+                    "start_time": "11:57",
+                    "end_time": "12:57",
+                    "transports": [
+                        {
+                            "start": "Sea Rainbow",
+                            "end": "Shenzhen Airport Hyatt Hotel · Market Café Buffet · Joyful Family Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:55",
+                            "end_time": "11:57",
+                            "cost": 11.59,
+                            "distance": 1.97,
+                            "price": 11.59,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "OAO Art Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:23",
+                    "end_time": "14:53",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Airport Hyatt Hotel · Market Café Buffet · Joyful Family Restaurant",
+                            "end": "Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:57",
+                            "end_time": "13:00",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport-Metro Station",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:00",
+                            "end_time": "13:14",
+                            "cost": 6,
+                            "distance": 7.1,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "OAO Art Space",
+                            "mode": "walk",
+                            "start_time": "13:14",
+                            "end_time": "13:23",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Phoenix Ancient Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:39",
+                    "end_time": "17:09",
+                    "transports": [
+                        {
+                            "start": "OAO Art Space",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:53",
+                            "end_time": "15:02",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "Tangwei-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:02",
+                            "end_time": "15:05",
+                            "cost": 4,
+                            "distance": 1.7,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tangwei-Metro Station",
+                            "end": "Phoenix Ancient Village",
+                            "mode": "walk",
+                            "start_time": "15:05",
+                            "end_time": "15:39",
+                            "cost": 0,
+                            "distance": 2.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Shenzhen Baolilai International Grand Hotel - Phoenix Pavilion Revolving Restaurant",
+                    "type": "dinner",
+                    "price": 330,
+                    "cost": 660,
+                    "start_time": "18:03",
+                    "end_time": "19:03",
+                    "transports": [
+                        {
+                            "start": "Phoenix Ancient Village",
+                            "end": "Tangwei-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:09",
+                            "end_time": "17:43",
+                            "cost": 0,
+                            "distance": 2.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tangwei-Metro Station",
+                            "end": "Huaide-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:43",
+                            "end_time": "17:50",
+                            "cost": 4,
+                            "distance": 3.92,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Huaide-Metro Station",
+                            "end": "Shenzhen Baolilai International Grand Hotel - Phoenix Pavilion Revolving Restaurant",
+                            "mode": "walk",
+                            "start_time": "17:50",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 1.09,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shajing Ancient Market",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:14",
+                    "end_time": "20:44",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Baolilai International Grand Hotel - Phoenix Pavilion Revolving Restaurant",
+                            "end": "Shajing Ancient Market",
+                            "mode": "taxi",
+                            "start_time": "19:03",
+                            "end_time": "19:14",
+                            "cost": 32.64,
+                            "distance": 7.98,
+                            "price": 32.64,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "accommodation",
+                    "price": 242,
+                    "cost": 484,
+                    "start_time": "21:35",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shajing Ancient Market",
+                            "end": "Houting-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:44",
+                            "end_time": "20:59",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Houting-Metro Station",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:59",
+                            "end_time": "21:26",
+                            "cost": 8,
+                            "distance": 13.69,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "mode": "walk",
+                            "start_time": "21:26",
+                            "end_time": "21:35",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Bao'an Jesus the King Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:08",
+                    "end_time": "10:38",
+                    "transports": [
+                        {
+                            "start": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Xingdong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:39",
+                            "end_time": "08:57",
+                            "cost": 8,
+                            "distance": 9.25,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xingdong-Metro Station",
+                            "end": "Bao'an Jesus the King Church",
+                            "mode": "walk",
+                            "start_time": "08:57",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 0.95,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "East Sea Palace Seafood Restaurant",
+                    "type": "lunch",
+                    "price": 90,
+                    "cost": 180,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Bao'an Jesus the King Church",
+                            "end": "Xingdong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:38",
+                            "end_time": "10:49",
+                            "cost": 0,
+                            "distance": 0.95,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xingdong-Metro Station",
+                            "end": "Lingzhi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:49",
+                            "end_time": "10:53",
+                            "cost": 4,
+                            "distance": 2.09,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Lingzhi-Metro Station",
+                            "end": "East Sea Palace Seafood Restaurant",
+                            "mode": "walk",
+                            "start_time": "10:53",
+                            "end_time": "10:53",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Bao'an Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:11",
+                    "end_time": "13:41",
+                    "transports": [
+                        {
+                            "start": "East Sea Palace Seafood Restaurant",
+                            "end": "Lingzhi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:00",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingzhi-Metro Station",
+                            "end": "Xin'an Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:00",
+                            "end_time": "12:02",
+                            "cost": 4,
+                            "distance": 1.01,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xin'an Park-Metro Station",
+                            "end": "Bao'an Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "12:02",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Kexing Science and Technology Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:18",
+                    "end_time": "15:48",
+                    "transports": [
+                        {
+                            "start": "Bao'an Science and Technology Museum",
+                            "end": "Xin'an Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:41",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xin'an Park-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:50",
+                            "end_time": "14:00",
+                            "cost": 6,
+                            "distance": 5.05,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Kexing Science and Technology Park",
+                            "mode": "walk",
+                            "start_time": "14:00",
+                            "end_time": "14:18",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Rongyue Restaurant: Heritage Cantonese Cuisine (Kexing Science Park Branch)",
+                    "type": "dinner",
+                    "price": 133,
+                    "cost": 266,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Kexing Science and Technology Park",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:48",
+                            "end_time": "16:06",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:06",
+                            "end_time": "16:08",
+                            "cost": 4,
+                            "distance": 1.01,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Rongyue Restaurant: Heritage Cantonese Cuisine (Kexing Science Park Branch)",
+                            "mode": "walk",
+                            "start_time": "16:08",
+                            "end_time": "16:21",
+                            "cost": 0,
+                            "distance": 1.13,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:30",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Rongyue Restaurant: Heritage Cantonese Cuisine (Kexing Science Park Branch)",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:13",
+                            "cost": 0,
+                            "distance": 1.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:13",
+                            "end_time": "18:22",
+                            "cost": 6,
+                            "distance": 4.66,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "18:22",
+                            "end_time": "18:30",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "accommodation",
+                    "price": 242,
+                    "cost": 484,
+                    "start_time": "20:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:08",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:08",
+                            "end_time": "20:43",
+                            "cost": 10,
+                            "distance": 17.57,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "mode": "walk",
+                            "start_time": "20:43",
+                            "end_time": "20:52",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:31",
+                    "end_time": "11:01",
+                    "transports": [
+                        {
+                            "start": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:39",
+                            "end_time": "09:11",
+                            "cost": 10,
+                            "distance": 16.44,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Shenzhen University Town",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:31",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Sheraton Bolin Tianrui Hotel Lobby Lounge",
+                    "type": "lunch",
+                    "price": 157,
+                    "cost": 314,
+                    "start_time": "11:36",
+                    "end_time": "12:36",
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:01",
+                            "end_time": "11:21",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "University Town-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:21",
+                            "end_time": "11:28",
+                            "cost": 4,
+                            "distance": 3.65,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "University Town-Metro Station",
+                            "end": "Sheraton Bolin Tianrui Hotel Lobby Lounge",
+                            "mode": "walk",
+                            "start_time": "11:28",
+                            "end_time": "11:36",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "accommodation",
+                    "price": 242,
+                    "cost": 484,
+                    "start_time": "13:19",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Sheraton Bolin Tianrui Hotel Lobby Lounge",
+                            "end": "University Town-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:36",
+                            "end_time": "12:44",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "University Town-Metro Station",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:44",
+                            "end_time": "13:10",
+                            "cost": 8,
+                            "distance": 13.41,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "mode": "walk",
+                            "start_time": "13:10",
+                            "end_time": "13:19",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "accommodation",
+                    "price": 242,
+                    "cost": 484,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 5,
+            "activities": [
+                {
+                    "position": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:30",
+                    "end_time": "23:59",
+                    "start": "Shenzhen North Railway Station",
+                    "end": "Guangzhou South Railway Station",
+                    "price": 67.73,
+                    "cost": 135.46,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Tomorrow Hotel (Bao'an International Airport Huangtian Subway Station)",
+                            "end": "Huangtian-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huangtian-Metro Station",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:39",
+                            "end_time": "09:17",
+                            "cost": 10,
+                            "distance": 19.1,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "Shenzhen North Railway Station",
+                            "mode": "walk",
+                            "start_time": "09:17",
+                            "end_time": "09:18",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G6568",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 18.796974182128906,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,500 @@
+{
+    "people_number": 3,
+    "start_city": "Shenzhen",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:21",
+                    "end_time": "03:46",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Capital International Airport",
+                    "price": 949.31,
+                    "cost": 2847.93,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL171",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Beijing Capital International Airport",
+                            "end": "Terminal 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:46",
+                            "end_time": "03:56",
+                            "cost": 0,
+                            "distance": 0.88,
+                            "price": 0
+                        },
+                        {
+                            "start": "Terminal 2-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:56",
+                            "end_time": "04:02",
+                            "cost": 6,
+                            "distance": 3.38,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "04:02",
+                            "end_time": "04:21",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Wenyu River Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:41",
+                    "end_time": "11:11",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Tiantongyuan East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:08",
+                            "cost": 12,
+                            "distance": 9.62,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tiantongyuan East-Metro Station",
+                            "end": "Beijing Wenyu River Park",
+                            "mode": "walk",
+                            "start_time": "09:08",
+                            "end_time": "09:41",
+                            "cost": 0,
+                            "distance": 2.82,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Purple Cloud Pavilion",
+                    "type": "lunch",
+                    "price": 580,
+                    "cost": 1740,
+                    "start_time": "12:16",
+                    "end_time": "13:16",
+                    "transports": [
+                        {
+                            "start": "Beijing Wenyu River Park",
+                            "end": "Tiantongyuan East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:11",
+                            "end_time": "11:44",
+                            "cost": 0,
+                            "distance": 2.82,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiantongyuan East-Metro Station",
+                            "end": "Maquanying-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:44",
+                            "end_time": "11:57",
+                            "cost": 9,
+                            "distance": 6.52,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Maquanying-Metro Station",
+                            "end": "Purple Cloud Pavilion",
+                            "mode": "walk",
+                            "start_time": "11:57",
+                            "end_time": "12:16",
+                            "cost": 0,
+                            "distance": 1.62,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Red Brick Art Museum",
+                    "type": "attraction",
+                    "price": 150,
+                    "cost": 450,
+                    "start_time": "13:31",
+                    "end_time": "15:01",
+                    "transports": [
+                        {
+                            "start": "Purple Cloud Pavilion",
+                            "end": "Red Brick Art Museum",
+                            "mode": "walk",
+                            "start_time": "13:16",
+                            "end_time": "13:31",
+                            "cost": 0.0,
+                            "distance": 1.2703149381943413,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "China Civil Aviation Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:54",
+                    "end_time": "16:30",
+                    "transports": [
+                        {
+                            "start": "Red Brick Art Museum",
+                            "end": "Maquanying-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:01",
+                            "end_time": "15:20",
+                            "cost": 0,
+                            "distance": 1.66,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maquanying-Metro Station",
+                            "end": "Sunhe-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:20",
+                            "end_time": "15:25",
+                            "cost": 6,
+                            "distance": 2.95,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Sunhe-Metro Station",
+                            "end": "China Civil Aviation Museum",
+                            "mode": "walk",
+                            "start_time": "15:25",
+                            "end_time": "15:54",
+                            "cost": 0,
+                            "distance": 2.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Orchard Western Restaurant",
+                    "type": "dinner",
+                    "price": 256,
+                    "cost": 768,
+                    "start_time": "17:14",
+                    "end_time": "18:14",
+                    "transports": [
+                        {
+                            "start": "China Civil Aviation Museum",
+                            "end": "Sunhe-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:30",
+                            "end_time": "16:59",
+                            "cost": 0,
+                            "distance": 2.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sunhe-Metro Station",
+                            "end": "Maquanying-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:59",
+                            "end_time": "17:04",
+                            "cost": 6,
+                            "distance": 2.95,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Maquanying-Metro Station",
+                            "end": "Orchard Western Restaurant",
+                            "mode": "walk",
+                            "start_time": "17:04",
+                            "end_time": "17:14",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wangjing SOHO",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:32",
+                    "end_time": "20:02",
+                    "transports": [
+                        {
+                            "start": "Orchard Western Restaurant",
+                            "end": "Maquanying-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:14",
+                            "end_time": "18:24",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maquanying-Metro Station",
+                            "end": "Wangjing East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:24",
+                            "end_time": "18:31",
+                            "cost": 6,
+                            "distance": 3.67,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Wangjing East-Metro Station",
+                            "end": "Wangjing SOHO",
+                            "mode": "walk",
+                            "start_time": "18:31",
+                            "end_time": "18:32",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 538,
+                    "start_time": "22:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Wangjing SOHO",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "20:02",
+                            "end_time": "22:00",
+                            "cost": 0.0,
+                            "distance": 9.859894390224472,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Beijing Drama Carnival",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:28",
+                    "end_time": "11:58",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "Beijing Drama Carnival",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "10:28",
+                            "cost": 0.0,
+                            "distance": 9.8615840239761,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "That Little Restaurant (798 Art District Branch)",
+                    "type": "lunch",
+                    "price": 170,
+                    "cost": 510,
+                    "start_time": "12:08",
+                    "end_time": "13:08",
+                    "transports": [
+                        {
+                            "start": "Beijing Drama Carnival",
+                            "end": "That Little Restaurant (798 Art District Branch)",
+                            "mode": "walk",
+                            "start_time": "11:58",
+                            "end_time": "12:08",
+                            "cost": 0.0,
+                            "distance": 0.912940860269312,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Junwang Mansion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:11",
+                    "end_time": "15:41",
+                    "transports": [
+                        {
+                            "start": "That Little Restaurant (798 Art District Branch)",
+                            "end": "Junwang Mansion",
+                            "mode": "walk",
+                            "start_time": "13:08",
+                            "end_time": "14:11",
+                            "cost": 0.0,
+                            "distance": 5.305989122167318,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Saigon Mama (Sanlitun Branch)",
+                    "type": "dinner",
+                    "price": 102,
+                    "cost": 306,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Junwang Mansion",
+                            "end": "Saigon Mama (Sanlitun Branch)",
+                            "mode": "walk",
+                            "start_time": "15:41",
+                            "end_time": "16:20",
+                            "cost": 0.0,
+                            "distance": 3.293700237129266,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Working People's Cultural Palace",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:54",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "Saigon Mama (Sanlitun Branch)",
+                            "end": "Beijing Working People's Cultural Palace",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:54",
+                            "cost": 0.0,
+                            "distance": 4.54196521942748,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Tiananmen Square",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:11",
+                    "end_time": "20:41",
+                    "transports": [
+                        {
+                            "start": "Beijing Working People's Cultural Palace",
+                            "end": "Tiananmen Square",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:11",
+                            "cost": 0.0,
+                            "distance": 0.9761551878724202,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "23:54",
+                    "end_time": "04:40",
+                    "start": "Beijing Fengtai Station",
+                    "end": "Shenzhen East Station",
+                    "price": 777.26,
+                    "cost": 2331.7799999999997,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Tiananmen Square",
+                            "end": "Tiananmen East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:41",
+                            "end_time": "20:45",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiananmen East-Metro Station",
+                            "end": "Fengtai East Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:45",
+                            "end_time": "21:06",
+                            "cost": 12,
+                            "distance": 10.89,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Fengtai East Street-Metro Station",
+                            "end": "Beijing Fengtai Station",
+                            "mode": "walk",
+                            "start_time": "21:06",
+                            "end_time": "21:16",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K105",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 271.3325788974762,
+    "llm_inference_time_sec": 0
+}

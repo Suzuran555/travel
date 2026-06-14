@@ -1,0 +1,569 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "09:24",
+                    "start": "Nanjing Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D10",
+                    "type": "train"
+                },
+                {
+                    "position": "Ancient Observatory",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 100,
+                    "start_time": "09:32",
+                    "end_time": "11:02",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:24",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "Taoranting-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:24",
+                            "end_time": "09:27",
+                            "cost": 10,
+                            "distance": 1.54,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Taoranting-Metro Station",
+                            "end": "Ancient Observatory",
+                            "mode": "walk",
+                            "start_time": "09:27",
+                            "end_time": "09:32",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                    "type": "lunch",
+                    "price": 60,
+                    "cost": 300,
+                    "start_time": "11:03",
+                    "end_time": "12:03",
+                    "transports": [
+                        {
+                            "start": "Ancient Observatory",
+                            "end": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:02",
+                            "end_time": "11:03",
+                            "cost": 22.0,
+                            "distance": 1.01,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Joyous Pavilion Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:23",
+                    "end_time": "13:53",
+                    "transports": [
+                        {
+                            "start": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                            "end": "Taoranting-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:03",
+                            "end_time": "12:09",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoranting-Metro Station",
+                            "end": "Tianqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:09",
+                            "end_time": "12:13",
+                            "cost": 10,
+                            "distance": 2.12,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Tianqiao-Metro Station",
+                            "end": "Joyous Pavilion Park",
+                            "mode": "walk",
+                            "start_time": "12:13",
+                            "end_time": "12:23",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Taoranting Park Ice Rink",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:53",
+                    "end_time": "15:23",
+                    "transports": [
+                        {
+                            "start": "Joyous Pavilion Park",
+                            "end": "Taoranting Park Ice Rink",
+                            "mode": "taxi",
+                            "start_time": "13:53",
+                            "end_time": "13:53",
+                            "cost": 22.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Dashilar",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:37",
+                    "end_time": "17:07",
+                    "transports": [
+                        {
+                            "start": "Taoranting Park Ice Rink",
+                            "end": "Tianqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:23",
+                            "end_time": "15:32",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianqiao-Metro Station",
+                            "end": "Qianmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:32",
+                            "end_time": "15:36",
+                            "cost": 10,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Qianmen-Metro Station",
+                            "end": "Dashilar",
+                            "mode": "walk",
+                            "start_time": "15:36",
+                            "end_time": "15:37",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Wen Ding Fu Seafood Hot Pot (Qianmen Courtyard 23 Branch)",
+                    "type": "dinner",
+                    "price": 1027,
+                    "cost": 5135,
+                    "start_time": "17:07",
+                    "end_time": "18:07",
+                    "transports": [
+                        {
+                            "start": "Dashilar",
+                            "end": "Wen Ding Fu Seafood Hot Pot (Qianmen Courtyard 23 Branch)",
+                            "mode": "taxi",
+                            "start_time": "17:07",
+                            "end_time": "17:07",
+                            "cost": 22.0,
+                            "distance": 0.33,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Working People's Cultural Palace",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:20",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "Wen Ding Fu Seafood Hot Pot (Qianmen Courtyard 23 Branch)",
+                            "end": "Qianmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qianmen-Metro Station",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:10",
+                            "end_time": "18:14",
+                            "cost": 10,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "Beijing Working People's Cultural Palace",
+                            "mode": "walk",
+                            "start_time": "18:14",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 807,
+                    "start_time": "20:07",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Beijing Working People's Cultural Palace",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:06",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:06",
+                            "end_time": "19:48",
+                            "cost": 30,
+                            "distance": 21.12,
+                            "price": 6,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "798 Art District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:32",
+                    "end_time": "11:02",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:11",
+                            "cost": 20,
+                            "distance": 11.35,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "798 Art District",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:32",
+                            "cost": 0,
+                            "distance": 1.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "That Little Restaurant (798 Art District Branch)",
+                    "type": "lunch",
+                    "price": 170,
+                    "cost": 850,
+                    "start_time": "11:03",
+                    "end_time": "12:03",
+                    "transports": [
+                        {
+                            "start": "798 Art District",
+                            "end": "That Little Restaurant (798 Art District Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:02",
+                            "end_time": "11:03",
+                            "cost": 22.0,
+                            "distance": 0.74,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Meet Museum · Beijing 798 Branch",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:04",
+                    "end_time": "13:34",
+                    "transports": [
+                        {
+                            "start": "That Little Restaurant (798 Art District Branch)",
+                            "end": "Meet Museum · Beijing 798 Branch",
+                            "mode": "taxi",
+                            "start_time": "12:03",
+                            "end_time": "12:04",
+                            "cost": 22.0,
+                            "distance": 0.7,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Phoenix Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:11",
+                    "end_time": "15:41",
+                    "transports": [
+                        {
+                            "start": "Meet Museum · Beijing 798 Branch",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:34",
+                            "end_time": "13:55",
+                            "cost": 0,
+                            "distance": 1.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "Zaoying-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:55",
+                            "end_time": "14:04",
+                            "cost": 15,
+                            "distance": 4.54,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Zaoying-Metro Station",
+                            "end": "Phoenix Center",
+                            "mode": "walk",
+                            "start_time": "14:04",
+                            "end_time": "14:11",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing Junwangfu Hotel · Breeze Over Lotus Ponds",
+                    "type": "dinner",
+                    "price": 436,
+                    "cost": 2180,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Phoenix Center",
+                            "end": "Zaoying-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:41",
+                            "end_time": "15:48",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zaoying-Metro Station",
+                            "end": "Chaoyang Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:48",
+                            "end_time": "15:50",
+                            "cost": 10,
+                            "distance": 1.22,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chaoyang Park-Metro Station",
+                            "end": "Beijing Junwangfu Hotel · Breeze Over Lotus Ponds",
+                            "mode": "walk",
+                            "start_time": "15:50",
+                            "end_time": "15:58",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Monument to the People's Heroes",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:27",
+                    "end_time": "19:57",
+                    "transports": [
+                        {
+                            "start": "Beijing Junwangfu Hotel · Breeze Over Lotus Ponds",
+                            "end": "Chaoyang Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaoyang Park-Metro Station",
+                            "end": "Tiananmen East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:22",
+                            "cost": 15,
+                            "distance": 7.18,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Tiananmen East-Metro Station",
+                            "end": "Monument to the People's Heroes",
+                            "mode": "walk",
+                            "start_time": "18:22",
+                            "end_time": "18:27",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "start_time": "21:21",
+                    "end_time": "06:46",
+                    "start": "Beijing Railway Station",
+                    "end": "Nanjing Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Monument to the People's Heroes",
+                            "end": "Tiananmen East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:57",
+                            "end_time": "20:02",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiananmen East-Metro Station",
+                            "end": "Beijing Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:02",
+                            "end_time": "20:06",
+                            "cost": 10,
+                            "distance": 2.25,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Beijing Railway Station-Metro Station",
+                            "end": "Beijing Railway Station",
+                            "mode": "walk",
+                            "start_time": "20:06",
+                            "end_time": "20:08",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D5",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 17.54682183265686,
+    "llm_inference_time_sec": 0
+}

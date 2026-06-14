@@ -1,0 +1,444 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:40",
+                            "cost": 18,
+                            "distance": 53.95,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "05:40",
+                            "end_time": "05:44",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Ping'an Bridge Catholic Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Ping'an Bridge Catholic Church",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                    "type": "lunch",
+                    "price": 41,
+                    "cost": 82,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Ping'an Bridge Catholic Church",
+                            "end": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Century City New International Convention and Exhibition Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:54",
+                    "end_time": "15:24",
+                    "transports": [
+                        {
+                            "start": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Wansheng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:33",
+                            "end_time": "13:20",
+                            "cost": 12,
+                            "distance": 23.88,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wansheng-Metro Station",
+                            "end": "Chengdu Century City New International Convention and Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "13:20",
+                            "end_time": "13:54",
+                            "cost": 0,
+                            "distance": 2.91,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "China Teddy Bear Museum",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 100,
+                    "start_time": "15:28",
+                    "end_time": "16:58",
+                    "transports": [
+                        {
+                            "start": "Chengdu Century City New International Convention and Exhibition Center",
+                            "end": "China Teddy Bear Museum",
+                            "mode": "taxi",
+                            "start_time": "15:24",
+                            "end_time": "15:28",
+                            "cost": 14.78,
+                            "distance": 2.88,
+                            "price": 14.78,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Grand Longmen Town: Heritage Sichuan Cuisine (Wenjiang Flagship Store)",
+                    "type": "dinner",
+                    "price": 66,
+                    "cost": 132,
+                    "start_time": "17:55",
+                    "end_time": "18:55",
+                    "transports": [
+                        {
+                            "start": "China Teddy Bear Museum",
+                            "end": "Wansheng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:58",
+                            "end_time": "17:43",
+                            "cost": 0,
+                            "distance": 3.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wansheng-Metro Station",
+                            "end": "Nanxun Avenue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:43",
+                            "end_time": "17:50",
+                            "cost": 4,
+                            "distance": 3.52,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanxun Avenue-Metro Station",
+                            "end": "Grand Longmen Town: Heritage Sichuan Cuisine (Wenjiang Flagship Store)",
+                            "mode": "walk",
+                            "start_time": "17:50",
+                            "end_time": "17:55",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu International Intangible Cultural Heritage Expo Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:29",
+                    "end_time": "20:59",
+                    "transports": [
+                        {
+                            "start": "Grand Longmen Town: Heritage Sichuan Cuisine (Wenjiang Flagship Store)",
+                            "end": "Nanxun Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:55",
+                            "end_time": "19:00",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanxun Avenue-Metro Station",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:00",
+                            "end_time": "19:18",
+                            "cost": 8,
+                            "distance": 9.21,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "mode": "walk",
+                            "start_time": "19:18",
+                            "end_time": "19:29",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "21:37",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:59",
+                            "end_time": "21:10",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:10",
+                            "end_time": "21:33",
+                            "cost": 8,
+                            "distance": 11.79,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "21:33",
+                            "end_time": "21:37",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Narrow Alley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 4,
+                            "distance": 0.71,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Narrow Alley",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Unicorn Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 98,
+                    "start_time": "10:14",
+                    "end_time": "11:44",
+                    "transports": [
+                        {
+                            "start": "Narrow Alley",
+                            "end": "Chengdu Unicorn Starry Sky Art Museum",
+                            "mode": "taxi",
+                            "start_time": "10:11",
+                            "end_time": "10:14",
+                            "cost": 13.04,
+                            "distance": 2.38,
+                            "price": 13.04,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Chengdu Unicorn Starry Sky Art Museum",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:44",
+                            "end_time": "11:47",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:47",
+                            "end_time": "13:30",
+                            "cost": 18,
+                            "distance": 51.96,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "13:30",
+                            "end_time": "14:14",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 20.02701759338379,
+    "llm_inference_time_sec": 0
+}

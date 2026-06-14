@@ -1,0 +1,732 @@
+{
+    "people_number": 3,
+    "start_city": "Shanghai",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:38",
+                    "end_time": "03:09",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 607.72,
+                    "cost": 1823.16,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL013",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:14",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:14",
+                            "end_time": "04:12",
+                            "cost": 21,
+                            "distance": 29.11,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "04:12",
+                            "end_time": "04:20",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Gankeng Ancient Town",
+                    "type": "attraction",
+                    "price": 26,
+                    "cost": 78,
+                    "start_time": "09:00",
+                    "end_time": "10:30",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "09:00",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Little Cool Hat Farm",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:30",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Gankeng Ancient Town",
+                            "end": "Little Cool Hat Farm",
+                            "mode": "taxi",
+                            "start_time": "10:30",
+                            "end_time": "10:30",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "1949 Duck Season · Beijing Roast Duck (Happy Coast Shopping Center Branch)",
+                    "type": "lunch",
+                    "price": 438,
+                    "cost": 1314,
+                    "start_time": "12:29",
+                    "end_time": "13:29",
+                    "transports": [
+                        {
+                            "start": "Little Cool Hat Farm",
+                            "end": "1949 Duck Season · Beijing Roast Duck (Happy Coast Shopping Center Branch)",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:29",
+                            "cost": 82.94,
+                            "distance": 19.61,
+                            "price": 82.94,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Overseas Chinese Town National Wetland Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:43",
+                    "end_time": "15:13",
+                    "transports": [
+                        {
+                            "start": "1949 Duck Season · Beijing Roast Duck (Happy Coast Shopping Center Branch)",
+                            "end": "Shenzhen Bay Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:29",
+                            "end_time": "13:35",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenzhen Bay Park-Metro Station",
+                            "end": "Overseas Chinese Town-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:35",
+                            "end_time": "13:38",
+                            "cost": 6,
+                            "distance": 1.54,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Overseas Chinese Town-Metro Station",
+                            "end": "Overseas Chinese Town National Wetland Park",
+                            "mode": "walk",
+                            "start_time": "13:38",
+                            "end_time": "13:43",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Hua Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:26",
+                    "end_time": "16:56",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town National Wetland Park",
+                            "end": "Overseas Chinese Town-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:13",
+                            "end_time": "15:18",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Overseas Chinese Town-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:18",
+                            "end_time": "15:20",
+                            "cost": 6,
+                            "distance": 1.23,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Hua Art Museum",
+                            "mode": "walk",
+                            "start_time": "15:20",
+                            "end_time": "15:26",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Mr. Rhino Yakiniku Bistro (Joyou INTOWN Branch)",
+                    "type": "dinner",
+                    "price": 158,
+                    "cost": 474,
+                    "start_time": "17:23",
+                    "end_time": "18:23",
+                    "transports": [
+                        {
+                            "start": "Hua Art Museum",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:56",
+                            "end_time": "17:02",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Gangxia-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:02",
+                            "end_time": "17:18",
+                            "cost": 9,
+                            "distance": 8.19,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gangxia-Metro Station",
+                            "end": "Mr. Rhino Yakiniku Bistro (Joyou INTOWN Branch)",
+                            "mode": "walk",
+                            "start_time": "17:18",
+                            "end_time": "17:23",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Ping An Finance Centre Sky-High Observation Deck in Shenzhen",
+                    "type": "attraction",
+                    "price": 180,
+                    "cost": 540,
+                    "start_time": "18:34",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Mr. Rhino Yakiniku Bistro (Joyou INTOWN Branch)",
+                            "end": "Gangxia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:23",
+                            "end_time": "18:28",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangxia-Metro Station",
+                            "end": "Civic Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:28",
+                            "end_time": "18:30",
+                            "cost": 6,
+                            "distance": 1.05,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Civic Center-Metro Station",
+                            "end": "Ping An Finance Centre Sky-High Observation Deck in Shenzhen",
+                            "mode": "walk",
+                            "start_time": "18:30",
+                            "end_time": "18:34",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:02",
+                    "end_time": "21:32",
+                    "transports": [
+                        {
+                            "start": "Ping An Finance Centre Sky-High Observation Deck in Shenzhen",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "taxi",
+                            "start_time": "20:00",
+                            "end_time": "20:02",
+                            "cost": 11.0,
+                            "distance": 1.59,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "22:08",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:32",
+                            "end_time": "21:37",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:37",
+                            "end_time": "22:00",
+                            "cost": 12,
+                            "distance": 11.66,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "22:00",
+                            "end_time": "22:08",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Guanlan Ancient Market",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:03",
+                    "end_time": "10:33",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Songyuanxia-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:56",
+                            "cost": 12,
+                            "distance": 9.09,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Songyuanxia-Metro Station",
+                            "end": "Guanlan Ancient Market",
+                            "mode": "walk",
+                            "start_time": "08:56",
+                            "end_time": "09:03",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Clear Sky Japanese Cuisine (MixC Store)",
+                    "type": "lunch",
+                    "price": 2295,
+                    "cost": 6885,
+                    "start_time": "12:00",
+                    "end_time": "13:00",
+                    "transports": [
+                        {
+                            "start": "Guanlan Ancient Market",
+                            "end": "Songyuanxia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:33",
+                            "end_time": "10:40",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        },
+                        {
+                            "start": "Songyuanxia-Metro Station",
+                            "end": "Houhai-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:40",
+                            "end_time": "11:31",
+                            "cost": 18,
+                            "distance": 25.68,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Houhai-Metro Station",
+                            "end": "Clear Sky Japanese Cuisine (MixC Store)",
+                            "mode": "walk",
+                            "start_time": "11:31",
+                            "end_time": "11:36",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanshan Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:18",
+                    "end_time": "14:48",
+                    "transports": [
+                        {
+                            "start": "Clear Sky Japanese Cuisine (MixC Store)",
+                            "end": "Houhai-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:00",
+                            "end_time": "13:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Houhai-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:05",
+                            "end_time": "13:10",
+                            "cost": 6,
+                            "distance": 2.91,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Nanshan Museum",
+                            "mode": "walk",
+                            "start_time": "13:10",
+                            "end_time": "13:18",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:17",
+                    "end_time": "16:47",
+                    "transports": [
+                        {
+                            "start": "Nanshan Museum",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:48",
+                            "end_time": "14:56",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:56",
+                            "end_time": "15:09",
+                            "cost": 9,
+                            "distance": 6.71,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "15:09",
+                            "end_time": "15:17",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wild Hunan (Qiaochengfang Branch)",
+                    "type": "dinner",
+                    "price": 129,
+                    "cost": 387,
+                    "start_time": "17:08",
+                    "end_time": "18:08",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:47",
+                            "end_time": "16:55",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:55",
+                            "end_time": "16:58",
+                            "cost": 6,
+                            "distance": 1.91,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Wild Hunan (Qiaochengfang Branch)",
+                            "mode": "walk",
+                            "start_time": "16:58",
+                            "end_time": "17:08",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "18:58",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Wild Hunan (Qiaochengfang Branch)",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:08",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:18",
+                            "end_time": "18:50",
+                            "cost": 15,
+                            "distance": 16.03,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "18:50",
+                            "end_time": "18:58",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:37",
+                    "end_time": "01:08",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 572.8,
+                    "cost": 1718.3999999999999,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "09:36",
+                            "cost": 21,
+                            "distance": 29.11,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "09:36",
+                            "end_time": "09:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL166",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 10.017845392227173,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,201 @@
+{
+    "people_number": 3,
+    "start_city": "Chongqing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:21",
+                    "end_time": "17:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3074",
+                    "type": "train"
+                },
+                {
+                    "position": "Miss Fu in Chengdu (Guanqian Street Branch)",
+                    "type": "dinner",
+                    "price": 78,
+                    "cost": 234,
+                    "start_time": "17:54",
+                    "end_time": "18:54",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:45",
+                            "end_time": "17:46",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:46",
+                            "end_time": "17:52",
+                            "cost": 6,
+                            "distance": 3.03,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Miss Fu in Chengdu (Guanqian Street Branch)",
+                            "mode": "walk",
+                            "start_time": "17:52",
+                            "end_time": "17:54",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Crane Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:01",
+                    "end_time": "20:31",
+                    "transports": [
+                        {
+                            "start": "Miss Fu in Chengdu (Guanqian Street Branch)",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:54",
+                            "end_time": "18:56",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:56",
+                            "end_time": "18:57",
+                            "cost": 6,
+                            "distance": 0.51,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Crane Garden",
+                            "mode": "walk",
+                            "start_time": "18:57",
+                            "end_time": "19:01",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 412,
+                    "start_time": "21:24",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Crane Garden",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:31",
+                            "end_time": "20:35",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:35",
+                            "end_time": "21:07",
+                            "cost": 15,
+                            "distance": 16.02,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "21:07",
+                            "end_time": "21:24",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "start_time": "11:40",
+                    "end_time": "14:08",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 679.06,
+                    "cost": 2037.1799999999998,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:00",
+                            "end_time": "00:17",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:17",
+                            "end_time": "00:53",
+                            "cost": 15,
+                            "distance": 18.01,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "00:53",
+                            "end_time": "00:54",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T237",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.2446060180664062,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,583 @@
+{
+    "people_number": 4,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:33",
+                    "end_time": "16:23",
+                    "start": "Shenzhen Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 788.63,
+                    "cost": 3154.52,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "G2787",
+                    "type": "train"
+                },
+                {
+                    "position": "Ginkgo Pavilion · Xin MAISON GINKGO",
+                    "type": "dinner",
+                    "price": 542,
+                    "cost": 2168,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao Station",
+                            "end": "Hongqiao Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:23",
+                            "end_time": "16:24",
+                            "cost": 0,
+                            "distance": 0.12,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Railway Station-Metro Station",
+                            "end": "Longxi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:24",
+                            "end_time": "16:35",
+                            "cost": 12,
+                            "distance": 5.82,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Longxi Road-Metro Station",
+                            "end": "Ginkgo Pavilion · Xin MAISON GINKGO",
+                            "mode": "walk",
+                            "start_time": "16:35",
+                            "end_time": "16:53",
+                            "cost": 0,
+                            "distance": 1.54,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Expo Culture Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:13",
+                    "end_time": "19:43",
+                    "transports": [
+                        {
+                            "start": "Ginkgo Pavilion · Xin MAISON GINKGO",
+                            "end": "Expo Culture Park",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:13",
+                            "cost": 35.92,
+                            "distance": 8.92,
+                            "price": 35.92,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Fosun Foundation Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:50",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Expo Culture Park",
+                            "end": "Fosun Foundation Center",
+                            "mode": "taxi",
+                            "start_time": "19:43",
+                            "end_time": "19:50",
+                            "cost": 23.1,
+                            "distance": 5.26,
+                            "price": 23.1,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "20:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Fosun Foundation Center",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:09",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:09",
+                            "end_time": "20:48",
+                            "cost": 20,
+                            "distance": 19.54,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "20:48",
+                            "end_time": "20:52",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Fuxing Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:20",
+                    "end_time": "10:50",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:17",
+                            "cost": 24,
+                            "distance": 21.86,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "end": "Fuxing Park",
+                            "mode": "walk",
+                            "start_time": "09:17",
+                            "end_time": "09:20",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "The Langham, Shanghai Xintiandi · Cachet Restaurant",
+                    "type": "lunch",
+                    "price": 280,
+                    "cost": 1120,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Fuxing Park",
+                            "end": "The Langham, Shanghai Xintiandi · Cachet Restaurant",
+                            "mode": "taxi",
+                            "start_time": "10:50",
+                            "end_time": "10:50",
+                            "cost": 11.0,
+                            "distance": 0.21,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "West Nanjing Road",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:09",
+                    "end_time": "13:39",
+                    "transports": [
+                        {
+                            "start": "The Langham, Shanghai Xintiandi · Cachet Restaurant",
+                            "end": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:03",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:03",
+                            "end_time": "12:05",
+                            "cost": 8,
+                            "distance": 1.4,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "West Nanjing Road",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:09",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Shangyin+",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:55",
+                    "end_time": "15:25",
+                    "transports": [
+                        {
+                            "start": "West Nanjing Road",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:39",
+                            "end_time": "13:43",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Dongbaoxing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:43",
+                            "end_time": "13:50",
+                            "cost": 8,
+                            "distance": 3.85,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dongbaoxing Road-Metro Station",
+                            "end": "Shanghai Shangyin+",
+                            "mode": "walk",
+                            "start_time": "13:50",
+                            "end_time": "13:55",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Sky Ring Rooftop Ferris Wheel",
+                    "type": "attraction",
+                    "price": 60,
+                    "cost": 240,
+                    "start_time": "15:33",
+                    "end_time": "17:03",
+                    "transports": [
+                        {
+                            "start": "Shanghai Shangyin+",
+                            "end": "Dongbaoxing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:25",
+                            "end_time": "15:30",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongbaoxing Road-Metro Station",
+                            "end": "Baoshan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:30",
+                            "end_time": "15:31",
+                            "cost": 8,
+                            "distance": 1.0,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Baoshan Road-Metro Station",
+                            "end": "Sky Ring Rooftop Ferris Wheel",
+                            "mode": "walk",
+                            "start_time": "15:31",
+                            "end_time": "15:33",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yongxin Shanghai Dim Sum (Jing'an Joy City Branch)",
+                    "type": "dinner",
+                    "price": 82,
+                    "cost": 328,
+                    "start_time": "17:08",
+                    "end_time": "18:08",
+                    "transports": [
+                        {
+                            "start": "Sky Ring Rooftop Ferris Wheel",
+                            "end": "Baoshan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:03",
+                            "end_time": "17:05",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Baoshan Road-Metro Station",
+                            "end": "Qufu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:05",
+                            "end_time": "17:07",
+                            "cost": 8,
+                            "distance": 1.12,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Qufu Road-Metro Station",
+                            "end": "Yongxin Shanghai Dim Sum (Jing'an Joy City Branch)",
+                            "mode": "walk",
+                            "start_time": "17:07",
+                            "end_time": "17:08",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Museum of Contemporary Art",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:17",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "Yongxin Shanghai Dim Sum (Jing'an Joy City Branch)",
+                            "end": "Qufu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:08",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qufu Road-Metro Station",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:11",
+                            "cost": 8,
+                            "distance": 1.33,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Shanghai Museum of Contemporary Art",
+                            "mode": "walk",
+                            "start_time": "18:11",
+                            "end_time": "18:17",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "19:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai Museum of Contemporary Art",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:06",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:06",
+                            "end_time": "19:48",
+                            "cost": 24,
+                            "distance": 21.13,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "19:52",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:57",
+                    "end_time": "10:27",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:39",
+                            "cost": 8,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:57",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 2563.72,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:27",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "11:03",
+                            "cost": 16,
+                            "distance": 9.05,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "11:03",
+                            "end_time": "11:18",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 90.48197078704834,
+    "llm_inference_time_sec": 0
+}

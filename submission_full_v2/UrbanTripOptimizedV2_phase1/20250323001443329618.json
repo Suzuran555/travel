@@ -1,0 +1,741 @@
+{
+    "people_number": 3,
+    "start_city": "Chengdu",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:12",
+                    "end_time": "20:43",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 945.53,
+                    "cost": 2836.59,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3058",
+                    "type": "train"
+                },
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "accommodation",
+                    "price": 225,
+                    "cost": 450,
+                    "start_time": "21:11",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:43",
+                            "end_time": "20:44",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:44",
+                            "end_time": "20:53",
+                            "cost": 9,
+                            "distance": 4.54,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "mode": "walk",
+                            "start_time": "20:53",
+                            "end_time": "21:11",
+                            "cost": 0,
+                            "distance": 1.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Maple Bridge Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "end": "Maple Bridge Scenic Area",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0.0,
+                            "distance": 0.07561331309670183,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Sunset at the Mountain Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maple Bridge Scenic Area",
+                            "end": "Sunset at the Mountain Gate",
+                            "mode": "walk",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 0.0,
+                            "distance": 0.0703876919684926,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wu's Garden Pavilion (Xiyuan Road Branch)",
+                    "type": "lunch",
+                    "price": 84,
+                    "cost": 252,
+                    "start_time": "12:13",
+                    "end_time": "13:13",
+                    "transports": [
+                        {
+                            "start": "Sunset at the Mountain Gate",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:49",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:49",
+                            "end_time": "11:55",
+                            "cost": 6,
+                            "distance": 3.17,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Wu's Garden Pavilion (Xiyuan Road Branch)",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "12:13",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hanshan Temple",
+                    "type": "attraction",
+                    "price": 18,
+                    "cost": 54,
+                    "start_time": "13:55",
+                    "end_time": "15:25",
+                    "transports": [
+                        {
+                            "start": "Wu's Garden Pavilion (Xiyuan Road Branch)",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:13",
+                            "end_time": "13:31",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:31",
+                            "end_time": "13:37",
+                            "cost": 6,
+                            "distance": 3.17,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "Hanshan Temple",
+                            "mode": "walk",
+                            "start_time": "13:37",
+                            "end_time": "13:55",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Revolutionary Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:53",
+                    "end_time": "16:30",
+                    "transports": [
+                        {
+                            "start": "Hanshan Temple",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:25",
+                            "end_time": "15:43",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "North Tongjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:43",
+                            "end_time": "15:49",
+                            "cost": 6,
+                            "distance": 3.21,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "North Tongjing Road-Metro Station",
+                            "end": "Suzhou Revolutionary Museum",
+                            "mode": "walk",
+                            "start_time": "15:49",
+                            "end_time": "15:53",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chuanfu Restaurant (Sanxiang Road Branch)",
+                    "type": "dinner",
+                    "price": 69,
+                    "cost": 207,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Revolutionary Museum",
+                            "end": "Chuanfu Restaurant (Sanxiang Road Branch)",
+                            "mode": "walk",
+                            "start_time": "16:30",
+                            "end_time": "16:39",
+                            "cost": 0.0,
+                            "distance": 0.7576620887589378,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Night Cruise on the Moat",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:21",
+                    "end_time": "19:51",
+                    "transports": [
+                        {
+                            "start": "Chuanfu Restaurant (Sanxiang Road Branch)",
+                            "end": "North Tongjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Tongjing Road-Metro Station",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:15",
+                            "cost": 6,
+                            "distance": 3.14,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Night Cruise on the Moat",
+                            "mode": "walk",
+                            "start_time": "18:15",
+                            "end_time": "18:21",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Crane Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:04",
+                    "end_time": "21:34",
+                    "transports": [
+                        {
+                            "start": "Night Cruise on the Moat",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:51",
+                            "end_time": "19:57",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:57",
+                            "end_time": "20:00",
+                            "cost": 6,
+                            "distance": 1.84,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Crane Garden",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:04",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "accommodation",
+                    "price": 225,
+                    "cost": 450,
+                    "start_time": "22:06",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Crane Garden",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:34",
+                            "end_time": "21:38",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:38",
+                            "end_time": "21:48",
+                            "cost": 9,
+                            "distance": 5.13,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "mode": "walk",
+                            "start_time": "21:48",
+                            "end_time": "22:06",
+                            "cost": 0,
+                            "distance": 1.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Suzhou Sports Center Stadium",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:52",
+                    "end_time": "09:00",
+                    "transports": [
+                        {
+                            "start": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "end": "Suzhou Sports Center Stadium",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:52",
+                            "cost": 0.0,
+                            "distance": 1.8339677377044499,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:20",
+                    "end_time": "10:50",
+                    "transports": [
+                        {
+                            "start": "Suzhou Sports Center Stadium",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:00",
+                            "end_time": "09:06",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:06",
+                            "end_time": "09:12",
+                            "cost": 6,
+                            "distance": 3.1,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "mode": "walk",
+                            "start_time": "09:12",
+                            "end_time": "09:20",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Du San Zhen (Shilu Flagship Store)",
+                    "type": "lunch",
+                    "price": 58,
+                    "cost": 174,
+                    "start_time": "11:05",
+                    "end_time": "12:05",
+                    "transports": [
+                        {
+                            "start": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:50",
+                            "end_time": "10:58",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Shilu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:58",
+                            "end_time": "10:59",
+                            "cost": 6,
+                            "distance": 0.96,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shilu-Metro Station",
+                            "end": "Du San Zhen (Shilu Flagship Store)",
+                            "mode": "walk",
+                            "start_time": "10:59",
+                            "end_time": "11:05",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Suzhou Art Museum (Renmin Road)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:26",
+                    "end_time": "13:56",
+                    "transports": [
+                        {
+                            "start": "Du San Zhen (Shilu Flagship Store)",
+                            "end": "Shilu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shilu-Metro Station",
+                            "end": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:11",
+                            "end_time": "12:16",
+                            "cost": 6,
+                            "distance": 2.86,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "end": "Suzhou Art Museum (Renmin Road)",
+                            "mode": "walk",
+                            "start_time": "12:16",
+                            "end_time": "12:26",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "accommodation",
+                    "price": 225,
+                    "cost": 450,
+                    "start_time": "14:34",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Art Museum (Renmin Road)",
+                            "end": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:56",
+                            "end_time": "14:06",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        },
+                        {
+                            "start": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:06",
+                            "end_time": "14:16",
+                            "cost": 9,
+                            "distance": 5.3,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "mode": "walk",
+                            "start_time": "14:16",
+                            "end_time": "14:34",
+                            "cost": 0,
+                            "distance": 1.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Tiger Hill Scenic Area",
+                    "type": "attraction",
+                    "price": 70,
+                    "cost": 210,
+                    "start_time": "09:07",
+                    "end_time": "10:37",
+                    "transports": [
+                        {
+                            "start": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:48",
+                            "cost": 0,
+                            "distance": 1.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Qingshanqiaobang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:48",
+                            "end_time": "08:55",
+                            "cost": 6,
+                            "distance": 3.56,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qingshanqiaobang-Metro Station",
+                            "end": "Tiger Hill Scenic Area",
+                            "mode": "walk",
+                            "start_time": "08:55",
+                            "end_time": "09:07",
+                            "cost": 0,
+                            "distance": 1.03,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Hot Pot Set in Chuanxi Bazi (Suzhou City Life Plaza Branch)",
+                    "type": "lunch",
+                    "price": 101,
+                    "cost": 303,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Tiger Hill Scenic Area",
+                            "end": "Qingshanqiaobang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:37",
+                            "end_time": "10:49",
+                            "cost": 0,
+                            "distance": 1.03,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qingshanqiaobang-Metro Station",
+                            "end": "Pinglong Road East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:49",
+                            "end_time": "10:54",
+                            "cost": 6,
+                            "distance": 2.74,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Pinglong Road East-Metro Station",
+                            "end": "Hot Pot Set in Chuanxi Bazi (Suzhou City Life Plaza Branch)",
+                            "mode": "walk",
+                            "start_time": "10:54",
+                            "end_time": "10:56",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "21:43",
+                    "end_time": "08:44",
+                    "start": "Suzhou Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 630.35,
+                    "cost": 1891.0500000000002,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Hot Pot Set in Chuanxi Bazi (Suzhou City Life Plaza Branch)",
+                            "end": "Pinglong Road East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:02",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pinglong Road East-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:02",
+                            "end_time": "12:05",
+                            "cost": 6,
+                            "distance": 1.5,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:06",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K282",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 6.856329679489136,
+    "llm_inference_time_sec": 0
+}

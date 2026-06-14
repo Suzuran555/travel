@@ -1,0 +1,399 @@
+{
+    "people_number": 4,
+    "start_city": "Chongqing",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:21",
+                    "end_time": "16:12",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Nanjing South Railway Station",
+                    "price": 720.72,
+                    "cost": 2882.88,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "D3074",
+                    "type": "train"
+                },
+                {
+                    "position": "Kaitong Cafe & Book (Himalaya Branch)",
+                    "type": "dinner",
+                    "price": 41,
+                    "cost": 164,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing South Railway Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:12",
+                            "end_time": "16:15",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Hongyun Avenue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:15",
+                            "end_time": "16:17",
+                            "cost": 8,
+                            "distance": 1.43,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Hongyun Avenue-Metro Station",
+                            "end": "Kaitong Cafe & Book (Himalaya Branch)",
+                            "mode": "walk",
+                            "start_time": "16:17",
+                            "end_time": "16:26",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing Wald Himalayas Ice and Snow Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:23",
+                    "end_time": "19:53",
+                    "transports": [
+                        {
+                            "start": "Kaitong Cafe & Book (Himalaya Branch)",
+                            "end": "Hongyun Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongyun Avenue-Metro Station",
+                            "end": "Mingfa Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:12",
+                            "cost": 8,
+                            "distance": 1.96,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Mingfa Square-Metro Station",
+                            "end": "Nanjing Wald Himalayas Ice and Snow Park",
+                            "mode": "walk",
+                            "start_time": "18:12",
+                            "end_time": "18:23",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yuhuatai Martyrs' Cemetery",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:59",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Wald Himalayas Ice and Snow Park",
+                            "end": "Yuhuatai Martyrs' Cemetery",
+                            "mode": "taxi",
+                            "start_time": "19:53",
+                            "end_time": "19:59",
+                            "cost": 20.45,
+                            "distance": 4.5,
+                            "price": 20.45,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Slow Time Hanfu Experience Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:19",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Yuhuatai Martyrs' Cemetery",
+                            "end": "Slow Time Hanfu Experience Hall",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:19",
+                            "cost": 0.0,
+                            "distance": 1.6230441954623551,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 304,
+                    "start_time": "21:44",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Slow Time Hanfu Experience Hall",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:08",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:08",
+                            "end_time": "21:37",
+                            "cost": 20,
+                            "distance": 14.87,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "21:37",
+                            "end_time": "21:44",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nanjing Yangtze River Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:01",
+                    "end_time": "10:31",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Nanjing Yangtze River Bridge",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:01",
+                            "cost": 0.0,
+                            "distance": 2.619960894263317,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "UNIUNI (Catherine Square Branch)",
+                    "type": "lunch",
+                    "price": 46,
+                    "cost": 184,
+                    "start_time": "11:08",
+                    "end_time": "12:08",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yangtze River Bridge",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:31",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "11:03",
+                            "cost": 16,
+                            "distance": 9.12,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "UNIUNI (Catherine Square Branch)",
+                            "mode": "walk",
+                            "start_time": "11:03",
+                            "end_time": "11:08",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Xuanwu Gate City Wall",
+                    "type": "attraction",
+                    "price": 30,
+                    "cost": 120,
+                    "start_time": "12:32",
+                    "end_time": "14:02",
+                    "transports": [
+                        {
+                            "start": "UNIUNI (Catherine Square Branch)",
+                            "end": "Xuanwu Gate City Wall",
+                            "mode": "walk",
+                            "start_time": "12:08",
+                            "end_time": "12:32",
+                            "cost": 0.0,
+                            "distance": 2.0013979504804214,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Xuanwu Lake Park - Xuanwu Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:02",
+                    "end_time": "15:32",
+                    "transports": [
+                        {
+                            "start": "Xuanwu Gate City Wall",
+                            "end": "Xuanwu Lake Park - Xuanwu Gate",
+                            "mode": "taxi",
+                            "start_time": "14:02",
+                            "end_time": "14:02",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Bluefrog (Jinmao Hui Store)",
+                    "type": "dinner",
+                    "price": 146,
+                    "cost": 584,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Xuanwu Lake Park - Xuanwu Gate",
+                            "end": "Xinmofan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:32",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 1.03,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinmofan Road-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:44",
+                            "end_time": "15:46",
+                            "cost": 8,
+                            "distance": 1.1,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Bluefrog (Jinmao Hui Store)",
+                            "mode": "walk",
+                            "start_time": "15:46",
+                            "end_time": "15:50",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "20:34",
+                    "end_time": "22:04",
+                    "start": "Nanjing Lukou International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 577.68,
+                    "cost": 2310.72,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Bluefrog (Jinmao Hui Store)",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Lukou Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "19:21",
+                            "cost": 32,
+                            "distance": 38.61,
+                            "price": 8,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lukou Airport-Metro Station",
+                            "end": "Nanjing Lukou International Airport",
+                            "mode": "walk",
+                            "start_time": "19:21",
+                            "end_time": "19:24",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL686",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 270.9775869846344,
+    "llm_inference_time_sec": 0
+}

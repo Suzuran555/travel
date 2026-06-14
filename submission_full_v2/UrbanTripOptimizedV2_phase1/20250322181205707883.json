@@ -1,0 +1,481 @@
+{
+    "people_number": 2,
+    "start_city": "Suzhou",
+    "target_city": "Hangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:29",
+                    "end_time": "06:40",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou Railway Station",
+                    "price": 48.4,
+                    "cost": 96.8,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "K1808",
+                    "type": "train"
+                },
+                {
+                    "position": "Drum Tower",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:45",
+                    "end_time": "08:15",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Railway Station",
+                            "end": "Drum Tower",
+                            "mode": "walk",
+                            "start_time": "06:40",
+                            "end_time": "06:45",
+                            "cost": 0.0,
+                            "distance": 0.4642132039483436,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Qinghefang Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:18",
+                    "end_time": "09:48",
+                    "transports": [
+                        {
+                            "start": "Drum Tower",
+                            "end": "Qinghefang Street",
+                            "mode": "walk",
+                            "start_time": "08:15",
+                            "end_time": "08:18",
+                            "cost": 0.0,
+                            "distance": 0.29623010372935293,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hangzhou Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:01",
+                    "end_time": "11:31",
+                    "transports": [
+                        {
+                            "start": "Qinghefang Street",
+                            "end": "City Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:48",
+                            "end_time": "09:53",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "City Station-Metro Station",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:53",
+                            "end_time": "09:55",
+                            "cost": 4,
+                            "distance": 1.26,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Hangzhou Museum",
+                            "mode": "walk",
+                            "start_time": "09:55",
+                            "end_time": "10:01",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hundred Chicken Flavors Restaurant (Qingtai Branch)",
+                    "type": "lunch",
+                    "price": 35,
+                    "cost": 70,
+                    "start_time": "11:33",
+                    "end_time": "12:33",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Museum",
+                            "end": "Hundred Chicken Flavors Restaurant (Qingtai Branch)",
+                            "mode": "walk",
+                            "start_time": "11:31",
+                            "end_time": "11:33",
+                            "cost": 0.0,
+                            "distance": 0.2147825401930946,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Grand View of Wu Hill",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:38",
+                    "end_time": "14:08",
+                    "transports": [
+                        {
+                            "start": "Hundred Chicken Flavors Restaurant (Qingtai Branch)",
+                            "end": "Grand View of Wu Hill",
+                            "mode": "walk",
+                            "start_time": "12:33",
+                            "end_time": "12:38",
+                            "cost": 0.0,
+                            "distance": 0.41966174981784843,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Orioles Singing in the Willows",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:19",
+                    "end_time": "15:49",
+                    "transports": [
+                        {
+                            "start": "Grand View of Wu Hill",
+                            "end": "Orioles Singing in the Willows",
+                            "mode": "walk",
+                            "start_time": "14:08",
+                            "end_time": "14:19",
+                            "cost": 0.0,
+                            "distance": 0.9784509256987324,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hu's Authentic Hangzhou Cuisine (West Lake Branch)",
+                    "type": "dinner",
+                    "price": 72,
+                    "cost": 144,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Orioles Singing in the Willows",
+                            "end": "Hu's Authentic Hangzhou Cuisine (West Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "15:49",
+                            "end_time": "15:52",
+                            "cost": 0.0,
+                            "distance": 0.2604693122973867,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "West Lake Foreign Affairs Cruise",
+                    "type": "attraction",
+                    "price": 48,
+                    "cost": 96,
+                    "start_time": "18:17",
+                    "end_time": "19:47",
+                    "transports": [
+                        {
+                            "start": "Hu's Authentic Hangzhou Cuisine (West Lake Branch)",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:10",
+                            "cost": 4,
+                            "distance": 1.03,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "West Lake Foreign Affairs Cruise",
+                            "mode": "walk",
+                            "start_time": "18:10",
+                            "end_time": "18:17",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lakeside Sunshine and Rain",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:48",
+                    "end_time": "21:18",
+                    "transports": [
+                        {
+                            "start": "West Lake Foreign Affairs Cruise",
+                            "end": "Lakeside Sunshine and Rain",
+                            "mode": "walk",
+                            "start_time": "19:47",
+                            "end_time": "19:48",
+                            "cost": 0.0,
+                            "distance": 0.16174290701007385,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "accommodation",
+                    "price": 149,
+                    "cost": 298,
+                    "start_time": "22:02",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Lakeside Sunshine and Rain",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:18",
+                            "end_time": "21:25",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:25",
+                            "end_time": "21:36",
+                            "cost": 6,
+                            "distance": 5.73,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Baiye Homestay (West Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "21:36",
+                            "end_time": "22:02",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "West Lake Longjing Tea Cultural Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:49",
+                    "end_time": "11:19",
+                    "transports": [
+                        {
+                            "start": "Baiye Homestay (West Lake Branch)",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:56",
+                            "end_time": "09:04",
+                            "cost": 6,
+                            "distance": 4.11,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "West Lake Longjing Tea Cultural Scenic Area",
+                            "mode": "walk",
+                            "start_time": "09:04",
+                            "end_time": "09:49",
+                            "cost": 0,
+                            "distance": 3.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Starbucks (West Lake Heaven Store)",
+                    "type": "lunch",
+                    "price": 42,
+                    "cost": 84,
+                    "start_time": "12:13",
+                    "end_time": "13:13",
+                    "transports": [
+                        {
+                            "start": "West Lake Longjing Tea Cultural Scenic Area",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:19",
+                            "end_time": "12:04",
+                            "cost": 0,
+                            "distance": 3.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:04",
+                            "end_time": "12:05",
+                            "cost": 4,
+                            "distance": 0.81,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Starbucks (West Lake Heaven Store)",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:13",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Zhejiang Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:25",
+                    "end_time": "14:55",
+                    "transports": [
+                        {
+                            "start": "Starbucks (West Lake Heaven Store)",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:13",
+                            "end_time": "13:21",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:21",
+                            "end_time": "13:22",
+                            "cost": 4,
+                            "distance": 0.81,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "Zhejiang Art Museum",
+                            "mode": "walk",
+                            "start_time": "13:22",
+                            "end_time": "13:25",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "20:43",
+                    "end_time": "22:07",
+                    "start": "Hangzhou East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 78.65,
+                    "cost": 157.3,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Zhejiang Art Museum",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:55",
+                            "end_time": "14:58",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "East Railway Station (East Square)-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:58",
+                            "end_time": "15:13",
+                            "cost": 6,
+                            "distance": 7.86,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "East Railway Station (East Square)-Metro Station",
+                            "end": "Hangzhou East Railway Station",
+                            "mode": "walk",
+                            "start_time": "15:13",
+                            "end_time": "15:18",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7350",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 10.32973575592041,
+    "llm_inference_time_sec": 0
+}

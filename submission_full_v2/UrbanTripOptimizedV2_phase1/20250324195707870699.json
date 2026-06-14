@@ -1,0 +1,486 @@
+{
+    "people_number": 3,
+    "start_city": "Hangzhou",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:28",
+                    "end_time": "11:28",
+                    "start": "Hangzhou South Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 48.4,
+                    "cost": 145.2,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "K470",
+                    "type": "train"
+                },
+                {
+                    "position": "Dayu Hot Pot (Pingjiang Wanda Branch)",
+                    "type": "lunch",
+                    "price": 115,
+                    "cost": 345,
+                    "start_time": "11:36",
+                    "end_time": "12:36",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:28",
+                            "end_time": "11:29",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Pinglong Road East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:29",
+                            "end_time": "11:32",
+                            "cost": 6,
+                            "distance": 1.5,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Pinglong Road East-Metro Station",
+                            "end": "Dayu Hot Pot (Pingjiang Wanda Branch)",
+                            "mode": "walk",
+                            "start_time": "11:32",
+                            "end_time": "11:36",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Pingmen",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:47",
+                    "end_time": "14:17",
+                    "transports": [
+                        {
+                            "start": "Dayu Hot Pot (Pingjiang Wanda Branch)",
+                            "end": "Pinglong Road East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:36",
+                            "end_time": "12:40",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pinglong Road East-Metro Station",
+                            "end": "Pinghe Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:40",
+                            "end_time": "12:41",
+                            "cost": 6,
+                            "distance": 0.83,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Pinghe Road-Metro Station",
+                            "end": "Pingmen",
+                            "mode": "walk",
+                            "start_time": "12:41",
+                            "end_time": "12:47",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Kunqu Opera House of Jiangsu Province",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:17",
+                    "end_time": "15:47",
+                    "transports": [
+                        {
+                            "start": "Pingmen",
+                            "end": "Suzhou Kunqu Opera House of Jiangsu Province",
+                            "mode": "taxi",
+                            "start_time": "14:17",
+                            "end_time": "14:17",
+                            "cost": 11.0,
+                            "distance": 0.4,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Green Rise Bakery",
+                    "type": "dinner",
+                    "price": 60,
+                    "cost": 180,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Kunqu Opera House of Jiangsu Province",
+                            "end": "Pinghe Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:47",
+                            "end_time": "15:57",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pinghe Road-Metro Station",
+                            "end": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:57",
+                            "end_time": "16:00",
+                            "cost": 6,
+                            "distance": 1.9,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "end": "Green Rise Bakery",
+                            "mode": "walk",
+                            "start_time": "16:00",
+                            "end_time": "16:02",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Peach Blossom Lane",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:10",
+                    "end_time": "19:40",
+                    "transports": [
+                        {
+                            "start": "Green Rise Bakery",
+                            "end": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:02",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "end": "North Temple Pagoda-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:02",
+                            "end_time": "18:03",
+                            "cost": 6,
+                            "distance": 0.74,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "North Temple Pagoda-Metro Station",
+                            "end": "Peach Blossom Lane",
+                            "mode": "walk",
+                            "start_time": "18:03",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Jinji Lake Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:52",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Peach Blossom Lane",
+                            "end": "Suzhou Jinji Lake Art Museum",
+                            "mode": "taxi",
+                            "start_time": "19:40",
+                            "end_time": "19:52",
+                            "cost": 34.48,
+                            "distance": 8.51,
+                            "price": 34.48,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Dushu Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:12",
+                    "end_time": "21:42",
+                    "transports": [
+                        {
+                            "start": "Suzhou Jinji Lake Art Museum",
+                            "end": "Dushu Lake",
+                            "mode": "taxi",
+                            "start_time": "20:00",
+                            "end_time": "20:12",
+                            "cost": 33.29,
+                            "distance": 8.17,
+                            "price": 33.29,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 684,
+                    "start_time": "22:51",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Dushu Lake",
+                            "end": "Dushu Lake Neighborhood Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:42",
+                            "end_time": "21:51",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dushu Lake Neighborhood Center-Metro Station",
+                            "end": "Tongli-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:51",
+                            "end_time": "22:17",
+                            "cost": 12,
+                            "distance": 13.04,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "mode": "walk",
+                            "start_time": "22:17",
+                            "end_time": "22:51",
+                            "cost": 0,
+                            "distance": 2.85,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "China Tongli Film and Television Production Base",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:31",
+                    "end_time": "10:01",
+                    "transports": [
+                        {
+                            "start": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "end": "China Tongli Film and Television Production Base",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 11.0,
+                            "distance": 1.02,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Retreat and Reflection Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:01",
+                    "end_time": "11:31",
+                    "transports": [
+                        {
+                            "start": "China Tongli Film and Television Production Base",
+                            "end": "Retreat and Reflection Garden",
+                            "mode": "taxi",
+                            "start_time": "10:01",
+                            "end_time": "10:01",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Tongli Lake Resort Tongwei Pavilion",
+                    "type": "lunch",
+                    "price": 110,
+                    "cost": 330,
+                    "start_time": "11:32",
+                    "end_time": "12:32",
+                    "transports": [
+                        {
+                            "start": "Retreat and Reflection Garden",
+                            "end": "Tongli Lake Resort Tongwei Pavilion",
+                            "mode": "taxi",
+                            "start_time": "11:31",
+                            "end_time": "11:32",
+                            "cost": 11.0,
+                            "distance": 0.89,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Water Town Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:34",
+                    "end_time": "14:04",
+                    "transports": [
+                        {
+                            "start": "Tongli Lake Resort Tongwei Pavilion",
+                            "end": "Water Town Ancient Town",
+                            "mode": "taxi",
+                            "start_time": "12:32",
+                            "end_time": "12:34",
+                            "cost": 11.0,
+                            "distance": 1.41,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wu Culture Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:43",
+                    "end_time": "17:00",
+                    "transports": [
+                        {
+                            "start": "Water Town Ancient Town",
+                            "end": "Tongli-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:04",
+                            "end_time": "14:59",
+                            "cost": 0,
+                            "distance": 4.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Beigang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:59",
+                            "end_time": "15:29",
+                            "cost": 15,
+                            "distance": 15.26,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Beigang Road-Metro Station",
+                            "end": "Wu Culture Museum",
+                            "mode": "walk",
+                            "start_time": "15:29",
+                            "end_time": "15:43",
+                            "cost": 0,
+                            "distance": 1.17,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "18:52",
+                    "end_time": "20:17",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou East Railway Station",
+                    "price": 78.65,
+                    "cost": 235.95000000000002,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Wu Culture Museum",
+                            "end": "Beigang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:00",
+                            "end_time": "17:14",
+                            "cost": 0,
+                            "distance": 1.17,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beigang Road-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:14",
+                            "end_time": "17:30",
+                            "cost": 9,
+                            "distance": 8.06,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "17:30",
+                            "end_time": "17:31",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7494",
+                    "type": "train"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,534 @@
+{
+    "people_number": 5,
+    "start_city": "Chongqing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:21",
+                    "end_time": "17:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 4074.35,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D3074",
+                    "type": "train"
+                },
+                {
+                    "position": "Dayu Hot Pot (Pingjiang Wanda Branch)",
+                    "type": "dinner",
+                    "price": 115,
+                    "cost": 575,
+                    "start_time": "17:53",
+                    "end_time": "18:53",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:45",
+                            "end_time": "17:46",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Pinglong Road East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:46",
+                            "end_time": "17:49",
+                            "cost": 10,
+                            "distance": 1.5,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Pinglong Road East-Metro Station",
+                            "end": "Dayu Hot Pot (Pingjiang Wanda Branch)",
+                            "mode": "walk",
+                            "start_time": "17:49",
+                            "end_time": "17:53",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Suzhou Chamber of Commerce Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:08",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Dayu Hot Pot (Pingjiang Wanda Branch)",
+                            "end": "Pinglong Road East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:53",
+                            "end_time": "18:57",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pinglong Road East-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:57",
+                            "end_time": "19:00",
+                            "cost": 10,
+                            "distance": 1.5,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Chamber of Commerce Museum",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:08",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Night Cruise on the Moat",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:21",
+                    "end_time": "20:30",
+                    "transports": [
+                        {
+                            "start": "Suzhou Chamber of Commerce Museum",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:08",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:08",
+                            "end_time": "20:15",
+                            "cost": 10,
+                            "distance": 3.85,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Night Cruise on the Moat",
+                            "mode": "walk",
+                            "start_time": "20:15",
+                            "end_time": "20:21",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 618,
+                    "start_time": "21:21",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Night Cruise on the Moat",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:36",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:36",
+                            "end_time": "21:04",
+                            "cost": 25,
+                            "distance": 14.27,
+                            "price": 5,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "21:04",
+                            "end_time": "21:21",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Yuantong Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:32",
+                    "end_time": "10:02",
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Yuantong Temple",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 22.0,
+                            "distance": 1.39,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suzhou Youth Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:03",
+                    "end_time": "11:33",
+                    "transports": [
+                        {
+                            "start": "Yuantong Temple",
+                            "end": "Suzhou Youth Science and Technology Museum",
+                            "mode": "taxi",
+                            "start_time": "10:02",
+                            "end_time": "10:03",
+                            "cost": 22.0,
+                            "distance": 1.17,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "North Xinjiang Restaurant (Wujiang Branch)",
+                    "type": "lunch",
+                    "price": 71,
+                    "cost": 355,
+                    "start_time": "11:36",
+                    "end_time": "12:36",
+                    "transports": [
+                        {
+                            "start": "Suzhou Youth Science and Technology Museum",
+                            "end": "North Xinjiang Restaurant (Wujiang Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:33",
+                            "end_time": "11:36",
+                            "cost": 24.1,
+                            "distance": 2.1,
+                            "price": 12.05,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "True Interest Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:06",
+                    "end_time": "14:36",
+                    "transports": [
+                        {
+                            "start": "North Xinjiang Restaurant (Wujiang Branch)",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:36",
+                            "end_time": "12:39",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "Suzhou Bay East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:39",
+                            "end_time": "12:44",
+                            "cost": 10,
+                            "distance": 2.69,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Suzhou Bay East-Metro Station",
+                            "end": "True Interest Garden",
+                            "mode": "walk",
+                            "start_time": "12:44",
+                            "end_time": "13:06",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suzhou Bay Digital Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:38",
+                    "end_time": "16:08",
+                    "transports": [
+                        {
+                            "start": "True Interest Garden",
+                            "end": "Suzhou Bay Digital Art Museum",
+                            "mode": "taxi",
+                            "start_time": "14:36",
+                            "end_time": "14:38",
+                            "cost": 22.0,
+                            "distance": 1.76,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Dingji Carnival Hotel (Wujiang Branch)",
+                    "type": "dinner",
+                    "price": 261,
+                    "cost": 1305,
+                    "start_time": "17:05",
+                    "end_time": "18:05",
+                    "transports": [
+                        {
+                            "start": "Suzhou Bay Digital Art Museum",
+                            "end": "Suzhou Bay East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:08",
+                            "end_time": "16:34",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Bay East-Metro Station",
+                            "end": "Gujiadang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:34",
+                            "end_time": "16:35",
+                            "cost": 10,
+                            "distance": 0.99,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Gujiadang-Metro Station",
+                            "end": "Dingji Carnival Hotel (Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "16:35",
+                            "end_time": "17:05",
+                            "cost": 0,
+                            "distance": 2.57,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Orange Sky Golden Harvest Theater - Faith",
+                    "type": "attraction",
+                    "price": 199,
+                    "cost": 995,
+                    "start_time": "18:49",
+                    "end_time": "20:19",
+                    "transports": [
+                        {
+                            "start": "Dingji Carnival Hotel (Wujiang Branch)",
+                            "end": "Gujiadang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:05",
+                            "end_time": "18:35",
+                            "cost": 0,
+                            "distance": 2.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gujiadang-Metro Station",
+                            "end": "North Suzhou Bay-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:35",
+                            "end_time": "18:44",
+                            "cost": 15,
+                            "distance": 4.64,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "North Suzhou Bay-Metro Station",
+                            "end": "Orange Sky Golden Harvest Theater - Faith",
+                            "mode": "walk",
+                            "start_time": "18:44",
+                            "end_time": "18:49",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Huanshan Xiaozhu Wellness Resort",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:27",
+                    "end_time": "21:57",
+                    "transports": [
+                        {
+                            "start": "Orange Sky Golden Harvest Theater - Faith",
+                            "end": "Huanshan Xiaozhu Wellness Resort",
+                            "mode": "taxi",
+                            "start_time": "20:19",
+                            "end_time": "20:27",
+                            "cost": 47.02,
+                            "distance": 5.37,
+                            "price": 23.51,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 618,
+                    "start_time": "23:03",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Huanshan Xiaozhu Wellness Resort",
+                            "end": "Yuexi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:57",
+                            "end_time": "22:34",
+                            "cost": 0,
+                            "distance": 3.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yuexi-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:34",
+                            "end_time": "22:46",
+                            "cost": 15,
+                            "distance": 6.17,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "22:46",
+                            "end_time": "23:03",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "start_time": "11:40",
+                    "end_time": "14:08",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 679.06,
+                    "cost": 3395.2999999999997,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:00",
+                            "end_time": "00:17",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:17",
+                            "end_time": "00:53",
+                            "cost": 25,
+                            "distance": 18.01,
+                            "price": 5,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "00:53",
+                            "end_time": "00:54",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T237",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 23.78404664993286,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,422 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "09:24",
+                    "start": "Nanjing Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D10",
+                    "type": "train"
+                },
+                {
+                    "position": "The Palace Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:45",
+                    "end_time": "11:15",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:24",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "National Art Museum of China-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:24",
+                            "end_time": "09:38",
+                            "cost": 15,
+                            "distance": 7.06,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "National Art Museum of China-Metro Station",
+                            "end": "The Palace Museum",
+                            "mode": "walk",
+                            "start_time": "09:38",
+                            "end_time": "09:45",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Yuebin Restaurant (Cuihua Hutong Branch)",
+                    "type": "lunch",
+                    "price": 93,
+                    "cost": 465,
+                    "start_time": "11:15",
+                    "end_time": "12:15",
+                    "transports": [
+                        {
+                            "start": "The Palace Museum",
+                            "end": "Yuebin Restaurant (Cuihua Hutong Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:15",
+                            "end_time": "11:15",
+                            "cost": 22.0,
+                            "distance": 0.36,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Palace Museum Clock Gallery",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:15",
+                    "end_time": "13:45",
+                    "transports": [
+                        {
+                            "start": "Yuebin Restaurant (Cuihua Hutong Branch)",
+                            "end": "Palace Museum Clock Gallery",
+                            "mode": "taxi",
+                            "start_time": "12:15",
+                            "end_time": "12:15",
+                            "cost": 22.0,
+                            "distance": 0.25,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Imperial Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:01",
+                    "end_time": "15:30",
+                    "transports": [
+                        {
+                            "start": "Palace Museum Clock Gallery",
+                            "end": "National Art Museum of China-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:45",
+                            "end_time": "13:51",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "National Art Museum of China-Metro Station",
+                            "end": "Nanluoguxiang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:51",
+                            "end_time": "13:53",
+                            "cost": 10,
+                            "distance": 1.26,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Nanluoguxiang-Metro Station",
+                            "end": "Imperial Garden",
+                            "mode": "walk",
+                            "start_time": "13:53",
+                            "end_time": "14:01",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "TRB Hutong (Songzhu Temple Branch)",
+                    "type": "dinner",
+                    "price": 1569,
+                    "cost": 7845,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Imperial Garden",
+                            "end": "TRB Hutong (Songzhu Temple Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:30",
+                            "end_time": "15:30",
+                            "cost": 22.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Working People's Cultural Palace",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:18",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "TRB Hutong (Songzhu Temple Branch)",
+                            "end": "Nanluoguxiang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanluoguxiang-Metro Station",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:12",
+                            "cost": 10,
+                            "distance": 2.14,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "Beijing Working People's Cultural Palace",
+                            "mode": "walk",
+                            "start_time": "18:12",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 807,
+                    "start_time": "20:07",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Beijing Working People's Cultural Palace",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:06",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:06",
+                            "end_time": "19:48",
+                            "cost": 30,
+                            "distance": 21.12,
+                            "price": 6,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Wangjing SOHO",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:08",
+                    "end_time": "10:38",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Wangjing East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:07",
+                            "cost": 20,
+                            "distance": 9.42,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Wangjing East-Metro Station",
+                            "end": "Wangjing SOHO",
+                            "mode": "walk",
+                            "start_time": "09:07",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Jubao Yuan (Wangjing Branch)",
+                    "type": "lunch",
+                    "price": 124,
+                    "cost": 620,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Wangjing SOHO",
+                            "end": "Wangjing East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:38",
+                            "end_time": "10:39",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangjing East-Metro Station",
+                            "end": "Wangjing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:39",
+                            "end_time": "10:42",
+                            "cost": 10,
+                            "distance": 1.6,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Wangjing-Metro Station",
+                            "end": "Jubao Yuan (Wangjing Branch)",
+                            "mode": "walk",
+                            "start_time": "10:42",
+                            "end_time": "10:48",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Workers' Stadium",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:11",
+                    "end_time": "13:41",
+                    "transports": [
+                        {
+                            "start": "Jubao Yuan (Wangjing Branch)",
+                            "end": "Beijing Workers' Stadium",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:11",
+                            "cost": 61.8,
+                            "distance": 7.49,
+                            "price": 30.9,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "start_time": "23:22",
+                    "end_time": "00:29",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 416.91,
+                    "cost": 2084.55,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Beijing Workers' Stadium",
+                            "end": "Workers' Stadium-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:41",
+                            "end_time": "13:45",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Workers' Stadium-Metro Station",
+                            "end": "Daxing Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:45",
+                            "end_time": "15:19",
+                            "cost": 40,
+                            "distance": 47.04,
+                            "price": 8,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Daxing Airport-Metro Station",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "walk",
+                            "start_time": "15:19",
+                            "end_time": "15:30",
+                            "cost": 0,
+                            "distance": 0.93,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL154",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 44.39530110359192,
+    "llm_inference_time_sec": 0
+}

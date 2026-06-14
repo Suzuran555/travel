@@ -1,0 +1,729 @@
+{
+    "people_number": 2,
+    "start_city": "Shanghai",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:33",
+                    "end_time": "00:53",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 242.41,
+                    "cost": 484.82,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL074",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Lukou International Airport",
+                            "end": "Lukou Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:53",
+                            "end_time": "00:56",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lukou Airport-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:56",
+                            "end_time": "02:29",
+                            "cost": 16,
+                            "distance": 46.95,
+                            "price": 8,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "02:29",
+                            "end_time": "02:36",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing Yangtze River Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:52",
+                    "end_time": "10:22",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:38",
+                            "cost": 4,
+                            "distance": 0.87,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Nanjing Yangtze River Bridge",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:52",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing North Station (Former Site)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:26",
+                    "end_time": "11:56",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yangtze River Bridge",
+                            "end": "Nanjing North Station (Former Site)",
+                            "mode": "taxi",
+                            "start_time": "10:22",
+                            "end_time": "10:26",
+                            "cost": 14.19,
+                            "distance": 2.71,
+                            "price": 14.19,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Gunandu Bridge Hotel (Yuejianglou Scenic Area Branch) · Jiangsu Restaurant (Jianning Road Branch)",
+                    "type": "lunch",
+                    "price": 107,
+                    "cost": 214,
+                    "start_time": "12:00",
+                    "end_time": "13:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing North Station (Former Site)",
+                            "end": "Nanjing Gunandu Bridge Hotel (Yuejianglou Scenic Area Branch) · Jiangsu Restaurant (Jianning Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:56",
+                            "end_time": "12:00",
+                            "cost": 14.15,
+                            "distance": 2.7,
+                            "price": 14.15,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Lion Mountain Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:01",
+                    "end_time": "14:31",
+                    "transports": [
+                        {
+                            "start": "Nanjing Gunandu Bridge Hotel (Yuejianglou Scenic Area Branch) · Jiangsu Restaurant (Jianning Road Branch)",
+                            "end": "Lion Mountain Scenic Area",
+                            "mode": "taxi",
+                            "start_time": "13:00",
+                            "end_time": "13:01",
+                            "cost": 11.0,
+                            "distance": 0.9,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Victory Crossing the Yangtze River Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:30",
+                    "end_time": "17:00",
+                    "transports": [
+                        {
+                            "start": "Lion Mountain Scenic Area",
+                            "end": "West Mufu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:31",
+                            "end_time": "14:50",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Mufu Road-Metro Station",
+                            "end": "Longjiang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:50",
+                            "end_time": "15:02",
+                            "cost": 6,
+                            "distance": 6.16,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Longjiang-Metro Station",
+                            "end": "Victory Crossing the Yangtze River Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "15:02",
+                            "end_time": "15:30",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Jinling Yige Lobster & Fine Cuisine Restaurant (Shuimu Qinhuai Branch)",
+                    "type": "dinner",
+                    "price": 192,
+                    "cost": 384,
+                    "start_time": "17:36",
+                    "end_time": "18:36",
+                    "transports": [
+                        {
+                            "start": "Victory Crossing the Yangtze River Memorial Hall",
+                            "end": "Longjiang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:00",
+                            "end_time": "17:28",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longjiang-Metro Station",
+                            "end": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:28",
+                            "end_time": "17:31",
+                            "cost": 4,
+                            "distance": 1.67,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "end": "Jinling Yige Lobster & Fine Cuisine Restaurant (Shuimu Qinhuai Branch)",
+                            "mode": "walk",
+                            "start_time": "17:31",
+                            "end_time": "17:36",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hohai University Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:37",
+                    "end_time": "20:07",
+                    "transports": [
+                        {
+                            "start": "Jinling Yige Lobster & Fine Cuisine Restaurant (Shuimu Qinhuai Branch)",
+                            "end": "Hohai University Library",
+                            "mode": "taxi",
+                            "start_time": "18:36",
+                            "end_time": "18:37",
+                            "cost": 11.0,
+                            "distance": 1.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lion Bridge Pedestrian Food Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:28",
+                    "end_time": "21:58",
+                    "transports": [
+                        {
+                            "start": "Hohai University Library",
+                            "end": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:07",
+                            "end_time": "20:17",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:17",
+                            "end_time": "20:22",
+                            "cost": 4,
+                            "distance": 2.91,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Lion Bridge Pedestrian Food Street",
+                            "mode": "walk",
+                            "start_time": "20:22",
+                            "end_time": "20:28",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 152,
+                    "start_time": "22:28",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Lion Bridge Pedestrian Food Street",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:58",
+                            "end_time": "22:04",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:04",
+                            "end_time": "22:21",
+                            "cost": 6,
+                            "distance": 9.0,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "22:21",
+                            "end_time": "22:28",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Pearl Spring Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:32",
+                    "end_time": "11:02",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Forest Farm-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:49",
+                            "cost": 6,
+                            "distance": 6.12,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Forest Farm-Metro Station",
+                            "end": "Pearl Spring Scenic Area",
+                            "mode": "walk",
+                            "start_time": "08:49",
+                            "end_time": "09:32",
+                            "cost": 0,
+                            "distance": 3.65,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "DQ (Aolin Plaza Nanjing Store)",
+                    "type": "lunch",
+                    "price": 23,
+                    "cost": 46,
+                    "start_time": "12:39",
+                    "end_time": "13:39",
+                    "transports": [
+                        {
+                            "start": "Pearl Spring Scenic Area",
+                            "end": "Forest Farm-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:02",
+                            "end_time": "11:45",
+                            "cost": 0,
+                            "distance": 3.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Forest Farm-Metro Station",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:45",
+                            "end_time": "11:58",
+                            "cost": 6,
+                            "distance": 6.87,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "DQ (Aolin Plaza Nanjing Store)",
+                            "mode": "walk",
+                            "start_time": "11:58",
+                            "end_time": "12:39",
+                            "cost": 0,
+                            "distance": 3.46,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Huachang Dragon Valley Fantasy New Continent",
+                    "type": "attraction",
+                    "price": 180,
+                    "cost": 360,
+                    "start_time": "14:52",
+                    "end_time": "16:22",
+                    "transports": [
+                        {
+                            "start": "DQ (Aolin Plaza Nanjing Store)",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:39",
+                            "end_time": "14:20",
+                            "cost": 0,
+                            "distance": 3.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Xinghuo Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:20",
+                            "end_time": "14:29",
+                            "cost": 6,
+                            "distance": 4.6,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xinghuo Road-Metro Station",
+                            "end": "Huachang Dragon Valley Fantasy New Continent",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:52",
+                            "cost": 0,
+                            "distance": 1.96,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Fang Fang Casual Dining (New Town Plaza Branch)",
+                    "type": "dinner",
+                    "price": 194,
+                    "cost": 388,
+                    "start_time": "17:11",
+                    "end_time": "18:11",
+                    "transports": [
+                        {
+                            "start": "Huachang Dragon Valley Fantasy New Continent",
+                            "end": "Xinghuo Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:22",
+                            "end_time": "16:45",
+                            "cost": 0,
+                            "distance": 1.96,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinghuo Road-Metro Station",
+                            "end": "Longjiang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:45",
+                            "end_time": "17:08",
+                            "cost": 8,
+                            "distance": 11.69,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Longjiang-Metro Station",
+                            "end": "Fang Fang Casual Dining (New Town Plaza Branch)",
+                            "mode": "walk",
+                            "start_time": "17:08",
+                            "end_time": "17:11",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jiangsu Grand Theatre",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:26",
+                    "end_time": "19:56",
+                    "transports": [
+                        {
+                            "start": "Fang Fang Casual Dining (New Town Plaza Branch)",
+                            "end": "Longjiang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:11",
+                            "end_time": "18:14",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longjiang-Metro Station",
+                            "end": "Mengdu Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:14",
+                            "end_time": "18:23",
+                            "cost": 6,
+                            "distance": 4.95,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Mengdu Street-Metro Station",
+                            "end": "Jiangsu Grand Theatre",
+                            "mode": "walk",
+                            "start_time": "18:23",
+                            "end_time": "18:26",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Slow Time Hanfu Experience Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:20",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Jiangsu Grand Theatre",
+                            "end": "Mengdu Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:56",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mengdu Street-Metro Station",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:59",
+                            "end_time": "20:12",
+                            "cost": 6,
+                            "distance": 6.89,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Slow Time Hanfu Experience Hall",
+                            "mode": "walk",
+                            "start_time": "20:12",
+                            "end_time": "20:20",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 152,
+                    "start_time": "21:44",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Slow Time Hanfu Experience Hall",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:08",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:08",
+                            "end_time": "21:37",
+                            "cost": 10,
+                            "distance": 14.87,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "21:37",
+                            "end_time": "21:44",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "22:39",
+                    "end_time": "23:54",
+                    "start": "Nanjing South Railway Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 175.28,
+                    "cost": 350.56,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "09:15",
+                            "cost": 10,
+                            "distance": 19.33,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Nanjing South Railway Station",
+                            "mode": "walk",
+                            "start_time": "09:15",
+                            "end_time": "09:18",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G1428",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.649437189102173,
+    "llm_inference_time_sec": 0
+}

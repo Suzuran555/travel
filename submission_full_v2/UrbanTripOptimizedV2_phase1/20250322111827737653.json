@@ -1,0 +1,590 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 571.18,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "06:03",
+                            "cost": 7,
+                            "distance": 33.44,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "06:03",
+                            "end_time": "06:07",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Oriental Pearl Tower",
+                    "type": "attraction",
+                    "price": 199,
+                    "cost": 199,
+                    "start_time": "09:23",
+                    "end_time": "10:53",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:13",
+                            "cost": 5,
+                            "distance": 19.54,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Oriental Pearl Tower",
+                            "mode": "walk",
+                            "start_time": "09:13",
+                            "end_time": "09:23",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Large Eight Italy Lounge & Restaurant (1862 Fashion Art Center Branch)",
+                    "type": "lunch",
+                    "price": 498,
+                    "cost": 498,
+                    "start_time": "11:12",
+                    "end_time": "12:12",
+                    "transports": [
+                        {
+                            "start": "Oriental Pearl Tower",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:53",
+                            "end_time": "11:03",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:03",
+                            "end_time": "11:04",
+                            "cost": 2,
+                            "distance": 0.98,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Large Eight Italy Lounge & Restaurant (1862 Fashion Art Center Branch)",
+                            "mode": "walk",
+                            "start_time": "11:04",
+                            "end_time": "11:12",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:32",
+                    "end_time": "14:02",
+                    "transports": [
+                        {
+                            "start": "Large Eight Italy Lounge & Restaurant (1862 Fashion Art Center Branch)",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:12",
+                            "end_time": "12:20",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:20",
+                            "end_time": "12:28",
+                            "cost": 3,
+                            "distance": 4.22,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition",
+                            "mode": "walk",
+                            "start_time": "12:28",
+                            "end_time": "12:32",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Columbia Circle",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:22",
+                    "end_time": "15:52",
+                    "transports": [
+                        {
+                            "start": "The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:02",
+                            "end_time": "14:06",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Jiangsu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:06",
+                            "end_time": "14:14",
+                            "cost": 3,
+                            "distance": 4.09,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Jiangsu Road-Metro Station",
+                            "end": "Columbia Circle",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "14:22",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shangmianfang Crispy Duck Noodles (Dongzhu'anbang Road Branch)",
+                    "type": "dinner",
+                    "price": 31,
+                    "cost": 31,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Columbia Circle",
+                            "end": "Shangmianfang Crispy Duck Noodles (Dongzhu'anbang Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:52",
+                            "end_time": "15:52",
+                            "cost": 11.0,
+                            "distance": 0.39,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Sinan Mansions",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:05",
+                    "end_time": "19:35",
+                    "transports": [
+                        {
+                            "start": "Shangmianfang Crispy Duck Noodles (Dongzhu'anbang Road Branch)",
+                            "end": "Sinan Mansions",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 18.67,
+                            "distance": 3.99,
+                            "price": 18.67,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Fosun Foundation Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:55",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Sinan Mansions",
+                            "end": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:35",
+                            "end_time": "19:40",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:40",
+                            "end_time": "19:46",
+                            "cost": 2,
+                            "distance": 3.21,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Fosun Foundation Center",
+                            "mode": "walk",
+                            "start_time": "19:46",
+                            "end_time": "19:55",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 303,
+                    "start_time": "20:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Fosun Foundation Center",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:09",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:09",
+                            "end_time": "20:48",
+                            "cost": 5,
+                            "distance": 19.54,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "20:48",
+                            "end_time": "20:52",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chuansha Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:32",
+                    "end_time": "10:02",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha Park",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 11.0,
+                            "distance": 1.53,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:03",
+                    "end_time": "11:33",
+                    "transports": [
+                        {
+                            "start": "Chuansha Park",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "taxi",
+                            "start_time": "10:02",
+                            "end_time": "10:03",
+                            "cost": 11.0,
+                            "distance": 0.73,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Imperial Banquet Chinese Restaurant",
+                    "type": "lunch",
+                    "price": 433,
+                    "cost": 433,
+                    "start_time": "12:01",
+                    "end_time": "13:01",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:33",
+                            "end_time": "11:51",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "East Huaxia Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:51",
+                            "end_time": "11:59",
+                            "cost": 3,
+                            "distance": 4.13,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "East Huaxia Road-Metro Station",
+                            "end": "Imperial Banquet Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:01",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                    "type": "attraction",
+                    "price": 29,
+                    "cost": 29,
+                    "start_time": "13:07",
+                    "end_time": "14:37",
+                    "transports": [
+                        {
+                            "start": "Imperial Banquet Chinese Restaurant",
+                            "end": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                            "mode": "taxi",
+                            "start_time": "13:01",
+                            "end_time": "13:07",
+                            "cost": 20.98,
+                            "distance": 4.65,
+                            "price": 20.98,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Maglev Train",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 50,
+                    "start_time": "15:44",
+                    "end_time": "17:14",
+                    "transports": [
+                        {
+                            "start": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:37",
+                            "end_time": "15:13",
+                            "cost": 0,
+                            "distance": 3.04,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:13",
+                            "end_time": "15:38",
+                            "cost": 4,
+                            "distance": 12.68,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Maglev Train",
+                            "mode": "walk",
+                            "start_time": "15:38",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Feili Riverside 1918",
+                    "type": "dinner",
+                    "price": 680,
+                    "cost": 680,
+                    "start_time": "17:22",
+                    "end_time": "18:22",
+                    "transports": [
+                        {
+                            "start": "Maglev Train",
+                            "end": "Feili Riverside 1918",
+                            "mode": "taxi",
+                            "start_time": "17:14",
+                            "end_time": "17:22",
+                            "cost": 25.14,
+                            "distance": 5.84,
+                            "price": 25.14,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "start_time": "21:44",
+                    "end_time": "23:15",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 598.43,
+                    "cost": 598.43,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Feili Riverside 1918",
+                            "end": "Shangcheng Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:22",
+                            "end_time": "18:33",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shangcheng Road-Metro Station",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:33",
+                            "end_time": "19:06",
+                            "cost": 5,
+                            "distance": 16.66,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Shanghai Hongqiao International Airport",
+                            "mode": "walk",
+                            "start_time": "19:06",
+                            "end_time": "19:15",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL017",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 61.63926887512207,
+    "llm_inference_time_sec": 0
+}

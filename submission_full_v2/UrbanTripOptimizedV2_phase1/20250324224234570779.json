@@ -1,0 +1,711 @@
+{
+    "people_number": 1,
+    "start_city": "Beijing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:11",
+                    "end_time": "03:36",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 923.58,
+                    "cost": 923.58,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL095",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Proud Way Hotel Shenzhen",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:36",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Grand Theater-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:44",
+                            "cost": 7,
+                            "distance": 31.55,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Grand Theater-Metro Station",
+                            "end": "Proud Way Hotel Shenzhen",
+                            "mode": "walk",
+                            "start_time": "04:44",
+                            "end_time": "04:50",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Portrait of Deng Xiaoping",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Proud Way Hotel Shenzhen",
+                            "end": "Grand Theater-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Grand Theater-Metro Station",
+                            "end": "Hongling-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:37",
+                            "cost": 2,
+                            "distance": 0.8,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongling-Metro Station",
+                            "end": "Portrait of Deng Xiaoping",
+                            "mode": "walk",
+                            "start_time": "08:37",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Museum - Ancient Art Gallery",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:14",
+                    "end_time": "11:44",
+                    "transports": [
+                        {
+                            "start": "Portrait of Deng Xiaoping",
+                            "end": "Shenzhen Museum - Ancient Art Gallery",
+                            "mode": "taxi",
+                            "start_time": "10:14",
+                            "end_time": "10:14",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Jingwei Zhang Beijing Roast Duck Restaurant (Luohu Branch)",
+                    "type": "lunch",
+                    "price": 113,
+                    "cost": 113,
+                    "start_time": "11:44",
+                    "end_time": "12:44",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Museum - Ancient Art Gallery",
+                            "end": "Jingwei Zhang Beijing Roast Duck Restaurant (Luohu Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:44",
+                            "end_time": "11:44",
+                            "cost": 11.0,
+                            "distance": 0.19,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Lychee Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:44",
+                    "end_time": "14:14",
+                    "transports": [
+                        {
+                            "start": "Jingwei Zhang Beijing Roast Duck Restaurant (Luohu Branch)",
+                            "end": "Lychee Park",
+                            "mode": "taxi",
+                            "start_time": "12:44",
+                            "end_time": "12:44",
+                            "cost": 11.0,
+                            "distance": 0.2,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "MixC Ice Rink",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:24",
+                    "end_time": "15:54",
+                    "transports": [
+                        {
+                            "start": "Lychee Park",
+                            "end": "Hongling-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "14:20",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongling-Metro Station",
+                            "end": "Old Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:20",
+                            "end_time": "14:22",
+                            "cost": 2,
+                            "distance": 1.35,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Old Street-Metro Station",
+                            "end": "MixC Ice Rink",
+                            "mode": "walk",
+                            "start_time": "14:22",
+                            "end_time": "14:24",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Tang Palace (East Gate Branch)",
+                    "type": "dinner",
+                    "price": 131,
+                    "cost": 131,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "MixC Ice Rink",
+                            "end": "Tang Palace (East Gate Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:54",
+                            "end_time": "15:54",
+                            "cost": 11.0,
+                            "distance": 0.1,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "East Gate Old Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:04",
+                    "end_time": "19:34",
+                    "transports": [
+                        {
+                            "start": "Tang Palace (East Gate Branch)",
+                            "end": "Old Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:02",
+                            "cost": 0,
+                            "distance": 0.17,
+                            "price": 0
+                        },
+                        {
+                            "start": "Old Street-Metro Station",
+                            "end": "Shaibu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:02",
+                            "end_time": "18:03",
+                            "cost": 2,
+                            "distance": 0.81,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shaibu-Metro Station",
+                            "end": "East Gate Old Street",
+                            "mode": "walk",
+                            "start_time": "18:03",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "East River Guerrilla Force Command Post Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:34",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "East Gate Old Street",
+                            "end": "East River Guerrilla Force Command Post Memorial Hall",
+                            "mode": "taxi",
+                            "start_time": "19:34",
+                            "end_time": "19:34",
+                            "cost": 11.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Unicorn Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 39,
+                    "start_time": "20:00",
+                    "end_time": "21:30",
+                    "transports": [
+                        {
+                            "start": "East River Guerrilla Force Command Post Memorial Hall",
+                            "end": "Shenzhen Unicorn Starry Sky Art Museum",
+                            "mode": "taxi",
+                            "start_time": "20:00",
+                            "end_time": "20:00",
+                            "cost": 11.0,
+                            "distance": 0.1,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Proud Way Hotel Shenzhen",
+                    "type": "accommodation",
+                    "price": 286,
+                    "cost": 286,
+                    "start_time": "21:43",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Unicorn Starry Sky Art Museum",
+                            "end": "Shaibu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:30",
+                            "end_time": "21:34",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shaibu-Metro Station",
+                            "end": "Grand Theater-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:34",
+                            "end_time": "21:37",
+                            "cost": 2,
+                            "distance": 1.74,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Grand Theater-Metro Station",
+                            "end": "Proud Way Hotel Shenzhen",
+                            "mode": "walk",
+                            "start_time": "21:37",
+                            "end_time": "21:43",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Proud Way Hotel Shenzhen",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Honey Lake 1979 Cultural and Creative Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:53",
+                    "end_time": "10:23",
+                    "transports": [
+                        {
+                            "start": "Proud Way Hotel Shenzhen",
+                            "end": "Grand Theater-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Grand Theater-Metro Station",
+                            "end": "Meijing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:50",
+                            "cost": 3,
+                            "distance": 7.5,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Honey Lake 1979 Cultural and Creative Park",
+                            "mode": "walk",
+                            "start_time": "08:50",
+                            "end_time": "08:53",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Meilin Reservoir",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:26",
+                    "end_time": "11:56",
+                    "transports": [
+                        {
+                            "start": "Honey Lake 1979 Cultural and Creative Park",
+                            "end": "Meilin Reservoir",
+                            "mode": "taxi",
+                            "start_time": "10:23",
+                            "end_time": "10:26",
+                            "cost": 12.61,
+                            "distance": 2.26,
+                            "price": 12.61,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Xiao Sanpang · Old Hunan Country Cuisine (Meilin Branch)",
+                    "type": "lunch",
+                    "price": 122,
+                    "cost": 122,
+                    "start_time": "12:26",
+                    "end_time": "13:26",
+                    "transports": [
+                        {
+                            "start": "Meilin Reservoir",
+                            "end": "Xiameilin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:56",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiameilin-Metro Station",
+                            "end": "Shangmeilin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:15",
+                            "end_time": "12:18",
+                            "cost": 2,
+                            "distance": 1.89,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shangmeilin-Metro Station",
+                            "end": "Xiao Sanpang · Old Hunan Country Cuisine (Meilin Branch)",
+                            "mode": "walk",
+                            "start_time": "12:18",
+                            "end_time": "12:26",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Proud Way Hotel Shenzhen",
+                    "type": "accommodation",
+                    "price": 286,
+                    "cost": 286,
+                    "start_time": "13:51",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Xiao Sanpang · Old Hunan Country Cuisine (Meilin Branch)",
+                            "end": "Shangmeilin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:26",
+                            "end_time": "13:34",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shangmeilin-Metro Station",
+                            "end": "Grand Theater-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:34",
+                            "end_time": "13:45",
+                            "cost": 3,
+                            "distance": 5.9,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Grand Theater-Metro Station",
+                            "end": "Proud Way Hotel Shenzhen",
+                            "mode": "walk",
+                            "start_time": "13:45",
+                            "end_time": "13:51",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Proud Way Hotel Shenzhen",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:20",
+                    "end_time": "10:50",
+                    "transports": [
+                        {
+                            "start": "Proud Way Hotel Shenzhen",
+                            "end": "Grand Theater-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Grand Theater-Metro Station",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "09:00",
+                            "cost": 4,
+                            "distance": 12.34,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Shenzhen University Town",
+                            "mode": "walk",
+                            "start_time": "09:00",
+                            "end_time": "09:20",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Sheraton Bolin Tianrui Hotel Lobby Lounge",
+                    "type": "lunch",
+                    "price": 157,
+                    "cost": 157,
+                    "start_time": "11:25",
+                    "end_time": "12:25",
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:50",
+                            "end_time": "11:10",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "University Town-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:10",
+                            "end_time": "11:17",
+                            "cost": 2,
+                            "distance": 3.65,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "University Town-Metro Station",
+                            "end": "Sheraton Bolin Tianrui Hotel Lobby Lounge",
+                            "mode": "walk",
+                            "start_time": "11:17",
+                            "end_time": "11:25",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Zhaojun Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:52",
+                    "end_time": "14:22",
+                    "transports": [
+                        {
+                            "start": "Sheraton Bolin Tianrui Hotel Lobby Lounge",
+                            "end": "University Town-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:25",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "University Town-Metro Station",
+                            "end": "Qiaocheng East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:33",
+                            "end_time": "12:45",
+                            "cost": 3,
+                            "distance": 6.36,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Qiaocheng East-Metro Station",
+                            "end": "Zhaojun Tomb",
+                            "mode": "walk",
+                            "start_time": "12:45",
+                            "end_time": "12:52",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:24",
+                    "end_time": "01:49",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 1006.35,
+                    "cost": 1006.35,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Zhaojun Tomb",
+                            "end": "Qiaocheng East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:22",
+                            "end_time": "14:29",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng East-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:29",
+                            "end_time": "15:12",
+                            "cost": 6,
+                            "distance": 21.94,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "15:12",
+                            "end_time": "15:17",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL174",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 7.543846845626831,
+    "llm_inference_time_sec": 0
+}

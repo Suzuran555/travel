@@ -1,0 +1,348 @@
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Namespace(splits='TPC_IJCAI_2026_phase1_shard_14', index=None, skip=1, agent='UrbanTripOptimizedV2', llm='TPCLLM', timeout=300, lang='en', oracle_translation=True)
+config file for testing split: /home/liangfei_jin/chinatravel/chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1_shard_14.txt
+36 samples
+res_dir:  /home/liangfei_jin/chinatravel/results/UrbanTripOptimizedV2_TPCLLM_en_oracletranslation
+log_dir: /home/liangfei_jin/chinatravel/cache/UrbanTripOptimizedV2_TPCLLM_en_oracletranslation
+INFO 06-13 17:19:57 [__init__.py:239] Automatically detected platform cuda.
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+------------------------------
+Process [0/36], Success [0/0]:
+data uid:  20250320205205235224
+------------------------------
+Process [1/36], Success [0/0]:
+data uid:  20250321040138918100
+{'days': 2, 'hard_logic_py': ['result=False\nintercity_transport_go=\'\'\nintercity_transport_back=\'\'\nif allactivities(plan)[0][\'type\'] == "train" and intercity_transport_origin(allactivities(plan)[0])==start_city(plan) and allactivities(plan)[-1][\'type\'] == "train" and intercity_transport_origin(allactivities(plan)[-1])==target_city(plan):\n  result=True', 'result=(day_count(plan)==2)', 'result=(people_count(plan)==3)', "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=3: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=3: result=False", "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"], 'nature_language': 'We are 3 people traveling from Nanjing to Chongqing for 2 days. We want to take a train to the destination and return by train.', 'people_number': 3, 'start_city': 'Nanjing', 'target_city': 'Chongqing', 'uid': '20250321040138918100'}
+Nanjing -> Chongqing
+User's Constraints:
+We are 3 people traveling from Nanjing to Chongqing for 2 days. We want to take a train to the destination and return by train.
+Formatted Expression:
+all_satisfy: True
+must_see_attraction: []
+must_visit_restaurant: []
+must_depart_transport: ['train']
+must_return_transport: ['train']
+By list:
+[{'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': [], 'must_depart_transport': ['train'], 'must_return_transport': ['train']}]
+query room number: None
+query room numbed: None
+from Nanjing to Chongqing: 0 flights, 31 trains
+from Chongqing to Nanjing: 0 flights, 22 trains
+  TrainID                     TrainType  ... Duration    Cost
+0   D2373  EMU (Electric Multiple Unit)  ...     9.48  720.72
+1   G1887               High-speed rail  ...    11.73  780.77
+2   D3076  EMU (Electric Multiple Unit)  ...     9.62  720.72
+3   D3077  EMU (Electric Multiple Unit)  ...     9.62  720.72
+4   D2254  EMU (Electric Multiple Unit)  ...     9.97  720.72
+
+[5 rows x 8 columns]
+  TrainID                     TrainType  ... Duration    Cost
+0   D3074  EMU (Electric Multiple Unit)  ...     9.85  720.72
+1   D2214  EMU (Electric Multiple Unit)  ...     9.73  720.72
+2    T235                       Express  ...    22.80  600.60
+3    T238                       Express  ...    22.80  600.60
+4   D2218  EMU (Electric Multiple Unit)  ...    11.72  720.72
+
+[5 rows x 8 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '07:20', 'end_time': '16:49', 'start': 'Nanjing South Railway Station', 'end': 'Chongqing North Railway Station', 'price': 720.72, 'cost': 2162.16, 'tickets': 3, 'transports': [], 'TrainID': 'D2373', 'type': 'train'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 16:49
+current_position: Chongqing North Railway Station
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 16:49, Chongqing North Railway Station, next-poi type: dinner
+add restaurant: Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant, type: Sichuan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:00
+current_position: Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'hotel']
+POI planning, day 0 18:00, Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Bear Grandma's Garden
+add attraction: Bear Grandma's Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:42
+current_position: Bear Grandma's Garden
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'hotel']
+POI planning, day 0 19:42, Bear Grandma's Garden, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Beicang Cultural and Creative Block
+add attraction: Beicang Cultural and Creative Block, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:31
+current_position: Beicang Cultural and Creative Block
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['lunch', 'hotel']
+POI planning, day 0 21:31, Beicang Cultural and Creative Block, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 00:00
+current_position: Yachao Capsule Apartment
+0
+check if too late
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 08:30
+current_position: Yachao Capsule Apartment
+0
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 1 08:30, Yachao Capsule Apartment, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chongqing Shibati Traditional Style Area
+inner-city transport error, backtrack...
+add attraction: Chongqing Shibati Traditional Style Area, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 10:00
+current_position: Chongqing Shibati Traditional Style Area
+1
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 1 10:00, Chongqing Shibati Traditional Style Area, next-poi type: back-intercity-transport
+collecting innercity transport to back-transport
+validate the plan [for query 20250321040138918100]: 
+{'people_number': 3, 'start_city': 'Nanjing', 'target_city': 'Chongqing', 'itinerary': [{'day': 1, 'activities': [{'start_time': '07:20', 'end_time': '16:49', 'start': 'Nanjing South Railway Station', 'end': 'Chongqing North Railway Station', 'price': 720.72, 'cost': 2162.16, 'tickets': 3, 'transports': [], 'TrainID': 'D2373', 'type': 'train'}, {'position': "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant", 'type': 'dinner', 'price': 265, 'cost': 795, 'start_time': '17:00', 'end_time': '18:00', 'transports': [{'start': 'Chongqing North Railway Station', 'end': 'Chongqing North Station South Square-Metro Station', 'mode': 'walk', 'start_time': '16:49', 'end_time': '16:52', 'cost': 0, 'distance': 0.27, 'price': 0}, {'start': 'Chongqing North Station South Square-Metro Station', 'end': 'Shiziping-Metro Station', 'mode': 'metro', 'start_time': '16:52', 'end_time': '16:53', 'cost': 6, 'distance': 0.6, 'price': 2, 'tickets': 3}, {'start': 'Shiziping-Metro Station', 'end': "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant", 'mode': 'walk', 'start_time': '16:53', 'end_time': '16:57', 'cost': 0, 'distance': 0.36, 'price': 0}]}, {'position': "Bear Grandma's Garden", 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '18:12', 'end_time': '19:42', 'transports': [{'start': "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant", 'end': 'Shiziping-Metro Station', 'mode': 'walk', 'start_time': '18:00', 'end_time': '18:04', 'cost': 0, 'distance': 0.36, 'price': 0}, {'start': 'Shiziping-Metro Station', 'end': 'Longtousi-Metro Station', 'mode': 'metro', 'start_time': '18:04', 'end_time': '18:07', 'cost': 6, 'distance': 1.71, 'price': 2, 'tickets': 3}, {'start': 'Longtousi-Metro Station', 'end': "Bear Grandma's Garden", 'mode': 'walk', 'start_time': '18:07', 'end_time': '18:12', 'cost': 0, 'distance': 0.49, 'price': 0}], 'tickets': 3}, {'position': 'Beicang Cultural and Creative Block', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '20:01', 'end_time': '21:31', 'transports': [{'start': "Bear Grandma's Garden", 'end': 'Longtousi-Metro Station', 'mode': 'walk', 'start_time': '19:42', 'end_time': '19:47', 'cost': 0, 'distance': 0.49, 'price': 0}, {'start': 'Longtousi-Metro Station', 'end': 'Hongtudi-Metro Station', 'mode': 'metro', 'start_time': '19:47', 'end_time': '19:54', 'cost': 6, 'distance': 3.63, 'price': 2, 'tickets': 3}, {'start': 'Hongtudi-Metro Station', 'end': 'Beicang Cultural and Creative Block', 'mode': 'walk', 'start_time': '19:54', 'end_time': '20:01', 'cost': 0, 'distance': 0.62, 'price': 0}], 'tickets': 3}, {'position': 'Yachao Capsule Apartment', 'type': 'accommodation', 'price': 31, 'cost': 62, 'start_time': '21:50', 'end_time': '24:00', 'transports': [{'start': 'Beicang Cultural and Creative Block', 'end': 'Hongtudi-Metro Station', 'mode': 'walk', 'start_time': '21:31', 'end_time': '21:38', 'cost': 0, 'distance': 0.62, 'price': 0}, {'start': 'Hongtudi-Metro Station', 'end': 'Xiaoshizi-Metro Station', 'mode': 'metro', 'start_time': '21:38', 'end_time': '21:46', 'cost': 9, 'distance': 4.12, 'price': 3, 'tickets': 3}, {'start': 'Xiaoshizi-Metro Station', 'end': 'Yachao Capsule Apartment', 'mode': 'walk', 'start_time': '21:46', 'end_time': '21:50', 'cost': 0, 'distance': 0.35, 'price': 0}], 'room_type': 2, 'rooms': 2}]}, {'day': 2, 'activities': [{'position': 'Yachao Capsule Apartment', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'position': 'Chongqing Shibati Traditional Style Area', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:30', 'end_time': '10:00', 'transports': [{'start': 'Yachao Capsule Apartment', 'end': 'Chongqing Shibati Traditional Style Area', 'mode': 'taxi', 'start_time': '08:30', 'end_time': '08:30', 'cost': 11.0, 'distance': 0.05, 'price': 11.0, 'cars': 1}], 'tickets': 3}, {'start_time': '11:43', 'end_time': '21:33', 'start': 'Chongqing North Railway Station', 'end': 'Nanjing South Railway Station', 'price': 720.72, 'cost': 2162.16, 'tickets': 3, 'transports': [{'start': 'Chongqing Shibati Traditional Style Area', 'end': 'Xiaoshizi-Metro Station', 'mode': 'walk', 'start_time': '10:00', 'end_time': '10:04', 'cost': 0, 'distance': 0.41, 'price': 0}, {'start': 'Xiaoshizi-Metro Station', 'end': 'Chongqing North Station South Square-Metro Station', 'mode': 'metro', 'start_time': '10:04', 'end_time': '10:16', 'cost': 9, 'distance': 6.15, 'price': 3, 'tickets': 3}, {'start': 'Chongqing North Station South Square-Metro Station', 'end': 'Chongqing North Railway Station', 'mode': 'walk', 'start_time': '10:16', 'end_time': '10:19', 'cost': 0, 'distance': 0.27, 'price': 0}], 'TrainID': 'D2374', 'type': 'train'}]}]}
+Intercity_transport passed!
+Attractions passed!
+Hotels passed!
+Restaurants passed!
+Innercity transport  passed!
+Time passed!
+Space passed!
+None
+[True, True, True, True, True]
+result=False
+intercity_transport_go=''
+intercity_transport_back=''
+if allactivities(plan)[0]['type'] == "train" and intercity_transport_origin(allactivities(plan)[0])==start_city(plan) and allactivities(plan)[-1]['type'] == "train" and intercity_transport_origin(allactivities(plan)[-1])==target_city(plan):
+  result=True passed!
+result=(day_count(plan)==2) passed!
+result=(people_count(plan)==3) passed!
+result=True
+for activity in allactivities(plan):
+  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=3: result=False
+  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=3: result=False passed!
+result=True
+for activity in allactivities(plan):
+  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False passed!
+
+ Pass! 
+
+------------------------------
+Process [2/36], Success [1/1]:
+data uid:  20250321134959122953
+{'days': 3, 'hard_logic_py': ['result_list=[]\nattraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_name_set.add(activity_position(activity))\nresult=({"Republican Era Folk Stove (Tiger Stove)", "Lion Mountain Scenic Area"}<=attraction_name_set)\nresult_list.append(result)\nattraction_cost=0\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_cost+=activity_cost(activity)\nresult=attraction_cost<=0\nresult_list.append(result)\nresult=False\nfor r in result_list:\n  result=result or r'], 'nature_language': 'We are 3 people traveling from Chongqing to Nanjing for 3 days. Please meet either of the following requirements:\n1. We want to visit Republican Era Folk Stove (Tiger Stove) and Lion Mountain Scenic Area.\n2. We want to visit only free attractions.', 'people_number': 3, 'start_city': 'Chongqing', 'target_city': 'Nanjing', 'uid': '20250321134959122953'}
+Chongqing -> Nanjing
+User's Constraints:
+We are 3 people traveling from Chongqing to Nanjing for 3 days. Please meet either of the following requirements:
+1. We want to visit Republican Era Folk Stove (Tiger Stove) and Lion Mountain Scenic Area.
+2. We want to visit only free attractions.
+Formatted Expression:
+all_satisfy: False
+must_see_attraction: ['Republican Era Folk Stove (Tiger Stove)', 'Lion Mountain Scenic Area']
+only_free_attractions: True
+must_visit_restaurant: []
+attraction_budget: 0.0
+By list:
+[{'all_satisfy': True, 'must_see_attraction': ['Republican Era Folk Stove (Tiger Stove)', 'Lion Mountain Scenic Area'], 'must_visit_restaurant': []}, {'all_satisfy': True, 'must_see_attraction': [], 'only_free_attractions': True, 'must_visit_restaurant': [], 'attraction_budget': 0.0}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Chongqing to Nanjing: 10 flights, 22 trains
+from Nanjing to Chongqing: 10 flights, 31 trains
+  TrainID                     TrainType  ...    Cost FlightID
+0   D3074  EMU (Electric Multiple Unit)  ...  720.72      NaN
+1   D2214  EMU (Electric Multiple Unit)  ...  720.72      NaN
+2    T235                       Express  ...  600.60      NaN
+3    T238                       Express  ...  600.60      NaN
+4   D2218  EMU (Electric Multiple Unit)  ...  720.72      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...    Cost FlightID
+0   D2373  EMU (Electric Multiple Unit)  ...  720.72      NaN
+1   G1887               High-speed rail  ...  780.77      NaN
+2   D3076  EMU (Electric Multiple Unit)  ...  720.72      NaN
+3   D3077  EMU (Electric Multiple Unit)  ...  720.72      NaN
+4   D2254  EMU (Electric Multiple Unit)  ...  720.72      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '01:00', 'end_time': '02:30', 'start': 'Chongqing Jiangbei International Airport', 'end': 'Nanjing Lukou International Airport', 'price': 647.51, 'cost': 1942.53, 'tickets': 3, 'transports': [], 'FlightID': 'FL392', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 02:30
+current_position: Nanjing Lukou International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 02:30, Nanjing Lukou International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Nanjing BuildHome Cinema apartment
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Nanjing BuildHome Cinema apartment, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Lion Mountain Scenic Area
+add attraction: Lion Mountain Scenic Area, type: Park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:36
+current_position: Lion Mountain Scenic Area
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:36, Lion Mountain Scenic Area, next-poi type: lunch
+add restaurant: Zhu's Plum Blossom Cake, type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:10
+current_position: Zhu's Plum Blossom Cake
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:10, Zhu's Plum Blossom Cake, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Republican Era Folk Stove (Tiger Stove)
+add attraction: Republican Era Folk Stove (Tiger Stove), type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 13:58
+current_position: Republican Era Folk Stove (Tiger Stove)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 13:58, Republican Era Folk Stove (Tiger Stove), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Confucius Temple
+add attraction: Confucius Temple, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:48
+current_position: Confucius Temple
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:48, Confucius Temple, next-poi type: dinner
+add restaurant: Master Zuo's Plum Blossom Cake (Tongjia Lane Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:00
+current_position: Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:00, Master Zuo's Plum Blossom Cake (Tongjia Lane Branch), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Sands Town Outlets Art Commercial Plaza
+add attraction: Sands Town Outlets Art Commercial Plaza, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: Sands Town Outlets Art Commercial Plaza
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sands Town Outlets Art Commercial Plaza, hotel arrived time: 26:46
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Sands Town Outlets Art Commercial Plaza, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:03
+current_position: Sands Town Outlets Art Commercial Plaza
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sands Town Outlets Art Commercial Plaza, hotel arrived time: 26:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Sands Town Outlets Art Commercial Plaza closed at 21:00, start time: 18:00, arrival time: 22:31, backtrack...
+lookahead to add attraction, candidate: Wende Bridge
+add attraction: Wende Bridge, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:54
+current_position: Wende Bridge
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 19:54, Wende Bridge, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Sands Town Outlets Art Commercial Plaza
+add attraction: Sands Town Outlets Art Commercial Plaza, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: Sands Town Outlets Art Commercial Plaza
+5
+check if too late

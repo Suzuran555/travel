@@ -1,0 +1,252 @@
+{
+    "people_number": 4,
+    "start_city": "Hangzhou",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:50",
+                    "end_time": "13:08",
+                    "start": "Hangzhou East Railway Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 730.27,
+                    "cost": 2921.08,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "G172",
+                    "type": "train"
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 538,
+                    "start_time": "14:21",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:08",
+                            "end_time": "13:08",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:08",
+                            "end_time": "14:02",
+                            "cost": 24,
+                            "distance": 27.29,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "14:02",
+                            "end_time": "14:21",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Wangjing SOHO",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:08",
+                    "end_time": "10:38",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Wangjing East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:07",
+                            "cost": 16,
+                            "distance": 9.42,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wangjing East-Metro Station",
+                            "end": "Wangjing SOHO",
+                            "mode": "walk",
+                            "start_time": "09:07",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Cool Xiang · Jiangnan Courtyard Restaurant · Scholar-Official Hunan Cuisine (Guomao Branch)",
+                    "type": "lunch",
+                    "price": 522,
+                    "cost": 2088,
+                    "start_time": "11:09",
+                    "end_time": "12:09",
+                    "transports": [
+                        {
+                            "start": "Wangjing SOHO",
+                            "end": "Wangjing East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:38",
+                            "end_time": "10:39",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangjing East-Metro Station",
+                            "end": "Dawanglu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:39",
+                            "end_time": "11:00",
+                            "cost": 16,
+                            "distance": 10.58,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dawanglu-Metro Station",
+                            "end": "Cool Xiang · Jiangnan Courtyard Restaurant · Scholar-Official Hunan Cuisine (Guomao Branch)",
+                            "mode": "walk",
+                            "start_time": "11:00",
+                            "end_time": "11:09",
+                            "cost": 0,
+                            "distance": 0.83,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Today Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:30",
+                    "end_time": "14:00",
+                    "transports": [
+                        {
+                            "start": "Cool Xiang · Jiangnan Courtyard Restaurant · Scholar-Official Hunan Cuisine (Guomao Branch)",
+                            "end": "Dawanglu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:09",
+                            "end_time": "12:18",
+                            "cost": 0,
+                            "distance": 0.83,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dawanglu-Metro Station",
+                            "end": "Shuangjing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:18",
+                            "end_time": "12:22",
+                            "cost": 8,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shuangjing-Metro Station",
+                            "end": "Today Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:22",
+                            "end_time": "12:30",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "22:57",
+                    "end_time": "00:21",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Hangzhou Xiaoshan International Airport",
+                    "price": 529.77,
+                    "cost": 2119.08,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Today Art Museum",
+                            "end": "Shuangjing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:00",
+                            "end_time": "14:08",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangjing-Metro Station",
+                            "end": "Daxing Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:08",
+                            "end_time": "15:33",
+                            "cost": 32,
+                            "distance": 42.6,
+                            "price": 8,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Daxing Airport-Metro Station",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "walk",
+                            "start_time": "15:33",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 0.93,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL140",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 30.833497762680054,
+    "llm_inference_time_sec": 0
+}

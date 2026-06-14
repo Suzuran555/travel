@@ -1,0 +1,428 @@
+{
+    "people_number": 3,
+    "start_city": "Chengdu",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:12",
+                    "end_time": "20:43",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 945.53,
+                    "cost": 2836.59,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3058",
+                    "type": "train"
+                },
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "accommodation",
+                    "price": 225,
+                    "cost": 450,
+                    "start_time": "20:48",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "mode": "taxi",
+                            "start_time": "20:43",
+                            "end_time": "20:48",
+                            "cost": 18.3,
+                            "distance": 3.89,
+                            "price": 18.3,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Maple Bridge Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "end": "Maple Bridge Scenic Area",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:08",
+                    "end_time": "11:38",
+                    "transports": [
+                        {
+                            "start": "Maple Bridge Scenic Area",
+                            "end": "Suzhou Museum",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:08",
+                            "cost": 25.61,
+                            "distance": 5.97,
+                            "price": 25.61,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                    "type": "lunch",
+                    "price": 9,
+                    "cost": 27,
+                    "start_time": "11:41",
+                    "end_time": "12:41",
+                    "transports": [
+                        {
+                            "start": "Suzhou Museum",
+                            "end": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "mode": "taxi",
+                            "start_time": "11:38",
+                            "end_time": "11:41",
+                            "cost": 13.56,
+                            "distance": 2.53,
+                            "price": 13.56,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shantang Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:45",
+                    "end_time": "14:15",
+                    "transports": [
+                        {
+                            "start": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "end": "Shantang Street",
+                            "mode": "taxi",
+                            "start_time": "12:41",
+                            "end_time": "12:45",
+                            "cost": 15.47,
+                            "distance": 3.08,
+                            "price": 15.47,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Pingjiang Road Historic District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:19",
+                    "end_time": "15:49",
+                    "transports": [
+                        {
+                            "start": "Shantang Street",
+                            "end": "Pingjiang Road Historic District",
+                            "mode": "taxi",
+                            "start_time": "14:15",
+                            "end_time": "14:19",
+                            "cost": 15.34,
+                            "distance": 3.04,
+                            "price": 15.34,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Yiming Fresh Milk Bar (Shilu Metro Exit 10 Store)",
+                    "type": "dinner",
+                    "price": 12,
+                    "cost": 36,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Pingjiang Road Historic District",
+                            "end": "Yiming Fresh Milk Bar (Shilu Metro Exit 10 Store)",
+                            "mode": "taxi",
+                            "start_time": "15:49",
+                            "end_time": "15:55",
+                            "cost": 18.72,
+                            "distance": 4.01,
+                            "price": 18.72,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Golden Rooster Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:15",
+                    "end_time": "19:45",
+                    "transports": [
+                        {
+                            "start": "Yiming Fresh Milk Bar (Shilu Metro Exit 10 Store)",
+                            "end": "Golden Rooster Lake",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:15",
+                            "cost": 40.81,
+                            "distance": 10.25,
+                            "price": 40.81,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Sunset at the Mountain Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:04",
+                    "end_time": "21:34",
+                    "transports": [
+                        {
+                            "start": "Golden Rooster Lake",
+                            "end": "Sunset at the Mountain Gate",
+                            "mode": "taxi",
+                            "start_time": "19:45",
+                            "end_time": "20:04",
+                            "cost": 51.99,
+                            "distance": 12.73,
+                            "price": 51.99,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "accommodation",
+                    "price": 225,
+                    "cost": 450,
+                    "start_time": "21:34",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Sunset at the Mountain Gate",
+                            "end": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "mode": "taxi",
+                            "start_time": "21:34",
+                            "end_time": "21:34",
+                            "cost": 11.0,
+                            "distance": 0.11,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Yangcheng Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:06",
+                    "end_time": "10:36",
+                    "transports": [
+                        {
+                            "start": "H Hotel (Suzhou Liuyuan Hanshan Temple Huqiu Wedding City Branch)",
+                            "end": "Yangcheng Lake",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "09:06",
+                            "cost": 105.33,
+                            "distance": 24.58,
+                            "price": 105.33,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Willow Lane (Jianxin Alley Branch)",
+                    "type": "lunch",
+                    "price": 18,
+                    "cost": 54,
+                    "start_time": "11:06",
+                    "end_time": "12:06",
+                    "transports": [
+                        {
+                            "start": "Yangcheng Lake",
+                            "end": "Willow Lane (Jianxin Alley Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:36",
+                            "end_time": "11:06",
+                            "cost": 86.73,
+                            "distance": 20.45,
+                            "price": 86.73,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shajiabang Revolutionary History Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:54",
+                    "end_time": "14:24",
+                    "transports": [
+                        {
+                            "start": "Willow Lane (Jianxin Alley Branch)",
+                            "end": "Shajiabang Revolutionary History Memorial Hall",
+                            "mode": "taxi",
+                            "start_time": "12:06",
+                            "end_time": "12:54",
+                            "cost": 139.6,
+                            "distance": 32.2,
+                            "price": 139.6,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Huanshan Xiaozhu Wellness Resort",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:30",
+                    "end_time": "17:00",
+                    "transports": [
+                        {
+                            "start": "Shajiabang Revolutionary History Memorial Hall",
+                            "end": "Huanshan Xiaozhu Wellness Resort",
+                            "mode": "taxi",
+                            "start_time": "14:24",
+                            "end_time": "15:30",
+                            "cost": 193.64,
+                            "distance": 44.21,
+                            "price": 193.64,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Sparrow Coffee",
+                    "type": "dinner",
+                    "price": 32,
+                    "cost": 96,
+                    "start_time": "17:16",
+                    "end_time": "18:16",
+                    "transports": [
+                        {
+                            "start": "Huanshan Xiaozhu Wellness Resort",
+                            "end": "Sparrow Coffee",
+                            "mode": "taxi",
+                            "start_time": "17:00",
+                            "end_time": "17:16",
+                            "cost": 43.71,
+                            "distance": 10.89,
+                            "price": 43.71,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Gun Hall No. 1 Live Fire Shooting Club",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:24",
+                    "end_time": "19:54",
+                    "transports": [
+                        {
+                            "start": "Sparrow Coffee",
+                            "end": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "mode": "taxi",
+                            "start_time": "18:16",
+                            "end_time": "18:24",
+                            "cost": 24.94,
+                            "distance": 5.78,
+                            "price": 24.94,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "21:43",
+                    "end_time": "08:44",
+                    "start": "Suzhou Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 630.35,
+                    "cost": 1891.0500000000002,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "end": "Suzhou Station",
+                            "mode": "taxi",
+                            "start_time": "19:54",
+                            "end_time": "20:05",
+                            "cost": 32.32,
+                            "distance": 7.89,
+                            "price": 32.32,
+                            "cars": 1
+                        }
+                    ],
+                    "TrainID": "K282",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 0.32593226432800293,
+    "llm_inference_time_sec": 0
+}

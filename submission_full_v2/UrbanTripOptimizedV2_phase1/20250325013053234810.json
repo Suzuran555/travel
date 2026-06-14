@@ -1,0 +1,587 @@
+{
+    "people_number": 1,
+    "start_city": "Beijing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:10",
+                    "end_time": "11:43",
+                    "start": "Beijing South Railway Station",
+                    "end": "Suzhou North Station",
+                    "price": 668.44,
+                    "cost": 668.44,
+                    "tickets": 1,
+                    "transports": [],
+                    "TrainID": "G101",
+                    "type": "train"
+                },
+                {
+                    "position": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                    "type": "lunch",
+                    "price": 9,
+                    "cost": 9,
+                    "start_time": "12:15",
+                    "end_time": "13:15",
+                    "transports": [
+                        {
+                            "start": "Suzhou North Station",
+                            "end": "Suzhou North Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:43",
+                            "end_time": "11:44",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou North Railway Station-Metro Station",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:44",
+                            "end_time": "12:10",
+                            "cost": 4,
+                            "distance": 13.26,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "mode": "walk",
+                            "start_time": "12:10",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maple Bridge Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:50",
+                    "end_time": "15:20",
+                    "transports": [
+                        {
+                            "start": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:15",
+                            "end_time": "13:20",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:20",
+                            "end_time": "13:31",
+                            "cost": 3,
+                            "distance": 5.54,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Maple Bridge Scenic Area",
+                            "mode": "walk",
+                            "start_time": "13:31",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Suzhou Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:00",
+                    "end_time": "17:00",
+                    "transports": [
+                        {
+                            "start": "Maple Bridge Scenic Area",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:20",
+                            "end_time": "15:39",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Meixiang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:39",
+                            "end_time": "15:51",
+                            "cost": 3,
+                            "distance": 6.33,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Meixiang-Metro Station",
+                            "end": "Suzhou Museum",
+                            "mode": "walk",
+                            "start_time": "15:51",
+                            "end_time": "16:00",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Yiming Fresh Milk Bar (Shilu Metro Exit 12 Store)",
+                    "type": "dinner",
+                    "price": 12,
+                    "cost": 12,
+                    "start_time": "17:17",
+                    "end_time": "18:17",
+                    "transports": [
+                        {
+                            "start": "Suzhou Museum",
+                            "end": "Meixiang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:00",
+                            "end_time": "17:09",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meixiang-Metro Station",
+                            "end": "Shilu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:09",
+                            "end_time": "17:16",
+                            "cost": 2,
+                            "distance": 3.96,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shilu-Metro Station",
+                            "end": "Yiming Fresh Milk Bar (Shilu Metro Exit 12 Store)",
+                            "mode": "walk",
+                            "start_time": "17:16",
+                            "end_time": "17:17",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shantang Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:28",
+                    "end_time": "19:58",
+                    "transports": [
+                        {
+                            "start": "Yiming Fresh Milk Bar (Shilu Metro Exit 12 Store)",
+                            "end": "Shilu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:17",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shilu-Metro Station",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:18",
+                            "end_time": "18:19",
+                            "cost": 2,
+                            "distance": 0.96,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Shantang Street",
+                            "mode": "walk",
+                            "start_time": "18:19",
+                            "end_time": "18:28",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "East Taihu Ecological Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:55",
+                    "end_time": "22:25",
+                    "transports": [
+                        {
+                            "start": "Shantang Street",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:58",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Lize Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:07",
+                            "end_time": "20:43",
+                            "cost": 5,
+                            "distance": 18.34,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lize Road-Metro Station",
+                            "end": "East Taihu Ecological Park",
+                            "mode": "walk",
+                            "start_time": "20:43",
+                            "end_time": "20:55",
+                            "cost": 0,
+                            "distance": 1.05,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 206,
+                    "start_time": "22:58",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "East Taihu Ecological Park",
+                            "end": "Lize Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "22:25",
+                            "end_time": "22:37",
+                            "cost": 0,
+                            "distance": 1.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lize Road-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:37",
+                            "end_time": "22:41",
+                            "cost": 2,
+                            "distance": 2.26,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "22:41",
+                            "end_time": "22:58",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Pingjiang Road Historic District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:31",
+                    "end_time": "11:01",
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Xiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:47",
+                            "end_time": "09:18",
+                            "cost": 5,
+                            "distance": 15.56,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xiangmen-Metro Station",
+                            "end": "Pingjiang Road Historic District",
+                            "mode": "walk",
+                            "start_time": "09:18",
+                            "end_time": "09:31",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Willow Lane (Jianxin Alley Branch)",
+                    "type": "lunch",
+                    "price": 18,
+                    "cost": 18,
+                    "start_time": "11:16",
+                    "end_time": "12:16",
+                    "transports": [
+                        {
+                            "start": "Pingjiang Road Historic District",
+                            "end": "Xiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:01",
+                            "end_time": "11:14",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiangmen-Metro Station",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:14",
+                            "end_time": "11:15",
+                            "cost": 2,
+                            "distance": 0.82,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Willow Lane (Jianxin Alley Branch)",
+                            "mode": "walk",
+                            "start_time": "11:15",
+                            "end_time": "11:16",
+                            "cost": 0,
+                            "distance": 0.16,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shajiabang Revolutionary History Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:04",
+                    "end_time": "14:34",
+                    "transports": [
+                        {
+                            "start": "Willow Lane (Jianxin Alley Branch)",
+                            "end": "Shajiabang Revolutionary History Memorial Hall",
+                            "mode": "taxi",
+                            "start_time": "12:16",
+                            "end_time": "13:04",
+                            "cost": 139.6,
+                            "distance": 32.2,
+                            "price": 139.6,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Eastern Wu Water Charm (Wuzhong Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:26",
+                    "end_time": "16:56",
+                    "transports": [
+                        {
+                            "start": "Shajiabang Revolutionary History Memorial Hall",
+                            "end": "Eastern Wu Water Charm (Wuzhong Branch)",
+                            "mode": "taxi",
+                            "start_time": "14:34",
+                            "end_time": "15:26",
+                            "cost": 153.17,
+                            "distance": 35.22,
+                            "price": 153.17,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Tims Coffee (Metro Department Store New Area Branch)",
+                    "type": "dinner",
+                    "price": 32,
+                    "cost": 32,
+                    "start_time": "17:23",
+                    "end_time": "18:23",
+                    "transports": [
+                        {
+                            "start": "Eastern Wu Water Charm (Wuzhong Branch)",
+                            "end": "Yingchun Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:56",
+                            "end_time": "17:05",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yingchun Road-Metro Station",
+                            "end": "Yushan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:05",
+                            "end_time": "17:22",
+                            "cost": 3,
+                            "distance": 8.83,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Yushan Road-Metro Station",
+                            "end": "Tims Coffee (Metro Department Store New Area Branch)",
+                            "mode": "walk",
+                            "start_time": "17:22",
+                            "end_time": "17:23",
+                            "cost": 0,
+                            "distance": 0.09,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Gun Hall No. 1 Live Fire Shooting Club",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:00",
+                    "end_time": "20:30",
+                    "transports": [
+                        {
+                            "start": "Tims Coffee (Metro Department Store New Area Branch)",
+                            "end": "Yushan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:23",
+                            "end_time": "18:24",
+                            "cost": 0,
+                            "distance": 0.09,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yushan Road-Metro Station",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:24",
+                            "end_time": "18:49",
+                            "cost": 4,
+                            "distance": 12.66,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "mode": "walk",
+                            "start_time": "18:49",
+                            "end_time": "19:00",
+                            "cost": 0,
+                            "distance": 0.96,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "22:10",
+                    "end_time": "09:24",
+                    "start": "Suzhou Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 617.02,
+                    "cost": 617.02,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:41",
+                            "cost": 0,
+                            "distance": 0.96,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:41",
+                            "end_time": "20:55",
+                            "cost": 3,
+                            "distance": 7.12,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "20:55",
+                            "end_time": "20:56",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D10",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 3.1287100315093994,
+    "llm_inference_time_sec": 0
+}

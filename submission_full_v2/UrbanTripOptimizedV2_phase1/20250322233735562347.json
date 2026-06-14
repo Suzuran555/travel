@@ -1,0 +1,461 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:27",
+                    "end_time": "15:15",
+                    "start": "Shenzhen North Railway Station",
+                    "end": "Nanjing South Railway Station",
+                    "price": 694.1,
+                    "cost": 694.1,
+                    "tickets": 1,
+                    "transports": [],
+                    "TrainID": "D376",
+                    "type": "train"
+                },
+                {
+                    "position": "Nanjing Wald Himalayas Ice and Snow Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:30",
+                    "end_time": "17:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing South Railway Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:15",
+                            "end_time": "15:18",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Mingfa Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:18",
+                            "end_time": "15:19",
+                            "cost": 2,
+                            "distance": 0.76,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Mingfa Square-Metro Station",
+                            "end": "Nanjing Wald Himalayas Ice and Snow Park",
+                            "mode": "walk",
+                            "start_time": "15:19",
+                            "end_time": "15:30",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Kaitong Cafe & Book (Himalaya Branch)",
+                    "type": "dinner",
+                    "price": 41,
+                    "cost": 41,
+                    "start_time": "17:23",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Wald Himalayas Ice and Snow Park",
+                            "end": "Mingfa Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:00",
+                            "end_time": "17:11",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mingfa Square-Metro Station",
+                            "end": "Hongyun Avenue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:11",
+                            "end_time": "17:14",
+                            "cost": 2,
+                            "distance": 1.96,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongyun Avenue-Metro Station",
+                            "end": "Kaitong Cafe & Book (Himalaya Branch)",
+                            "mode": "walk",
+                            "start_time": "17:14",
+                            "end_time": "17:23",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing Yuhuatai Scenic Area - Meigang",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:27",
+                    "end_time": "19:57",
+                    "transports": [
+                        {
+                            "start": "Kaitong Cafe & Book (Himalaya Branch)",
+                            "end": "Hongyun Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongyun Avenue-Metro Station",
+                            "end": "Yuhua Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:19",
+                            "cost": 3,
+                            "distance": 5.02,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Yuhua Gate-Metro Station",
+                            "end": "Nanjing Yuhuatai Scenic Area - Meigang",
+                            "mode": "walk",
+                            "start_time": "18:19",
+                            "end_time": "18:27",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Nanjing Confucius Temple - Qinhuai Scenic Area - Changganli",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:15",
+                    "end_time": "21:45",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yuhuatai Scenic Area - Meigang",
+                            "end": "Yuhua Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:57",
+                            "end_time": "20:05",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yuhua Gate-Metro Station",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:05",
+                            "end_time": "20:07",
+                            "cost": 2,
+                            "distance": 1.12,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Nanjing Confucius Temple - Qinhuai Scenic Area - Changganli",
+                            "mode": "walk",
+                            "start_time": "20:07",
+                            "end_time": "20:15",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 76,
+                    "start_time": "22:29",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Confucius Temple - Qinhuai Scenic Area - Changganli",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:45",
+                            "end_time": "21:53",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:53",
+                            "end_time": "22:22",
+                            "cost": 5,
+                            "distance": 14.87,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "22:22",
+                            "end_time": "22:29",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nanjing Yangtze River Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:52",
+                    "end_time": "10:22",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:38",
+                            "cost": 2,
+                            "distance": 0.87,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Nanjing Yangtze River Bridge",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:52",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Earth Science Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "11:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yangtze River Bridge",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:22",
+                            "end_time": "10:36",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:36",
+                            "end_time": "10:54",
+                            "cost": 4,
+                            "distance": 9.12,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Earth Science Museum",
+                            "mode": "walk",
+                            "start_time": "10:54",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Countryside in the City",
+                    "type": "lunch",
+                    "price": 197,
+                    "cost": 197,
+                    "start_time": "11:44",
+                    "end_time": "12:44",
+                    "transports": [
+                        {
+                            "start": "Earth Science Museum",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:36",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:36",
+                            "end_time": "11:38",
+                            "cost": 2,
+                            "distance": 1.23,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Countryside in the City",
+                            "mode": "walk",
+                            "start_time": "11:38",
+                            "end_time": "11:44",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "John Rabe's Former Residence",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:59",
+                    "end_time": "14:29",
+                    "transports": [
+                        {
+                            "start": "Countryside in the City",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:44",
+                            "end_time": "12:50",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:50",
+                            "end_time": "12:52",
+                            "cost": 2,
+                            "distance": 1.23,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "John Rabe's Former Residence",
+                            "mode": "walk",
+                            "start_time": "12:52",
+                            "end_time": "12:59",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "17:00",
+                    "end_time": "14:52",
+                    "start": "Nanjing Station",
+                    "end": "Shenzhen Station",
+                    "price": 462.73,
+                    "cost": 462.73,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "John Rabe's Former Residence",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:36",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:36",
+                            "end_time": "14:43",
+                            "cost": 2,
+                            "distance": 3.58,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Station",
+                            "mode": "walk",
+                            "start_time": "14:43",
+                            "end_time": "14:45",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K33",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 6.127729892730713,
+    "llm_inference_time_sec": 0
+}

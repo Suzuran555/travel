@@ -1,0 +1,832 @@
+{
+    "people_number": 1,
+    "start_city": "Beijing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:11",
+                    "end_time": "03:36",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 923.58,
+                    "cost": 923.58,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL095",
+                    "type": "airplane"
+                },
+                {
+                    "position": "MeiJing Hotel Shenzhen",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:36",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:22",
+                            "cost": 5,
+                            "distance": 20.83,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "MeiJing Hotel Shenzhen",
+                            "mode": "walk",
+                            "start_time": "04:22",
+                            "end_time": "04:28",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "North Station Central Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "MeiJing Hotel Shenzhen",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:38",
+                            "cost": 2,
+                            "distance": 1.44,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "North Station Central Park",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Art Museum (New Venue)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:30",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "North Station Central Park",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:11",
+                            "end_time": "10:14",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:14",
+                            "end_time": "10:16",
+                            "cost": 2,
+                            "distance": 1.44,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "Shenzhen Art Museum (New Venue)",
+                            "mode": "walk",
+                            "start_time": "10:16",
+                            "end_time": "10:30",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Garden Inside Restaurant (Minzhi Branch)",
+                    "type": "lunch",
+                    "price": 87,
+                    "cost": 87,
+                    "start_time": "12:31",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Art Museum (New Venue)",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:14",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "Minzhi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:14",
+                            "end_time": "12:17",
+                            "cost": 2,
+                            "distance": 1.85,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Minzhi-Metro Station",
+                            "end": "Garden Inside Restaurant (Minzhi Branch)",
+                            "mode": "walk",
+                            "start_time": "12:17",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Guangdong Xiangyun Skydiving Club (Shenzhen Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:31",
+                    "end_time": "15:01",
+                    "transports": [
+                        {
+                            "start": "Garden Inside Restaurant (Minzhi Branch)",
+                            "end": "Guangdong Xiangyun Skydiving Club (Shenzhen Branch)",
+                            "mode": "taxi",
+                            "start_time": "13:31",
+                            "end_time": "13:31",
+                            "cost": 11.0,
+                            "distance": 0.38,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Wangye Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:42",
+                    "end_time": "17:12",
+                    "transports": [
+                        {
+                            "start": "Guangdong Xiangyun Skydiving Club (Shenzhen Branch)",
+                            "end": "Minzhi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:01",
+                            "end_time": "15:18",
+                            "cost": 0,
+                            "distance": 1.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Minzhi-Metro Station",
+                            "end": "Qinghu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:18",
+                            "end_time": "15:28",
+                            "cost": 3,
+                            "distance": 5.17,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Qinghu-Metro Station",
+                            "end": "Shenzhen Wangye Museum",
+                            "mode": "walk",
+                            "start_time": "15:28",
+                            "end_time": "15:42",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Longhua DoubleTree by Hilton Hotel - All-Day Dining Restaurant",
+                    "type": "dinner",
+                    "price": 233,
+                    "cost": 233,
+                    "start_time": "17:13",
+                    "end_time": "18:13",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Wangye Museum",
+                            "end": "Shenzhen Longhua DoubleTree by Hilton Hotel - All-Day Dining Restaurant",
+                            "mode": "taxi",
+                            "start_time": "17:12",
+                            "end_time": "17:13",
+                            "cost": 11.0,
+                            "distance": 1.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shangwei Art Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:20",
+                    "end_time": "20:50",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Longhua DoubleTree by Hilton Hotel - All-Day Dining Restaurant",
+                            "end": "Qinghu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:13",
+                            "end_time": "18:23",
+                            "cost": 0,
+                            "distance": 0.88,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qinghu-Metro Station",
+                            "end": "Hehua-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:23",
+                            "end_time": "18:41",
+                            "cost": 4,
+                            "distance": 9.02,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hehua-Metro Station",
+                            "end": "Shangwei Art Village",
+                            "mode": "walk",
+                            "start_time": "18:41",
+                            "end_time": "19:20",
+                            "cost": 0,
+                            "distance": 3.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "MeiJing Hotel Shenzhen",
+                    "type": "accommodation",
+                    "price": 398,
+                    "cost": 398,
+                    "start_time": "21:59",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shangwei Art Village",
+                            "end": "Hehua-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:50",
+                            "end_time": "21:29",
+                            "cost": 0,
+                            "distance": 3.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hehua-Metro Station",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:29",
+                            "end_time": "21:53",
+                            "cost": 4,
+                            "distance": 12.29,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "MeiJing Hotel Shenzhen",
+                            "mode": "walk",
+                            "start_time": "21:53",
+                            "end_time": "21:59",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "MeiJing Hotel Shenzhen",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Meilin Reservoir",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:08",
+                    "end_time": "10:38",
+                    "transports": [
+                        {
+                            "start": "MeiJing Hotel Shenzhen",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "Xiameilin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:49",
+                            "cost": 3,
+                            "distance": 6.5,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xiameilin-Metro Station",
+                            "end": "Meilin Reservoir",
+                            "mode": "walk",
+                            "start_time": "08:49",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Joyful Gathering (Jingtian Branch)",
+                    "type": "lunch",
+                    "price": 28,
+                    "cost": 28,
+                    "start_time": "11:05",
+                    "end_time": "12:05",
+                    "transports": [
+                        {
+                            "start": "Meilin Reservoir",
+                            "end": "Xiameilin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:38",
+                            "end_time": "10:57",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiameilin-Metro Station",
+                            "end": "Xiangmei North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:57",
+                            "end_time": "11:00",
+                            "cost": 2,
+                            "distance": 1.61,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xiangmei North-Metro Station",
+                            "end": "Joyful Gathering (Jingtian Branch)",
+                            "mode": "walk",
+                            "start_time": "11:00",
+                            "end_time": "11:05",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Honey Lake 1979 Cultural and Creative Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:14",
+                    "end_time": "13:44",
+                    "transports": [
+                        {
+                            "start": "Joyful Gathering (Jingtian Branch)",
+                            "end": "Xiangmei North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:10",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiangmei North-Metro Station",
+                            "end": "Meijing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:10",
+                            "end_time": "12:11",
+                            "cost": 2,
+                            "distance": 0.96,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Honey Lake 1979 Cultural and Creative Park",
+                            "mode": "walk",
+                            "start_time": "12:11",
+                            "end_time": "12:14",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:58",
+                    "end_time": "15:28",
+                    "transports": [
+                        {
+                            "start": "Honey Lake 1979 Cultural and Creative Park",
+                            "end": "Meijing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:44",
+                            "end_time": "13:47",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:47",
+                            "end_time": "13:53",
+                            "cost": 2,
+                            "distance": 3.37,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "walk",
+                            "start_time": "13:53",
+                            "end_time": "13:58",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "East River Guerrilla Force Command Post Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:46",
+                    "end_time": "17:16",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:28",
+                            "end_time": "15:33",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shaibu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:33",
+                            "end_time": "15:44",
+                            "cost": 3,
+                            "distance": 5.64,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shaibu-Metro Station",
+                            "end": "East River Guerrilla Force Command Post Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "15:44",
+                            "end_time": "15:46",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Fuxinji Pig Stomach Chicken (Dongmen Maoye Branch)",
+                    "type": "dinner",
+                    "price": 80,
+                    "cost": 80,
+                    "start_time": "17:16",
+                    "end_time": "18:16",
+                    "transports": [
+                        {
+                            "start": "East River Guerrilla Force Command Post Memorial Hall",
+                            "end": "Fuxinji Pig Stomach Chicken (Dongmen Maoye Branch)",
+                            "mode": "taxi",
+                            "start_time": "17:16",
+                            "end_time": "17:16",
+                            "cost": 11.0,
+                            "distance": 0.5,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "MeiJing Hotel Shenzhen",
+                    "type": "accommodation",
+                    "price": 398,
+                    "cost": 398,
+                    "start_time": "18:50",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Fuxinji Pig Stomach Chicken (Dongmen Maoye Branch)",
+                            "end": "Shaibu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:16",
+                            "end_time": "18:19",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shaibu-Metro Station",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:19",
+                            "end_time": "18:44",
+                            "cost": 4,
+                            "distance": 12.99,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "MeiJing Hotel Shenzhen",
+                            "mode": "walk",
+                            "start_time": "18:44",
+                            "end_time": "18:50",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "MeiJing Hotel Shenzhen",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:04",
+                    "end_time": "10:34",
+                    "transports": [
+                        {
+                            "start": "MeiJing Hotel Shenzhen",
+                            "end": "Hongshan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongshan-Metro Station",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:44",
+                            "cost": 3,
+                            "distance": 4.29,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Shenzhen University Town",
+                            "mode": "walk",
+                            "start_time": "08:44",
+                            "end_time": "09:04",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Dianbai Duck Porridge Restaurant",
+                    "type": "lunch",
+                    "price": 61,
+                    "cost": 61,
+                    "start_time": "11:07",
+                    "end_time": "12:07",
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:34",
+                            "end_time": "10:54",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Xili-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:54",
+                            "end_time": "11:03",
+                            "cost": 3,
+                            "distance": 4.77,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Dianbai Duck Porridge Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:03",
+                            "end_time": "11:07",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nantou Ancient City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:25",
+                    "end_time": "13:55",
+                    "transports": [
+                        {
+                            "start": "Dianbai Duck Porridge Restaurant",
+                            "end": "Xili-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:07",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:11",
+                            "end_time": "12:20",
+                            "cost": 3,
+                            "distance": 4.92,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Nantou Ancient City",
+                            "mode": "walk",
+                            "start_time": "12:20",
+                            "end_time": "12:25",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:24",
+                    "end_time": "01:49",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 1006.35,
+                    "cost": 1006.35,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Nantou Ancient City",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:55",
+                            "end_time": "14:00",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:00",
+                            "end_time": "14:30",
+                            "cost": 5,
+                            "distance": 15.15,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "14:30",
+                            "end_time": "14:35",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL174",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.34765362739563,
+    "llm_inference_time_sec": 0
+}

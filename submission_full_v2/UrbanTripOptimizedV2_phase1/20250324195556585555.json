@@ -1,0 +1,792 @@
+{
+    "people_number": 4,
+    "start_city": "Chongqing",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "04:39",
+                    "end_time": "04:58",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 299.27,
+                    "cost": 1197.08,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL363",
+                    "type": "airplane"
+                },
+                {
+                    "position": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Shuangliu International Airport",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:58",
+                            "end_time": "05:13",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "05:13",
+                            "end_time": "05:43",
+                            "cost": 20,
+                            "distance": 15.22,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                            "mode": "walk",
+                            "start_time": "05:43",
+                            "end_time": "05:47",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "East Lake Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:45",
+                    "end_time": "10:15",
+                    "transports": [
+                        {
+                            "start": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "Dongguang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:40",
+                            "cost": 8,
+                            "distance": 3.35,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dongguang-Metro Station",
+                            "end": "East Lake Park",
+                            "mode": "walk",
+                            "start_time": "08:40",
+                            "end_time": "08:45",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yulei Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:21",
+                    "end_time": "11:51",
+                    "transports": [
+                        {
+                            "start": "East Lake Park",
+                            "end": "Yulei Pavilion",
+                            "mode": "taxi",
+                            "start_time": "10:15",
+                            "end_time": "10:21",
+                            "cost": 19.84,
+                            "distance": 4.33,
+                            "price": 19.84,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Deng's New Generation Sweet Oil Glutinous Rice Balls",
+                    "type": "lunch",
+                    "price": 5,
+                    "cost": 20,
+                    "start_time": "12:10",
+                    "end_time": "13:10",
+                    "transports": [
+                        {
+                            "start": "Yulei Pavilion",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:51",
+                            "end_time": "11:54",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:54",
+                            "end_time": "12:00",
+                            "cost": 8,
+                            "distance": 3.22,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Deng's New Generation Sweet Oil Glutinous Rice Balls",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:10",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dong'an Lake Sports Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:40",
+                    "end_time": "16:10",
+                    "transports": [
+                        {
+                            "start": "Deng's New Generation Sweet Oil Glutinous Rice Balls",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:10",
+                            "end_time": "13:20",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Study Room-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:20",
+                            "end_time": "14:01",
+                            "cost": 20,
+                            "distance": 20.88,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Study Room-Metro Station",
+                            "end": "Dong'an Lake Sports Park",
+                            "mode": "walk",
+                            "start_time": "14:01",
+                            "end_time": "14:40",
+                            "cost": 0,
+                            "distance": 3.28,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Pengzhen Guanyin Pavilion Old Teahouse",
+                    "type": "dinner",
+                    "price": 13,
+                    "cost": 52,
+                    "start_time": "17:05",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Dong'an Lake Sports Park",
+                            "end": "Pengzhen Guanyin Pavilion Old Teahouse",
+                            "mode": "taxi",
+                            "start_time": "16:10",
+                            "end_time": "17:05",
+                            "cost": 160.88,
+                            "distance": 36.93,
+                            "price": 160.88,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:37",
+                    "end_time": "21:07",
+                    "transports": [
+                        {
+                            "start": "Pengzhen Guanyin Pavilion Old Teahouse",
+                            "end": "Shuangliu Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "19:01",
+                            "cost": 0,
+                            "distance": 5.15,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangliu Square-Metro Station",
+                            "end": "Tianfu Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:01",
+                            "end_time": "19:35",
+                            "cost": 20,
+                            "distance": 17.36,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tianfu Square-Metro Station",
+                            "end": "Chengdu Library",
+                            "mode": "walk",
+                            "start_time": "19:35",
+                            "end_time": "19:37",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                    "type": "accommodation",
+                    "price": 1008,
+                    "cost": 2016,
+                    "start_time": "21:17",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Library",
+                            "end": "Tianfu Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:07",
+                            "end_time": "21:09",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Square-Metro Station",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:09",
+                            "end_time": "21:13",
+                            "cost": 8,
+                            "distance": 2.31,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                            "mode": "walk",
+                            "start_time": "21:13",
+                            "end_time": "21:17",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Xinshang Mansion · Water Rhyme Plus",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:46",
+                    "end_time": "10:16",
+                    "transports": [
+                        {
+                            "start": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "Tazishan Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:41",
+                            "cost": 8,
+                            "distance": 4.0,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tazishan Park-Metro Station",
+                            "end": "Xinshang Mansion · Water Rhyme Plus",
+                            "mode": "walk",
+                            "start_time": "08:41",
+                            "end_time": "08:46",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Temple of Emperor Zhaolie of Han",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:27",
+                    "end_time": "11:57",
+                    "transports": [
+                        {
+                            "start": "Xinshang Mansion · Water Rhyme Plus",
+                            "end": "Temple of Emperor Zhaolie of Han",
+                            "mode": "taxi",
+                            "start_time": "10:16",
+                            "end_time": "10:27",
+                            "cost": 30.43,
+                            "distance": 7.35,
+                            "price": 30.43,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "lunch",
+                    "price": 17,
+                    "cost": 68,
+                    "start_time": "12:23",
+                    "end_time": "13:23",
+                    "transports": [
+                        {
+                            "start": "Temple of Emperor Zhaolie of Han",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:57",
+                            "end_time": "12:08",
+                            "cost": 0,
+                            "distance": 0.94,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:08",
+                            "end_time": "12:15",
+                            "cost": 8,
+                            "distance": 3.6,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "walk",
+                            "start_time": "12:15",
+                            "end_time": "12:23",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan University (Wangjiang Campus) - Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:44",
+                    "end_time": "15:14",
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:23",
+                            "end_time": "13:31",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Niuwangmiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:31",
+                            "end_time": "13:39",
+                            "cost": 12,
+                            "distance": 4.27,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Niuwangmiao-Metro Station",
+                            "end": "Sichuan University (Wangjiang Campus) - Museum",
+                            "mode": "walk",
+                            "start_time": "13:39",
+                            "end_time": "13:44",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chengdu International Intangible Cultural Heritage Expo Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:59",
+                    "end_time": "17:29",
+                    "transports": [
+                        {
+                            "start": "Sichuan University (Wangjiang Campus) - Museum",
+                            "end": "Niuwangmiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:14",
+                            "end_time": "15:19",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Niuwangmiao-Metro Station",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:19",
+                            "end_time": "15:48",
+                            "cost": 20,
+                            "distance": 14.58,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "mode": "walk",
+                            "start_time": "15:48",
+                            "end_time": "15:59",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Obibi Shuse Chayan (Kui Xing Lou Branch)",
+                    "type": "dinner",
+                    "price": 18,
+                    "cost": 72,
+                    "start_time": "18:05",
+                    "end_time": "19:05",
+                    "transports": [
+                        {
+                            "start": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:29",
+                            "end_time": "17:40",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:40",
+                            "end_time": "18:00",
+                            "cost": 16,
+                            "distance": 10.13,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Obibi Shuse Chayan (Kui Xing Lou Branch)",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "East Suburb Memory Art District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:46",
+                    "end_time": "21:16",
+                    "transports": [
+                        {
+                            "start": "Obibi Shuse Chayan (Kui Xing Lou Branch)",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:05",
+                            "end_time": "19:10",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Shilidian-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:10",
+                            "end_time": "19:28",
+                            "cost": 16,
+                            "distance": 9.1,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shilidian-Metro Station",
+                            "end": "East Suburb Memory Art District",
+                            "mode": "walk",
+                            "start_time": "19:28",
+                            "end_time": "19:46",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                    "type": "accommodation",
+                    "price": 1008,
+                    "cost": 2016,
+                    "start_time": "21:50",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "East Suburb Memory Art District",
+                            "end": "Shilidian-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:16",
+                            "end_time": "21:34",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shilidian-Metro Station",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:34",
+                            "end_time": "21:46",
+                            "cost": 12,
+                            "distance": 6.46,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                            "mode": "walk",
+                            "start_time": "21:46",
+                            "end_time": "21:50",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Pear Blossom Gully Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:42",
+                    "end_time": "11:12",
+                    "transports": [
+                        {
+                            "start": "The Langbo Chengdu, in The Unbound Collection by Hyatt",
+                            "end": "Pear Blossom Gully Scenic Area",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "09:42",
+                            "cost": 213.68,
+                            "distance": 48.66,
+                            "price": 213.68,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Gather 'Round: Round Table Coffee Bar",
+                    "type": "lunch",
+                    "price": 27,
+                    "cost": 108,
+                    "start_time": "12:25",
+                    "end_time": "13:25",
+                    "transports": [
+                        {
+                            "start": "Pear Blossom Gully Scenic Area",
+                            "end": "Gather 'Round: Round Table Coffee Bar",
+                            "mode": "taxi",
+                            "start_time": "11:12",
+                            "end_time": "12:25",
+                            "cost": 216.49,
+                            "distance": 49.29,
+                            "price": 216.49,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:43",
+                    "end_time": "15:13",
+                    "transports": [
+                        {
+                            "start": "Gather 'Round: Round Table Coffee Bar",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:25",
+                            "end_time": "13:34",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:34",
+                            "end_time": "13:36",
+                            "cost": 8,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "13:36",
+                            "end_time": "13:43",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "22:36",
+                    "end_time": "23:54",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 171.7,
+                    "cost": 686.8,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:13",
+                            "end_time": "15:20",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Chengdu East Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:20",
+                            "end_time": "15:37",
+                            "cost": 12,
+                            "distance": 8.64,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chengdu East Railway Station-Metro Station",
+                            "end": "Chengdu East Railway Station",
+                            "mode": "walk",
+                            "start_time": "15:37",
+                            "end_time": "15:37",
+                            "cost": 0,
+                            "distance": 0.0,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G8575",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 11.567350625991821,
+    "llm_inference_time_sec": 0
+}

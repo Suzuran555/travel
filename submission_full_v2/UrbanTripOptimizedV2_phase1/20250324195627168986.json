@@ -1,0 +1,401 @@
+{
+    "people_number": 2,
+    "start_city": "Hangzhou",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:28",
+                    "end_time": "11:28",
+                    "start": "Hangzhou South Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 48.4,
+                    "cost": 96.8,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "K470",
+                    "type": "train"
+                },
+                {
+                    "position": "Farm Paradise Charcoal Grill (Xinghai Street Branch)",
+                    "type": "lunch",
+                    "price": 86,
+                    "cost": 172,
+                    "start_time": "11:44",
+                    "end_time": "12:44",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:28",
+                            "end_time": "11:29",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Qiutangbang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:29",
+                            "end_time": "11:41",
+                            "cost": 6,
+                            "distance": 6.47,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Qiutangbang-Metro Station",
+                            "end": "Farm Paradise Charcoal Grill (Xinghai Street Branch)",
+                            "mode": "walk",
+                            "start_time": "11:41",
+                            "end_time": "11:44",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Gun Hall No. 1 Live Fire Shooting Club",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:59",
+                    "end_time": "14:29",
+                    "transports": [
+                        {
+                            "start": "Farm Paradise Charcoal Grill (Xinghai Street Branch)",
+                            "end": "Qiutangbang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:44",
+                            "end_time": "12:47",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiutangbang-Metro Station",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:47",
+                            "end_time": "12:48",
+                            "cost": 4,
+                            "distance": 0.74,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "12:59",
+                            "cost": 0,
+                            "distance": 0.96,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Kunqu Tea House",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:29",
+                    "end_time": "15:59",
+                    "transports": [
+                        {
+                            "start": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "end": "Kunqu Tea House",
+                            "mode": "taxi",
+                            "start_time": "14:29",
+                            "end_time": "14:29",
+                            "cost": 11.0,
+                            "distance": 0.04,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 206,
+                    "start_time": "16:58",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Kunqu Tea House",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:59",
+                            "end_time": "16:10",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:10",
+                            "end_time": "16:41",
+                            "cost": 10,
+                            "distance": 15.86,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "16:41",
+                            "end_time": "16:58",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Yuantong Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:32",
+                    "end_time": "10:02",
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Yuantong Temple",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 11.0,
+                            "distance": 1.39,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wan Gong Dyke",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:05",
+                    "end_time": "11:35",
+                    "transports": [
+                        {
+                            "start": "Yuantong Temple",
+                            "end": "Wan Gong Dyke",
+                            "mode": "taxi",
+                            "start_time": "10:02",
+                            "end_time": "10:05",
+                            "cost": 13.64,
+                            "distance": 2.55,
+                            "price": 13.64,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yiming Fresh Milk Bar (Shihu Commercial Street Branch)",
+                    "type": "lunch",
+                    "price": 13,
+                    "cost": 26,
+                    "start_time": "12:14",
+                    "end_time": "13:14",
+                    "transports": [
+                        {
+                            "start": "Wan Gong Dyke",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:35",
+                            "end_time": "11:47",
+                            "cost": 0,
+                            "distance": 1.01,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Shihu North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:47",
+                            "end_time": "12:08",
+                            "cost": 8,
+                            "distance": 10.8,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shihu North-Metro Station",
+                            "end": "Yiming Fresh Milk Bar (Shihu Commercial Street Branch)",
+                            "mode": "walk",
+                            "start_time": "12:08",
+                            "end_time": "12:14",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Tang Yin Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:28",
+                    "end_time": "14:58",
+                    "transports": [
+                        {
+                            "start": "Yiming Fresh Milk Bar (Shihu Commercial Street Branch)",
+                            "end": "Shihu North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:14",
+                            "end_time": "13:20",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shihu North-Metro Station",
+                            "end": "Xujiang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:20",
+                            "end_time": "13:26",
+                            "cost": 4,
+                            "distance": 3.14,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xujiang Road-Metro Station",
+                            "end": "Tang Yin Garden",
+                            "mode": "walk",
+                            "start_time": "13:26",
+                            "end_time": "13:28",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Suzhou Water Tour",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:11",
+                    "end_time": "16:41",
+                    "transports": [
+                        {
+                            "start": "Tang Yin Garden",
+                            "end": "Xujiang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:58",
+                            "end_time": "15:00",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xujiang Road-Metro Station",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:00",
+                            "end_time": "15:05",
+                            "cost": 4,
+                            "distance": 2.78,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Suzhou Water Tour",
+                            "mode": "walk",
+                            "start_time": "15:05",
+                            "end_time": "15:11",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "18:52",
+                    "end_time": "20:17",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou East Railway Station",
+                    "price": 78.65,
+                    "cost": 157.3,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Suzhou Water Tour",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:41",
+                            "end_time": "16:47",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:47",
+                            "end_time": "16:54",
+                            "cost": 4,
+                            "distance": 3.85,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "16:54",
+                            "end_time": "16:55",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7494",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.785454273223877,
+    "llm_inference_time_sec": 0
+}

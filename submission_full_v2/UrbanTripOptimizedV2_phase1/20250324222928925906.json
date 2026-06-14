@@ -1,0 +1,459 @@
+{
+    "people_number": 4,
+    "start_city": "Guangzhou",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:46",
+                    "end_time": "03:16",
+                    "start": "Guangzhou Baiyun International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 589.3,
+                    "cost": 2357.2,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL247",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Blossom House Shanghai On The Bund",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Pudong International Airport",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:16",
+                            "end_time": "03:31",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Yu Garden-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:31",
+                            "end_time": "04:34",
+                            "cost": 28,
+                            "distance": 31.51,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Yu Garden-Metro Station",
+                            "end": "Blossom House Shanghai On The Bund",
+                            "mode": "walk",
+                            "start_time": "04:34",
+                            "end_time": "04:39",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Old Street (Renmin Road)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Blossom House Shanghai On The Bund",
+                            "end": "Shanghai Old Street (Renmin Road)",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Eaglewood Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:21",
+                    "end_time": "11:51",
+                    "transports": [
+                        {
+                            "start": "Shanghai Old Street (Renmin Road)",
+                            "end": "Yu Garden-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:00",
+                            "end_time": "10:09",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yu Garden-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:09",
+                            "end_time": "10:12",
+                            "cost": 8,
+                            "distance": 1.8,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Eaglewood Pavilion",
+                            "mode": "walk",
+                            "start_time": "10:12",
+                            "end_time": "10:21",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Da Ivo Italian Magic Mirror Restaurant",
+                    "type": "lunch",
+                    "price": 929,
+                    "cost": 3716,
+                    "start_time": "11:55",
+                    "end_time": "12:55",
+                    "transports": [
+                        {
+                            "start": "Eaglewood Pavilion",
+                            "end": "Da Ivo Italian Magic Mirror Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:51",
+                            "end_time": "11:55",
+                            "cost": 0.0,
+                            "distance": 0.36999965155065084,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yu Garden Starry Sky Dreamland Pavilion",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 196,
+                    "start_time": "13:01",
+                    "end_time": "14:31",
+                    "transports": [
+                        {
+                            "start": "Da Ivo Italian Magic Mirror Restaurant",
+                            "end": "Yu Garden Starry Sky Dreamland Pavilion",
+                            "mode": "walk",
+                            "start_time": "12:55",
+                            "end_time": "13:01",
+                            "cost": 0.0,
+                            "distance": 0.5160456038100341,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yu Garden",
+                    "type": "attraction",
+                    "price": 40,
+                    "cost": 160,
+                    "start_time": "14:34",
+                    "end_time": "16:04",
+                    "transports": [
+                        {
+                            "start": "Yu Garden Starry Sky Dreamland Pavilion",
+                            "end": "Yu Garden",
+                            "mode": "walk",
+                            "start_time": "14:31",
+                            "end_time": "14:34",
+                            "cost": 0.0,
+                            "distance": 0.2727930570574893,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Riverside Banquet (Lujiazui Branch)",
+                    "type": "dinner",
+                    "price": 502,
+                    "cost": 2008,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Yu Garden",
+                            "end": "Riverside Banquet (Lujiazui Branch)",
+                            "mode": "walk",
+                            "start_time": "16:04",
+                            "end_time": "16:06",
+                            "cost": 0.0,
+                            "distance": 0.24233039263326728,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Fosun Foundation Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:02",
+                    "end_time": "19:32",
+                    "transports": [
+                        {
+                            "start": "Riverside Banquet (Lujiazui Branch)",
+                            "end": "Fosun Foundation Center",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:02",
+                            "cost": 0.0,
+                            "distance": 0.22737954109905179,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Huangpu River Cruise (Jinling East Road Pier)",
+                    "type": "attraction",
+                    "price": 88,
+                    "cost": 352,
+                    "start_time": "19:41",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Fosun Foundation Center",
+                            "end": "Huangpu River Cruise (Jinling East Road Pier)",
+                            "mode": "walk",
+                            "start_time": "19:32",
+                            "end_time": "19:41",
+                            "cost": 0.0,
+                            "distance": 0.7963791249835055,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Blossom House Shanghai On The Bund",
+                    "type": "accommodation",
+                    "price": 973,
+                    "cost": 3892,
+                    "start_time": "20:14",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Huangpu River Cruise (Jinling East Road Pier)",
+                            "end": "Blossom House Shanghai On The Bund",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:14",
+                            "cost": 0.0,
+                            "distance": 1.1706030398648215,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Blossom House Shanghai On The Bund",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "People's Square",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Blossom House Shanghai On The Bund",
+                            "end": "People's Square",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 0.0,
+                            "distance": 1.1932172332423288,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Textile Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:15",
+                    "end_time": "11:45",
+                    "transports": [
+                        {
+                            "start": "People's Square",
+                            "end": "Shanghai Textile Museum",
+                            "mode": "walk",
+                            "start_time": "10:14",
+                            "end_time": "10:15",
+                            "cost": 0.0,
+                            "distance": 0.09067086595667141,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Invite Fruit (Nanjing East Road Branch)",
+                    "type": "lunch",
+                    "price": 67,
+                    "cost": 268,
+                    "start_time": "11:47",
+                    "end_time": "12:47",
+                    "transports": [
+                        {
+                            "start": "Shanghai Textile Museum",
+                            "end": "Invite Fruit (Nanjing East Road Branch)",
+                            "mode": "walk",
+                            "start_time": "11:45",
+                            "end_time": "11:47",
+                            "cost": 0.0,
+                            "distance": 0.23181656518795493,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Era of Life",
+                    "type": "attraction",
+                    "price": 238,
+                    "cost": 952,
+                    "start_time": "12:57",
+                    "end_time": "14:27",
+                    "transports": [
+                        {
+                            "start": "Invite Fruit (Nanjing East Road Branch)",
+                            "end": "Era of Life",
+                            "mode": "walk",
+                            "start_time": "12:47",
+                            "end_time": "12:57",
+                            "cost": 0.0,
+                            "distance": 0.8445490408207915,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:34",
+                    "end_time": "16:04",
+                    "transports": [
+                        {
+                            "start": "Era of Life",
+                            "end": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "14:27",
+                            "end_time": "14:34",
+                            "cost": 0.0,
+                            "distance": 0.6095924455056534,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Wang Bao He Grand Hotel · Shanghai Restaurant",
+                    "type": "dinner",
+                    "price": 290,
+                    "cost": 1160,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                            "end": "Shanghai Wang Bao He Grand Hotel · Shanghai Restaurant",
+                            "mode": "walk",
+                            "start_time": "16:04",
+                            "end_time": "16:13",
+                            "cost": 0.0,
+                            "distance": 0.8195293020315347,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "21:32",
+                    "end_time": "23:02",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Guangzhou Baiyun International Airport",
+                    "price": 602.14,
+                    "cost": 2408.56,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Shanghai Wang Bao He Grand Hotel · Shanghai Restaurant",
+                            "end": "People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:32",
+                            "cost": 16,
+                            "distance": 13.01,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Shanghai Hongqiao International Airport",
+                            "mode": "walk",
+                            "start_time": "18:32",
+                            "end_time": "18:41",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL027",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 270.6206431388855,
+    "llm_inference_time_sec": 0
+}

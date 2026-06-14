@@ -1,0 +1,512 @@
+{
+    "people_number": 3,
+    "start_city": "Beijing",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:20",
+                    "end_time": "02:09",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 747.95,
+                    "cost": 2243.8500000000004,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL119",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chongqing Jiangbei International Airport",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:09",
+                            "end_time": "02:23",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:23",
+                            "end_time": "02:58",
+                            "cost": 15,
+                            "distance": 17.85,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "02:58",
+                            "end_time": "03:02",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Shibati Traditional Style Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Chongqing Shibati Traditional Style Area",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.05,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Yangtze River Three Gorges - Century Legend Cruise",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Chongqing Shibati Traditional Style Area",
+                            "end": "Yangtze River Three Gorges - Century Legend Cruise",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)",
+                    "type": "lunch",
+                    "price": 92,
+                    "cost": 276,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Yangtze River Three Gorges - Century Legend Cruise",
+                            "end": "Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:30",
+                    "end_time": "14:00",
+                    "transports": [
+                        {
+                            "start": "Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)",
+                            "end": "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall",
+                            "mode": "taxi",
+                            "start_time": "12:30",
+                            "end_time": "12:30",
+                            "cost": 11.0,
+                            "distance": 0.16,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chongqing Unicorn Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 117,
+                    "start_time": "14:00",
+                    "end_time": "15:30",
+                    "transports": [
+                        {
+                            "start": "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall",
+                            "end": "Chongqing Unicorn Starry Sky Art Museum",
+                            "mode": "taxi",
+                            "start_time": "14:00",
+                            "end_time": "14:00",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Guaxixi Hot Pot (Xiaoshizi Branch)",
+                    "type": "dinner",
+                    "price": 102,
+                    "cost": 306,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Unicorn Starry Sky Art Museum",
+                            "end": "Guaxixi Hot Pot (Xiaoshizi Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:30",
+                            "end_time": "15:30",
+                            "cost": 11.0,
+                            "distance": 0.2,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Monument to the People's Liberation",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Guaxixi Hot Pot (Xiaoshizi Branch)",
+                            "end": "Monument to the People's Liberation",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.32,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Liberation Monument Pedestrian Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:30",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Monument to the People's Liberation",
+                            "end": "Liberation Monument Pedestrian Street",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 11.0,
+                            "distance": 0.01,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "21:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Liberation Monument Pedestrian Street",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "taxi",
+                            "start_time": "21:00",
+                            "end_time": "21:00",
+                            "cost": 11.0,
+                            "distance": 0.59,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Eighteen Steps",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:40",
+                    "end_time": "10:10",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 6,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Eighteen Steps",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Mountain City Trail",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:10",
+                    "end_time": "11:40",
+                    "transports": [
+                        {
+                            "start": "Eighteen Steps",
+                            "end": "Mountain City Trail",
+                            "mode": "taxi",
+                            "start_time": "10:10",
+                            "end_time": "10:10",
+                            "cost": 11.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Buffet Feast (Yingli International Store, Jiefangbei)",
+                    "type": "lunch",
+                    "price": 166,
+                    "cost": 498,
+                    "start_time": "11:40",
+                    "end_time": "12:40",
+                    "transports": [
+                        {
+                            "start": "Mountain City Trail",
+                            "end": "Buffet Feast (Yingli International Store, Jiefangbei)",
+                            "mode": "taxi",
+                            "start_time": "11:40",
+                            "end_time": "11:40",
+                            "cost": 11.0,
+                            "distance": 0.04,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Loquat Mountain Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:48",
+                    "end_time": "14:18",
+                    "transports": [
+                        {
+                            "start": "Buffet Feast (Yingli International Store, Jiefangbei)",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:40",
+                            "end_time": "12:43",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Huanghuayuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:43",
+                            "end_time": "12:45",
+                            "cost": 6,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Huanghuayuan-Metro Station",
+                            "end": "Chongqing Loquat Mountain Park",
+                            "mode": "walk",
+                            "start_time": "12:45",
+                            "end_time": "12:48",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Jialing River",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:30",
+                    "end_time": "16:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Loquat Mountain Park",
+                            "end": "Huanghuayuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:18",
+                            "end_time": "14:21",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huanghuayuan-Metro Station",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:21",
+                            "end_time": "14:25",
+                            "cost": 6,
+                            "distance": 2.18,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Jialing River",
+                            "mode": "walk",
+                            "start_time": "14:25",
+                            "end_time": "14:30",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Second Sister Yin's Authentic Sichuan Cuisine (Meizhuanxiao Street Branch)",
+                    "type": "dinner",
+                    "price": 60,
+                    "cost": 180,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Jialing River",
+                            "end": "Second Sister Yin's Authentic Sichuan Cuisine (Meizhuanxiao Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:00",
+                            "end_time": "16:01",
+                            "cost": 11.0,
+                            "distance": 0.83,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:16",
+                    "end_time": "01:05",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Beijing Capital International Airport",
+                    "price": 687.46,
+                    "cost": 2062.38,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Second Sister Yin's Authentic Sichuan Cuisine (Meizhuanxiao Street Branch)",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:45",
+                            "cost": 15,
+                            "distance": 19.68,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Chongqing Jiangbei International Airport",
+                            "mode": "walk",
+                            "start_time": "18:45",
+                            "end_time": "18:59",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL337",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 13.371513843536377,
+    "llm_inference_time_sec": 0
+}

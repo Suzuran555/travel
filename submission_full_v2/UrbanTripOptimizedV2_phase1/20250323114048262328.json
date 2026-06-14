@@ -1,0 +1,609 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 571.18,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "05:20",
+                            "cost": 4,
+                            "distance": 12.0,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "mode": "walk",
+                            "start_time": "05:20",
+                            "end_time": "05:21",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jade Buddha Temple",
+                    "type": "attraction",
+                    "price": 10,
+                    "cost": 10,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "Shanghai Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:32",
+                            "cost": 2,
+                            "distance": 0.86,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shanghai Railway Station-Metro Station",
+                            "end": "Jade Buddha Temple",
+                            "mode": "walk",
+                            "start_time": "08:32",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Tribute to the Master: Picasso Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:28",
+                    "end_time": "11:58",
+                    "transports": [
+                        {
+                            "start": "Jade Buddha Temple",
+                            "end": "Shanghai Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:09",
+                            "end_time": "10:16",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shanghai Railway Station-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:16",
+                            "end_time": "10:20",
+                            "cost": 2,
+                            "distance": 2.2,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Tribute to the Master: Picasso Art Center",
+                            "mode": "walk",
+                            "start_time": "10:20",
+                            "end_time": "10:28",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Imperial Treasure (Yifeng Waitanyuan Branch)",
+                    "type": "lunch",
+                    "price": 471,
+                    "cost": 471,
+                    "start_time": "12:16",
+                    "end_time": "13:16",
+                    "transports": [
+                        {
+                            "start": "Tribute to the Master: Picasso Art Center",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:58",
+                            "end_time": "12:06",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:06",
+                            "end_time": "12:11",
+                            "cost": 2,
+                            "distance": 2.52,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Imperial Treasure (Yifeng Waitanyuan Branch)",
+                            "mode": "walk",
+                            "start_time": "12:11",
+                            "end_time": "12:16",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Dungeon",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:16",
+                    "end_time": "14:46",
+                    "transports": [
+                        {
+                            "start": "Imperial Treasure (Yifeng Waitanyuan Branch)",
+                            "end": "Shanghai Dungeon",
+                            "mode": "taxi",
+                            "start_time": "13:16",
+                            "end_time": "13:16",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai Heartbreak Museum",
+                    "type": "attraction",
+                    "price": 29,
+                    "cost": 29,
+                    "start_time": "14:46",
+                    "end_time": "16:16",
+                    "transports": [
+                        {
+                            "start": "Shanghai Dungeon",
+                            "end": "Shanghai Heartbreak Museum",
+                            "mode": "taxi",
+                            "start_time": "14:46",
+                            "end_time": "14:46",
+                            "cost": 11.0,
+                            "distance": 0.02,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Jingyunhua Roast Duck & Dim Sum (New World Store)",
+                    "type": "dinner",
+                    "price": 107,
+                    "cost": 107,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai Heartbreak Museum",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:16",
+                            "end_time": "16:24",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:24",
+                            "end_time": "16:26",
+                            "cost": 2,
+                            "distance": 1.09,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Jingyunhua Roast Duck & Dim Sum (New World Store)",
+                            "mode": "walk",
+                            "start_time": "16:26",
+                            "end_time": "16:29",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Era of Life",
+                    "type": "attraction",
+                    "price": 238,
+                    "cost": 238,
+                    "start_time": "18:08",
+                    "end_time": "19:38",
+                    "transports": [
+                        {
+                            "start": "Jingyunhua Roast Duck & Dim Sum (New World Store)",
+                            "end": "People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:03",
+                            "end_time": "18:04",
+                            "cost": 2,
+                            "distance": 0.91,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Era of Life",
+                            "mode": "walk",
+                            "start_time": "18:04",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Zhang Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:38",
+                    "end_time": "21:08",
+                    "transports": [
+                        {
+                            "start": "Era of Life",
+                            "end": "Zhang Garden",
+                            "mode": "taxi",
+                            "start_time": "19:38",
+                            "end_time": "19:38",
+                            "cost": 11.0,
+                            "distance": 0.22,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "accommodation",
+                    "price": 307,
+                    "cost": 307,
+                    "start_time": "21:15",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Zhang Garden",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:08",
+                            "end_time": "21:13",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:13",
+                            "end_time": "21:14",
+                            "cost": 2,
+                            "distance": 0.98,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "mode": "walk",
+                            "start_time": "21:14",
+                            "end_time": "21:15",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "West Nanjing Road",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:37",
+                    "end_time": "10:07",
+                    "transports": [
+                        {
+                            "start": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:33",
+                            "cost": 2,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "West Nanjing Road",
+                            "mode": "walk",
+                            "start_time": "08:33",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Moller Villa",
+                    "type": "attraction",
+                    "price": 80,
+                    "cost": 80,
+                    "start_time": "10:07",
+                    "end_time": "11:37",
+                    "transports": [
+                        {
+                            "start": "West Nanjing Road",
+                            "end": "Moller Villa",
+                            "mode": "taxi",
+                            "start_time": "10:07",
+                            "end_time": "10:07",
+                            "cost": 11.0,
+                            "distance": 0.51,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "The Middle House Shanghai · Frasca (Nanjing West Road Branch)",
+                    "type": "lunch",
+                    "price": 471,
+                    "cost": 471,
+                    "start_time": "11:37",
+                    "end_time": "12:37",
+                    "transports": [
+                        {
+                            "start": "Moller Villa",
+                            "end": "The Middle House Shanghai · Frasca (Nanjing West Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:37",
+                            "end_time": "11:37",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:46",
+                    "end_time": "14:16",
+                    "transports": [
+                        {
+                            "start": "The Middle House Shanghai · Frasca (Nanjing West Road Branch)",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:37",
+                            "end_time": "12:41",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:41",
+                            "end_time": "12:43",
+                            "cost": 2,
+                            "distance": 1.48,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "12:43",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Sinan Mansions",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:25",
+                    "end_time": "15:55",
+                    "transports": [
+                        {
+                            "start": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                            "end": "People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:16",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:19",
+                            "end_time": "14:20",
+                            "cost": 2,
+                            "distance": 1.0,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "end": "Sinan Mansions",
+                            "mode": "walk",
+                            "start_time": "14:20",
+                            "end_time": "14:25",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 640.93,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Sinan Mansions",
+                            "end": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:55",
+                            "end_time": "16:00",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · South Huangpi Road-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:00",
+                            "end_time": "17:05",
+                            "cost": 7,
+                            "distance": 32.73,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "17:05",
+                            "end_time": "17:20",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

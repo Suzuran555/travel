@@ -1,0 +1,611 @@
+{
+    "people_number": 3,
+    "start_city": "Hangzhou",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:50",
+                    "end_time": "02:45",
+                    "start": "Hangzhou Xiaoshan International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 818.75,
+                    "cost": 2456.25,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL540",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:45",
+                            "end_time": "03:29",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:29",
+                            "end_time": "05:16",
+                            "cost": 27,
+                            "distance": 53.95,
+                            "price": 9,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "05:16",
+                            "end_time": "05:20",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Ping'an Bridge Catholic Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Ping'an Bridge Catholic Church",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Qianxi Hot Pot (Central Island Plaza Building C Branch)",
+                    "type": "lunch",
+                    "price": 184,
+                    "cost": 552,
+                    "start_time": "12:05",
+                    "end_time": "13:05",
+                    "transports": [
+                        {
+                            "start": "Ping'an Bridge Catholic Church",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:33",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Jincheng Lake-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:33",
+                            "end_time": "11:57",
+                            "cost": 12,
+                            "distance": 12.24,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jincheng Lake-Metro Station",
+                            "end": "Qianxi Hot Pot (Central Island Plaza Building C Branch)",
+                            "mode": "walk",
+                            "start_time": "11:57",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Iron Statue Temple Water Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:05",
+                    "end_time": "14:35",
+                    "transports": [
+                        {
+                            "start": "Qianxi Hot Pot (Central Island Plaza Building C Branch)",
+                            "end": "Iron Statue Temple Water Street",
+                            "mode": "taxi",
+                            "start_time": "13:05",
+                            "end_time": "13:05",
+                            "cost": 11.0,
+                            "distance": 0.56,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nellie's Family Center (Chengdu Global Store)",
+                    "type": "attraction",
+                    "price": 99,
+                    "cost": 297,
+                    "start_time": "14:54",
+                    "end_time": "16:24",
+                    "transports": [
+                        {
+                            "start": "Iron Statue Temple Water Street",
+                            "end": "Jincheng Lake-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:35",
+                            "end_time": "14:45",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Lake-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:45",
+                            "end_time": "14:49",
+                            "cost": 6,
+                            "distance": 2.2,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Nellie's Family Center (Chengdu Global Store)",
+                            "mode": "walk",
+                            "start_time": "14:49",
+                            "end_time": "14:54",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                    "type": "dinner",
+                    "price": 88,
+                    "cost": 264,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nellie's Family Center (Chengdu Global Store)",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:24",
+                            "end_time": "16:29",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:29",
+                            "end_time": "16:30",
+                            "cost": 6,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                            "mode": "walk",
+                            "start_time": "16:30",
+                            "end_time": "16:34",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "One Ear Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:25",
+                    "end_time": "19:55",
+                    "transports": [
+                        {
+                            "start": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "18:21",
+                            "cost": 9,
+                            "distance": 8.58,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "One Ear Pavilion",
+                            "mode": "walk",
+                            "start_time": "18:21",
+                            "end_time": "18:25",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Qingyang District Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:19",
+                    "end_time": "20:30",
+                    "transports": [
+                        {
+                            "start": "One Ear Pavilion",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:55",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:59",
+                            "end_time": "20:13",
+                            "cost": 9,
+                            "distance": 7.4,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Qingyang District Library",
+                            "mode": "walk",
+                            "start_time": "20:13",
+                            "end_time": "20:19",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 474,
+                    "start_time": "20:51",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Qingyang District Library",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:36",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:36",
+                            "end_time": "20:47",
+                            "cost": 9,
+                            "distance": 5.62,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "20:47",
+                            "end_time": "20:51",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:36",
+                            "cost": 6,
+                            "distance": 1.45,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "08:36",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Sichuan Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:16",
+                    "end_time": "11:46",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "Sichuan Science and Technology Museum",
+                            "mode": "taxi",
+                            "start_time": "10:14",
+                            "end_time": "10:16",
+                            "cost": 11.0,
+                            "distance": 1.42,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "The Ritz-Carlton, Chengdu Lobby Lounge",
+                    "type": "lunch",
+                    "price": 189,
+                    "cost": 567,
+                    "start_time": "11:59",
+                    "end_time": "12:59",
+                    "transports": [
+                        {
+                            "start": "Sichuan Science and Technology Museum",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:46",
+                            "end_time": "11:51",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:51",
+                            "end_time": "11:53",
+                            "cost": 6,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "The Ritz-Carlton, Chengdu Lobby Lounge",
+                            "mode": "walk",
+                            "start_time": "11:53",
+                            "end_time": "11:59",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:59",
+                    "end_time": "14:29",
+                    "transports": [
+                        {
+                            "start": "The Ritz-Carlton, Chengdu Lobby Lounge",
+                            "end": "Sichuan Art Museum",
+                            "mode": "taxi",
+                            "start_time": "12:59",
+                            "end_time": "12:59",
+                            "cost": 11.0,
+                            "distance": 0.2,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:41",
+                    "end_time": "16:11",
+                    "transports": [
+                        {
+                            "start": "Sichuan Art Museum",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:32",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:32",
+                            "end_time": "14:34",
+                            "cost": 6,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "14:34",
+                            "end_time": "14:41",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "18:57",
+                    "end_time": "05:24",
+                    "start": "Chengdu West Railway Station",
+                    "end": "Hangzhou South Railway Station",
+                    "price": 616.66,
+                    "cost": 1849.98,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:11",
+                            "end_time": "16:18",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Chengdu West Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:18",
+                            "end_time": "16:34",
+                            "cost": 9,
+                            "distance": 8.14,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chengdu West Railway Station-Metro Station",
+                            "end": "Chengdu West Railway Station",
+                            "mode": "walk",
+                            "start_time": "16:34",
+                            "end_time": "16:37",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K352",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 7.834766626358032,
+    "llm_inference_time_sec": 0
+}

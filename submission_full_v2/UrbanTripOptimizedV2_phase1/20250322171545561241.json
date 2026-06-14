@@ -1,0 +1,232 @@
+{
+    "people_number": 3,
+    "start_city": "Chongqing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:21",
+                    "end_time": "17:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3074",
+                    "type": "train"
+                },
+                {
+                    "position": "Suzhou InterContinental Hotel · Riva Mediterranean Grill",
+                    "type": "dinner",
+                    "price": 958,
+                    "cost": 2874,
+                    "start_time": "18:10",
+                    "end_time": "19:10",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:45",
+                            "end_time": "17:46",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Times Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:46",
+                            "end_time": "18:05",
+                            "cost": 12,
+                            "distance": 9.82,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Times Square-Metro Station",
+                            "end": "Suzhou InterContinental Hotel · Riva Mediterranean Grill",
+                            "mode": "walk",
+                            "start_time": "18:05",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Golden Rooster Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:24",
+                    "end_time": "20:54",
+                    "transports": [
+                        {
+                            "start": "Suzhou InterContinental Hotel · Riva Mediterranean Grill",
+                            "end": "Times Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:10",
+                            "end_time": "19:15",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Times Square-Metro Station",
+                            "end": "Cultural Expo Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:15",
+                            "end_time": "19:16",
+                            "cost": 6,
+                            "distance": 0.85,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Cultural Expo Center-Metro Station",
+                            "end": "Golden Rooster Lake",
+                            "mode": "walk",
+                            "start_time": "19:16",
+                            "end_time": "19:24",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Crowne Plaza Suzhou",
+                    "type": "accommodation",
+                    "price": 957,
+                    "cost": 1914,
+                    "start_time": "21:12",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Golden Rooster Lake",
+                            "end": "Cultural Expo Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:54",
+                            "end_time": "21:02",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cultural Expo Center-Metro Station",
+                            "end": "Misty Rain Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:02",
+                            "end_time": "21:07",
+                            "cost": 6,
+                            "distance": 2.53,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Misty Rain Bridge-Metro Station",
+                            "end": "Crowne Plaza Suzhou",
+                            "mode": "walk",
+                            "start_time": "21:07",
+                            "end_time": "21:12",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Crowne Plaza Suzhou",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Oriental Gate Exhibition Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Crowne Plaza Suzhou",
+                            "end": "Oriental Gate Exhibition Center",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.39,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "11:40",
+                    "end_time": "14:08",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 679.06,
+                    "cost": 2037.1799999999998,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Oriental Gate Exhibition Center",
+                            "end": "Misty Rain Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:00",
+                            "end_time": "10:10",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        },
+                        {
+                            "start": "Misty Rain Bridge-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:10",
+                            "end_time": "10:22",
+                            "cost": 9,
+                            "distance": 6.46,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "10:22",
+                            "end_time": "10:23",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T237",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.6063141822814941,
+    "llm_inference_time_sec": 0
+}

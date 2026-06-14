@@ -1,0 +1,832 @@
+{
+    "people_number": 3,
+    "start_city": "Chongqing",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:00",
+                    "end_time": "02:30",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 647.51,
+                    "cost": 1942.53,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL392",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Lukou International Airport",
+                            "end": "Lukou Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:30",
+                            "end_time": "02:33",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lukou Airport-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:33",
+                            "end_time": "04:06",
+                            "cost": 24,
+                            "distance": 46.95,
+                            "price": 8,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "04:06",
+                            "end_time": "04:13",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Lion Mountain Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:06",
+                    "end_time": "10:36",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "West Mufu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:47",
+                            "cost": 9,
+                            "distance": 5.31,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "West Mufu Road-Metro Station",
+                            "end": "Lion Mountain Scenic Area",
+                            "mode": "walk",
+                            "start_time": "08:47",
+                            "end_time": "09:06",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Zhu's Plum Blossom Cake",
+                    "type": "lunch",
+                    "price": 6,
+                    "cost": 18,
+                    "start_time": "11:10",
+                    "end_time": "12:10",
+                    "transports": [
+                        {
+                            "start": "Lion Mountain Scenic Area",
+                            "end": "West Mufu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:36",
+                            "end_time": "10:55",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Mufu Road-Metro Station",
+                            "end": "Yunnan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:55",
+                            "end_time": "11:05",
+                            "cost": 9,
+                            "distance": 5.17,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yunnan Road-Metro Station",
+                            "end": "Zhu's Plum Blossom Cake",
+                            "mode": "walk",
+                            "start_time": "11:05",
+                            "end_time": "11:10",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Republican Era Folk Stove (Tiger Stove)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:28",
+                    "end_time": "13:58",
+                    "transports": [
+                        {
+                            "start": "Zhu's Plum Blossom Cake",
+                            "end": "Yunnan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:10",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yunnan Road-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:15",
+                            "end_time": "12:19",
+                            "cost": 6,
+                            "distance": 2.33,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Republican Era Folk Stove (Tiger Stove)",
+                            "mode": "walk",
+                            "start_time": "12:19",
+                            "end_time": "12:28",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Confucius Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:18",
+                    "end_time": "15:48",
+                    "transports": [
+                        {
+                            "start": "Republican Era Folk Stove (Tiger Stove)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:58",
+                            "end_time": "14:07",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:07",
+                            "end_time": "14:12",
+                            "cost": 6,
+                            "distance": 2.77,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Confucius Temple",
+                            "mode": "walk",
+                            "start_time": "14:12",
+                            "end_time": "14:18",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                    "type": "dinner",
+                    "price": 6,
+                    "cost": 18,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:48",
+                            "end_time": "15:54",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:54",
+                            "end_time": "16:04",
+                            "cost": 9,
+                            "distance": 5.13,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "16:04",
+                            "end_time": "16:13",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wende Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:24",
+                    "end_time": "19:54",
+                    "transports": [
+                        {
+                            "start": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:19",
+                            "cost": 9,
+                            "distance": 5.13,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Wende Bridge",
+                            "mode": "walk",
+                            "start_time": "18:19",
+                            "end_time": "18:24",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Deji Art Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:58",
+                    "end_time": "21:28",
+                    "transports": [
+                        {
+                            "start": "Wende Bridge",
+                            "end": "Deji Art Space",
+                            "mode": "taxi",
+                            "start_time": "19:54",
+                            "end_time": "19:58",
+                            "cost": 14.58,
+                            "distance": 2.82,
+                            "price": 14.58,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 228,
+                    "start_time": "22:04",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Deji Art Space",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:28",
+                            "end_time": "21:34",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:34",
+                            "end_time": "21:57",
+                            "cost": 12,
+                            "distance": 11.58,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "21:57",
+                            "end_time": "22:04",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Sun Yat-sen's Provisional Presidential Office",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:07",
+                    "end_time": "10:37",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "09:00",
+                            "cost": 12,
+                            "distance": 11.58,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Sun Yat-sen's Provisional Presidential Office",
+                            "mode": "walk",
+                            "start_time": "09:00",
+                            "end_time": "09:07",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Zhuoyue Rice Noodle Rolls (Hongmiao Branch)",
+                    "type": "lunch",
+                    "price": 22,
+                    "cost": 66,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Sun Yat-sen's Provisional Presidential Office",
+                            "end": "Zhuoyue Rice Noodle Rolls (Hongmiao Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:37",
+                            "end_time": "10:38",
+                            "cost": 11.0,
+                            "distance": 1.16,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Slow Time Hanfu Experience Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:21",
+                    "end_time": "13:51",
+                    "transports": [
+                        {
+                            "start": "Zhuoyue Rice Noodle Rolls (Hongmiao Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:06",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:06",
+                            "end_time": "12:13",
+                            "cost": 6,
+                            "distance": 3.87,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Slow Time Hanfu Experience Hall",
+                            "mode": "walk",
+                            "start_time": "12:13",
+                            "end_time": "12:21",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "War God Assault Real Gun Shooting Range",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:21",
+                    "end_time": "15:51",
+                    "transports": [
+                        {
+                            "start": "Slow Time Hanfu Experience Hall",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:51",
+                            "end_time": "13:59",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Heding Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:59",
+                            "end_time": "14:13",
+                            "cost": 9,
+                            "distance": 7.25,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Heding Bridge-Metro Station",
+                            "end": "War God Assault Real Gun Shooting Range",
+                            "mode": "walk",
+                            "start_time": "14:13",
+                            "end_time": "14:21",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Li's Halal Restaurant (Dading Lane Branch)",
+                    "type": "dinner",
+                    "price": 29,
+                    "cost": 87,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "War God Assault Real Gun Shooting Range",
+                            "end": "Heding Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:51",
+                            "end_time": "15:59",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Heding Bridge-Metro Station",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:59",
+                            "end_time": "16:17",
+                            "cost": 12,
+                            "distance": 9.39,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Li's Halal Restaurant (Dading Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "16:17",
+                            "end_time": "16:22",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Water Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:20",
+                    "end_time": "19:50",
+                    "transports": [
+                        {
+                            "start": "Li's Halal Restaurant (Dading Lane Branch)",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:05",
+                            "end_time": "18:07",
+                            "cost": 6,
+                            "distance": 1.01,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Water Street",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 1.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Love Museum (Xinjiekou Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:53",
+                    "end_time": "21:23",
+                    "transports": [
+                        {
+                            "start": "Water Street",
+                            "end": "Nanjing Love Museum (Xinjiekou Branch)",
+                            "mode": "taxi",
+                            "start_time": "19:50",
+                            "end_time": "19:53",
+                            "cost": 13.15,
+                            "distance": 2.41,
+                            "price": 13.15,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 228,
+                    "start_time": "21:57",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Love Museum (Xinjiekou Branch)",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:23",
+                            "end_time": "21:26",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:26",
+                            "end_time": "21:50",
+                            "cost": 12,
+                            "distance": 12.15,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "21:50",
+                            "end_time": "21:57",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Lake Biwa Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:17",
+                    "end_time": "10:47",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Gangzi Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:59",
+                            "cost": 12,
+                            "distance": 11.42,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gangzi Village-Metro Station",
+                            "end": "Lake Biwa Scenic Area",
+                            "mode": "walk",
+                            "start_time": "08:59",
+                            "end_time": "09:17",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Clip Coffee",
+                    "type": "lunch",
+                    "price": 27,
+                    "cost": 81,
+                    "start_time": "11:14",
+                    "end_time": "12:14",
+                    "transports": [
+                        {
+                            "start": "Lake Biwa Scenic Area",
+                            "end": "Gangzi Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:47",
+                            "end_time": "11:05",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangzi Village-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:05",
+                            "end_time": "11:10",
+                            "cost": 6,
+                            "distance": 2.64,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Clip Coffee",
+                            "mode": "walk",
+                            "start_time": "11:10",
+                            "end_time": "11:14",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "20:34",
+                    "end_time": "22:04",
+                    "start": "Nanjing Lukou International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 577.68,
+                    "cost": 1733.04,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Clip Coffee",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:14",
+                            "end_time": "12:18",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Lukou Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:18",
+                            "end_time": "13:30",
+                            "cost": 21,
+                            "distance": 36.06,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lukou Airport-Metro Station",
+                            "end": "Nanjing Lukou International Airport",
+                            "mode": "walk",
+                            "start_time": "13:30",
+                            "end_time": "13:33",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL686",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 10.74091911315918,
+    "llm_inference_time_sec": 0
+}

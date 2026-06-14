@@ -1,0 +1,686 @@
+{
+    "people_number": 1,
+    "start_city": "Beijing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:11",
+                    "end_time": "03:36",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 923.58,
+                    "cost": 923.58,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL095",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Zhonghui · Elegant Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:36",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Taoyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:14",
+                            "cost": 5,
+                            "distance": 16.55,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Taoyuan-Metro Station",
+                            "end": "Zhonghui · Elegant Hotel",
+                            "mode": "walk",
+                            "start_time": "04:14",
+                            "end_time": "04:20",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Ping An Finance Centre Sky-High Observation Deck in Shenzhen",
+                    "type": "attraction",
+                    "price": 180,
+                    "cost": 180,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Zhonghui · Elegant Hotel",
+                            "end": "Taoyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan-Metro Station",
+                            "end": "Civic Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "09:04",
+                            "cost": 5,
+                            "distance": 14.08,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Civic Center-Metro Station",
+                            "end": "Ping An Finance Centre Sky-High Observation Deck in Shenzhen",
+                            "mode": "walk",
+                            "start_time": "09:04",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "YANGYA · YONGYA HEXIAN (ZHUOYUE CENTER BRANCH)",
+                    "type": "lunch",
+                    "price": 762,
+                    "cost": 762,
+                    "start_time": "11:39",
+                    "end_time": "12:39",
+                    "transports": [
+                        {
+                            "start": "Ping An Finance Centre Sky-High Observation Deck in Shenzhen",
+                            "end": "Civic Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:34",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Civic Center-Metro Station",
+                            "end": "Gangxia North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:34",
+                            "end_time": "11:35",
+                            "cost": 2,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Gangxia North-Metro Station",
+                            "end": "YANGYA · YONGYA HEXIAN (ZHUOYUE CENTER BRANCH)",
+                            "mode": "walk",
+                            "start_time": "11:35",
+                            "end_time": "11:39",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Convention and Exhibition Center (Futian Hall)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:46",
+                    "end_time": "14:16",
+                    "transports": [
+                        {
+                            "start": "YANGYA · YONGYA HEXIAN (ZHUOYUE CENTER BRANCH)",
+                            "end": "Gangxia North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:39",
+                            "end_time": "12:43",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangxia North-Metro Station",
+                            "end": "Gangxia-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:43",
+                            "end_time": "12:43",
+                            "cost": 2,
+                            "distance": 0.38,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Gangxia-Metro Station",
+                            "end": "Shenzhen Convention and Exhibition Center (Futian Hall)",
+                            "mode": "walk",
+                            "start_time": "12:43",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Galaxy Development Center Building - Fitness Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:19",
+                    "end_time": "15:49",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Convention and Exhibition Center (Futian Hall)",
+                            "end": "Gangxia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:16",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangxia-Metro Station",
+                            "end": "Gangxia North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:19",
+                            "end_time": "14:19",
+                            "cost": 2,
+                            "distance": 0.38,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Gangxia North-Metro Station",
+                            "end": "Galaxy Development Center Building - Fitness Center",
+                            "mode": "walk",
+                            "start_time": "14:19",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Sushi Ichi Japanese Cuisine (Greater China Branch)",
+                    "type": "dinner",
+                    "price": 1486,
+                    "cost": 1486,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Galaxy Development Center Building - Fitness Center",
+                            "end": "Sushi Ichi Japanese Cuisine (Greater China Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:49",
+                            "end_time": "15:49",
+                            "cost": 11.0,
+                            "distance": 0.1,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Central Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:08",
+                    "end_time": "19:38",
+                    "transports": [
+                        {
+                            "start": "Sushi Ichi Japanese Cuisine (Greater China Branch)",
+                            "end": "Gangxia North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:01",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangxia North-Metro Station",
+                            "end": "Huaqiang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:01",
+                            "end_time": "18:04",
+                            "cost": 2,
+                            "distance": 1.78,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Huaqiang Road-Metro Station",
+                            "end": "Shenzhen Central Park",
+                            "mode": "walk",
+                            "start_time": "18:04",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Sky Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:50",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Central Park",
+                            "end": "Huaqiang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:38",
+                            "end_time": "19:42",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huaqiang Road-Metro Station",
+                            "end": "Children's Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:42",
+                            "end_time": "19:47",
+                            "cost": 2,
+                            "distance": 2.72,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Children's Palace-Metro Station",
+                            "end": "Sky Art Museum",
+                            "mode": "walk",
+                            "start_time": "19:47",
+                            "end_time": "19:50",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Honey Lake 1979 Cultural and Creative Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:11",
+                    "end_time": "21:41",
+                    "transports": [
+                        {
+                            "start": "Sky Art Museum",
+                            "end": "Children's Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:03",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Children's Palace-Metro Station",
+                            "end": "Meijing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:03",
+                            "end_time": "20:08",
+                            "cost": 2,
+                            "distance": 2.67,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Honey Lake 1979 Cultural and Creative Park",
+                            "mode": "walk",
+                            "start_time": "20:08",
+                            "end_time": "20:11",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Zhonghui · Elegant Hotel",
+                    "type": "accommodation",
+                    "price": 277,
+                    "cost": 277,
+                    "start_time": "22:14",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Honey Lake 1979 Cultural and Creative Park",
+                            "end": "Meijing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:41",
+                            "end_time": "21:44",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Taoyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:44",
+                            "end_time": "22:08",
+                            "cost": 4,
+                            "distance": 12.09,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Taoyuan-Metro Station",
+                            "end": "Zhonghui · Elegant Hotel",
+                            "mode": "walk",
+                            "start_time": "22:08",
+                            "end_time": "22:14",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Zhonghui · Elegant Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nantou Ancient City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Zhonghui · Elegant Hotel",
+                            "end": "Taoyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan-Metro Station",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:39",
+                            "cost": 2,
+                            "distance": 1.73,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Nantou Ancient City",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Nantou Ancient City Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:14",
+                    "end_time": "11:44",
+                    "transports": [
+                        {
+                            "start": "Nantou Ancient City",
+                            "end": "Nantou Ancient City Museum",
+                            "mode": "taxi",
+                            "start_time": "10:14",
+                            "end_time": "10:14",
+                            "cost": 11.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Haida Steamed Seafood Theme Restaurant (Joyful Song Branch)",
+                    "type": "lunch",
+                    "price": 159,
+                    "cost": 159,
+                    "start_time": "11:57",
+                    "end_time": "12:57",
+                    "transports": [
+                        {
+                            "start": "Nantou Ancient City Museum",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:44",
+                            "end_time": "11:48",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Daxin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:48",
+                            "end_time": "11:51",
+                            "cost": 2,
+                            "distance": 1.84,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Daxin-Metro Station",
+                            "end": "Haida Steamed Seafood Theme Restaurant (Joyful Song Branch)",
+                            "mode": "walk",
+                            "start_time": "11:51",
+                            "end_time": "11:57",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Zhonghui · Elegant Hotel",
+                    "type": "accommodation",
+                    "price": 277,
+                    "cost": 277,
+                    "start_time": "13:11",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Haida Steamed Seafood Theme Restaurant (Joyful Song Branch)",
+                            "end": "Daxin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:57",
+                            "end_time": "13:03",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxin-Metro Station",
+                            "end": "Taoyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:03",
+                            "end_time": "13:05",
+                            "cost": 2,
+                            "distance": 1.0,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Taoyuan-Metro Station",
+                            "end": "Zhonghui · Elegant Hotel",
+                            "mode": "walk",
+                            "start_time": "13:05",
+                            "end_time": "13:11",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Zhonghui · Elegant Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:57",
+                    "end_time": "10:27",
+                    "transports": [
+                        {
+                            "start": "Zhonghui · Elegant Hotel",
+                            "end": "Taoyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:49",
+                            "cost": 3,
+                            "distance": 6.76,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "08:49",
+                            "end_time": "08:57",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:24",
+                    "end_time": "01:49",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 1006.35,
+                    "cost": 1006.35,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:27",
+                            "end_time": "10:35",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:35",
+                            "end_time": "11:16",
+                            "cost": 5,
+                            "distance": 20.57,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "11:16",
+                            "end_time": "11:21",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL174",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 8.837054252624512,
+    "llm_inference_time_sec": 0
+}

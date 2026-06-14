@@ -1,0 +1,688 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:03",
+                    "end_time": "02:32",
+                    "start": "Nanjing Station",
+                    "end": "Suzhou Station",
+                    "price": 94.54,
+                    "cost": 472.70000000000005,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "Z175",
+                    "type": "train"
+                },
+                {
+                    "position": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:32",
+                            "end_time": "02:33",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Dongzhen Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:33",
+                            "end_time": "02:48",
+                            "cost": 15,
+                            "distance": 7.83,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dongzhen Road-Metro Station",
+                            "end": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                            "mode": "walk",
+                            "start_time": "02:48",
+                            "end_time": "02:48",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Li Gong Causeway",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:45",
+                    "end_time": "10:15",
+                    "transports": [
+                        {
+                            "start": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                            "end": "Dongzhen Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongzhen Road-Metro Station",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 10,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Li Gong Causeway",
+                            "mode": "walk",
+                            "start_time": "08:34",
+                            "end_time": "08:45",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Gun Hall No. 1 Live Fire Shooting Club",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:15",
+                    "end_time": "11:45",
+                    "transports": [
+                        {
+                            "start": "Li Gong Causeway",
+                            "end": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "mode": "taxi",
+                            "start_time": "10:15",
+                            "end_time": "10:15",
+                            "cost": 22.0,
+                            "distance": 0.07,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Lake Shadow",
+                    "type": "lunch",
+                    "price": 551,
+                    "cost": 2755,
+                    "start_time": "12:07",
+                    "end_time": "13:07",
+                    "transports": [
+                        {
+                            "start": "Gun Hall No. 1 Live Fire Shooting Club",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:45",
+                            "end_time": "11:56",
+                            "cost": 0,
+                            "distance": 0.96,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Xingbo Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:56",
+                            "end_time": "11:58",
+                            "cost": 10,
+                            "distance": 1.3,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Xingbo Street-Metro Station",
+                            "end": "Lake Shadow",
+                            "mode": "walk",
+                            "start_time": "11:58",
+                            "end_time": "12:07",
+                            "cost": 0,
+                            "distance": 0.76,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Kunqu Tea House",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:29",
+                    "end_time": "14:59",
+                    "transports": [
+                        {
+                            "start": "Lake Shadow",
+                            "end": "Xingbo Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:07",
+                            "end_time": "13:16",
+                            "cost": 0,
+                            "distance": 0.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xingbo Street-Metro Station",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:16",
+                            "end_time": "13:18",
+                            "cost": 10,
+                            "distance": 1.3,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Kunqu Tea House",
+                            "mode": "walk",
+                            "start_time": "13:18",
+                            "end_time": "13:29",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Wu Zuoren Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:21",
+                    "end_time": "16:00",
+                    "transports": [
+                        {
+                            "start": "Kunqu Tea House",
+                            "end": "Ligongdi West-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:59",
+                            "end_time": "15:10",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ligongdi West-Metro Station",
+                            "end": "Misty Rain Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:10",
+                            "end_time": "15:13",
+                            "cost": 10,
+                            "distance": 1.9,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Misty Rain Bridge-Metro Station",
+                            "end": "Wu Zuoren Art Museum",
+                            "mode": "walk",
+                            "start_time": "15:13",
+                            "end_time": "15:21",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suzhou Zhongyin Crowne Plaza Hotel · Sunseeker Western Restaurant",
+                    "type": "dinner",
+                    "price": 302,
+                    "cost": 1510,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Wu Zuoren Art Museum",
+                            "end": "Suzhou Zhongyin Crowne Plaza Hotel · Sunseeker Western Restaurant",
+                            "mode": "taxi",
+                            "start_time": "16:00",
+                            "end_time": "16:00",
+                            "cost": 22.0,
+                            "distance": 0.25,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Golden Rooster Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:19",
+                    "end_time": "19:49",
+                    "transports": [
+                        {
+                            "start": "Suzhou Zhongyin Crowne Plaza Hotel · Sunseeker Western Restaurant",
+                            "end": "Misty Rain Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Misty Rain Bridge-Metro Station",
+                            "end": "Cultural Expo Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:11",
+                            "cost": 10,
+                            "distance": 2.53,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Cultural Expo Center-Metro Station",
+                            "end": "Golden Rooster Lake",
+                            "mode": "walk",
+                            "start_time": "18:11",
+                            "end_time": "18:19",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Xiangmen",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:13",
+                    "end_time": "21:43",
+                    "transports": [
+                        {
+                            "start": "Golden Rooster Lake",
+                            "end": "Cultural Expo Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:49",
+                            "end_time": "19:57",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cultural Expo Center-Metro Station",
+                            "end": "East Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:57",
+                            "end_time": "20:07",
+                            "cost": 15,
+                            "distance": 5.33,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "East Ring Road-Metro Station",
+                            "end": "Xiangmen",
+                            "mode": "walk",
+                            "start_time": "20:07",
+                            "end_time": "20:13",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                    "type": "accommodation",
+                    "price": 257,
+                    "cost": 1285,
+                    "start_time": "21:56",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Xiangmen",
+                            "end": "East Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:43",
+                            "end_time": "21:49",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Ring Road-Metro Station",
+                            "end": "Dongzhen Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:49",
+                            "end_time": "21:56",
+                            "cost": 10,
+                            "distance": 3.64,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dongzhen Road-Metro Station",
+                            "end": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                            "mode": "walk",
+                            "start_time": "21:56",
+                            "end_time": "21:56",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Master of the Nets Garden",
+                    "type": "attraction",
+                    "price": 40,
+                    "cost": 200,
+                    "start_time": "08:43",
+                    "end_time": "10:13",
+                    "transports": [
+                        {
+                            "start": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                            "end": "Dongzhen Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongzhen Road-Metro Station",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 15,
+                            "distance": 4.19,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Master of the Nets Garden",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suzhou Stele Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:14",
+                    "end_time": "11:44",
+                    "transports": [
+                        {
+                            "start": "Master of the Nets Garden",
+                            "end": "Suzhou Stele Museum",
+                            "mode": "taxi",
+                            "start_time": "10:13",
+                            "end_time": "10:14",
+                            "cost": 22.0,
+                            "distance": 1.03,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Listening Fragrance Restaurant",
+                    "type": "lunch",
+                    "price": 68,
+                    "cost": 340,
+                    "start_time": "11:44",
+                    "end_time": "12:44",
+                    "transports": [
+                        {
+                            "start": "Suzhou Stele Museum",
+                            "end": "Listening Fragrance Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:44",
+                            "end_time": "11:44",
+                            "cost": 22.0,
+                            "distance": 0.18,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Suzhou Water Tour",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:59",
+                    "end_time": "14:29",
+                    "transports": [
+                        {
+                            "start": "Listening Fragrance Restaurant",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:44",
+                            "end_time": "12:51",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:51",
+                            "end_time": "12:53",
+                            "cost": 10,
+                            "distance": 1.22,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Suzhou Water Tour",
+                            "mode": "walk",
+                            "start_time": "12:53",
+                            "end_time": "12:59",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                    "type": "accommodation",
+                    "price": 257,
+                    "cost": 1285,
+                    "start_time": "14:45",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Water Tour",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:35",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Dongzhen Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:35",
+                            "end_time": "14:45",
+                            "cost": 15,
+                            "distance": 5.13,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dongzhen Road-Metro Station",
+                            "end": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                            "mode": "walk",
+                            "start_time": "14:45",
+                            "end_time": "14:45",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Peach Blossom Island",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 250,
+                    "start_time": "08:47",
+                    "end_time": "10:17",
+                    "transports": [
+                        {
+                            "start": "Yitel Zhishang Hotel (Suzhou Jinji Lake Dongzhen Road Metro Station Store)",
+                            "end": "Dongzhen Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongzhen Road-Metro Station",
+                            "end": "Times Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:40",
+                            "cost": 15,
+                            "distance": 5.14,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Times Square-Metro Station",
+                            "end": "Peach Blossom Island",
+                            "mode": "walk",
+                            "start_time": "08:40",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "start_time": "23:39",
+                    "end_time": "02:23",
+                    "start": "Suzhou Station",
+                    "end": "Nanjing Station",
+                    "price": 75.63,
+                    "cost": 378.15,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Peach Blossom Island",
+                            "end": "Times Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:17",
+                            "end_time": "10:24",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Times Square-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:24",
+                            "end_time": "10:43",
+                            "cost": 20,
+                            "distance": 9.82,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "10:43",
+                            "end_time": "10:44",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K8366",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 5.4209840297698975,
+    "llm_inference_time_sec": 0
+}

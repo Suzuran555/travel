@@ -1,0 +1,626 @@
+{
+    "people_number": 2,
+    "start_city": "Hangzhou",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:28",
+                    "end_time": "11:28",
+                    "start": "Hangzhou South Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 48.4,
+                    "cost": 96.8,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "K470",
+                    "type": "train"
+                },
+                {
+                    "position": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                    "type": "lunch",
+                    "price": 9,
+                    "cost": 18,
+                    "start_time": "11:41",
+                    "end_time": "12:41",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:28",
+                            "end_time": "11:29",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:29",
+                            "end_time": "11:36",
+                            "cost": 4,
+                            "distance": 3.95,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "mode": "walk",
+                            "start_time": "11:36",
+                            "end_time": "11:41",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Suzhou Youth Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:45",
+                    "end_time": "15:15",
+                    "transports": [
+                        {
+                            "start": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:41",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:46",
+                            "end_time": "13:23",
+                            "cost": 10,
+                            "distance": 18.77,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "Suzhou Youth Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "13:23",
+                            "end_time": "13:45",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Egret Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:31",
+                    "end_time": "18:01",
+                    "transports": [
+                        {
+                            "start": "Suzhou Youth Science and Technology Museum",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:15",
+                            "end_time": "15:37",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "Moon Bay-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:37",
+                            "end_time": "16:09",
+                            "cost": 10,
+                            "distance": 16.16,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Moon Bay-Metro Station",
+                            "end": "Egret Garden",
+                            "mode": "walk",
+                            "start_time": "16:09",
+                            "end_time": "16:31",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yiming Fresh Milk Bar (Shilu Metro Exit 12 Store)",
+                    "type": "dinner",
+                    "price": 12,
+                    "cost": 24,
+                    "start_time": "18:50",
+                    "end_time": "19:50",
+                    "transports": [
+                        {
+                            "start": "Egret Garden",
+                            "end": "Moon Bay-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:01",
+                            "end_time": "18:23",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Moon Bay-Metro Station",
+                            "end": "Shilu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:23",
+                            "end_time": "18:49",
+                            "cost": 8,
+                            "distance": 13.34,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shilu-Metro Station",
+                            "end": "Yiming Fresh Milk Bar (Shilu Metro Exit 12 Store)",
+                            "mode": "walk",
+                            "start_time": "18:49",
+                            "end_time": "18:50",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Imagination Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:09",
+                    "end_time": "21:39",
+                    "transports": [
+                        {
+                            "start": "Yiming Fresh Milk Bar (Shilu Metro Exit 12 Store)",
+                            "end": "Imagination Science and Technology Museum",
+                            "mode": "taxi",
+                            "start_time": "19:50",
+                            "end_time": "20:09",
+                            "cost": 53.73,
+                            "distance": 13.12,
+                            "price": 53.73,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 456,
+                    "start_time": "22:42",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Imagination Science and Technology Museum",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:39",
+                            "end_time": "21:46",
+                            "cost": 0,
+                            "distance": 0.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Tongli-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:46",
+                            "end_time": "22:08",
+                            "cost": 8,
+                            "distance": 11.19,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "mode": "walk",
+                            "start_time": "22:08",
+                            "end_time": "22:42",
+                            "cost": 0,
+                            "distance": 2.85,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:56",
+                    "end_time": "11:26",
+                    "transports": [
+                        {
+                            "start": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "end": "Tongli-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:04",
+                            "cost": 0,
+                            "distance": 2.85,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:04",
+                            "end_time": "09:48",
+                            "cost": 12,
+                            "distance": 22.27,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "mode": "walk",
+                            "start_time": "09:48",
+                            "end_time": "09:56",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Willow Lane (Jianxin Alley Branch)",
+                    "type": "lunch",
+                    "price": 18,
+                    "cost": 36,
+                    "start_time": "11:40",
+                    "end_time": "12:40",
+                    "transports": [
+                        {
+                            "start": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:26",
+                            "end_time": "11:34",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:34",
+                            "end_time": "11:39",
+                            "cost": 4,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Willow Lane (Jianxin Alley Branch)",
+                            "mode": "walk",
+                            "start_time": "11:39",
+                            "end_time": "11:40",
+                            "cost": 0,
+                            "distance": 0.16,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Twin Pagodas of Arhat Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:46",
+                    "end_time": "14:16",
+                    "transports": [
+                        {
+                            "start": "Willow Lane (Jianxin Alley Branch)",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:40",
+                            "end_time": "12:41",
+                            "cost": 0,
+                            "distance": 0.16,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Xiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:41",
+                            "end_time": "12:42",
+                            "cost": 4,
+                            "distance": 0.82,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xiangmen-Metro Station",
+                            "end": "Twin Pagodas of Arhat Hall",
+                            "mode": "walk",
+                            "start_time": "12:42",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Longevity Peach Lake Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:02",
+                    "end_time": "16:32",
+                    "transports": [
+                        {
+                            "start": "Twin Pagodas of Arhat Hall",
+                            "end": "Xiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:16",
+                            "end_time": "14:20",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiangmen-Metro Station",
+                            "end": "Mudu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:20",
+                            "end_time": "14:44",
+                            "cost": 8,
+                            "distance": 12.13,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Mudu-Metro Station",
+                            "end": "Longevity Peach Lake Scenic Area",
+                            "mode": "walk",
+                            "start_time": "14:44",
+                            "end_time": "15:02",
+                            "cost": 0,
+                            "distance": 1.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Tims Coffee (Metro Department Store New Area Branch)",
+                    "type": "dinner",
+                    "price": 32,
+                    "cost": 64,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Longevity Peach Lake Scenic Area",
+                            "end": "Mudu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:32",
+                            "end_time": "16:50",
+                            "cost": 0,
+                            "distance": 1.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mudu-Metro Station",
+                            "end": "Yushan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:50",
+                            "end_time": "16:56",
+                            "cost": 4,
+                            "distance": 3.13,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yushan Road-Metro Station",
+                            "end": "Tims Coffee (Metro Department Store New Area Branch)",
+                            "mode": "walk",
+                            "start_time": "16:56",
+                            "end_time": "16:57",
+                            "cost": 0,
+                            "distance": 0.09,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "South Lake Autumn Moon Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:52",
+                    "end_time": "20:22",
+                    "transports": [
+                        {
+                            "start": "Tims Coffee (Metro Department Store New Area Branch)",
+                            "end": "South Lake Autumn Moon Garden",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:52",
+                            "cost": 152.62,
+                            "distance": 35.09,
+                            "price": 152.62,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Heart-Piercing Alley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:43",
+                    "end_time": "22:13",
+                    "transports": [
+                        {
+                            "start": "South Lake Autumn Moon Garden",
+                            "end": "Heart-Piercing Alley",
+                            "mode": "taxi",
+                            "start_time": "20:22",
+                            "end_time": "20:43",
+                            "cost": 58.87,
+                            "distance": 14.26,
+                            "price": 58.87,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 456,
+                    "start_time": "22:14",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Heart-Piercing Alley",
+                            "end": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "mode": "taxi",
+                            "start_time": "22:13",
+                            "end_time": "22:14",
+                            "cost": 11.0,
+                            "distance": 0.76,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "South Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:51",
+                    "end_time": "10:21",
+                    "transports": [
+                        {
+                            "start": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "end": "South Lake",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:51",
+                            "cost": 58.77,
+                            "distance": 14.24,
+                            "price": 58.77,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "18:52",
+                    "end_time": "20:17",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou East Railway Station",
+                    "price": 78.65,
+                    "cost": 157.3,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "South Lake",
+                            "end": "Tongli-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:21",
+                            "end_time": "13:26",
+                            "cost": 0,
+                            "distance": 15.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:26",
+                            "end_time": "14:12",
+                            "cost": 12,
+                            "distance": 23.08,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "14:12",
+                            "end_time": "14:13",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7494",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 2.212374687194824,
+    "llm_inference_time_sec": 0
+}

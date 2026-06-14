@@ -1,0 +1,770 @@
+{
+    "people_number": 5,
+    "start_city": "Chongqing",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "04:39",
+                    "end_time": "04:58",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 299.27,
+                    "cost": 1496.35,
+                    "tickets": 5,
+                    "transports": [],
+                    "FlightID": "FL363",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Shuangliu International Airport",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:58",
+                            "end_time": "05:13",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "05:13",
+                            "end_time": "05:44",
+                            "cost": 25,
+                            "distance": 15.82,
+                            "price": 5,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "mode": "walk",
+                            "start_time": "05:44",
+                            "end_time": "05:50",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Manjushri Lane",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:46",
+                    "end_time": "10:16",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:40",
+                            "cost": 10,
+                            "distance": 2.39,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Manjushri Lane",
+                            "mode": "walk",
+                            "start_time": "08:40",
+                            "end_time": "08:46",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Shu Art Theater: Face-Changing Sichuan Opera with Covered Bowl Tea",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 245,
+                    "start_time": "10:16",
+                    "end_time": "11:46",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane",
+                            "end": "Shu Art Theater: Face-Changing Sichuan Opera with Covered Bowl Tea",
+                            "mode": "taxi",
+                            "start_time": "10:16",
+                            "end_time": "10:16",
+                            "cost": 22.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "lunch",
+                    "price": 17,
+                    "cost": 85,
+                    "start_time": "11:46",
+                    "end_time": "12:46",
+                    "transports": [
+                        {
+                            "start": "Shu Art Theater: Face-Changing Sichuan Opera with Covered Bowl Tea",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "taxi",
+                            "start_time": "11:46",
+                            "end_time": "11:46",
+                            "cost": 22.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:04",
+                    "end_time": "14:34",
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:46",
+                            "end_time": "12:54",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:54",
+                            "end_time": "12:56",
+                            "cost": 10,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "12:56",
+                            "end_time": "13:04",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Manjushri Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:49",
+                    "end_time": "16:19",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:34",
+                            "end_time": "14:42",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:42",
+                            "end_time": "14:44",
+                            "cost": 10,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Manjushri Temple",
+                            "mode": "walk",
+                            "start_time": "14:44",
+                            "end_time": "14:49",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Bull Boiled - Spicy Boiled Beef (Longhu Shangcheng Tianjie Branch)",
+                    "type": "dinner",
+                    "price": 64,
+                    "cost": 320,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Manjushri Temple",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:19",
+                            "end_time": "16:24",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:24",
+                            "end_time": "16:26",
+                            "cost": 10,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Bull Boiled - Spicy Boiled Beef (Longhu Shangcheng Tianjie Branch)",
+                            "mode": "walk",
+                            "start_time": "16:26",
+                            "end_time": "16:27",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:08",
+                    "end_time": "19:38",
+                    "transports": [
+                        {
+                            "start": "Bull Boiled - Spicy Boiled Beef (Longhu Shangcheng Tianjie Branch)",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:01",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:01",
+                            "end_time": "18:03",
+                            "cost": 10,
+                            "distance": 1.45,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Maha Pond",
+                            "mode": "walk",
+                            "start_time": "18:03",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Sichuan Provincial Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:49",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:38",
+                            "end_time": "19:43",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:43",
+                            "end_time": "19:44",
+                            "cost": 10,
+                            "distance": 0.71,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Sichuan Provincial Library",
+                            "mode": "walk",
+                            "start_time": "19:44",
+                            "end_time": "19:49",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "accommodation",
+                    "price": 350,
+                    "cost": 1750,
+                    "start_time": "21:14",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Sichuan Provincial Library",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:05",
+                            "end_time": "21:08",
+                            "cost": 10,
+                            "distance": 1.86,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "mode": "walk",
+                            "start_time": "21:08",
+                            "end_time": "21:14",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:48",
+                    "end_time": "10:18",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:41",
+                            "cost": 10,
+                            "distance": 2.61,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "08:41",
+                            "end_time": "08:48",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chengdu City Tour Sightseeing Bus",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:18",
+                    "end_time": "11:48",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "Chengdu City Tour Sightseeing Bus",
+                            "mode": "taxi",
+                            "start_time": "10:18",
+                            "end_time": "10:18",
+                            "cost": 22.0,
+                            "distance": 0.46,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ginkgo Golden Pavilion (Jinli Branch)",
+                    "type": "lunch",
+                    "price": 163,
+                    "cost": 815,
+                    "start_time": "11:48",
+                    "end_time": "12:48",
+                    "transports": [
+                        {
+                            "start": "Chengdu City Tour Sightseeing Bus",
+                            "end": "Ginkgo Golden Pavilion (Jinli Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:48",
+                            "end_time": "11:48",
+                            "cost": 22.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:04",
+                    "end_time": "14:34",
+                    "transports": [
+                        {
+                            "start": "Ginkgo Golden Pavilion (Jinli Branch)",
+                            "end": "Jinjiang Hotel-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "12:58",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jinjiang Hotel-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:58",
+                            "end_time": "13:01",
+                            "cost": 10,
+                            "distance": 1.83,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Sichuan Art Museum",
+                            "mode": "walk",
+                            "start_time": "13:01",
+                            "end_time": "13:04",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "accommodation",
+                    "price": 350,
+                    "cost": 1750,
+                    "start_time": "14:46",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Sichuan Art Museum",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:34",
+                            "end_time": "14:37",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:37",
+                            "end_time": "14:40",
+                            "cost": 10,
+                            "distance": 1.86,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "mode": "walk",
+                            "start_time": "14:40",
+                            "end_time": "14:46",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Moon City Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:47",
+                    "end_time": "10:17",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:43",
+                            "cost": 10,
+                            "distance": 3.95,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Moon City Lake",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "accommodation",
+                    "price": 350,
+                    "cost": 1750,
+                    "start_time": "10:34",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Moon City Lake",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:17",
+                            "end_time": "10:21",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:21",
+                            "end_time": "10:28",
+                            "cost": 10,
+                            "distance": 3.95,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "mode": "walk",
+                            "start_time": "10:28",
+                            "end_time": "10:34",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "accommodation",
+                    "price": 350,
+                    "cost": 1750,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 5,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "22:36",
+                    "end_time": "23:54",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 171.7,
+                    "cost": 858.5,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Chengdu Chunxi Road Taikoo Li Branch)",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Chengdu East Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:36",
+                            "end_time": "08:48",
+                            "cost": 15,
+                            "distance": 6.41,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chengdu East Railway Station-Metro Station",
+                            "end": "Chengdu East Railway Station",
+                            "mode": "walk",
+                            "start_time": "08:48",
+                            "end_time": "08:48",
+                            "cost": 0,
+                            "distance": 0.0,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G8575",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 8.462522745132446,
+    "llm_inference_time_sec": 0
+}

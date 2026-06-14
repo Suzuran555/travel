@@ -1,0 +1,1873 @@
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Namespace(splits='TPC_IJCAI_2026_phase1_bad_remaining32_shard18_08', index=None, skip=0, agent='UrbanTrip', llm='TPCLLM', timeout=300, lang='en', oracle_translation=True)
+config file for testing split: /home/liangfei_jin/chinatravel/chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1_bad_remaining32_shard18_08.txt
+2 samples
+res_dir:  /home/liangfei_jin/chinatravel/results/UrbanTrip_TPCLLM_en_oracletranslation
+log_dir: /home/liangfei_jin/chinatravel/cache/UrbanTrip_TPCLLM_en_oracletranslation
+INFO 06-13 18:17:36 [__init__.py:239] Automatically detected platform cuda.
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+------------------------------
+Process [0/2], Success [0/0]:
+data uid:  20250322070224631864
+{'days': 2, 'hard_logic_py': ['attraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_name_set.add(activity_position(activity))\nresult=({"Shanghai Disney Resort", "Shanghai Zoo", "Zhongshan Park"}<=attraction_name_set)', 'result=False\nintercity_transport_go=\'\'\nintercity_transport_back=\'\'\nif allactivities(plan)[0][\'type\'] != "train" and intercity_transport_origin(allactivities(plan)[0])==start_city(plan) and allactivities(plan)[-1][\'type\'] != "train" and intercity_transport_origin(allactivities(plan)[-1])==target_city(plan):\n  result=True', 'result=(day_count(plan)==2)', 'result=(people_count(plan)==1)', "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=1: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=1: result=False", "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"], 'nature_language': 'One person, departing from Shenzhen, traveling to Shanghai for 2 days, with the following requirements: want to visit Shanghai Disney Resort, Shanghai Zoo, and Zhongshan Park; do not want to take the train to the destination, and do not want to take the train back.', 'people_number': 1, 'start_city': 'Shenzhen', 'target_city': 'Shanghai', 'uid': '20250322070224631864'}
+Shenzhen -> Shanghai
+User's Constraints:
+One person, departing from Shenzhen, traveling to Shanghai for 2 days, with the following requirements: want to visit Shanghai Disney Resort, Shanghai Zoo, and Zhongshan Park; do not want to take the train to the destination, and do not want to take the train back.
+Formatted Expression:
+all_satisfy: True
+must_see_attraction: ['Shanghai Disney Resort', 'Shanghai Zoo', 'Zhongshan Park']
+must_visit_restaurant: []
+must_not_depart_transport: ['train']
+must_not_return_transport: ['train']
+By list:
+[{'all_satisfy': True, 'must_see_attraction': ['Shanghai Disney Resort', 'Shanghai Zoo', 'Zhongshan Park'], 'must_visit_restaurant': [], 'must_not_depart_transport': ['train'], 'must_not_return_transport': ['train']}]
+query room number: None
+query room numbed: None
+from Shenzhen to Shanghai: 10 flights, 0 trains
+from Shanghai to Shenzhen: 10 flights, 0 trains
+  FlightID                                   From  ... Duration    Cost
+0    FL164  Shenzhen Bao'an International Airport  ...     1.52  571.18
+1    FL165  Shenzhen Bao'an International Airport  ...     1.52  636.61
+2    FL169  Shenzhen Bao'an International Airport  ...     1.52  613.96
+3    FL161  Shenzhen Bao'an International Airport  ...     1.52  637.03
+4    FL162  Shenzhen Bao'an International Airport  ...     1.52  559.04
+
+[5 rows x 7 columns]
+  FlightID                                     From  ... Duration    Cost
+0    FL013  Shanghai Hongqiao International Airport  ...     1.52  607.72
+1    FL020    Shanghai Pudong International Airport  ...     1.52  565.32
+2    FL011    Shanghai Pudong International Airport  ...     1.52  619.66
+3    FL019    Shanghai Pudong International Airport  ...     1.52  590.54
+4    FL012  Shanghai Hongqiao International Airport  ...     1.52  623.22
+
+[5 rows x 7 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '03:17', 'end_time': '04:48', 'start': "Shenzhen Bao'an International Airport", 'end': 'Shanghai Hongqiao International Airport', 'price': 571.18, 'cost': 571.18, 'tickets': 1, 'transports': [], 'FlightID': 'FL164', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 04:48
+current_position: Shanghai Hongqiao International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 04:48, Shanghai Hongqiao International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Zoo
+add attraction: Shanghai Zoo, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 11:17
+current_position: Shanghai Zoo
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 11:17, Shanghai Zoo, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Geneva Family Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:18
+current_position: Geneva Family Restaurant
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:18, Geneva Family Restaurant, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Disney Resort
+add attraction: Shanghai Disney Resort, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:09
+current_position: Shanghai Disney Resort
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:09, Shanghai Disney Resort, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Zhongshan Park
+add attraction: Zhongshan Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:42
+current_position: Zhongshan Park
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 17:42, Zhongshan Park, next-poi type: dinner
+add restaurant: Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch), type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:54
+current_position: Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch), hotel arrived time: 24:09
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch), type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:42
+current_position: Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)
+3
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:42, Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Yuyuan Road Historical and Cultural Preservation Area
+add attraction: Yuyuan Road Historical and Cultural Preservation Area, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:27
+current_position: Yuyuan Road Historical and Cultural Preservation Area
+3
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Yuyuan Road Historical and Cultural Preservation Area, hotel arrived time: 25:25
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Yuyuan Road Historical and Cultural Preservation Area, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Yuyuan Road Historical and Cultural Preservation Area
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Yuyuan Road Historical and Cultural Preservation Area, hotel arrived time: 25:12
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Yuyuan Road Historical and Cultural Preservation Area, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Yuyuan Road Historical and Cultural Preservation Area
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Yuyuan Road Historical and Cultural Preservation Area, hotel arrived time: 25:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Columbia Circle
+add attraction: Columbia Circle, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:28
+current_position: Columbia Circle
+9
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Columbia Circle, hotel arrived time: 25:36
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Columbia Circle, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Columbia Circle
+11
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Columbia Circle, hotel arrived time: 25:22
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Columbia Circle, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Columbia Circle
+13
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Columbia Circle, hotel arrived time: 25:37
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Drama Arts Centre
+add attraction: Shanghai Drama Arts Centre, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:25
+current_position: Shanghai Drama Arts Centre
+15
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Drama Arts Centre, hotel arrived time: 25:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Drama Arts Centre, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Shanghai Drama Arts Centre
+17
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Drama Arts Centre, hotel arrived time: 25:07
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Drama Arts Centre, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:34
+current_position: Shanghai Drama Arts Centre
+19
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Drama Arts Centre, hotel arrived time: 25:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Paramount Ballroom
+add attraction: Paramount Ballroom, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: Paramount Ballroom
+21
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paramount Ballroom, hotel arrived time: 25:23
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Paramount Ballroom, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Paramount Ballroom
+23
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paramount Ballroom, hotel arrived time: 25:06
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Paramount Ballroom, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:35
+current_position: Paramount Ballroom
+25
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paramount Ballroom, hotel arrived time: 25:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Anfu Road
+add attraction: Anfu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:26
+current_position: Anfu Road
+27
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Anfu Road, hotel arrived time: 25:17
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Anfu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Anfu Road
+29
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Anfu Road, hotel arrived time: 25:06
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Anfu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:36
+current_position: Anfu Road
+31
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Anfu Road, hotel arrived time: 25:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Juliet's Balcony
+add attraction: Juliet's Balcony, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:25
+current_position: Juliet's Balcony
+33
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Juliet's Balcony, hotel arrived time: 25:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Juliet's Balcony, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Juliet's Balcony
+35
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Juliet's Balcony, hotel arrived time: 25:08
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Juliet's Balcony, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:37
+current_position: Juliet's Balcony
+37
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Juliet's Balcony, hotel arrived time: 25:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Changle Road
+add attraction: Changle Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:26
+current_position: Changle Road
+39
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Changle Road, hotel arrived time: 25:15
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Changle Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Changle Road
+41
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Changle Road, hotel arrived time: 25:04
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Changle Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:37
+current_position: Changle Road
+43
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Changle Road, hotel arrived time: 25:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Wukang Road
+add attraction: Wukang Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:25
+current_position: Wukang Road
+45
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Wukang Road, hotel arrived time: 25:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Wukang Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Wukang Road
+47
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Wukang Road, hotel arrived time: 25:08
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Wukang Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:38
+current_position: Wukang Road
+49
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Wukang Road, hotel arrived time: 25:31
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Eileen Chang's Former Residence
+add attraction: Eileen Chang's Former Residence, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Eileen Chang's Former Residence
+51
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Eileen Chang's Former Residence, hotel arrived time: 25:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Eileen Chang's Former Residence, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Eileen Chang's Former Residence
+53
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Eileen Chang's Former Residence, hotel arrived time: 25:04
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Eileen Chang's Former Residence, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:40
+current_position: Eileen Chang's Former Residence
+55
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Eileen Chang's Former Residence, hotel arrived time: 25:29
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Normandie Apartments
+add attraction: Normandie Apartments, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:26
+current_position: Normandie Apartments
+57
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Normandie Apartments, hotel arrived time: 25:21
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Normandie Apartments, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Normandie Apartments
+59
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Normandie Apartments, hotel arrived time: 25:10
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Normandie Apartments, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:40
+current_position: Normandie Apartments
+61
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Normandie Apartments, hotel arrived time: 25:35
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Tribute to the Master: Picasso Art Center
+add attraction: Tribute to the Master: Picasso Art Center, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Tribute to the Master: Picasso Art Center
+63
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Tribute to the Master: Picasso Art Center, hotel arrived time: 24:48
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Tribute to the Master: Picasso Art Center, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Tribute to the Master: Picasso Art Center
+65
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Tribute to the Master: Picasso Art Center, hotel arrived time: 24:48
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Tribute to the Master: Picasso Art Center, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Tribute to the Master: Picasso Art Center
+67
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Tribute to the Master: Picasso Art Center, hotel arrived time: 24:48
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Jululu Road
+add attraction: Jululu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Jululu Road
+69
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Jululu Road, hotel arrived time: 25:13
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Jululu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Jululu Road
+71
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Jululu Road, hotel arrived time: 24:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Jululu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:42
+current_position: Jululu Road
+73
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Jululu Road, hotel arrived time: 25:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Library
+add attraction: Shanghai Library, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:24
+current_position: Shanghai Library
+75
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Library, hotel arrived time: 25:12
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Library, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Shanghai Library
+77
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Library, hotel arrived time: 25:03
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Library, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:30
+current_position: Shanghai Library
+79
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Library, hotel arrived time: 25:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: West Nanjing Road
+add attraction: West Nanjing Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:27
+current_position: West Nanjing Road
+81
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI West Nanjing Road, hotel arrived time: 25:10
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: West Nanjing Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:16
+current_position: West Nanjing Road
+83
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI West Nanjing Road, hotel arrived time: 24:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: West Nanjing Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:47
+current_position: West Nanjing Road
+85
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI West Nanjing Road, hotel arrived time: 25:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Moller Villa
+add attraction: Moller Villa, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:26
+current_position: Moller Villa
+87
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Moller Villa, hotel arrived time: 25:04
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Moller Villa, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:16
+current_position: Moller Villa
+89
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Moller Villa, hotel arrived time: 24:54
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Moller Villa, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:49
+current_position: Moller Villa
+91
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Moller Villa, hotel arrived time: 25:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Xujiahui Origin
+add attraction: Xujiahui Origin, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:33
+current_position: Xujiahui Origin
+93
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xujiahui Origin, hotel arrived time: 25:28
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Xujiahui Origin, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:17
+current_position: Xujiahui Origin
+95
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xujiahui Origin, hotel arrived time: 25:12
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Xujiahui Origin, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:55
+current_position: Xujiahui Origin
+97
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xujiahui Origin, hotel arrived time: 25:50
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Xujiahui Library
+add attraction: Xujiahui Library, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:34
+current_position: Xujiahui Library
+99
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xujiahui Library, hotel arrived time: 25:28
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Xujiahui Library, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:17
+current_position: Xujiahui Library
+101
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xujiahui Library, hotel arrived time: 25:11
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Xujiahui Library, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:55
+current_position: Xujiahui Library
+103
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xujiahui Library, hotel arrived time: 25:49
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Cloudrise Art Museum
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:36
+current_position: Cloudrise Art Museum
+105
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Cloudrise Art Museum, hotel arrived time: 25:35
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:17
+current_position: Cloudrise Art Museum
+107
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Cloudrise Art Museum, hotel arrived time: 25:16
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:56
+current_position: Cloudrise Art Museum
+109
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Cloudrise Art Museum, hotel arrived time: 25:55
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+111
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 25:02
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:17
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+113
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 24:50
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:58
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+115
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 25:31
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Era of Life
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Era of Life
+117
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 25:01
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:17
+current_position: Era of Life
+119
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 24:49
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:58
+current_position: Era of Life
+121
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 25:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Paradox Museum
+add attraction: Paradox Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Paradox Museum
+123
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paradox Museum, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Paradox Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Paradox Museum
+125
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paradox Museum, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Paradox Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Paradox Museum
+127
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paradox Museum, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Black Museum
+add attraction: Black Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: Black Museum
+129
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Black Museum, hotel arrived time: 25:16
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Black Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:18
+current_position: Black Museum
+131
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Black Museum, hotel arrived time: 25:03
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Black Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: Black Museum
+133
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Black Museum, hotel arrived time: 25:45
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Sinan Mansions
+add attraction: Sinan Mansions, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: Sinan Mansions
+135
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sinan Mansions, hotel arrived time: 24:53
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Sinan Mansions, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:18
+current_position: Sinan Mansions
+137
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sinan Mansions, hotel arrived time: 24:40
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Sinan Mansions, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:04
+current_position: Sinan Mansions
+139
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sinan Mansions, hotel arrived time: 25:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+141
+check if too late
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+141
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 1 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chuansha Ancient Town
+add attraction: Chuansha Ancient Town, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 10:27
+current_position: Chuansha Ancient Town
+141
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 1 10:27, Chuansha Ancient Town, next-poi type: lunch
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 12:07
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+141
+check if too late
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+POI planning, day 1 12:07, Shanghai Disneyland Hotel · Lumiere's Kitchen, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Mickey Avenue
+inner-city transport error, backtrack...
+add attraction: Mickey Avenue, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 13:39
+current_position: Mickey Avenue
+142
+check if too late
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+POI planning, day 1 13:39, Mickey Avenue, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Comics Museum
+add attraction: Shanghai Comics Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:43
+current_position: Shanghai Comics Museum
+142
+check if too late
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+POI planning, day 1 15:43, Shanghai Comics Museum, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Himalaya Art Museum
+add attraction: Himalaya Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 17:41
+current_position: Himalaya Art Museum
+142
+check if too late
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+POI planning, day 1 17:41, Himalaya Art Museum, next-poi type: dinner
+add restaurant: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:59
+current_position: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch)
+142
+check if too late
+Can not go back source-city in time, current POI Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), station arrived time: 24:10
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:43
+current_position: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch)
+144
+check if too late
+Can not go back source-city in time, current POI Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), station arrived time: 23:54
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:59
+current_position: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch)
+146
+check if too late
+Can not go back source-city in time, current POI Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), station arrived time: 24:10
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:54
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+148
+check if too late
+Can not go back source-city in time, current POI Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), station arrived time: 24:09
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:43
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+150
+check if too late
+Can not go back source-city in time, current POI Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), station arrived time: 23:58
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:02
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+152
+check if too late
+Can not go back source-city in time, current POI Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), station arrived time: 24:17
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinguang Restaurant Fangliang Crab Feast (Century Park Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:52
+current_position: Xinguang Restaurant Fangliang Crab Feast (Century Park Branch)
+154
+check if too late
+Can not go back source-city in time, current POI Xinguang Restaurant Fangliang Crab Feast (Century Park Branch), station arrived time: 24:06
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinguang Restaurant Fangliang Crab Feast (Century Park Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:43
+current_position: Xinguang Restaurant Fangliang Crab Feast (Century Park Branch)
+156
+check if too late
+Can not go back source-city in time, current POI Xinguang Restaurant Fangliang Crab Feast (Century Park Branch), station arrived time: 23:57
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinguang Restaurant Fangliang Crab Feast (Century Park Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:02
+current_position: Xinguang Restaurant Fangliang Crab Feast (Century Park Branch)
+158
+check if too late
+Can not go back source-city in time, current POI Xinguang Restaurant Fangliang Crab Feast (Century Park Branch), station arrived time: 24:16
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch)
+160
+check if too late
+Can not go back source-city in time, current POI That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch), station arrived time: 24:24
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:45
+current_position: That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch)
+162
+check if too late
+Can not go back source-city in time, current POI That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch), station arrived time: 24:09
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:20
+current_position: That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch)
+164
+check if too late
+Can not go back source-city in time, current POI That Time Xinjiang · Qiemo (LCM Zhihui Xuhui Plaza Branch), station arrived time: 24:44
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Pyongyang Koryo Restaurant (Zunmao Branch), type: Korean cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:01
+current_position: Pyongyang Koryo Restaurant (Zunmao Branch)
+166
+check if too late
+Can not go back source-city in time, current POI Pyongyang Koryo Restaurant (Zunmao Branch), station arrived time: 24:37
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Pyongyang Koryo Restaurant (Zunmao Branch), type: Korean cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:46
+current_position: Pyongyang Koryo Restaurant (Zunmao Branch)
+168
+check if too late
+Can not go back source-city in time, current POI Pyongyang Koryo Restaurant (Zunmao Branch), station arrived time: 24:22
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Pyongyang Koryo Restaurant (Zunmao Branch), type: Korean cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:21
+current_position: Pyongyang Koryo Restaurant (Zunmao Branch)
+170
+check if too late
+Can not go back source-city in time, current POI Pyongyang Koryo Restaurant (Zunmao Branch), station arrived time: 24:57
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Wangchi Sichuan Delicacies (Century Link Mall Branch), type: Sichuan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:57
+current_position: Wangchi Sichuan Delicacies (Century Link Mall Branch)
+172
+check if too late
+Can not go back source-city in time, current POI Wangchi Sichuan Delicacies (Century Link Mall Branch), station arrived time: 24:44
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Wangchi Sichuan Delicacies (Century Link Mall Branch), type: Sichuan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:47
+current_position: Wangchi Sichuan Delicacies (Century Link Mall Branch)
+174
+check if too late
+Can not go back source-city in time, current POI Wangchi Sichuan Delicacies (Century Link Mall Branch), station arrived time: 24:34
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Wangchi Sichuan Delicacies (Century Link Mall Branch), type: Sichuan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:31
+current_position: Wangchi Sichuan Delicacies (Century Link Mall Branch)
+176
+check if too late
+Can not go back source-city in time, current POI Wangchi Sichuan Delicacies (Century Link Mall Branch), station arrived time: 25:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Blackstone Hearth Late-Night Izakaya (Pudong Branch), type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Blackstone Hearth Late-Night Izakaya (Pudong Branch)
+178
+check if too late
+Can not go back source-city in time, current POI Blackstone Hearth Late-Night Izakaya (Pudong Branch), station arrived time: 24:50
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Blackstone Hearth Late-Night Izakaya (Pudong Branch), type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:47
+current_position: Blackstone Hearth Late-Night Izakaya (Pudong Branch)
+180
+check if too late
+Can not go back source-city in time, current POI Blackstone Hearth Late-Night Izakaya (Pudong Branch), station arrived time: 24:37
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Blackstone Hearth Late-Night Izakaya (Pudong Branch), type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:34
+current_position: Blackstone Hearth Late-Night Izakaya (Pudong Branch)
+182
+check if too late
+Can not go back source-city in time, current POI Blackstone Hearth Late-Night Izakaya (Pudong Branch), station arrived time: 25:24
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Little Boat Japanese Cuisine, type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Little Boat Japanese Cuisine
+184
+check if too late
+Can not go back source-city in time, current POI Little Boat Japanese Cuisine, station arrived time: 24:04
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Little Boat Japanese Cuisine, type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:48
+current_position: Little Boat Japanese Cuisine
+186
+check if too late
+Can not go back source-city in time, current POI Little Boat Japanese Cuisine, station arrived time: 23:52
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Little Boat Japanese Cuisine, type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:37
+current_position: Little Boat Japanese Cuisine
+188
+check if too late
+Can not go back source-city in time, current POI Little Boat Japanese Cuisine, station arrived time: 24:41
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhengyuan Shanghai Mansion (1885 Plaza Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Zhengyuan Shanghai Mansion (1885 Plaza Branch)
+190
+check if too late
+Can not go back source-city in time, current POI Zhengyuan Shanghai Mansion (1885 Plaza Branch), station arrived time: 24:58
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhengyuan Shanghai Mansion (1885 Plaza Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:48
+current_position: Zhengyuan Shanghai Mansion (1885 Plaza Branch)
+192
+check if too late
+Can not go back source-city in time, current POI Zhengyuan Shanghai Mansion (1885 Plaza Branch), station arrived time: 24:46
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhengyuan Shanghai Mansion (1885 Plaza Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:42
+current_position: Zhengyuan Shanghai Mansion (1885 Plaza Branch)
+194
+check if too late
+Can not go back source-city in time, current POI Zhengyuan Shanghai Mansion (1885 Plaza Branch), station arrived time: 25:40
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch)
+196
+check if too late
+Can not go back source-city in time, current POI Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch), station arrived time: 24:58
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:48
+current_position: Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch)
+198
+check if too late
+Can not go back source-city in time, current POI Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch), station arrived time: 24:46
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:43
+current_position: Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch)
+200
+check if too late
+Can not go back source-city in time, current POI Lotus Breeze and Gentle Rain: Chinese Tea Banquet (Century Avenue Branch), station arrived time: 25:41
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Feili Riverside 1918, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:09
+current_position: Feili Riverside 1918
+202
+check if too late
+Can not go back source-city in time, current POI Feili Riverside 1918, station arrived time: 25:13
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Feili Riverside 1918, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:49
+current_position: Feili Riverside 1918
+204
+check if too late
+Can not go back source-city in time, current POI Feili Riverside 1918, station arrived time: 24:53
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Feili Riverside 1918, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:49
+current_position: Feili Riverside 1918
+206
+check if too late
+Can not go back source-city in time, current POI Feili Riverside 1918, station arrived time: 25:53
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:06
+current_position: Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine
+208
+check if too late
+Can not go back source-city in time, current POI Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine, station arrived time: 25:13
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:49
+current_position: Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine
+210
+check if too late
+Can not go back source-city in time, current POI Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine, station arrived time: 24:56
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:52
+current_position: Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine
+212
+check if too late
+Can not go back source-city in time, current POI Shanghai Pudong Regent Hotel - Shang Xi Chinese Restaurant - Cantonese Cuisine, station arrived time: 25:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crab Manor · Exclusive Riverside View (Binjiang Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:06
+current_position: Crab Manor · Exclusive Riverside View (Binjiang Branch)
+214
+check if too late
+Can not go back source-city in time, current POI Crab Manor · Exclusive Riverside View (Binjiang Branch), station arrived time: 25:13
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crab Manor · Exclusive Riverside View (Binjiang Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:50
+current_position: Crab Manor · Exclusive Riverside View (Binjiang Branch)
+216
+check if too late
+Can not go back source-city in time, current POI Crab Manor · Exclusive Riverside View (Binjiang Branch), station arrived time: 24:57
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crab Manor · Exclusive Riverside View (Binjiang Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:53
+current_position: Crab Manor · Exclusive Riverside View (Binjiang Branch)
+218
+check if too late
+Can not go back source-city in time, current POI Crab Manor · Exclusive Riverside View (Binjiang Branch), station arrived time: 26:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: HOMES Banquet (Binjiang Avenue Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:06
+current_position: HOMES Banquet (Binjiang Avenue Branch)
+220
+check if too late
+Can not go back source-city in time, current POI HOMES Banquet (Binjiang Avenue Branch), station arrived time: 25:14
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: HOMES Banquet (Binjiang Avenue Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:50
+current_position: HOMES Banquet (Binjiang Avenue Branch)
+222
+check if too late
+Can not go back source-city in time, current POI HOMES Banquet (Binjiang Avenue Branch), station arrived time: 24:58
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: HOMES Banquet (Binjiang Avenue Branch), type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:53
+current_position: HOMES Banquet (Binjiang Avenue Branch)
+224
+check if too late
+Can not go back source-city in time, current POI HOMES Banquet (Binjiang Avenue Branch), station arrived time: 26:01
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+last day, collecting innercity transport to back-transport
+validate the plan [for query 20250322070224631864]: 
+{'people_number': 1, 'start_city': 'Shenzhen', 'target_city': 'Shanghai', 'itinerary': [{'day': 1, 'activities': [{'start_time': '03:17', 'end_time': '04:48', 'start': "Shenzhen Bao'an International Airport", 'end': 'Shanghai Hongqiao International Airport', 'price': 571.18, 'cost': 571.18, 'tickets': 1, 'transports': [], 'FlightID': 'FL164', 'type': 'airplane'}, {'position': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': [{'start': 'Shanghai Hongqiao International Airport', 'end': 'Hongqiao Terminal 1-Metro Station', 'mode': 'walk', 'start_time': '04:48', 'end_time': '04:57', 'cost': 0, 'distance': 0.78, 'price': 0}, {'start': 'Hongqiao Terminal 1-Metro Station', 'end': 'Chuansha-Metro Station', 'mode': 'metro', 'start_time': '04:57', 'end_time': '06:03', 'cost': 7, 'distance': 33.44, 'price': 7, 'tickets': 1}, {'start': 'Chuansha-Metro Station', 'end': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'mode': 'walk', 'start_time': '06:03', 'end_time': '06:07', 'cost': 0, 'distance': 0.36, 'price': 0}]}, {'position': 'Shanghai Zoo', 'type': 'attraction', 'price': 40, 'cost': 40, 'start_time': '09:47', 'end_time': '11:17', 'transports': [{'start': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'end': 'Chuansha-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.36, 'price': 0}, {'start': 'Chuansha-Metro Station', 'end': 'Shanghai Zoo-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '09:36', 'cost': 7, 'distance': 31.46, 'price': 7, 'tickets': 1}, {'start': 'Shanghai Zoo-Metro Station', 'end': 'Shanghai Zoo', 'mode': 'walk', 'start_time': '09:36', 'end_time': '09:47', 'cost': 0, 'distance': 0.94, 'price': 0}], 'tickets': 1}, {'position': 'Geneva Family Restaurant', 'type': 'lunch', 'price': 147, 'cost': 147, 'start_time': '11:18', 'end_time': '12:18', 'transports': [{'start': 'Shanghai Zoo', 'end': 'Geneva Family Restaurant', 'mode': 'taxi', 'start_time': '11:17', 'end_time': '11:18', 'cost': 11.0, 'distance': 0.8, 'price': 11.0, 'cars': 1}]}, {'position': 'Shanghai Disney Resort', 'type': 'attraction', 'price': 399, 'cost': 399, 'start_time': '13:39', 'end_time': '15:09', 'transports': [{'start': 'Geneva Family Restaurant', 'end': 'Shanghai Zoo-Metro Station', 'mode': 'walk', 'start_time': '12:18', 'end_time': '12:31', 'cost': 0, 'distance': 1.14, 'price': 0}, {'start': 'Shanghai Zoo-Metro Station', 'end': 'Disney-Metro Station', 'mode': 'metro', 'start_time': '12:31', 'end_time': '13:29', 'cost': 7, 'distance': 29.1, 'price': 7, 'tickets': 1}, {'start': 'Disney-Metro Station', 'end': 'Shanghai Disney Resort', 'mode': 'walk', 'start_time': '13:29', 'end_time': '13:39', 'cost': 0, 'distance': 0.87, 'price': 0}], 'tickets': 1}, {'position': 'Zhongshan Park', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '16:12', 'end_time': '17:42', 'transports': [{'start': 'Shanghai Disney Resort', 'end': 'Disney-Metro Station', 'mode': 'walk', 'start_time': '15:09', 'end_time': '15:19', 'cost': 0, 'distance': 0.87, 'price': 0}, {'start': 'Disney-Metro Station', 'end': 'Longde Road-Metro Station', 'mode': 'metro', 'start_time': '15:19', 'end_time': '16:09', 'cost': 6, 'distance': 25.31, 'price': 6, 'tickets': 1}, {'start': 'Longde Road-Metro Station', 'end': 'Zhongshan Park', 'mode': 'walk', 'start_time': '16:09', 'end_time': '16:12', 'cost': 0, 'distance': 0.3, 'price': 0}], 'tickets': 1}, {'position': "Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)", 'type': 'dinner', 'price': 385, 'cost': 385, 'start_time': '17:42', 'end_time': '18:42', 'transports': [{'start': 'Zhongshan Park', 'end': "Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)", 'mode': 'taxi', 'start_time': '17:42', 'end_time': '17:42', 'cost': 11.0, 'distance': 0.43, 'price': 11.0, 'cars': 1}]}, {'position': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'type': 'accommodation', 'price': 303, 'cost': 303, 'start_time': '19:43', 'end_time': '24:00', 'transports': [{'start': "Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)", 'end': 'Wuding Road-Metro Station', 'mode': 'walk', 'start_time': '18:42', 'end_time': '18:49', 'cost': 0, 'distance': 0.6, 'price': 0}, {'start': 'Wuding Road-Metro Station', 'end': 'Chuansha-Metro Station', 'mode': 'metro', 'start_time': '18:49', 'end_time': '19:39', 'cost': 6, 'distance': 25.37, 'price': 6, 'tickets': 1}, {'start': 'Chuansha-Metro Station', 'end': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'mode': 'walk', 'start_time': '19:39', 'end_time': '19:43', 'cost': 0, 'distance': 0.36, 'price': 0}], 'room_type': 2, 'rooms': 1}]}, {'day': 2, 'activities': [{'position': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'position': 'Chuansha Ancient Town', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:57', 'end_time': '10:27', 'transports': [{'start': 'Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)', 'end': 'Chuansha-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.36, 'price': 0}, {'start': 'Chuansha-Metro Station', 'end': 'Lingkong Road-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '08:39', 'cost': 2, 'distance': 2.56, 'price': 2, 'tickets': 1}, {'start': 'Lingkong Road-Metro Station', 'end': 'Chuansha Ancient Town', 'mode': 'walk', 'start_time': '08:39', 'end_time': '08:57', 'cost': 0, 'distance': 1.56, 'price': 0}], 'tickets': 1}, {'position': "Shanghai Disneyland Hotel · Lumiere's Kitchen", 'type': 'lunch', 'price': 402, 'cost': 402, 'start_time': '11:07', 'end_time': '12:07', 'transports': [{'start': 'Chuansha Ancient Town', 'end': 'Lingkong Road-Metro Station', 'mode': 'walk', 'start_time': '10:27', 'end_time': '10:45', 'cost': 0, 'distance': 1.56, 'price': 0}, {'start': 'Lingkong Road-Metro Station', 'end': 'Disney-Metro Station', 'mode': 'metro', 'start_time': '10:45', 'end_time': '11:00', 'cost': 3, 'distance': 7.83, 'price': 3, 'tickets': 1}, {'start': 'Disney-Metro Station', 'end': "Shanghai Disneyland Hotel · Lumiere's Kitchen", 'mode': 'walk', 'start_time': '11:00', 'end_time': '11:07', 'cost': 0, 'distance': 0.67, 'price': 0}]}, {'position': 'Mickey Avenue', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '12:09', 'end_time': '13:39', 'transports': [{'start': "Shanghai Disneyland Hotel · Lumiere's Kitchen", 'end': 'Mickey Avenue', 'mode': 'taxi', 'start_time': '12:07', 'end_time': '12:09', 'cost': 11.0, 'distance': 1.4, 'price': 11.0, 'cars': 1}], 'tickets': 1}, {'position': 'Shanghai Comics Museum', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '14:13', 'end_time': '15:43', 'transports': [{'start': 'Mickey Avenue', 'end': 'Disney-Metro Station', 'mode': 'walk', 'start_time': '13:39', 'end_time': '13:47', 'cost': 0, 'distance': 0.75, 'price': 0}, {'start': 'Disney-Metro Station', 'end': 'Guanglan Road-Metro Station', 'mode': 'metro', 'start_time': '13:47', 'end_time': '14:04', 'cost': 3, 'distance': 8.94, 'price': 3, 'tickets': 1}, {'start': 'Guanglan Road-Metro Station', 'end': 'Shanghai Comics Museum', 'mode': 'walk', 'start_time': '14:04', 'end_time': '14:13', 'cost': 0, 'distance': 0.81, 'price': 0}], 'tickets': 1}, {'position': 'Himalaya Art Museum', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '16:11', 'end_time': '17:41', 'transports': [{'start': 'Shanghai Comics Museum', 'end': 'Guanglan Road-Metro Station', 'mode': 'walk', 'start_time': '15:43', 'end_time': '15:52', 'cost': 0, 'distance': 0.81, 'price': 0}, {'start': 'Guanglan Road-Metro Station', 'end': 'Huamu Road-Metro Station', 'mode': 'metro', 'start_time': '15:52', 'end_time': '16:03', 'cost': 3, 'distance': 5.56, 'price': 3, 'tickets': 1}, {'start': 'Huamu Road-Metro Station', 'end': 'Himalaya Art Museum', 'mode': 'walk', 'start_time': '16:03', 'end_time': '16:11', 'cost': 0, 'distance': 0.69, 'price': 0}], 'tickets': 1}, {'start_time': '23:48', 'end_time': '01:19', 'start': 'Shanghai Pudong International Airport', 'end': "Shenzhen Bao'an International Airport", 'price': 640.93, 'cost': 640.93, 'tickets': 1, 'transports': [{'start': 'Himalaya Art Museum', 'end': 'Huamu Road-Metro Station', 'mode': 'walk', 'start_time': '17:41', 'end_time': '17:49', 'cost': 0, 'distance': 0.69, 'price': 0}, {'start': 'Huamu Road-Metro Station', 'end': 'Pudong International Airport-Metro Station', 'mode': 'metro', 'start_time': '17:49', 'end_time': '18:37', 'cost': 6, 'distance': 24.09, 'price': 6, 'tickets': 1}, {'start': 'Pudong International Airport-Metro Station', 'end': 'Shanghai Pudong International Airport', 'mode': 'walk', 'start_time': '18:37', 'end_time': '18:52', 'cost': 0, 'distance': 1.27, 'price': 0}], 'FlightID': 'FL014', 'type': 'airplane'}]}]}
+Intercity_transport passed!
+Attractions passed!
+Hotels passed!
+Restaurants passed!
+Innercity transport  passed!
+Time passed!
+Space passed!
+None
+[True, True, True, True, True, True]
+attraction_name_set=set()
+for activity in allactivities(plan):
+  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))
+result=({"Shanghai Disney Resort", "Shanghai Zoo", "Zhongshan Park"}<=attraction_name_set) passed!
+result=False
+intercity_transport_go=''
+intercity_transport_back=''
+if allactivities(plan)[0]['type'] != "train" and intercity_transport_origin(allactivities(plan)[0])==start_city(plan) and allactivities(plan)[-1]['type'] != "train" and intercity_transport_origin(allactivities(plan)[-1])==target_city(plan):
+  result=True passed!
+result=(day_count(plan)==2) passed!
+result=(people_count(plan)==1) passed!
+result=True
+for activity in allactivities(plan):
+  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=1: result=False
+  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=1: result=False passed!
+result=True
+for activity in allactivities(plan):
+  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False passed!
+
+ Pass! 
+
+------------------------------
+Process [1/2], Success [1/1]:
+data uid:  20250324082922869744
+{'days': 3, 'hard_logic_py': ['attraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_name_set.add(activity_position(activity))\nresult=({"Jing\'an Temple", "Oriental Pearl Tower 259-Meter Fully Transparent Suspended Sightseeing Corridor", "North Bund Riverside Green Space"}<=attraction_name_set)', "result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='Jingyunhua Roast Duck & Dim Sum (New World Store)':\n    if activity_end_time(activity)>='17:30':\n      result=True", 'result=(day_count(plan)==3)', 'result=(people_count(plan)==4)', "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=4: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=4: result=False", "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"], 'nature_language': "A party of 4 traveling from Shenzhen to Shanghai for 3 days, with the following requirements:\n- Wish to visit Jing'an Temple, Oriental Pearl Tower's 259-Meter Fully Transparent Suspended Sightseeing Corridor, and North Bund Riverside Green Space.\n- Must not leave Jingyunhua Roast Duck & Dim Sum (New World Store) before 17:30.", 'people_number': 4, 'start_city': 'Shenzhen', 'target_city': 'Shanghai', 'uid': '20250324082922869744'}
+Shenzhen -> Shanghai
+User's Constraints:
+A party of 4 traveling from Shenzhen to Shanghai for 3 days, with the following requirements:
+- Wish to visit Jing'an Temple, Oriental Pearl Tower's 259-Meter Fully Transparent Suspended Sightseeing Corridor, and North Bund Riverside Green Space.
+- Must not leave Jingyunhua Roast Duck & Dim Sum (New World Store) before 17:30.
+Formatted Expression:
+all_satisfy: True
+must_see_attraction: ['Jing', ', ', ', ']
+activities_leave_time_dict: {'Jingyunhua Roast Duck & Dim Sum (New World Store)': ['late', '17:30']}
+must_visit_restaurant: ['Jingyunhua Roast Duck & Dim Sum (New World Store)']
+By list:
+[{'all_satisfy': True, 'must_see_attraction': ['Jing', ', ', ', '], 'activities_leave_time_dict': {'Jingyunhua Roast Duck & Dim Sum (New World Store)': ['late', '17:30']}, 'must_visit_restaurant': ['Jingyunhua Roast Duck & Dim Sum (New World Store)']}]
+query room number: None
+query room numbed: None
+from Shenzhen to Shanghai: 10 flights, 21 trains
+from Shanghai to Shenzhen: 10 flights, 21 trains
+  TrainID                     TrainType  ...    Cost FlightID
+0   G2787               High-speed rail  ...  788.63      NaN
+1   G2790               High-speed rail  ...  788.63      NaN
+2   D3126  EMU (Electric Multiple Unit)  ...  727.96      NaN
+3    D385  EMU (Electric Multiple Unit)  ...  727.96      NaN
+4    D388  EMU (Electric Multiple Unit)  ...  727.96      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...    Cost FlightID
+0   G2784               High-speed rail  ...  788.63      NaN
+1   G2785               High-speed rail  ...  788.63      NaN
+2   D2287  EMU (Electric Multiple Unit)  ...  727.96      NaN
+3    G997               High-speed rail  ...  788.63      NaN
+4    D377  EMU (Electric Multiple Unit)  ...  727.96      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '03:17', 'end_time': '04:48', 'start': "Shenzhen Bao'an International Airport", 'end': 'Shanghai Hongqiao International Airport', 'price': 571.18, 'cost': 2284.72, 'tickets': 4, 'transports': [], 'FlightID': 'FL164', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 04:48
+current_position: Shanghai Hongqiao International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 04:48, Shanghai Hongqiao International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chuansha Park
+inner-city transport error, backtrack...
+add attraction: Chuansha Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:02
+current_position: Chuansha Park
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:02, Chuansha Park, next-poi type: lunch
+[Constraint] Leaving Jingyunhua Roast Duck & Dim Sum (New World Store) too early: 12:05 < 17:30
+[Constraint] Leaving Jingyunhua Roast Duck & Dim Sum (New World Store) too early: 11:36 < 17:30
+[Constraint] Leaving Jingyunhua Roast Duck & Dim Sum (New World Store) too early: 15:34 < 17:30
+add restaurant: Imperial Banquet Chinese Restaurant, type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:00
+current_position: Imperial Banquet Chinese Restaurant
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:00, Imperial Banquet Chinese Restaurant, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chuansha Ancient Town
+add attraction: Chuansha Ancient Town, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 13:58
+current_position: Chuansha Ancient Town
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 13:58, Chuansha Ancient Town, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Dongba Donbar (Lujiazui Tourist Loop Line)
+add attraction: Dongba Donbar (Lujiazui Tourist Loop Line), type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 16:37
+current_position: Dongba Donbar (Lujiazui Tourist Loop Line)
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 16:37, Dongba Donbar (Lujiazui Tourist Loop Line), next-poi type: dinner
+add restaurant: Jingyunhua Roast Duck & Dim Sum (New World Store), type: Beijing cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:57
+current_position: Jingyunhua Roast Duck & Dim Sum (New World Store)
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:57, Jingyunhua Roast Duck & Dim Sum (New World Store), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Era of Life
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:35
+current_position: Era of Life
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 25:07
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:27
+current_position: Era of Life
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 24:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: Era of Life
+9
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 25:03
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:35
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+11
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 25:08
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:27
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+13
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 25:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+15
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 25:04
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Museum of Contemporary Art
+add attraction: Shanghai Museum of Contemporary Art, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:38
+current_position: Shanghai Museum of Contemporary Art
+17
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Museum of Contemporary Art, hotel arrived time: 25:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Museum of Contemporary Art, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:27
+current_position: Shanghai Museum of Contemporary Art
+19
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Museum of Contemporary Art, hotel arrived time: 24:49
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Museum of Contemporary Art, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:34
+current_position: Shanghai Museum of Contemporary Art
+21
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Museum of Contemporary Art, hotel arrived time: 24:56
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Museum of Contemporary Art
+Shanghai Museum of Contemporary Art closed at 19:00, start time: 18:57, arrival time: 19:08, backtrack...
+add attraction: Shanghai Museum of Contemporary Art, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:00
+current_position: Shanghai Museum of Contemporary Art
+24
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 19:00, Shanghai Museum of Contemporary Art, next-poi type: attraction

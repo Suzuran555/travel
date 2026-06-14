@@ -1,0 +1,525 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 571.18,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "06:03",
+                            "cost": 7,
+                            "distance": 33.44,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "06:03",
+                            "end_time": "06:07",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Zoo",
+                    "type": "attraction",
+                    "price": 40,
+                    "cost": 40,
+                    "start_time": "09:47",
+                    "end_time": "11:17",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Shanghai Zoo-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:36",
+                            "cost": 7,
+                            "distance": 31.46,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shanghai Zoo-Metro Station",
+                            "end": "Shanghai Zoo",
+                            "mode": "walk",
+                            "start_time": "09:36",
+                            "end_time": "09:47",
+                            "cost": 0,
+                            "distance": 0.94,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Geneva Family Restaurant",
+                    "type": "lunch",
+                    "price": 147,
+                    "cost": 147,
+                    "start_time": "11:18",
+                    "end_time": "12:18",
+                    "transports": [
+                        {
+                            "start": "Shanghai Zoo",
+                            "end": "Geneva Family Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:17",
+                            "end_time": "11:18",
+                            "cost": 11.0,
+                            "distance": 0.8,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Disney Resort",
+                    "type": "attraction",
+                    "price": 399,
+                    "cost": 399,
+                    "start_time": "13:39",
+                    "end_time": "15:09",
+                    "transports": [
+                        {
+                            "start": "Geneva Family Restaurant",
+                            "end": "Shanghai Zoo-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:18",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shanghai Zoo-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:31",
+                            "end_time": "13:29",
+                            "cost": 7,
+                            "distance": 29.1,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Shanghai Disney Resort",
+                            "mode": "walk",
+                            "start_time": "13:29",
+                            "end_time": "13:39",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Zhongshan Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:12",
+                    "end_time": "17:42",
+                    "transports": [
+                        {
+                            "start": "Shanghai Disney Resort",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:09",
+                            "end_time": "15:19",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Longde Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:19",
+                            "end_time": "16:09",
+                            "cost": 6,
+                            "distance": 25.31,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Longde Road-Metro Station",
+                            "end": "Zhongshan Park",
+                            "mode": "walk",
+                            "start_time": "16:09",
+                            "end_time": "16:12",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)",
+                    "type": "dinner",
+                    "price": 385,
+                    "cost": 385,
+                    "start_time": "17:42",
+                    "end_time": "18:42",
+                    "transports": [
+                        {
+                            "start": "Zhongshan Park",
+                            "end": "Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)",
+                            "mode": "taxi",
+                            "start_time": "17:42",
+                            "end_time": "17:42",
+                            "cost": 11.0,
+                            "distance": 0.43,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 303,
+                    "start_time": "19:43",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai JC Mandarin Hotel · Jiuxi · Four Seasons Huaiyang Cuisine (Jing'an Branch)",
+                            "end": "Wuding Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:42",
+                            "end_time": "18:49",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:49",
+                            "end_time": "19:39",
+                            "cost": 6,
+                            "distance": 25.37,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "19:39",
+                            "end_time": "19:43",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:57",
+                    "end_time": "10:27",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:39",
+                            "cost": 2,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:57",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                    "type": "lunch",
+                    "price": 402,
+                    "cost": 402,
+                    "start_time": "11:07",
+                    "end_time": "12:07",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:27",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "11:00",
+                            "cost": 3,
+                            "distance": 7.83,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "mode": "walk",
+                            "start_time": "11:00",
+                            "end_time": "11:07",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Mickey Avenue",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:09",
+                    "end_time": "13:39",
+                    "transports": [
+                        {
+                            "start": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "end": "Mickey Avenue",
+                            "mode": "taxi",
+                            "start_time": "12:07",
+                            "end_time": "12:09",
+                            "cost": 11.0,
+                            "distance": 1.4,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai Comics Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:13",
+                    "end_time": "15:43",
+                    "transports": [
+                        {
+                            "start": "Mickey Avenue",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:39",
+                            "end_time": "13:47",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Guanglan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:47",
+                            "end_time": "14:04",
+                            "cost": 3,
+                            "distance": 8.94,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Guanglan Road-Metro Station",
+                            "end": "Shanghai Comics Museum",
+                            "mode": "walk",
+                            "start_time": "14:04",
+                            "end_time": "14:13",
+                            "cost": 0,
+                            "distance": 0.81,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Himalaya Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:11",
+                    "end_time": "17:41",
+                    "transports": [
+                        {
+                            "start": "Shanghai Comics Museum",
+                            "end": "Guanglan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:43",
+                            "end_time": "15:52",
+                            "cost": 0,
+                            "distance": 0.81,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guanglan Road-Metro Station",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:52",
+                            "end_time": "16:03",
+                            "cost": 3,
+                            "distance": 5.56,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Himalaya Art Museum",
+                            "mode": "walk",
+                            "start_time": "16:03",
+                            "end_time": "16:11",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 640.93,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Himalaya Art Museum",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:41",
+                            "end_time": "17:49",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:49",
+                            "end_time": "18:37",
+                            "cost": 6,
+                            "distance": 24.09,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "18:37",
+                            "end_time": "18:52",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 42.94132900238037,
+    "llm_inference_time_sec": 0
+}

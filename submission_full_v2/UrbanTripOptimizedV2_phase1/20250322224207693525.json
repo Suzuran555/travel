@@ -1,0 +1,603 @@
+{
+    "people_number": 1,
+    "start_city": "Beijing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:11",
+                    "end_time": "03:36",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 923.58,
+                    "cost": 923.58,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL095",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Dalden Meijin Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:36",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Xili-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:11",
+                            "cost": 5,
+                            "distance": 15.41,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Dalden Meijin Hotel",
+                            "mode": "walk",
+                            "start_time": "04:11",
+                            "end_time": "04:11",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dashabe Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:43",
+                    "end_time": "10:13",
+                    "transports": [
+                        {
+                            "start": "Dalden Meijin Hotel",
+                            "end": "Xili-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Longjing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:35",
+                            "cost": 2,
+                            "distance": 2.79,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Longjing-Metro Station",
+                            "end": "Dashabe Park",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shenzhen Sky City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:13",
+                    "end_time": "11:43",
+                    "transports": [
+                        {
+                            "start": "Dashabe Park",
+                            "end": "Shenzhen Sky City",
+                            "mode": "taxi",
+                            "start_time": "10:13",
+                            "end_time": "10:13",
+                            "cost": 11.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Wild Hunan (Qiaochengfang Branch)",
+                    "type": "lunch",
+                    "price": 129,
+                    "cost": 129,
+                    "start_time": "11:58",
+                    "end_time": "12:58",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Sky City",
+                            "end": "Longjing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:43",
+                            "end_time": "11:47",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longjing-Metro Station",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:47",
+                            "end_time": "11:48",
+                            "cost": 2,
+                            "distance": 0.88,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Wild Hunan (Qiaochengfang Branch)",
+                            "mode": "walk",
+                            "start_time": "11:48",
+                            "end_time": "11:58",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Zhongqian Diving World",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:32",
+                    "end_time": "15:02",
+                    "transports": [
+                        {
+                            "start": "Wild Hunan (Qiaochengfang Branch)",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:58",
+                            "end_time": "13:08",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:08",
+                            "end_time": "13:20",
+                            "cost": 3,
+                            "distance": 6.4,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Zhongqian Diving World",
+                            "mode": "walk",
+                            "start_time": "13:20",
+                            "end_time": "13:32",
+                            "cost": 0,
+                            "distance": 1.03,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Nanshan Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:02",
+                    "end_time": "16:32",
+                    "transports": [
+                        {
+                            "start": "Zhongqian Diving World",
+                            "end": "Nanshan Museum",
+                            "mode": "taxi",
+                            "start_time": "15:02",
+                            "end_time": "15:02",
+                            "cost": 11.0,
+                            "distance": 0.44,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Original Beef Way: Chaoshan Fresh Beef Hot Pot (Han Jing Branch)",
+                    "type": "dinner",
+                    "price": 134,
+                    "cost": 134,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanshan Museum",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:32",
+                            "end_time": "16:40",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:40",
+                            "end_time": "16:44",
+                            "cost": 2,
+                            "distance": 2.06,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Original Beef Way: Chaoshan Fresh Beef Hot Pot (Han Jing Branch)",
+                            "mode": "walk",
+                            "start_time": "16:44",
+                            "end_time": "16:54",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanshan Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:20",
+                    "end_time": "19:50",
+                    "transports": [
+                        {
+                            "start": "Original Beef Way: Chaoshan Fresh Beef Hot Pot (Han Jing Branch)",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:10",
+                            "end_time": "18:14",
+                            "cost": 2,
+                            "distance": 2.06,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Nanshan Library",
+                            "mode": "walk",
+                            "start_time": "18:14",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Nantou Ancient City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:02",
+                    "end_time": "21:32",
+                    "transports": [
+                        {
+                            "start": "Nanshan Library",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:50",
+                            "end_time": "19:56",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:56",
+                            "end_time": "19:57",
+                            "cost": 2,
+                            "distance": 0.95,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Nantou Ancient City",
+                            "mode": "walk",
+                            "start_time": "19:57",
+                            "end_time": "20:02",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Dalden Meijin Hotel",
+                    "type": "accommodation",
+                    "price": 331,
+                    "cost": 331,
+                    "start_time": "21:46",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nantou Ancient City",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:32",
+                            "end_time": "21:37",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Xili-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:37",
+                            "end_time": "21:46",
+                            "cost": 3,
+                            "distance": 4.92,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Dalden Meijin Hotel",
+                            "mode": "walk",
+                            "start_time": "21:46",
+                            "end_time": "21:46",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Dalden Meijin Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Kexing Science and Technology Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:56",
+                    "end_time": "10:26",
+                    "transports": [
+                        {
+                            "start": "Dalden Meijin Hotel",
+                            "end": "Xili-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 3,
+                            "distance": 4.48,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Kexing Science and Technology Park",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Dalden Meijin Hotel",
+                    "type": "accommodation",
+                    "price": 331,
+                    "cost": 331,
+                    "start_time": "10:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Kexing Science and Technology Park",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:26",
+                            "end_time": "10:44",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Xili-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:44",
+                            "end_time": "10:52",
+                            "cost": 3,
+                            "distance": 4.48,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Dalden Meijin Hotel",
+                            "mode": "walk",
+                            "start_time": "10:52",
+                            "end_time": "10:52",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Dalden Meijin Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:59",
+                    "end_time": "10:29",
+                    "transports": [
+                        {
+                            "start": "Dalden Meijin Hotel",
+                            "end": "Xili-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xili-Metro Station",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 3,
+                            "distance": 4.77,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Shenzhen University Town",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:59",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:24",
+                    "end_time": "01:49",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 1006.35,
+                    "cost": 1006.35,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:29",
+                            "end_time": "10:49",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:49",
+                            "end_time": "11:27",
+                            "cost": 5,
+                            "distance": 19.26,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "11:27",
+                            "end_time": "11:32",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL174",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.066740274429321,
+    "llm_inference_time_sec": 0
+}

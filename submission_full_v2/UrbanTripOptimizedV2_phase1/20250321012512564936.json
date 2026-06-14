@@ -1,0 +1,481 @@
+{
+    "people_number": 2,
+    "start_city": "Nanjing",
+    "target_city": "Guangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:12",
+                    "end_time": "01:37",
+                    "start": "Nanjing Lukou International Airport",
+                    "end": "Guangzhou Baiyun International Airport",
+                    "price": 590.8,
+                    "cost": 1181.6,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL676",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Guangzhou Junye Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Guangzhou Baiyun International Airport",
+                            "end": "Airport South (Terminal 1)-Metro Station",
+                            "mode": "walk",
+                            "start_time": "01:37",
+                            "end_time": "01:37",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport South (Terminal 1)-Metro Station",
+                            "end": "Nangang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "01:37",
+                            "end_time": "02:57",
+                            "cost": 16,
+                            "distance": 40.45,
+                            "price": 8,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nangang-Metro Station",
+                            "end": "Guangzhou Junye Hotel",
+                            "mode": "walk",
+                            "start_time": "02:57",
+                            "end_time": "03:51",
+                            "cost": 0,
+                            "distance": 4.58,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Luogang Fragrant Snow Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:27",
+                    "end_time": "11:57",
+                    "transports": [
+                        {
+                            "start": "Guangzhou Junye Hotel",
+                            "end": "Nangang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 4.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nangang-Metro Station",
+                            "end": "Xiangxue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:24",
+                            "end_time": "09:42",
+                            "cost": 8,
+                            "distance": 9.48,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xiangxue-Metro Station",
+                            "end": "Luogang Fragrant Snow Park",
+                            "mode": "walk",
+                            "start_time": "09:42",
+                            "end_time": "10:27",
+                            "cost": 0,
+                            "distance": 3.81,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Northern Family Feast (Utopia Science Avenue Branch)",
+                    "type": "lunch",
+                    "price": 72,
+                    "cost": 144,
+                    "start_time": "12:57",
+                    "end_time": "13:57",
+                    "transports": [
+                        {
+                            "start": "Luogang Fragrant Snow Park",
+                            "end": "Xiangxue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:57",
+                            "end_time": "12:42",
+                            "cost": 0,
+                            "distance": 3.81,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiangxue-Metro Station",
+                            "end": "Science City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:42",
+                            "end_time": "12:52",
+                            "cost": 6,
+                            "distance": 5.37,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Northern Family Feast (Utopia Science Avenue Branch)",
+                            "mode": "walk",
+                            "start_time": "12:52",
+                            "end_time": "12:57",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Guangzhou Haopu Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:09",
+                    "end_time": "15:39",
+                    "transports": [
+                        {
+                            "start": "Northern Family Feast (Utopia Science Avenue Branch)",
+                            "end": "Science City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:57",
+                            "end_time": "14:02",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Xiangang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:02",
+                            "end_time": "14:04",
+                            "cost": 4,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xiangang-Metro Station",
+                            "end": "Guangzhou Haopu Art Museum",
+                            "mode": "walk",
+                            "start_time": "14:04",
+                            "end_time": "14:09",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Canton Jade Hilton Hotel Xiangxue Tower Chinese Restaurant",
+                    "type": "dinner",
+                    "price": 132,
+                    "cost": 264,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Guangzhou Haopu Art Museum",
+                            "end": "Xiangang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:39",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiangang-Metro Station",
+                            "end": "Science City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:44",
+                            "end_time": "15:46",
+                            "cost": 4,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Canton Jade Hilton Hotel Xiangxue Tower Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "15:46",
+                            "end_time": "15:55",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Guangdong Olympic Sports Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:32",
+                    "end_time": "20:02",
+                    "transports": [
+                        {
+                            "start": "Canton Jade Hilton Hotel Xiangxue Tower Chinese Restaurant",
+                            "end": "Science City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Daguan South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:18",
+                            "cost": 6,
+                            "distance": 4.92,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Daguan South Road-Metro Station",
+                            "end": "Guangdong Olympic Sports Center",
+                            "mode": "walk",
+                            "start_time": "18:18",
+                            "end_time": "18:32",
+                            "cost": 0,
+                            "distance": 1.17,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yuzhu Wharf",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:10",
+                    "end_time": "21:40",
+                    "transports": [
+                        {
+                            "start": "Guangdong Olympic Sports Center",
+                            "end": "Yuzhu Wharf",
+                            "mode": "taxi",
+                            "start_time": "20:02",
+                            "end_time": "20:10",
+                            "cost": 23.72,
+                            "distance": 5.43,
+                            "price": 23.72,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Guangzhou Junye Hotel",
+                    "type": "accommodation",
+                    "price": 168,
+                    "cost": 336,
+                    "start_time": "23:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Yuzhu Wharf",
+                            "end": "Yuzhu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:40",
+                            "end_time": "21:44",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yuzhu-Metro Station",
+                            "end": "Nangang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:44",
+                            "end_time": "22:06",
+                            "cost": 8,
+                            "distance": 11.2,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nangang-Metro Station",
+                            "end": "Guangzhou Junye Hotel",
+                            "mode": "walk",
+                            "start_time": "22:06",
+                            "end_time": "23:00",
+                            "cost": 0,
+                            "distance": 4.58,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Guangzhou Junye Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "sea cave",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:55",
+                    "end_time": "11:25",
+                    "transports": [
+                        {
+                            "start": "Guangzhou Junye Hotel",
+                            "end": "Nangang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 4.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nangang-Metro Station",
+                            "end": "Baijiang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:24",
+                            "end_time": "09:36",
+                            "cost": 6,
+                            "distance": 6.36,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Baijiang-Metro Station",
+                            "end": "sea cave",
+                            "mode": "walk",
+                            "start_time": "09:36",
+                            "end_time": "09:55",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Guangzhou Emerald Hilton Hotel · Pin All-Day Dining Restaurant",
+                    "type": "lunch",
+                    "price": 202,
+                    "cost": 404,
+                    "start_time": "12:24",
+                    "end_time": "13:24",
+                    "transports": [
+                        {
+                            "start": "sea cave",
+                            "end": "Baijiang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:25",
+                            "end_time": "11:44",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Baijiang-Metro Station",
+                            "end": "Science City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:44",
+                            "end_time": "12:15",
+                            "cost": 10,
+                            "distance": 15.71,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Guangzhou Emerald Hilton Hotel · Pin All-Day Dining Restaurant",
+                            "mode": "walk",
+                            "start_time": "12:15",
+                            "end_time": "12:24",
+                            "cost": 0,
+                            "distance": 0.76,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "20:22",
+                    "end_time": "21:47",
+                    "start": "Guangzhou Baiyun International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 527.99,
+                    "cost": 1055.98,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Guangzhou Emerald Hilton Hotel · Pin All-Day Dining Restaurant",
+                            "end": "Science City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:24",
+                            "end_time": "13:33",
+                            "cost": 0,
+                            "distance": 0.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Airport South (Terminal 1)-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:33",
+                            "end_time": "14:30",
+                            "cost": 14,
+                            "distance": 28.68,
+                            "price": 7,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Airport South (Terminal 1)-Metro Station",
+                            "end": "Guangzhou Baiyun International Airport",
+                            "mode": "walk",
+                            "start_time": "14:30",
+                            "end_time": "14:30",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL314",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 19.755637407302856,
+    "llm_inference_time_sec": 0
+}

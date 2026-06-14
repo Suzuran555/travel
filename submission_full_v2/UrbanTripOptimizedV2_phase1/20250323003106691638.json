@@ -1,0 +1,433 @@
+{
+    "people_number": 2,
+    "start_city": "Chengdu",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:55",
+                    "end_time": "14:26",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Beijing West Railway Station",
+                    "price": 990.94,
+                    "cost": 1981.88,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "G88",
+                    "type": "train"
+                },
+                {
+                    "position": "Lotus Pond Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:26",
+                    "end_time": "15:56",
+                    "transports": [
+                        {
+                            "start": "Beijing West Railway Station",
+                            "end": "Lotus Pond Park",
+                            "mode": "taxi",
+                            "start_time": "14:26",
+                            "end_time": "14:26",
+                            "cost": 11.0,
+                            "distance": 0.44,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wangshunge Fish Head with Pancakes (West Railway Station Branch)",
+                    "type": "dinner",
+                    "price": 148,
+                    "cost": 296,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lotus Pond Park",
+                            "end": "Wangshunge Fish Head with Pancakes (West Railway Station Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:56",
+                            "end_time": "15:56",
+                            "cost": 11.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Working People's Cultural Palace",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:29",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "Wangshunge Fish Head with Pancakes (West Railway Station Branch)",
+                            "end": "Beijing West Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing West Railway Station-Metro Station",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:23",
+                            "cost": 6,
+                            "distance": 8.03,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "Beijing Working People's Cultural Palace",
+                            "mode": "walk",
+                            "start_time": "18:23",
+                            "end_time": "18:29",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 269,
+                    "start_time": "20:07",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Beijing Working People's Cultural Palace",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:06",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:06",
+                            "end_time": "19:48",
+                            "cost": 12,
+                            "distance": 21.12,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Wangjing SOHO",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:08",
+                    "end_time": "10:38",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Wangjing East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:07",
+                            "cost": 8,
+                            "distance": 9.42,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wangjing East-Metro Station",
+                            "end": "Wangjing SOHO",
+                            "mode": "walk",
+                            "start_time": "09:07",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Jubao Yuan (Wangjing Branch)",
+                    "type": "lunch",
+                    "price": 124,
+                    "cost": 248,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Wangjing SOHO",
+                            "end": "Jubao Yuan (Wangjing Branch)",
+                            "mode": "walk",
+                            "start_time": "10:38",
+                            "end_time": "10:57",
+                            "cost": 0.0,
+                            "distance": 1.624284324268863,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Central Academy of Fine Arts Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:18",
+                    "end_time": "13:48",
+                    "transports": [
+                        {
+                            "start": "Jubao Yuan (Wangjing Branch)",
+                            "end": "Central Academy of Fine Arts Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:18",
+                            "cost": 0.0,
+                            "distance": 1.5453996658149203,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Meet Museum · Beijing 798 Branch",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:17",
+                    "end_time": "15:47",
+                    "transports": [
+                        {
+                            "start": "Central Academy of Fine Arts Art Museum",
+                            "end": "Meet Museum · Beijing 798 Branch",
+                            "mode": "walk",
+                            "start_time": "13:48",
+                            "end_time": "14:17",
+                            "cost": 0.0,
+                            "distance": 2.495311934133599,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "TIAGO HOME KITCHEN (Indigo Store)",
+                    "type": "dinner",
+                    "price": 180,
+                    "cost": 360,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Meet Museum · Beijing 798 Branch",
+                            "end": "TIAGO HOME KITCHEN (Indigo Store)",
+                            "mode": "walk",
+                            "start_time": "15:47",
+                            "end_time": "16:14",
+                            "cost": 0.0,
+                            "distance": 2.30499789882391,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 269,
+                    "start_time": "20:27",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "TIAGO HOME KITCHEN (Indigo Store)",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "20:27",
+                            "cost": 0.0,
+                            "distance": 12.280450865447012,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Beijing Drama Carnival",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:28",
+                    "end_time": "11:58",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "Beijing Drama Carnival",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "10:28",
+                            "cost": 0.0,
+                            "distance": 9.8615840239761,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Manhe Banquet (Xiaoyun Road Branch)",
+                    "type": "lunch",
+                    "price": 950,
+                    "cost": 1900,
+                    "start_time": "12:03",
+                    "end_time": "13:03",
+                    "transports": [
+                        {
+                            "start": "Beijing Drama Carnival",
+                            "end": "Manhe Banquet (Xiaoyun Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:58",
+                            "end_time": "12:03",
+                            "cost": 18.22,
+                            "distance": 3.86,
+                            "price": 18.22,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Junwang Mansion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:42",
+                    "end_time": "15:12",
+                    "transports": [
+                        {
+                            "start": "Manhe Banquet (Xiaoyun Road Branch)",
+                            "end": "Junwang Mansion",
+                            "mode": "walk",
+                            "start_time": "13:03",
+                            "end_time": "13:42",
+                            "cost": 0.0,
+                            "distance": 3.25008318669299,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "16:43",
+                    "end_time": "20:57",
+                    "start": "Beijing West Railway Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 762.26,
+                    "cost": 1524.52,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Junwang Mansion",
+                            "end": "Chaoyang Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:12",
+                            "end_time": "15:29",
+                            "cost": 0,
+                            "distance": 1.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaoyang Park-Metro Station",
+                            "end": "Beijing West Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:29",
+                            "end_time": "15:57",
+                            "cost": 10,
+                            "distance": 14.1,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Beijing West Railway Station-Metro Station",
+                            "end": "Beijing West Railway Station",
+                            "mode": "walk",
+                            "start_time": "15:57",
+                            "end_time": "15:57",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T7",
+                    "type": "train"
+                }
+            ]
+        }
+    ]
+}

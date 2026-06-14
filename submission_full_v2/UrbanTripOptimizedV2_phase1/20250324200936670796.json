@@ -1,0 +1,201 @@
+{
+    "people_number": 3,
+    "start_city": "Suzhou",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:49",
+                    "end_time": "18:09",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing North Railway Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D353",
+                    "type": "train"
+                },
+                {
+                    "position": "Big Face Cat's Preserved Mustard Green and Braised Pork Pancake (Guanyinqiao Delicious Street Branch)",
+                    "type": "dinner",
+                    "price": 7,
+                    "cost": 21,
+                    "start_time": "18:24",
+                    "end_time": "19:24",
+                    "transports": [
+                        {
+                            "start": "Chongqing North Railway Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:09",
+                            "end_time": "18:12",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Guanyinqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:12",
+                            "end_time": "18:20",
+                            "cost": 9,
+                            "distance": 4.03,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Guanyinqiao-Metro Station",
+                            "end": "Big Face Cat's Preserved Mustard Green and Braised Pork Pancake (Guanyinqiao Delicious Street Branch)",
+                            "mode": "walk",
+                            "start_time": "18:20",
+                            "end_time": "18:24",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hongya Cave",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:41",
+                    "end_time": "21:11",
+                    "transports": [
+                        {
+                            "start": "Big Face Cat's Preserved Mustard Green and Braised Pork Pancake (Guanyinqiao Delicious Street Branch)",
+                            "end": "Guanyinqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:24",
+                            "end_time": "19:28",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guanyinqiao-Metro Station",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:28",
+                            "end_time": "19:38",
+                            "cost": 9,
+                            "distance": 5.38,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Hongya Cave",
+                            "mode": "walk",
+                            "start_time": "19:38",
+                            "end_time": "19:41",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "21:19",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Hongya Cave",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:11",
+                            "end_time": "21:14",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:14",
+                            "end_time": "21:15",
+                            "cost": 6,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "21:15",
+                            "end_time": "21:19",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "start_time": "10:07",
+                    "end_time": "21:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:00",
+                            "end_time": "00:04",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:04",
+                            "end_time": "00:16",
+                            "cost": 9,
+                            "distance": 6.15,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Chongqing North Railway Station",
+                            "mode": "walk",
+                            "start_time": "00:16",
+                            "end_time": "00:19",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D354",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.3895177841186523,
+    "llm_inference_time_sec": 0
+}

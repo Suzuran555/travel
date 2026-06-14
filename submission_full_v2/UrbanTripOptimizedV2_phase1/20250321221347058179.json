@@ -1,0 +1,593 @@
+{
+    "people_number": 4,
+    "start_city": "Suzhou",
+    "target_city": "Hangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:29",
+                    "end_time": "06:40",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou Railway Station",
+                    "price": 48.4,
+                    "cost": 193.6,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "K1808",
+                    "type": "train"
+                },
+                {
+                    "position": "Hangzhou Theater",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Railway Station",
+                            "end": "City Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:40",
+                            "end_time": "06:42",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "City Station-Metro Station",
+                            "end": "West Lake Cultural Plaza-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:42",
+                            "end_time": "06:50",
+                            "cost": 12,
+                            "distance": 4.15,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "West Lake Cultural Plaza-Metro Station",
+                            "end": "Hangzhou Theater",
+                            "mode": "walk",
+                            "start_time": "06:50",
+                            "end_time": "06:54",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Wulin Square",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Theater",
+                            "end": "Wulin Square",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Xidayou Chicken Pot (Chaohui Branch)",
+                    "type": "lunch",
+                    "price": 88,
+                    "cost": 352,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Wulin Square",
+                            "end": "Xidayou Chicken Pot (Chaohui Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Van Gogh Starry Night Art Museum (Hangzhou Flagship Store)",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 156,
+                    "start_time": "12:30",
+                    "end_time": "14:00",
+                    "transports": [
+                        {
+                            "start": "Xidayou Chicken Pot (Chaohui Branch)",
+                            "end": "Van Gogh Starry Night Art Museum (Hangzhou Flagship Store)",
+                            "mode": "taxi",
+                            "start_time": "12:30",
+                            "end_time": "12:30",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hangzhou Section of the Beijing-Hangzhou Grand Canal",
+                    "type": "attraction",
+                    "price": 119,
+                    "cost": 476,
+                    "start_time": "14:00",
+                    "end_time": "15:30",
+                    "transports": [
+                        {
+                            "start": "Van Gogh Starry Night Art Museum (Hangzhou Flagship Store)",
+                            "end": "Hangzhou Section of the Beijing-Hangzhou Grand Canal",
+                            "mode": "taxi",
+                            "start_time": "14:00",
+                            "end_time": "14:00",
+                            "cost": 11.0,
+                            "distance": 0.37,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Sanro Japanese Cuisine • Yakiniku & Izakaya (Wenhui Branch)",
+                    "type": "dinner",
+                    "price": 81,
+                    "cost": 324,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Section of the Beijing-Hangzhou Grand Canal",
+                            "end": "Sanro Japanese Cuisine • Yakiniku & Izakaya (Wenhui Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:30",
+                            "end_time": "15:30",
+                            "cost": 11.0,
+                            "distance": 0.39,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Qiantang River Night Cruise (Wulinmen Dock)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Sanro Japanese Cuisine • Yakiniku & Izakaya (Wenhui Branch)",
+                            "end": "Qiantang River Night Cruise (Wulinmen Dock)",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.41,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "West Lake Cultural Plaza",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:30",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Qiantang River Night Cruise (Wulinmen Dock)",
+                            "end": "West Lake Cultural Plaza",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Lotus Glade Hotel",
+                    "type": "accommodation",
+                    "price": 502,
+                    "cost": 1004,
+                    "start_time": "21:36",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "West Lake Cultural Plaza",
+                            "end": "West Lake Cultural Plaza-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:05",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Lake Cultural Plaza-Metro Station",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:05",
+                            "end_time": "21:10",
+                            "cost": 8,
+                            "distance": 2.89,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Lotus Glade Hotel",
+                            "mode": "walk",
+                            "start_time": "21:10",
+                            "end_time": "21:36",
+                            "cost": 0,
+                            "distance": 2.18,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Lotus Glade Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Twin Peaks Piercing the Clouds",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:17",
+                    "end_time": "10:47",
+                    "transports": [
+                        {
+                            "start": "Lotus Glade Hotel",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 2.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Huanglong Sports Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:56",
+                            "end_time": "08:58",
+                            "cost": 8,
+                            "distance": 1.06,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huanglong Sports Center-Metro Station",
+                            "end": "Twin Peaks Piercing the Clouds",
+                            "mode": "walk",
+                            "start_time": "08:58",
+                            "end_time": "09:17",
+                            "cost": 0,
+                            "distance": 1.59,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant",
+                    "type": "lunch",
+                    "price": 460,
+                    "cost": 1840,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Twin Peaks Piercing the Clouds",
+                            "end": "Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant",
+                            "mode": "taxi",
+                            "start_time": "10:47",
+                            "end_time": "10:47",
+                            "cost": 11.0,
+                            "distance": 0.33,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "704 Project (Lin Biao's Hangzhou Villa)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:00",
+                    "end_time": "14:30",
+                    "transports": [
+                        {
+                            "start": "Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant",
+                            "end": "Huanglong Sports Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:22",
+                            "cost": 0,
+                            "distance": 1.91,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huanglong Sports Center-Metro Station",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:22",
+                            "end_time": "12:24",
+                            "cost": 8,
+                            "distance": 1.06,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "704 Project (Lin Biao's Hangzhou Villa)",
+                            "mode": "walk",
+                            "start_time": "12:24",
+                            "end_time": "13:00",
+                            "cost": 0,
+                            "distance": 3.0,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "China National Tea Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:30",
+                    "end_time": "16:00",
+                    "transports": [
+                        {
+                            "start": "704 Project (Lin Biao's Hangzhou Villa)",
+                            "end": "China National Tea Museum",
+                            "mode": "taxi",
+                            "start_time": "14:30",
+                            "end_time": "14:30",
+                            "cost": 11.0,
+                            "distance": 0.41,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hidden Out (Longjing Road Branch)",
+                    "type": "dinner",
+                    "price": 939,
+                    "cost": 3756,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "China National Tea Museum",
+                            "end": "Hidden Out (Longjing Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:00",
+                            "end_time": "16:00",
+                            "cost": 11.0,
+                            "distance": 0.24,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Four-Eyed Well",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:19",
+                    "end_time": "20:49",
+                    "transports": [
+                        {
+                            "start": "Hidden Out (Longjing Road Branch)",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:40",
+                            "cost": 0,
+                            "distance": 3.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:40",
+                            "end_time": "18:53",
+                            "cost": 12,
+                            "distance": 6.89,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Four-Eyed Well",
+                            "mode": "walk",
+                            "start_time": "18:53",
+                            "end_time": "19:19",
+                            "cost": 0,
+                            "distance": 2.17,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Lotus Glade Hotel",
+                    "type": "accommodation",
+                    "price": 502,
+                    "cost": 1004,
+                    "start_time": "21:54",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Four-Eyed Well",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:49",
+                            "end_time": "21:15",
+                            "cost": 0,
+                            "distance": 2.17,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:15",
+                            "end_time": "21:28",
+                            "cost": 12,
+                            "distance": 6.89,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Lotus Glade Hotel",
+                            "mode": "walk",
+                            "start_time": "21:28",
+                            "end_time": "21:54",
+                            "cost": 0,
+                            "distance": 2.18,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Lotus Glade Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Lotus Glade Hotel",
+                    "type": "accommodation",
+                    "price": 502,
+                    "cost": 1004,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Lotus Glade Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "20:43",
+                    "end_time": "22:07",
+                    "start": "Hangzhou East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 78.65,
+                    "cost": 314.6,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Lotus Glade Hotel",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 2.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "East Railway Station (East Square)-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:56",
+                            "end_time": "09:11",
+                            "cost": 12,
+                            "distance": 7.93,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "East Railway Station (East Square)-Metro Station",
+                            "end": "Hangzhou East Railway Station",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:16",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7350",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 10.946482419967651,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,466 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:40",
+                            "cost": 18,
+                            "distance": 53.95,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "05:40",
+                            "end_time": "05:44",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Ping'an Bridge Catholic Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Ping'an Bridge Catholic Church",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                    "type": "lunch",
+                    "price": 41,
+                    "cost": 82,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Ping'an Bridge Catholic Church",
+                            "end": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Jincheng Park in Chengdu",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:00",
+                    "end_time": "14:30",
+                    "transports": [
+                        {
+                            "start": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:33",
+                            "end_time": "12:54",
+                            "cost": 8,
+                            "distance": 10.72,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Park in Chengdu",
+                            "mode": "walk",
+                            "start_time": "12:54",
+                            "end_time": "13:00",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Global Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:31",
+                    "end_time": "16:01",
+                    "transports": [
+                        {
+                            "start": "Jincheng Park in Chengdu",
+                            "end": "Chengdu Global Center",
+                            "mode": "taxi",
+                            "start_time": "14:30",
+                            "end_time": "14:31",
+                            "cost": 11.0,
+                            "distance": 0.72,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)",
+                    "type": "dinner",
+                    "price": 82,
+                    "cost": 164,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Global Center",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:01",
+                            "end_time": "16:03",
+                            "cost": 0,
+                            "distance": 0.2,
+                            "price": 0
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:03",
+                            "end_time": "16:04",
+                            "cost": 4,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)",
+                            "mode": "walk",
+                            "start_time": "16:04",
+                            "end_time": "16:10",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nellie's Family Center (Chengdu Global Store)",
+                    "type": "attraction",
+                    "price": 99,
+                    "cost": 198,
+                    "start_time": "18:12",
+                    "end_time": "19:42",
+                    "transports": [
+                        {
+                            "start": "One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:07",
+                            "cost": 4,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Nellie's Family Center (Chengdu Global Store)",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:12",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Three Saints Flower Village Tourist Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:53",
+                    "end_time": "21:23",
+                    "transports": [
+                        {
+                            "start": "Nellie's Family Center (Chengdu Global Store)",
+                            "end": "Three Saints Flower Village Tourist Area",
+                            "mode": "taxi",
+                            "start_time": "19:42",
+                            "end_time": "19:53",
+                            "cost": 32.11,
+                            "distance": 7.83,
+                            "price": 32.11,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "22:20",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Three Saints Flower Village Tourist Area",
+                            "end": "Honghe-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:23",
+                            "end_time": "21:54",
+                            "cost": 0,
+                            "distance": 2.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Honghe-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:54",
+                            "end_time": "22:16",
+                            "cost": 8,
+                            "distance": 11.38,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "22:16",
+                            "end_time": "22:20",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Narrow Alley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 4,
+                            "distance": 0.71,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Narrow Alley",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Unicorn Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 98,
+                    "start_time": "10:14",
+                    "end_time": "11:44",
+                    "transports": [
+                        {
+                            "start": "Narrow Alley",
+                            "end": "Chengdu Unicorn Starry Sky Art Museum",
+                            "mode": "taxi",
+                            "start_time": "10:11",
+                            "end_time": "10:14",
+                            "cost": 13.04,
+                            "distance": 2.38,
+                            "price": 13.04,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Chengdu Unicorn Starry Sky Art Museum",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:44",
+                            "end_time": "11:47",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:47",
+                            "end_time": "13:30",
+                            "cost": 18,
+                            "distance": 51.96,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "13:30",
+                            "end_time": "14:14",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 28.898576974868774,
+    "llm_inference_time_sec": 0
+}

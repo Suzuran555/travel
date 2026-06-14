@@ -1,0 +1,605 @@
+{
+    "people_number": 5,
+    "start_city": "Suzhou",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:49",
+                    "end_time": "20:34",
+                    "start": "Suzhou Station",
+                    "end": "Chengdu East Railway Station",
+                    "price": 945.53,
+                    "cost": 4727.65,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D353",
+                    "type": "train"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 790,
+                    "start_time": "20:54",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu East Railway Station",
+                            "end": "Chengdu East Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:34",
+                            "end_time": "20:34",
+                            "cost": 0,
+                            "distance": 0.0,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chengdu East Railway Station-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:34",
+                            "end_time": "20:50",
+                            "cost": 15,
+                            "distance": 8.39,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "20:50",
+                            "end_time": "20:54",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 22.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ping'an Bridge Catholic Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Ping'an Bridge Catholic Church",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 22.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                    "type": "lunch",
+                    "price": 41,
+                    "cost": 205,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Ping'an Bridge Catholic Church",
+                            "end": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 22.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:40",
+                    "end_time": "14:10",
+                    "transports": [
+                        {
+                            "start": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:33",
+                            "end_time": "12:35",
+                            "cost": 10,
+                            "distance": 1.19,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Sichuan Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "12:35",
+                            "end_time": "12:40",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Gaiwan'er Pear Garden • Sichuan Opera Face-Changing and Fire-Spitting Performance Theater • Intangible Cultural Heritage Inheritance Exhibition Base (Tianfu Square Branch)",
+                    "type": "attraction",
+                    "price": 118,
+                    "cost": 590,
+                    "start_time": "14:10",
+                    "end_time": "15:40",
+                    "transports": [
+                        {
+                            "start": "Sichuan Science and Technology Museum",
+                            "end": "Gaiwan'er Pear Garden • Sichuan Opera Face-Changing and Fire-Spitting Performance Theater • Intangible Cultural Heritage Inheritance Exhibition Base (Tianfu Square Branch)",
+                            "mode": "taxi",
+                            "start_time": "14:10",
+                            "end_time": "14:10",
+                            "cost": 22.0,
+                            "distance": 0.25,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chengdu Ritz-Carlton Hotel, Fuli - 25th Floor Xianghui All-Day Dining Restaurant",
+                    "type": "dinner",
+                    "price": 252,
+                    "cost": 1260,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Gaiwan'er Pear Garden • Sichuan Opera Face-Changing and Fire-Spitting Performance Theater • Intangible Cultural Heritage Inheritance Exhibition Base (Tianfu Square Branch)",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:40",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:44",
+                            "end_time": "15:46",
+                            "cost": 10,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Chengdu Ritz-Carlton Hotel, Fuli - 25th Floor Xianghui All-Day Dining Restaurant",
+                            "mode": "walk",
+                            "start_time": "15:46",
+                            "end_time": "15:52",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Tianfu Square",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:13",
+                    "end_time": "19:43",
+                    "transports": [
+                        {
+                            "start": "Chengdu Ritz-Carlton Hotel, Fuli - 25th Floor Xianghui All-Day Dining Restaurant",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:08",
+                            "cost": 10,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Tianfu Square",
+                            "mode": "walk",
+                            "start_time": "18:08",
+                            "end_time": "18:13",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Lianhua Pear Garden Club - Chunxi Theater Sichuan Opera Face-Changing Show",
+                    "type": "attraction",
+                    "price": 108,
+                    "cost": 540,
+                    "start_time": "19:53",
+                    "end_time": "21:23",
+                    "transports": [
+                        {
+                            "start": "Tianfu Square",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:43",
+                            "end_time": "19:48",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:48",
+                            "end_time": "19:49",
+                            "cost": 10,
+                            "distance": 0.83,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Lianhua Pear Garden Club - Chunxi Theater Sichuan Opera Face-Changing Show",
+                            "mode": "walk",
+                            "start_time": "19:49",
+                            "end_time": "19:53",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 790,
+                    "start_time": "21:35",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Lianhua Pear Garden Club - Chunxi Theater Sichuan Opera Face-Changing Show",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:23",
+                            "end_time": "21:27",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:27",
+                            "end_time": "21:31",
+                            "cost": 10,
+                            "distance": 2.0,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "21:31",
+                            "end_time": "21:35",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:36",
+                            "cost": 10,
+                            "distance": 1.45,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "08:36",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Sichuan Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:29",
+                    "end_time": "11:59",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:14",
+                            "end_time": "10:22",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:22",
+                            "end_time": "10:26",
+                            "cost": 10,
+                            "distance": 2.15,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Sichuan Art Museum",
+                            "mode": "walk",
+                            "start_time": "10:26",
+                            "end_time": "10:29",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ginko Silver",
+                    "type": "lunch",
+                    "price": 64,
+                    "cost": 320,
+                    "start_time": "12:07",
+                    "end_time": "13:07",
+                    "transports": [
+                        {
+                            "start": "Sichuan Art Museum",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:02",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:02",
+                            "end_time": "12:03",
+                            "cost": 10,
+                            "distance": 0.71,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Ginko Silver",
+                            "mode": "walk",
+                            "start_time": "12:03",
+                            "end_time": "12:07",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:21",
+                    "end_time": "14:51",
+                    "transports": [
+                        {
+                            "start": "Ginko Silver",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:07",
+                            "end_time": "13:11",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:11",
+                            "end_time": "13:14",
+                            "cost": 10,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "13:14",
+                            "end_time": "13:21",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "start_time": "17:42",
+                    "end_time": "04:27",
+                    "start": "Chengdu West Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 630.35,
+                    "cost": 3151.75,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:51",
+                            "end_time": "14:58",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Chengdu West Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:58",
+                            "end_time": "15:14",
+                            "cost": 15,
+                            "distance": 8.14,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chengdu West Railway Station-Metro Station",
+                            "end": "Chengdu West Railway Station",
+                            "mode": "walk",
+                            "start_time": "15:14",
+                            "end_time": "15:17",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K292",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 12.350090026855469,
+    "llm_inference_time_sec": 0
+}

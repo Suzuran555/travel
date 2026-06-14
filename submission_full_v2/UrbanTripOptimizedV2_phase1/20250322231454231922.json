@@ -1,0 +1,377 @@
+{
+    "people_number": 3,
+    "start_city": "Chengdu",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:12",
+                    "end_time": "20:43",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 945.53,
+                    "cost": 2836.59,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3058",
+                    "type": "train"
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 412,
+                    "start_time": "21:37",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:43",
+                            "end_time": "20:44",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:44",
+                            "end_time": "21:20",
+                            "cost": 15,
+                            "distance": 18.01,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "21:20",
+                            "end_time": "21:37",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Suzhou Youth Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:17",
+                    "end_time": "10:47",
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:47",
+                            "end_time": "08:55",
+                            "cost": 9,
+                            "distance": 4.16,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "Suzhou Youth Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "08:55",
+                            "end_time": "09:17",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Runji Cantonese Restaurant (Suzhou Bay Gelin Park Branch)",
+                    "type": "lunch",
+                    "price": 93,
+                    "cost": 279,
+                    "start_time": "11:37",
+                    "end_time": "12:37",
+                    "transports": [
+                        {
+                            "start": "Suzhou Youth Science and Technology Museum",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:47",
+                            "end_time": "11:09",
+                            "cost": 0,
+                            "distance": 1.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:09",
+                            "end_time": "11:24",
+                            "cost": 9,
+                            "distance": 7.6,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Runji Cantonese Restaurant (Suzhou Bay Gelin Park Branch)",
+                            "mode": "walk",
+                            "start_time": "11:24",
+                            "end_time": "11:37",
+                            "cost": 0,
+                            "distance": 1.12,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Orange Sky Golden Harvest Theater - Faith",
+                    "type": "attraction",
+                    "price": 199,
+                    "cost": 597,
+                    "start_time": "12:56",
+                    "end_time": "14:26",
+                    "transports": [
+                        {
+                            "start": "Runji Cantonese Restaurant (Suzhou Bay Gelin Park Branch)",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:37",
+                            "end_time": "12:50",
+                            "cost": 0,
+                            "distance": 1.12,
+                            "price": 0
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "North Suzhou Bay-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:50",
+                            "end_time": "12:51",
+                            "cost": 6,
+                            "distance": 0.95,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "North Suzhou Bay-Metro Station",
+                            "end": "Orange Sky Golden Harvest Theater - Faith",
+                            "mode": "walk",
+                            "start_time": "12:51",
+                            "end_time": "12:56",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Imagination Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:39",
+                    "end_time": "16:09",
+                    "transports": [
+                        {
+                            "start": "Orange Sky Golden Harvest Theater - Faith",
+                            "end": "North Suzhou Bay-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:26",
+                            "end_time": "14:31",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Suzhou Bay-Metro Station",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:31",
+                            "end_time": "14:32",
+                            "cost": 6,
+                            "distance": 0.95,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Imagination Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "14:32",
+                            "end_time": "14:39",
+                            "cost": 0,
+                            "distance": 0.65,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Golden Sea Splendor · Grand Banquet (Xiaoshi Lake Branch)",
+                    "type": "dinner",
+                    "price": 545,
+                    "cost": 1635,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Imagination Science and Technology Museum",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:09",
+                            "end_time": "16:16",
+                            "cost": 0,
+                            "distance": 0.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Shihu Moshe-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:16",
+                            "end_time": "16:23",
+                            "cost": 6,
+                            "distance": 3.71,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shihu Moshe-Metro Station",
+                            "end": "Golden Sea Splendor · Grand Banquet (Xiaoshi Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "16:23",
+                            "end_time": "16:33",
+                            "cost": 0,
+                            "distance": 0.91,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Stone Lake Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:31",
+                    "end_time": "20:01",
+                    "transports": [
+                        {
+                            "start": "Golden Sea Splendor · Grand Banquet (Xiaoshi Lake Branch)",
+                            "end": "Shihu Moshe-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.91,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shihu Moshe-Metro Station",
+                            "end": "Xinjiaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:10",
+                            "end_time": "18:17",
+                            "cost": 6,
+                            "distance": 3.69,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xinjiaqiao-Metro Station",
+                            "end": "Stone Lake Scenic Area",
+                            "mode": "walk",
+                            "start_time": "18:17",
+                            "end_time": "18:31",
+                            "cost": 0,
+                            "distance": 1.24,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "21:43",
+                    "end_time": "08:44",
+                    "start": "Suzhou Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 630.35,
+                    "cost": 1891.0500000000002,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Stone Lake Scenic Area",
+                            "end": "Xinjiaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:01",
+                            "end_time": "20:15",
+                            "cost": 0,
+                            "distance": 1.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinjiaqiao-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:15",
+                            "end_time": "20:31",
+                            "cost": 9,
+                            "distance": 8.3,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "20:31",
+                            "end_time": "20:32",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K282",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 4.578491926193237,
+    "llm_inference_time_sec": 0
+}

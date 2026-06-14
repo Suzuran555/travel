@@ -1,0 +1,249 @@
+{
+    "people_number": 4,
+    "start_city": "Suzhou",
+    "target_city": "Wuhan",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:40",
+                    "end_time": "12:35",
+                    "start": "Suzhou Station",
+                    "end": "Wuhan Station",
+                    "price": 392.42,
+                    "cost": 1569.68,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "G3124",
+                    "type": "train"
+                },
+                {
+                    "position": "Yiyuan Road Unique-Flavored Baked Cake (Fengshang Times Plaza Branch)",
+                    "type": "lunch",
+                    "price": 5,
+                    "cost": 20,
+                    "start_time": "12:52",
+                    "end_time": "13:52",
+                    "transports": [
+                        {
+                            "start": "Wuhan Station",
+                            "end": "Yiyuan Road Unique-Flavored Baked Cake (Fengshang Times Plaza Branch)",
+                            "mode": "taxi",
+                            "start_time": "12:35",
+                            "end_time": "12:52",
+                            "cost": 48.61,
+                            "distance": 11.98,
+                            "price": 48.61,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Hankou Water Tower",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:04",
+                    "end_time": "15:34",
+                    "transports": [
+                        {
+                            "start": "Yiyuan Road Unique-Flavored Baked Cake (Fengshang Times Plaza Branch)",
+                            "end": "Hankou Water Tower",
+                            "mode": "walk",
+                            "start_time": "13:52",
+                            "end_time": "14:04",
+                            "cost": 0.0,
+                            "distance": 1.0658857667548431,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shuita Li's Crispy Dumplings (Shuita Branch)",
+                    "type": "dinner",
+                    "price": 7,
+                    "cost": 28,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Hankou Water Tower",
+                            "end": "Shuita Li's Crispy Dumplings (Shuita Branch)",
+                            "mode": "walk",
+                            "start_time": "15:34",
+                            "end_time": "15:45",
+                            "cost": 0.0,
+                            "distance": 0.9176192711082971,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wuhan Yangtze River Bridge Completion Monument",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:38",
+                    "end_time": "20:08",
+                    "transports": [
+                        {
+                            "start": "Shuita Li's Crispy Dumplings (Shuita Branch)",
+                            "end": "Wuhan Yangtze River Bridge Completion Monument",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:38",
+                            "cost": 0.0,
+                            "distance": 3.2320342351052576,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                    "type": "accommodation",
+                    "price": 37,
+                    "cost": 74,
+                    "start_time": "21:30",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Wuhan Yangtze River Bridge Completion Monument",
+                            "end": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                            "mode": "walk",
+                            "start_time": "20:08",
+                            "end_time": "21:30",
+                            "cost": 0.0,
+                            "distance": 6.842392296374013,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "White Cloud Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:39",
+                    "end_time": "11:09",
+                    "transports": [
+                        {
+                            "start": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                            "end": "White Cloud Pavilion",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:39",
+                            "cost": 0.0,
+                            "distance": 5.780741354319864,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Feng's Fresh Fish Paste Noodle Soup",
+                    "type": "lunch",
+                    "price": 6,
+                    "cost": 24,
+                    "start_time": "11:29",
+                    "end_time": "12:29",
+                    "transports": [
+                        {
+                            "start": "White Cloud Pavilion",
+                            "end": "Feng's Fresh Fish Paste Noodle Soup",
+                            "mode": "walk",
+                            "start_time": "11:09",
+                            "end_time": "11:29",
+                            "cost": 0.0,
+                            "distance": 1.6976652488965591,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Optics Valley Flower Sea",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:33",
+                    "end_time": "18:03",
+                    "transports": [
+                        {
+                            "start": "Feng's Fresh Fish Paste Noodle Soup",
+                            "end": "Optics Valley Flower Sea",
+                            "mode": "walk",
+                            "start_time": "12:29",
+                            "end_time": "16:33",
+                            "cost": 0.0,
+                            "distance": 20.333793632365268,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "16:39",
+                    "end_time": "20:28",
+                    "start": "Wuhan Station",
+                    "end": "Suzhou North Station",
+                    "price": 392.42,
+                    "cost": 1569.68,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Optics Valley Flower Sea",
+                            "end": "Guanggu Fourth Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:03",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 1.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guanggu Fourth Road-Metro Station",
+                            "end": "Wuhan Station East Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:20",
+                            "end_time": "18:48",
+                            "cost": 20,
+                            "distance": 14.45,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wuhan Station East Square-Metro Station",
+                            "end": "Wuhan Station",
+                            "mode": "walk",
+                            "start_time": "18:48",
+                            "end_time": "18:50",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G588",
+                    "type": "train"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,442 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:06",
+                            "cost": 14,
+                            "distance": 36.93,
+                            "price": 7,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                            "mode": "walk",
+                            "start_time": "05:06",
+                            "end_time": "05:11",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Tianfu Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:45",
+                    "end_time": "10:15",
+                    "transports": [
+                        {
+                            "start": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:35",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Tianfu Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:35",
+                            "end_time": "08:37",
+                            "cost": 4,
+                            "distance": 1.29,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Park-Metro Station",
+                            "end": "Tianfu Park",
+                            "mode": "walk",
+                            "start_time": "08:37",
+                            "end_time": "08:45",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Guanghui Art Museum",
+                    "type": "attraction",
+                    "price": 98,
+                    "cost": 196,
+                    "start_time": "10:30",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Tianfu Park",
+                            "end": "Tianfu Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:15",
+                            "end_time": "10:23",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Park-Metro Station",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:23",
+                            "end_time": "10:25",
+                            "cost": 4,
+                            "distance": 1.29,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Guanghui Art Museum",
+                            "mode": "walk",
+                            "start_time": "10:25",
+                            "end_time": "10:30",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Blue Pavilion Restaurant (Garden City Branch)",
+                    "type": "lunch",
+                    "price": 188,
+                    "cost": 376,
+                    "start_time": "12:13",
+                    "end_time": "13:13",
+                    "transports": [
+                        {
+                            "start": "Guanghui Art Museum",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Wuhan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:05",
+                            "end_time": "12:08",
+                            "cost": 4,
+                            "distance": 1.61,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wuhan Road-Metro Station",
+                            "end": "Blue Pavilion Restaurant (Garden City Branch)",
+                            "mode": "walk",
+                            "start_time": "12:08",
+                            "end_time": "12:13",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Western China International Expo City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:22",
+                    "end_time": "14:52",
+                    "transports": [
+                        {
+                            "start": "Blue Pavilion Restaurant (Garden City Branch)",
+                            "end": "Wuhan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:13",
+                            "end_time": "13:18",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuhan Road-Metro Station",
+                            "end": "Tianfu Business District-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:18",
+                            "end_time": "13:21",
+                            "cost": 4,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Business District-Metro Station",
+                            "end": "Western China International Expo City",
+                            "mode": "walk",
+                            "start_time": "13:21",
+                            "end_time": "13:22",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu International Auto Show",
+                    "type": "attraction",
+                    "price": 58,
+                    "cost": 116,
+                    "start_time": "14:52",
+                    "end_time": "16:22",
+                    "transports": [
+                        {
+                            "start": "Western China International Expo City",
+                            "end": "Chengdu International Auto Show",
+                            "mode": "taxi",
+                            "start_time": "14:52",
+                            "end_time": "14:52",
+                            "cost": 11.0,
+                            "distance": 0.0,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Silver Bar (Science City Branch)",
+                    "type": "dinner",
+                    "price": 260,
+                    "cost": 520,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu International Auto Show",
+                            "end": "Tianfu Business District-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:22",
+                            "end_time": "16:23",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Business District-Metro Station",
+                            "end": "Xinglong Lake-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:23",
+                            "end_time": "16:28",
+                            "cost": 4,
+                            "distance": 2.91,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xinglong Lake-Metro Station",
+                            "end": "Silver Bar (Science City Branch)",
+                            "mode": "walk",
+                            "start_time": "16:28",
+                            "end_time": "16:34",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Huanglongxi Covered Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:18",
+                    "end_time": "19:48",
+                    "transports": [
+                        {
+                            "start": "Silver Bar (Science City Branch)",
+                            "end": "Huanglongxi Covered Bridge",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:18",
+                            "cost": 51.48,
+                            "distance": 12.62,
+                            "price": 51.48,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                    "type": "accommodation",
+                    "price": 406,
+                    "cost": 406,
+                    "start_time": "22:19",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Huanglongxi Covered Bridge",
+                            "end": "Science City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "22:03",
+                            "cost": 0,
+                            "distance": 11.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:03",
+                            "end_time": "22:14",
+                            "cost": 6,
+                            "distance": 5.53,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                            "mode": "walk",
+                            "start_time": "22:14",
+                            "end_time": "22:19",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Yellow Dragon Cave",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:54",
+                    "end_time": "10:24",
+                    "transports": [
+                        {
+                            "start": "Yuan Cinema Hotel (Tianfu New District Xibo City Branch)",
+                            "end": "Yellow Dragon Cave",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:54",
+                            "cost": 68.58,
+                            "distance": 16.42,
+                            "price": 68.58,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Yellow Dragon Cave",
+                            "end": "Science City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:24",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 11.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Science City-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:46",
+                            "end_time": "13:59",
+                            "cost": 14,
+                            "distance": 36.84,
+                            "price": 7,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "13:59",
+                            "end_time": "14:43",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 5.538074493408203,
+    "llm_inference_time_sec": 0
+}

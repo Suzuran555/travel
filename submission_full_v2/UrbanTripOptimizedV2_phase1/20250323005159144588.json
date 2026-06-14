@@ -1,0 +1,370 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "09:24",
+                    "start": "Nanjing Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D10",
+                    "type": "train"
+                },
+                {
+                    "position": "Ancient Observatory",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 100,
+                    "start_time": "09:25",
+                    "end_time": "10:55",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Ancient Observatory",
+                            "mode": "taxi",
+                            "start_time": "09:24",
+                            "end_time": "09:25",
+                            "cost": 22.0,
+                            "distance": 1.18,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                    "type": "lunch",
+                    "price": 60,
+                    "cost": 300,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Ancient Observatory",
+                            "end": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:55",
+                            "end_time": "10:56",
+                            "cost": 22.0,
+                            "distance": 1.01,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Joyous Pavilion Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:01",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                            "end": "Joyous Pavilion Park",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:01",
+                            "cost": 22.0,
+                            "distance": 1.1,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Taoranting Park Ice Rink",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:31",
+                    "end_time": "15:01",
+                    "transports": [
+                        {
+                            "start": "Joyous Pavilion Park",
+                            "end": "Taoranting Park Ice Rink",
+                            "mode": "taxi",
+                            "start_time": "13:31",
+                            "end_time": "13:31",
+                            "cost": 22.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Yangmeizhu Byway",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:04",
+                    "end_time": "16:34",
+                    "transports": [
+                        {
+                            "start": "Taoranting Park Ice Rink",
+                            "end": "Yangmeizhu Byway",
+                            "mode": "taxi",
+                            "start_time": "15:01",
+                            "end_time": "15:04",
+                            "cost": 28.0,
+                            "distance": 2.66,
+                            "price": 14.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Wen Ding Fu Seafood Hot Pot (Qianmen Courtyard 23 Branch)",
+                    "type": "dinner",
+                    "price": 1027,
+                    "cost": 5135,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Yangmeizhu Byway",
+                            "end": "Wen Ding Fu Seafood Hot Pot (Qianmen Courtyard 23 Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:34",
+                            "end_time": "16:34",
+                            "cost": 22.0,
+                            "distance": 0.18,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Manchester United Dream Theater",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Wen Ding Fu Seafood Hot Pot (Qianmen Courtyard 23 Branch)",
+                            "end": "Manchester United Dream Theater",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 22.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing Central Axis Tour by Ding-Ding Tram",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:30",
+                    "end_time": "20:20",
+                    "transports": [
+                        {
+                            "start": "Manchester United Dream Theater",
+                            "end": "Beijing Central Axis Tour by Ding-Ding Tram",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 22.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Madame Tussauds Beijing",
+                    "type": "attraction",
+                    "price": 129,
+                    "cost": 645,
+                    "start_time": "20:20",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Beijing Central Axis Tour by Ding-Ding Tram",
+                            "end": "Madame Tussauds Beijing",
+                            "mode": "taxi",
+                            "start_time": "20:20",
+                            "end_time": "20:20",
+                            "cost": 22.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 807,
+                    "start_time": "21:34",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Madame Tussauds Beijing",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "taxi",
+                            "start_time": "21:00",
+                            "end_time": "21:34",
+                            "cost": 193.78,
+                            "distance": 22.71,
+                            "price": 96.89,
+                            "cars": 2
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "798 Art District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "798 Art District",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 79.3,
+                            "distance": 9.99,
+                            "price": 39.65,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing International Convention Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:25",
+                    "end_time": "11:55",
+                    "transports": [
+                        {
+                            "start": "798 Art District",
+                            "end": "Beijing International Convention Center",
+                            "mode": "taxi",
+                            "start_time": "10:14",
+                            "end_time": "10:25",
+                            "cost": 64.72,
+                            "distance": 7.9,
+                            "price": 32.36,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing North Star Continental Grand Hotel Brazilian Barbecue Restaurant",
+                    "type": "lunch",
+                    "price": 226,
+                    "cost": 1130,
+                    "start_time": "11:56",
+                    "end_time": "12:56",
+                    "transports": [
+                        {
+                            "start": "Beijing International Convention Center",
+                            "end": "Beijing North Star Continental Grand Hotel Brazilian Barbecue Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:55",
+                            "end_time": "11:56",
+                            "cost": 22.0,
+                            "distance": 0.7,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Soong Ching Ling Former Residence",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 100,
+                    "start_time": "13:02",
+                    "end_time": "14:32",
+                    "transports": [
+                        {
+                            "start": "Beijing North Star Continental Grand Hotel Brazilian Barbecue Restaurant",
+                            "end": "Beijing Soong Ching Ling Former Residence",
+                            "mode": "taxi",
+                            "start_time": "12:56",
+                            "end_time": "13:02",
+                            "cost": 40.54,
+                            "distance": 4.45,
+                            "price": 20.27,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "start_time": "23:22",
+                    "end_time": "00:29",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 416.91,
+                    "cost": 2084.55,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Beijing Soong Ching Ling Former Residence",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "taxi",
+                            "start_time": "14:32",
+                            "end_time": "15:46",
+                            "cost": 438.04,
+                            "distance": 49.85,
+                            "price": 219.02,
+                            "cars": 2
+                        }
+                    ],
+                    "FlightID": "FL154",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.0056982040405273,
+    "llm_inference_time_sec": 0
+}

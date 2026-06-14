@@ -1,0 +1,809 @@
+{
+    "people_number": 4,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 2284.72,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "06:03",
+                            "cost": 28,
+                            "distance": 33.44,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "06:03",
+                            "end_time": "06:07",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:57",
+                    "end_time": "10:27",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:39",
+                            "cost": 8,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:57",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "10:54",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:27",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "10:50",
+                            "cost": 8,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "10:50",
+                            "end_time": "10:54",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shanghai Lavender Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:03",
+                    "end_time": "10:33",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:45",
+                            "cost": 12,
+                            "distance": 5.81,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Shanghai Lavender Park",
+                            "mode": "walk",
+                            "start_time": "08:45",
+                            "end_time": "09:03",
+                            "cost": 0,
+                            "distance": 1.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Ziyang Garden Grand Restaurant",
+                    "type": "lunch",
+                    "price": 164,
+                    "cost": 656,
+                    "start_time": "11:28",
+                    "end_time": "12:28",
+                    "transports": [
+                        {
+                            "start": "Shanghai Lavender Park",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:33",
+                            "end_time": "10:51",
+                            "cost": 0,
+                            "distance": 1.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:51",
+                            "end_time": "11:02",
+                            "cost": 12,
+                            "distance": 5.81,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Ziyang Garden Grand Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:02",
+                            "end_time": "11:28",
+                            "cost": 0,
+                            "distance": 2.21,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                    "type": "attraction",
+                    "price": 29,
+                    "cost": 116,
+                    "start_time": "13:41",
+                    "end_time": "15:11",
+                    "transports": [
+                        {
+                            "start": "Ziyang Garden Grand Restaurant",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:28",
+                            "end_time": "12:54",
+                            "cost": 0,
+                            "distance": 2.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:54",
+                            "end_time": "13:05",
+                            "cost": 12,
+                            "distance": 5.81,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                            "mode": "walk",
+                            "start_time": "13:05",
+                            "end_time": "13:41",
+                            "cost": 0,
+                            "distance": 3.04,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Florentia Village Shanghai",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:26",
+                    "end_time": "17:56",
+                    "transports": [
+                        {
+                            "start": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:11",
+                            "end_time": "15:47",
+                            "cost": 0,
+                            "distance": 3.04,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Far East Avenue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:47",
+                            "end_time": "16:08",
+                            "cost": 16,
+                            "distance": 10.53,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Far East Avenue-Metro Station",
+                            "end": "Florentia Village Shanghai",
+                            "mode": "walk",
+                            "start_time": "16:08",
+                            "end_time": "16:26",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                    "type": "dinner",
+                    "price": 402,
+                    "cost": 1608,
+                    "start_time": "18:42",
+                    "end_time": "19:42",
+                    "transports": [
+                        {
+                            "start": "Florentia Village Shanghai",
+                            "end": "Far East Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:56",
+                            "end_time": "18:14",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Far East Avenue-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:14",
+                            "end_time": "18:35",
+                            "cost": 16,
+                            "distance": 10.53,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "mode": "walk",
+                            "start_time": "18:35",
+                            "end_time": "18:42",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maglev Train",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 200,
+                    "start_time": "20:20",
+                    "end_time": "21:42",
+                    "transports": [
+                        {
+                            "start": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:42",
+                            "end_time": "19:49",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:49",
+                            "end_time": "20:14",
+                            "cost": 16,
+                            "distance": 12.68,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Maglev Train",
+                            "mode": "walk",
+                            "start_time": "20:14",
+                            "end_time": "20:20",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "22:18",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Maglev Train",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:42",
+                            "end_time": "21:48",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:48",
+                            "end_time": "22:14",
+                            "cost": 16,
+                            "distance": 13.19,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "22:14",
+                            "end_time": "22:18",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shanghai Oriental Geoscience Museum",
+                    "type": "attraction",
+                    "price": 59,
+                    "cost": 236,
+                    "start_time": "09:15",
+                    "end_time": "10:45",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Haitian Third Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:53",
+                            "cost": 16,
+                            "distance": 9.62,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Haitian Third Road-Metro Station",
+                            "end": "Shanghai Oriental Geoscience Museum",
+                            "mode": "walk",
+                            "start_time": "08:53",
+                            "end_time": "09:15",
+                            "cost": 0,
+                            "distance": 1.84,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant",
+                    "type": "lunch",
+                    "price": 134,
+                    "cost": 536,
+                    "start_time": "11:48",
+                    "end_time": "12:48",
+                    "transports": [
+                        {
+                            "start": "Shanghai Oriental Geoscience Museum",
+                            "end": "Haitian Third Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:45",
+                            "end_time": "11:07",
+                            "cost": 0,
+                            "distance": 1.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Haitian Third Road-Metro Station",
+                            "end": "Gutang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:07",
+                            "end_time": "11:41",
+                            "cost": 20,
+                            "distance": 17.21,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Gutang Road-Metro Station",
+                            "end": "Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:41",
+                            "end_time": "11:48",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yingdong Village",
+                    "type": "attraction",
+                    "price": 38,
+                    "cost": 152,
+                    "start_time": "13:15",
+                    "end_time": "14:45",
+                    "transports": [
+                        {
+                            "start": "Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant",
+                            "end": "Gutang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "12:55",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gutang Road-Metro Station",
+                            "end": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:55",
+                            "end_time": "13:11",
+                            "cost": 12,
+                            "distance": 8.05,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "end": "Yingdong Village",
+                            "mode": "walk",
+                            "start_time": "13:11",
+                            "end_time": "13:15",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Tongji University (Siping Road Campus)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:07",
+                    "end_time": "16:37",
+                    "transports": [
+                        {
+                            "start": "Yingdong Village",
+                            "end": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:45",
+                            "end_time": "14:49",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "end": "Guoquan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:49",
+                            "end_time": "15:07",
+                            "cost": 16,
+                            "distance": 9.46,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Guoquan Road-Metro Station",
+                            "end": "Tongji University (Siping Road Campus)",
+                            "mode": "walk",
+                            "start_time": "15:07",
+                            "end_time": "15:07",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hyatt Cafe · Chinese Kitchen",
+                    "type": "dinner",
+                    "price": 309,
+                    "cost": 1236,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Tongji University (Siping Road Campus)",
+                            "end": "Guoquan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:37",
+                            "end_time": "16:37",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guoquan Road-Metro Station",
+                            "end": "Wujiaochang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:37",
+                            "end_time": "16:39",
+                            "cost": 8,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wujiaochang-Metro Station",
+                            "end": "Hyatt Cafe · Chinese Kitchen",
+                            "mode": "walk",
+                            "start_time": "16:39",
+                            "end_time": "16:45",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "SNH48 Star Dream Theater",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:18",
+                    "end_time": "19:48",
+                    "transports": [
+                        {
+                            "start": "Hyatt Cafe · Chinese Kitchen",
+                            "end": "Wujiaochang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wujiaochang-Metro Station",
+                            "end": "Liping Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:14",
+                            "cost": 12,
+                            "distance": 4.33,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Liping Road-Metro Station",
+                            "end": "SNH48 Star Dream Theater",
+                            "mode": "walk",
+                            "start_time": "18:14",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Pudong Art Museum",
+                    "type": "attraction",
+                    "price": 80,
+                    "cost": 320,
+                    "start_time": "20:04",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "SNH48 Star Dream Theater",
+                            "end": "Liping Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "19:52",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liping Road-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:52",
+                            "end_time": "19:57",
+                            "cost": 8,
+                            "distance": 2.51,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong Art Museum",
+                            "mode": "walk",
+                            "start_time": "19:57",
+                            "end_time": "20:04",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 2563.72,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Pudong Art Museum",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:07",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:07",
+                            "end_time": "22:07",
+                            "cost": 28,
+                            "distance": 30.5,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "22:07",
+                            "end_time": "22:22",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 21.2671480178833,
+    "llm_inference_time_sec": 0
+}

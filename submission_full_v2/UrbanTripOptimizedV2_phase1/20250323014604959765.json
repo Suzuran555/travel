@@ -1,0 +1,201 @@
+{
+    "people_number": 3,
+    "start_city": "Suzhou",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:49",
+                    "end_time": "18:09",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing North Railway Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D353",
+                    "type": "train"
+                },
+                {
+                    "position": "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant",
+                    "type": "dinner",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "18:17",
+                    "end_time": "19:17",
+                    "transports": [
+                        {
+                            "start": "Chongqing North Railway Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:09",
+                            "end_time": "18:12",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Shiziping-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:12",
+                            "end_time": "18:13",
+                            "cost": 6,
+                            "distance": 0.6,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shiziping-Metro Station",
+                            "end": "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "18:13",
+                            "end_time": "18:17",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Longtousi Park in Yubei",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:25",
+                    "end_time": "20:55",
+                    "transports": [
+                        {
+                            "start": "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant",
+                            "end": "Shiziping-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:17",
+                            "end_time": "19:21",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shiziping-Metro Station",
+                            "end": "Yulu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:21",
+                            "end_time": "19:23",
+                            "cost": 6,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yulu-Metro Station",
+                            "end": "Longtousi Park in Yubei",
+                            "mode": "walk",
+                            "start_time": "19:23",
+                            "end_time": "19:25",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Huajue Hotel",
+                    "type": "accommodation",
+                    "price": 69,
+                    "cost": 207,
+                    "start_time": "21:29",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Longtousi Park in Yubei",
+                            "end": "Yulu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:55",
+                            "end_time": "20:57",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yulu-Metro Station",
+                            "end": "Qiujiawan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:57",
+                            "end_time": "21:24",
+                            "cost": 12,
+                            "distance": 13.94,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiujiawan-Metro Station",
+                            "end": "Huajue Hotel",
+                            "mode": "walk",
+                            "start_time": "21:24",
+                            "end_time": "21:29",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "start_time": "10:07",
+                    "end_time": "21:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Huajue Hotel",
+                            "end": "Qiujiawan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:00",
+                            "end_time": "00:05",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiujiawan-Metro Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:05",
+                            "end_time": "00:35",
+                            "cost": 15,
+                            "distance": 15.49,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Chongqing North Railway Station",
+                            "mode": "walk",
+                            "start_time": "00:35",
+                            "end_time": "00:38",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D354",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.365769386291504,
+    "llm_inference_time_sec": 0
+}

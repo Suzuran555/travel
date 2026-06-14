@@ -1,0 +1,509 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 571.18,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Pudong Shangri-La, Shanghai",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "05:28",
+                            "cost": 5,
+                            "distance": 15.64,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong Shangri-La, Shanghai",
+                            "mode": "walk",
+                            "start_time": "05:28",
+                            "end_time": "05:32",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jinling East Road Ferry",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Pudong Shangri-La, Shanghai",
+                            "end": "Jinling East Road Ferry",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Yu Garden Starry Sky Dreamland Pavilion",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 49,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Jinling East Road Ferry",
+                            "end": "Yu Garden Starry Sky Dreamland Pavilion",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.47,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Guangzhou Restaurant (Shangri-La Branch)",
+                    "type": "lunch",
+                    "price": 670,
+                    "cost": 670,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Yu Garden Starry Sky Dreamland Pavilion",
+                            "end": "Guangzhou Restaurant (Shangri-La Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.22,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Yu Garden",
+                    "type": "attraction",
+                    "price": 40,
+                    "cost": 40,
+                    "start_time": "12:30",
+                    "end_time": "14:00",
+                    "transports": [
+                        {
+                            "start": "Guangzhou Restaurant (Shangri-La Branch)",
+                            "end": "Yu Garden",
+                            "mode": "taxi",
+                            "start_time": "12:30",
+                            "end_time": "12:30",
+                            "cost": 11.0,
+                            "distance": 0.37,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "City God Temple",
+                    "type": "attraction",
+                    "price": 10,
+                    "cost": 10,
+                    "start_time": "14:00",
+                    "end_time": "15:30",
+                    "transports": [
+                        {
+                            "start": "Yu Garden",
+                            "end": "City God Temple",
+                            "mode": "taxi",
+                            "start_time": "14:00",
+                            "end_time": "14:00",
+                            "cost": 11.0,
+                            "distance": 0.1,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Riverside Banquet (Lujiazui Branch)",
+                    "type": "dinner",
+                    "price": 502,
+                    "cost": 502,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "City God Temple",
+                            "end": "Riverside Banquet (Lujiazui Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:30",
+                            "end_time": "15:30",
+                            "cost": 11.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Fosun Foundation Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Riverside Banquet (Lujiazui Branch)",
+                            "end": "Fosun Foundation Center",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai Old Street (Renmin Road)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:51",
+                    "end_time": "21:21",
+                    "transports": [
+                        {
+                            "start": "Fosun Foundation Center",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:39",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Yu Garden-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:39",
+                            "end_time": "19:42",
+                            "cost": 2,
+                            "distance": 1.8,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Yu Garden-Metro Station",
+                            "end": "Shanghai Old Street (Renmin Road)",
+                            "mode": "walk",
+                            "start_time": "19:42",
+                            "end_time": "19:51",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Pudong Shangri-La, Shanghai",
+                    "type": "accommodation",
+                    "price": 1417,
+                    "cost": 1417,
+                    "start_time": "21:37",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai Old Street (Renmin Road)",
+                            "end": "Yu Garden-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:21",
+                            "end_time": "21:30",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yu Garden-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:30",
+                            "end_time": "21:33",
+                            "cost": 2,
+                            "distance": 1.8,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong Shangri-La, Shanghai",
+                            "mode": "walk",
+                            "start_time": "21:33",
+                            "end_time": "21:37",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Pudong Shangri-La, Shanghai",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Lujiazui Central Green Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "Pudong Shangri-La, Shanghai",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 2,
+                            "distance": 0.98,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Lujiazui Central Green Space",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai Guanfu Museum",
+                    "type": "attraction",
+                    "price": 88,
+                    "cost": 88,
+                    "start_time": "10:11",
+                    "end_time": "11:41",
+                    "transports": [
+                        {
+                            "start": "Lujiazui Central Green Space",
+                            "end": "Shanghai Guanfu Museum",
+                            "mode": "taxi",
+                            "start_time": "10:11",
+                            "end_time": "10:11",
+                            "cost": 11.0,
+                            "distance": 0.47,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Fist Garden Western Restaurant (Times Financial Center Branch)",
+                    "type": "lunch",
+                    "price": 846,
+                    "cost": 846,
+                    "start_time": "11:48",
+                    "end_time": "12:48",
+                    "transports": [
+                        {
+                            "start": "Shanghai Guanfu Museum",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:41",
+                            "end_time": "11:41",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:41",
+                            "end_time": "11:42",
+                            "cost": 2,
+                            "distance": 0.98,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Fist Garden Western Restaurant (Times Financial Center Branch)",
+                            "mode": "walk",
+                            "start_time": "11:42",
+                            "end_time": "11:48",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "City Sightseeing Bus",
+                    "type": "attraction",
+                    "price": 57,
+                    "cost": 57,
+                    "start_time": "13:05",
+                    "end_time": "14:35",
+                    "transports": [
+                        {
+                            "start": "Fist Garden Western Restaurant (Times Financial Center Branch)",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "12:54",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:54",
+                            "end_time": "12:55",
+                            "cost": 2,
+                            "distance": 0.98,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "City Sightseeing Bus",
+                            "mode": "walk",
+                            "start_time": "12:55",
+                            "end_time": "13:05",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 640.93,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "City Sightseeing Bus",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:35",
+                            "end_time": "14:45",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:45",
+                            "end_time": "15:44",
+                            "cost": 7,
+                            "distance": 29.58,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "15:44",
+                            "end_time": "15:59",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.27070951461792,
+    "llm_inference_time_sec": 0
+}

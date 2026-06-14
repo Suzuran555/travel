@@ -1,0 +1,824 @@
+{
+    "people_number": 3,
+    "start_city": "Shanghai",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:38",
+                    "end_time": "03:09",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 607.72,
+                    "cost": 1823.16,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL013",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:14",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:14",
+                            "end_time": "04:12",
+                            "cost": 21,
+                            "distance": 29.11,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "04:12",
+                            "end_time": "04:20",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Gankeng Ancient Town",
+                    "type": "attraction",
+                    "price": 26,
+                    "cost": 78,
+                    "start_time": "09:00",
+                    "end_time": "10:30",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "09:00",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "11:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Gankeng Ancient Town",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:30",
+                            "end_time": "10:47",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:47",
+                            "end_time": "10:52",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "10:52",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Pingshan Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:59",
+                    "end_time": "10:29",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Pingshan Park",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "08:59",
+                            "cost": 0,
+                            "distance": 1.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "10:58",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Pingshan Park",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:29",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "10:50",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "10:50",
+                            "end_time": "10:58",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shangwei Art Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:26",
+                    "end_time": "10:56",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Hehua-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:47",
+                            "cost": 9,
+                            "distance": 4.51,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Hehua-Metro Station",
+                            "end": "Shangwei Art Village",
+                            "mode": "walk",
+                            "start_time": "08:47",
+                            "end_time": "09:26",
+                            "cost": 0,
+                            "distance": 3.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanxianglou Art Hotel (Overseas Chinese Town Gankeng Ancient Town Branch) · Phoenix Hakka Restaurant",
+                    "type": "lunch",
+                    "price": 98,
+                    "cost": 294,
+                    "start_time": "11:57",
+                    "end_time": "12:57",
+                    "transports": [
+                        {
+                            "start": "Shangwei Art Village",
+                            "end": "Hehua-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:56",
+                            "end_time": "11:35",
+                            "cost": 0,
+                            "distance": 3.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hehua-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:35",
+                            "end_time": "11:44",
+                            "cost": 9,
+                            "distance": 4.51,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Nanxianglou Art Hotel (Overseas Chinese Town Gankeng Ancient Town Branch) · Phoenix Hakka Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:44",
+                            "end_time": "11:57",
+                            "cost": 0,
+                            "distance": 1.11,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Little Cool Hat Farm",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:34",
+                    "end_time": "15:04",
+                    "transports": [
+                        {
+                            "start": "Nanxianglou Art Hotel (Overseas Chinese Town Gankeng Ancient Town Branch) · Phoenix Hakka Restaurant",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:57",
+                            "end_time": "13:10",
+                            "cost": 0,
+                            "distance": 1.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:10",
+                            "end_time": "13:15",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Little Cool Hat Farm",
+                            "mode": "walk",
+                            "start_time": "13:15",
+                            "end_time": "13:34",
+                            "cost": 0,
+                            "distance": 1.64,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Qianjiang Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:42",
+                    "end_time": "17:12",
+                    "transports": [
+                        {
+                            "start": "Little Cool Hat Farm",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:04",
+                            "end_time": "15:23",
+                            "cost": 0,
+                            "distance": 1.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Shiya Ridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:23",
+                            "end_time": "15:32",
+                            "cost": 9,
+                            "distance": 4.8,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shiya Ridge-Metro Station",
+                            "end": "Qianjiang Art Center",
+                            "mode": "walk",
+                            "start_time": "15:32",
+                            "end_time": "15:42",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Jinhang Hotel - Peach Garden Feast",
+                    "type": "dinner",
+                    "price": 125,
+                    "cost": 375,
+                    "start_time": "17:43",
+                    "end_time": "18:43",
+                    "transports": [
+                        {
+                            "start": "Qianjiang Art Center",
+                            "end": "Shiya Ridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:12",
+                            "end_time": "17:22",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shiya Ridge-Metro Station",
+                            "end": "Danzhutou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:22",
+                            "end_time": "17:24",
+                            "cost": 6,
+                            "distance": 1.41,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Danzhutou-Metro Station",
+                            "end": "Jinhang Hotel - Peach Garden Feast",
+                            "mode": "walk",
+                            "start_time": "17:24",
+                            "end_time": "17:43",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Heartbreak Museum (Dongmen Old Street Flagship Store)",
+                    "type": "attraction",
+                    "price": 138,
+                    "cost": 414,
+                    "start_time": "19:22",
+                    "end_time": "20:52",
+                    "transports": [
+                        {
+                            "start": "Jinhang Hotel - Peach Garden Feast",
+                            "end": "Danzhutou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:43",
+                            "end_time": "19:02",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Danzhutou-Metro Station",
+                            "end": "Shaibu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:02",
+                            "end_time": "19:18",
+                            "cost": 9,
+                            "distance": 8.23,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shaibu-Metro Station",
+                            "end": "Shenzhen Heartbreak Museum (Dongmen Old Street Flagship Store)",
+                            "mode": "walk",
+                            "start_time": "19:18",
+                            "end_time": "19:22",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "21:26",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Heartbreak Museum (Dongmen Old Street Flagship Store)",
+                            "end": "Shaibu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:52",
+                            "end_time": "20:56",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shaibu-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:56",
+                            "end_time": "21:18",
+                            "cost": 12,
+                            "distance": 11.05,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "21:18",
+                            "end_time": "21:26",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Guanlan Ancient Market",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:03",
+                    "end_time": "10:33",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Songyuanxia-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:56",
+                            "cost": 12,
+                            "distance": 9.09,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Songyuanxia-Metro Station",
+                            "end": "Guanlan Ancient Market",
+                            "mode": "walk",
+                            "start_time": "08:56",
+                            "end_time": "09:03",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Hard Rock Hotel · SESSIONS All-Day Dining Restaurant",
+                    "type": "lunch",
+                    "price": 302,
+                    "cost": 906,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Guanlan Ancient Market",
+                            "end": "Songyuanxia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:33",
+                            "end_time": "10:40",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        },
+                        {
+                            "start": "Songyuanxia-Metro Station",
+                            "end": "Mission Hills-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:40",
+                            "end_time": "10:42",
+                            "cost": 6,
+                            "distance": 1.18,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mission Hills-Metro Station",
+                            "end": "Shenzhen Hard Rock Hotel · SESSIONS All-Day Dining Restaurant",
+                            "mode": "walk",
+                            "start_time": "10:42",
+                            "end_time": "10:43",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Meilin Reservoir",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:55",
+                    "end_time": "14:25",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Hard Rock Hotel · SESSIONS All-Day Dining Restaurant",
+                            "end": "Mission Hills-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:01",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mission Hills-Metro Station",
+                            "end": "Xiameilin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:01",
+                            "end_time": "12:36",
+                            "cost": 15,
+                            "distance": 17.63,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiameilin-Metro Station",
+                            "end": "Meilin Reservoir",
+                            "mode": "walk",
+                            "start_time": "12:36",
+                            "end_time": "12:55",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:55",
+                    "end_time": "16:25",
+                    "transports": [
+                        {
+                            "start": "Meilin Reservoir",
+                            "end": "Xiameilin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:25",
+                            "end_time": "14:44",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiameilin-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:44",
+                            "end_time": "14:50",
+                            "cost": 6,
+                            "distance": 3.28,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "walk",
+                            "start_time": "14:50",
+                            "end_time": "14:55",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                    "type": "dinner",
+                    "price": 111,
+                    "cost": 333,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:25",
+                            "end_time": "16:30",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:30",
+                            "end_time": "16:32",
+                            "cost": 6,
+                            "distance": 1.31,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                            "mode": "walk",
+                            "start_time": "16:32",
+                            "end_time": "16:38",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:37",
+                    "end_time": "01:08",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 572.8,
+                    "cost": 1718.3999999999999,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:59",
+                            "cost": 18,
+                            "distance": 26.95,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "18:59",
+                            "end_time": "19:04",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL166",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 17.55535864830017,
+    "llm_inference_time_sec": 0
+}

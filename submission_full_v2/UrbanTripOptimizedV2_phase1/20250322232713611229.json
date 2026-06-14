@@ -1,0 +1,375 @@
+{
+    "people_number": 3,
+    "start_city": "Wuhan",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:33",
+                    "end_time": "01:24",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 303.66,
+                    "cost": 910.98,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL566",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Pudong International Airport",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "01:24",
+                            "end_time": "01:39",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "01:39",
+                            "end_time": "02:00",
+                            "cost": 12,
+                            "distance": 10.98,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "02:00",
+                            "end_time": "02:04",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:57",
+                    "end_time": "10:27",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:39",
+                            "cost": 6,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:57",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "10:54",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:27",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "10:50",
+                            "cost": 6,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "10:50",
+                            "end_time": "10:54",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Lujiazui",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:14",
+                    "end_time": "10:44",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:11",
+                            "cost": 15,
+                            "distance": 18.61,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Lujiazui",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:14",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Waldorf Astoria Shanghai on the Bund - Wei Jing Ge",
+                    "type": "lunch",
+                    "price": 490,
+                    "cost": 1470,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Lujiazui",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:44",
+                            "end_time": "10:47",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Yu Garden-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:47",
+                            "end_time": "10:52",
+                            "cost": 6,
+                            "distance": 2.65,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yu Garden-Metro Station",
+                            "end": "Waldorf Astoria Shanghai on the Bund - Wei Jing Ge",
+                            "mode": "walk",
+                            "start_time": "10:52",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Great World",
+                    "type": "attraction",
+                    "price": 60,
+                    "cost": 180,
+                    "start_time": "12:15",
+                    "end_time": "13:45",
+                    "transports": [
+                        {
+                            "start": "Waldorf Astoria Shanghai on the Bund - Wei Jing Ge",
+                            "end": "Yu Garden-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:08",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yu Garden-Metro Station",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:08",
+                            "end_time": "12:10",
+                            "cost": 6,
+                            "distance": 1.15,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Shanghai Great World",
+                            "mode": "walk",
+                            "start_time": "12:10",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shanghai Bund Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 59,
+                    "cost": 177,
+                    "start_time": "13:54",
+                    "end_time": "15:24",
+                    "transports": [
+                        {
+                            "start": "Shanghai Great World",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:45",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Tiantong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:50",
+                            "end_time": "13:51",
+                            "cost": 6,
+                            "distance": 0.67,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tiantong Road-Metro Station",
+                            "end": "Shanghai Bund Starry Sky Art Museum",
+                            "mode": "walk",
+                            "start_time": "13:51",
+                            "end_time": "13:54",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "17:28",
+                    "end_time": "18:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 308.03,
+                    "cost": 924.0899999999999,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Shanghai Bund Starry Sky Art Museum",
+                            "end": "Tiantong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:24",
+                            "end_time": "15:27",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiantong Road-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:27",
+                            "end_time": "16:31",
+                            "cost": 21,
+                            "distance": 32.48,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "16:31",
+                            "end_time": "16:46",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL063",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

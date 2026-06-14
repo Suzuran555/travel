@@ -1,0 +1,710 @@
+{
+    "people_number": 2,
+    "start_city": "Shanghai",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "05:46",
+                    "end_time": "07:39",
+                    "start": "Shanghai Station",
+                    "end": "Nanjing Station",
+                    "price": 175.28,
+                    "cost": 350.56,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "G7032",
+                    "type": "train"
+                },
+                {
+                    "position": "Cherry Blossom Islet",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "07:55",
+                    "end_time": "09:25",
+                    "transports": [
+                        {
+                            "start": "Nanjing Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "07:39",
+                            "end_time": "07:41",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "07:41",
+                            "end_time": "07:44",
+                            "cost": 4,
+                            "distance": 1.94,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Cherry Blossom Islet",
+                            "mode": "walk",
+                            "start_time": "07:44",
+                            "end_time": "07:55",
+                            "cost": 0,
+                            "distance": 0.97,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Xuanwu Gate City Wall",
+                    "type": "attraction",
+                    "price": 30,
+                    "cost": 60,
+                    "start_time": "09:53",
+                    "end_time": "11:23",
+                    "transports": [
+                        {
+                            "start": "Cherry Blossom Islet",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:25",
+                            "end_time": "09:36",
+                            "cost": 0,
+                            "distance": 0.97,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Xinmofan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:36",
+                            "end_time": "09:41",
+                            "cost": 4,
+                            "distance": 2.55,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xinmofan Road-Metro Station",
+                            "end": "Xuanwu Gate City Wall",
+                            "mode": "walk",
+                            "start_time": "09:41",
+                            "end_time": "09:53",
+                            "cost": 0,
+                            "distance": 1.05,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Bluefrog (Jinmao Hui Store)",
+                    "type": "lunch",
+                    "price": 146,
+                    "cost": 292,
+                    "start_time": "11:41",
+                    "end_time": "12:41",
+                    "transports": [
+                        {
+                            "start": "Xuanwu Gate City Wall",
+                            "end": "Xinmofan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:23",
+                            "end_time": "11:35",
+                            "cost": 0,
+                            "distance": 1.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinmofan Road-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:35",
+                            "end_time": "11:37",
+                            "cost": 4,
+                            "distance": 1.1,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Bluefrog (Jinmao Hui Store)",
+                            "mode": "walk",
+                            "start_time": "11:37",
+                            "end_time": "11:41",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Lion Bridge Pedestrian Food Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:41",
+                    "end_time": "14:11",
+                    "transports": [
+                        {
+                            "start": "Bluefrog (Jinmao Hui Store)",
+                            "end": "Lion Bridge Pedestrian Food Street",
+                            "mode": "taxi",
+                            "start_time": "12:41",
+                            "end_time": "12:41",
+                            "cost": 11.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Urban Planning and Construction Exhibition Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:29",
+                    "end_time": "15:59",
+                    "transports": [
+                        {
+                            "start": "Lion Bridge Pedestrian Food Street",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:11",
+                            "end_time": "14:17",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Xinmofan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:17",
+                            "end_time": "14:19",
+                            "cost": 4,
+                            "distance": 1.1,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xinmofan Road-Metro Station",
+                            "end": "Nanjing Urban Planning and Construction Exhibition Hall",
+                            "mode": "walk",
+                            "start_time": "14:19",
+                            "end_time": "14:29",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Shangri-La Hotel · Jiangnan Kitchen",
+                    "type": "dinner",
+                    "price": 334,
+                    "cost": 668,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Urban Planning and Construction Exhibition Hall",
+                            "end": "Nanjing Shangri-La Hotel · Jiangnan Kitchen",
+                            "mode": "taxi",
+                            "start_time": "15:59",
+                            "end_time": "16:00",
+                            "cost": 11.0,
+                            "distance": 0.88,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Pioneer Bookstore (Xuanwu Lake Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:17",
+                    "end_time": "19:47",
+                    "transports": [
+                        {
+                            "start": "Nanjing Shangri-La Hotel · Jiangnan Kitchen",
+                            "end": "Xinmofan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:02",
+                            "cost": 0,
+                            "distance": 0.2,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinmofan Road-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:02",
+                            "end_time": "18:05",
+                            "cost": 4,
+                            "distance": 1.6,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Pioneer Bookstore (Xuanwu Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "18:05",
+                            "end_time": "18:17",
+                            "cost": 0,
+                            "distance": 1.0,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Liberation Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:15",
+                    "end_time": "21:45",
+                    "transports": [
+                        {
+                            "start": "Pioneer Bookstore (Xuanwu Lake Branch)",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:47",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 1.0,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:59",
+                            "end_time": "20:02",
+                            "cost": 4,
+                            "distance": 1.94,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Liberation Gate",
+                            "mode": "walk",
+                            "start_time": "20:02",
+                            "end_time": "20:15",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                    "type": "accommodation",
+                    "price": 472,
+                    "cost": 944,
+                    "start_time": "22:15",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Liberation Gate",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:45",
+                            "end_time": "21:58",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:58",
+                            "end_time": "22:10",
+                            "cost": 6,
+                            "distance": 6.08,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                            "mode": "walk",
+                            "start_time": "22:10",
+                            "end_time": "22:15",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Wende Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                            "end": "Wende Bridge",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.64,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Slow Time Hanfu Experience Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:15",
+                    "end_time": "11:45",
+                    "transports": [
+                        {
+                            "start": "Wende Bridge",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:00",
+                            "end_time": "10:05",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:05",
+                            "end_time": "10:07",
+                            "cost": 4,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Slow Time Hanfu Experience Hall",
+                            "mode": "walk",
+                            "start_time": "10:07",
+                            "end_time": "10:15",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lu's Soup Dumpling King (Changbai Street Branch)",
+                    "type": "lunch",
+                    "price": 24,
+                    "cost": 48,
+                    "start_time": "12:00",
+                    "end_time": "13:00",
+                    "transports": [
+                        {
+                            "start": "Slow Time Hanfu Experience Hall",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:45",
+                            "end_time": "11:53",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:53",
+                            "end_time": "11:55",
+                            "cost": 4,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Lu's Soup Dumpling King (Changbai Street Branch)",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "12:00",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jinling Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:14",
+                    "end_time": "14:44",
+                    "transports": [
+                        {
+                            "start": "Lu's Soup Dumpling King (Changbai Street Branch)",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:00",
+                            "end_time": "13:05",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:05",
+                            "end_time": "13:07",
+                            "cost": 4,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Jinling Art Museum",
+                            "mode": "walk",
+                            "start_time": "13:07",
+                            "end_time": "13:14",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Mustard Seed Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:44",
+                    "end_time": "16:14",
+                    "transports": [
+                        {
+                            "start": "Jinling Art Museum",
+                            "end": "Mustard Seed Garden",
+                            "mode": "taxi",
+                            "start_time": "14:44",
+                            "end_time": "14:44",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Diandude (Confucius Temple Branch)",
+                    "type": "dinner",
+                    "price": 97,
+                    "cost": 194,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Mustard Seed Garden",
+                            "end": "Wuding Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:14",
+                            "end_time": "16:19",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuding Gate-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:19",
+                            "end_time": "16:21",
+                            "cost": 4,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Diandude (Confucius Temple Branch)",
+                            "mode": "walk",
+                            "start_time": "16:21",
+                            "end_time": "16:24",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                    "type": "accommodation",
+                    "price": 472,
+                    "cost": 944,
+                    "start_time": "18:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Diandude (Confucius Temple Branch)",
+                            "end": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nanjing University (Gulou Campus) - University History Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:47",
+                    "end_time": "10:17",
+                    "transports": [
+                        {
+                            "start": "Atour Hotel (Nanjing Fuzimiao Qinhuai cruise terminal)",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:35",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:35",
+                            "end_time": "08:42",
+                            "cost": 4,
+                            "distance": 3.92,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Nanjing University (Gulou Campus) - University History Museum",
+                            "mode": "walk",
+                            "start_time": "08:42",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:39",
+                    "end_time": "23:54",
+                    "start": "Nanjing South Railway Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 175.28,
+                    "cost": 350.56,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Nanjing University (Gulou Campus) - University History Museum",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:17",
+                            "end_time": "10:22",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:22",
+                            "end_time": "10:41",
+                            "cost": 8,
+                            "distance": 9.83,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Nanjing South Railway Station",
+                            "mode": "walk",
+                            "start_time": "10:41",
+                            "end_time": "10:44",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G1428",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 5.64386510848999,
+    "llm_inference_time_sec": 0
+}

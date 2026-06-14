@@ -1,0 +1,624 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:03",
+                    "end_time": "02:32",
+                    "start": "Nanjing Station",
+                    "end": "Suzhou Station",
+                    "price": 94.54,
+                    "cost": 472.70000000000005,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "Z175",
+                    "type": "train"
+                },
+                {
+                    "position": "Yidizhai Guesthouse",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:32",
+                            "end_time": "02:33",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Riverside Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:33",
+                            "end_time": "02:43",
+                            "cost": 15,
+                            "distance": 5.38,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Riverside Road-Metro Station",
+                            "end": "Yidizhai Guesthouse",
+                            "mode": "walk",
+                            "start_time": "02:43",
+                            "end_time": "02:56",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maple Bridge Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:04",
+                    "end_time": "10:34",
+                    "transports": [
+                        {
+                            "start": "Yidizhai Guesthouse",
+                            "end": "Riverside Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Riverside Road-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "08:45",
+                            "cost": 10,
+                            "distance": 1.05,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Maple Bridge Scenic Area",
+                            "mode": "walk",
+                            "start_time": "08:45",
+                            "end_time": "09:04",
+                            "cost": 0,
+                            "distance": 1.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Wu's Garden Pavilion (Xiyuan Road Branch)",
+                    "type": "lunch",
+                    "price": 84,
+                    "cost": 420,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Maple Bridge Scenic Area",
+                            "end": "Wu's Garden Pavilion (Xiyuan Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:34",
+                            "end_time": "10:34",
+                            "cost": 22.0,
+                            "distance": 0.1,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Sunset at the Mountain Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:43",
+                    "end_time": "14:13",
+                    "transports": [
+                        {
+                            "start": "Wu's Garden Pavilion (Xiyuan Road Branch)",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:18",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:18",
+                            "end_time": "12:24",
+                            "cost": 10,
+                            "distance": 3.17,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "Sunset at the Mountain Gate",
+                            "mode": "walk",
+                            "start_time": "12:24",
+                            "end_time": "12:43",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Hanshan Temple",
+                    "type": "attraction",
+                    "price": 18,
+                    "cost": 90,
+                    "start_time": "14:13",
+                    "end_time": "15:43",
+                    "transports": [
+                        {
+                            "start": "Sunset at the Mountain Gate",
+                            "end": "Hanshan Temple",
+                            "mode": "taxi",
+                            "start_time": "14:13",
+                            "end_time": "14:13",
+                            "cost": 22.0,
+                            "distance": 0.09,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Shu Xiang Ge Ge Honest Man Fish Head (Sanyuan Sancun Branch)",
+                    "type": "dinner",
+                    "price": 64,
+                    "cost": 320,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Hanshan Temple",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:43",
+                            "end_time": "16:01",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:01",
+                            "end_time": "16:07",
+                            "cost": 10,
+                            "distance": 3.17,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Shu Xiang Ge Ge Honest Man Fish Head (Sanyuan Sancun Branch)",
+                            "mode": "walk",
+                            "start_time": "16:07",
+                            "end_time": "16:12",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:19",
+                    "end_time": "19:49",
+                    "transports": [
+                        {
+                            "start": "Shu Xiang Ge Ge Honest Man Fish Head (Sanyuan Sancun Branch)",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:05",
+                            "end_time": "18:11",
+                            "cost": 10,
+                            "distance": 3.1,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "mode": "walk",
+                            "start_time": "18:11",
+                            "end_time": "18:19",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Shantang Kunqu Opera House",
+                    "type": "attraction",
+                    "price": 138,
+                    "cost": 690,
+                    "start_time": "19:50",
+                    "end_time": "21:20",
+                    "transports": [
+                        {
+                            "start": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "end": "Shantang Kunqu Opera House",
+                            "mode": "taxi",
+                            "start_time": "19:49",
+                            "end_time": "19:50",
+                            "cost": 22.0,
+                            "distance": 0.88,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Yidizhai Guesthouse",
+                    "type": "accommodation",
+                    "price": 560,
+                    "cost": 2800,
+                    "start_time": "21:49",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shantang Kunqu Opera House",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:20",
+                            "end_time": "21:28",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Riverside Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:28",
+                            "end_time": "21:36",
+                            "cost": 15,
+                            "distance": 4.0,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Riverside Road-Metro Station",
+                            "end": "Yidizhai Guesthouse",
+                            "mode": "walk",
+                            "start_time": "21:36",
+                            "end_time": "21:49",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yidizhai Guesthouse",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Wisteria Garden",
+                    "type": "attraction",
+                    "price": 9,
+                    "cost": 45,
+                    "start_time": "08:55",
+                    "end_time": "10:25",
+                    "transports": [
+                        {
+                            "start": "Yidizhai Guesthouse",
+                            "end": "Riverside Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Riverside Road-Metro Station",
+                            "end": "Xijinqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "08:47",
+                            "cost": 10,
+                            "distance": 2.35,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Xijinqiao-Metro Station",
+                            "end": "Wisteria Garden",
+                            "mode": "walk",
+                            "start_time": "08:47",
+                            "end_time": "08:55",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Yidizhai Guesthouse",
+                    "type": "accommodation",
+                    "price": 560,
+                    "cost": 2800,
+                    "start_time": "10:50",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Wisteria Garden",
+                            "end": "Xijinqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:25",
+                            "end_time": "10:33",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xijinqiao-Metro Station",
+                            "end": "Riverside Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:33",
+                            "end_time": "10:37",
+                            "cost": 10,
+                            "distance": 2.35,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Riverside Road-Metro Station",
+                            "end": "Yidizhai Guesthouse",
+                            "mode": "walk",
+                            "start_time": "10:37",
+                            "end_time": "10:50",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Yidizhai Guesthouse",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Suzhou Sports Center Stadium",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:51",
+                    "end_time": "09:00",
+                    "transports": [
+                        {
+                            "start": "Yidizhai Guesthouse",
+                            "end": "Riverside Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Riverside Road-Metro Station",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "08:45",
+                            "cost": 10,
+                            "distance": 1.05,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Suzhou Sports Center Stadium",
+                            "mode": "walk",
+                            "start_time": "08:45",
+                            "end_time": "08:51",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Tang Yin Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:13",
+                    "end_time": "10:43",
+                    "transports": [
+                        {
+                            "start": "Suzhou Sports Center Stadium",
+                            "end": "West Ring Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:00",
+                            "end_time": "09:06",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Ring Road-Metro Station",
+                            "end": "Xujiang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:06",
+                            "end_time": "09:11",
+                            "cost": 10,
+                            "distance": 2.73,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Xujiang Road-Metro Station",
+                            "end": "Tang Yin Garden",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:13",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Suyang Xu's Mung Bean Soup (Canglang New Town Branch)",
+                    "type": "lunch",
+                    "price": 11,
+                    "cost": 55,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Tang Yin Garden",
+                            "end": "Xujiang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:43",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xujiang Road-Metro Station",
+                            "end": "Youlian-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "10:48",
+                            "cost": 10,
+                            "distance": 1.8,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Youlian-Metro Station",
+                            "end": "Suyang Xu's Mung Bean Soup (Canglang New Town Branch)",
+                            "mode": "walk",
+                            "start_time": "10:48",
+                            "end_time": "10:52",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:39",
+                    "end_time": "02:23",
+                    "start": "Suzhou Station",
+                    "end": "Nanjing Station",
+                    "price": 75.63,
+                    "cost": 378.15,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Suyang Xu's Mung Bean Soup (Canglang New Town Branch)",
+                            "end": "Youlian-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:04",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Youlian-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:04",
+                            "end_time": "12:17",
+                            "cost": 15,
+                            "distance": 6.59,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "12:17",
+                            "end_time": "12:18",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K8366",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 7.077319145202637,
+    "llm_inference_time_sec": 0
+}

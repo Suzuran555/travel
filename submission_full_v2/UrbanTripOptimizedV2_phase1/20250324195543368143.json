@@ -1,0 +1,627 @@
+{
+    "people_number": 3,
+    "start_city": "Nanjing",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:38",
+                    "end_time": "06:26",
+                    "start": "Nanjing Station",
+                    "end": "Shanghai South Railway Station",
+                    "price": 107.86,
+                    "cost": 323.58,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "K5837",
+                    "type": "train"
+                },
+                {
+                    "position": "The Bund",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:59",
+                    "end_time": "08:29",
+                    "transports": [
+                        {
+                            "start": "Shanghai South Railway Station",
+                            "end": "Shanghai South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:26",
+                            "end_time": "06:28",
+                            "cost": 0,
+                            "distance": 0.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shanghai South Railway Station-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:28",
+                            "end_time": "06:51",
+                            "cost": 12,
+                            "distance": 11.54,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "The Bund",
+                            "mode": "walk",
+                            "start_time": "06:51",
+                            "end_time": "06:59",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chuansha Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:33",
+                    "end_time": "11:03",
+                    "transports": [
+                        {
+                            "start": "The Bund",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:29",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "09:16",
+                            "cost": 15,
+                            "distance": 19.54,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Chuansha Park",
+                            "mode": "walk",
+                            "start_time": "09:16",
+                            "end_time": "09:33",
+                            "cost": 0,
+                            "distance": 1.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shunchang Renshou Stuffed Egg (Qibao Old Street Branch)",
+                    "type": "lunch",
+                    "price": 18,
+                    "cost": 54,
+                    "start_time": "12:34",
+                    "end_time": "13:34",
+                    "transports": [
+                        {
+                            "start": "Chuansha Park",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:03",
+                            "end_time": "11:20",
+                            "cost": 0,
+                            "distance": 1.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Qibao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:20",
+                            "end_time": "12:26",
+                            "cost": 21,
+                            "distance": 33.45,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qibao-Metro Station",
+                            "end": "Shunchang Renshou Stuffed Egg (Qibao Old Street Branch)",
+                            "mode": "walk",
+                            "start_time": "12:26",
+                            "end_time": "12:34",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Cloudrise Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:22",
+                    "end_time": "15:52",
+                    "transports": [
+                        {
+                            "start": "Shunchang Renshou Stuffed Egg (Qibao Old Street Branch)",
+                            "end": "Qibao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:34",
+                            "end_time": "13:42",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qibao-Metro Station",
+                            "end": "Zhongshan North Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:42",
+                            "end_time": "14:13",
+                            "cost": 15,
+                            "distance": 15.55,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhongshan North Road-Metro Station",
+                            "end": "Cloudrise Art Museum",
+                            "mode": "walk",
+                            "start_time": "14:13",
+                            "end_time": "14:22",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Long Journey Shaved Ice (Kongjiang Road Branch)",
+                    "type": "dinner",
+                    "price": 16,
+                    "cost": 48,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Cloudrise Art Museum",
+                            "end": "Zhongshan North Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:52",
+                            "end_time": "16:01",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhongshan North Road-Metro Station",
+                            "end": "Middle Yanji Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:01",
+                            "end_time": "16:16",
+                            "cost": 9,
+                            "distance": 7.93,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Middle Yanji Road-Metro Station",
+                            "end": "Long Journey Shaved Ice (Kongjiang Road Branch)",
+                            "mode": "walk",
+                            "start_time": "16:16",
+                            "end_time": "16:26",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai International Cruise Festival",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:35",
+                    "end_time": "20:05",
+                    "transports": [
+                        {
+                            "start": "Long Journey Shaved Ice (Kongjiang Road Branch)",
+                            "end": "Middle Yanji Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        },
+                        {
+                            "start": "Middle Yanji Road-Metro Station",
+                            "end": "Caoyang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:10",
+                            "end_time": "18:34",
+                            "cost": 12,
+                            "distance": 12.43,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Caoyang Road-Metro Station",
+                            "end": "Shanghai International Cruise Festival",
+                            "mode": "walk",
+                            "start_time": "18:34",
+                            "end_time": "18:35",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Eileen Chang's Former Residence",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:20",
+                    "end_time": "21:50",
+                    "transports": [
+                        {
+                            "start": "Shanghai International Cruise Festival",
+                            "end": "Caoyang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:05",
+                            "end_time": "20:06",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caoyang Road-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:06",
+                            "end_time": "20:14",
+                            "cost": 9,
+                            "distance": 4.16,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Eileen Chang's Former Residence",
+                            "mode": "walk",
+                            "start_time": "20:14",
+                            "end_time": "20:20",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Blackstone M+ Hotel, Shanghai",
+                    "type": "accommodation",
+                    "price": 1217,
+                    "cost": 2434,
+                    "start_time": "22:04",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Eileen Chang's Former Residence",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:50",
+                            "end_time": "21:56",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Changshu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:56",
+                            "end_time": "22:00",
+                            "cost": 6,
+                            "distance": 2.08,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Changshu Road-Metro Station",
+                            "end": "Blackstone M+ Hotel, Shanghai",
+                            "mode": "walk",
+                            "start_time": "22:00",
+                            "end_time": "22:04",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Blackstone M+ Hotel, Shanghai",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Mickey Avenue",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:26",
+                    "end_time": "10:56",
+                    "transports": [
+                        {
+                            "start": "Blackstone M+ Hotel, Shanghai",
+                            "end": "Changshu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changshu Road-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:18",
+                            "cost": 18,
+                            "distance": 22.34,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Mickey Avenue",
+                            "mode": "walk",
+                            "start_time": "09:18",
+                            "end_time": "09:26",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Four Springs Restaurant",
+                    "type": "lunch",
+                    "price": 33,
+                    "cost": 99,
+                    "start_time": "12:03",
+                    "end_time": "13:03",
+                    "transports": [
+                        {
+                            "start": "Mickey Avenue",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:56",
+                            "end_time": "11:04",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Zhenping Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:04",
+                            "end_time": "11:55",
+                            "cost": 18,
+                            "distance": 25.52,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhenping Road-Metro Station",
+                            "end": "Four Springs Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "12:03",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:22",
+                    "end_time": "14:52",
+                    "transports": [
+                        {
+                            "start": "Four Springs Restaurant",
+                            "end": "Zhenping Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:03",
+                            "end_time": "13:11",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhenping Road-Metro Station",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:11",
+                            "end_time": "13:18",
+                            "cost": 6,
+                            "distance": 3.76,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition",
+                            "mode": "walk",
+                            "start_time": "13:18",
+                            "end_time": "13:22",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Duolun Road Cultural Celebrities Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:10",
+                    "end_time": "16:40",
+                    "transports": [
+                        {
+                            "start": "The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:52",
+                            "end_time": "14:56",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Postal and Telecommunications New Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:56",
+                            "end_time": "15:04",
+                            "cost": 9,
+                            "distance": 4.16,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Postal and Telecommunications New Village-Metro Station",
+                            "end": "Duolun Road Cultural Celebrities Street",
+                            "mode": "walk",
+                            "start_time": "15:04",
+                            "end_time": "15:10",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Cafe del Volcan (Yongkang Road Branch)",
+                    "type": "dinner",
+                    "price": 37,
+                    "cost": 111,
+                    "start_time": "17:04",
+                    "end_time": "18:04",
+                    "transports": [
+                        {
+                            "start": "Duolun Road Cultural Celebrities Street",
+                            "end": "Postal and Telecommunications New Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:40",
+                            "end_time": "16:46",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Postal and Telecommunications New Village-Metro Station",
+                            "end": "South Shaanxi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:46",
+                            "end_time": "16:59",
+                            "cost": 9,
+                            "distance": 6.81,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "South Shaanxi Road-Metro Station",
+                            "end": "Cafe del Volcan (Yongkang Road Branch)",
+                            "mode": "walk",
+                            "start_time": "16:59",
+                            "end_time": "17:04",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:39",
+                    "end_time": "03:26",
+                    "start": "Shanghai Station",
+                    "end": "Nanjing Station",
+                    "price": 107.86,
+                    "cost": 323.58,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Cafe del Volcan (Yongkang Road Branch)",
+                            "end": "South Shaanxi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:04",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "South Shaanxi Road-Metro Station",
+                            "end": "Shanghai Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:16",
+                            "cost": 6,
+                            "distance": 3.82,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shanghai Railway Station-Metro Station",
+                            "end": "Shanghai Station",
+                            "mode": "walk",
+                            "start_time": "18:16",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K1506",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.527670860290527,
+    "llm_inference_time_sec": 0
+}

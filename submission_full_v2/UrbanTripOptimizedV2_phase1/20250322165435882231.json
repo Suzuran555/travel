@@ -1,0 +1,498 @@
+{
+    "people_number": 3,
+    "start_city": "Wuhan",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "07:25",
+                    "end_time": "12:14",
+                    "start": "Wuhan Station",
+                    "end": "Shenzhen North Railway Station",
+                    "price": 582.03,
+                    "cost": 1746.09,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "G1001",
+                    "type": "train"
+                },
+                {
+                    "position": "Jun Ting Chinese Restaurant (Hua Qiang Road Branch)",
+                    "type": "lunch",
+                    "price": 241,
+                    "cost": 723,
+                    "start_time": "12:36",
+                    "end_time": "13:36",
+                    "transports": [
+                        {
+                            "start": "Shenzhen North Railway Station",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:14",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "Huaqiang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:15",
+                            "end_time": "12:34",
+                            "cost": 12,
+                            "distance": 9.59,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Huaqiang Road-Metro Station",
+                            "end": "Jun Ting Chinese Restaurant (Hua Qiang Road Branch)",
+                            "mode": "walk",
+                            "start_time": "12:34",
+                            "end_time": "12:36",
+                            "cost": 0,
+                            "distance": 0.17,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Central Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:36",
+                    "end_time": "15:06",
+                    "transports": [
+                        {
+                            "start": "Jun Ting Chinese Restaurant (Hua Qiang Road Branch)",
+                            "end": "Shenzhen Central Park",
+                            "mode": "taxi",
+                            "start_time": "13:36",
+                            "end_time": "13:36",
+                            "cost": 11.0,
+                            "distance": 0.25,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nellbore Family Center (Zhuoyue Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:19",
+                    "end_time": "16:49",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Central Park",
+                            "end": "Huaqiang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:06",
+                            "end_time": "15:10",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huaqiang Road-Metro Station",
+                            "end": "Gangxia North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:10",
+                            "end_time": "15:13",
+                            "cost": 6,
+                            "distance": 1.78,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gangxia North-Metro Station",
+                            "end": "Nellbore Family Center (Zhuoyue Branch)",
+                            "mode": "walk",
+                            "start_time": "15:13",
+                            "end_time": "15:19",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                    "type": "dinner",
+                    "price": 24,
+                    "cost": 72,
+                    "start_time": "17:08",
+                    "end_time": "18:08",
+                    "transports": [
+                        {
+                            "start": "Nellbore Family Center (Zhuoyue Branch)",
+                            "end": "Gangxia North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:49",
+                            "end_time": "16:55",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangxia North-Metro Station",
+                            "end": "Meicun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:55",
+                            "end_time": "17:02",
+                            "cost": 6,
+                            "distance": 3.7,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                            "mode": "walk",
+                            "start_time": "17:02",
+                            "end_time": "17:08",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Concert Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:25",
+                    "end_time": "18:30",
+                    "transports": [
+                        {
+                            "start": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                            "end": "Meicun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:08",
+                            "end_time": "18:14",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Children's Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:14",
+                            "end_time": "18:18",
+                            "cost": 6,
+                            "distance": 2.33,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Children's Palace-Metro Station",
+                            "end": "Shenzhen Concert Hall",
+                            "mode": "walk",
+                            "start_time": "18:18",
+                            "end_time": "18:25",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:43",
+                    "end_time": "20:13",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Concert Hall",
+                            "end": "Children's Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:30",
+                            "end_time": "18:37",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Children's Palace-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:37",
+                            "end_time": "18:38",
+                            "cost": 6,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "walk",
+                            "start_time": "18:38",
+                            "end_time": "18:43",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "20:49",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:13",
+                            "end_time": "20:18",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:18",
+                            "end_time": "20:41",
+                            "cost": 12,
+                            "distance": 11.66,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "20:41",
+                            "end_time": "20:49",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Gankeng Ancient Town",
+                    "type": "attraction",
+                    "price": 26,
+                    "cost": 78,
+                    "start_time": "09:00",
+                    "end_time": "10:30",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "09:00",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "11:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Gankeng Ancient Town",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:30",
+                            "end_time": "10:47",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:47",
+                            "end_time": "10:52",
+                            "cost": 6,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "10:52",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Qianjiang Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:55",
+                    "end_time": "10:25",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Shiya Ridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:45",
+                            "cost": 6,
+                            "distance": 3.94,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shiya Ridge-Metro Station",
+                            "end": "Qianjiang Art Center",
+                            "mode": "walk",
+                            "start_time": "08:45",
+                            "end_time": "08:55",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "17:50",
+                    "end_time": "23:23",
+                    "start": "Shenzhen North Railway Station",
+                    "end": "Wuhan Station",
+                    "price": 582.03,
+                    "cost": 1746.09,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Qianjiang Art Center",
+                            "end": "Shiya Ridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:25",
+                            "end_time": "10:35",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shiya Ridge-Metro Station",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:35",
+                            "end_time": "10:57",
+                            "cost": 12,
+                            "distance": 11.25,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "Shenzhen North Railway Station",
+                            "mode": "walk",
+                            "start_time": "10:57",
+                            "end_time": "10:58",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G2708",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 13.973535060882568,
+    "llm_inference_time_sec": 0
+}

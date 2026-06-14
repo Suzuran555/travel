@@ -1,0 +1,730 @@
+{
+    "people_number": 3,
+    "start_city": "Shanghai",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:38",
+                    "end_time": "03:09",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 607.72,
+                    "cost": 1823.16,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL013",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:14",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:14",
+                            "end_time": "03:45",
+                            "cost": 15,
+                            "distance": 15.92,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Shenzhen HAPPYOCEAN Hotel",
+                            "mode": "walk",
+                            "start_time": "03:45",
+                            "end_time": "03:45",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dameisha Seaside Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:58",
+                    "end_time": "11:28",
+                    "transports": [
+                        {
+                            "start": "Shenzhen HAPPYOCEAN Hotel",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Dameisha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "09:49",
+                            "cost": 24,
+                            "distance": 39.94,
+                            "price": 8,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Dameisha-Metro Station",
+                            "end": "Dameisha Seaside Park",
+                            "mode": "walk",
+                            "start_time": "09:49",
+                            "end_time": "09:58",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Old Zhou's Shunde Double-Skin Milk",
+                    "type": "lunch",
+                    "price": 20,
+                    "cost": 60,
+                    "start_time": "12:31",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Dameisha Seaside Park",
+                            "end": "Dameisha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:28",
+                            "end_time": "11:37",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dameisha-Metro Station",
+                            "end": "Meicun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:37",
+                            "end_time": "12:29",
+                            "cost": 18,
+                            "distance": 26.42,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Old Zhou's Shunde Double-Skin Milk",
+                            "mode": "walk",
+                            "start_time": "12:29",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Happy Harbor",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:11",
+                    "end_time": "15:41",
+                    "transports": [
+                        {
+                            "start": "Old Zhou's Shunde Double-Skin Milk",
+                            "end": "Meicun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:31",
+                            "end_time": "13:33",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Baohua-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:33",
+                            "end_time": "14:07",
+                            "cost": 15,
+                            "distance": 17.34,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Baohua-Metro Station",
+                            "end": "Happy Harbor",
+                            "mode": "walk",
+                            "start_time": "14:07",
+                            "end_time": "14:11",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                    "type": "dinner",
+                    "price": 24,
+                    "cost": 72,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Happy Harbor",
+                            "end": "Baohua-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:41",
+                            "end_time": "15:45",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Baohua-Metro Station",
+                            "end": "Meicun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:45",
+                            "end_time": "16:19",
+                            "cost": 15,
+                            "distance": 17.34,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                            "mode": "walk",
+                            "start_time": "16:19",
+                            "end_time": "16:25",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:28",
+                    "end_time": "19:58",
+                    "transports": [
+                        {
+                            "start": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                            "end": "Meicun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:20",
+                            "cost": 9,
+                            "distance": 7.05,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "18:20",
+                            "end_time": "18:28",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Honey Lake 1979 Cultural and Creative Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:05",
+                    "end_time": "21:35",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Honey Lake 1979 Cultural and Creative Park",
+                            "mode": "taxi",
+                            "start_time": "19:58",
+                            "end_time": "20:05",
+                            "cost": 22.77,
+                            "distance": 5.16,
+                            "price": 22.77,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "accommodation",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "22:01",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Honey Lake 1979 Cultural and Creative Park",
+                            "end": "Meijing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:35",
+                            "end_time": "21:38",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:38",
+                            "end_time": "22:01",
+                            "cost": 12,
+                            "distance": 11.97,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Shenzhen HAPPYOCEAN Hotel",
+                            "mode": "walk",
+                            "start_time": "22:01",
+                            "end_time": "22:01",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Hongyuan Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:48",
+                    "end_time": "11:18",
+                    "transports": [
+                        {
+                            "start": "Shenzhen HAPPYOCEAN Hotel",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Changzhen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "09:11",
+                            "cost": 15,
+                            "distance": 20.82,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Changzhen-Metro Station",
+                            "end": "Hongyuan Temple",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:48",
+                            "cost": 0,
+                            "distance": 3.09,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "KUDDO COFFEE (G&G Creative Community Store)",
+                    "type": "lunch",
+                    "price": 31,
+                    "cost": 93,
+                    "start_time": "12:49",
+                    "end_time": "13:49",
+                    "transports": [
+                        {
+                            "start": "Hongyuan Temple",
+                            "end": "Changzhen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:18",
+                            "end_time": "11:55",
+                            "cost": 0,
+                            "distance": 3.09,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changzhen-Metro Station",
+                            "end": "Flower and Fruit Mountain-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:55",
+                            "end_time": "12:46",
+                            "cost": 18,
+                            "distance": 25.72,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Flower and Fruit Mountain-Metro Station",
+                            "end": "KUDDO COFFEE (G&G Creative Community Store)",
+                            "mode": "walk",
+                            "start_time": "12:46",
+                            "end_time": "12:49",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Portrait of Deng Xiaoping",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:39",
+                    "end_time": "16:09",
+                    "transports": [
+                        {
+                            "start": "KUDDO COFFEE (G&G Creative Community Store)",
+                            "end": "Flower and Fruit Mountain-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:49",
+                            "end_time": "13:52",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Flower and Fruit Mountain-Metro Station",
+                            "end": "Hongling-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:52",
+                            "end_time": "14:32",
+                            "cost": 15,
+                            "distance": 20.0,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Hongling-Metro Station",
+                            "end": "Portrait of Deng Xiaoping",
+                            "mode": "walk",
+                            "start_time": "14:32",
+                            "end_time": "14:39",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Zunbao Pizza (Shangsha Branch)",
+                    "type": "dinner",
+                    "price": 34,
+                    "cost": 102,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Portrait of Deng Xiaoping",
+                            "end": "Hongling-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:09",
+                            "end_time": "16:16",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongling-Metro Station",
+                            "end": "Shangsha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:16",
+                            "end_time": "16:31",
+                            "cost": 9,
+                            "distance": 7.58,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shangsha-Metro Station",
+                            "end": "Zunbao Pizza (Shangsha Branch)",
+                            "mode": "walk",
+                            "start_time": "16:31",
+                            "end_time": "16:40",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "OAO Art Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:16",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Zunbao Pizza (Shangsha Branch)",
+                            "end": "Shangsha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shangsha-Metro Station",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "19:07",
+                            "cost": 21,
+                            "distance": 29.34,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "OAO Art Space",
+                            "mode": "walk",
+                            "start_time": "19:07",
+                            "end_time": "19:16",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Kexing Science and Technology Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:40",
+                    "end_time": "22:10",
+                    "transports": [
+                        {
+                            "start": "OAO Art Space",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:39",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:39",
+                            "end_time": "20:22",
+                            "cost": 18,
+                            "distance": 22.0,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Kexing Science and Technology Park",
+                            "mode": "walk",
+                            "start_time": "20:22",
+                            "end_time": "20:40",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "accommodation",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "22:34",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Kexing Science and Technology Park",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "22:10",
+                            "end_time": "22:28",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:28",
+                            "end_time": "22:34",
+                            "cost": 6,
+                            "distance": 3.06,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Shenzhen HAPPYOCEAN Hotel",
+                            "mode": "walk",
+                            "start_time": "22:34",
+                            "end_time": "22:34",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "accommodation",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:37",
+                    "end_time": "01:08",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 572.8,
+                    "cost": 1718.3999999999999,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Shenzhen HAPPYOCEAN Hotel",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "09:01",
+                            "cost": 15,
+                            "distance": 15.92,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "09:01",
+                            "end_time": "09:06",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL166",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 8.17183256149292,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,750 @@
+{
+    "people_number": 4,
+    "start_city": "Shanghai",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:14",
+                    "end_time": "02:18",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 800.01,
+                    "cost": 3200.04,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL041",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Shuangliu International Airport",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:18",
+                            "end_time": "02:33",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:33",
+                            "end_time": "03:04",
+                            "cost": 20,
+                            "distance": 15.61,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "03:04",
+                            "end_time": "03:08",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jinli Ancient Stage",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:45",
+                    "end_time": "10:15",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:37",
+                            "cost": 8,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Jinli Ancient Stage",
+                            "mode": "walk",
+                            "start_time": "08:37",
+                            "end_time": "08:45",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jinli Ancient Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:15",
+                    "end_time": "11:45",
+                    "transports": [
+                        {
+                            "start": "Jinli Ancient Stage",
+                            "end": "Jinli Ancient Street",
+                            "mode": "taxi",
+                            "start_time": "10:15",
+                            "end_time": "10:15",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Grandma Ye's Bobo Chicken (Taikoo Li Branch)",
+                    "type": "lunch",
+                    "price": 57,
+                    "cost": 228,
+                    "start_time": "12:04",
+                    "end_time": "13:04",
+                    "transports": [
+                        {
+                            "start": "Jinli Ancient Street",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:45",
+                            "end_time": "11:54",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:54",
+                            "end_time": "12:00",
+                            "cost": 8,
+                            "distance": 3.18,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "Grandma Ye's Bobo Chicken (Taikoo Li Branch)",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:04",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shu Art Theater · Sichuan Opera Performance (Taikoo Li Branch)",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 196,
+                    "start_time": "13:05",
+                    "end_time": "14:35",
+                    "transports": [
+                        {
+                            "start": "Grandma Ye's Bobo Chicken (Taikoo Li Branch)",
+                            "end": "Shu Art Theater · Sichuan Opera Performance (Taikoo Li Branch)",
+                            "mode": "taxi",
+                            "start_time": "13:04",
+                            "end_time": "13:05",
+                            "cost": 11.0,
+                            "distance": 0.67,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shuijingfang Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:35",
+                    "end_time": "16:05",
+                    "transports": [
+                        {
+                            "start": "Shu Art Theater · Sichuan Opera Performance (Taikoo Li Branch)",
+                            "end": "Shuijingfang Museum",
+                            "mode": "taxi",
+                            "start_time": "14:35",
+                            "end_time": "14:35",
+                            "cost": 11.0,
+                            "distance": 0.42,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Leshan Fat Brother Stewed Beef with Ox Feet (Main Store on Dongfeng Road)",
+                    "type": "dinner",
+                    "price": 60,
+                    "cost": 240,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shuijingfang Museum",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:05",
+                            "end_time": "16:12",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "Yushuang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:12",
+                            "end_time": "16:14",
+                            "cost": 8,
+                            "distance": 1.29,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Yushuang Road-Metro Station",
+                            "end": "Leshan Fat Brother Stewed Beef with Ox Feet (Main Store on Dongfeng Road)",
+                            "mode": "walk",
+                            "start_time": "16:14",
+                            "end_time": "16:21",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Van Gogh Starry Night Art Museum (Chengdu Chunxi Road Flagship Store)",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 196,
+                    "start_time": "18:14",
+                    "end_time": "19:44",
+                    "transports": [
+                        {
+                            "start": "Leshan Fat Brother Stewed Beef with Ox Feet (Main Store on Dongfeng Road)",
+                            "end": "Yushuang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yushuang Road-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:10",
+                            "cost": 8,
+                            "distance": 1.69,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Van Gogh Starry Night Art Museum (Chengdu Chunxi Road Flagship Store)",
+                            "mode": "walk",
+                            "start_time": "18:10",
+                            "end_time": "18:14",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hovering Leap Theater (Chunxi Road Maoye Department Store Branch)",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 156,
+                    "start_time": "19:44",
+                    "end_time": "21:14",
+                    "transports": [
+                        {
+                            "start": "Van Gogh Starry Night Art Museum (Chengdu Chunxi Road Flagship Store)",
+                            "end": "Hovering Leap Theater (Chunxi Road Maoye Department Store Branch)",
+                            "mode": "taxi",
+                            "start_time": "19:44",
+                            "end_time": "19:44",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 632,
+                    "start_time": "21:25",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Hovering Leap Theater (Chunxi Road Maoye Department Store Branch)",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:14",
+                            "end_time": "21:17",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:17",
+                            "end_time": "21:21",
+                            "cost": 8,
+                            "distance": 2.0,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "21:21",
+                            "end_time": "21:25",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:15",
+                    "end_time": "11:45",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:00",
+                            "end_time": "10:05",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:05",
+                            "end_time": "10:07",
+                            "cost": 8,
+                            "distance": 1.45,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "10:07",
+                            "end_time": "10:15",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "lunch",
+                    "price": 17,
+                    "cost": 68,
+                    "start_time": "12:03",
+                    "end_time": "13:03",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:45",
+                            "end_time": "11:53",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:53",
+                            "end_time": "11:55",
+                            "cost": 8,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "12:03",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Moon City Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:18",
+                    "end_time": "14:48",
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:03",
+                            "end_time": "13:11",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:11",
+                            "end_time": "13:14",
+                            "cost": 8,
+                            "distance": 1.74,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Moon City Lake",
+                            "mode": "walk",
+                            "start_time": "13:14",
+                            "end_time": "13:18",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 632,
+                    "start_time": "15:03",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Moon City Lake",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:48",
+                            "end_time": "14:52",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:52",
+                            "end_time": "14:59",
+                            "cost": 8,
+                            "distance": 3.52,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "14:59",
+                            "end_time": "15:03",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:37",
+                            "cost": 8,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "08:37",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 632,
+                    "start_time": "10:28",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:14",
+                            "end_time": "10:21",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:21",
+                            "end_time": "10:24",
+                            "cost": 8,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "10:24",
+                            "end_time": "10:28",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 632,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 5,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "22:36",
+                    "end_time": "00:40",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 830.94,
+                    "cost": 3323.76,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "10:21",
+                            "cost": 36,
+                            "distance": 53.95,
+                            "price": 9,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "10:21",
+                            "end_time": "11:05",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL407",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 12.961324453353882,
+    "llm_inference_time_sec": 0
+}

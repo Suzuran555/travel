@@ -1,0 +1,705 @@
+{
+    "people_number": 2,
+    "start_city": "Guangzhou",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:47",
+                    "end_time": "03:19",
+                    "start": "Guangzhou Baiyun International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 598.06,
+                    "cost": 1196.12,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL289",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Shuangliu International Airport",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:19",
+                            "end_time": "03:34",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:34",
+                            "end_time": "04:05",
+                            "cost": 10,
+                            "distance": 15.61,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "04:05",
+                            "end_time": "04:09",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Ping'an Bridge Catholic Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Ping'an Bridge Catholic Church",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Big Pear Roast Duck Restaurant (Gaoxin Renhe New City Branch)",
+                    "type": "lunch",
+                    "price": 134,
+                    "cost": 268,
+                    "start_time": "11:53",
+                    "end_time": "12:53",
+                    "transports": [
+                        {
+                            "start": "Ping'an Bridge Catholic Church",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:33",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "City First Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:33",
+                            "end_time": "11:51",
+                            "cost": 8,
+                            "distance": 9.38,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "City First Hospital-Metro Station",
+                            "end": "Big Pear Roast Duck Restaurant (Gaoxin Renhe New City Branch)",
+                            "mode": "walk",
+                            "start_time": "11:51",
+                            "end_time": "11:53",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Four Seasons Ski Resort",
+                    "type": "attraction",
+                    "price": 98,
+                    "cost": 196,
+                    "start_time": "13:06",
+                    "end_time": "14:36",
+                    "transports": [
+                        {
+                            "start": "Big Pear Roast Duck Restaurant (Gaoxin Renhe New City Branch)",
+                            "end": "City First Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:53",
+                            "end_time": "12:55",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "City First Hospital-Metro Station",
+                            "end": "Shiyang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:55",
+                            "end_time": "12:58",
+                            "cost": 4,
+                            "distance": 1.91,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shiyang-Metro Station",
+                            "end": "Four Seasons Ski Resort",
+                            "mode": "walk",
+                            "start_time": "12:58",
+                            "end_time": "13:06",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Sanhe Classic Car Museum",
+                    "type": "attraction",
+                    "price": 98,
+                    "cost": 196,
+                    "start_time": "14:57",
+                    "end_time": "16:27",
+                    "transports": [
+                        {
+                            "start": "Four Seasons Ski Resort",
+                            "end": "Shiyang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:36",
+                            "end_time": "14:44",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shiyang-Metro Station",
+                            "end": "Shenxianshu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:44",
+                            "end_time": "14:50",
+                            "cost": 4,
+                            "distance": 3.17,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shenxianshu-Metro Station",
+                            "end": "Sanhe Classic Car Museum",
+                            "mode": "walk",
+                            "start_time": "14:50",
+                            "end_time": "14:57",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Baguo Buyi (Zijing Branch)",
+                    "type": "dinner",
+                    "price": 128,
+                    "cost": 256,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Sanhe Classic Car Museum",
+                            "end": "Baguo Buyi (Zijing Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:27",
+                            "end_time": "16:27",
+                            "cost": 11.0,
+                            "distance": 0.33,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Global Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:15",
+                    "end_time": "19:45",
+                    "transports": [
+                        {
+                            "start": "Baguo Buyi (Zijing Branch)",
+                            "end": "Shenxianshu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenxianshu-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:05",
+                            "end_time": "18:13",
+                            "cost": 6,
+                            "distance": 4.1,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Chengdu Global Center",
+                            "mode": "walk",
+                            "start_time": "18:13",
+                            "end_time": "18:15",
+                            "cost": 0,
+                            "distance": 0.2,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Three Saints Flower Village Tourist Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:56",
+                    "end_time": "21:26",
+                    "transports": [
+                        {
+                            "start": "Chengdu Global Center",
+                            "end": "Three Saints Flower Village Tourist Area",
+                            "mode": "taxi",
+                            "start_time": "19:45",
+                            "end_time": "19:56",
+                            "cost": 32.51,
+                            "distance": 7.95,
+                            "price": 32.51,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "22:23",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Three Saints Flower Village Tourist Area",
+                            "end": "Honghe-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:26",
+                            "end_time": "21:57",
+                            "cost": 0,
+                            "distance": 2.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Honghe-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:57",
+                            "end_time": "22:19",
+                            "cost": 8,
+                            "distance": 11.38,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "22:19",
+                            "end_time": "22:23",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Narrow Alley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 4,
+                            "distance": 0.71,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Narrow Alley",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Painting Academy",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:11",
+                    "end_time": "11:41",
+                    "transports": [
+                        {
+                            "start": "Narrow Alley",
+                            "end": "Chengdu Painting Academy",
+                            "mode": "taxi",
+                            "start_time": "10:11",
+                            "end_time": "10:11",
+                            "cost": 11.0,
+                            "distance": 0.36,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Gather 'Round: Round Table Coffee Bar",
+                    "type": "lunch",
+                    "price": 27,
+                    "cost": 54,
+                    "start_time": "11:41",
+                    "end_time": "12:41",
+                    "transports": [
+                        {
+                            "start": "Chengdu Painting Academy",
+                            "end": "Gather 'Round: Round Table Coffee Bar",
+                            "mode": "taxi",
+                            "start_time": "11:41",
+                            "end_time": "11:41",
+                            "cost": 11.0,
+                            "distance": 0.17,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:59",
+                    "end_time": "14:29",
+                    "transports": [
+                        {
+                            "start": "Gather 'Round: Round Table Coffee Bar",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:41",
+                            "end_time": "12:50",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:50",
+                            "end_time": "12:52",
+                            "cost": 4,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "12:52",
+                            "end_time": "12:59",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "14:43",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:36",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:36",
+                            "end_time": "14:39",
+                            "cost": 4,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "14:39",
+                            "end_time": "14:43",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Moon City Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:45",
+                    "end_time": "10:15",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:41",
+                            "cost": 4,
+                            "distance": 3.52,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Moon City Lake",
+                            "mode": "walk",
+                            "start_time": "08:41",
+                            "end_time": "08:45",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "10:30",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Moon City Lake",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:15",
+                            "end_time": "10:19",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:19",
+                            "end_time": "10:26",
+                            "cost": 4,
+                            "distance": 3.52,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "10:26",
+                            "end_time": "10:30",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:50",
+                    "end_time": "01:22",
+                    "start": "Chengdu Shuangliu International Airport",
+                    "end": "Guangzhou Baiyun International Airport",
+                    "price": 652.14,
+                    "cost": 1304.28,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:05",
+                            "cost": 10,
+                            "distance": 15.61,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Chengdu Shuangliu International Airport",
+                            "mode": "walk",
+                            "start_time": "09:05",
+                            "end_time": "09:20",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL439",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 7.901035308837891,
+    "llm_inference_time_sec": 0
+}

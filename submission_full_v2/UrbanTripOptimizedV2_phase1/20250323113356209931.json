@@ -1,0 +1,685 @@
+{
+    "people_number": 4,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 2284.72,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "06:03",
+                            "cost": 28,
+                            "distance": 33.44,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                            "mode": "walk",
+                            "start_time": "06:03",
+                            "end_time": "06:31",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Lavender Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:27",
+                    "end_time": "10:57",
+                    "transports": [
+                        {
+                            "start": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:58",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:58",
+                            "end_time": "09:09",
+                            "cost": 12,
+                            "distance": 5.81,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Shanghai Lavender Park",
+                            "mode": "walk",
+                            "start_time": "09:09",
+                            "end_time": "09:27",
+                            "cost": 0,
+                            "distance": 1.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                    "type": "lunch",
+                    "price": 402,
+                    "cost": 1608,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai Lavender Park",
+                            "end": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "mode": "taxi",
+                            "start_time": "10:57",
+                            "end_time": "11:00",
+                            "cost": 11.8,
+                            "distance": 2.03,
+                            "price": 11.8,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "SoReal VR Hyper Space (Disneytown Store)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:01",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "end": "SoReal VR Hyper Space (Disneytown Store)",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:01",
+                            "cost": 11.0,
+                            "distance": 1.04,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Mickey Avenue",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:31",
+                    "end_time": "15:01",
+                    "transports": [
+                        {
+                            "start": "SoReal VR Hyper Space (Disneytown Store)",
+                            "end": "Mickey Avenue",
+                            "mode": "taxi",
+                            "start_time": "13:31",
+                            "end_time": "13:31",
+                            "cost": 11.0,
+                            "distance": 0.42,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:42",
+                    "end_time": "17:12",
+                    "transports": [
+                        {
+                            "start": "Mickey Avenue",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:01",
+                            "end_time": "15:09",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:09",
+                            "end_time": "15:24",
+                            "cost": 12,
+                            "distance": 7.83,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "15:24",
+                            "end_time": "15:42",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Imperial Banquet Chinese Restaurant",
+                    "type": "dinner",
+                    "price": 433,
+                    "cost": 1732,
+                    "start_time": "17:40",
+                    "end_time": "18:40",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:12",
+                            "end_time": "17:30",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "East Huaxia Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:30",
+                            "end_time": "17:38",
+                            "cost": 12,
+                            "distance": 4.13,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "East Huaxia Road-Metro Station",
+                            "end": "Imperial Banquet Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "17:38",
+                            "end_time": "17:40",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maglev Train",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 200,
+                    "start_time": "19:10",
+                    "end_time": "20:40",
+                    "transports": [
+                        {
+                            "start": "Imperial Banquet Chinese Restaurant",
+                            "end": "East Huaxia Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:40",
+                            "end_time": "18:42",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Huaxia Road-Metro Station",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:42",
+                            "end_time": "19:04",
+                            "cost": 16,
+                            "distance": 11.38,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Maglev Train",
+                            "mode": "walk",
+                            "start_time": "19:04",
+                            "end_time": "19:10",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                    "type": "accommodation",
+                    "price": 335,
+                    "cost": 1340,
+                    "start_time": "21:40",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Maglev Train",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:40",
+                            "end_time": "20:46",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:46",
+                            "end_time": "21:12",
+                            "cost": 16,
+                            "distance": 13.19,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                            "mode": "walk",
+                            "start_time": "21:12",
+                            "end_time": "21:40",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shanghai Oriental Geoscience Museum",
+                    "type": "attraction",
+                    "price": 59,
+                    "cost": 236,
+                    "start_time": "09:39",
+                    "end_time": "11:09",
+                    "transports": [
+                        {
+                            "start": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:58",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Haitian Third Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:58",
+                            "end_time": "09:17",
+                            "cost": 16,
+                            "distance": 9.62,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Haitian Third Road-Metro Station",
+                            "end": "Shanghai Oriental Geoscience Museum",
+                            "mode": "walk",
+                            "start_time": "09:17",
+                            "end_time": "09:39",
+                            "cost": 0,
+                            "distance": 1.84,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant",
+                    "type": "lunch",
+                    "price": 134,
+                    "cost": 536,
+                    "start_time": "12:12",
+                    "end_time": "13:12",
+                    "transports": [
+                        {
+                            "start": "Shanghai Oriental Geoscience Museum",
+                            "end": "Haitian Third Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:09",
+                            "end_time": "11:31",
+                            "cost": 0,
+                            "distance": 1.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Haitian Third Road-Metro Station",
+                            "end": "Gutang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:31",
+                            "end_time": "12:05",
+                            "cost": 20,
+                            "distance": 17.21,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Gutang Road-Metro Station",
+                            "end": "Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:12",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yingdong Village",
+                    "type": "attraction",
+                    "price": 38,
+                    "cost": 152,
+                    "start_time": "13:39",
+                    "end_time": "15:09",
+                    "transports": [
+                        {
+                            "start": "Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant",
+                            "end": "Gutang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:12",
+                            "end_time": "13:19",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gutang Road-Metro Station",
+                            "end": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:19",
+                            "end_time": "13:35",
+                            "cost": 12,
+                            "distance": 8.05,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "end": "Yingdong Village",
+                            "mode": "walk",
+                            "start_time": "13:35",
+                            "end_time": "13:39",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Tongji University (Siping Road Campus)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:31",
+                    "end_time": "17:01",
+                    "transports": [
+                        {
+                            "start": "Yingdong Village",
+                            "end": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:09",
+                            "end_time": "15:13",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Waigaoqiao Free Trade Zone South-Metro Station",
+                            "end": "Guoquan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:13",
+                            "end_time": "15:31",
+                            "cost": 16,
+                            "distance": 9.46,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Guoquan Road-Metro Station",
+                            "end": "Tongji University (Siping Road Campus)",
+                            "mode": "walk",
+                            "start_time": "15:31",
+                            "end_time": "15:31",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hyatt Cafe · Chinese Kitchen",
+                    "type": "dinner",
+                    "price": 309,
+                    "cost": 1236,
+                    "start_time": "17:09",
+                    "end_time": "18:09",
+                    "transports": [
+                        {
+                            "start": "Tongji University (Siping Road Campus)",
+                            "end": "Guoquan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:01",
+                            "end_time": "17:01",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guoquan Road-Metro Station",
+                            "end": "Wujiaochang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:01",
+                            "end_time": "17:03",
+                            "cost": 8,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wujiaochang-Metro Station",
+                            "end": "Hyatt Cafe · Chinese Kitchen",
+                            "mode": "walk",
+                            "start_time": "17:03",
+                            "end_time": "17:09",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "SNH48 Star Dream Theater",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:16",
+                    "end_time": "19:46",
+                    "transports": [
+                        {
+                            "start": "Hyatt Cafe · Chinese Kitchen",
+                            "end": "SNH48 Star Dream Theater",
+                            "mode": "taxi",
+                            "start_time": "18:09",
+                            "end_time": "18:16",
+                            "cost": 21.22,
+                            "distance": 4.72,
+                            "price": 21.22,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                    "type": "accommodation",
+                    "price": 335,
+                    "cost": 1340,
+                    "start_time": "20:59",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "SNH48 Star Dream Theater",
+                            "end": "Liping Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:46",
+                            "end_time": "19:50",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liping Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:50",
+                            "end_time": "20:31",
+                            "cost": 20,
+                            "distance": 20.54,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                            "mode": "walk",
+                            "start_time": "20:31",
+                            "end_time": "20:59",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 2563.72,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Gokurakuyu Hot Spring Hotel Shanghai Chuansha",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:58",
+                            "cost": 0,
+                            "distance": 2.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:58",
+                            "end_time": "09:19",
+                            "cost": 16,
+                            "distance": 10.98,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "09:19",
+                            "end_time": "09:34",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

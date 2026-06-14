@@ -1,0 +1,566 @@
+{
+    "people_number": 2,
+    "start_city": "Chongqing",
+    "target_city": "Hangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:36",
+                    "end_time": "02:14",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Hangzhou Xiaoshan International Airport",
+                    "price": 703.38,
+                    "cost": 1406.76,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL377",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Xiaoshan International Airport",
+                            "end": "Xiaoshan International Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:14",
+                            "end_time": "02:15",
+                            "cost": 0,
+                            "distance": 0.12,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshan International Airport-Metro Station",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:15",
+                            "end_time": "03:07",
+                            "cost": 12,
+                            "distance": 26.2,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                            "mode": "walk",
+                            "start_time": "03:07",
+                            "end_time": "03:09",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wind and Wave Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                            "end": "Wind and Wave Pavilion",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.1,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lakeview Teahouse Restaurant",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Wind and Wave Pavilion",
+                            "end": "Lakeview Teahouse Restaurant",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.36,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "CoCo Fresh Tea & Juice (Hangzhou Wulin D11 Store)",
+                    "type": "lunch",
+                    "price": 14,
+                    "cost": 28,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Lakeview Teahouse Restaurant",
+                            "end": "CoCo Fresh Tea & Juice (Hangzhou Wulin D11 Store)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.21,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Beishan Street Historical and Cultural District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:30",
+                    "end_time": "14:00",
+                    "transports": [
+                        {
+                            "start": "CoCo Fresh Tea & Juice (Hangzhou Wulin D11 Store)",
+                            "end": "Beishan Street Historical and Cultural District",
+                            "mode": "taxi",
+                            "start_time": "12:30",
+                            "end_time": "12:30",
+                            "cost": 11.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lingering Snow on the Broken Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:00",
+                    "end_time": "15:30",
+                    "transports": [
+                        {
+                            "start": "Beishan Street Historical and Cultural District",
+                            "end": "Lingering Snow on the Broken Bridge",
+                            "mode": "taxi",
+                            "start_time": "14:00",
+                            "end_time": "14:00",
+                            "cost": 11.0,
+                            "distance": 0.09,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wyndham Grand Plaza Royale Hangzhou · Sawasdee Thai Restaurant",
+                    "type": "dinner",
+                    "price": 199,
+                    "cost": 398,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lingering Snow on the Broken Bridge",
+                            "end": "Wyndham Grand Plaza Royale Hangzhou · Sawasdee Thai Restaurant",
+                            "mode": "taxi",
+                            "start_time": "15:30",
+                            "end_time": "15:30",
+                            "cost": 11.0,
+                            "distance": 0.19,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Bai Causeway",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Wyndham Grand Plaza Royale Hangzhou · Sawasdee Thai Restaurant",
+                            "end": "Bai Causeway",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.38,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Autumn Water Villa",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:54",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Bai Causeway",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:39",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:39",
+                            "end_time": "19:43",
+                            "cost": 4,
+                            "distance": 2.17,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Autumn Water Villa",
+                            "mode": "walk",
+                            "start_time": "19:43",
+                            "end_time": "19:54",
+                            "cost": 0,
+                            "distance": 0.96,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                    "type": "accommodation",
+                    "price": 296,
+                    "cost": 592,
+                    "start_time": "21:17",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Autumn Water Villa",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:11",
+                            "cost": 0,
+                            "distance": 0.96,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:11",
+                            "end_time": "21:15",
+                            "cost": 4,
+                            "distance": 2.17,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                            "mode": "walk",
+                            "start_time": "21:15",
+                            "end_time": "21:17",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Lakeside Sunshine and Rain",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:32",
+                            "end_time": "08:34",
+                            "cost": 4,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Lakeside Sunshine and Rain",
+                            "mode": "walk",
+                            "start_time": "08:34",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hangzhou Suspended Glass Art Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 98,
+                    "start_time": "10:27",
+                    "end_time": "11:57",
+                    "transports": [
+                        {
+                            "start": "Lakeside Sunshine and Rain",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:11",
+                            "end_time": "10:18",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:18",
+                            "end_time": "10:20",
+                            "cost": 4,
+                            "distance": 1.37,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Hangzhou Suspended Glass Art Museum",
+                            "mode": "walk",
+                            "start_time": "10:20",
+                            "end_time": "10:27",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Aomori Cuisine (Zhongshan North Road Branch)",
+                    "type": "lunch",
+                    "price": 107,
+                    "cost": 214,
+                    "start_time": "11:57",
+                    "end_time": "12:57",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Suspended Glass Art Museum",
+                            "end": "Aomori Cuisine (Zhongshan North Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:57",
+                            "end_time": "11:57",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "West Lake Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:12",
+                    "end_time": "14:42",
+                    "transports": [
+                        {
+                            "start": "Aomori Cuisine (Zhongshan North Road Branch)",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:57",
+                            "end_time": "13:04",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:04",
+                            "end_time": "13:08",
+                            "cost": 4,
+                            "distance": 2.12,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "West Lake Museum",
+                            "mode": "walk",
+                            "start_time": "13:08",
+                            "end_time": "13:12",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                    "type": "accommodation",
+                    "price": 296,
+                    "cost": 592,
+                    "start_time": "14:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "West Lake Museum",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:42",
+                            "end_time": "14:46",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:46",
+                            "end_time": "14:50",
+                            "cost": 4,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                            "mode": "walk",
+                            "start_time": "14:50",
+                            "end_time": "14:52",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "22:17",
+                    "end_time": "23:55",
+                    "start": "Hangzhou Xiaoshan International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 613.67,
+                    "cost": 1227.34,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Hangzhou Weicao Apartment (West Lake Scenic Area Branch)",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Xiaoshan International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:32",
+                            "end_time": "09:24",
+                            "cost": 12,
+                            "distance": 26.2,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xiaoshan International Airport-Metro Station",
+                            "end": "Hangzhou Xiaoshan International Airport",
+                            "mode": "walk",
+                            "start_time": "09:24",
+                            "end_time": "09:25",
+                            "cost": 0,
+                            "distance": 0.12,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL529",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 6.796547889709473,
+    "llm_inference_time_sec": 0
+}

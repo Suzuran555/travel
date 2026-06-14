@@ -1,0 +1,201 @@
+{
+    "people_number": 3,
+    "start_city": "Chongqing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:21",
+                    "end_time": "17:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3074",
+                    "type": "train"
+                },
+                {
+                    "position": "Chengshan Red Hot Pot Cuisine",
+                    "type": "dinner",
+                    "price": 816,
+                    "cost": 2448,
+                    "start_time": "18:09",
+                    "end_time": "19:09",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:45",
+                            "end_time": "17:46",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Xingbo Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:46",
+                            "end_time": "18:02",
+                            "cost": 9,
+                            "distance": 8.15,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xingbo Street-Metro Station",
+                            "end": "Chengshan Red Hot Pot Cuisine",
+                            "mode": "walk",
+                            "start_time": "18:02",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Imagination Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:51",
+                    "end_time": "21:21",
+                    "transports": [
+                        {
+                            "start": "Chengshan Red Hot Pot Cuisine",
+                            "end": "Xingbo Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:09",
+                            "end_time": "19:16",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xingbo Street-Metro Station",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:16",
+                            "end_time": "19:44",
+                            "cost": 15,
+                            "distance": 14.24,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Imagination Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "19:44",
+                            "end_time": "19:51",
+                            "cost": 0,
+                            "distance": 0.65,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                    "type": "accommodation",
+                    "price": 206,
+                    "cost": 412,
+                    "start_time": "21:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Imagination Science and Technology Museum",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:21",
+                            "end_time": "21:28",
+                            "cost": 0,
+                            "distance": 0.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:28",
+                            "end_time": "21:35",
+                            "cost": 6,
+                            "distance": 3.85,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "21:35",
+                            "end_time": "21:52",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "start_time": "11:40",
+                    "end_time": "14:08",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 679.06,
+                    "cost": 2037.1799999999998,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Suzhou Huaxi Meishi Hotel (Heiyi Wujiang Branch)",
+                            "end": "Jiangxing West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:00",
+                            "end_time": "00:17",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangxing West Road-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:17",
+                            "end_time": "00:53",
+                            "cost": 15,
+                            "distance": 18.01,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "00:53",
+                            "end_time": "00:54",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T237",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.959726095199585,
+    "llm_inference_time_sec": 0
+}

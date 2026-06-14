@@ -1,0 +1,831 @@
+{
+    "people_number": 2,
+    "start_city": "Shanghai",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "07:58",
+                    "end_time": "11:50",
+                    "start": "Shanghai West Railway Station",
+                    "end": "Nanjing Station",
+                    "price": 121.35,
+                    "cost": 242.7,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "C3852",
+                    "type": "train"
+                },
+                {
+                    "position": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                    "type": "lunch",
+                    "price": 6,
+                    "cost": 12,
+                    "start_time": "12:05",
+                    "end_time": "13:05",
+                    "transports": [
+                        {
+                            "start": "Nanjing Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:50",
+                            "end_time": "11:52",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:52",
+                            "end_time": "11:56",
+                            "cost": 4,
+                            "distance": 2.44,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "11:56",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing City Wall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:19",
+                    "end_time": "15:49",
+                    "transports": [
+                        {
+                            "start": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:05",
+                            "end_time": "13:14",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Forest Farm-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:14",
+                            "end_time": "13:43",
+                            "cost": 10,
+                            "distance": 14.86,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Forest Farm-Metro Station",
+                            "end": "Nanjing City Wall",
+                            "mode": "walk",
+                            "start_time": "13:43",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 3.02,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Zhu's Plum Blossom Cake",
+                    "type": "dinner",
+                    "price": 6,
+                    "cost": 12,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing City Wall",
+                            "end": "Forest Farm-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:49",
+                            "end_time": "16:25",
+                            "cost": 0,
+                            "distance": 3.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Forest Farm-Metro Station",
+                            "end": "Yunnan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:25",
+                            "end_time": "16:55",
+                            "cost": 10,
+                            "distance": 15.14,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yunnan Road-Metro Station",
+                            "end": "Zhu's Plum Blossom Cake",
+                            "mode": "walk",
+                            "start_time": "16:55",
+                            "end_time": "17:00",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Confucius Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:19",
+                    "end_time": "19:49",
+                    "transports": [
+                        {
+                            "start": "Zhu's Plum Blossom Cake",
+                            "end": "Yunnan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yunnan Road-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:05",
+                            "end_time": "18:13",
+                            "cost": 6,
+                            "distance": 4.17,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Confucius Temple",
+                            "mode": "walk",
+                            "start_time": "18:13",
+                            "end_time": "18:19",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Dongshuiguan Ruins Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:14",
+                    "end_time": "21:44",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:49",
+                            "end_time": "19:55",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Xianmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:55",
+                            "end_time": "19:59",
+                            "cost": 4,
+                            "distance": 2.26,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xianmen-Metro Station",
+                            "end": "Dongshuiguan Ruins Park",
+                            "mode": "walk",
+                            "start_time": "19:59",
+                            "end_time": "20:14",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                    "type": "accommodation",
+                    "price": 193,
+                    "cost": 386,
+                    "start_time": "22:03",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Dongshuiguan Ruins Park",
+                            "end": "Xianmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:44",
+                            "end_time": "21:59",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xianmen-Metro Station",
+                            "end": "Ming Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:59",
+                            "end_time": "22:01",
+                            "cost": 4,
+                            "distance": 1.32,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Ming Palace-Metro Station",
+                            "end": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                            "mode": "walk",
+                            "start_time": "22:01",
+                            "end_time": "22:03",
+                            "cost": 0,
+                            "distance": 0.18,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nanjing Yuhuatai Scenic Area - Meigang",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:49",
+                    "end_time": "10:19",
+                    "transports": [
+                        {
+                            "start": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                            "end": "Ming Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 0,
+                            "distance": 0.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ming Palace-Metro Station",
+                            "end": "Yuhua Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:32",
+                            "end_time": "08:41",
+                            "cost": 6,
+                            "distance": 4.7,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yuhua Gate-Metro Station",
+                            "end": "Nanjing Yuhuatai Scenic Area - Meigang",
+                            "mode": "walk",
+                            "start_time": "08:41",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing University (Gulou Campus) - University History Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:44",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yuhuatai Scenic Area - Meigang",
+                            "end": "Yuhua Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:19",
+                            "end_time": "10:27",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yuhua Gate-Metro Station",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:27",
+                            "end_time": "10:39",
+                            "cost": 6,
+                            "distance": 6.17,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Nanjing University (Gulou Campus) - University History Museum",
+                            "mode": "walk",
+                            "start_time": "10:39",
+                            "end_time": "10:44",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "National Football Team Stinky Tofu (Mingwalang Branch)",
+                    "type": "lunch",
+                    "price": 13,
+                    "cost": 26,
+                    "start_time": "12:14",
+                    "end_time": "13:14",
+                    "transports": [
+                        {
+                            "start": "Nanjing University (Gulou Campus) - University History Museum",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Xinjiekou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:05",
+                            "end_time": "12:08",
+                            "cost": 4,
+                            "distance": 1.9,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xinjiekou-Metro Station",
+                            "end": "National Football Team Stinky Tofu (Mingwalang Branch)",
+                            "mode": "walk",
+                            "start_time": "12:08",
+                            "end_time": "12:14",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Cloud Water Orchid Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:07",
+                    "end_time": "15:37",
+                    "transports": [
+                        {
+                            "start": "National Football Team Stinky Tofu (Mingwalang Branch)",
+                            "end": "Xinjiekou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:14",
+                            "end_time": "13:20",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinjiekou-Metro Station",
+                            "end": "Yaohua New Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:20",
+                            "end_time": "13:43",
+                            "cost": 8,
+                            "distance": 11.88,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yaohua New Village-Metro Station",
+                            "end": "Cloud Water Orchid Pavilion",
+                            "mode": "walk",
+                            "start_time": "13:43",
+                            "end_time": "14:07",
+                            "cost": 0,
+                            "distance": 2.04,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Li's Halal Restaurant (Dading Lane Branch)",
+                    "type": "dinner",
+                    "price": 29,
+                    "cost": 58,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Cloud Water Orchid Pavilion",
+                            "end": "Yaohua New Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:37",
+                            "end_time": "16:01",
+                            "cost": 0,
+                            "distance": 2.04,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yaohua New Village-Metro Station",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:01",
+                            "end_time": "16:26",
+                            "cost": 8,
+                            "distance": 12.74,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Li's Halal Restaurant (Dading Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "16:26",
+                            "end_time": "16:31",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Deji Art Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:15",
+                    "end_time": "19:45",
+                    "transports": [
+                        {
+                            "start": "Li's Halal Restaurant (Dading Lane Branch)",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:05",
+                            "end_time": "18:09",
+                            "cost": 4,
+                            "distance": 2.27,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Deji Art Space",
+                            "mode": "walk",
+                            "start_time": "18:09",
+                            "end_time": "18:15",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lake Biwa Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:14",
+                    "end_time": "21:44",
+                    "transports": [
+                        {
+                            "start": "Deji Art Space",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:45",
+                            "end_time": "19:51",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Gangzi Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:51",
+                            "end_time": "19:56",
+                            "cost": 4,
+                            "distance": 2.64,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Gangzi Village-Metro Station",
+                            "end": "Lake Biwa Scenic Area",
+                            "mode": "walk",
+                            "start_time": "19:56",
+                            "end_time": "20:14",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                    "type": "accommodation",
+                    "price": 193,
+                    "cost": 386,
+                    "start_time": "22:09",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Lake Biwa Scenic Area",
+                            "end": "Gangzi Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:44",
+                            "end_time": "22:02",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gangzi Village-Metro Station",
+                            "end": "Ming Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:02",
+                            "end_time": "22:07",
+                            "cost": 4,
+                            "distance": 2.92,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Ming Palace-Metro Station",
+                            "end": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                            "mode": "walk",
+                            "start_time": "22:07",
+                            "end_time": "22:09",
+                            "cost": 0,
+                            "distance": 0.18,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Water Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:51",
+                    "end_time": "10:21",
+                    "transports": [
+                        {
+                            "start": "Yitel (Nanjing Museum Minggugong Metro Station)",
+                            "end": "Ming Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 0,
+                            "distance": 0.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ming Palace-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:32",
+                            "end_time": "08:38",
+                            "cost": 4,
+                            "distance": 3.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Water Street",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:51",
+                            "cost": 0,
+                            "distance": 1.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Civilian Anti-Japanese War Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:29",
+                    "end_time": "11:59",
+                    "transports": [
+                        {
+                            "start": "Water Street",
+                            "end": "Nanjing Civilian Anti-Japanese War Museum",
+                            "mode": "taxi",
+                            "start_time": "10:21",
+                            "end_time": "10:29",
+                            "cost": 24.89,
+                            "distance": 5.77,
+                            "price": 24.89,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Clip Coffee",
+                    "type": "lunch",
+                    "price": 27,
+                    "cost": 54,
+                    "start_time": "12:25",
+                    "end_time": "13:25",
+                    "transports": [
+                        {
+                            "start": "Nanjing Civilian Anti-Japanese War Museum",
+                            "end": "Software Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Software Avenue-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:05",
+                            "end_time": "12:21",
+                            "cost": 6,
+                            "distance": 8.23,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Clip Coffee",
+                            "mode": "walk",
+                            "start_time": "12:21",
+                            "end_time": "12:25",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Squirrel Kaka Forest Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:31",
+                    "end_time": "17:01",
+                    "transports": [
+                        {
+                            "start": "Clip Coffee",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:25",
+                            "end_time": "13:29",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Zhengfang Middle Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:29",
+                            "end_time": "14:14",
+                            "cost": 12,
+                            "distance": 22.59,
+                            "price": 6,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Zhengfang Middle Road-Metro Station",
+                            "end": "Squirrel Kaka Forest Park",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "15:31",
+                            "cost": 0,
+                            "distance": 6.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:39",
+                    "end_time": "23:54",
+                    "start": "Nanjing South Railway Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 175.28,
+                    "cost": 350.56,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Squirrel Kaka Forest Park",
+                            "end": "Zhengfang Middle Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:01",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 6.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhengfang Middle Road-Metro Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:18",
+                            "end_time": "18:45",
+                            "cost": 8,
+                            "distance": 13.98,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Nanjing South Railway Station",
+                            "mode": "walk",
+                            "start_time": "18:45",
+                            "end_time": "18:48",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G1428",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 5.853166818618774,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,770 @@
+{
+    "people_number": 2,
+    "start_city": "Shanghai",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:33",
+                    "end_time": "00:53",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 242.41,
+                    "cost": 484.82,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL074",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Xingyuan Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Lukou International Airport",
+                            "end": "Lukou Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:53",
+                            "end_time": "00:56",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lukou Airport-Metro Station",
+                            "end": "Xishan Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:56",
+                            "end_time": "01:55",
+                            "cost": 14,
+                            "distance": 29.63,
+                            "price": 7,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xishan Bridge-Metro Station",
+                            "end": "Xingyuan Hotel",
+                            "mode": "walk",
+                            "start_time": "01:55",
+                            "end_time": "02:09",
+                            "cost": 0,
+                            "distance": 1.18,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Six Dynasties Ancient Capital Ruins Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:07",
+                    "end_time": "10:37",
+                    "transports": [
+                        {
+                            "start": "Xingyuan Hotel",
+                            "end": "Xishan Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 1.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xishan Bridge-Metro Station",
+                            "end": "Luotang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:44",
+                            "end_time": "08:47",
+                            "cost": 4,
+                            "distance": 1.81,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luotang Road-Metro Station",
+                            "end": "Six Dynasties Ancient Capital Ruins Park",
+                            "mode": "walk",
+                            "start_time": "08:47",
+                            "end_time": "09:07",
+                            "cost": 0,
+                            "distance": 1.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Jumeirah Hotel · Twin Hub",
+                    "type": "lunch",
+                    "price": 364,
+                    "cost": 728,
+                    "start_time": "11:19",
+                    "end_time": "12:19",
+                    "transports": [
+                        {
+                            "start": "Six Dynasties Ancient Capital Ruins Park",
+                            "end": "Luotang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:37",
+                            "end_time": "10:57",
+                            "cost": 0,
+                            "distance": 1.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luotang Road-Metro Station",
+                            "end": "Yuantong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:57",
+                            "end_time": "11:05",
+                            "cost": 6,
+                            "distance": 4.29,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yuantong-Metro Station",
+                            "end": "Nanjing Jumeirah Hotel · Twin Hub",
+                            "mode": "walk",
+                            "start_time": "11:05",
+                            "end_time": "11:19",
+                            "cost": 0,
+                            "distance": 1.24,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing Twin Towers",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:20",
+                    "end_time": "13:50",
+                    "transports": [
+                        {
+                            "start": "Nanjing Jumeirah Hotel · Twin Hub",
+                            "end": "Nanjing Twin Towers",
+                            "mode": "taxi",
+                            "start_time": "12:19",
+                            "end_time": "12:20",
+                            "cost": 11.0,
+                            "distance": 0.85,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Eye Pedestrian Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:15",
+                    "end_time": "15:45",
+                    "transports": [
+                        {
+                            "start": "Nanjing Twin Towers",
+                            "end": "Yuantong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:50",
+                            "end_time": "13:58",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yuantong-Metro Station",
+                            "end": "Olympic Sports Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:58",
+                            "end_time": "14:01",
+                            "cost": 4,
+                            "distance": 1.54,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Olympic Sports Center-Metro Station",
+                            "end": "Nanjing Eye Pedestrian Bridge",
+                            "mode": "walk",
+                            "start_time": "14:01",
+                            "end_time": "14:15",
+                            "cost": 0,
+                            "distance": 1.19,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Jiangxin Island",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:47",
+                    "end_time": "17:17",
+                    "transports": [
+                        {
+                            "start": "Nanjing Eye Pedestrian Bridge",
+                            "end": "Jiangxin Island",
+                            "mode": "taxi",
+                            "start_time": "15:45",
+                            "end_time": "15:47",
+                            "cost": 11.0,
+                            "distance": 1.46,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Rongfu Chaozhou Cuisine & Banquet Hall (Jiangdong Middle Road Branch)",
+                    "type": "dinner",
+                    "price": 486,
+                    "cost": 972,
+                    "start_time": "17:55",
+                    "end_time": "18:55",
+                    "transports": [
+                        {
+                            "start": "Jiangxin Island",
+                            "end": "Rongfu Chaozhou Cuisine & Banquet Hall (Jiangdong Middle Road Branch)",
+                            "mode": "walk",
+                            "start_time": "17:17",
+                            "end_time": "17:55",
+                            "cost": 0.0,
+                            "distance": 3.1735895778886523,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Live Fire Shooting Club",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:09",
+                    "end_time": "20:39",
+                    "transports": [
+                        {
+                            "start": "Rongfu Chaozhou Cuisine & Banquet Hall (Jiangdong Middle Road Branch)",
+                            "end": "Live Fire Shooting Club",
+                            "mode": "walk",
+                            "start_time": "18:55",
+                            "end_time": "19:09",
+                            "cost": 0.0,
+                            "distance": 1.193328428447248,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Xingyuan Hotel",
+                    "type": "accommodation",
+                    "price": 96,
+                    "cost": 96,
+                    "start_time": "21:13",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Live Fire Shooting Club",
+                            "end": "Olympic Sports Center East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:39",
+                            "end_time": "20:45",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Olympic Sports Center East-Metro Station",
+                            "end": "Xishan Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:45",
+                            "end_time": "20:59",
+                            "cost": 6,
+                            "distance": 7.33,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xishan Bridge-Metro Station",
+                            "end": "Xingyuan Hotel",
+                            "mode": "walk",
+                            "start_time": "20:59",
+                            "end_time": "21:13",
+                            "cost": 0,
+                            "distance": 1.18,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Xingyuan Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Memorial Hall of the Victims in Nanjing Massacre by Japanese Invaders",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:14",
+                    "end_time": "10:44",
+                    "transports": [
+                        {
+                            "start": "Xingyuan Hotel",
+                            "end": "Xishan Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 1.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xishan Bridge-Metro Station",
+                            "end": "Yunjin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:44",
+                            "end_time": "09:06",
+                            "cost": 8,
+                            "distance": 11.1,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yunjin Road-Metro Station",
+                            "end": "Memorial Hall of the Victims in Nanjing Massacre by Japanese Invaders",
+                            "mode": "walk",
+                            "start_time": "09:06",
+                            "end_time": "09:14",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Zhu Xiaole Lobster and Lamb Spine Hot Pot (Fenghuang West Street Branch)",
+                    "type": "lunch",
+                    "price": 178,
+                    "cost": 356,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Memorial Hall of the Victims in Nanjing Massacre by Japanese Invaders",
+                            "end": "Zhu Xiaole Lobster and Lamb Spine Hot Pot (Fenghuang West Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:44",
+                            "end_time": "10:44",
+                            "cost": 11.0,
+                            "distance": 0.24,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Golden Eagle Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:01",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Zhu Xiaole Lobster and Lamb Spine Hot Pot (Fenghuang West Street Branch)",
+                            "end": "Golden Eagle Art Museum",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:01",
+                            "cost": 11.0,
+                            "distance": 1.25,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hohai University Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:52",
+                    "end_time": "15:22",
+                    "transports": [
+                        {
+                            "start": "Golden Eagle Art Museum",
+                            "end": "Yunjin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:31",
+                            "end_time": "13:37",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yunjin Road-Metro Station",
+                            "end": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:37",
+                            "end_time": "13:42",
+                            "cost": 4,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "end": "Hohai University Library",
+                            "mode": "walk",
+                            "start_time": "13:42",
+                            "end_time": "13:52",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing Museum of Lost Love",
+                    "type": "attraction",
+                    "price": 45,
+                    "cost": 90,
+                    "start_time": "15:46",
+                    "end_time": "17:16",
+                    "transports": [
+                        {
+                            "start": "Hohai University Library",
+                            "end": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:22",
+                            "end_time": "15:32",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:32",
+                            "end_time": "15:40",
+                            "cost": 6,
+                            "distance": 4.24,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Nanjing Museum of Lost Love",
+                            "mode": "walk",
+                            "start_time": "15:40",
+                            "end_time": "15:46",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Liu Family Courtyard · Old Nanjing Street Food (Hongmiao Branch)",
+                    "type": "dinner",
+                    "price": 80,
+                    "cost": 160,
+                    "start_time": "17:29",
+                    "end_time": "18:29",
+                    "transports": [
+                        {
+                            "start": "Nanjing Museum of Lost Love",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:16",
+                            "end_time": "17:22",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:22",
+                            "end_time": "17:23",
+                            "cost": 4,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Liu Family Courtyard · Old Nanjing Street Food (Hongmiao Branch)",
+                            "mode": "walk",
+                            "start_time": "17:23",
+                            "end_time": "17:29",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Confucius Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:46",
+                    "end_time": "20:16",
+                    "transports": [
+                        {
+                            "start": "Liu Family Courtyard · Old Nanjing Street Food (Hongmiao Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:29",
+                            "end_time": "18:35",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:35",
+                            "end_time": "18:40",
+                            "cost": 4,
+                            "distance": 2.77,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Confucius Temple",
+                            "mode": "walk",
+                            "start_time": "18:40",
+                            "end_time": "18:46",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Xingyuan Hotel",
+                    "type": "accommodation",
+                    "price": 96,
+                    "cost": 96,
+                    "start_time": "21:01",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:16",
+                            "end_time": "20:22",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Xishan Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:22",
+                            "end_time": "20:47",
+                            "cost": 8,
+                            "distance": 12.74,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xishan Bridge-Metro Station",
+                            "end": "Xingyuan Hotel",
+                            "mode": "walk",
+                            "start_time": "20:47",
+                            "end_time": "21:01",
+                            "cost": 0,
+                            "distance": 1.18,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Xingyuan Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Yue Fei's Anti-Jin Fortress Ruins",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:46",
+                    "end_time": "11:16",
+                    "transports": [
+                        {
+                            "start": "Xingyuan Hotel",
+                            "end": "Xishan Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 1.18,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xishan Bridge-Metro Station",
+                            "end": "Hohai University · Focheng West Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:44",
+                            "end_time": "09:04",
+                            "cost": 8,
+                            "distance": 10.19,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Hohai University · Focheng West Road-Metro Station",
+                            "end": "Yue Fei's Anti-Jin Fortress Ruins",
+                            "mode": "walk",
+                            "start_time": "09:04",
+                            "end_time": "09:46",
+                            "cost": 0,
+                            "distance": 3.52,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "That Little Restaurant (Chuqiao City Branch)",
+                    "type": "lunch",
+                    "price": 140,
+                    "cost": 280,
+                    "start_time": "12:19",
+                    "end_time": "13:19",
+                    "transports": [
+                        {
+                            "start": "Yue Fei's Anti-Jin Fortress Ruins",
+                            "end": "Hohai University · Focheng West Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:16",
+                            "end_time": "11:58",
+                            "cost": 0,
+                            "distance": 3.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hohai University · Focheng West Road-Metro Station",
+                            "end": "Tiexin Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:58",
+                            "end_time": "12:10",
+                            "cost": 6,
+                            "distance": 6.16,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tiexin Bridge-Metro Station",
+                            "end": "That Little Restaurant (Chuqiao City Branch)",
+                            "mode": "walk",
+                            "start_time": "12:10",
+                            "end_time": "12:19",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "22:39",
+                    "end_time": "23:54",
+                    "start": "Nanjing South Railway Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 175.28,
+                    "cost": 350.56,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "That Little Restaurant (Chuqiao City Branch)",
+                            "end": "Tiexin Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:19",
+                            "end_time": "13:28",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiexin Bridge-Metro Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:28",
+                            "end_time": "13:34",
+                            "cost": 4,
+                            "distance": 3.2,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Nanjing South Railway Station",
+                            "mode": "walk",
+                            "start_time": "13:34",
+                            "end_time": "13:37",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G1428",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 273.7354030609131,
+    "llm_inference_time_sec": 0
+}

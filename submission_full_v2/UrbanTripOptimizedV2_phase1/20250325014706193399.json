@@ -1,0 +1,645 @@
+{
+    "people_number": 5,
+    "start_city": "Suzhou",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:49",
+                    "end_time": "20:34",
+                    "start": "Suzhou Station",
+                    "end": "Chengdu East Railway Station",
+                    "price": 945.53,
+                    "cost": 4727.65,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D353",
+                    "type": "train"
+                },
+                {
+                    "position": "Traveling With Hotel (Chengdu Financial Global Center)",
+                    "type": "accommodation",
+                    "price": 288,
+                    "cost": 1440,
+                    "start_time": "21:01",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu East Railway Station",
+                            "end": "Chengdu East Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:34",
+                            "end_time": "20:34",
+                            "cost": 0,
+                            "distance": 0.0,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chengdu East Railway Station-Metro Station",
+                            "end": "City First Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:34",
+                            "end_time": "20:53",
+                            "cost": 20,
+                            "distance": 9.65,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "City First Hospital-Metro Station",
+                            "end": "Traveling With Hotel (Chengdu Financial Global Center)",
+                            "mode": "walk",
+                            "start_time": "20:53",
+                            "end_time": "21:01",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Traveling With Hotel (Chengdu Financial Global Center)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Jincheng Park in Chengdu",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:47",
+                    "end_time": "10:17",
+                    "transports": [
+                        {
+                            "start": "Traveling With Hotel (Chengdu Financial Global Center)",
+                            "end": "City First Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "City First Hospital-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:41",
+                            "cost": 10,
+                            "distance": 1.99,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Park in Chengdu",
+                            "mode": "walk",
+                            "start_time": "08:41",
+                            "end_time": "08:47",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chengdu Global Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:18",
+                    "end_time": "11:48",
+                    "transports": [
+                        {
+                            "start": "Jincheng Park in Chengdu",
+                            "end": "Chengdu Global Center",
+                            "mode": "taxi",
+                            "start_time": "10:17",
+                            "end_time": "10:18",
+                            "cost": 22.0,
+                            "distance": 0.72,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)",
+                    "type": "lunch",
+                    "price": 82,
+                    "cost": 410,
+                    "start_time": "11:57",
+                    "end_time": "12:57",
+                    "transports": [
+                        {
+                            "start": "Chengdu Global Center",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:48",
+                            "end_time": "11:50",
+                            "cost": 0,
+                            "distance": 0.2,
+                            "price": 0
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:50",
+                            "end_time": "11:51",
+                            "cost": 10,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)",
+                            "mode": "walk",
+                            "start_time": "11:51",
+                            "end_time": "11:57",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nellie's Family Center (Chengdu Global Store)",
+                    "type": "attraction",
+                    "price": 99,
+                    "cost": 495,
+                    "start_time": "13:09",
+                    "end_time": "14:39",
+                    "transports": [
+                        {
+                            "start": "One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:57",
+                            "end_time": "13:03",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:03",
+                            "end_time": "13:04",
+                            "cost": 10,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Nellie's Family Center (Chengdu Global Store)",
+                            "mode": "walk",
+                            "start_time": "13:04",
+                            "end_time": "13:09",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Lichao Aviation Museum",
+                    "type": "attraction",
+                    "price": 158,
+                    "cost": 790,
+                    "start_time": "14:39",
+                    "end_time": "16:09",
+                    "transports": [
+                        {
+                            "start": "Nellie's Family Center (Chengdu Global Store)",
+                            "end": "Lichao Aviation Museum",
+                            "mode": "taxi",
+                            "start_time": "14:39",
+                            "end_time": "14:39",
+                            "cost": 22.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                    "type": "dinner",
+                    "price": 88,
+                    "cost": 440,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lichao Aviation Museum",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:09",
+                            "end_time": "16:12",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:12",
+                            "end_time": "16:13",
+                            "cost": 10,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                            "mode": "walk",
+                            "start_time": "16:13",
+                            "end_time": "16:17",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "One Ear Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:25",
+                    "end_time": "19:55",
+                    "transports": [
+                        {
+                            "start": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "18:21",
+                            "cost": 15,
+                            "distance": 8.58,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "One Ear Pavilion",
+                            "mode": "walk",
+                            "start_time": "18:21",
+                            "end_time": "18:25",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Qingyang District Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:19",
+                    "end_time": "20:30",
+                    "transports": [
+                        {
+                            "start": "One Ear Pavilion",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:55",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:59",
+                            "end_time": "20:13",
+                            "cost": 15,
+                            "distance": 7.4,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Qingyang District Library",
+                            "mode": "walk",
+                            "start_time": "20:13",
+                            "end_time": "20:19",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Traveling With Hotel (Chengdu Financial Global Center)",
+                    "type": "accommodation",
+                    "price": 288,
+                    "cost": 1440,
+                    "start_time": "21:04",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Qingyang District Library",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:36",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "City First Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:36",
+                            "end_time": "20:56",
+                            "cost": 20,
+                            "distance": 10.01,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "City First Hospital-Metro Station",
+                            "end": "Traveling With Hotel (Chengdu Financial Global Center)",
+                            "mode": "walk",
+                            "start_time": "20:56",
+                            "end_time": "21:04",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Traveling With Hotel (Chengdu Financial Global Center)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Red Wall Alley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:02",
+                    "end_time": "10:32",
+                    "transports": [
+                        {
+                            "start": "Traveling With Hotel (Chengdu Financial Global Center)",
+                            "end": "City First Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "City First Hospital-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:53",
+                            "cost": 15,
+                            "distance": 7.79,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Red Wall Alley",
+                            "mode": "walk",
+                            "start_time": "08:53",
+                            "end_time": "09:02",
+                            "cost": 0,
+                            "distance": 0.83,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ginkgo Golden Pavilion (Jinli Branch)",
+                    "type": "lunch",
+                    "price": 163,
+                    "cost": 815,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Red Wall Alley",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:32",
+                            "end_time": "10:41",
+                            "cost": 0,
+                            "distance": 0.83,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Jinjiang Hotel-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:41",
+                            "end_time": "10:43",
+                            "cost": 10,
+                            "distance": 1.36,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jinjiang Hotel-Metro Station",
+                            "end": "Ginkgo Golden Pavilion (Jinli Branch)",
+                            "mode": "walk",
+                            "start_time": "10:43",
+                            "end_time": "10:53",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:19",
+                    "end_time": "13:49",
+                    "transports": [
+                        {
+                            "start": "Ginkgo Golden Pavilion (Jinli Branch)",
+                            "end": "Jinjiang Hotel-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:10",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jinjiang Hotel-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:10",
+                            "end_time": "12:12",
+                            "cost": 10,
+                            "distance": 1.36,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "12:12",
+                            "end_time": "12:19",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Sichuan Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:01",
+                    "end_time": "15:31",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:49",
+                            "end_time": "13:56",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:56",
+                            "end_time": "13:58",
+                            "cost": 10,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Sichuan Art Museum",
+                            "mode": "walk",
+                            "start_time": "13:58",
+                            "end_time": "14:01",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "start_time": "17:42",
+                    "end_time": "04:27",
+                    "start": "Chengdu West Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 630.35,
+                    "cost": 3151.75,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Sichuan Art Museum",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:31",
+                            "end_time": "15:34",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Chengdu West Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:34",
+                            "end_time": "15:51",
+                            "cost": 15,
+                            "distance": 8.73,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chengdu West Railway Station-Metro Station",
+                            "end": "Chengdu West Railway Station",
+                            "mode": "walk",
+                            "start_time": "15:51",
+                            "end_time": "15:54",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K292",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 10.038400411605835,
+    "llm_inference_time_sec": 0
+}

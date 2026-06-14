@@ -1,0 +1,592 @@
+{
+    "people_number": 4,
+    "start_city": "Shenzhen",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:46",
+                    "end_time": "03:07",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 498.12,
+                    "cost": 1992.48,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL199",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chongqing Jiangbei International Airport",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:07",
+                            "end_time": "03:21",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:21",
+                            "end_time": "03:57",
+                            "cost": 20,
+                            "distance": 18.4,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                            "mode": "walk",
+                            "start_time": "03:57",
+                            "end_time": "03:57",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shancheng Lane Historical and Cultural Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                            "end": "Shancheng Lane Historical and Cultural Area",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.29,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Mountain City Trail",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Shancheng Lane Historical and Cultural Area",
+                            "end": "Mountain City Trail",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.0,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chongqing Little Swan Hot Pot (Jiefangbei Branch)",
+                    "type": "lunch",
+                    "price": 76,
+                    "cost": 304,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Mountain City Trail",
+                            "end": "Chongqing Little Swan Hot Pot (Jiefangbei Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Shibati Traditional Style Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:38",
+                    "end_time": "14:08",
+                    "transports": [
+                        {
+                            "start": "Chongqing Little Swan Hot Pot (Jiefangbei Branch)",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:33",
+                            "end_time": "12:34",
+                            "cost": 8,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Chongqing Shibati Traditional Style Area",
+                            "mode": "walk",
+                            "start_time": "12:34",
+                            "end_time": "12:38",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yangtze River Three Gorges - Century Legend Cruise",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:08",
+                    "end_time": "15:38",
+                    "transports": [
+                        {
+                            "start": "Chongqing Shibati Traditional Style Area",
+                            "end": "Yangtze River Three Gorges - Century Legend Cruise",
+                            "mode": "taxi",
+                            "start_time": "14:08",
+                            "end_time": "14:08",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)",
+                    "type": "dinner",
+                    "price": 92,
+                    "cost": 368,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Yangtze River Three Gorges - Century Legend Cruise",
+                            "end": "Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:38",
+                            "end_time": "15:38",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Triumph Road Elevator",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)",
+                            "end": "Triumph Road Elevator",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.29,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chongqing Unicorn Starry Sky Art Museum",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 156,
+                    "start_time": "19:30",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Triumph Road Elevator",
+                            "end": "Chongqing Unicorn Starry Sky Art Museum",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 11.0,
+                            "distance": 0.32,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                    "type": "accommodation",
+                    "price": 81,
+                    "cost": 324,
+                    "start_time": "21:02",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Unicorn Starry Sky Art Museum",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:01",
+                            "cost": 0,
+                            "distance": 0.12,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:01",
+                            "end_time": "21:02",
+                            "cost": 8,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                            "mode": "walk",
+                            "start_time": "21:02",
+                            "end_time": "21:02",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chongqing Loquat Mountain Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:35",
+                    "end_time": "10:05",
+                    "transports": [
+                        {
+                            "start": "Haoting boutique hotel (chongqing jiefangbei hotel)",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.06,
+                            "price": 0
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Huanghuayuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 8,
+                            "distance": 1.07,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huanghuayuan-Metro Station",
+                            "end": "Chongqing Loquat Mountain Park",
+                            "mode": "walk",
+                            "start_time": "08:32",
+                            "end_time": "08:35",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Three Gorges Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:12",
+                    "end_time": "11:42",
+                    "transports": [
+                        {
+                            "start": "Chongqing Loquat Mountain Park",
+                            "end": "Huanghuayuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:05",
+                            "end_time": "10:08",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huanghuayuan-Metro Station",
+                            "end": "Daxigou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:08",
+                            "end_time": "10:09",
+                            "cost": 8,
+                            "distance": 0.7,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Daxigou-Metro Station",
+                            "end": "Three Gorges Museum",
+                            "mode": "walk",
+                            "start_time": "10:09",
+                            "end_time": "10:12",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shunqi Foye Pot (Liujia Wharf Branch)",
+                    "type": "lunch",
+                    "price": 125,
+                    "cost": 500,
+                    "start_time": "11:42",
+                    "end_time": "12:42",
+                    "transports": [
+                        {
+                            "start": "Three Gorges Museum",
+                            "end": "Shunqi Foye Pot (Liujia Wharf Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:42",
+                            "end_time": "11:42",
+                            "cost": 11.0,
+                            "distance": 0.35,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Yiyuan - Site of the Chongqing Negotiations",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:49",
+                    "end_time": "14:19",
+                    "transports": [
+                        {
+                            "start": "Shunqi Foye Pot (Liujia Wharf Branch)",
+                            "end": "Daxigou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:42",
+                            "end_time": "12:47",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxigou-Metro Station",
+                            "end": "Zengjiayan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:47",
+                            "end_time": "12:48",
+                            "cost": 8,
+                            "distance": 0.8,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Zengjiayan-Metro Station",
+                            "end": "Yiyuan - Site of the Chongqing Negotiations",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "12:49",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jialing River",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:26",
+                    "end_time": "15:56",
+                    "transports": [
+                        {
+                            "start": "Yiyuan - Site of the Chongqing Negotiations",
+                            "end": "Zengjiayan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:19",
+                            "end_time": "14:20",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zengjiayan-Metro Station",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:20",
+                            "end_time": "14:21",
+                            "cost": 8,
+                            "distance": 0.97,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Jialing River",
+                            "mode": "walk",
+                            "start_time": "14:21",
+                            "end_time": "14:26",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "King Oil Tea (Second Factory Cultural and Creative Park Branch)",
+                    "type": "dinner",
+                    "price": 28,
+                    "cost": 112,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Jialing River",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:56",
+                            "end_time": "16:01",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Liziba-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:01",
+                            "end_time": "16:02",
+                            "cost": 8,
+                            "distance": 0.99,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Liziba-Metro Station",
+                            "end": "King Oil Tea (Second Factory Cultural and Creative Park Branch)",
+                            "mode": "walk",
+                            "start_time": "16:02",
+                            "end_time": "16:05",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:58",
+                    "end_time": "19:03",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Shenzhen East Station",
+                    "price": 540.88,
+                    "cost": 2163.52,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "King Oil Tea (Second Factory Cultural and Creative Park Branch)",
+                            "end": "Liziba-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liziba-Metro Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:03",
+                            "end_time": "18:15",
+                            "cost": 12,
+                            "distance": 6.07,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Chongqing North Railway Station",
+                            "mode": "walk",
+                            "start_time": "18:15",
+                            "end_time": "18:18",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "Z588",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 5.550564289093018,
+    "llm_inference_time_sec": 0
+}

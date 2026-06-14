@@ -1,0 +1,462 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:42",
+                            "cost": 18,
+                            "distance": 54.63,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "mode": "walk",
+                            "start_time": "05:42",
+                            "end_time": "05:55",
+                            "cost": 0,
+                            "distance": 1.16,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Tanghu Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:04",
+                    "end_time": "10:34",
+                    "transports": [
+                        {
+                            "start": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.16,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "Dongsheng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "08:57",
+                            "cost": 6,
+                            "distance": 7.4,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Dongsheng-Metro Station",
+                            "end": "Tanghu Park",
+                            "mode": "walk",
+                            "start_time": "08:57",
+                            "end_time": "09:04",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wei Zhi Jue Frog Fish Head Restaurant (Dongsheng Branch)",
+                    "type": "lunch",
+                    "price": 79,
+                    "cost": 158,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Tanghu Park",
+                            "end": "Wei Zhi Jue Frog Fish Head Restaurant (Dongsheng Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:34",
+                            "end_time": "10:34",
+                            "cost": 11.0,
+                            "distance": 0.45,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Century City New International Convention and Exhibition Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:15",
+                    "end_time": "14:45",
+                    "transports": [
+                        {
+                            "start": "Wei Zhi Jue Frog Fish Head Restaurant (Dongsheng Branch)",
+                            "end": "Dongsheng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.98,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongsheng-Metro Station",
+                            "end": "Wansheng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:11",
+                            "end_time": "12:41",
+                            "cost": 10,
+                            "distance": 15.41,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Wansheng-Metro Station",
+                            "end": "Chengdu Century City New International Convention and Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "12:41",
+                            "end_time": "13:15",
+                            "cost": 0,
+                            "distance": 2.91,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "China Teddy Bear Museum",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 100,
+                    "start_time": "14:49",
+                    "end_time": "16:19",
+                    "transports": [
+                        {
+                            "start": "Chengdu Century City New International Convention and Exhibition Center",
+                            "end": "China Teddy Bear Museum",
+                            "mode": "taxi",
+                            "start_time": "14:45",
+                            "end_time": "14:49",
+                            "cost": 14.78,
+                            "distance": 2.88,
+                            "price": 14.78,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Grand Longmen Town: Heritage Sichuan Cuisine (Wenjiang Flagship Store)",
+                    "type": "dinner",
+                    "price": 66,
+                    "cost": 132,
+                    "start_time": "17:16",
+                    "end_time": "18:16",
+                    "transports": [
+                        {
+                            "start": "China Teddy Bear Museum",
+                            "end": "Wansheng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:19",
+                            "end_time": "17:04",
+                            "cost": 0,
+                            "distance": 3.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wansheng-Metro Station",
+                            "end": "Nanxun Avenue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:04",
+                            "end_time": "17:11",
+                            "cost": 4,
+                            "distance": 3.52,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanxun Avenue-Metro Station",
+                            "end": "Grand Longmen Town: Heritage Sichuan Cuisine (Wenjiang Flagship Store)",
+                            "mode": "walk",
+                            "start_time": "17:11",
+                            "end_time": "17:16",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu International Intangible Cultural Heritage Expo Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:50",
+                    "end_time": "20:20",
+                    "transports": [
+                        {
+                            "start": "Grand Longmen Town: Heritage Sichuan Cuisine (Wenjiang Flagship Store)",
+                            "end": "Nanxun Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:16",
+                            "end_time": "18:21",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanxun Avenue-Metro Station",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:21",
+                            "end_time": "18:39",
+                            "cost": 8,
+                            "distance": 9.21,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "mode": "walk",
+                            "start_time": "18:39",
+                            "end_time": "18:50",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu New Lightspeed Karting Club (Wuhou Branch)",
+                    "type": "attraction",
+                    "price": 128,
+                    "cost": 256,
+                    "start_time": "21:00",
+                    "end_time": "22:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu International Intangible Cultural Heritage Expo Park",
+                            "end": "Caiqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:20",
+                            "end_time": "20:31",
+                            "cost": 0,
+                            "distance": 0.99,
+                            "price": 0
+                        },
+                        {
+                            "start": "Caiqiao-Metro Station",
+                            "end": "Dongpo Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:31",
+                            "end_time": "20:43",
+                            "cost": 6,
+                            "distance": 6.1,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Dongpo Road-Metro Station",
+                            "end": "Chengdu New Lightspeed Karting Club (Wuhou Branch)",
+                            "mode": "walk",
+                            "start_time": "20:43",
+                            "end_time": "21:00",
+                            "cost": 0,
+                            "distance": 1.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "accommodation",
+                    "price": 167,
+                    "cost": 167,
+                    "start_time": "22:42",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu New Lightspeed Karting Club (Wuhou Branch)",
+                            "end": "Dongpo Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "22:00",
+                            "end_time": "22:17",
+                            "cost": 0,
+                            "distance": 1.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongpo Road-Metro Station",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:17",
+                            "end_time": "22:29",
+                            "cost": 6,
+                            "distance": 6.14,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "mode": "walk",
+                            "start_time": "22:29",
+                            "end_time": "22:42",
+                            "cost": 0,
+                            "distance": 1.16,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Du Fu Thatched Cottage",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 100,
+                    "start_time": "09:05",
+                    "end_time": "10:35",
+                    "transports": [
+                        {
+                            "start": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.16,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "University of Traditional Chinese Medicine · Provincial Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "08:59",
+                            "cost": 6,
+                            "distance": 8.1,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "University of Traditional Chinese Medicine · Provincial Hospital-Metro Station",
+                            "end": "Du Fu Thatched Cottage",
+                            "mode": "walk",
+                            "start_time": "08:59",
+                            "end_time": "09:05",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Du Fu Thatched Cottage",
+                            "end": "University of Traditional Chinese Medicine · Provincial Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:35",
+                            "end_time": "10:41",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "University of Traditional Chinese Medicine · Provincial Hospital-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:41",
+                            "end_time": "12:31",
+                            "cost": 18,
+                            "distance": 55.23,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "12:31",
+                            "end_time": "13:15",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 19.49527621269226,
+    "llm_inference_time_sec": 0
+}

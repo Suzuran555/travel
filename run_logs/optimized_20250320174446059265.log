@@ -1,0 +1,408 @@
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Namespace(splits='TPC_IJCAI_2026_phase1', index='20250320174446059265', skip=0, agent='UrbanTripOptimized', llm='TPCLLM', timeout=300, lang='en', oracle_translation=True)
+config file for testing split: /home/liangfei_jin/chinatravel/chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1.txt
+1000 samples
+res_dir:  /home/liangfei_jin/chinatravel/results/UrbanTripOptimized_TPCLLM_en_oracletranslation
+log_dir: /home/liangfei_jin/chinatravel/cache/UrbanTripOptimized_TPCLLM_en_oracletranslation
+INFO 06-13 16:40:31 [__init__.py:239] Automatically detected platform cuda.
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+------------------------------
+Process [0/1], Success [0/0]:
+data uid:  20250320174446059265
+{'days': 5, 'hard_logic_py': ['attraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_name_set.add(activity_position(activity))\nresult=({"Iron Statue Temple Water Street"}&attraction_name_set)', 'result=(day_count(plan)==5)', 'result=(people_count(plan)==2)', "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=2: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=2: result=False", "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"], 'nature_language': 'We are 2 people traveling from Shanghai to Chengdu for 5 days. Requirements: We want to visit Iron Statue Temple Water Street.', 'people_number': 2, 'start_city': 'Shanghai', 'target_city': 'Chengdu', 'uid': '20250320174446059265'}
+Shanghai -> Chengdu
+User's Constraints:
+We are 2 people traveling from Shanghai to Chengdu for 5 days. Requirements: We want to visit Iron Statue Temple Water Street.
+Formatted Expression:
+all_satisfy: True
+must_see_attraction: ['Iron Statue Temple Water Street']
+must_visit_restaurant: []
+By list:
+[{'all_satisfy': True, 'must_see_attraction': ['Iron Statue Temple Water Street'], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Shanghai to Chengdu: 10 flights, 27 trains
+from Chengdu to Shanghai: 10 flights, 18 trains
+  TrainID                     TrainType  ...    Cost FlightID
+0   D2207  EMU (Electric Multiple Unit)  ...  996.42      NaN
+1   D2206  EMU (Electric Multiple Unit)  ...  996.42      NaN
+2    D353  EMU (Electric Multiple Unit)  ...  996.42      NaN
+3    D352  EMU (Electric Multiple Unit)  ...  996.42      NaN
+4    D637  EMU (Electric Multiple Unit)  ...  996.42      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...     Cost FlightID
+0   G2195               High-speed rail  ...  1079.46      NaN
+1   D3055  EMU (Electric Multiple Unit)  ...   996.42      NaN
+2   D3058  EMU (Electric Multiple Unit)  ...   996.42      NaN
+3    D635  EMU (Electric Multiple Unit)  ...   996.42      NaN
+4    D638  EMU (Electric Multiple Unit)  ...   996.42      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '00:14', 'end_time': '02:18', 'start': 'Shanghai Pudong International Airport', 'end': 'Chengdu Shuangliu International Airport', 'price': 800.01, 'cost': 1600.02, 'tickets': 2, 'transports': [], 'FlightID': 'FL041', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 02:18
+current_position: Chengdu Shuangliu International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 02:18, Chengdu Shuangliu International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Chengdu Yuehuimei Hotel
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Chengdu Yuehuimei Hotel, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Iron Statue Temple Water Street
+add attraction: Iron Statue Temple Water Street, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:38
+current_position: Iron Statue Temple Water Street
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:38, Iron Statue Temple Water Street, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Tile House 21 (Tiexiangsi Water Street Branch), type: Sichuan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:00
+current_position: Tile House 21 (Tiexiangsi Water Street Branch)
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:00, Tile House 21 (Tiexiangsi Water Street Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Dayuan Central Park
+add attraction: Dayuan Central Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 13:51
+current_position: Dayuan Central Park
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 13:51, Dayuan Central Park, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Nellie's Family Center (Chengdu Global Store)
+add attraction: Nellie's Family Center (Chengdu Global Store), type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:44
+current_position: Nellie's Family Center (Chengdu Global Store)
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:44, Nellie's Family Center (Chengdu Global Store), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Lichao Aviation Museum
+inner-city transport error, backtrack...
+add attraction: Lichao Aviation Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:14
+current_position: Lichao Aviation Museum
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 17:14, Lichao Aviation Museum, next-poi type: dinner
+add restaurant: One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:24
+current_position: One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:24, One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: One Ear Pavilion
+add attraction: One Ear Pavilion, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:21
+current_position: One Ear Pavilion
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 20:21, One Ear Pavilion, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Qingyang District Library
+Qingyang District Library closed at 20:30, start time: 20:21, arrival time: 20:45, backtrack...
+Qingyang District Library closed at 20:30, start time: 20:21, arrival time: 20:31, backtrack...
+Qingyang District Library closed at 20:30, start time: 20:21, arrival time: 21:44, backtrack...
+lookahead to add attraction, candidate: Red Wall Alley
+add attraction: Red Wall Alley, type: Historical Site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 22:21
+current_position: Red Wall Alley
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['hotel']
+POI planning, day 0 22:21, Red Wall Alley, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 00:00
+current_position: Chengdu Yuehuimei Hotel
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 08:30
+current_position: Chengdu Yuehuimei Hotel
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 1 08:30, Chengdu Yuehuimei Hotel, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Manjushri Lane Manjushri Temple Historical and Cultural Protection Area
+add attraction: Manjushri Lane Manjushri Temple Historical and Cultural Protection Area, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 10:14
+current_position: Manjushri Lane Manjushri Temple Historical and Cultural Protection Area
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 1 10:14, Manjushri Lane Manjushri Temple Historical and Cultural Protection Area, next-poi type: lunch
+add restaurant: Rongrong Peking University Bedspread Noodles (Main Store), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 12:00
+current_position: Rongrong Peking University Bedspread Noodles (Main Store)
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 12:00, Rongrong Peking University Bedspread Noodles (Main Store), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chengdu Unicorn Starry Sky Art Museum
+add attraction: Chengdu Unicorn Starry Sky Art Museum, type: Art Museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 13:45
+current_position: Chengdu Unicorn Starry Sky Art Museum
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 13:45, Chengdu Unicorn Starry Sky Art Museum, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Sichuan University (Wangjiang Campus) - Museum
+add attraction: Sichuan University (Wangjiang Campus) - Museum, type: university campus
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:27
+current_position: Sichuan University (Wangjiang Campus) - Museum
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 15:27, Sichuan University (Wangjiang Campus) - Museum, next-poi type: attraction
+sorted by distance
+not last day, but last event, collecting innercity transport to hotel
+from: Sichuan University (Wangjiang Campus) - Museum to Chengdu Yuehuimei Hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Chengdu Yuehuimei Hotel
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 08:30
+current_position: Chengdu Yuehuimei Hotel
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 2 08:30, Chengdu Yuehuimei Hotel, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Liu Xiang's Tomb
+add attraction: Liu Xiang's Tomb, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 10:14
+current_position: Liu Xiang's Tomb
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 2 10:14, Liu Xiang's Tomb, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Crane's Call Tea House (People's Park Branch), type: Teahouse
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Crane's Call Tea House (People's Park Branch)
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 2 12:00, Crane's Call Tea House (People's Park Branch), next-poi type: attraction
+sorted by distance
+not last day, but last event, collecting innercity transport to hotel
+from: Crane's Call Tea House (People's Park Branch) to Chengdu Yuehuimei Hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Chengdu Yuehuimei Hotel
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 08:30
+current_position: Chengdu Yuehuimei Hotel
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 3 08:30, Chengdu Yuehuimei Hotel, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Moon City Lake
+add attraction: Moon City Lake, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 10:15
+current_position: Moon City Lake
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 3 10:15, Moon City Lake, next-poi type: lunch
+add restaurant: Wang's Specialty Guokui (Ma'annan Road Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 12:00
+current_position: Wang's Specialty Guokui (Ma'annan Road Branch)
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 3 12:00, Wang's Specialty Guokui (Ma'annan Road Branch), next-poi type: attraction
+sorted by distance
+not last day, but last event, collecting innercity transport to hotel
+from: Wang's Specialty Guokui (Ma'annan Road Branch) to Chengdu Yuehuimei Hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 4
+current_time: 00:00
+current_position: Chengdu Yuehuimei Hotel
+6
+check if too late
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 4
+current_time: 08:30
+current_position: Chengdu Yuehuimei Hotel
+6
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 4 08:30, Chengdu Yuehuimei Hotel, next-poi type: attraction
+sorted by distance
+last day, collecting innercity transport to back-transport
+validate the plan [for query 20250320174446059265]: 
+{'people_number': 2, 'start_city': 'Shanghai', 'target_city': 'Chengdu', 'itinerary': [{'day': 1, 'activities': [{'start_time': '00:14', 'end_time': '02:18', 'start': 'Shanghai Pudong International Airport', 'end': 'Chengdu Shuangliu International Airport', 'price': 800.01, 'cost': 1600.02, 'tickets': 2, 'transports': [], 'FlightID': 'FL041', 'type': 'airplane'}, {'position': 'Chengdu Yuehuimei Hotel', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': [{'start': 'Chengdu Shuangliu International Airport', 'end': 'Shuangliu Airport Terminal 2 East-Metro Station', 'mode': 'walk', 'start_time': '02:18', 'end_time': '02:33', 'cost': 0, 'distance': 1.25, 'price': 0}, {'start': 'Shuangliu Airport Terminal 2 East-Metro Station', 'end': 'Manjushri Temple-Metro Station', 'mode': 'metro', 'start_time': '02:33', 'end_time': '03:04', 'cost': 10, 'distance': 15.61, 'price': 5, 'tickets': 2}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Chengdu Yuehuimei Hotel', 'mode': 'walk', 'start_time': '03:04', 'end_time': '03:08', 'cost': 0, 'distance': 0.37, 'price': 0}]}, {'position': 'Iron Statue Temple Water Street', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '09:08', 'end_time': '10:38', 'transports': [{'start': 'Chengdu Yuehuimei Hotel', 'end': 'Manjushri Temple-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.37, 'price': 0}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Jincheng Lake-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '08:58', 'cost': 8, 'distance': 12.24, 'price': 4, 'tickets': 2}, {'start': 'Jincheng Lake-Metro Station', 'end': 'Iron Statue Temple Water Street', 'mode': 'walk', 'start_time': '08:58', 'end_time': '09:08', 'cost': 0, 'distance': 0.9, 'price': 0}], 'tickets': 2}, {'position': 'Tile House 21 (Tiexiangsi Water Street Branch)', 'type': 'lunch', 'price': 210, 'cost': 420, 'start_time': '11:00', 'end_time': '12:00', 'transports': [{'start': 'Iron Statue Temple Water Street', 'end': 'Tile House 21 (Tiexiangsi Water Street Branch)', 'mode': 'taxi', 'start_time': '10:38', 'end_time': '10:39', 'cost': 11.0, 'distance': 0.83, 'price': 11.0, 'cars': 1}]}, {'position': 'Dayuan Central Park', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '12:21', 'end_time': '13:51', 'transports': [{'start': 'Tile House 21 (Tiexiangsi Water Street Branch)', 'end': 'Jincheng Lake-Metro Station', 'mode': 'walk', 'start_time': '12:00', 'end_time': '12:06', 'cost': 0, 'distance': 0.51, 'price': 0}, {'start': 'Jincheng Lake-Metro Station', 'end': 'Dayuan-Metro Station', 'mode': 'metro', 'start_time': '12:06', 'end_time': '12:09', 'cost': 4, 'distance': 1.54, 'price': 2, 'tickets': 2}, {'start': 'Dayuan-Metro Station', 'end': 'Dayuan Central Park', 'mode': 'walk', 'start_time': '12:09', 'end_time': '12:21', 'cost': 0, 'distance': 1.07, 'price': 0}], 'tickets': 2}, {'position': "Nellie's Family Center (Chengdu Global Store)", 'type': 'attraction', 'price': 99, 'cost': 198, 'start_time': '14:14', 'end_time': '15:44', 'transports': [{'start': 'Dayuan Central Park', 'end': 'Dayuan-Metro Station', 'mode': 'walk', 'start_time': '13:51', 'end_time': '14:03', 'cost': 0, 'distance': 1.07, 'price': 0}, {'start': 'Dayuan-Metro Station', 'end': 'Incubation Park-Metro Station', 'mode': 'metro', 'start_time': '14:03', 'end_time': '14:09', 'cost': 4, 'distance': 3.37, 'price': 2, 'tickets': 2}, {'start': 'Incubation Park-Metro Station', 'end': "Nellie's Family Center (Chengdu Global Store)", 'mode': 'walk', 'start_time': '14:09', 'end_time': '14:14', 'cost': 0, 'distance': 0.47, 'price': 0}], 'tickets': 2}, {'position': 'Lichao Aviation Museum', 'type': 'attraction', 'price': 158, 'cost': 316, 'start_time': '15:44', 'end_time': '17:14', 'transports': [{'start': "Nellie's Family Center (Chengdu Global Store)", 'end': 'Lichao Aviation Museum', 'mode': 'taxi', 'start_time': '15:44', 'end_time': '15:44', 'cost': 11.0, 'distance': 0.27, 'price': 11.0, 'cars': 1}], 'tickets': 2}, {'position': 'One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)', 'type': 'dinner', 'price': 82, 'cost': 164, 'start_time': '17:24', 'end_time': '18:24', 'transports': [{'start': 'Lichao Aviation Museum', 'end': 'Incubation Park-Metro Station', 'mode': 'walk', 'start_time': '17:14', 'end_time': '17:17', 'cost': 0, 'distance': 0.33, 'price': 0}, {'start': 'Incubation Park-Metro Station', 'end': 'Jincheng Square-Metro Station', 'mode': 'metro', 'start_time': '17:17', 'end_time': '17:18', 'cost': 4, 'distance': 0.93, 'price': 2, 'tickets': 2}, {'start': 'Jincheng Square-Metro Station', 'end': 'One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)', 'mode': 'walk', 'start_time': '17:18', 'end_time': '17:24', 'cost': 0, 'distance': 0.52, 'price': 0}]}, {'position': 'One Ear Pavilion', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '18:51', 'end_time': '20:21', 'transports': [{'start': 'One Leaf, One World Tibetan Tea Vegetarian Hot Pot (Global Center Branch)', 'end': 'Jincheng Square-Metro Station', 'mode': 'walk', 'start_time': '18:24', 'end_time': '18:30', 'cost': 0, 'distance': 0.52, 'price': 0}, {'start': 'Jincheng Square-Metro Station', 'end': 'Cuqiao-Metro Station', 'mode': 'metro', 'start_time': '18:30', 'end_time': '18:47', 'cost': 6, 'distance': 8.58, 'price': 3, 'tickets': 2}, {'start': 'Cuqiao-Metro Station', 'end': 'One Ear Pavilion', 'mode': 'walk', 'start_time': '18:47', 'end_time': '18:51', 'cost': 0, 'distance': 0.36, 'price': 0}], 'tickets': 2}, {'position': 'Red Wall Alley', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '20:51', 'end_time': '22:21', 'transports': [{'start': 'One Ear Pavilion', 'end': 'Cuqiao-Metro Station', 'mode': 'walk', 'start_time': '20:21', 'end_time': '20:25', 'cost': 0, 'distance': 0.36, 'price': 0}, {'start': 'Cuqiao-Metro Station', 'end': "People's Park-Metro Station", 'mode': 'metro', 'start_time': '20:25', 'end_time': '20:42', 'cost': 6, 'distance': 8.59, 'price': 3, 'tickets': 2}, {'start': "People's Park-Metro Station", 'end': 'Red Wall Alley', 'mode': 'walk', 'start_time': '20:42', 'end_time': '20:51', 'cost': 0, 'distance': 0.83, 'price': 0}], 'tickets': 2}, {'position': 'Chengdu Yuehuimei Hotel', 'type': 'accommodation', 'price': 158, 'cost': 316, 'start_time': '22:37', 'end_time': '24:00', 'transports': [{'start': 'Red Wall Alley', 'end': "People's Park-Metro Station", 'mode': 'walk', 'start_time': '22:21', 'end_time': '22:30', 'cost': 0, 'distance': 0.83, 'price': 0}, {'start': "People's Park-Metro Station", 'end': 'Manjushri Temple-Metro Station', 'mode': 'metro', 'start_time': '22:30', 'end_time': '22:33', 'cost': 4, 'distance': 1.82, 'price': 2, 'tickets': 2}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Chengdu Yuehuimei Hotel', 'mode': 'walk', 'start_time': '22:33', 'end_time': '22:37', 'cost': 0, 'distance': 0.37, 'price': 0}], 'room_type': 1, 'rooms': 2}]}, {'day': 2, 'activities': [{'position': 'Chengdu Yuehuimei Hotel', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'position': 'Manjushri Lane Manjushri Temple Historical and Cultural Protection Area', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:44', 'end_time': '10:14', 'transports': [{'start': 'Chengdu Yuehuimei Hotel', 'end': 'Manjushri Temple-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.37, 'price': 0}, {'start': 'Manjushri Temple-Metro Station', 'end': 'North Renmin Road-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '08:36', 'cost': 4, 'distance': 1.45, 'price': 2, 'tickets': 2}, {'start': 'North Renmin Road-Metro Station', 'end': 'Manjushri Lane Manjushri Temple Historical and Cultural Protection Area', 'mode': 'walk', 'start_time': '08:36', 'end_time': '08:44', 'cost': 0, 'distance': 0.72, 'price': 0}], 'tickets': 2}, {'position': 'Rongrong Peking University Bedspread Noodles (Main Store)', 'type': 'lunch', 'price': 17, 'cost': 34, 'start_time': '11:00', 'end_time': '12:00', 'transports': [{'start': 'Manjushri Lane Manjushri Temple Historical and Cultural Protection Area', 'end': 'North Renmin Road-Metro Station', 'mode': 'walk', 'start_time': '10:14', 'end_time': '10:22', 'cost': 0, 'distance': 0.72, 'price': 0}, {'start': 'North Renmin Road-Metro Station', 'end': 'Liangjia Lane-Metro Station', 'mode': 'metro', 'start_time': '10:22', 'end_time': '10:24', 'cost': 4, 'distance': 1.02, 'price': 2, 'tickets': 2}, {'start': 'Liangjia Lane-Metro Station', 'end': 'Rongrong Peking University Bedspread Noodles (Main Store)', 'mode': 'walk', 'start_time': '10:24', 'end_time': '10:32', 'cost': 0, 'distance': 0.73, 'price': 0}]}, {'position': 'Chengdu Unicorn Starry Sky Art Museum', 'type': 'attraction', 'price': 49, 'cost': 98, 'start_time': '12:15', 'end_time': '13:45', 'transports': [{'start': 'Rongrong Peking University Bedspread Noodles (Main Store)', 'end': 'Liangjia Lane-Metro Station', 'mode': 'walk', 'start_time': '12:00', 'end_time': '12:08', 'cost': 0, 'distance': 0.73, 'price': 0}, {'start': 'Liangjia Lane-Metro Station', 'end': 'Second Municipal Hospital-Metro Station', 'mode': 'metro', 'start_time': '12:08', 'end_time': '12:12', 'cost': 4, 'distance': 2.39, 'price': 2, 'tickets': 2}, {'start': 'Second Municipal Hospital-Metro Station', 'end': 'Chengdu Unicorn Starry Sky Art Museum', 'mode': 'walk', 'start_time': '12:12', 'end_time': '12:15', 'cost': 0, 'distance': 0.32, 'price': 0}], 'tickets': 2}, {'position': 'Sichuan University (Wangjiang Campus) - Museum', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '13:57', 'end_time': '15:27', 'transports': [{'start': 'Chengdu Unicorn Starry Sky Art Museum', 'end': 'Second Municipal Hospital-Metro Station', 'mode': 'walk', 'start_time': '13:45', 'end_time': '13:48', 'cost': 0, 'distance': 0.32, 'price': 0}, {'start': 'Second Municipal Hospital-Metro Station', 'end': 'Niuwangmiao-Metro Station', 'mode': 'metro', 'start_time': '13:48', 'end_time': '13:52', 'cost': 4, 'distance': 2.03, 'price': 2, 'tickets': 2}, {'start': 'Niuwangmiao-Metro Station', 'end': 'Sichuan University (Wangjiang Campus) - Museum', 'mode': 'walk', 'start_time': '13:52', 'end_time': '13:57', 'cost': 0, 'distance': 0.48, 'price': 0}], 'tickets': 2}, {'position': 'Chengdu Yuehuimei Hotel', 'type': 'accommodation', 'price': 158, 'cost': 316, 'start_time': '15:43', 'end_time': '24:00', 'transports': [{'start': 'Sichuan University (Wangjiang Campus) - Museum', 'end': 'Niuwangmiao-Metro Station', 'mode': 'walk', 'start_time': '15:27', 'end_time': '15:32', 'cost': 0, 'distance': 0.48, 'price': 0}, {'start': 'Niuwangmiao-Metro Station', 'end': 'Manjushri Temple-Metro Station', 'mode': 'metro', 'start_time': '15:32', 'end_time': '15:39', 'cost': 4, 'distance': 3.97, 'price': 2, 'tickets': 2}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Chengdu Yuehuimei Hotel', 'mode': 'walk', 'start_time': '15:39', 'end_time': '15:43', 'cost': 0, 'distance': 0.37, 'price': 0}], 'room_type': 1, 'rooms': 2}]}, {'day': 3, 'activities': [{'position': 'Chengdu Yuehuimei Hotel', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'position': "Liu Xiang's Tomb", 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:44', 'end_time': '10:14', 'transports': [{'start': 'Chengdu Yuehuimei Hotel', 'end': 'Manjushri Temple-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.37, 'price': 0}, {'start': 'Manjushri Temple-Metro Station', 'end': "People's Park-Metro Station", 'mode': 'metro', 'start_time': '08:34', 'end_time': '08:37', 'cost': 4, 'distance': 1.82, 'price': 2, 'tickets': 2}, {'start': "People's Park-Metro Station", 'end': "Liu Xiang's Tomb", 'mode': 'walk', 'start_time': '08:37', 'end_time': '08:44', 'cost': 0, 'distance': 0.61, 'price': 0}], 'tickets': 2}, {'position': "Crane's Call Tea House (People's Park Branch)", 'type': 'lunch', 'price': 45, 'cost': 90, 'start_time': '11:00', 'end_time': '12:00', 'transports': [{'start': "Liu Xiang's Tomb", 'end': "Crane's Call Tea House (People's Park Branch)", 'mode': 'taxi', 'start_time': '10:14', 'end_time': '10:14', 'cost': 11.0, 'distance': 0.51, 'price': 11.0, 'cars': 1}]}, {'position': 'Chengdu Yuehuimei Hotel', 'type': 'accommodation', 'price': 158, 'cost': 316, 'start_time': '12:10', 'end_time': '24:00', 'transports': [{'start': "Crane's Call Tea House (People's Park Branch)", 'end': "People's Park-Metro Station", 'mode': 'walk', 'start_time': '12:00', 'end_time': '12:03', 'cost': 0, 'distance': 0.32, 'price': 0}, {'start': "People's Park-Metro Station", 'end': 'Manjushri Temple-Metro Station', 'mode': 'metro', 'start_time': '12:03', 'end_time': '12:06', 'cost': 4, 'distance': 1.82, 'price': 2, 'tickets': 2}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Chengdu Yuehuimei Hotel', 'mode': 'walk', 'start_time': '12:06', 'end_time': '12:10', 'cost': 0, 'distance': 0.37, 'price': 0}], 'room_type': 1, 'rooms': 2}]}, {'day': 4, 'activities': [{'position': 'Chengdu Yuehuimei Hotel', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'position': 'Moon City Lake', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:45', 'end_time': '10:15', 'transports': [{'start': 'Chengdu Yuehuimei Hotel', 'end': 'Manjushri Temple-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.37, 'price': 0}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Simaqiao-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '08:41', 'cost': 4, 'distance': 3.52, 'price': 2, 'tickets': 2}, {'start': 'Simaqiao-Metro Station', 'end': 'Moon City Lake', 'mode': 'walk', 'start_time': '08:41', 'end_time': '08:45', 'cost': 0, 'distance': 0.4, 'price': 0}], 'tickets': 2}, {'position': "Wang's Specialty Guokui (Ma'annan Road Branch)", 'type': 'lunch', 'price': 16, 'cost': 32, 'start_time': '11:00', 'end_time': '12:00', 'transports': [{'start': 'Moon City Lake', 'end': 'Simaqiao-Metro Station', 'mode': 'walk', 'start_time': '10:15', 'end_time': '10:19', 'cost': 0, 'distance': 0.4, 'price': 0}, {'start': 'Simaqiao-Metro Station', 'end': 'Hongxing Bridge-Metro Station', 'mode': 'metro', 'start_time': '10:19', 'end_time': '10:24', 'cost': 4, 'distance': 2.71, 'price': 2, 'tickets': 2}, {'start': 'Hongxing Bridge-Metro Station', 'end': "Wang's Specialty Guokui (Ma'annan Road Branch)", 'mode': 'walk', 'start_time': '10:24', 'end_time': '10:31', 'cost': 0, 'distance': 0.64, 'price': 0}]}, {'position': 'Chengdu Yuehuimei Hotel', 'type': 'accommodation', 'price': 158, 'cost': 316, 'start_time': '12:15', 'end_time': '24:00', 'transports': [{'start': "Wang's Specialty Guokui (Ma'annan Road Branch)", 'end': 'Hongxing Bridge-Metro Station', 'mode': 'walk', 'start_time': '12:00', 'end_time': '12:07', 'cost': 0, 'distance': 0.64, 'price': 0}, {'start': 'Hongxing Bridge-Metro Station', 'end': 'Manjushri Temple-Metro Station', 'mode': 'metro', 'start_time': '12:07', 'end_time': '12:11', 'cost': 4, 'distance': 2.16, 'price': 2, 'tickets': 2}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Chengdu Yuehuimei Hotel', 'mode': 'walk', 'start_time': '12:11', 'end_time': '12:15', 'cost': 0, 'distance': 0.37, 'price': 0}], 'room_type': 1, 'rooms': 2}]}, {'day': 5, 'activities': [{'position': 'Chengdu Yuehuimei Hotel', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'start_time': '22:36', 'end_time': '00:40', 'start': 'Chengdu Tianfu International Airport', 'end': 'Shanghai Pudong International Airport', 'price': 830.94, 'cost': 1661.88, 'tickets': 2, 'transports': [{'start': 'Chengdu Yuehuimei Hotel', 'end': 'Manjushri Temple-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.37, 'price': 0}, {'start': 'Manjushri Temple-Metro Station', 'end': 'Tianfu Airport Terminal 1 and 2-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '10:21', 'cost': 18, 'distance': 53.95, 'price': 9, 'tickets': 2}, {'start': 'Tianfu Airport Terminal 1 and 2-Metro Station', 'end': 'Chengdu Tianfu International Airport', 'mode': 'walk', 'start_time': '10:21', 'end_time': '11:05', 'cost': 0, 'distance': 3.72, 'price': 0}], 'FlightID': 'FL407', 'type': 'airplane'}]}]}
+Intercity_transport passed!
+Attractions passed!
+Hotels passed!
+Restaurants passed!
+Innercity transport  passed!
+Time passed!
+Space passed!
+None
+[True, True, True, True, True]
+attraction_name_set=set()
+for activity in allactivities(plan):
+  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))
+result=({"Iron Statue Temple Water Street"}&attraction_name_set) passed!
+result=(day_count(plan)==5) passed!
+result=(people_count(plan)==2) passed!
+result=True
+for activity in allactivities(plan):
+  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=2: result=False
+  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=2: result=False passed!
+result=True
+for activity in allactivities(plan):
+  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False passed!
+
+ Pass! 
+

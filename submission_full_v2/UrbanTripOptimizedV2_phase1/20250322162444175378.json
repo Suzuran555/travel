@@ -1,0 +1,252 @@
+{
+    "people_number": 3,
+    "start_city": "Chongqing",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:21",
+                    "end_time": "17:45",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 814.87,
+                    "cost": 2444.61,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D3074",
+                    "type": "train"
+                },
+                {
+                    "position": "Shangri-La Hotel Suzhou · Shang Palace",
+                    "type": "dinner",
+                    "price": 231,
+                    "cost": 693,
+                    "start_time": "17:59",
+                    "end_time": "18:59",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:45",
+                            "end_time": "17:46",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Lion Mountain Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:46",
+                            "end_time": "17:58",
+                            "cost": 9,
+                            "distance": 6.41,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lion Mountain Road-Metro Station",
+                            "end": "Shangri-La Hotel Suzhou · Shang Palace",
+                            "mode": "walk",
+                            "start_time": "17:58",
+                            "end_time": "17:59",
+                            "cost": 0,
+                            "distance": 0.1,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Sunset at the Mountain Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:27",
+                    "end_time": "20:57",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Hotel Suzhou · Shang Palace",
+                            "end": "Lion Mountain Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:59",
+                            "end_time": "19:00",
+                            "cost": 0,
+                            "distance": 0.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lion Mountain Road-Metro Station",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:00",
+                            "end_time": "19:08",
+                            "cost": 9,
+                            "distance": 4.49,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "Sunset at the Mountain Gate",
+                            "mode": "walk",
+                            "start_time": "19:08",
+                            "end_time": "19:27",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "ANDU HOTEL",
+                    "type": "accommodation",
+                    "price": 359,
+                    "cost": 1077,
+                    "start_time": "21:31",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Sunset at the Mountain Gate",
+                            "end": "Tiger Hill-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:57",
+                            "end_time": "21:16",
+                            "cost": 0,
+                            "distance": 1.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiger Hill-Metro Station",
+                            "end": "Yangyu Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:16",
+                            "end_time": "21:24",
+                            "cost": 9,
+                            "distance": 4.32,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yangyu Lane-Metro Station",
+                            "end": "ANDU HOTEL",
+                            "mode": "walk",
+                            "start_time": "21:24",
+                            "end_time": "21:31",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "ANDU HOTEL",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:48",
+                    "end_time": "10:18",
+                    "transports": [
+                        {
+                            "start": "ANDU HOTEL",
+                            "end": "Yangyu Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yangyu Lane-Metro Station",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:40",
+                            "cost": 6,
+                            "distance": 1.99,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "mode": "walk",
+                            "start_time": "08:40",
+                            "end_time": "08:48",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "11:40",
+                    "end_time": "14:08",
+                    "start": "Suzhou Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 679.06,
+                    "cost": 2037.1799999999998,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Shilu Food Street (Jinmen Shopping Mall Branch)",
+                            "end": "Shantang Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:18",
+                            "end_time": "10:26",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shantang Street-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:26",
+                            "end_time": "10:28",
+                            "cost": 6,
+                            "distance": 1.48,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "10:28",
+                            "end_time": "10:29",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T237",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 1.5074653625488281,
+    "llm_inference_time_sec": 0
+}

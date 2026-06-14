@@ -1,0 +1,422 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "09:24",
+                    "start": "Nanjing Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D10",
+                    "type": "train"
+                },
+                {
+                    "position": "Universal Beijing Resort",
+                    "type": "attraction",
+                    "price": 503,
+                    "cost": 2515,
+                    "start_time": "10:20",
+                    "end_time": "11:50",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:24",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "Gaoloujin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:24",
+                            "end_time": "10:16",
+                            "cost": 30,
+                            "distance": 26.13,
+                            "price": 6,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Gaoloujin-Metro Station",
+                            "end": "Universal Beijing Resort",
+                            "mode": "walk",
+                            "start_time": "10:16",
+                            "end_time": "10:20",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "The Lotus Garden",
+                    "type": "lunch",
+                    "price": 238,
+                    "cost": 1190,
+                    "start_time": "12:02",
+                    "end_time": "13:02",
+                    "transports": [
+                        {
+                            "start": "Universal Beijing Resort",
+                            "end": "Gaoloujin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:50",
+                            "end_time": "11:54",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoloujin-Metro Station",
+                            "end": "Universal Resort-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:54",
+                            "end_time": "11:57",
+                            "cost": 10,
+                            "distance": 1.62,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Universal Resort-Metro Station",
+                            "end": "The Lotus Garden",
+                            "mode": "walk",
+                            "start_time": "11:57",
+                            "end_time": "12:02",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "City Boulevard",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:19",
+                    "end_time": "14:49",
+                    "transports": [
+                        {
+                            "start": "The Lotus Garden",
+                            "end": "Universal Resort-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:02",
+                            "end_time": "13:07",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Universal Resort-Metro Station",
+                            "end": "Gaoloujin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:07",
+                            "end_time": "13:10",
+                            "cost": 10,
+                            "distance": 1.62,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Gaoloujin-Metro Station",
+                            "end": "City Boulevard",
+                            "mode": "walk",
+                            "start_time": "13:10",
+                            "end_time": "13:19",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Grand Canal Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:29",
+                    "end_time": "16:59",
+                    "transports": [
+                        {
+                            "start": "City Boulevard",
+                            "end": "Gaoloujin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:49",
+                            "end_time": "14:58",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gaoloujin-Metro Station",
+                            "end": "Haojiafu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:58",
+                            "end_time": "15:08",
+                            "cost": 15,
+                            "distance": 5.29,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Haojiafu-Metro Station",
+                            "end": "Grand Canal Museum",
+                            "mode": "walk",
+                            "start_time": "15:08",
+                            "end_time": "15:29",
+                            "cost": 0,
+                            "distance": 1.83,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "NUO Hotel Beijing Universal Resort - JIA Chinese Restaurant",
+                    "type": "dinner",
+                    "price": 400,
+                    "cost": 2000,
+                    "start_time": "17:37",
+                    "end_time": "18:37",
+                    "transports": [
+                        {
+                            "start": "Grand Canal Museum",
+                            "end": "Haojiafu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:59",
+                            "end_time": "17:20",
+                            "cost": 0,
+                            "distance": 1.83,
+                            "price": 0
+                        },
+                        {
+                            "start": "Haojiafu-Metro Station",
+                            "end": "Universal Resort-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:20",
+                            "end_time": "17:33",
+                            "cost": 15,
+                            "distance": 6.85,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Universal Resort-Metro Station",
+                            "end": "NUO Hotel Beijing Universal Resort - JIA Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "17:33",
+                            "end_time": "17:37",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Junwang Mansion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:05",
+                    "end_time": "20:35",
+                    "transports": [
+                        {
+                            "start": "NUO Hotel Beijing Universal Resort - JIA Chinese Restaurant",
+                            "end": "Junwang Mansion",
+                            "mode": "taxi",
+                            "start_time": "18:37",
+                            "end_time": "19:05",
+                            "cost": 159.2,
+                            "distance": 18.87,
+                            "price": 79.6,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 807,
+                    "start_time": "21:44",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Junwang Mansion",
+                            "end": "Chaoyang Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:35",
+                            "end_time": "20:52",
+                            "cost": 0,
+                            "distance": 1.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaoyang Park-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:52",
+                            "end_time": "21:25",
+                            "cost": 25,
+                            "distance": 16.52,
+                            "price": 5,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "21:25",
+                            "end_time": "21:44",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Beijing Wenyu River Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:43",
+                    "end_time": "10:13",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "Beijing Wenyu River Park",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 71.38,
+                            "distance": 8.85,
+                            "price": 35.69,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Central Academy of Fine Arts Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:28",
+                    "end_time": "11:58",
+                    "transports": [
+                        {
+                            "start": "Beijing Wenyu River Park",
+                            "end": "Central Academy of Fine Arts Art Museum",
+                            "mode": "taxi",
+                            "start_time": "10:13",
+                            "end_time": "10:28",
+                            "cost": 80.92,
+                            "distance": 10.17,
+                            "price": 40.46,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Manhe Banquet (Xiaoyun Road Branch)",
+                    "type": "lunch",
+                    "price": 950,
+                    "cost": 4750,
+                    "start_time": "12:02",
+                    "end_time": "13:02",
+                    "transports": [
+                        {
+                            "start": "Central Academy of Fine Arts Art Museum",
+                            "end": "Manhe Banquet (Xiaoyun Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:58",
+                            "end_time": "12:02",
+                            "cost": 28.7,
+                            "distance": 2.76,
+                            "price": 14.35,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:22",
+                    "end_time": "00:29",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 416.91,
+                    "cost": 2084.55,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Manhe Banquet (Xiaoyun Road Branch)",
+                            "end": "Dongfeng Beiqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:02",
+                            "end_time": "13:17",
+                            "cost": 0,
+                            "distance": 1.29,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongfeng Beiqiao-Metro Station",
+                            "end": "Daxing Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:17",
+                            "end_time": "14:56",
+                            "cost": 45,
+                            "distance": 49.98,
+                            "price": 9,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Daxing Airport-Metro Station",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "walk",
+                            "start_time": "14:56",
+                            "end_time": "15:07",
+                            "cost": 0,
+                            "distance": 0.93,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL154",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 25.201504468917847,
+    "llm_inference_time_sec": 0
+}

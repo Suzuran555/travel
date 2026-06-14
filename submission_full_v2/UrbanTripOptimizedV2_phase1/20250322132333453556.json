@@ -1,0 +1,908 @@
+{
+    "people_number": 3,
+    "start_city": "Shanghai",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:38",
+                    "end_time": "03:09",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 607.72,
+                    "cost": 1823.16,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL013",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:14",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:14",
+                            "end_time": "03:33",
+                            "cost": 12,
+                            "distance": 9.96,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "mode": "walk",
+                            "start_time": "03:33",
+                            "end_time": "03:46",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dameisha Seaside Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:22",
+                    "end_time": "11:52",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Dameisha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "10:13",
+                            "cost": 24,
+                            "distance": 45.04,
+                            "price": 8,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Dameisha-Metro Station",
+                            "end": "Dameisha Seaside Park",
+                            "mode": "walk",
+                            "start_time": "10:13",
+                            "end_time": "10:22",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Old Zhou's Shunde Double-Skin Milk",
+                    "type": "lunch",
+                    "price": 20,
+                    "cost": 60,
+                    "start_time": "12:55",
+                    "end_time": "13:55",
+                    "transports": [
+                        {
+                            "start": "Dameisha Seaside Park",
+                            "end": "Dameisha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:52",
+                            "end_time": "12:01",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dameisha-Metro Station",
+                            "end": "Meicun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:01",
+                            "end_time": "12:53",
+                            "cost": 18,
+                            "distance": 26.42,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Old Zhou's Shunde Double-Skin Milk",
+                            "mode": "walk",
+                            "start_time": "12:53",
+                            "end_time": "12:55",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Women and Children's Building - Children's Discovery Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:09",
+                    "end_time": "15:39",
+                    "transports": [
+                        {
+                            "start": "Old Zhou's Shunde Double-Skin Milk",
+                            "end": "Meicun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:55",
+                            "end_time": "13:57",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Lianhua North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:57",
+                            "end_time": "13:59",
+                            "cost": 6,
+                            "distance": 1.13,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lianhua North-Metro Station",
+                            "end": "Shenzhen Women and Children's Building - Children's Discovery Museum",
+                            "mode": "walk",
+                            "start_time": "13:59",
+                            "end_time": "14:09",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                    "type": "dinner",
+                    "price": 24,
+                    "cost": 72,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Women and Children's Building - Children's Discovery Museum",
+                            "end": "Lianhua North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:39",
+                            "end_time": "15:49",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua North-Metro Station",
+                            "end": "Meicun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:49",
+                            "end_time": "15:51",
+                            "cost": 6,
+                            "distance": 1.13,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                            "mode": "walk",
+                            "start_time": "15:51",
+                            "end_time": "15:57",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Honey Lake 1979 Cultural and Creative Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:12",
+                    "end_time": "19:42",
+                    "transports": [
+                        {
+                            "start": "Xinyiwei Chaoshan Rice Noodle King (Meilin Branch)",
+                            "end": "Meicun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Meicun-Metro Station",
+                            "end": "Meijing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:09",
+                            "cost": 6,
+                            "distance": 1.7,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Meijing-Metro Station",
+                            "end": "Honey Lake 1979 Cultural and Creative Park",
+                            "mode": "walk",
+                            "start_time": "18:09",
+                            "end_time": "18:12",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:49",
+                    "end_time": "21:19",
+                    "transports": [
+                        {
+                            "start": "Honey Lake 1979 Cultural and Creative Park",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "taxi",
+                            "start_time": "19:42",
+                            "end_time": "19:49",
+                            "cost": 22.77,
+                            "distance": 5.16,
+                            "price": 22.77,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "accommodation",
+                    "price": 278,
+                    "cost": 834,
+                    "start_time": "22:04",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:19",
+                            "end_time": "21:27",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:27",
+                            "end_time": "21:51",
+                            "cost": 12,
+                            "distance": 12.49,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "mode": "walk",
+                            "start_time": "21:51",
+                            "end_time": "22:04",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Portrait of Deng Xiaoping",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:38",
+                    "end_time": "11:08",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Hongling-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "09:31",
+                            "cost": 18,
+                            "distance": 24.16,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Hongling-Metro Station",
+                            "end": "Portrait of Deng Xiaoping",
+                            "mode": "walk",
+                            "start_time": "09:31",
+                            "end_time": "09:38",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "KUDDO COFFEE (G&G Creative Community Store)",
+                    "type": "lunch",
+                    "price": 31,
+                    "cost": 93,
+                    "start_time": "11:58",
+                    "end_time": "12:58",
+                    "transports": [
+                        {
+                            "start": "Portrait of Deng Xiaoping",
+                            "end": "Hongling-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:08",
+                            "end_time": "11:15",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongling-Metro Station",
+                            "end": "Flower and Fruit Mountain-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:15",
+                            "end_time": "11:55",
+                            "cost": 15,
+                            "distance": 20.0,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Flower and Fruit Mountain-Metro Station",
+                            "end": "KUDDO COFFEE (G&G Creative Community Store)",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "11:58",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Jewelry Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:53",
+                    "end_time": "15:23",
+                    "transports": [
+                        {
+                            "start": "KUDDO COFFEE (G&G Creative Community Store)",
+                            "end": "Flower and Fruit Mountain-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:58",
+                            "end_time": "13:01",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Flower and Fruit Mountain-Metro Station",
+                            "end": "Tai'an-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:01",
+                            "end_time": "13:49",
+                            "cost": 18,
+                            "distance": 24.08,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tai'an-Metro Station",
+                            "end": "Shenzhen Jewelry Museum",
+                            "mode": "walk",
+                            "start_time": "13:49",
+                            "end_time": "13:53",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "OAO Art Space",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "16:47",
+                    "end_time": "18:17",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Jewelry Museum",
+                            "end": "Tai'an-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:23",
+                            "end_time": "15:27",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tai'an-Metro Station",
+                            "end": "Qiaotou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:27",
+                            "end_time": "16:38",
+                            "cost": 21,
+                            "distance": 35.85,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaotou-Metro Station",
+                            "end": "OAO Art Space",
+                            "mode": "walk",
+                            "start_time": "16:38",
+                            "end_time": "16:47",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Zunbao Pizza (Shangsha Branch)",
+                    "type": "dinner",
+                    "price": 34,
+                    "cost": 102,
+                    "start_time": "18:59",
+                    "end_time": "19:59",
+                    "transports": [
+                        {
+                            "start": "OAO Art Space",
+                            "end": "Zunbao Pizza (Shangsha Branch)",
+                            "mode": "taxi",
+                            "start_time": "18:17",
+                            "end_time": "18:59",
+                            "cost": 121.52,
+                            "distance": 28.18,
+                            "price": 121.52,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "accommodation",
+                    "price": 278,
+                    "cost": 834,
+                    "start_time": "20:56",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Zunbao Pizza (Shangsha Branch)",
+                            "end": "Shangsha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:59",
+                            "end_time": "20:08",
+                            "cost": 0,
+                            "distance": 0.8,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shangsha-Metro Station",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:08",
+                            "end_time": "20:43",
+                            "cost": 15,
+                            "distance": 17.65,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "mode": "walk",
+                            "start_time": "20:43",
+                            "end_time": "20:56",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Hongyuan Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:56",
+                    "end_time": "11:26",
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Changzhen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "09:19",
+                            "cost": 15,
+                            "distance": 18.5,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Changzhen-Metro Station",
+                            "end": "Hongyuan Temple",
+                            "mode": "walk",
+                            "start_time": "09:19",
+                            "end_time": "09:56",
+                            "cost": 0,
+                            "distance": 3.09,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Old Bowl Society · Shaanxi Handmade Noodles (Qunxing Branch)",
+                    "type": "lunch",
+                    "price": 38,
+                    "cost": 114,
+                    "start_time": "12:54",
+                    "end_time": "13:54",
+                    "transports": [
+                        {
+                            "start": "Hongyuan Temple",
+                            "end": "Changzhen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:26",
+                            "end_time": "12:03",
+                            "cost": 0,
+                            "distance": 3.09,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changzhen-Metro Station",
+                            "end": "Huaxin-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:03",
+                            "end_time": "12:53",
+                            "cost": 18,
+                            "distance": 25.34,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Huaxin-Metro Station",
+                            "end": "Old Bowl Society · Shaanxi Handmade Noodles (Qunxing Branch)",
+                            "mode": "walk",
+                            "start_time": "12:53",
+                            "end_time": "12:54",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Lighthouse Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:33",
+                    "end_time": "16:03",
+                    "transports": [
+                        {
+                            "start": "Old Bowl Society · Shaanxi Handmade Noodles (Qunxing Branch)",
+                            "end": "Huaxin-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:54",
+                            "end_time": "13:55",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huaxin-Metro Station",
+                            "end": "Yantian Port West-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:55",
+                            "end_time": "14:28",
+                            "cost": 15,
+                            "distance": 16.55,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yantian Port West-Metro Station",
+                            "end": "Lighthouse Library",
+                            "mode": "walk",
+                            "start_time": "14:28",
+                            "end_time": "14:33",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Keming Ice Room (Jindi Weixin Center Branch)",
+                    "type": "dinner",
+                    "price": 53,
+                    "cost": 159,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lighthouse Library",
+                            "end": "Yantian Port West-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:03",
+                            "end_time": "16:08",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yantian Port West-Metro Station",
+                            "end": "Shawei-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:08",
+                            "end_time": "16:51",
+                            "cost": 18,
+                            "distance": 21.52,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shawei-Metro Station",
+                            "end": "Keming Ice Room (Jindi Weixin Center Branch)",
+                            "mode": "walk",
+                            "start_time": "16:51",
+                            "end_time": "16:58",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:20",
+                    "end_time": "19:50",
+                    "transports": [
+                        {
+                            "start": "Keming Ice Room (Jindi Weixin Center Branch)",
+                            "end": "Shawei-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shawei-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:15",
+                            "cost": 9,
+                            "distance": 4.03,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "walk",
+                            "start_time": "18:15",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "accommodation",
+                    "price": 278,
+                    "cost": 834,
+                    "start_time": "20:48",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:50",
+                            "end_time": "19:55",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:55",
+                            "end_time": "20:35",
+                            "cost": 15,
+                            "distance": 20.4,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "mode": "walk",
+                            "start_time": "20:35",
+                            "end_time": "20:48",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:37",
+                    "end_time": "01:08",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Pudong International Airport",
+                    "price": 572.8,
+                    "cost": 1718.3999999999999,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Vienna International Hotel (Shenzhen Qianhai Happy Bay Hotel)",
+                            "end": "Ping Chau-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0,
+                            "distance": 1.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ping Chau-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:43",
+                            "end_time": "09:02",
+                            "cost": 12,
+                            "distance": 9.96,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "09:02",
+                            "end_time": "09:07",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL166",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 17.363377332687378,
+    "llm_inference_time_sec": 0
+}

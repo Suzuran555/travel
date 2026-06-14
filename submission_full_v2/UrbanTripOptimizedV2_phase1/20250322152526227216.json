@@ -1,0 +1,747 @@
+{
+    "people_number": 2,
+    "start_city": "Shanghai",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:33",
+                    "end_time": "00:53",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 242.41,
+                    "cost": 484.82,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL074",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Lukou International Airport",
+                            "end": "Lukou Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:53",
+                            "end_time": "00:56",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lukou Airport-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:56",
+                            "end_time": "02:29",
+                            "cost": 16,
+                            "distance": 46.95,
+                            "price": 8,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "02:29",
+                            "end_time": "02:36",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing Yangtze River Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:52",
+                    "end_time": "10:22",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:38",
+                            "cost": 4,
+                            "distance": 0.87,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Nanjing Yangtze River Bridge",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:52",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Hongfu Noodle House (Kexiang Branch)",
+                    "type": "lunch",
+                    "price": 30,
+                    "cost": 60,
+                    "start_time": "11:01",
+                    "end_time": "12:01",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yangtze River Bridge",
+                            "end": "North Yangtze River Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:22",
+                            "end_time": "10:36",
+                            "cost": 0,
+                            "distance": 1.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Yangtze River Bridge-Metro Station",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:36",
+                            "end_time": "10:58",
+                            "cost": 8,
+                            "distance": 11.29,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Hongfu Noodle House (Kexiang Branch)",
+                            "mode": "walk",
+                            "start_time": "10:58",
+                            "end_time": "11:01",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "St. Paul's Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:11",
+                    "end_time": "13:41",
+                    "transports": [
+                        {
+                            "start": "Hongfu Noodle House (Kexiang Branch)",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:01",
+                            "end_time": "12:04",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Changfu Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:04",
+                            "end_time": "12:05",
+                            "cost": 4,
+                            "distance": 0.95,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Changfu Street-Metro Station",
+                            "end": "St. Paul's Church",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Confucius Temple Snack Square (East Archway Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:42",
+                    "end_time": "15:12",
+                    "transports": [
+                        {
+                            "start": "St. Paul's Church",
+                            "end": "Confucius Temple Snack Square (East Archway Branch)",
+                            "mode": "taxi",
+                            "start_time": "13:41",
+                            "end_time": "13:42",
+                            "cost": 11.0,
+                            "distance": 0.81,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Confucius Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:26",
+                    "end_time": "16:56",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple Snack Square (East Archway Branch)",
+                            "end": "Changfu Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:12",
+                            "end_time": "15:18",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changfu Street-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:18",
+                            "end_time": "15:20",
+                            "cost": 4,
+                            "distance": 1.04,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Confucius Temple",
+                            "mode": "walk",
+                            "start_time": "15:20",
+                            "end_time": "15:26",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "JinTongJi Halal Restaurant (Fuzimiao Station Branch)",
+                    "type": "dinner",
+                    "price": 35,
+                    "cost": 70,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple",
+                            "end": "JinTongJi Halal Restaurant (Fuzimiao Station Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:56",
+                            "end_time": "16:56",
+                            "cost": 11.0,
+                            "distance": 0.48,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Mingchao Chronicles Immersive Digital Experience Hall",
+                    "type": "attraction",
+                    "price": 59,
+                    "cost": 118,
+                    "start_time": "18:03",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "JinTongJi Halal Restaurant (Fuzimiao Station Branch)",
+                            "end": "Mingchao Chronicles Immersive Digital Experience Hall",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0.0,
+                            "distance": 0.3166406749519521,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wang Dao and Xie An Memorial Hall",
+                    "type": "attraction",
+                    "price": 7,
+                    "cost": 14,
+                    "start_time": "19:02",
+                    "end_time": "20:32",
+                    "transports": [
+                        {
+                            "start": "Mingchao Chronicles Immersive Digital Experience Hall",
+                            "end": "Wang Dao and Xie An Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:02",
+                            "cost": 0.0,
+                            "distance": 0.1923327742498786,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 152,
+                    "start_time": "21:11",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Wang Dao and Xie An Memorial Hall",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:32",
+                            "end_time": "20:37",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:37",
+                            "end_time": "21:04",
+                            "cost": 8,
+                            "distance": 13.68,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "21:04",
+                            "end_time": "21:11",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nanjing University (Gulou Campus)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:03",
+                    "end_time": "10:33",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Xinghuo Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:44",
+                            "cost": 4,
+                            "distance": 3.78,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xinghuo Road-Metro Station",
+                            "end": "Nanjing University (Gulou Campus)",
+                            "mode": "walk",
+                            "start_time": "08:44",
+                            "end_time": "09:03",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "DQ (Aolin Plaza Nanjing Store)",
+                    "type": "lunch",
+                    "price": 23,
+                    "cost": 46,
+                    "start_time": "11:22",
+                    "end_time": "12:22",
+                    "transports": [
+                        {
+                            "start": "Nanjing University (Gulou Campus)",
+                            "end": "DQ (Aolin Plaza Nanjing Store)",
+                            "mode": "walk",
+                            "start_time": "10:33",
+                            "end_time": "11:22",
+                            "cost": 0.0,
+                            "distance": 4.12905209618055,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Huachang Dragon Valley Fantasy New Continent",
+                    "type": "attraction",
+                    "price": 180,
+                    "cost": 360,
+                    "start_time": "13:02",
+                    "end_time": "14:32",
+                    "transports": [
+                        {
+                            "start": "DQ (Aolin Plaza Nanjing Store)",
+                            "end": "Huachang Dragon Valley Fantasy New Continent",
+                            "mode": "walk",
+                            "start_time": "12:22",
+                            "end_time": "13:02",
+                            "cost": 0.0,
+                            "distance": 3.347747209306043,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Sifang Contemporary Art Lake District",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 40,
+                    "start_time": "15:23",
+                    "end_time": "16:53",
+                    "transports": [
+                        {
+                            "start": "Huachang Dragon Valley Fantasy New Continent",
+                            "end": "Sifang Contemporary Art Lake District",
+                            "mode": "walk",
+                            "start_time": "14:32",
+                            "end_time": "15:23",
+                            "cost": 0.0,
+                            "distance": 4.280076253751905,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "KOMO COFFEE (Stone City Branch)",
+                    "type": "dinner",
+                    "price": 39,
+                    "cost": 78,
+                    "start_time": "19:17",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Sifang Contemporary Art Lake District",
+                            "end": "KOMO COFFEE (Stone City Branch)",
+                            "mode": "walk",
+                            "start_time": "16:53",
+                            "end_time": "19:17",
+                            "cost": 0.0,
+                            "distance": 12.030633474417284,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Mochou Lake Park",
+                    "type": "attraction",
+                    "price": 35,
+                    "cost": 70,
+                    "start_time": "20:23",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "KOMO COFFEE (Stone City Branch)",
+                            "end": "Mochou Lake Park",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:23",
+                            "cost": 0.0,
+                            "distance": 1.9260400068825065,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "accommodation",
+                    "price": 76,
+                    "cost": 152,
+                    "start_time": "21:28",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Mochou Lake Park",
+                            "end": "Hanzhongmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:00",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhongmen-Metro Station",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:00",
+                            "end_time": "21:21",
+                            "cost": 8,
+                            "distance": 10.88,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Nanjing BuildHome Cinema apartment",
+                            "mode": "walk",
+                            "start_time": "21:21",
+                            "end_time": "21:28",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Nanjing BuildHome Cinema apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Mufu Mountain",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:09",
+                    "end_time": "10:39",
+                    "transports": [
+                        {
+                            "start": "Nanjing BuildHome Cinema apartment",
+                            "end": "Maofangchang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:37",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maofangchang Road-Metro Station",
+                            "end": "Mufu Mountain-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:37",
+                            "end_time": "08:51",
+                            "cost": 6,
+                            "distance": 7.17,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Mufu Mountain-Metro Station",
+                            "end": "Mufu Mountain",
+                            "mode": "walk",
+                            "start_time": "08:51",
+                            "end_time": "09:09",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Bluefrog (Jinmao Hui Store)",
+                    "type": "lunch",
+                    "price": 146,
+                    "cost": 292,
+                    "start_time": "11:11",
+                    "end_time": "12:11",
+                    "transports": [
+                        {
+                            "start": "Mufu Mountain",
+                            "end": "Mufu Mountain-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:39",
+                            "end_time": "10:57",
+                            "cost": 0,
+                            "distance": 1.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mufu Mountain-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:57",
+                            "end_time": "11:07",
+                            "cost": 6,
+                            "distance": 5.12,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Bluefrog (Jinmao Hui Store)",
+                            "mode": "walk",
+                            "start_time": "11:07",
+                            "end_time": "11:11",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liberation Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:33",
+                    "end_time": "14:03",
+                    "transports": [
+                        {
+                            "start": "Bluefrog (Jinmao Hui Store)",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:11",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:15",
+                            "end_time": "12:20",
+                            "cost": 4,
+                            "distance": 2.58,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Liberation Gate",
+                            "mode": "walk",
+                            "start_time": "12:20",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:39",
+                    "end_time": "23:54",
+                    "start": "Nanjing South Railway Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 175.28,
+                    "cost": 350.56,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Liberation Gate",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:03",
+                            "end_time": "14:16",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Nanjing South Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:16",
+                            "end_time": "14:39",
+                            "cost": 8,
+                            "distance": 11.76,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Nanjing South Railway Station-Metro Station",
+                            "end": "Nanjing South Railway Station",
+                            "mode": "walk",
+                            "start_time": "14:39",
+                            "end_time": "14:42",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G1428",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 272.7775616645813,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,706 @@
+{
+    "people_number": 4,
+    "start_city": "Suzhou",
+    "target_city": "Hangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:29",
+                    "end_time": "06:40",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou Railway Station",
+                    "price": 48.4,
+                    "cost": 193.6,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "K1808",
+                    "type": "train"
+                },
+                {
+                    "position": "Drum Tower",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:40",
+                    "end_time": "08:10",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Railway Station",
+                            "end": "Drum Tower",
+                            "mode": "taxi",
+                            "start_time": "06:40",
+                            "end_time": "06:40",
+                            "cost": 11.0,
+                            "distance": 0.46,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Qinghefang Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:10",
+                    "end_time": "09:40",
+                    "transports": [
+                        {
+                            "start": "Drum Tower",
+                            "end": "Qinghefang Street",
+                            "mode": "taxi",
+                            "start_time": "08:10",
+                            "end_time": "08:10",
+                            "cost": 11.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hangzhou Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:53",
+                    "end_time": "11:23",
+                    "transports": [
+                        {
+                            "start": "Qinghefang Street",
+                            "end": "City Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:40",
+                            "end_time": "09:45",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "City Station-Metro Station",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:45",
+                            "end_time": "09:47",
+                            "cost": 8,
+                            "distance": 1.26,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Hangzhou Museum",
+                            "mode": "walk",
+                            "start_time": "09:47",
+                            "end_time": "09:53",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Wasabi House · Creative Cuisine (Kerry Center Branch)",
+                    "type": "lunch",
+                    "price": 184,
+                    "cost": 736,
+                    "start_time": "11:38",
+                    "end_time": "12:38",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Museum",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:23",
+                            "end_time": "11:29",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:29",
+                            "end_time": "11:33",
+                            "cost": 8,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Wasabi House · Creative Cuisine (Kerry Center Branch)",
+                            "mode": "walk",
+                            "start_time": "11:33",
+                            "end_time": "11:38",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Lakeside Five Park Pier",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:38",
+                    "end_time": "14:08",
+                    "transports": [
+                        {
+                            "start": "Wasabi House · Creative Cuisine (Kerry Center Branch)",
+                            "end": "Lakeside Five Park Pier",
+                            "mode": "taxi",
+                            "start_time": "12:38",
+                            "end_time": "12:38",
+                            "cost": 11.0,
+                            "distance": 0.42,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Lakeside Sunshine and Rain",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:21",
+                    "end_time": "15:51",
+                    "transports": [
+                        {
+                            "start": "Lakeside Five Park Pier",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:08",
+                            "end_time": "14:12",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:12",
+                            "end_time": "14:14",
+                            "cost": 8,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Lakeside Sunshine and Rain",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "14:21",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Aomori Cuisine (Zhongshan North Road Branch)",
+                    "type": "dinner",
+                    "price": 107,
+                    "cost": 428,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lakeside Sunshine and Rain",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:51",
+                            "end_time": "15:58",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:58",
+                            "end_time": "16:00",
+                            "cost": 8,
+                            "distance": 1.37,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Aomori Cuisine (Zhongshan North Road Branch)",
+                            "mode": "walk",
+                            "start_time": "16:00",
+                            "end_time": "16:07",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hangzhou Suspended Glass Art Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 196,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Aomori Cuisine (Zhongshan North Road Branch)",
+                            "end": "Hangzhou Suspended Glass Art Museum",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.03,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "West Lake Foreign Affairs Cruise",
+                    "type": "attraction",
+                    "price": 48,
+                    "cost": 192,
+                    "start_time": "19:46",
+                    "end_time": "21:16",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Suspended Glass Art Museum",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:37",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:37",
+                            "end_time": "19:39",
+                            "cost": 8,
+                            "distance": 1.37,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "West Lake Foreign Affairs Cruise",
+                            "mode": "walk",
+                            "start_time": "19:39",
+                            "end_time": "19:46",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Cozytree Hotel(Hangzhou West Intime)",
+                    "type": "accommodation",
+                    "price": 368,
+                    "cost": 1472,
+                    "start_time": "21:38",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "West Lake Foreign Affairs Cruise",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:16",
+                            "end_time": "21:23",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Pingshui Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:23",
+                            "end_time": "21:37",
+                            "cost": 12,
+                            "distance": 7.27,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pingshui Street-Metro Station",
+                            "end": "Cozytree Hotel(Hangzhou West Intime)",
+                            "mode": "walk",
+                            "start_time": "21:37",
+                            "end_time": "21:38",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Cozytree Hotel(Hangzhou West Intime)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Green Osmanthus Valley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Cozytree Hotel(Hangzhou West Intime)",
+                            "end": "Pingshui Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pingshui Street-Metro Station",
+                            "end": "Huanglong Sports Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:39",
+                            "cost": 12,
+                            "distance": 4.18,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huanglong Sports Center-Metro Station",
+                            "end": "Green Osmanthus Valley",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "World's First Temple of Wealth",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:17",
+                    "end_time": "11:47",
+                    "transports": [
+                        {
+                            "start": "Green Osmanthus Valley",
+                            "end": "World's First Temple of Wealth",
+                            "mode": "taxi",
+                            "start_time": "10:14",
+                            "end_time": "10:17",
+                            "cost": 13.73,
+                            "distance": 2.58,
+                            "price": 13.73,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Qingchun Pumen",
+                    "type": "lunch",
+                    "price": 115,
+                    "cost": 460,
+                    "start_time": "11:48",
+                    "end_time": "12:48",
+                    "transports": [
+                        {
+                            "start": "World's First Temple of Wealth",
+                            "end": "Qingchun Pumen",
+                            "mode": "taxi",
+                            "start_time": "11:47",
+                            "end_time": "11:48",
+                            "cost": 11.0,
+                            "distance": 0.9,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "704 Project (Lin Biao's Hangzhou Villa)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:59",
+                    "end_time": "15:29",
+                    "transports": [
+                        {
+                            "start": "Qingchun Pumen",
+                            "end": "Gudun Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "13:16",
+                            "cost": 0,
+                            "distance": 2.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gudun Road-Metro Station",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:16",
+                            "end_time": "13:23",
+                            "cost": 8,
+                            "distance": 3.7,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "704 Project (Lin Biao's Hangzhou Villa)",
+                            "mode": "walk",
+                            "start_time": "13:23",
+                            "end_time": "13:59",
+                            "cost": 0,
+                            "distance": 3.0,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Cozytree Hotel(Hangzhou West Intime)",
+                    "type": "accommodation",
+                    "price": 368,
+                    "cost": 1472,
+                    "start_time": "16:15",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "704 Project (Lin Biao's Hangzhou Villa)",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:29",
+                            "end_time": "16:05",
+                            "cost": 0,
+                            "distance": 3.0,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "Pingshui Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:05",
+                            "end_time": "16:14",
+                            "cost": 12,
+                            "distance": 4.93,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pingshui Street-Metro Station",
+                            "end": "Cozytree Hotel(Hangzhou West Intime)",
+                            "mode": "walk",
+                            "start_time": "16:14",
+                            "end_time": "16:15",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Cozytree Hotel(Hangzhou West Intime)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Lakeview Teahouse Restaurant",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:46",
+                    "end_time": "10:16",
+                    "transports": [
+                        {
+                            "start": "Cozytree Hotel(Hangzhou West Intime)",
+                            "end": "Pingshui Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pingshui Street-Metro Station",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:43",
+                            "cost": 12,
+                            "distance": 6.48,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Lakeview Teahouse Restaurant",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "08:46",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Cozytree Hotel(Hangzhou West Intime)",
+                    "type": "accommodation",
+                    "price": 368,
+                    "cost": 1472,
+                    "start_time": "10:32",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Lakeview Teahouse Restaurant",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:16",
+                            "end_time": "10:19",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Pingshui Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:19",
+                            "end_time": "10:31",
+                            "cost": 12,
+                            "distance": 6.48,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pingshui Street-Metro Station",
+                            "end": "Cozytree Hotel(Hangzhou West Intime)",
+                            "mode": "walk",
+                            "start_time": "10:31",
+                            "end_time": "10:32",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Cozytree Hotel(Hangzhou West Intime)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "20:43",
+                    "end_time": "22:07",
+                    "start": "Hangzhou East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 78.65,
+                    "cost": 314.6,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Cozytree Hotel(Hangzhou West Intime)",
+                            "end": "Pingshui Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pingshui Street-Metro Station",
+                            "end": "East Railway Station (East Square)-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:50",
+                            "cost": 16,
+                            "distance": 9.97,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "East Railway Station (East Square)-Metro Station",
+                            "end": "Hangzhou East Railway Station",
+                            "mode": "walk",
+                            "start_time": "08:50",
+                            "end_time": "08:55",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7350",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 8.824644327163696,
+    "llm_inference_time_sec": 0
+}

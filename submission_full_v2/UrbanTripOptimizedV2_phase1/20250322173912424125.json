@@ -1,0 +1,688 @@
+{
+    "people_number": 4,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 2284.72,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "06:24",
+                            "cost": 32,
+                            "distance": 43.91,
+                            "price": 8,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                            "mode": "walk",
+                            "start_time": "06:24",
+                            "end_time": "07:39",
+                            "cost": 0,
+                            "distance": 6.27,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Pudong Airport Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                            "end": "Pudong Airport Museum",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 25.94,
+                            "distance": 6.07,
+                            "price": 25.94,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Florentia Village Shanghai",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:19",
+                    "end_time": "11:49",
+                    "transports": [
+                        {
+                            "start": "Pudong Airport Museum",
+                            "end": "Florentia Village Shanghai",
+                            "mode": "taxi",
+                            "start_time": "10:09",
+                            "end_time": "10:19",
+                            "cost": 29.51,
+                            "distance": 7.09,
+                            "price": 29.51,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Ziyang Garden Grand Restaurant",
+                    "type": "lunch",
+                    "price": 164,
+                    "cost": 656,
+                    "start_time": "12:44",
+                    "end_time": "13:44",
+                    "transports": [
+                        {
+                            "start": "Florentia Village Shanghai",
+                            "end": "Far East Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:49",
+                            "end_time": "12:07",
+                            "cost": 0,
+                            "distance": 1.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Far East Avenue-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:07",
+                            "end_time": "12:18",
+                            "cost": 12,
+                            "distance": 5.62,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Ziyang Garden Grand Restaurant",
+                            "mode": "walk",
+                            "start_time": "12:18",
+                            "end_time": "12:44",
+                            "cost": 0,
+                            "distance": 2.21,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                    "type": "attraction",
+                    "price": 29,
+                    "cost": 116,
+                    "start_time": "14:57",
+                    "end_time": "16:27",
+                    "transports": [
+                        {
+                            "start": "Ziyang Garden Grand Restaurant",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:44",
+                            "end_time": "14:10",
+                            "cost": 0,
+                            "distance": 2.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:10",
+                            "end_time": "14:21",
+                            "cost": 12,
+                            "distance": 5.81,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                            "mode": "walk",
+                            "start_time": "14:21",
+                            "end_time": "14:57",
+                            "cost": 0,
+                            "distance": 3.04,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Royal Banquet Hall",
+                    "type": "dinner",
+                    "price": 526,
+                    "cost": 2104,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Dongba Donbar (Lujiazui Tourist Loop Line)",
+                            "end": "Royal Banquet Hall",
+                            "mode": "taxi",
+                            "start_time": "16:27",
+                            "end_time": "16:32",
+                            "cost": 17.21,
+                            "distance": 3.57,
+                            "price": 17.21,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Lavender Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:03",
+                    "end_time": "19:33",
+                    "transports": [
+                        {
+                            "start": "Royal Banquet Hall",
+                            "end": "Shanghai Lavender Park",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 12.3,
+                            "distance": 2.17,
+                            "price": 12.3,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                    "type": "accommodation",
+                    "price": 368,
+                    "cost": 1472,
+                    "start_time": "21:32",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai Lavender Park",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:33",
+                            "end_time": "19:51",
+                            "cost": 0,
+                            "distance": 1.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:51",
+                            "end_time": "20:17",
+                            "cost": 16,
+                            "distance": 13.17,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                            "mode": "walk",
+                            "start_time": "20:17",
+                            "end_time": "21:32",
+                            "cost": 0,
+                            "distance": 6.27,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:21",
+                    "end_time": "11:51",
+                    "transports": [
+                        {
+                            "start": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:45",
+                            "cost": 0,
+                            "distance": 6.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:45",
+                            "end_time": "10:03",
+                            "cost": 16,
+                            "distance": 9.05,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "10:03",
+                            "end_time": "10:21",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                    "type": "lunch",
+                    "price": 402,
+                    "cost": 1608,
+                    "start_time": "12:31",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:51",
+                            "end_time": "12:09",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Disney-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:09",
+                            "end_time": "12:24",
+                            "cost": 12,
+                            "distance": 7.83,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "mode": "walk",
+                            "start_time": "12:24",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Water Realm Exploration",
+                    "type": "attraction",
+                    "price": 48,
+                    "cost": 192,
+                    "start_time": "14:35",
+                    "end_time": "16:05",
+                    "transports": [
+                        {
+                            "start": "Shanghai Disneyland Hotel · Lumiere's Kitchen",
+                            "end": "Disney-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:31",
+                            "end_time": "13:38",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "Disney-Metro Station",
+                            "end": "Wildlife Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:38",
+                            "end_time": "13:59",
+                            "cost": 16,
+                            "distance": 10.51,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wildlife Park-Metro Station",
+                            "end": "Water Realm Exploration",
+                            "mode": "walk",
+                            "start_time": "13:59",
+                            "end_time": "14:35",
+                            "cost": 0,
+                            "distance": 3.03,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "TVB Garden Cafe",
+                    "type": "dinner",
+                    "price": 107,
+                    "cost": 428,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Water Realm Exploration",
+                            "end": "TVB Garden Cafe",
+                            "mode": "taxi",
+                            "start_time": "16:05",
+                            "end_time": "16:09",
+                            "cost": 15.2,
+                            "distance": 3.0,
+                            "price": 15.2,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                    "type": "accommodation",
+                    "price": 368,
+                    "cost": 1472,
+                    "start_time": "20:12",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "TVB Garden Cafe",
+                            "end": "Wildlife Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:27",
+                            "cost": 0,
+                            "distance": 2.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wildlife Park-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:27",
+                            "end_time": "18:57",
+                            "cost": 20,
+                            "distance": 15.08,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                            "mode": "walk",
+                            "start_time": "18:57",
+                            "end_time": "20:12",
+                            "cost": 0,
+                            "distance": 6.27,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Maglev Train",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 200,
+                    "start_time": "09:12",
+                    "end_time": "10:42",
+                    "transports": [
+                        {
+                            "start": "Ramada Encore by Wyndham Shanghai Pudong Airport",
+                            "end": "Maglev Train",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "09:12",
+                            "cost": 121.16,
+                            "distance": 28.1,
+                            "price": 121.16,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Pyongyang Koryo Restaurant (Zunmao Branch)",
+                    "type": "lunch",
+                    "price": 221,
+                    "cost": 884,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Maglev Train",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:42",
+                            "end_time": "10:48",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Pudian Road (Line 4)-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:48",
+                            "end_time": "10:54",
+                            "cost": 8,
+                            "distance": 3.17,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudian Road (Line 4)-Metro Station",
+                            "end": "Pyongyang Koryo Restaurant (Zunmao Branch)",
+                            "mode": "walk",
+                            "start_time": "10:54",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shikumen Old Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:17",
+                    "end_time": "13:47",
+                    "transports": [
+                        {
+                            "start": "Pyongyang Koryo Restaurant (Zunmao Branch)",
+                            "end": "Pudian Road (Line 4)-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:06",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudian Road (Line 4)-Metro Station",
+                            "end": "Shangcheng Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:06",
+                            "end_time": "12:09",
+                            "cost": 8,
+                            "distance": 1.75,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shangcheng Road-Metro Station",
+                            "end": "Shikumen Old Street",
+                            "mode": "walk",
+                            "start_time": "12:09",
+                            "end_time": "12:17",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Fosun Foundation Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:07",
+                    "end_time": "15:37",
+                    "transports": [
+                        {
+                            "start": "Shikumen Old Street",
+                            "end": "Shangcheng Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:47",
+                            "end_time": "13:55",
+                            "cost": 0,
+                            "distance": 0.7,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shangcheng Road-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:55",
+                            "end_time": "13:58",
+                            "cost": 8,
+                            "distance": 1.61,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Fosun Foundation Center",
+                            "mode": "walk",
+                            "start_time": "13:58",
+                            "end_time": "14:07",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 2563.72,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Fosun Foundation Center",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:37",
+                            "end_time": "15:46",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:46",
+                            "end_time": "16:46",
+                            "cost": 28,
+                            "distance": 30.5,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "16:46",
+                            "end_time": "17:01",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 33.50577235221863,
+    "llm_inference_time_sec": 0
+}

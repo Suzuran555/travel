@@ -1,0 +1,671 @@
+{
+    "people_number": 4,
+    "start_city": "Wuhan",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "08:25",
+                    "end_time": "12:29",
+                    "start": "Wuhan Station",
+                    "end": "Suzhou North Station",
+                    "price": 392.42,
+                    "cost": 1569.68,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "G1738",
+                    "type": "train"
+                },
+                {
+                    "position": "Dingshan Artisan Banquet (High-Speed Rail New Town Branch)",
+                    "type": "lunch",
+                    "price": 597,
+                    "cost": 2388,
+                    "start_time": "12:29",
+                    "end_time": "13:29",
+                    "transports": [
+                        {
+                            "start": "Suzhou North Station",
+                            "end": "Dingshan Artisan Banquet (High-Speed Rail New Town Branch)",
+                            "mode": "taxi",
+                            "start_time": "12:29",
+                            "end_time": "12:29",
+                            "cost": 11.0,
+                            "distance": 0.49,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Suzhou Metaverse Fantasy World",
+                    "type": "attraction",
+                    "price": 79,
+                    "cost": 316,
+                    "start_time": "13:44",
+                    "end_time": "15:14",
+                    "transports": [
+                        {
+                            "start": "Dingshan Artisan Banquet (High-Speed Rail New Town Branch)",
+                            "end": "Suzhou North Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:29",
+                            "end_time": "13:35",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou North Railway Station-Metro Station",
+                            "end": "Dawan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:35",
+                            "end_time": "13:37",
+                            "cost": 8,
+                            "distance": 1.27,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Dawan-Metro Station",
+                            "end": "Suzhou Metaverse Fantasy World",
+                            "mode": "walk",
+                            "start_time": "13:37",
+                            "end_time": "13:44",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "A Hidden Wonderland",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:36",
+                    "end_time": "17:06",
+                    "transports": [
+                        {
+                            "start": "Suzhou Metaverse Fantasy World",
+                            "end": "Dawan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:14",
+                            "end_time": "15:21",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dawan-Metro Station",
+                            "end": "Fuyuan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:21",
+                            "end_time": "15:24",
+                            "cost": 8,
+                            "distance": 1.64,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Fuyuan Road-Metro Station",
+                            "end": "A Hidden Wonderland",
+                            "mode": "walk",
+                            "start_time": "15:24",
+                            "end_time": "15:36",
+                            "cost": 0,
+                            "distance": 1.03,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Left Courtyard Right Garden Fresh Beef Hot Pot (Suzhou Dayue Spring Breeze Store)",
+                    "type": "dinner",
+                    "price": 127,
+                    "cost": 508,
+                    "start_time": "17:09",
+                    "end_time": "18:09",
+                    "transports": [
+                        {
+                            "start": "A Hidden Wonderland",
+                            "end": "Left Courtyard Right Garden Fresh Beef Hot Pot (Suzhou Dayue Spring Breeze Store)",
+                            "mode": "taxi",
+                            "start_time": "17:06",
+                            "end_time": "17:09",
+                            "cost": 13.24,
+                            "distance": 2.44,
+                            "price": 13.24,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Half Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:22",
+                    "end_time": "19:52",
+                    "transports": [
+                        {
+                            "start": "Left Courtyard Right Garden Fresh Beef Hot Pot (Suzhou Dayue Spring Breeze Store)",
+                            "end": "Half Garden",
+                            "mode": "taxi",
+                            "start_time": "18:09",
+                            "end_time": "18:22",
+                            "cost": 36.03,
+                            "distance": 8.95,
+                            "price": 36.03,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 912,
+                    "start_time": "21:24",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Half Garden",
+                            "end": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:52",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 1.29,
+                            "price": 0
+                        },
+                        {
+                            "start": "Humble Administrator's Garden Suzhou Museum-Metro Station",
+                            "end": "Tongli-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:07",
+                            "end_time": "20:50",
+                            "cost": 24,
+                            "distance": 21.76,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "mode": "walk",
+                            "start_time": "20:50",
+                            "end_time": "21:24",
+                            "cost": 0,
+                            "distance": 2.85,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Hall of Farming and Pleasure",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:31",
+                    "end_time": "10:01",
+                    "transports": [
+                        {
+                            "start": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "end": "Hall of Farming and Pleasure",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 11.0,
+                            "distance": 0.81,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Water Town Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:02",
+                    "end_time": "11:32",
+                    "transports": [
+                        {
+                            "start": "Hall of Farming and Pleasure",
+                            "end": "Water Town Ancient Town",
+                            "mode": "taxi",
+                            "start_time": "10:01",
+                            "end_time": "10:02",
+                            "cost": 11.0,
+                            "distance": 1.05,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "North Xinjiang Restaurant (Wujiang Branch)",
+                    "type": "lunch",
+                    "price": 71,
+                    "cost": 284,
+                    "start_time": "12:40",
+                    "end_time": "13:40",
+                    "transports": [
+                        {
+                            "start": "Water Town Ancient Town",
+                            "end": "Tongli-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:32",
+                            "end_time": "12:27",
+                            "cost": 0,
+                            "distance": 4.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:27",
+                            "end_time": "12:37",
+                            "cost": 12,
+                            "distance": 5.4,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "North Xinjiang Restaurant (Wujiang Branch)",
+                            "mode": "walk",
+                            "start_time": "12:37",
+                            "end_time": "12:40",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "East Taihu Ecological Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:02",
+                    "end_time": "15:32",
+                    "transports": [
+                        {
+                            "start": "North Xinjiang Restaurant (Wujiang Branch)",
+                            "end": "Wujiang People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:40",
+                            "end_time": "13:43",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wujiang People's Square-Metro Station",
+                            "end": "Lize Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:43",
+                            "end_time": "13:50",
+                            "cost": 8,
+                            "distance": 3.55,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lize Road-Metro Station",
+                            "end": "East Taihu Ecological Park",
+                            "mode": "walk",
+                            "start_time": "13:50",
+                            "end_time": "14:02",
+                            "cost": 0,
+                            "distance": 1.05,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Bashu Chuanxiang (AEON Mall Wuzhong Branch)",
+                    "type": "dinner",
+                    "price": 81,
+                    "cost": 324,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "East Taihu Ecological Park",
+                            "end": "Lize Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:32",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 1.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lize Road-Metro Station",
+                            "end": "Swan Dang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:44",
+                            "end_time": "15:52",
+                            "cost": 12,
+                            "distance": 4.27,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Swan Dang Road-Metro Station",
+                            "end": "Bashu Chuanxiang (AEON Mall Wuzhong Branch)",
+                            "mode": "walk",
+                            "start_time": "15:52",
+                            "end_time": "16:06",
+                            "cost": 0,
+                            "distance": 1.24,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Imagination Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Bashu Chuanxiang (AEON Mall Wuzhong Branch)",
+                            "end": "Imagination Science and Technology Museum",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.64,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "East Taihu Lake Ecological Tourism Resort",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:46",
+                    "end_time": "21:16",
+                    "transports": [
+                        {
+                            "start": "Imagination Science and Technology Museum",
+                            "end": "East Taihu Lake Ecological Tourism Resort",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:46",
+                            "cost": 43.04,
+                            "distance": 10.74,
+                            "price": 43.04,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 912,
+                    "start_time": "22:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "East Taihu Lake Ecological Tourism Resort",
+                            "end": "Songling Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:16",
+                            "end_time": "22:04",
+                            "cost": 0,
+                            "distance": 4.01,
+                            "price": 0
+                        },
+                        {
+                            "start": "Songling Avenue-Metro Station",
+                            "end": "Tongli-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:04",
+                            "end_time": "22:18",
+                            "cost": 12,
+                            "distance": 7.26,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "mode": "walk",
+                            "start_time": "22:18",
+                            "end_time": "22:52",
+                            "cost": 0,
+                            "distance": 2.85,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Zhenfeng Cultural Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:50",
+                    "end_time": "10:20",
+                    "transports": [
+                        {
+                            "start": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "end": "Zhenfeng Cultural Street",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:50",
+                            "cost": 56.91,
+                            "distance": 13.82,
+                            "price": 56.91,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "South Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:20",
+                    "end_time": "11:50",
+                    "transports": [
+                        {
+                            "start": "Zhenfeng Cultural Street",
+                            "end": "South Lake",
+                            "mode": "taxi",
+                            "start_time": "10:20",
+                            "end_time": "10:20",
+                            "cost": 11.0,
+                            "distance": 0.41,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Pullman Zhouzhuang Shuǐyuè Hotel · Yang All-Day Dining Restaurant",
+                    "type": "lunch",
+                    "price": 156,
+                    "cost": 624,
+                    "start_time": "11:51",
+                    "end_time": "12:51",
+                    "transports": [
+                        {
+                            "start": "South Lake",
+                            "end": "Pullman Zhouzhuang Shuǐyuè Hotel · Yang All-Day Dining Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:50",
+                            "end_time": "11:51",
+                            "cost": 11.0,
+                            "distance": 0.86,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 912,
+                    "start_time": "13:11",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Pullman Zhouzhuang Shuǐyuè Hotel · Yang All-Day Dining Restaurant",
+                            "end": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "mode": "taxi",
+                            "start_time": "12:51",
+                            "end_time": "13:11",
+                            "cost": 55.84,
+                            "distance": 13.59,
+                            "price": 55.84,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "accommodation",
+                    "price": 228,
+                    "cost": 912,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 5,
+            "activities": [
+                {
+                    "position": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "17:22",
+                    "end_time": "22:15",
+                    "start": "Suzhou Station",
+                    "end": "Wuhan Station",
+                    "price": 362.23,
+                    "cost": 1448.92,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Flower Zhu Yuqingge Hengyuan Hotel (Tongli Branch)",
+                            "end": "Tongli-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:04",
+                            "cost": 0,
+                            "distance": 2.85,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tongli-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:04",
+                            "end_time": "09:50",
+                            "cost": 24,
+                            "distance": 23.08,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "09:50",
+                            "end_time": "09:51",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D3042",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 15.063946008682251,
+    "llm_inference_time_sec": 0
+}

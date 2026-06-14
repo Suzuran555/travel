@@ -1,0 +1,511 @@
+{
+    "people_number": 2,
+    "start_city": "Chengdu",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:04",
+                    "end_time": "02:44",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 639.2,
+                    "cost": 1278.4,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL424",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "taxi",
+                            "start_time": "02:44",
+                            "end_time": "03:28",
+                            "cost": 126.78,
+                            "distance": 29.35,
+                            "price": 126.78,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Gankeng Ancient Town",
+                    "type": "attraction",
+                    "price": 26,
+                    "cost": 52,
+                    "start_time": "08:31",
+                    "end_time": "10:01",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng Ancient Town",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 11.0,
+                            "distance": 1.09,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Little Cool Hat Farm",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:01",
+                    "end_time": "11:31",
+                    "transports": [
+                        {
+                            "start": "Gankeng Ancient Town",
+                            "end": "Little Cool Hat Farm",
+                            "mode": "taxi",
+                            "start_time": "10:01",
+                            "end_time": "10:01",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nanxianglou Art Hotel (Overseas Chinese Town Gankeng Ancient Town Branch) · Phoenix Hakka Restaurant",
+                    "type": "lunch",
+                    "price": 98,
+                    "cost": 196,
+                    "start_time": "11:32",
+                    "end_time": "12:32",
+                    "transports": [
+                        {
+                            "start": "Little Cool Hat Farm",
+                            "end": "Nanxianglou Art Hotel (Overseas Chinese Town Gankeng Ancient Town Branch) · Phoenix Hakka Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:31",
+                            "end_time": "11:32",
+                            "cost": 11.0,
+                            "distance": 0.84,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Pingshan Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:33",
+                    "end_time": "14:03",
+                    "transports": [
+                        {
+                            "start": "Nanxianglou Art Hotel (Overseas Chinese Town Gankeng Ancient Town Branch) · Phoenix Hakka Restaurant",
+                            "end": "Pingshan Park",
+                            "mode": "taxi",
+                            "start_time": "12:32",
+                            "end_time": "12:33",
+                            "cost": 11.0,
+                            "distance": 1.2,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Shangwei Art Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:07",
+                    "end_time": "15:37",
+                    "transports": [
+                        {
+                            "start": "Pingshan Park",
+                            "end": "Shangwei Art Village",
+                            "mode": "taxi",
+                            "start_time": "14:03",
+                            "end_time": "14:07",
+                            "cost": 15.15,
+                            "distance": 2.98,
+                            "price": 15.15,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Qingfeng Pigeon (Zhongke Valley Branch)",
+                    "type": "dinner",
+                    "price": 81,
+                    "cost": 162,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shangwei Art Village",
+                            "end": "Qingfeng Pigeon (Zhongke Valley Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:37",
+                            "end_time": "15:41",
+                            "cost": 15.03,
+                            "distance": 2.95,
+                            "price": 15.03,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Guanlan Ancient Market",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:07",
+                    "end_time": "19:37",
+                    "transports": [
+                        {
+                            "start": "Qingfeng Pigeon (Zhongke Valley Branch)",
+                            "end": "Guanlan Ancient Market",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 22.45,
+                            "distance": 5.07,
+                            "price": 22.45,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Nicemini Internet-Famous Check-in Spot: Light and Shadow Art Gallery",
+                    "type": "attraction",
+                    "price": 78,
+                    "cost": 156,
+                    "start_time": "19:41",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Guanlan Ancient Market",
+                            "end": "Nicemini Internet-Famous Check-in Spot: Light and Shadow Art Gallery",
+                            "mode": "taxi",
+                            "start_time": "19:37",
+                            "end_time": "19:41",
+                            "cost": 15.83,
+                            "distance": 3.18,
+                            "price": 15.83,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 462,
+                    "start_time": "21:17",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nicemini Internet-Famous Check-in Spot: Light and Shadow Art Gallery",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "taxi",
+                            "start_time": "21:00",
+                            "end_time": "21:17",
+                            "cost": 47.33,
+                            "distance": 11.7,
+                            "price": 47.33,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Meilin Reservoir",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:46",
+                    "end_time": "10:16",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Meilin Reservoir",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:46",
+                            "cost": 45.19,
+                            "distance": 11.22,
+                            "price": 45.19,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:22",
+                    "end_time": "11:52",
+                    "transports": [
+                        {
+                            "start": "Meilin Reservoir",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:16",
+                            "end_time": "10:22",
+                            "cost": 19.98,
+                            "distance": 4.37,
+                            "price": 19.98,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                    "type": "lunch",
+                    "price": 111,
+                    "cost": 222,
+                    "start_time": "12:05",
+                    "end_time": "13:05",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:52",
+                            "end_time": "11:57",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:57",
+                            "end_time": "11:59",
+                            "cost": 4,
+                            "distance": 1.31,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Museum of Contemporary Art and Urban Planning",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:16",
+                    "end_time": "14:46",
+                    "transports": [
+                        {
+                            "start": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:05",
+                            "end_time": "13:11",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:11",
+                            "end_time": "13:13",
+                            "cost": 4,
+                            "distance": 1.31,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Museum of Contemporary Art and Urban Planning",
+                            "mode": "walk",
+                            "start_time": "13:13",
+                            "end_time": "13:16",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "East River Guerrilla Force Command Post Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:54",
+                    "end_time": "16:24",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Museum of Contemporary Art and Urban Planning",
+                            "end": "East River Guerrilla Force Command Post Memorial Hall",
+                            "mode": "taxi",
+                            "start_time": "14:46",
+                            "end_time": "14:54",
+                            "cost": 24.9,
+                            "distance": 5.77,
+                            "price": 24.9,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Fuxinji Pig Stomach Chicken (Dongmen Maoye Branch)",
+                    "type": "dinner",
+                    "price": 80,
+                    "cost": 160,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "East River Guerrilla Force Command Post Memorial Hall",
+                            "end": "Fuxinji Pig Stomach Chicken (Dongmen Maoye Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:24",
+                            "end_time": "16:24",
+                            "cost": 11.0,
+                            "distance": 0.5,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 462,
+                    "start_time": "18:17",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Fuxinji Pig Stomach Chicken (Dongmen Maoye Branch)",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:17",
+                            "cost": 48.57,
+                            "distance": 11.97,
+                            "price": 48.57,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:51",
+                    "end_time": "10:21",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Shenzhen University Town",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:51",
+                            "cost": 60.0,
+                            "distance": 14.51,
+                            "price": 60.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "20:58",
+                    "end_time": "18:44",
+                    "start": "Shenzhen East Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 667.34,
+                    "cost": 1334.68,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Shenzhen East Station",
+                            "mode": "taxi",
+                            "start_time": "10:21",
+                            "end_time": "10:42",
+                            "cost": 58.37,
+                            "distance": 14.15,
+                            "price": 58.37,
+                            "cars": 1
+                        }
+                    ],
+                    "TrainID": "Z586",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 3.2275984287261963,
+    "llm_inference_time_sec": 0
+}

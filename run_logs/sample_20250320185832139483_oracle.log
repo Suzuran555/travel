@@ -1,0 +1,293 @@
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Namespace(splits='TPC_IJCAI_2026_phase1', index='20250320185832139483', skip=0, agent='UrbanTrip', llm='TPCLLM', timeout=300, lang='en', oracle_translation=True)
+config file for testing split: /home/liangfei_jin/chinatravel/chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1.txt
+1000 samples
+res_dir:  /home/liangfei_jin/chinatravel/results/UrbanTrip_TPCLLM_en_oracletranslation
+log_dir: /home/liangfei_jin/chinatravel/cache/UrbanTrip_TPCLLM_en_oracletranslation
+INFO 06-13 15:57:15 [__init__.py:239] Automatically detected platform cuda.
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+------------------------------
+Process [0/1], Success [0/0]:
+data uid:  20250320185832139483
+{'days': 2, 'hard_logic_py': ['attraction_type_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=not({"red tourism sites"}&attraction_type_set)', 'result=(day_count(plan)==2)', 'result=(people_count(plan)==4)', "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=4: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=4: result=False", "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"], 'nature_language': 'We are 4 people traveling from Chengdu to Chongqing for 2 days, with the following requirement: we do not wish to visit red tourism sites.', 'people_number': 4, 'start_city': 'Chengdu', 'target_city': 'Chongqing', 'uid': '20250320185832139483'}
+Chengdu -> Chongqing
+User's Constraints:
+We are 4 people traveling from Chengdu to Chongqing for 2 days, with the following requirement: we do not wish to visit red tourism sites.
+Formatted Expression:
+all_satisfy: True
+must_see_attraction: []
+must_not_see_attraction_type: ['red tourism sites']
+must_visit_restaurant: []
+By list:
+[{'all_satisfy': True, 'must_see_attraction': [], 'must_not_see_attraction_type': ['red tourism sites'], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Chengdu to Chongqing: 10 flights, 97 trains
+from Chongqing to Chengdu: 10 flights, 110 trains
+  TrainID                     TrainType  ...    Cost FlightID
+0   D3055  EMU (Electric Multiple Unit)  ...  158.49      NaN
+1   D3058  EMU (Electric Multiple Unit)  ...  158.49      NaN
+2   D2244  EMU (Electric Multiple Unit)  ...  158.49      NaN
+3   G2371               High-speed rail  ...  171.70      NaN
+4   G2370               High-speed rail  ...  171.70      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...    Cost FlightID
+0   K1256                       Express  ...  105.66      NaN
+1     D49  EMU (Electric Multiple Unit)  ...  158.49      NaN
+2   G8588               High-speed rail  ...  171.70      NaN
+3     C71                 Intercity EMU  ...  118.87      NaN
+4   G8650               High-speed rail  ...  171.70      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '04:22', 'end_time': '04:41', 'start': 'Chengdu Shuangliu International Airport', 'end': 'Chongqing Jiangbei International Airport', 'price': 305.66, 'cost': 1222.64, 'tickets': 4, 'transports': [], 'FlightID': 'FL449', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 04:41
+current_position: Chongqing Jiangbei International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 04:41, Chongqing Jiangbei International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Yachao Capsule Apartment
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Yachao Capsule Apartment, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chongqing Shibati Traditional Style Area
+inner-city transport error, backtrack...
+add attraction: Chongqing Shibati Traditional Style Area, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:00
+current_position: Chongqing Shibati Traditional Style Area
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:00, Chongqing Shibati Traditional Style Area, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Yangtze River Three Gorges - Century Legend Cruise
+inner-city transport error, backtrack...
+add attraction: Yangtze River Three Gorges - Century Legend Cruise, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 11:30
+current_position: Yangtze River Three Gorges - Century Legend Cruise
+3
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 11:30, Yangtze River Three Gorges - Century Legend Cruise, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch), type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:30
+current_position: Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:30, Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall
+inner-city transport error, backtrack...
+add attraction: Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 14:00
+current_position: Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 14:00, Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chongqing Unicorn Starry Sky Art Museum
+inner-city transport error, backtrack...
+add attraction: Chongqing Unicorn Starry Sky Art Museum, type: Art Museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:30
+current_position: Chongqing Unicorn Starry Sky Art Museum
+9
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:30, Chongqing Unicorn Starry Sky Art Museum, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Nengren Temple
+inner-city transport error, backtrack...
+add attraction: Nengren Temple, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:00
+current_position: Nengren Temple
+11
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 17:00, Nengren Temple, next-poi type: dinner
+inner-city transport error, backtrack...
+add restaurant: Guaxixi Hot Pot (Xiaoshizi Branch), type: Hot pot
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:00
+current_position: Guaxixi Hot Pot (Xiaoshizi Branch)
+13
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:00, Guaxixi Hot Pot (Xiaoshizi Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Monument to the People's Liberation
+inner-city transport error, backtrack...
+add attraction: Monument to the People's Liberation, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:30
+current_position: Monument to the People's Liberation
+15
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 19:30, Monument to the People's Liberation, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Liberation Monument Pedestrian Street
+inner-city transport error, backtrack...
+add attraction: Liberation Monument Pedestrian Street, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: Liberation Monument Pedestrian Street
+17
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['hotel']
+POI planning, day 0 21:00, Liberation Monument Pedestrian Street, next-poi type: hotel
+collecting innercity transport to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 00:00
+current_position: Yachao Capsule Apartment
+19
+check if too late
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 08:30
+current_position: Yachao Capsule Apartment
+19
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 1 08:30, Yachao Capsule Apartment, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Mountain City Trail
+add attraction: Mountain City Trail, type: Cultural Attractions
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 10:07
+current_position: Mountain City Trail
+19
+check if too late
+candidates_type:  ['attraction', 'lunch', 'dinner', 'back-intercity-transport']
+POI planning, day 1 10:07, Mountain City Trail, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Bamen Dongtian Sichuan Cuisine · Jianghu Dishes · Barbecue, type: Sichuan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 12:00
+current_position: Bamen Dongtian Sichuan Cuisine · Jianghu Dishes · Barbecue
+20
+check if too late
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+POI planning, day 1 12:00, Bamen Dongtian Sichuan Cuisine · Jianghu Dishes · Barbecue, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Chongqing Loquat Mountain Park
+add attraction: Chongqing Loquat Mountain Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 13:36
+current_position: Chongqing Loquat Mountain Park
+20
+check if too late
+candidates_type:  ['attraction', 'dinner', 'back-intercity-transport']
+POI planning, day 1 13:36, Chongqing Loquat Mountain Park, next-poi type: attraction
+sorted by distance
+last day, collecting innercity transport to back-transport
+validate the plan [for query 20250320185832139483]: 
+{'people_number': 4, 'start_city': 'Chengdu', 'target_city': 'Chongqing', 'itinerary': [{'day': 1, 'activities': [{'start_time': '04:22', 'end_time': '04:41', 'start': 'Chengdu Shuangliu International Airport', 'end': 'Chongqing Jiangbei International Airport', 'price': 305.66, 'cost': 1222.64, 'tickets': 4, 'transports': [], 'FlightID': 'FL449', 'type': 'airplane'}, {'position': 'Yachao Capsule Apartment', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': [{'start': 'Chongqing Jiangbei International Airport', 'end': 'Jiangbei Airport Terminal 3-Metro Station', 'mode': 'walk', 'start_time': '04:41', 'end_time': '04:55', 'cost': 0, 'distance': 1.21, 'price': 0}, {'start': 'Jiangbei Airport Terminal 3-Metro Station', 'end': 'Xiaoshizi-Metro Station', 'mode': 'metro', 'start_time': '04:55', 'end_time': '05:30', 'cost': 20, 'distance': 17.85, 'price': 5, 'tickets': 4}, {'start': 'Xiaoshizi-Metro Station', 'end': 'Yachao Capsule Apartment', 'mode': 'walk', 'start_time': '05:30', 'end_time': '05:34', 'cost': 0, 'distance': 0.35, 'price': 0}]}, {'position': 'Chongqing Shibati Traditional Style Area', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:30', 'end_time': '10:00', 'transports': [{'start': 'Yachao Capsule Apartment', 'end': 'Chongqing Shibati Traditional Style Area', 'mode': 'taxi', 'start_time': '08:30', 'end_time': '08:30', 'cost': 11.0, 'distance': 0.05, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Yangtze River Three Gorges - Century Legend Cruise', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '10:00', 'end_time': '11:30', 'transports': [{'start': 'Chongqing Shibati Traditional Style Area', 'end': 'Yangtze River Three Gorges - Century Legend Cruise', 'mode': 'taxi', 'start_time': '10:00', 'end_time': '10:00', 'cost': 11.0, 'distance': 0.14, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)', 'type': 'lunch', 'price': 92, 'cost': 368, 'start_time': '11:30', 'end_time': '12:30', 'transports': [{'start': 'Yangtze River Three Gorges - Century Legend Cruise', 'end': 'Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)', 'mode': 'taxi', 'start_time': '11:30', 'end_time': '11:30', 'cost': 11.0, 'distance': 0.03, 'price': 11.0, 'cars': 1}]}, {'position': "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall", 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '12:30', 'end_time': '14:00', 'transports': [{'start': 'Ichiro Yakiniku · Japanese Cuisine (Jiefangbei Branch)', 'end': "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall", 'mode': 'taxi', 'start_time': '12:30', 'end_time': '12:30', 'cost': 11.0, 'distance': 0.16, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Chongqing Unicorn Starry Sky Art Museum', 'type': 'attraction', 'price': 39, 'cost': 156, 'start_time': '14:00', 'end_time': '15:30', 'transports': [{'start': "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall", 'end': 'Chongqing Unicorn Starry Sky Art Museum', 'mode': 'taxi', 'start_time': '14:00', 'end_time': '14:00', 'cost': 11.0, 'distance': 0.14, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Nengren Temple', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '15:30', 'end_time': '17:00', 'transports': [{'start': 'Chongqing Unicorn Starry Sky Art Museum', 'end': 'Nengren Temple', 'mode': 'taxi', 'start_time': '15:30', 'end_time': '15:30', 'cost': 11.0, 'distance': 0.1, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Guaxixi Hot Pot (Xiaoshizi Branch)', 'type': 'dinner', 'price': 102, 'cost': 408, 'start_time': '17:00', 'end_time': '18:00', 'transports': [{'start': 'Nengren Temple', 'end': 'Guaxixi Hot Pot (Xiaoshizi Branch)', 'mode': 'taxi', 'start_time': '17:00', 'end_time': '17:00', 'cost': 11.0, 'distance': 0.21, 'price': 11.0, 'cars': 1}]}, {'position': "Monument to the People's Liberation", 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '18:00', 'end_time': '19:30', 'transports': [{'start': 'Guaxixi Hot Pot (Xiaoshizi Branch)', 'end': "Monument to the People's Liberation", 'mode': 'taxi', 'start_time': '18:00', 'end_time': '18:00', 'cost': 11.0, 'distance': 0.32, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Liberation Monument Pedestrian Street', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '19:30', 'end_time': '21:00', 'transports': [{'start': "Monument to the People's Liberation", 'end': 'Liberation Monument Pedestrian Street', 'mode': 'taxi', 'start_time': '19:30', 'end_time': '19:30', 'cost': 11.0, 'distance': 0.01, 'price': 11.0, 'cars': 1}], 'tickets': 4}, {'position': 'Yachao Capsule Apartment', 'type': 'accommodation', 'price': 31, 'cost': 62, 'start_time': '21:00', 'end_time': '24:00', 'transports': [{'start': 'Liberation Monument Pedestrian Street', 'end': 'Yachao Capsule Apartment', 'mode': 'taxi', 'start_time': '21:00', 'end_time': '21:00', 'cost': 11.0, 'distance': 0.59, 'price': 11.0, 'cars': 1}], 'room_type': 2, 'rooms': 2}]}, {'day': 2, 'activities': [{'position': 'Yachao Capsule Apartment', 'type': 'breakfast', 'price': 0, 'cost': 0, 'start_time': '08:00', 'end_time': '08:30', 'transports': []}, {'position': 'Mountain City Trail', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '08:37', 'end_time': '10:07', 'transports': [{'start': 'Yachao Capsule Apartment', 'end': 'Xiaoshizi-Metro Station', 'mode': 'walk', 'start_time': '08:30', 'end_time': '08:34', 'cost': 0, 'distance': 0.35, 'price': 0}, {'start': 'Xiaoshizi-Metro Station', 'end': 'Linjiangmen-Metro Station', 'mode': 'metro', 'start_time': '08:34', 'end_time': '08:35', 'cost': 8, 'distance': 0.93, 'price': 2, 'tickets': 4}, {'start': 'Linjiangmen-Metro Station', 'end': 'Mountain City Trail', 'mode': 'walk', 'start_time': '08:35', 'end_time': '08:37', 'cost': 0, 'distance': 0.24, 'price': 0}], 'tickets': 4}, {'position': 'Bamen Dongtian Sichuan Cuisine · Jianghu Dishes · Barbecue', 'type': 'lunch', 'price': 68, 'cost': 272, 'start_time': '11:00', 'end_time': '12:00', 'transports': [{'start': 'Mountain City Trail', 'end': 'Bamen Dongtian Sichuan Cuisine · Jianghu Dishes · Barbecue', 'mode': 'taxi', 'start_time': '10:07', 'end_time': '10:07', 'cost': 11.0, 'distance': 0.13, 'price': 11.0, 'cars': 1}]}, {'position': 'Chongqing Loquat Mountain Park', 'type': 'attraction', 'price': 0, 'cost': 0, 'start_time': '12:06', 'end_time': '13:36', 'transports': [{'start': 'Bamen Dongtian Sichuan Cuisine · Jianghu Dishes · Barbecue', 'end': 'Linjiangmen-Metro Station', 'mode': 'walk', 'start_time': '12:00', 'end_time': '12:01', 'cost': 0, 'distance': 0.12, 'price': 0}, {'start': 'Linjiangmen-Metro Station', 'end': 'Huanghuayuan-Metro Station', 'mode': 'metro', 'start_time': '12:01', 'end_time': '12:03', 'cost': 8, 'distance': 1.07, 'price': 2, 'tickets': 4}, {'start': 'Huanghuayuan-Metro Station', 'end': 'Chongqing Loquat Mountain Park', 'mode': 'walk', 'start_time': '12:03', 'end_time': '12:06', 'cost': 0, 'distance': 0.31, 'price': 0}], 'tickets': 4}, {'start_time': '22:10', 'end_time': '22:29', 'start': 'Chongqing Jiangbei International Airport', 'end': 'Chengdu Shuangliu International Airport', 'price': 275.15, 'cost': 1100.6, 'tickets': 4, 'transports': [{'start': 'Chongqing Loquat Mountain Park', 'end': 'Huanghuayuan-Metro Station', 'mode': 'walk', 'start_time': '13:36', 'end_time': '13:39', 'cost': 0, 'distance': 0.31, 'price': 0}, {'start': 'Huanghuayuan-Metro Station', 'end': 'Jiangbei Airport Terminal 3-Metro Station', 'mode': 'metro', 'start_time': '13:39', 'end_time': '14:15', 'cost': 20, 'distance': 18.31, 'price': 5, 'tickets': 4}, {'start': 'Jiangbei Airport Terminal 3-Metro Station', 'end': 'Chongqing Jiangbei International Airport', 'mode': 'walk', 'start_time': '14:15', 'end_time': '14:29', 'cost': 0, 'distance': 1.21, 'price': 0}], 'FlightID': 'FL367', 'type': 'airplane'}]}]}
+Intercity_transport passed!
+Attractions passed!
+Hotels passed!
+Restaurants passed!
+Innercity transport  passed!
+Time passed!
+Space passed!
+None
+[True, True, True, True, True]
+attraction_type_set=set()
+for activity in allactivities(plan):
+  if activity_type(activity)=='attraction': attraction_type_set.add(attraction_type(activity, target_city(plan)))
+result=not({"red tourism sites"}&attraction_type_set) passed!
+result=(day_count(plan)==2) passed!
+result=(people_count(plan)==4) passed!
+result=True
+for activity in allactivities(plan):
+  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=4: result=False
+  if innercity_transport_type(activity_transports(activity))=='metro'and metro_tickets(activity_transports(activity))!=4: result=False passed!
+result=True
+for activity in allactivities(plan):
+  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False passed!
+
+ Pass! 
+

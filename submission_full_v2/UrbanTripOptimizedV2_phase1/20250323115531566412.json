@@ -1,0 +1,534 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "mode": "taxi",
+                            "start_time": "03:09",
+                            "end_time": "04:34",
+                            "cost": 250.88,
+                            "distance": 56.93,
+                            "price": 250.88,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Tanghu Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "end": "Tanghu Park",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:39",
+                            "cost": 26.29,
+                            "distance": 6.17,
+                            "price": 26.29,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Sichuan Large Aircraft Science Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:13",
+                    "end_time": "11:43",
+                    "transports": [
+                        {
+                            "start": "Tanghu Park",
+                            "end": "Sichuan Large Aircraft Science Museum",
+                            "mode": "taxi",
+                            "start_time": "10:09",
+                            "end_time": "10:13",
+                            "cost": 16.33,
+                            "distance": 3.32,
+                            "price": 16.33,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wei Zhi Jue Frog Fish Head Restaurant (Dongsheng Branch)",
+                    "type": "lunch",
+                    "price": 79,
+                    "cost": 158,
+                    "start_time": "11:48",
+                    "end_time": "12:48",
+                    "transports": [
+                        {
+                            "start": "Sichuan Large Aircraft Science Museum",
+                            "end": "Wei Zhi Jue Frog Fish Head Restaurant (Dongsheng Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:43",
+                            "end_time": "11:48",
+                            "cost": 17.88,
+                            "distance": 3.77,
+                            "price": 17.88,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Harbour City Haohai Cube Ocean Park",
+                    "type": "attraction",
+                    "price": 188,
+                    "cost": 376,
+                    "start_time": "12:53",
+                    "end_time": "14:23",
+                    "transports": [
+                        {
+                            "start": "Wei Zhi Jue Frog Fish Head Restaurant (Dongsheng Branch)",
+                            "end": "Harbour City Haohai Cube Ocean Park",
+                            "mode": "taxi",
+                            "start_time": "12:48",
+                            "end_time": "12:53",
+                            "cost": 16.67,
+                            "distance": 3.42,
+                            "price": 16.67,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "One Ear Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:33",
+                    "end_time": "16:03",
+                    "transports": [
+                        {
+                            "start": "Harbour City Haohai Cube Ocean Park",
+                            "end": "One Ear Pavilion",
+                            "mode": "taxi",
+                            "start_time": "14:23",
+                            "end_time": "14:33",
+                            "cost": 30.16,
+                            "distance": 7.27,
+                            "price": 30.16,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Big Pear Roast Duck (Longhu Xingyuehui Branch)",
+                    "type": "dinner",
+                    "price": 124,
+                    "cost": 248,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "One Ear Pavilion",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:03",
+                            "end_time": "16:07",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "South Wuqing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:07",
+                            "end_time": "16:10",
+                            "cost": 4,
+                            "distance": 1.78,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "South Wuqing Road-Metro Station",
+                            "end": "Big Pear Roast Duck (Longhu Xingyuehui Branch)",
+                            "mode": "walk",
+                            "start_time": "16:10",
+                            "end_time": "16:13",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Qingyang District Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:09",
+                    "end_time": "19:39",
+                    "transports": [
+                        {
+                            "start": "Big Pear Roast Duck (Longhu Xingyuehui Branch)",
+                            "end": "Qingyang District Library",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:09",
+                            "cost": 25.71,
+                            "distance": 6.0,
+                            "price": 25.71,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Qintai Ancient Path",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:46",
+                    "end_time": "21:16",
+                    "transports": [
+                        {
+                            "start": "Qingyang District Library",
+                            "end": "Qintai Ancient Path",
+                            "mode": "taxi",
+                            "start_time": "19:39",
+                            "end_time": "19:46",
+                            "cost": 21.43,
+                            "distance": 4.78,
+                            "price": 21.43,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "accommodation",
+                    "price": 167,
+                    "cost": 167,
+                    "start_time": "21:30",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Qintai Ancient Path",
+                            "end": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "mode": "taxi",
+                            "start_time": "21:16",
+                            "end_time": "21:30",
+                            "cost": 39.28,
+                            "distance": 9.88,
+                            "price": 39.28,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:43",
+                    "end_time": "10:13",
+                    "transports": [
+                        {
+                            "start": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 35.93,
+                            "distance": 8.92,
+                            "price": 35.93,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "The First Street Archway of Western Shu",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:13",
+                    "end_time": "11:43",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "The First Street Archway of Western Shu",
+                            "mode": "taxi",
+                            "start_time": "10:13",
+                            "end_time": "10:13",
+                            "cost": 11.0,
+                            "distance": 0.21,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Crane's Call Tea House (People's Park Branch)",
+                    "type": "lunch",
+                    "price": 45,
+                    "cost": 90,
+                    "start_time": "11:43",
+                    "end_time": "12:43",
+                    "transports": [
+                        {
+                            "start": "The First Street Archway of Western Shu",
+                            "end": "Crane's Call Tea House (People's Park Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:43",
+                            "end_time": "11:43",
+                            "cost": 11.0,
+                            "distance": 0.41,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:51",
+                    "end_time": "14:21",
+                    "transports": [
+                        {
+                            "start": "Crane's Call Tea House (People's Park Branch)",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:43",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:46",
+                            "end_time": "12:48",
+                            "cost": 4,
+                            "distance": 1.16,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Sichuan Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:48",
+                            "end_time": "12:51",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:36",
+                    "end_time": "16:06",
+                    "transports": [
+                        {
+                            "start": "Sichuan Art Museum",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:21",
+                            "end_time": "14:24",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:24",
+                            "end_time": "14:28",
+                            "cost": 4,
+                            "distance": 2.15,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "14:28",
+                            "end_time": "14:36",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "dinner",
+                    "price": 17,
+                    "cost": 34,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:06",
+                            "end_time": "16:14",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:14",
+                            "end_time": "16:16",
+                            "cost": 4,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "walk",
+                            "start_time": "16:16",
+                            "end_time": "16:24",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Moon City Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:15",
+                    "end_time": "19:45",
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:11",
+                            "cost": 4,
+                            "distance": 1.74,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Moon City Lake",
+                            "mode": "walk",
+                            "start_time": "18:11",
+                            "end_time": "18:15",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Moon City Lake",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "taxi",
+                            "start_time": "19:45",
+                            "end_time": "21:09",
+                            "cost": 249.6,
+                            "distance": 56.64,
+                            "price": 249.6,
+                            "cars": 1
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 3.653118133544922,
+    "llm_inference_time_sec": 0
+}

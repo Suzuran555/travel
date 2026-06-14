@@ -1,0 +1,252 @@
+{
+    "people_number": 4,
+    "start_city": "Hangzhou",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:45",
+                    "end_time": "04:03",
+                    "start": "Hangzhou Xiaoshan International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 483.26,
+                    "cost": 1933.04,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL502",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:03",
+                            "end_time": "04:08",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:08",
+                            "end_time": "05:06",
+                            "cost": 28,
+                            "distance": 29.11,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "05:06",
+                            "end_time": "05:14",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Gankeng Ancient Town",
+                    "type": "attraction",
+                    "price": 26,
+                    "cost": 104,
+                    "start_time": "09:00",
+                    "end_time": "10:30",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 8,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "09:00",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "accommodation",
+                    "price": 231,
+                    "cost": 924,
+                    "start_time": "11:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Gankeng Ancient Town",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:30",
+                            "end_time": "10:47",
+                            "cost": 0,
+                            "distance": 1.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:47",
+                            "end_time": "10:52",
+                            "cost": 8,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "mode": "walk",
+                            "start_time": "10:52",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Pingshan Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:59",
+                    "end_time": "10:29",
+                    "transports": [
+                        {
+                            "start": "Overseas Chinese Town Nanyang Inn (Gankeng Ancient Town Shop)",
+                            "end": "Gankeng-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gankeng-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:38",
+                            "end_time": "08:43",
+                            "cost": 8,
+                            "distance": 2.93,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Pingshan Park",
+                            "mode": "walk",
+                            "start_time": "08:43",
+                            "end_time": "08:59",
+                            "cost": 0,
+                            "distance": 1.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "20:25",
+                    "end_time": "05:34",
+                    "start": "Shenzhen North Railway Station",
+                    "end": "Hangzhou East Railway Station",
+                    "price": 631.19,
+                    "cost": 2524.76,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Pingshan Park",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:29",
+                            "end_time": "10:45",
+                            "cost": 0,
+                            "distance": 1.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Shenzhen North Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:45",
+                            "end_time": "11:08",
+                            "cost": 16,
+                            "distance": 11.5,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shenzhen North Railway Station-Metro Station",
+                            "end": "Shenzhen North Railway Station",
+                            "mode": "walk",
+                            "start_time": "11:08",
+                            "end_time": "11:09",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D908",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 13.543661117553711,
+    "llm_inference_time_sec": 0
+}

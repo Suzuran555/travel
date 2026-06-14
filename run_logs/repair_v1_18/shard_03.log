@@ -1,0 +1,2281 @@
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Namespace(splits='TPC_IJCAI_2026_phase1_bad38_shard18_03', index=None, skip=0, agent='UrbanTripOptimized', llm='TPCLLM', timeout=300, lang='en', oracle_translation=True)
+config file for testing split: /home/liangfei_jin/chinatravel/chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1_bad38_shard18_03.txt
+2 samples
+res_dir:  /home/liangfei_jin/chinatravel/results/UrbanTripOptimized_TPCLLM_en_oracletranslation
+log_dir: /home/liangfei_jin/chinatravel/cache/UrbanTripOptimized_TPCLLM_en_oracletranslation
+INFO 06-13 18:11:00 [__init__.py:239] Automatically detected platform cuda.
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+------------------------------
+Process [0/2], Success [0/0]:
+data uid:  20250322054227934054
+{'days': 3, 'hard_logic_py': ['result_list=[]\nattraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_name_set.add(activity_position(activity))\nresult=({"Shanghai Jiao Tong University", "Sinan Road", "Dongba Donbar (Lujiazui Tourist Loop Line)"}<=attraction_name_set)\nresult_list.append(result)\ninner_city_transportation_cost=0 \nfor activity in allactivities(plan):\n    inner_city_transportation_cost += innercity_transport_cost(activity_transports(activity))\nresult=(inner_city_transportation_cost<=120)\nresult_list.append(result)\nresult=False\nfor r in result_list:\n  result=result or r'], 'nature_language': 'We are a group of 4, traveling from Shenzhen to Shanghai for 3 days, and the plan must meet either of the following:\n1. Visit Shanghai Jiao Tong University, Sinan Road, and Dongba Donbar (Lujiazui Tourist Loop Line)\n2. City transportation budget is 120.0', 'people_number': 4, 'start_city': 'Shenzhen', 'target_city': 'Shanghai', 'uid': '20250322054227934054'}
+Shenzhen -> Shanghai
+User's Constraints:
+We are a group of 4, traveling from Shenzhen to Shanghai for 3 days, and the plan must meet either of the following:
+1. Visit Shanghai Jiao Tong University, Sinan Road, and Dongba Donbar (Lujiazui Tourist Loop Line)
+2. City transportation budget is 120.0
+Formatted Expression:
+all_satisfy: False
+must_see_attraction: ['Shanghai Jiao Tong University', 'Sinan Road', 'Dongba Donbar (Lujiazui Tourist Loop Line)']
+must_visit_restaurant: []
+innercity_budget: 120.0
+By list:
+[{'all_satisfy': True, 'must_see_attraction': ['Shanghai Jiao Tong University', 'Sinan Road', 'Dongba Donbar (Lujiazui Tourist Loop Line)'], 'must_visit_restaurant': []}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': [], 'innercity_budget': 120.0}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Shenzhen to Shanghai: 10 flights, 21 trains
+from Shanghai to Shenzhen: 10 flights, 21 trains
+  TrainID                     TrainType  ...    Cost FlightID
+0   G2787               High-speed rail  ...  788.63      NaN
+1   G2790               High-speed rail  ...  788.63      NaN
+2   D3126  EMU (Electric Multiple Unit)  ...  727.96      NaN
+3    D385  EMU (Electric Multiple Unit)  ...  727.96      NaN
+4    D388  EMU (Electric Multiple Unit)  ...  727.96      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...    Cost FlightID
+0   G2784               High-speed rail  ...  788.63      NaN
+1   G2785               High-speed rail  ...  788.63      NaN
+2   D2287  EMU (Electric Multiple Unit)  ...  727.96      NaN
+3    G997               High-speed rail  ...  788.63      NaN
+4    D377  EMU (Electric Multiple Unit)  ...  727.96      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '03:17', 'end_time': '04:48', 'start': "Shenzhen Bao'an International Airport", 'end': 'Shanghai Hongqiao International Airport', 'price': 571.18, 'cost': 2284.72, 'tickets': 4, 'transports': [], 'FlightID': 'FL164', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 04:48
+current_position: Shanghai Hongqiao International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 04:48, Shanghai Hongqiao International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Dongba Donbar (Lujiazui Tourist Loop Line)
+add attraction: Dongba Donbar (Lujiazui Tourist Loop Line), type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:51
+current_position: Dongba Donbar (Lujiazui Tourist Loop Line)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:51, Dongba Donbar (Lujiazui Tourist Loop Line), next-poi type: lunch
+add restaurant: Ziyang Garden Grand Restaurant, type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 13:04
+current_position: Ziyang Garden Grand Restaurant
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 13:04, Ziyang Garden Grand Restaurant, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Jiao Tong University
+add attraction: Shanghai Jiao Tong University, type: University campus
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:52
+current_position: Shanghai Jiao Tong University
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:52, Shanghai Jiao Tong University, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Sinan Road
+add attraction: Sinan Road, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:33
+current_position: Sinan Road
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 17:33, Sinan Road, next-poi type: dinner
+inner-city transport error, backtrack...
+add restaurant: Ethai Thai Restaurant · Bird's Eye Chili · Thai Bake (Xintiandi Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:33
+current_position: Ethai Thai Restaurant · Bird's Eye Chili · Thai Bake (Xintiandi Branch)
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:33, Ethai Thai Restaurant · Bird's Eye Chili · Thai Bake (Xintiandi Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Tianzifang
+inner-city transport error, backtrack...
+add attraction: Tianzifang, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:03
+current_position: Tianzifang
+3
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Tianzifang, hotel arrived time: 24:24
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Tianzifang, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:05
+current_position: Tianzifang
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Tianzifang, hotel arrived time: 24:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Unicorn Starry Sky Art Museum, Tianzifang Flagship Store
+inner-city transport error, backtrack...
+add attraction: Unicorn Starry Sky Art Museum, Tianzifang Flagship Store, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:03
+current_position: Unicorn Starry Sky Art Museum, Tianzifang Flagship Store
+8
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Unicorn Starry Sky Art Museum, Tianzifang Flagship Store, hotel arrived time: 24:24
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Unicorn Starry Sky Art Museum, Tianzifang Flagship Store, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Unicorn Starry Sky Art Museum, Tianzifang Flagship Store
+10
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Unicorn Starry Sky Art Museum, Tianzifang Flagship Store, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Sinan Mansions
+add attraction: Sinan Mansions, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:10
+current_position: Sinan Mansions
+12
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sinan Mansions, hotel arrived time: 24:32
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Sinan Mansions, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:03
+current_position: Sinan Mansions
+14
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sinan Mansions, hotel arrived time: 24:25
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Sinan Mansions, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:09
+current_position: Sinan Mansions
+16
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Sinan Mansions, hotel arrived time: 24:31
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Fuxing Park
+add attraction: Fuxing Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:08
+current_position: Fuxing Park
+18
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Fuxing Park, hotel arrived time: 24:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Fuxing Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:04
+current_position: Fuxing Park
+20
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Fuxing Park, hotel arrived time: 24:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Fuxing Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:12
+current_position: Fuxing Park
+22
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Fuxing Park, hotel arrived time: 24:34
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Huaihai Road
+add attraction: Huaihai Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:08
+current_position: Huaihai Road
+24
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Huaihai Road, hotel arrived time: 24:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Huaihai Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:04
+current_position: Huaihai Road
+26
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Huaihai Road, hotel arrived time: 24:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Huaihai Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Huaihai Road
+28
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Huaihai Road, hotel arrived time: 24:37
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Paradox Museum
+add attraction: Paradox Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Paradox Museum
+30
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paradox Museum, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Paradox Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Paradox Museum
+32
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paradox Museum, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Paradox Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:00
+current_position: Paradox Museum
+34
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Paradox Museum, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Xintiandi
+add attraction: Xintiandi, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:08
+current_position: Xintiandi
+36
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xintiandi, hotel arrived time: 24:25
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Xintiandi, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:05
+current_position: Xintiandi
+38
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xintiandi, hotel arrived time: 24:22
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Xintiandi, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:20
+current_position: Xintiandi
+40
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Xintiandi, hotel arrived time: 24:37
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Moller Villa
+add attraction: Moller Villa, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:11
+current_position: Moller Villa
+42
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Moller Villa, hotel arrived time: 24:49
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Moller Villa, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:05
+current_position: Moller Villa
+44
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Moller Villa, hotel arrived time: 24:43
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Moller Villa, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:25
+current_position: Moller Villa
+46
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Moller Villa, hotel arrived time: 25:03
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Jululu Road
+add attraction: Jululu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Jululu Road
+48
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Jululu Road, hotel arrived time: 24:58
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Jululu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Jululu Road
+50
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Jululu Road, hotel arrived time: 24:50
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Jululu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:27
+current_position: Jululu Road
+52
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Jululu Road, hotel arrived time: 25:11
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Era of Life
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:13
+current_position: Era of Life
+54
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 24:45
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Era of Life
+56
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 24:38
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Era of Life, type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Era of Life
+58
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Era of Life, hotel arrived time: 25:01
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:13
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+60
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 24:46
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+62
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 24:39
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition
+64
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI The Vanishing Pharaoh—Immersive Exploration Experience of the Khufu Pyramid Exhibition, hotel arrived time: 25:02
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Zhang Garden
+add attraction: Zhang Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Zhang Garden
+66
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Zhang Garden, hotel arrived time: 24:49
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Zhang Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Zhang Garden
+68
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Zhang Garden, hotel arrived time: 24:41
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Zhang Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Zhang Garden
+70
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Zhang Garden, hotel arrived time: 25:04
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Library
+add attraction: Shanghai Library, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:11
+current_position: Shanghai Library
+72
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Library, hotel arrived time: 24:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Library, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Shanghai Library
+74
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Library, hotel arrived time: 24:54
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Library, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:29
+current_position: Shanghai Library
+76
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Library, hotel arrived time: 25:17
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: People's Square
+add attraction: People's Square, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: People's Square
+78
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI People's Square, hotel arrived time: 24:34
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: People's Square, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: People's Square
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI People's Square, hotel arrived time: 24:26
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: People's Square, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:30
+current_position: People's Square
+82
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI People's Square, hotel arrived time: 24:50
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Changle Road
+add attraction: Changle Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Changle Road
+84
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Changle Road, hotel arrived time: 25:03
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Changle Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Changle Road
+86
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Changle Road, hotel arrived time: 24:55
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Changle Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:30
+current_position: Changle Road
+88
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Changle Road, hotel arrived time: 25:19
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Tourism Festival
+add attraction: Shanghai Tourism Festival, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Shanghai Tourism Festival
+90
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Tourism Festival, hotel arrived time: 24:35
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Tourism Festival, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Shanghai Tourism Festival
+92
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Tourism Festival, hotel arrived time: 24:27
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Tourism Festival, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:30
+current_position: Shanghai Tourism Festival
+94
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Tourism Festival, hotel arrived time: 24:51
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: West Nanjing Road
+add attraction: West Nanjing Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:12
+current_position: West Nanjing Road
+96
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI West Nanjing Road, hotel arrived time: 24:55
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: West Nanjing Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: West Nanjing Road
+98
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI West Nanjing Road, hotel arrived time: 24:49
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: West Nanjing Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: West Nanjing Road
+100
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI West Nanjing Road, hotel arrived time: 25:14
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Anfu Road
+add attraction: Anfu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:14
+current_position: Anfu Road
+102
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Anfu Road, hotel arrived time: 25:05
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Anfu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Anfu Road
+104
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Anfu Road, hotel arrived time: 24:57
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Anfu Road, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:31
+current_position: Anfu Road
+106
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Anfu Road, hotel arrived time: 25:22
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Museum of Contemporary Art
+add attraction: Shanghai Museum of Contemporary Art, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:00
+current_position: Shanghai Museum of Contemporary Art
+108
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 19:00, Shanghai Museum of Contemporary Art, next-poi type: attraction
+sorted by distance
+------------------------------
+Process [1/2], Success [0/1]:
+data uid:  20250322225057189327
+{'days': 4, 'hard_logic_py': ["result_list=[]\naccommodation_cost=0\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation': accommodation_cost+=activity_cost(activity)\nresult=accommodation_cost<=5600\nresult_list.append(result)\ninner_city_transportation_cost=0 \nfor activity in allactivities(plan):\n    inner_city_transportation_cost += innercity_transport_cost(activity_transports(activity))\nresult=(inner_city_transportation_cost<=150)\nresult_list.append(result)\nresult=False\nfor r in result_list:\n  result=result or r"], 'nature_language': 'We are 4 people, traveling from Suzhou to Hangzhou for 4 days, and need to meet at least one of the following: 1. An accommodation budget of 5600.0; 2. An intra-city transportation budget of 150.0.', 'people_number': 4, 'start_city': 'Suzhou', 'target_city': 'Hangzhou', 'uid': '20250322225057189327'}
+Suzhou -> Hangzhou
+User's Constraints:
+We are 4 people, traveling from Suzhou to Hangzhou for 4 days, and need to meet at least one of the following: 1. An accommodation budget of 5600.0; 2. An intra-city transportation budget of 150.0.
+Formatted Expression:
+all_satisfy: False
+must_see_attraction: []
+must_visit_restaurant: []
+hotel_budget: 5600.0
+innercity_budget: 150.0
+By list:
+[{'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': [], 'hotel_budget': 5600.0}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': [], 'innercity_budget': 150.0}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Suzhou to Hangzhou: 0 flights, 64 trains
+from Hangzhou to Suzhou: 0 flights, 59 trains
+  TrainID       TrainType            From  ... EndTime Duration  Cost
+0   K1808         Express  Suzhou Station  ...   06:40     4.23  48.4
+1   K1805         Express  Suzhou Station  ...   06:40     4.23  48.4
+2    Z175  Direct Express  Suzhou Station  ...   05:50     3.30  60.5
+3    Z178  Direct Express  Suzhou Station  ...   05:50     3.30  60.5
+4    T135         Express  Suzhou Station  ...   06:46     3.93  60.5
+
+[5 rows x 8 columns]
+  TrainID        TrainType  ... Duration   Cost
+0    K470          Express  ...     5.10  48.40
+1   G1866  High-speed rail  ...     1.78  78.65
+2   G7493  High-speed rail  ...     2.00  78.65
+3   G7492  High-speed rail  ...     2.00  78.65
+4   G7372  High-speed rail  ...     1.75  78.65
+
+[5 rows x 8 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '02:29', 'end_time': '06:40', 'start': 'Suzhou Station', 'end': 'Hangzhou Railway Station', 'price': 48.4, 'cost': 193.6, 'tickets': 4, 'transports': [], 'TrainID': 'K1808', 'type': 'train'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 06:40
+current_position: Hangzhou Railway Station
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 06:40, Hangzhou Railway Station, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Drum Tower
+inner-city transport error, backtrack...
+add attraction: Drum Tower, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:10
+current_position: Drum Tower
+1
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:10, Drum Tower, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Qinghefang Street
+inner-city transport error, backtrack...
+add attraction: Qinghefang Street, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 09:40
+current_position: Qinghefang Street
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 09:40, Qinghefang Street, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Hangzhou Museum
+add attraction: Hangzhou Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 11:23
+current_position: Hangzhou Museum
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 11:23, Hangzhou Museum, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Hundred Chicken Flavors Restaurant (Qingtai Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:23
+current_position: Hundred Chicken Flavors Restaurant (Qingtai Branch)
+3
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:23, Hundred Chicken Flavors Restaurant (Qingtai Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Grand View of Wu Hill
+inner-city transport error, backtrack...
+add attraction: Grand View of Wu Hill, type: Cultural Attractions
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 13:53
+current_position: Grand View of Wu Hill
+4
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 13:53, Grand View of Wu Hill, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Orioles Singing in the Willows
+inner-city transport error, backtrack...
+add attraction: Orioles Singing in the Willows, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:24
+current_position: Orioles Singing in the Willows
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:24, Orioles Singing in the Willows, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Zhejiang Art Museum
+add attraction: Zhejiang Art Museum, type: Art Museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:00
+current_position: Zhejiang Art Museum
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 17:00, Zhejiang Art Museum, next-poi type: dinner
+inner-city transport error, backtrack...
+add restaurant: Sizhao'er · Hangzhou Local Cuisine (Gulou Branch 1), type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:00
+current_position: Sizhao'er · Hangzhou Local Cuisine (Gulou Branch 1)
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:00, Sizhao'er · Hangzhou Local Cuisine (Gulou Branch 1), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: West Lake Foreign Affairs Cruise
+add attraction: West Lake Foreign Affairs Cruise, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:48
+current_position: West Lake Foreign Affairs Cruise
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 19:48, West Lake Foreign Affairs Cruise, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Lakeside Sunshine and Rain
+inner-city transport error, backtrack...
+add attraction: Lakeside Sunshine and Rain, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:18
+current_position: Lakeside Sunshine and Rain
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['hotel']
+POI planning, day 0 21:18, Lakeside Sunshine and Rain, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 08:30
+current_position: Baiye Homestay (West Lake Branch)
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 1 08:30, Baiye Homestay (West Lake Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: West Lake Longjing Tea Cultural Scenic Area
+add attraction: West Lake Longjing Tea Cultural Scenic Area, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 11:19
+current_position: West Lake Longjing Tea Cultural Scenic Area
+7
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 1 11:19, West Lake Longjing Tea Cultural Scenic Area, next-poi type: lunch
+inner-city transport error, backtrack...
+add restaurant: Relais & Châteaux Hangzhou Zixuan Resort - Jiexianglou (Bapanling Road Branch), type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 12:20
+current_position: Relais & Châteaux Hangzhou Zixuan Resort - Jiexianglou (Bapanling Road Branch)
+8
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 12:20, Relais & Châteaux Hangzhou Zixuan Resort - Jiexianglou (Bapanling Road Branch), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: 704 Project (Lin Biao's Hangzhou Villa)
+add attraction: 704 Project (Lin Biao's Hangzhou Villa), type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:09
+current_position: 704 Project (Lin Biao's Hangzhou Villa)
+8
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 15:09, 704 Project (Lin Biao's Hangzhou Villa), next-poi type: attraction
+sorted by distance
+not last day, but last event, collecting innercity transport to hotel
+from: 704 Project (Lin Biao's Hangzhou Villa) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+8
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 08:30
+current_position: Baiye Homestay (West Lake Branch)
+8
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 2 08:30, Baiye Homestay (West Lake Branch), next-poi type: attraction
+sorted by distance
+innercity budget exceeded, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+9
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+12
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+15
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: attraction, candidate type: ['lunch', 'dinner', 'hotel']
+try another poi type, backtrack...
+POI planning, day 2 08:30, Baiye Homestay (West Lake Branch), next-poi type: lunch
+innercity budget exceeded, backtrack...
+add restaurant: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe
+19
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe
+22
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe
+25
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant
+28
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant
+31
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant
+34
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bamboo Wisdom (Tianzhu Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Bamboo Wisdom (Tianzhu Road Branch)
+37
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bamboo Wisdom (Tianzhu Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Bamboo Wisdom (Tianzhu Road Branch)
+40
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bamboo Wisdom (Tianzhu Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Bamboo Wisdom (Tianzhu Road Branch)
+43
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant
+46
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant
+49
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant
+52
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhouping's Zongzi Shop, type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Zhouping's Zongzi Shop
+55
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhouping's Zongzi Shop, type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Zhouping's Zongzi Shop
+58
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhouping's Zongzi Shop, type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Zhouping's Zongzi Shop
+61
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks (West Lake Heaven Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Starbucks (West Lake Heaven Store)
+64
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks (West Lake Heaven Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Starbucks (West Lake Heaven Store)
+67
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks (West Lake Heaven Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Starbucks (West Lake Heaven Store)
+70
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern
+73
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern
+76
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern
+79
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant
+82
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant
+85
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant
+88
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch)
+91
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch)
+94
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch)
+97
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Octagonal Cup Coffee (Zhongshan North Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Octagonal Cup Coffee (Zhongshan North Road Branch)
+100
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Octagonal Cup Coffee (Zhongshan North Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Octagonal Cup Coffee (Zhongshan North Road Branch)
+103
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Octagonal Cup Coffee (Zhongshan North Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Octagonal Cup Coffee (Zhongshan North Road Branch)
+106
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Xixi Lobby Lounge, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Sheraton Xixi Lobby Lounge
+109
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Xixi Lobby Lounge, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Sheraton Xixi Lobby Lounge
+112
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Xixi Lobby Lounge, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Sheraton Xixi Lobby Lounge
+115
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer, type: Barbecue
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer
+121
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer, type: Barbecue
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer
+124
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer, type: Barbecue
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer
+127
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Conrad Hotel · Yulan, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Conrad Hotel · Yulan
+130
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Conrad Hotel · Yulan, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Conrad Hotel · Yulan
+133
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Conrad Hotel · Yulan, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Conrad Hotel · Yulan
+136
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Huifei Snacks (Yucai Lane Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Huifei Snacks (Yucai Lane Branch)
+139
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Huifei Snacks (Yucai Lane Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Huifei Snacks (Yucai Lane Branch)
+142
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Huifei Snacks (Yucai Lane Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Huifei Snacks (Yucai Lane Branch)
+145
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Park Hyatt Hotel · Tide Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Park Hyatt Hotel · Tide Restaurant
+148
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Park Hyatt Hotel · Tide Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Park Hyatt Hotel · Tide Restaurant
+151
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Park Hyatt Hotel · Tide Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Park Hyatt Hotel · Tide Restaurant
+154
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks Reserve (Hangzhou Intime City West Second Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Starbucks Reserve (Hangzhou Intime City West Second Store)
+157
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks Reserve (Hangzhou Intime City West Second Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Starbucks Reserve (Hangzhou Intime City West Second Store)
+160
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks Reserve (Hangzhou Intime City West Second Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Starbucks Reserve (Hangzhou Intime City West Second Store)
+163
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant
+166
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant
+169
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant
+172
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou New Century Resort · Rainforest Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou New Century Resort · Rainforest Restaurant
+175
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou New Century Resort · Rainforest Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou New Century Resort · Rainforest Restaurant
+178
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou New Century Resort · Rainforest Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:01
+current_position: Hangzhou New Century Resort · Rainforest Restaurant
+181
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion
+184
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion
+187
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:38
+current_position: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion
+190
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+193
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+196
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+199
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: lunch, candidate type: ['dinner', 'hotel']
+try another poi type, backtrack...
+POI planning, day 2 08:30, Baiye Homestay (West Lake Branch), next-poi type: dinner
+innercity budget exceeded, backtrack...
+add restaurant: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe
+203
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe
+206
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake State Guesthouse · West Lake's Premier Garden · Building 8 Cafe
+209
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant
+212
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant
+215
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Sheraton Grand Hotel - Fresh Recipes All-Day Dining Restaurant
+218
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bamboo Wisdom (Tianzhu Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Bamboo Wisdom (Tianzhu Road Branch)
+221
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bamboo Wisdom (Tianzhu Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Bamboo Wisdom (Tianzhu Road Branch)
+224
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bamboo Wisdom (Tianzhu Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Bamboo Wisdom (Tianzhu Road Branch)
+227
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant
+230
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant
+233
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake Four Seasons Hotel · WL BISTRO West Lake Restaurant
+236
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhouping's Zongzi Shop, type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Zhouping's Zongzi Shop
+239
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhouping's Zongzi Shop, type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Zhouping's Zongzi Shop
+242
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Zhouping's Zongzi Shop, type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Zhouping's Zongzi Shop
+245
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks (West Lake Heaven Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Starbucks (West Lake Heaven Store)
+248
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks (West Lake Heaven Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Starbucks (West Lake Heaven Store)
+251
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks (West Lake Heaven Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Starbucks (West Lake Heaven Store)
+254
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern
+257
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern
+260
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou West Lake Canopy by Hilton · Nettare · Garden Western Restaurant & Craft Beer Tavern
+263
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant
+266
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant
+269
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Friendship Hotel · West Lake Rotating Full Lake View Restaurant
+272
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch)
+275
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch)
+278
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Five Grains Seven Blessings · Freshly Baked Daily (Pinghai Road Branch)
+281
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Octagonal Cup Coffee (Zhongshan North Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Octagonal Cup Coffee (Zhongshan North Road Branch)
+284
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Octagonal Cup Coffee (Zhongshan North Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Octagonal Cup Coffee (Zhongshan North Road Branch)
+287
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Octagonal Cup Coffee (Zhongshan North Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Octagonal Cup Coffee (Zhongshan North Road Branch)
+290
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Xixi Lobby Lounge, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Sheraton Xixi Lobby Lounge
+293
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Xixi Lobby Lounge, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Sheraton Xixi Lobby Lounge
+296
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Sheraton Xixi Lobby Lounge, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Sheraton Xixi Lobby Lounge
+299
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer, type: Barbecue
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer
+305
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer, type: Barbecue
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer
+308
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer, type: Barbecue
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Crafty Brewmaster Grill · Seafood Skewers and Craft Beer
+311
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Conrad Hotel · Yulan, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Conrad Hotel · Yulan
+314
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Conrad Hotel · Yulan, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Conrad Hotel · Yulan
+317
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Conrad Hotel · Yulan, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Conrad Hotel · Yulan
+320
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Huifei Snacks (Yucai Lane Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Huifei Snacks (Yucai Lane Branch)
+323
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Huifei Snacks (Yucai Lane Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Huifei Snacks (Yucai Lane Branch)
+326
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Huifei Snacks (Yucai Lane Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Huifei Snacks (Yucai Lane Branch)
+329
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Park Hyatt Hotel · Tide Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Park Hyatt Hotel · Tide Restaurant
+332
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Park Hyatt Hotel · Tide Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Park Hyatt Hotel · Tide Restaurant
+335
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Park Hyatt Hotel · Tide Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Park Hyatt Hotel · Tide Restaurant
+338
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks Reserve (Hangzhou Intime City West Second Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Starbucks Reserve (Hangzhou Intime City West Second Store)
+341
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks Reserve (Hangzhou Intime City West Second Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Starbucks Reserve (Hangzhou Intime City West Second Store)
+344
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Starbucks Reserve (Hangzhou Intime City West Second Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Starbucks Reserve (Hangzhou Intime City West Second Store)
+347
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant
+350
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant
+353
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Xiaoyao Manor · Xianghu Mountain House · Yun Cong All-Day Dining Restaurant
+356
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou New Century Resort · Rainforest Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou New Century Resort · Rainforest Restaurant
+359
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou New Century Resort · Rainforest Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou New Century Resort · Rainforest Restaurant
+362
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou New Century Resort · Rainforest Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou New Century Resort · Rainforest Restaurant
+365
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion
+368
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion
+371
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Hangzhou Fuchun Resort Golf & Spa - Lakeside Pavilion
+374
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+377
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+380
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Baiye Homestay (West Lake Branch) to Baiye Homestay (West Lake Branch)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+383
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: dinner, candidate type: ['hotel']
+try another poi type, backtrack...
+POI planning, day 2 08:30, Baiye Homestay (West Lake Branch), next-poi type: hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Baiye Homestay (West Lake Branch)
+386
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Fail with the given accommodation activity, backtrack...

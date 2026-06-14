@@ -1,0 +1,731 @@
+{
+    "people_number": 4,
+    "start_city": "Suzhou",
+    "target_city": "Hangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:29",
+                    "end_time": "06:40",
+                    "start": "Suzhou Station",
+                    "end": "Hangzhou Railway Station",
+                    "price": 48.4,
+                    "cost": 193.6,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "K1808",
+                    "type": "train"
+                },
+                {
+                    "position": "Lingyin Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "07:22",
+                    "end_time": "08:52",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Railway Station",
+                            "end": "City Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:40",
+                            "end_time": "06:42",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "City Station-Metro Station",
+                            "end": "Gudun Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:42",
+                            "end_time": "06:57",
+                            "cost": 12,
+                            "distance": 7.93,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Gudun Road-Metro Station",
+                            "end": "Lingyin Temple",
+                            "mode": "walk",
+                            "start_time": "06:57",
+                            "end_time": "07:22",
+                            "cost": 0,
+                            "distance": 2.12,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "West Lake Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:16",
+                    "end_time": "11:46",
+                    "transports": [
+                        {
+                            "start": "Lingyin Temple",
+                            "end": "Gudun Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:52",
+                            "end_time": "09:17",
+                            "cost": 0,
+                            "distance": 2.12,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gudun Road-Metro Station",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:17",
+                            "end_time": "09:33",
+                            "cost": 12,
+                            "distance": 8.32,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "West Lake Scenic Area",
+                            "mode": "walk",
+                            "start_time": "09:33",
+                            "end_time": "10:16",
+                            "cost": 0,
+                            "distance": 3.6,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Kui Yuan Guan (Jiefang Road Branch)",
+                    "type": "lunch",
+                    "price": 54,
+                    "cost": 216,
+                    "start_time": "12:44",
+                    "end_time": "13:44",
+                    "transports": [
+                        {
+                            "start": "West Lake Scenic Area",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:46",
+                            "end_time": "12:29",
+                            "cost": 0,
+                            "distance": 3.6,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:29",
+                            "end_time": "12:38",
+                            "cost": 12,
+                            "distance": 4.89,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "Kui Yuan Guan (Jiefang Road Branch)",
+                            "mode": "walk",
+                            "start_time": "12:38",
+                            "end_time": "12:44",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wulinmen Wharf",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:00",
+                    "end_time": "15:30",
+                    "transports": [
+                        {
+                            "start": "Kui Yuan Guan (Jiefang Road Branch)",
+                            "end": "Ding'an Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:44",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Ding'an Road-Metro Station",
+                            "end": "West Lake Cultural Plaza-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:50",
+                            "end_time": "13:57",
+                            "cost": 8,
+                            "distance": 3.73,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "West Lake Cultural Plaza-Metro Station",
+                            "end": "Wulinmen Wharf",
+                            "mode": "walk",
+                            "start_time": "13:57",
+                            "end_time": "14:00",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Runhexiang Small Pot Sweet Fermented Rice",
+                    "type": "dinner",
+                    "price": 11,
+                    "cost": 44,
+                    "start_time": "17:00",
+                    "end_time": "17:30",
+                    "transports": [
+                        {
+                            "start": "Wulinmen Wharf",
+                            "end": "West Lake Cultural Plaza-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:30",
+                            "end_time": "15:33",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Lake Cultural Plaza-Metro Station",
+                            "end": "Grand Canal-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:33",
+                            "end_time": "15:43",
+                            "cost": 12,
+                            "distance": 5.5,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Grand Canal-Metro Station",
+                            "end": "Runhexiang Small Pot Sweet Fermented Rice",
+                            "mode": "walk",
+                            "start_time": "15:43",
+                            "end_time": "15:52",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Long Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:02",
+                    "end_time": "19:32",
+                    "transports": [
+                        {
+                            "start": "Runhexiang Small Pot Sweet Fermented Rice",
+                            "end": "Grand Canal-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:30",
+                            "end_time": "17:39",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        },
+                        {
+                            "start": "Grand Canal-Metro Station",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:39",
+                            "end_time": "17:57",
+                            "cost": 16,
+                            "distance": 9.33,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "Long Bridge",
+                            "mode": "walk",
+                            "start_time": "17:57",
+                            "end_time": "18:02",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Qiantang New City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:49",
+                    "end_time": "21:19",
+                    "transports": [
+                        {
+                            "start": "Long Bridge",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:32",
+                            "end_time": "19:37",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "Civic Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:37",
+                            "end_time": "19:46",
+                            "cost": 12,
+                            "distance": 4.65,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Civic Center-Metro Station",
+                            "end": "Qiantang New City",
+                            "mode": "walk",
+                            "start_time": "19:46",
+                            "end_time": "19:49",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "accommodation",
+                    "price": 149,
+                    "cost": 596,
+                    "start_time": "22:02",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Qiantang New City",
+                            "end": "Civic Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:19",
+                            "end_time": "21:22",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Civic Center-Metro Station",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:22",
+                            "end_time": "21:36",
+                            "cost": 12,
+                            "distance": 7.28,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Baiye Homestay (West Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "21:36",
+                            "end_time": "22:02",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "China Animation Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:26",
+                    "end_time": "10:56",
+                    "transports": [
+                        {
+                            "start": "Baiye Homestay (West Lake Branch)",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Jianghui Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:56",
+                            "end_time": "09:08",
+                            "cost": 12,
+                            "distance": 6.33,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Jianghui Road-Metro Station",
+                            "end": "China Animation Museum",
+                            "mode": "walk",
+                            "start_time": "09:08",
+                            "end_time": "09:26",
+                            "cost": 0,
+                            "distance": 1.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Zhouping's Zongzi Shop",
+                    "type": "lunch",
+                    "price": 13,
+                    "cost": 52,
+                    "start_time": "11:38",
+                    "end_time": "12:38",
+                    "transports": [
+                        {
+                            "start": "China Animation Museum",
+                            "end": "Jianghui Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:56",
+                            "end_time": "11:14",
+                            "cost": 0,
+                            "distance": 1.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jianghui Road-Metro Station",
+                            "end": "Jiangcheng Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:14",
+                            "end_time": "11:28",
+                            "cost": 12,
+                            "distance": 7.12,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Jiangcheng Road-Metro Station",
+                            "end": "Zhouping's Zongzi Shop",
+                            "mode": "walk",
+                            "start_time": "11:28",
+                            "end_time": "11:38",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hangzhou Olympic Sports Expo Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:04",
+                    "end_time": "14:34",
+                    "transports": [
+                        {
+                            "start": "Zhouping's Zongzi Shop",
+                            "end": "Jiangcheng Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:38",
+                            "end_time": "12:48",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangcheng Road-Metro Station",
+                            "end": "Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:48",
+                            "end_time": "12:59",
+                            "cost": 12,
+                            "distance": 5.65,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Exhibition Center-Metro Station",
+                            "end": "Hangzhou Olympic Sports Expo Center",
+                            "mode": "walk",
+                            "start_time": "12:59",
+                            "end_time": "13:04",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hangzhou Vanke Liangzhu Culture and Arts Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:41",
+                    "end_time": "17:11",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Olympic Sports Expo Center",
+                            "end": "Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:34",
+                            "end_time": "14:39",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Exhibition Center-Metro Station",
+                            "end": "Liangzhu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:39",
+                            "end_time": "15:25",
+                            "cost": 24,
+                            "distance": 23.41,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Liangzhu-Metro Station",
+                            "end": "Hangzhou Vanke Liangzhu Culture and Arts Center",
+                            "mode": "walk",
+                            "start_time": "15:25",
+                            "end_time": "15:41",
+                            "cost": 0,
+                            "distance": 1.37,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Octagonal Cup Coffee (Zhongshan North Road Branch)",
+                    "type": "dinner",
+                    "price": 24,
+                    "cost": 96,
+                    "start_time": "17:37",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Vanke Liangzhu Culture and Arts Center",
+                            "end": "Octagonal Cup Coffee (Zhongshan North Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "17:11",
+                            "end_time": "17:37",
+                            "cost": 73.82,
+                            "distance": 17.58,
+                            "price": 73.82,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Meijiawu Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:34",
+                    "end_time": "21:04",
+                    "transports": [
+                        {
+                            "start": "Octagonal Cup Coffee (Zhongshan North Road Branch)",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Liuxia-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:30",
+                            "cost": 16,
+                            "distance": 11.87,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Liuxia-Metro Station",
+                            "end": "Meijiawu Village",
+                            "mode": "walk",
+                            "start_time": "18:30",
+                            "end_time": "19:34",
+                            "cost": 0,
+                            "distance": 5.37,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "accommodation",
+                    "price": 149,
+                    "cost": 596,
+                    "start_time": "22:54",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Meijiawu Village",
+                            "end": "Liuxia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:04",
+                            "end_time": "22:08",
+                            "cost": 0,
+                            "distance": 5.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Liuxia-Metro Station",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "22:08",
+                            "end_time": "22:28",
+                            "cost": 16,
+                            "distance": 10.45,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "Baiye Homestay (West Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "22:28",
+                            "end_time": "22:54",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "accommodation",
+                    "price": 149,
+                    "cost": 596,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 4
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Baiye Homestay (West Lake Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "20:43",
+                    "end_time": "22:07",
+                    "start": "Hangzhou East Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 78.65,
+                    "cost": 314.6,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Baiye Homestay (West Lake Branch)",
+                            "end": "Shuicheng Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 2.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuicheng Bridge-Metro Station",
+                            "end": "East Railway Station (East Square)-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:56",
+                            "end_time": "09:19",
+                            "cost": 16,
+                            "distance": 11.72,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "East Railway Station (East Square)-Metro Station",
+                            "end": "Hangzhou East Railway Station",
+                            "mode": "walk",
+                            "start_time": "09:19",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G7350",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 5.777350425720215,
+    "llm_inference_time_sec": 0
+}

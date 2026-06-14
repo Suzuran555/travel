@@ -1,0 +1,789 @@
+{
+    "people_number": 3,
+    "start_city": "Suzhou",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "07:24",
+                    "end_time": "11:40",
+                    "start": "Suzhou North Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 668.44,
+                    "cost": 2005.3200000000002,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "G4",
+                    "type": "train"
+                },
+                {
+                    "position": "Beijing Guomao CBD Atour S Hotel xFunsCenter · Jichuan (Dawanglu Branch)",
+                    "type": "lunch",
+                    "price": 276,
+                    "cost": 828,
+                    "start_time": "12:08",
+                    "end_time": "13:08",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:40",
+                            "end_time": "11:40",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "Dawanglu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:40",
+                            "end_time": "11:59",
+                            "cost": 12,
+                            "distance": 9.57,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Dawanglu-Metro Station",
+                            "end": "Beijing Guomao CBD Atour S Hotel xFunsCenter · Jichuan (Dawanglu Branch)",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:08",
+                            "cost": 0,
+                            "distance": 0.81,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "CCTV Headquarters",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:26",
+                    "end_time": "14:56",
+                    "transports": [
+                        {
+                            "start": "Beijing Guomao CBD Atour S Hotel xFunsCenter · Jichuan (Dawanglu Branch)",
+                            "end": "Dawanglu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:08",
+                            "end_time": "13:17",
+                            "cost": 0,
+                            "distance": 0.81,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dawanglu-Metro Station",
+                            "end": "Jintai Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:17",
+                            "end_time": "13:20",
+                            "cost": 6,
+                            "distance": 1.71,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jintai Road-Metro Station",
+                            "end": "CCTV Headquarters",
+                            "mode": "walk",
+                            "start_time": "13:20",
+                            "end_time": "13:26",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "The Place",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:07",
+                    "end_time": "16:37",
+                    "transports": [
+                        {
+                            "start": "CCTV Headquarters",
+                            "end": "Jintai Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:56",
+                            "end_time": "15:02",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jintai Road-Metro Station",
+                            "end": "Hujialou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:02",
+                            "end_time": "15:04",
+                            "cost": 6,
+                            "distance": 1.41,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Hujialou-Metro Station",
+                            "end": "The Place",
+                            "mode": "walk",
+                            "start_time": "15:04",
+                            "end_time": "15:07",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Da Dong (Muxiyuan Bridge Branch)",
+                    "type": "dinner",
+                    "price": 442,
+                    "cost": 1326,
+                    "start_time": "17:04",
+                    "end_time": "18:04",
+                    "transports": [
+                        {
+                            "start": "The Place",
+                            "end": "Hujialou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:37",
+                            "end_time": "16:40",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hujialou-Metro Station",
+                            "end": "Haihutun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:40",
+                            "end_time": "16:59",
+                            "cost": 12,
+                            "distance": 9.52,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Haihutun-Metro Station",
+                            "end": "Da Dong (Muxiyuan Bridge Branch)",
+                            "mode": "walk",
+                            "start_time": "16:59",
+                            "end_time": "17:04",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Ming City Wall Ruins Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:24",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Da Dong (Muxiyuan Bridge Branch)",
+                            "end": "Haihutun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:04",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Haihutun-Metro Station",
+                            "end": "Jianguomen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:09",
+                            "end_time": "18:22",
+                            "cost": 9,
+                            "distance": 6.99,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jianguomen-Metro Station",
+                            "end": "Ming City Wall Ruins Park",
+                            "mode": "walk",
+                            "start_time": "18:22",
+                            "end_time": "18:24",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chaoyang Theater Acrobatics",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:46",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Ming City Wall Ruins Park",
+                            "end": "Jianguomen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:32",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jianguomen-Metro Station",
+                            "end": "Hujialou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:32",
+                            "end_time": "19:37",
+                            "cost": 6,
+                            "distance": 2.75,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Hujialou-Metro Station",
+                            "end": "Chaoyang Theater Acrobatics",
+                            "mode": "walk",
+                            "start_time": "19:37",
+                            "end_time": "19:46",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 538,
+                    "start_time": "21:04",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chaoyang Theater Acrobatics",
+                            "end": "Hujialou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:09",
+                            "cost": 0,
+                            "distance": 0.82,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hujialou-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:09",
+                            "end_time": "20:45",
+                            "cost": 15,
+                            "distance": 18.14,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "20:45",
+                            "end_time": "21:04",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "798 Art District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:32",
+                    "end_time": "11:02",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:11",
+                            "cost": 12,
+                            "distance": 11.35,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "798 Art District",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:32",
+                            "cost": 0,
+                            "distance": 1.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Beijing East Hotel · FEAST · Yitai Port",
+                    "type": "lunch",
+                    "price": 248,
+                    "cost": 744,
+                    "start_time": "11:29",
+                    "end_time": "12:29",
+                    "transports": [
+                        {
+                            "start": "798 Art District",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:02",
+                            "end_time": "11:23",
+                            "cost": 0,
+                            "distance": 1.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "Jiangtai-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:23",
+                            "end_time": "11:26",
+                            "cost": 6,
+                            "distance": 1.67,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiangtai-Metro Station",
+                            "end": "Beijing East Hotel · FEAST · Yitai Port",
+                            "mode": "walk",
+                            "start_time": "11:26",
+                            "end_time": "11:29",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Meet Museum · Beijing 798 Branch",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:56",
+                    "end_time": "14:26",
+                    "transports": [
+                        {
+                            "start": "Beijing East Hotel · FEAST · Yitai Port",
+                            "end": "Jiangtai-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:29",
+                            "end_time": "12:32",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangtai-Metro Station",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:32",
+                            "end_time": "12:35",
+                            "cost": 6,
+                            "distance": 1.67,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "Meet Museum · Beijing 798 Branch",
+                            "mode": "walk",
+                            "start_time": "12:35",
+                            "end_time": "12:56",
+                            "cost": 0,
+                            "distance": 1.76,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Junwang Mansion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:15",
+                    "end_time": "16:45",
+                    "transports": [
+                        {
+                            "start": "Meet Museum · Beijing 798 Branch",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:26",
+                            "end_time": "14:47",
+                            "cost": 0,
+                            "distance": 1.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "Chaoyang Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:47",
+                            "end_time": "14:58",
+                            "cost": 9,
+                            "distance": 5.69,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chaoyang Park-Metro Station",
+                            "end": "Junwang Mansion",
+                            "mode": "walk",
+                            "start_time": "14:58",
+                            "end_time": "15:15",
+                            "cost": 0,
+                            "distance": 1.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Beijing Junwangfu Hotel · Breeze Over Lotus Ponds",
+                    "type": "dinner",
+                    "price": 436,
+                    "cost": 1308,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Junwang Mansion",
+                            "end": "Beijing Junwangfu Hotel · Breeze Over Lotus Ponds",
+                            "mode": "taxi",
+                            "start_time": "16:45",
+                            "end_time": "16:46",
+                            "cost": 11.0,
+                            "distance": 0.72,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Working People's Cultural Palace",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:26",
+                    "end_time": "19:00",
+                    "transports": [
+                        {
+                            "start": "Beijing Junwangfu Hotel · Breeze Over Lotus Ponds",
+                            "end": "Chaoyang Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaoyang Park-Metro Station",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:20",
+                            "cost": 9,
+                            "distance": 6.08,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "Beijing Working People's Cultural Palace",
+                            "mode": "walk",
+                            "start_time": "18:20",
+                            "end_time": "18:26",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 538,
+                    "start_time": "20:07",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Beijing Working People's Cultural Palace",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:06",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:06",
+                            "end_time": "19:48",
+                            "cost": 18,
+                            "distance": 21.12,
+                            "price": 6,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Beijing International Convention Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:27",
+                    "end_time": "10:57",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Anli Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:18",
+                            "cost": 15,
+                            "distance": 14.63,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Anli Road-Metro Station",
+                            "end": "Beijing International Convention Center",
+                            "mode": "walk",
+                            "start_time": "09:18",
+                            "end_time": "09:27",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wanlongzhou (Asian Games Village Branch)",
+                    "type": "lunch",
+                    "price": 213,
+                    "cost": 639,
+                    "start_time": "11:13",
+                    "end_time": "12:13",
+                    "transports": [
+                        {
+                            "start": "Beijing International Convention Center",
+                            "end": "Anli Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:57",
+                            "end_time": "11:06",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Anli Road-Metro Station",
+                            "end": "North Exit of Huixin West Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:06",
+                            "end_time": "11:09",
+                            "cost": 6,
+                            "distance": 1.82,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "North Exit of Huixin West Street-Metro Station",
+                            "end": "Wanlongzhou (Asian Games Village Branch)",
+                            "mode": "walk",
+                            "start_time": "11:09",
+                            "end_time": "11:13",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Soong Ching Ling Former Residence",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 60,
+                    "start_time": "12:31",
+                    "end_time": "14:01",
+                    "transports": [
+                        {
+                            "start": "Wanlongzhou (Asian Games Village Branch)",
+                            "end": "North Exit of Huixin West Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:13",
+                            "end_time": "12:17",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Exit of Huixin West Street-Metro Station",
+                            "end": "Gulou Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:17",
+                            "end_time": "12:26",
+                            "cost": 9,
+                            "distance": 4.75,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gulou Street-Metro Station",
+                            "end": "Beijing Soong Ching Ling Former Residence",
+                            "mode": "walk",
+                            "start_time": "12:26",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "20:03",
+                    "end_time": "10:04",
+                    "start": "Beijing Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 514.19,
+                    "cost": 1542.5700000000002,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Beijing Soong Ching Ling Former Residence",
+                            "end": "Gulou Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:01",
+                            "end_time": "14:06",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gulou Street-Metro Station",
+                            "end": "Beijing Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:06",
+                            "end_time": "14:17",
+                            "cost": 9,
+                            "distance": 5.66,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Beijing Railway Station-Metro Station",
+                            "end": "Beijing Railway Station",
+                            "mode": "walk",
+                            "start_time": "14:17",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "T109",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 36.200071811676025,
+    "llm_inference_time_sec": 0
+}

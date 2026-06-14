@@ -1,0 +1,3524 @@
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Namespace(splits='TPC_IJCAI_2026_phase1_bad38_shard18_10', index=None, skip=0, agent='UrbanTripOptimized', llm='TPCLLM', timeout=300, lang='en', oracle_translation=True)
+config file for testing split: /home/liangfei_jin/chinatravel/chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1_bad38_shard18_10.txt
+2 samples
+res_dir:  /home/liangfei_jin/chinatravel/results/UrbanTripOptimized_TPCLLM_en_oracletranslation
+log_dir: /home/liangfei_jin/chinatravel/cache/UrbanTripOptimized_TPCLLM_en_oracletranslation
+INFO 06-13 18:11:00 [__init__.py:239] Automatically detected platform cuda.
+/home/liangfei_jin/miniforge3/envs/chinatravel/lib/python3.9/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+------------------------------
+Process [0/2], Success [0/0]:
+data uid:  20250322120905954744
+{'days': 3, 'hard_logic_py': ['result_list=[]\nattraction_type_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)==\'attraction\': attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=not({"natural scenery", "Other"}&attraction_type_set)\nresult_list.append(result)\nresult=False\nfor activity in allactivities(plan):\n  if activity_position(activity)==\'Shanghai Tourism Festival\':\n    if activity_end_time(activity)>=\'13:50\':\n      result=True\nresult_list.append(result)\nresult=False\nfor r in result_list:\n  result=result or r'], 'nature_language': 'We are a group of 4, departing from Shenzhen to Shanghai for a 3-day trip, and we need to meet either of the following requirements:  \n1. Do not want to visit natural scenery and Other.  \n2. Hope to depart no earlier than 13:50 from the Shanghai Tourism Festival.', 'people_number': 4, 'start_city': 'Shenzhen', 'target_city': 'Shanghai', 'uid': '20250322120905954744'}
+Shenzhen -> Shanghai
+User's Constraints:
+We are a group of 4, departing from Shenzhen to Shanghai for a 3-day trip, and we need to meet either of the following requirements:  
+1. Do not want to visit natural scenery and Other.  
+2. Hope to depart no earlier than 13:50 from the Shanghai Tourism Festival.
+Formatted Expression:
+all_satisfy: False
+must_see_attraction: ['Shanghai Tourism Festival']
+must_not_see_attraction_type: ['natural scenery', 'Other']
+activities_leave_time_dict: {'Shanghai Tourism Festival': ['late', '13:50']}
+must_visit_restaurant: []
+By list:
+[{'all_satisfy': True, 'must_see_attraction': [], 'must_not_see_attraction_type': ['natural scenery', 'Other'], 'must_visit_restaurant': []}, {'all_satisfy': True, 'must_see_attraction': ['Shanghai Tourism Festival'], 'activities_leave_time_dict': {'Shanghai Tourism Festival': ['late', '13:50']}, 'must_visit_restaurant': []}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Shenzhen to Shanghai: 10 flights, 21 trains
+from Shanghai to Shenzhen: 10 flights, 21 trains
+  TrainID                     TrainType  ...    Cost FlightID
+0   G2787               High-speed rail  ...  788.63      NaN
+1   G2790               High-speed rail  ...  788.63      NaN
+2   D3126  EMU (Electric Multiple Unit)  ...  727.96      NaN
+3    D385  EMU (Electric Multiple Unit)  ...  727.96      NaN
+4    D388  EMU (Electric Multiple Unit)  ...  727.96      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...    Cost FlightID
+0   G2784               High-speed rail  ...  788.63      NaN
+1   G2785               High-speed rail  ...  788.63      NaN
+2   D2287  EMU (Electric Multiple Unit)  ...  727.96      NaN
+3    G997               High-speed rail  ...  788.63      NaN
+4    D377  EMU (Electric Multiple Unit)  ...  727.96      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '03:17', 'end_time': '04:48', 'start': "Shenzhen Bao'an International Airport", 'end': 'Shanghai Hongqiao International Airport', 'price': 571.18, 'cost': 2284.72, 'tickets': 4, 'transports': [], 'FlightID': 'FL164', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 04:48
+current_position: Shanghai Hongqiao International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 04:48, Shanghai Hongqiao International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Tourism Festival
+[Constraint] Leaving Shanghai Tourism Festival too early: 10:51 < 13:50
+[Constraint] Leaving Shanghai Tourism Festival too early: 10:32 < 13:50
+lookahead to add attraction, candidate: Chuansha Park
+inner-city transport error, backtrack...
+add attraction: Chuansha Park, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:02
+current_position: Chuansha Park
+3
+check if too late
+collecting innercity transport to see if possible back to hotel
+inner-city transport error, backtrack...
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:02, Chuansha Park, next-poi type: lunch
+add restaurant: Imperial Banquet Chinese Restaurant, type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:00
+current_position: Imperial Banquet Chinese Restaurant
+4
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:00, Imperial Banquet Chinese Restaurant, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Tourism Festival
+add attraction: Shanghai Tourism Festival, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 14:15
+current_position: Shanghai Tourism Festival
+4
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 14:15, Shanghai Tourism Festival, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Textile Museum
+inner-city transport error, backtrack...
+add attraction: Shanghai Textile Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:45
+current_position: Shanghai Textile Museum
+5
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 15:45, Shanghai Textile Museum, next-poi type: attraction
+sorted by distance
+lookahead to add attraction, candidate: Shanghai Museum of Contemporary Art
+inner-city transport error, backtrack...
+add attraction: Shanghai Museum of Contemporary Art, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:15
+current_position: Shanghai Museum of Contemporary Art
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 17:15, Shanghai Museum of Contemporary Art, next-poi type: dinner
+add restaurant: Zhuang's Longxing Crab Roe Noodles (Nanjing East Road Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:29
+current_position: Zhuang's Longxing Crab Roe Noodles (Nanjing East Road Branch)
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:29, Zhuang's Longxing Crab Roe Noodles (Nanjing East Road Branch), next-poi type: attraction
+sorted by distance
+------------------------------
+Process [1/2], Success [0/1]:
+data uid:  20250323010100845247
+{'days': 5, 'hard_logic_py': ['result_list=[]\ninner_city_transportation_cost=0 \nfor activity in allactivities(plan):\n    inner_city_transportation_cost += innercity_transport_cost(activity_transports(activity))\nresult=(inner_city_transportation_cost<=50)\nresult_list.append(result)\ntotal_cost=0 \nfor activity in allactivities(plan):\n    total_cost+=activity_cost(activity)\n    total_cost += innercity_transport_cost(activity_transports(activity))\nresult=(total_cost<=9600)\nresult_list.append(result)\nresult=False\nfor r in result_list:\n  result=result or r'], 'nature_language': 'One person, traveling from Chengdu to Shanghai for 5 days, with either of the following requirements:  \n1. Intra-city travel budget of 50.0  \n2. Total trip budget of 9600.0', 'people_number': 1, 'start_city': 'Chengdu', 'target_city': 'Shanghai', 'uid': '20250323010100845247'}
+Chengdu -> Shanghai
+User's Constraints:
+One person, traveling from Chengdu to Shanghai for 5 days, with either of the following requirements:  
+1. Intra-city travel budget of 50.0  
+2. Total trip budget of 9600.0
+Formatted Expression:
+all_satisfy: False
+must_see_attraction: []
+must_visit_restaurant: []
+innercity_budget: 50.0
+overall_budget: 9600.0
+By list:
+[{'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': [], 'innercity_budget': 50.0}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': [], 'overall_budget': 9600.0}, {'all_satisfy': True, 'must_see_attraction': [], 'must_visit_restaurant': []}]
+query room number: None
+query room numbed: None
+from Chengdu to Shanghai: 10 flights, 18 trains
+from Shanghai to Chengdu: 10 flights, 27 trains
+  TrainID                     TrainType  ...     Cost FlightID
+0   G2195               High-speed rail  ...  1079.46      NaN
+1   D3055  EMU (Electric Multiple Unit)  ...   996.42      NaN
+2   D3058  EMU (Electric Multiple Unit)  ...   996.42      NaN
+3    D635  EMU (Electric Multiple Unit)  ...   996.42      NaN
+4    D638  EMU (Electric Multiple Unit)  ...   996.42      NaN
+
+[5 rows x 9 columns]
+  TrainID                     TrainType  ...    Cost FlightID
+0   D2207  EMU (Electric Multiple Unit)  ...  996.42      NaN
+1   D2206  EMU (Electric Multiple Unit)  ...  996.42      NaN
+2    D353  EMU (Electric Multiple Unit)  ...  996.42      NaN
+3    D352  EMU (Electric Multiple Unit)  ...  996.42      NaN
+4    D637  EMU (Electric Multiple Unit)  ...  996.42      NaN
+
+[5 rows x 9 columns]
+search: ...
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 
+current_position: 
+0
+check if too late
+[{'day': 1, 'activities': [{'start_time': '03:11', 'end_time': '05:15', 'start': 'Chengdu Tianfu International Airport', 'end': 'Shanghai Hongqiao International Airport', 'price': 813.51, 'cost': 813.51, 'tickets': 1, 'transports': [], 'FlightID': 'FL402', 'type': 'airplane'}]}]
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 05:15
+current_position: Shanghai Hongqiao International Airport
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 05:15, Shanghai Hongqiao International Airport, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Eileen Chang's Former Residence
+add attraction: Eileen Chang's Former Residence, type: historical site
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 10:56
+current_position: Eileen Chang's Former Residence
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 0 10:56, Eileen Chang's Former Residence, next-poi type: lunch
+add restaurant: Shunchang Renshou Stuffed Egg (Qibao Old Street Branch), type: Snacks
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 12:36
+current_position: Shunchang Renshou Stuffed Egg (Qibao Old Street Branch)
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 12:36, Shunchang Renshou Stuffed Egg (Qibao Old Street Branch), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Shanghai Astronomical Museum
+add attraction: Shanghai Astronomical Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 15:13
+current_position: Shanghai Astronomical Museum
+0
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Astronomical Museum, hotel arrived time: 24:57
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Astronomical Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 14:29
+current_position: Shanghai Astronomical Museum
+2
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Astronomical Museum, hotel arrived time: 24:13
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Astronomical Museum, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 17:16
+current_position: Shanghai Astronomical Museum
+4
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Astronomical Museum, hotel arrived time: 27:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Old Shanghai 1930s Style Street
+add attraction: Old Shanghai 1930s Style Street, type: commercial district
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 14:47
+current_position: Old Shanghai 1930s Style Street
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 14:47, Old Shanghai 1930s Style Street, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Shanghai World Expo Exhibition and Convention Center
+add attraction: Shanghai World Expo Exhibition and Convention Center, type: Museum/Memorial Hall
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 16:35
+current_position: Shanghai World Expo Exhibition and Convention Center
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 0 16:35, Shanghai World Expo Exhibition and Convention Center, next-poi type: dinner
+add restaurant: Long Journey Shaved Ice (Kongjiang Road Branch), type: Bakery and Desserts
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 18:14
+current_position: Long Journey Shaved Ice (Kongjiang Road Branch)
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 18:14, Long Journey Shaved Ice (Kongjiang Road Branch), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Shanghai Stadium (Shanghai Grand Stage)
+add attraction: Shanghai Stadium (Shanghai Grand Stage), type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:30
+current_position: Shanghai Stadium (Shanghai Grand Stage)
+6
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Stadium (Shanghai Grand Stage), hotel arrived time: 24:23
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Stadium (Shanghai Grand Stage), type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:30
+current_position: Shanghai Stadium (Shanghai Grand Stage)
+8
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Stadium (Shanghai Grand Stage), hotel arrived time: 24:23
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Shanghai Stadium (Shanghai Grand Stage) closed at 19:30, start time: 18:14, arrival time: 21:07, backtrack...
+lookahead to add attraction, candidate: Monet's Garden
+add attraction: Monet's Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:48
+current_position: Monet's Garden
+11
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Monet's Garden, hotel arrived time: 25:19
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Monet's Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:22
+current_position: Monet's Garden
+13
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Monet's Garden, hotel arrived time: 24:53
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Monet's Garden closed at 21:00, start time: 18:14, arrival time: 23:19, backtrack...
+lookahead to add attraction, candidate: Shanghai Pudong Development Bank Oriental Sports Center
+add attraction: Shanghai Pudong Development Bank Oriental Sports Center, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:33
+current_position: Shanghai Pudong Development Bank Oriental Sports Center
+16
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Pudong Development Bank Oriental Sports Center, hotel arrived time: 24:43
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Pudong Development Bank Oriental Sports Center, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Shanghai Pudong Development Bank Oriental Sports Center
+18
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Pudong Development Bank Oriental Sports Center, hotel arrived time: 24:16
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Pudong Development Bank Oriental Sports Center, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 22:00
+current_position: Shanghai Pudong Development Bank Oriental Sports Center
+20
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Pudong Development Bank Oriental Sports Center, hotel arrived time: 26:10
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Zhang Garden
+add attraction: Zhang Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:15
+current_position: Zhang Garden
+22
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Zhang Garden, hotel arrived time: 24:50
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Zhang Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 19:57
+current_position: Zhang Garden
+24
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Zhang Garden, hotel arrived time: 24:32
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Zhang Garden, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:35
+current_position: Zhang Garden
+26
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Zhang Garden, hotel arrived time: 26:10
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Shipyard Riverside Green Space
+add attraction: Shanghai Shipyard Riverside Green Space, type: park
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 20:06
+current_position: Shanghai Shipyard Riverside Green Space
+28
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 0 20:06, Shanghai Shipyard Riverside Green Space, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Shanghai Stadium
+add attraction: Shanghai Stadium, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 22:00
+current_position: Shanghai Stadium
+28
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Stadium, hotel arrived time: 26:47
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Stadium, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:49
+current_position: Shanghai Stadium
+30
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Stadium, hotel arrived time: 26:36
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Stadium, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 22:00
+current_position: Shanghai Stadium
+32
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Stadium, hotel arrived time: 26:47
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Adventure Island
+Adventure Island closed at 20:30, start time: 20:06, arrival time: 20:58, backtrack...
+Adventure Island closed at 20:30, start time: 20:06, arrival time: 20:33, backtrack...
+Adventure Island closed at 20:30, start time: 20:06, arrival time: 23:48, backtrack...
+lookahead to add attraction, candidate: Maple Leaf Island
+Maple Leaf Island closed at 24:00, start time: 20:06, arrival time: 26:05, backtrack...
+add attraction: Maple Leaf Island, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 23:07
+current_position: Maple Leaf Island
+38
+check if too late
+too late, after 23:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Maple Leaf Island closed at 24:00, start time: 20:06, arrival time: 32:14, backtrack...
+lookahead to add attraction, candidate: Cloudrise Art Museum
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: Cloudrise Art Museum
+41
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Cloudrise Art Museum, hotel arrived time: 25:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: Cloudrise Art Museum
+43
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Cloudrise Art Museum, hotel arrived time: 25:59
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Cloudrise Art Museum closed at 21:00, start time: 20:06, arrival time: 21:16, backtrack...
+lookahead to add attraction, candidate: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River
+add attraction: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:30
+current_position: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River
+46
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River, hotel arrived time: 25:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:30
+current_position: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River
+48
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River, hotel arrived time: 25:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:30
+current_position: Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River
+50
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Huangpu River • Oriental Pearl Tower Shimmering Cruise on the Huangpu River, hotel arrived time: 25:30
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Duolun Road Cultural Celebrities Street
+add attraction: Duolun Road Cultural Celebrities Street, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:51
+current_position: Duolun Road Cultural Celebrities Street
+52
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Duolun Road Cultural Celebrities Street, hotel arrived time: 26:18
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Duolun Road Cultural Celebrities Street, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:40
+current_position: Duolun Road Cultural Celebrities Street
+54
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Duolun Road Cultural Celebrities Street, hotel arrived time: 26:07
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Duolun Road Cultural Celebrities Street, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 22:13
+current_position: Duolun Road Cultural Celebrities Street
+56
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Duolun Road Cultural Celebrities Street, hotel arrived time: 26:40
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: North Bund International Cruise Terminal Beach Carnival
+add attraction: North Bund International Cruise Terminal Beach Carnival, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:47
+current_position: North Bund International Cruise Terminal Beach Carnival
+58
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI North Bund International Cruise Terminal Beach Carnival, hotel arrived time: 25:42
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: North Bund International Cruise Terminal Beach Carnival, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:36
+current_position: North Bund International Cruise Terminal Beach Carnival
+60
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI North Bund International Cruise Terminal Beach Carnival, hotel arrived time: 25:31
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: North Bund International Cruise Terminal Beach Carnival, type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:42
+current_position: North Bund International Cruise Terminal Beach Carnival
+62
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI North Bund International Cruise Terminal Beach Carnival, hotel arrived time: 25:37
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: SNH48 Star Dream Theater
+add attraction: SNH48 Star Dream Theater, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: SNH48 Star Dream Theater
+64
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI SNH48 Star Dream Theater, hotel arrived time: 25:15
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: SNH48 Star Dream Theater, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: SNH48 Star Dream Theater
+66
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI SNH48 Star Dream Theater, hotel arrived time: 25:15
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: SNH48 Star Dream Theater, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:00
+current_position: SNH48 Star Dream Theater
+68
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI SNH48 Star Dream Theater, hotel arrived time: 25:15
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Nanhui Beach
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 24:00
+current_position: Nanhui Beach
+70
+check if too late
+too late, after 23:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 23:04
+current_position: Nanhui Beach
+72
+check if too late
+too late, after 23:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Nanhui Beach closed at 24:00, start time: 20:06, arrival time: 31:51, backtrack...
+lookahead to add attraction, candidate: Dianshan Lake Scenic Area
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 24:00
+current_position: Dianshan Lake Scenic Area
+75
+check if too late
+too late, after 23:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 22:49
+current_position: Dianshan Lake Scenic Area
+77
+check if too late
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Dianshan Lake Scenic Area, hotel arrived time: 25:52
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Dianshan Lake Scenic Area closed at 24:00, start time: 20:06, arrival time: 29:51, backtrack...
+lookahead to add attraction, candidate: SoReal VR Hyper Space (Disneytown Store)
+add attraction: SoReal VR Hyper Space (Disneytown Store), type: Amusement Park/Sports Entertainment
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 0
+current_time: 21:30
+current_position: SoReal VR Hyper Space (Disneytown Store)
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['hotel']
+POI planning, day 0 21:30, SoReal VR Hyper Space (Disneytown Store), next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 1 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Duolun Road Cultural Celebrities Street
+add attraction: Duolun Road Cultural Celebrities Street, type: Cultural Tourism Area
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 10:52
+current_position: Duolun Road Cultural Celebrities Street
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 1 10:52, Duolun Road Cultural Celebrities Street, next-poi type: lunch
+add restaurant: Four Springs Restaurant, type: Shanghai cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 12:19
+current_position: Four Springs Restaurant
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 12:19, Four Springs Restaurant, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Dongchang Road Ferry
+add attraction: Dongchang Road Ferry, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 14:16
+current_position: Dongchang Road Ferry
+80
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 14:16, Dongchang Road Ferry, next-poi type: attraction
+sorted by price
+innercity budget exceeded, backtrack...
+lookahead to add attraction, candidate: Liu Haisu Art Museum
+add attraction: Liu Haisu Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:14
+current_position: Liu Haisu Art Museum
+81
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Liu Haisu Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:58
+current_position: Liu Haisu Art Museum
+84
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Liu Haisu Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 17:00
+current_position: Liu Haisu Art Museum
+87
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Himalaya Art Museum
+add attraction: Himalaya Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:09
+current_position: Himalaya Art Museum
+90
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Himalaya Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:55
+current_position: Himalaya Art Museum
+93
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Himalaya Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:58
+current_position: Himalaya Art Museum
+96
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Xisha Pearl Lake Scenic Area
+Xisha Pearl Lake Scenic Area closed at 16:30, start time: 14:16, arrival time: 22:52, backtrack...
+add attraction: Xisha Pearl Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:30
+current_position: Xisha Pearl Lake Scenic Area
+100
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Xisha Pearl Lake Scenic Area closed at 16:30, start time: 14:16, arrival time: 26:28, backtrack...
+lookahead to add attraction, candidate: Site of the Second National Congress of the Communist Party of China Memorial Hall
+add attraction: Site of the Second National Congress of the Communist Party of China Memorial Hall, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:00
+current_position: Site of the Second National Congress of the Communist Party of China Memorial Hall
+104
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Site of the Second National Congress of the Communist Party of China Memorial Hall, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:51
+current_position: Site of the Second National Congress of the Communist Party of China Memorial Hall
+107
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Site of the Second National Congress of the Communist Party of China Memorial Hall, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:28
+current_position: Site of the Second National Congress of the Communist Party of China Memorial Hall
+110
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Long Museum (West Bund)
+add attraction: Long Museum (West Bund), type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 16:13
+current_position: Long Museum (West Bund)
+113
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Long Museum (West Bund), type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:55
+current_position: Long Museum (West Bund)
+116
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Long Museum (West Bund), type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 17:00
+current_position: Long Museum (West Bund)
+119
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Dongchang Road Ferry to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+122
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Dongchang Road Ferry to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+125
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Dongchang Road Ferry to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+128
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: attraction, candidate type: ['dinner', 'hotel']
+try another poi type, backtrack...
+POI planning, day 1 14:16, Dongchang Road Ferry, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+131
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Fail with the given accommodation activity, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dongchang Road Ferry, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 14:00
+current_position: Dongchang Road Ferry
+135
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dongchang Road Ferry, type: Cultural Landscape
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 15:24
+current_position: Dongchang Road Ferry
+138
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 15:24, Dongchang Road Ferry, next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Cloudrise Art Museum
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 17:18
+current_position: Cloudrise Art Museum
+138
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 17:18, Cloudrise Art Museum, next-poi type: dinner
+innercity budget exceeded, backtrack...
+add restaurant: Cafe del Volcan (Yongkang Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:41
+current_position: Cafe del Volcan (Yongkang Road Branch)
+139
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Cafe del Volcan (Yongkang Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:25
+current_position: Cafe del Volcan (Yongkang Road Branch)
+142
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Cafe del Volcan (Yongkang Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Cafe del Volcan (Yongkang Road Branch)
+145
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:38
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+148
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:22
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+151
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:53
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+154
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Village Entrance Tree, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:00
+current_position: Village Entrance Tree
+157
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Village Entrance Tree, type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:00
+current_position: Village Entrance Tree
+160
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: C Cafe (Duoyun Bookstore Flagship Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:43
+current_position: C Cafe (Duoyun Bookstore Flagship Store)
+164
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: C Cafe (Duoyun Bookstore Flagship Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:26
+current_position: C Cafe (Duoyun Bookstore Flagship Store)
+167
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: C Cafe (Duoyun Bookstore Flagship Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:25
+current_position: C Cafe (Duoyun Bookstore Flagship Store)
+170
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Jardine 1915 (Binjiang International Plaza Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 17:30
+current_position: Jardine 1915 (Binjiang International Plaza Branch)
+174
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+The restaurant is closed now...
+add restaurant: Gunong Restaurant: Local Farmhouse Cuisine, type: Farmhouse cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:45
+current_position: Gunong Restaurant: Local Farmhouse Cuisine
+179
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: The Friends Cafe - Central Perk Theme Store (Harbin Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:37
+current_position: The Friends Cafe - Central Perk Theme Store (Harbin Road Branch)
+183
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Friends Cafe - Central Perk Theme Store (Harbin Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:23
+current_position: The Friends Cafe - Central Perk Theme Store (Harbin Road Branch)
+186
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Friends Cafe - Central Perk Theme Store (Harbin Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:01
+current_position: The Friends Cafe - Central Perk Theme Store (Harbin Road Branch)
+189
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Haijinzi (Shaanxi South Road Branch), type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:42
+current_position: Haijinzi (Shaanxi South Road Branch)
+192
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Haijinzi (Shaanxi South Road Branch), type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:23
+current_position: Haijinzi (Shaanxi South Road Branch)
+195
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Haijinzi (Shaanxi South Road Branch), type: Jiangsu-Zhejiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:03
+current_position: Haijinzi (Shaanxi South Road Branch)
+198
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Ningguo Vegetarian Restaurant (Huajing Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:12
+current_position: Ningguo Vegetarian Restaurant (Huajing Road Branch)
+201
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Ningguo Vegetarian Restaurant (Huajing Road Branch), type: Vegetarian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:40
+current_position: Ningguo Vegetarian Restaurant (Huajing Road Branch)
+204
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Le Caisa Pizza (Jing'an Joy City Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:33
+current_position: Le Caisa Pizza (Jing'an Joy City Branch)
+208
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Le Caisa Pizza (Jing'an Joy City Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:21
+current_position: Le Caisa Pizza (Jing'an Joy City Branch)
+211
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Le Caisa Pizza (Jing'an Joy City Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:44
+current_position: Le Caisa Pizza (Jing'an Joy City Branch)
+214
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: 930 Private Kitchen (Yichuan Road Branch), type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:44
+current_position: 930 Private Kitchen (Yichuan Road Branch)
+217
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: 930 Private Kitchen (Yichuan Road Branch), type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:20
+current_position: 930 Private Kitchen (Yichuan Road Branch)
+220
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: 930 Private Kitchen (Yichuan Road Branch), type: Other
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:39
+current_position: 930 Private Kitchen (Yichuan Road Branch)
+223
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hoping Fat Tea Cafe (People's Square Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:36
+current_position: Hoping Fat Tea Cafe (People's Square Branch)
+226
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hoping Fat Tea Cafe (People's Square Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:23
+current_position: Hoping Fat Tea Cafe (People's Square Branch)
+229
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Hoping Fat Tea Cafe (People's Square Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:59
+current_position: Hoping Fat Tea Cafe (People's Square Branch)
+232
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Jian Chu · Hunan Cuisine (Lingkong SOHO Branch), type: Hunan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:55
+current_position: Jian Chu · Hunan Cuisine (Lingkong SOHO Branch)
+235
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Jian Chu · Hunan Cuisine (Lingkong SOHO Branch), type: Hunan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:33
+current_position: Jian Chu · Hunan Cuisine (Lingkong SOHO Branch)
+238
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Jian Chu · Hunan Cuisine (Lingkong SOHO Branch), type: Hunan cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 20:19
+current_position: Jian Chu · Hunan Cuisine (Lingkong SOHO Branch)
+241
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Old Flavor Farmhouse Restaurant (Chongming Branch), type: Farmhouse cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:21
+current_position: Old Flavor Farmhouse Restaurant (Chongming Branch)
+245
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Goldsmith Sushi (Zhonggeng Man You Cheng Branch), type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:04
+current_position: Goldsmith Sushi (Zhonggeng Man You Cheng Branch)
+249
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Goldsmith Sushi (Zhonggeng Man You Cheng Branch), type: Japanese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:39
+current_position: Goldsmith Sushi (Zhonggeng Man You Cheng Branch)
+252
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xiaojiang Mountain · Exquisite Xinjiang Cuisine (Magnolia Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:36
+current_position: Xiaojiang Mountain · Exquisite Xinjiang Cuisine (Magnolia Plaza Branch)
+256
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xiaojiang Mountain · Exquisite Xinjiang Cuisine (Magnolia Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:24
+current_position: Xiaojiang Mountain · Exquisite Xinjiang Cuisine (Magnolia Plaza Branch)
+259
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xiaojiang Mountain · Exquisite Xinjiang Cuisine (Magnolia Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:10
+current_position: Xiaojiang Mountain · Exquisite Xinjiang Cuisine (Magnolia Plaza Branch)
+262
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Past Progressive Dining: 90s Memory Museum, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:44
+current_position: Past Progressive Dining: 90s Memory Museum
+265
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Past Progressive Dining: 90s Memory Museum, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:27
+current_position: Past Progressive Dining: 90s Memory Museum
+268
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Past Progressive Dining: 90s Memory Museum, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:32
+current_position: Past Progressive Dining: 90s Memory Museum
+271
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:52
+current_position: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch)
+274
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:34
+current_position: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch)
+277
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch), type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 20:26
+current_position: Kebabs on the Grille Indian Restaurant (Thumbs Up Plaza Branch)
+280
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Yelixiali (Lujiazui Zhengda Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:38
+current_position: Yelixiali (Lujiazui Zhengda Plaza Branch)
+283
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Yelixiali (Lujiazui Zhengda Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:25
+current_position: Yelixiali (Lujiazui Zhengda Plaza Branch)
+286
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Yelixiali (Lujiazui Zhengda Plaza Branch), type: Xinjiang cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:17
+current_position: Yelixiali (Lujiazui Zhengda Plaza Branch)
+289
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crazy Ones Spanish Paella (Metro City Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:45
+current_position: Crazy Ones Spanish Paella (Metro City Branch)
+292
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crazy Ones Spanish Paella (Metro City Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:28
+current_position: Crazy Ones Spanish Paella (Metro City Branch)
+295
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crazy Ones Spanish Paella (Metro City Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:42
+current_position: Crazy Ones Spanish Paella (Metro City Branch)
+298
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: TVB Garden Cafe, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:59
+current_position: TVB Garden Cafe
+301
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: TVB Garden Cafe, type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:10
+current_position: TVB Garden Cafe
+304
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Jingyunhua Roast Duck & Dim Sum (New World Store), type: Beijing cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:36
+current_position: Jingyunhua Roast Duck & Dim Sum (New World Store)
+308
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Jingyunhua Roast Duck & Dim Sum (New World Store), type: Beijing cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:22
+current_position: Jingyunhua Roast Duck & Dim Sum (New World Store)
+311
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Jingyunhua Roast Duck & Dim Sum (New World Store), type: Beijing cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:54
+current_position: Jingyunhua Roast Duck & Dim Sum (New World Store)
+314
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:38
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+317
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:22
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+320
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:52
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+323
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cloudrise Art Museum to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+326
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cloudrise Art Museum to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+329
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cloudrise Art Museum to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+332
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: dinner, candidate type: ['attraction', 'hotel']
+try another poi type, backtrack...
+POI planning, day 1 17:18, Cloudrise Art Museum, next-poi type: attraction
+sorted by price
+innercity budget exceeded, backtrack...
+lookahead to add attraction, candidate: Nanhui Beach
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:45
+current_position: Nanhui Beach
+336
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 20:23
+current_position: Nanhui Beach
+339
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Nanhui Beach closed at 24:00, start time: 17:18, arrival time: 29:59, backtrack...
+lookahead to add attraction, candidate: Dianshan Lake Scenic Area
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:17
+current_position: Dianshan Lake Scenic Area
+343
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:53
+current_position: Dianshan Lake Scenic Area
+346
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Dianshan Lake Scenic Area closed at 24:00, start time: 17:18, arrival time: 25:58, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cloudrise Art Museum to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+350
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cloudrise Art Museum to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+353
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cloudrise Art Museum to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+356
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: attraction, candidate type: ['hotel']
+try another poi type, backtrack...
+POI planning, day 1 17:18, Cloudrise Art Museum, next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+359
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Fail with the given accommodation activity, backtrack...
+add_attraction failed, backtrack...
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 17:02
+current_position: Cloudrise Art Museum
+363
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Cloudrise Art Museum, type: Art museum
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 18:05
+current_position: Cloudrise Art Museum
+366
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'dinner', 'hotel']
+POI planning, day 1 18:05, Cloudrise Art Museum, next-poi type: dinner
+add restaurant: Cafe del Volcan (Yongkang Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Cafe del Volcan (Yongkang Road Branch)
+366
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 1 19:00, Cafe del Volcan (Yongkang Road Branch), next-poi type: attraction
+sorted by price
+innercity budget exceeded, backtrack...
+lookahead to add attraction, candidate: Nanhui Beach
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 23:17
+current_position: Nanhui Beach
+367
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:59
+current_position: Nanhui Beach
+370
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Nanhui Beach closed at 24:00, start time: 19:00, arrival time: 30:58, backtrack...
+lookahead to add attraction, candidate: Dianshan Lake Scenic Area
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:51
+current_position: Dianshan Lake Scenic Area
+374
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:33
+current_position: Dianshan Lake Scenic Area
+377
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Dianshan Lake Scenic Area closed at 24:00, start time: 19:00, arrival time: 27:31, backtrack...
+lookahead to add attraction, candidate: Shanghai Songhu Anti-Japanese War Memorial Park
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:48
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+381
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:04
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+384
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 24:00
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+387
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cafe del Volcan (Yongkang Road Branch) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+390
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cafe del Volcan (Yongkang Road Branch) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+393
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Cafe del Volcan (Yongkang Road Branch) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+396
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: attraction, candidate type: ['hotel']
+try another poi type, backtrack...
+POI planning, day 1 19:00, Cafe del Volcan (Yongkang Road Branch), next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+399
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Fail with the given accommodation activity, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Cafe del Volcan (Yongkang Road Branch), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:00
+current_position: Cafe del Volcan (Yongkang Road Branch)
+403
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:25
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+407
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:09
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+410
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:40
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+413
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), hotel arrived time: 24:08
+The current time is too late to go hotel or back-transport, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: C Cafe (Duoyun Bookstore Flagship Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:30
+current_position: C Cafe (Duoyun Bookstore Flagship Store)
+415
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 1 19:30, C Cafe (Duoyun Bookstore Flagship Store), next-poi type: attraction
+sorted by price
+innercity budget exceeded, backtrack...
+lookahead to add attraction, candidate: Dianshan Lake Scenic Area
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 23:33
+current_position: Dianshan Lake Scenic Area
+416
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:11
+current_position: Dianshan Lake Scenic Area
+419
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Dianshan Lake Scenic Area closed at 24:00, start time: 19:30, arrival time: 29:01, backtrack...
+lookahead to add attraction, candidate: Hengsha Island
+add attraction: Hengsha Island, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 24:00
+current_position: Hengsha Island
+423
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Hengsha Island, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:53
+current_position: Hengsha Island
+426
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+Hengsha Island closed at 24:00, start time: 19:30, arrival time: 26:40, backtrack...
+lookahead to add attraction, candidate: Shanghai Songhu Anti-Japanese War Memorial Park
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:15
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+430
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 21:30
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+433
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 24:00
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+436
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: C Cafe (Duoyun Bookstore Flagship Store) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+439
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: C Cafe (Duoyun Bookstore Flagship Store) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+442
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: C Cafe (Duoyun Bookstore Flagship Store) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+445
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: attraction, candidate type: ['hotel']
+try another poi type, backtrack...
+POI planning, day 1 19:30, C Cafe (Duoyun Bookstore Flagship Store), next-poi type: hotel
+collecting innercity transport to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+448
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Fail with the given accommodation activity, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: C Cafe (Duoyun Bookstore Flagship Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 19:13
+current_position: C Cafe (Duoyun Bookstore Flagship Store)
+452
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: C Cafe (Duoyun Bookstore Flagship Store), type: coffee shop
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 20:00
+current_position: C Cafe (Duoyun Bookstore Flagship Store)
+455
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'hotel']
+POI planning, day 1 20:00, C Cafe (Duoyun Bookstore Flagship Store), next-poi type: attraction
+sorted by price
+lookahead to add attraction, candidate: Nanhui Beach
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 24:00
+current_position: Nanhui Beach
+455
+check if too late
+too late, after 23:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:57
+current_position: Nanhui Beach
+457
+check if too late
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Nanhui Beach, hotel arrived time: 25:07
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Nanhui Beach closed at 24:00, start time: 20:00, arrival time: 31:37, backtrack...
+lookahead to add attraction, candidate: Dianshan Lake Scenic Area
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 24:00
+current_position: Dianshan Lake Scenic Area
+460
+check if too late
+too late, after 23:00
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:41
+current_position: Dianshan Lake Scenic Area
+462
+check if too late
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Dianshan Lake Scenic Area, hotel arrived time: 25:44
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Dianshan Lake Scenic Area closed at 24:00, start time: 20:00, arrival time: 29:31, backtrack...
+lookahead to add attraction, candidate: Shanghai Songhu Anti-Japanese War Memorial Park
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:45
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+465
+check if too late
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Songhu Anti-Japanese War Memorial Park, hotel arrived time: 24:24
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 1
+current_time: 22:00
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+467
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+Can not go back to hotel, current POI Shanghai Songhu Anti-Japanese War Memorial Park, hotel arrived time: 28:22
+The current time is too late to go hotel or back-transport, backtrack...
+add_attraction failed, backtrack...
+Shanghai Songhu Anti-Japanese War Memorial Park closed at 24:00, start time: 20:00, arrival time: 24:01, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: C Cafe (Duoyun Bookstore Flagship Store) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+470
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 08:30
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+470
+check if too late
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+collecting innercity transport to see if possible back to hotel
+candidates_type:  ['attraction', 'lunch', 'dinner', 'hotel']
+POI planning, day 2 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: attraction
+sorted by price
+innercity budget exceeded, backtrack...
+lookahead to add attraction, candidate: Nanhui Beach
+add attraction: Nanhui Beach, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 11:02
+current_position: Nanhui Beach
+471
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Dianshan Lake Scenic Area
+add attraction: Dianshan Lake Scenic Area, type: natural scenery
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 11:37
+current_position: Dianshan Lake Scenic Area
+474
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Jiao Tong University
+add attraction: Shanghai Jiao Tong University, type: University campus
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 10:56
+current_position: Shanghai Jiao Tong University
+477
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Jiao Tong University, type: University campus
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 10:37
+current_position: Shanghai Jiao Tong University
+480
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+lookahead to add attraction, candidate: Shanghai Songhu Anti-Japanese War Memorial Park
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 11:39
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+483
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+add attraction: Shanghai Songhu Anti-Japanese War Memorial Park, type: Red tourism sites
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 10:47
+current_position: Shanghai Songhu Anti-Japanese War Memorial Park
+486
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_attraction failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+489
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+492
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+495
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: attraction, candidate type: ['lunch', 'dinner', 'hotel']
+try another poi type, backtrack...
+POI planning, day 2 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: lunch
+innercity budget exceeded, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+499
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+502
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:58
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+505
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Gunong Restaurant: Local Farmhouse Cuisine, type: Farmhouse cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Gunong Restaurant: Local Farmhouse Cuisine
+509
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+513
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+516
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Money Shops (Yuyuan Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Money Shops (Yuyuan Road Branch)
+520
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Money Shops (Yuyuan Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Money Shops (Yuyuan Road Branch)
+523
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro
+527
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro
+530
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:24
+current_position: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro
+533
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant
+536
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant
+539
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant
+542
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch)
+545
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch)
+548
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant, type: Bar/Pub
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant
+552
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant, type: Bar/Pub
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant
+555
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant, type: Bar/Pub
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:36
+current_position: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant
+558
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+561
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+564
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:26
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+567
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Press (Shen Bao Guan Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Press (Shen Bao Guan Branch)
+570
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Press (Shen Bao Guan Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Press (Shen Bao Guan Branch)
+573
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Press (Shen Bao Guan Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:46
+current_position: The Press (Shen Bao Guan Branch)
+576
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant
+579
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant
+582
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:54
+current_position: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant
+585
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Quay Riverside Restaurant at Hotel Indigo Shanghai on the Bund, type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Quay Riverside Restaurant at Hotel Indigo Shanghai on the Bund
+588
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Quay Riverside Restaurant at Hotel Indigo Shanghai on the Bund, type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Quay Riverside Restaurant at Hotel Indigo Shanghai on the Bund
+591
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Quay Riverside Restaurant at Hotel Indigo Shanghai on the Bund, type: Southeast Asian cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:26
+current_position: Quay Riverside Restaurant at Hotel Indigo Shanghai on the Bund
+594
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bright 919 (North Tibet Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Bright 919 (North Tibet Road Branch)
+597
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bright 919 (North Tibet Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Bright 919 (North Tibet Road Branch)
+600
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinghua Lou (Fuzhou Road Main Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Xinghua Lou (Fuzhou Road Main Branch)
+604
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinghua Lou (Fuzhou Road Main Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Xinghua Lou (Fuzhou Road Main Branch)
+607
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinghua Lou (Fuzhou Road Main Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:46
+current_position: Xinghua Lou (Fuzhou Road Main Branch)
+610
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Langham, Shanghai Xintiandi · Cachet Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Langham, Shanghai Xintiandi · Cachet Restaurant
+613
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Langham, Shanghai Xintiandi · Cachet Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Langham, Shanghai Xintiandi · Cachet Restaurant
+616
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Langham, Shanghai Xintiandi · Cachet Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:54
+current_position: The Langham, Shanghai Xintiandi · Cachet Restaurant
+619
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Westin Shanghai Hotel - The Westin Stage Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Westin Shanghai Hotel - The Westin Stage Restaurant
+622
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Westin Shanghai Hotel - The Westin Stage Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Westin Shanghai Hotel - The Westin Stage Restaurant
+625
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Westin Shanghai Hotel - The Westin Stage Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:43
+current_position: The Westin Shanghai Hotel - The Westin Stage Restaurant
+628
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xi Yue Xuan (No. 9 Mall Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Xi Yue Xuan (No. 9 Mall Branch)
+631
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xi Yue Xuan (No. 9 Mall Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Xi Yue Xuan (No. 9 Mall Branch)
+634
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xi Yue Xuan (No. 9 Mall Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:50
+current_position: Xi Yue Xuan (No. 9 Mall Branch)
+637
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet
+640
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet
+643
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:12
+current_position: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet
+646
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant
+649
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant
+652
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:45
+current_position: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant
+655
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan
+658
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan
+661
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+665
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+668
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+671
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Kitchen Table at W Shanghai - The Bund, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Kitchen Table at W Shanghai - The Bund
+674
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Kitchen Table at W Shanghai - The Bund, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Kitchen Table at W Shanghai - The Bund
+677
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Kitchen Table at W Shanghai - The Bund, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:38
+current_position: The Kitchen Table at W Shanghai - The Bund
+680
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant
+683
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant
+686
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:47
+current_position: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant
+689
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo
+692
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 12:00
+current_position: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo
+695
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 13:28
+current_position: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo
+698
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+701
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+704
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+707
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: lunch, candidate type: ['dinner', 'hotel']
+try another poi type, backtrack...
+POI planning, day 2 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: dinner
+innercity budget exceeded, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+711
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+714
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch), type: Fast food and casual dining
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Crave Three Feet Crab Roe Soup Dumplings (People's Square Branch)
+717
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Gunong Restaurant: Local Farmhouse Cuisine, type: Farmhouse cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Gunong Restaurant: Local Farmhouse Cuisine
+720
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Gunong Restaurant: Local Farmhouse Cuisine, type: Farmhouse cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Gunong Restaurant: Local Farmhouse Cuisine
+723
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+The restaurant is closed now...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+727
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+730
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Jing'an Kempinski Hotel All Suites · 1Eins Bistro & Lounge
+733
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Money Shops (Yuyuan Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Money Shops (Yuyuan Road Branch)
+736
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Money Shops (Yuyuan Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Money Shops (Yuyuan Road Branch)
+739
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Money Shops (Yuyuan Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Money Shops (Yuyuan Road Branch)
+742
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro
+745
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro
+748
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai URSIDE Hotel · URSIDE Western Canteen Bistro
+751
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant
+754
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant
+757
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Baolong Radisson Hotel · Latitude 31° North Western Restaurant
+760
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch)
+763
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch)
+766
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: O'mills Sourdough Bakery & Bistro (Yongjia Road Branch)
+769
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant, type: Bar/Pub
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant
+772
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant, type: Bar/Pub
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant
+775
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant, type: Bar/Pub
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Oriental Magnificent Hotel · MHaus Meilu Restaurant
+778
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+781
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+784
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Chaofu Restaurant - Chaozhou Cuisine (Century Park Branch)
+787
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Press (Shen Bao Guan Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Press (Shen Bao Guan Branch)
+790
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Press (Shen Bao Guan Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Press (Shen Bao Guan Branch)
+793
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Press (Shen Bao Guan Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Press (Shen Bao Guan Branch)
+796
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant
+799
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant
+802
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai South Bund Crowne Plaza Hotel · Jinlai All-Day Dining Restaurant
+805
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bright 919 (North Tibet Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Bright 919 (North Tibet Road Branch)
+811
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bright 919 (North Tibet Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Bright 919 (North Tibet Road Branch)
+814
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Bright 919 (North Tibet Road Branch), type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Bright 919 (North Tibet Road Branch)
+817
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinghua Lou (Fuzhou Road Main Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Xinghua Lou (Fuzhou Road Main Branch)
+820
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinghua Lou (Fuzhou Road Main Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Xinghua Lou (Fuzhou Road Main Branch)
+823
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xinghua Lou (Fuzhou Road Main Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Xinghua Lou (Fuzhou Road Main Branch)
+826
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Langham, Shanghai Xintiandi · Cachet Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Langham, Shanghai Xintiandi · Cachet Restaurant
+829
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Langham, Shanghai Xintiandi · Cachet Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Langham, Shanghai Xintiandi · Cachet Restaurant
+832
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Langham, Shanghai Xintiandi · Cachet Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Langham, Shanghai Xintiandi · Cachet Restaurant
+835
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Westin Shanghai Hotel - The Westin Stage Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Westin Shanghai Hotel - The Westin Stage Restaurant
+838
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Westin Shanghai Hotel - The Westin Stage Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Westin Shanghai Hotel - The Westin Stage Restaurant
+841
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Westin Shanghai Hotel - The Westin Stage Restaurant, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Westin Shanghai Hotel - The Westin Stage Restaurant
+844
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xi Yue Xuan (No. 9 Mall Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Xi Yue Xuan (No. 9 Mall Branch)
+847
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xi Yue Xuan (No. 9 Mall Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Xi Yue Xuan (No. 9 Mall Branch)
+850
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Xi Yue Xuan (No. 9 Mall Branch), type: Cantonese cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Xi Yue Xuan (No. 9 Mall Branch)
+853
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet
+856
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet
+859
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Pudong Kerry Hotel · The COOK · Kitchen Restaurant · Buffet
+862
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant
+865
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant
+868
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai EDITION Hotel · Shanghai Tavern Western Restaurant
+871
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan
+874
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan
+877
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan, type: Creative Cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Xujiahui A.T. HOUSE · La Dame Nandan
+880
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+883
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+886
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Disneyland Hotel · Lumiere's Kitchen, type: buffet
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Disneyland Hotel · Lumiere's Kitchen
+889
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Kitchen Table at W Shanghai - The Bund, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Kitchen Table at W Shanghai - The Bund
+892
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Kitchen Table at W Shanghai - The Bund, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Kitchen Table at W Shanghai - The Bund
+895
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Kitchen Table at W Shanghai - The Bund, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Kitchen Table at W Shanghai - The Bund
+898
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant
+901
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant
+904
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: Shanghai Suning Bellagio Hotel · Cafe Bellagio Western Restaurant
+907
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo
+910
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo
+913
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+add restaurant: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo, type: Western cuisine
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 2
+current_time: 18:00
+current_position: The Ritz-Carlton Shanghai, Pudong - Scena di Angelo
+916
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+add_restaurant failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+919
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+922
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+not last day, but last event, collecting innercity transport to hotel
+from: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station) to Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+925
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Try the go back hotel, failed, backtrack...
+remove: dinner, candidate type: ['hotel']
+try another poi type, backtrack...
+POI planning, day 2 08:30, Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station), next-poi type: hotel
+----------------------------------calling dfs_poi-----------------------------------------
+current_day: 3
+current_time: 00:00
+current_position: Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)
+928
+innercity budget exceeded, backtrack...
+requirements can not be satisfied, backtrack...
+Fail with the given accommodation activity, backtrack...

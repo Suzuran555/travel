@@ -1,0 +1,781 @@
+{
+    "people_number": 4,
+    "start_city": "Nanjing",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:57",
+                    "end_time": "03:27",
+                    "start": "Nanjing Lukou International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 567.11,
+                    "cost": 2268.44,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL681",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chongqing Jiangbei International Airport",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:27",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:16",
+                            "cost": 20,
+                            "distance": 17.85,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "04:16",
+                            "end_time": "04:20",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Bear Grandma's Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:53",
+                    "end_time": "10:23",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Longtousi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:48",
+                            "cost": 12,
+                            "distance": 7.1,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Longtousi-Metro Station",
+                            "end": "Bear Grandma's Garden",
+                            "mode": "walk",
+                            "start_time": "08:48",
+                            "end_time": "08:53",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chongqing Runze Shooting Club",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:30",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Bear Grandma's Garden",
+                            "end": "Chongqing Runze Shooting Club",
+                            "mode": "taxi",
+                            "start_time": "10:23",
+                            "end_time": "10:30",
+                            "cost": 22.13,
+                            "distance": 4.98,
+                            "price": 22.13,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Big Face Cat's Preserved Mustard Green and Braised Pork Pancake (Guanyinqiao Delicious Street Branch)",
+                    "type": "lunch",
+                    "price": 7,
+                    "cost": 28,
+                    "start_time": "12:33",
+                    "end_time": "13:33",
+                    "transports": [
+                        {
+                            "start": "Chongqing Runze Shooting Club",
+                            "end": "Jintong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:13",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jintong Road-Metro Station",
+                            "end": "Guanyinqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:13",
+                            "end_time": "12:29",
+                            "cost": 12,
+                            "distance": 8.45,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Guanyinqiao-Metro Station",
+                            "end": "Big Face Cat's Preserved Mustard Green and Braised Pork Pancake (Guanyinqiao Delicious Street Branch)",
+                            "mode": "walk",
+                            "start_time": "12:29",
+                            "end_time": "12:33",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Huangshan Chiang Kai-shek Official Residence",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:17",
+                    "end_time": "15:47",
+                    "transports": [
+                        {
+                            "start": "Big Face Cat's Preserved Mustard Green and Braised Pork Pancake (Guanyinqiao Delicious Street Branch)",
+                            "end": "Guanyinqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:33",
+                            "end_time": "13:37",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guanyinqiao-Metro Station",
+                            "end": "Tushan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:37",
+                            "end_time": "13:50",
+                            "cost": 12,
+                            "distance": 6.61,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tushan-Metro Station",
+                            "end": "Huangshan Chiang Kai-shek Official Residence",
+                            "mode": "walk",
+                            "start_time": "13:50",
+                            "end_time": "14:17",
+                            "cost": 0,
+                            "distance": 2.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Baixiang Street · Stretched Rice Cake (Bayi Road Branch)",
+                    "type": "dinner",
+                    "price": 9,
+                    "cost": 36,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Huangshan Chiang Kai-shek Official Residence",
+                            "end": "Tushan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:47",
+                            "end_time": "16:14",
+                            "cost": 0,
+                            "distance": 2.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tushan-Metro Station",
+                            "end": "Jiaochangkou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:14",
+                            "end_time": "16:21",
+                            "cost": 8,
+                            "distance": 3.56,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Jiaochangkou-Metro Station",
+                            "end": "Baixiang Street · Stretched Rice Cake (Bayi Road Branch)",
+                            "mode": "walk",
+                            "start_time": "16:21",
+                            "end_time": "16:23",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Yangtze River Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:09",
+                    "end_time": "20:39",
+                    "transports": [
+                        {
+                            "start": "Baixiang Street · Stretched Rice Cake (Bayi Road Branch)",
+                            "end": "Jiaochangkou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:02",
+                            "cost": 0,
+                            "distance": 0.24,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiaochangkou-Metro Station",
+                            "end": "Huaxi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:02",
+                            "end_time": "18:29",
+                            "cost": 16,
+                            "distance": 13.65,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huaxi-Metro Station",
+                            "end": "Chongqing Yangtze River Bridge",
+                            "mode": "walk",
+                            "start_time": "18:29",
+                            "end_time": "19:09",
+                            "cost": 0,
+                            "distance": 3.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "21:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Yangtze River Bridge",
+                            "end": "Huaxi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:39",
+                            "end_time": "21:19",
+                            "cost": 0,
+                            "distance": 3.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huaxi-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:19",
+                            "end_time": "21:48",
+                            "cost": 20,
+                            "distance": 14.52,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "21:48",
+                            "end_time": "21:52",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Local Specialty Products and Bayu Famous Snacks Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 8,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Local Specialty Products and Bayu Famous Snacks Street",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "10:18",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Local Specialty Products and Bayu Famous Snacks Street",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:09",
+                            "end_time": "10:13",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:13",
+                            "end_time": "10:14",
+                            "cost": 8,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "10:14",
+                            "end_time": "10:18",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Hongyan Village",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:48",
+                    "end_time": "11:18",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Hongyan Village",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:48",
+                            "cost": 0.0,
+                            "distance": 6.550922626514446,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Dong's Mountain City Bowl Delights (Meizhuanxiao Street Branch)",
+                    "type": "lunch",
+                    "price": 19,
+                    "cost": 76,
+                    "start_time": "11:40",
+                    "end_time": "12:40",
+                    "transports": [
+                        {
+                            "start": "Hongyan Village",
+                            "end": "Lijiaping-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:18",
+                            "end_time": "11:30",
+                            "cost": 0,
+                            "distance": 1.01,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lijiaping-Metro Station",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:30",
+                            "end_time": "11:34",
+                            "cost": 8,
+                            "distance": 2.18,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Dong's Mountain City Bowl Delights (Meizhuanxiao Street Branch)",
+                            "mode": "walk",
+                            "start_time": "11:34",
+                            "end_time": "11:40",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Grandma's Bridge (Shancheng Lane Branch)",
+                    "type": "dinner",
+                    "price": 55,
+                    "cost": 220,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Dong's Mountain City Bowl Delights (Meizhuanxiao Street Branch)",
+                            "end": "Grandma's Bridge (Shancheng Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "12:40",
+                            "end_time": "13:05",
+                            "cost": 0.0,
+                            "distance": 2.131144564342849,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "18:19",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Grandma's Bridge (Shancheng Lane Branch)",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:19",
+                            "cost": 0.0,
+                            "distance": 1.5836726040752889,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Longevity Bodhi Mountain Cultural Tourism Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:56",
+                    "end_time": "11:26",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Longevity Bodhi Mountain Cultural Tourism Scenic Area",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "09:56",
+                            "cost": 255.0,
+                            "distance": 57.85,
+                            "price": 255.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jiaochangkou Night Market",
+                    "type": "lunch",
+                    "price": 46,
+                    "cost": 184,
+                    "start_time": "12:53",
+                    "end_time": "13:53",
+                    "transports": [
+                        {
+                            "start": "Longevity Bodhi Mountain Cultural Tourism Scenic Area",
+                            "end": "Jiaochangkou Night Market",
+                            "mode": "taxi",
+                            "start_time": "11:26",
+                            "end_time": "12:53",
+                            "cost": 257.43,
+                            "distance": 58.38,
+                            "price": 257.43,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Guotai Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:03",
+                    "end_time": "15:33",
+                    "transports": [
+                        {
+                            "start": "Jiaochangkou Night Market",
+                            "end": "Jiaochangkou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:53",
+                            "end_time": "13:56",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiaochangkou-Metro Station",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:56",
+                            "end_time": "13:59",
+                            "cost": 8,
+                            "distance": 1.89,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Chongqing Guotai Art Center",
+                            "mode": "walk",
+                            "start_time": "13:59",
+                            "end_time": "14:03",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Zhirun Coffee (Guanyinqiao Branch)",
+                    "type": "dinner",
+                    "price": 27,
+                    "cost": 108,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Guotai Art Center",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:33",
+                            "end_time": "15:37",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Hongqihegou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:37",
+                            "end_time": "15:49",
+                            "cost": 12,
+                            "distance": 6.29,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Hongqihegou-Metro Station",
+                            "end": "Zhirun Coffee (Guanyinqiao Branch)",
+                            "mode": "walk",
+                            "start_time": "15:49",
+                            "end_time": "15:57",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:29",
+                    "end_time": "19:59",
+                    "transports": [
+                        {
+                            "start": "Zhirun Coffee (Guanyinqiao Branch)",
+                            "end": "Hongqihegou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqihegou-Metro Station",
+                            "end": "Tianxingqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:24",
+                            "cost": 12,
+                            "distance": 8.11,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Tianxingqiao-Metro Station",
+                            "end": "Chongqing Library",
+                            "mode": "walk",
+                            "start_time": "18:24",
+                            "end_time": "18:29",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "22:37",
+                    "end_time": "00:07",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 571.07,
+                    "cost": 2284.28,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Chongqing Library",
+                            "end": "Tianxingqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:59",
+                            "end_time": "20:04",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianxingqiao-Metro Station",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:04",
+                            "end_time": "20:56",
+                            "cost": 24,
+                            "distance": 26.5,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Chongqing Jiangbei International Airport",
+                            "mode": "walk",
+                            "start_time": "20:56",
+                            "end_time": "21:10",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL391",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

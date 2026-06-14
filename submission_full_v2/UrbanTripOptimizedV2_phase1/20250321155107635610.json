@@ -1,0 +1,667 @@
+{
+    "people_number": 4,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 2284.72,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "06:03",
+                            "cost": 28,
+                            "distance": 33.44,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "06:03",
+                            "end_time": "06:07",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Sightseeing Night Market (Venice Water City Night)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:42",
+                    "end_time": "11:12",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Zhenbei Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:35",
+                            "cost": 28,
+                            "distance": 30.56,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Zhenbei Road-Metro Station",
+                            "end": "Sightseeing Night Market (Venice Water City Night)",
+                            "mode": "walk",
+                            "start_time": "09:35",
+                            "end_time": "09:42",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Tuguri Japanese Yakiniku",
+                    "type": "lunch",
+                    "price": 148,
+                    "cost": 592,
+                    "start_time": "11:28",
+                    "end_time": "12:28",
+                    "transports": [
+                        {
+                            "start": "Sightseeing Night Market (Venice Water City Night)",
+                            "end": "Zhenbei Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:12",
+                            "end_time": "11:19",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhenbei Road-Metro Station",
+                            "end": "Loushanguan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:19",
+                            "end_time": "11:25",
+                            "cost": 8,
+                            "distance": 3.15,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Loushanguan Road-Metro Station",
+                            "end": "Tuguri Japanese Yakiniku",
+                            "mode": "walk",
+                            "start_time": "11:25",
+                            "end_time": "11:28",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai International Light Festival",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:44",
+                    "end_time": "14:14",
+                    "transports": [
+                        {
+                            "start": "Tuguri Japanese Yakiniku",
+                            "end": "Loushanguan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:28",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Loushanguan Road-Metro Station",
+                            "end": "Longbai Xincun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:31",
+                            "end_time": "12:40",
+                            "cost": 12,
+                            "distance": 4.97,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Longbai Xincun-Metro Station",
+                            "end": "Shanghai International Light Festival",
+                            "mode": "walk",
+                            "start_time": "12:40",
+                            "end_time": "12:44",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Xujiahui Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:35",
+                    "end_time": "16:05",
+                    "transports": [
+                        {
+                            "start": "Shanghai International Light Festival",
+                            "end": "Longbai Xincun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "14:18",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longbai Xincun-Metro Station",
+                            "end": "Hengshan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:18",
+                            "end_time": "14:33",
+                            "cost": 12,
+                            "distance": 7.86,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Hengshan Road-Metro Station",
+                            "end": "Xujiahui Park",
+                            "mode": "walk",
+                            "start_time": "14:33",
+                            "end_time": "14:35",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "COLCA Peruvian Spanish Restaurant (Hengshan Road Branch)",
+                    "type": "dinner",
+                    "price": 293,
+                    "cost": 1172,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Xujiahui Park",
+                            "end": "COLCA Peruvian Spanish Restaurant (Hengshan Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:05",
+                            "end_time": "16:05",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Magic City Suspended Glass Theater",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 196,
+                    "start_time": "18:04",
+                    "end_time": "19:34",
+                    "transports": [
+                        {
+                            "start": "COLCA Peruvian Spanish Restaurant (Hengshan Road Branch)",
+                            "end": "Magic City Suspended Glass Theater",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 14.3,
+                            "distance": 2.74,
+                            "price": 14.3,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Fosun Foundation Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:54",
+                    "end_time": "20:00",
+                    "transports": [
+                        {
+                            "start": "Magic City Suspended Glass Theater",
+                            "end": "Site of the First National Congress of the Communist Party of China · Xintiandi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:34",
+                            "end_time": "19:38",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · Xintiandi-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:38",
+                            "end_time": "19:45",
+                            "cost": 8,
+                            "distance": 3.53,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Fosun Foundation Center",
+                            "mode": "walk",
+                            "start_time": "19:45",
+                            "end_time": "19:54",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "20:52",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Fosun Foundation Center",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:00",
+                            "end_time": "20:09",
+                            "cost": 0,
+                            "distance": 0.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:09",
+                            "end_time": "20:48",
+                            "cost": 20,
+                            "distance": 19.54,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "20:48",
+                            "end_time": "20:52",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:57",
+                    "end_time": "10:27",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:39",
+                            "cost": 8,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "walk",
+                            "start_time": "08:39",
+                            "end_time": "08:57",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Pudong Development Exhibition Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:55",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Pudong Development Exhibition Hall",
+                            "mode": "taxi",
+                            "start_time": "10:27",
+                            "end_time": "10:55",
+                            "cost": 79.56,
+                            "distance": 18.86,
+                            "price": 79.56,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Crab Manor · Exclusive Riverside View (Binjiang Branch)",
+                    "type": "lunch",
+                    "price": 336,
+                    "cost": 1344,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Pudong Development Exhibition Hall",
+                            "end": "Crab Manor · Exclusive Riverside View (Binjiang Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.52,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "City Sightseeing Bus",
+                    "type": "attraction",
+                    "price": 57,
+                    "cost": 228,
+                    "start_time": "12:48",
+                    "end_time": "14:18",
+                    "transports": [
+                        {
+                            "start": "Crab Manor · Exclusive Riverside View (Binjiang Branch)",
+                            "end": "Pudong Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:37",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong Avenue-Metro Station",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:37",
+                            "end_time": "12:38",
+                            "cost": 8,
+                            "distance": 0.69,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "City Sightseeing Bus",
+                            "mode": "walk",
+                            "start_time": "12:38",
+                            "end_time": "12:48",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yu Garden",
+                    "type": "attraction",
+                    "price": 40,
+                    "cost": 160,
+                    "start_time": "14:37",
+                    "end_time": "16:07",
+                    "transports": [
+                        {
+                            "start": "City Sightseeing Bus",
+                            "end": "Pudong South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:18",
+                            "end_time": "14:28",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pudong South Road-Metro Station",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:28",
+                            "end_time": "14:29",
+                            "cost": 8,
+                            "distance": 0.98,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Yu Garden",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:37",
+                            "cost": 0,
+                            "distance": 0.71,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Riverside Banquet (Lujiazui Branch)",
+                    "type": "dinner",
+                    "price": 502,
+                    "cost": 2008,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Yu Garden",
+                            "end": "Riverside Banquet (Lujiazui Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:07",
+                            "end_time": "16:07",
+                            "cost": 11.0,
+                            "distance": 0.24,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "18:51",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Riverside Banquet (Lujiazui Branch)",
+                            "end": "Lujiazui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lujiazui-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:08",
+                            "end_time": "18:47",
+                            "cost": 20,
+                            "distance": 19.54,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "18:47",
+                            "end_time": "18:51",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 2563.72,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:55",
+                            "cost": 16,
+                            "distance": 10.98,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "08:55",
+                            "end_time": "09:10",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 60.39502549171448,
+    "llm_inference_time_sec": 0
+}

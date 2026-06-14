@@ -1,0 +1,481 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:40",
+                            "cost": 18,
+                            "distance": 53.95,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "05:40",
+                            "end_time": "05:44",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "East Lake Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:52",
+                    "end_time": "10:22",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Dongguang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:47",
+                            "cost": 6,
+                            "distance": 6.56,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Dongguang-Metro Station",
+                            "end": "East Lake Park",
+                            "mode": "walk",
+                            "start_time": "08:47",
+                            "end_time": "08:52",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Yulei Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:28",
+                    "end_time": "11:58",
+                    "transports": [
+                        {
+                            "start": "East Lake Park",
+                            "end": "Yulei Pavilion",
+                            "mode": "taxi",
+                            "start_time": "10:22",
+                            "end_time": "10:28",
+                            "cost": 19.84,
+                            "distance": 4.33,
+                            "price": 19.84,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Deng's New Generation Sweet Oil Glutinous Rice Balls",
+                    "type": "lunch",
+                    "price": 5,
+                    "cost": 10,
+                    "start_time": "12:17",
+                    "end_time": "13:17",
+                    "transports": [
+                        {
+                            "start": "Yulei Pavilion",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:58",
+                            "end_time": "12:01",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:01",
+                            "end_time": "12:07",
+                            "cost": 4,
+                            "distance": 3.22,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Deng's New Generation Sweet Oil Glutinous Rice Balls",
+                            "mode": "walk",
+                            "start_time": "12:07",
+                            "end_time": "12:17",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dong'an Lake Sports Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:47",
+                    "end_time": "16:17",
+                    "transports": [
+                        {
+                            "start": "Deng's New Generation Sweet Oil Glutinous Rice Balls",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:17",
+                            "end_time": "13:27",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Study Room-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:27",
+                            "end_time": "14:08",
+                            "cost": 10,
+                            "distance": 20.88,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Study Room-Metro Station",
+                            "end": "Dong'an Lake Sports Park",
+                            "mode": "walk",
+                            "start_time": "14:08",
+                            "end_time": "14:47",
+                            "cost": 0,
+                            "distance": 3.28,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "DQ (Chengdu MixC Store)",
+                    "type": "dinner",
+                    "price": 26,
+                    "cost": 52,
+                    "start_time": "19:09",
+                    "end_time": "20:09",
+                    "transports": [
+                        {
+                            "start": "Dong'an Lake Sports Park",
+                            "end": "DQ (Chengdu MixC Store)",
+                            "mode": "walk",
+                            "start_time": "16:17",
+                            "end_time": "19:09",
+                            "cost": 0.0,
+                            "distance": 14.400668339556274,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "21:11",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "DQ (Chengdu MixC Store)",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "20:09",
+                            "end_time": "21:11",
+                            "cost": 0.0,
+                            "distance": 5.2498921705008,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Jinli Ancient Stage",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:04",
+                    "end_time": "10:34",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Jinli Ancient Stage",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:04",
+                            "cost": 0.0,
+                            "distance": 2.842472642180679,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "The Sense (Jiuyanqiao Branch)",
+                    "type": "lunch",
+                    "price": 42,
+                    "cost": 84,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Jinli Ancient Stage",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:34",
+                            "end_time": "10:42",
+                            "cost": 0,
+                            "distance": 0.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Niuwangmiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:42",
+                            "end_time": "10:49",
+                            "cost": 4,
+                            "distance": 3.95,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Niuwangmiao-Metro Station",
+                            "end": "The Sense (Jiuyanqiao Branch)",
+                            "mode": "walk",
+                            "start_time": "10:49",
+                            "end_time": "10:54",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shuijingfang Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:13",
+                    "end_time": "13:43",
+                    "transports": [
+                        {
+                            "start": "The Sense (Jiuyanqiao Branch)",
+                            "end": "Niuwangmiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Niuwangmiao-Metro Station",
+                            "end": "Dongmen Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:05",
+                            "end_time": "12:06",
+                            "cost": 4,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Dongmen Bridge-Metro Station",
+                            "end": "Shuijingfang Museum",
+                            "mode": "walk",
+                            "start_time": "12:06",
+                            "end_time": "12:13",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Zhaogong Mountain",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:15",
+                    "end_time": "16:45",
+                    "transports": [
+                        {
+                            "start": "Shuijingfang Museum",
+                            "end": "Zhaogong Mountain",
+                            "mode": "taxi",
+                            "start_time": "13:43",
+                            "end_time": "15:15",
+                            "cost": 273.08,
+                            "distance": 61.86,
+                            "price": 273.08,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "dinner",
+                    "price": 17,
+                    "cost": 34,
+                    "start_time": "18:13",
+                    "end_time": "19:13",
+                    "transports": [
+                        {
+                            "start": "Zhaogong Mountain",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "taxi",
+                            "start_time": "16:45",
+                            "end_time": "18:13",
+                            "cost": 261.28,
+                            "distance": 59.24,
+                            "price": 261.28,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "White Deer Music Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:44",
+                    "end_time": "22:14",
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "White Deer Music Town",
+                            "mode": "taxi",
+                            "start_time": "19:13",
+                            "end_time": "20:44",
+                            "cost": 269.27,
+                            "distance": 61.02,
+                            "price": 269.27,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "White Deer Music Town",
+                            "end": "Wangcong Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "22:14",
+                            "end_time": "31:12",
+                            "cost": 0,
+                            "distance": 44.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangcong Temple-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "31:12",
+                            "end_time": "33:46",
+                            "cost": 22.0,
+                            "distance": 77.31,
+                            "price": 11.0,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "33:46",
+                            "end_time": "34:30",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

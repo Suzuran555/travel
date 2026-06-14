@@ -1,0 +1,212 @@
+{
+    "people_number": 4,
+    "start_city": "Shanghai",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:27",
+                    "end_time": "13:12",
+                    "start": "Shanghai Hongqiao Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 693.75,
+                    "cost": 2775.0,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "G104",
+                    "type": "train"
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 538,
+                    "start_time": "14:25",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:12",
+                            "end_time": "13:12",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:12",
+                            "end_time": "14:06",
+                            "cost": 24,
+                            "distance": 27.29,
+                            "price": 6,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "14:06",
+                            "end_time": "14:25",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "798 Art District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:32",
+                    "end_time": "11:02",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Wangjing South-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:11",
+                            "cost": 16,
+                            "distance": 11.35,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Wangjing South-Metro Station",
+                            "end": "798 Art District",
+                            "mode": "walk",
+                            "start_time": "09:11",
+                            "end_time": "09:32",
+                            "cost": 0,
+                            "distance": 1.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "That Little Restaurant (798 Art District Branch)",
+                    "type": "lunch",
+                    "price": 170,
+                    "cost": 680,
+                    "start_time": "11:03",
+                    "end_time": "12:03",
+                    "transports": [
+                        {
+                            "start": "798 Art District",
+                            "end": "That Little Restaurant (798 Art District Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:02",
+                            "end_time": "11:03",
+                            "cost": 11.0,
+                            "distance": 0.74,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Art Museum",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 80,
+                    "start_time": "12:15",
+                    "end_time": "13:45",
+                    "transports": [
+                        {
+                            "start": "That Little Restaurant (798 Art District Branch)",
+                            "end": "Beijing Art Museum",
+                            "mode": "taxi",
+                            "start_time": "12:03",
+                            "end_time": "12:15",
+                            "cost": 33.33,
+                            "distance": 8.18,
+                            "price": 33.33,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "22:59",
+                    "end_time": "00:18",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 567.77,
+                    "cost": 2271.08,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Beijing Art Museum",
+                            "end": "Sihui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:45",
+                            "end_time": "13:52",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sihui-Metro Station",
+                            "end": "Daxing Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:52",
+                            "end_time": "15:21",
+                            "cost": 32,
+                            "distance": 44.63,
+                            "price": 8,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Daxing Airport-Metro Station",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "walk",
+                            "start_time": "15:21",
+                            "end_time": "15:32",
+                            "cost": 0,
+                            "distance": 0.93,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL082",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 43.67450141906738,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,501 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Manjushri Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:40",
+                            "cost": 18,
+                            "distance": 53.95,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Manjushri Temple-Metro Station",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "05:40",
+                            "end_time": "05:44",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maha Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Maha Pond",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.62,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Ping'an Bridge Catholic Church",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Maha Pond",
+                            "end": "Ping'an Bridge Catholic Church",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.31,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                    "type": "lunch",
+                    "price": 41,
+                    "cost": 82,
+                    "start_time": "11:33",
+                    "end_time": "12:33",
+                    "transports": [
+                        {
+                            "start": "Ping'an Bridge Catholic Church",
+                            "end": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:33",
+                            "cost": 0.0,
+                            "distance": 0.3007546283579586,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan Science and Technology Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:40",
+                    "end_time": "14:10",
+                    "transports": [
+                        {
+                            "start": "Century Shuangliu Old Mother Rabbit Head (Jinsi Street Branch)",
+                            "end": "Sichuan Science and Technology Museum",
+                            "mode": "walk",
+                            "start_time": "12:33",
+                            "end_time": "12:40",
+                            "cost": 0.0,
+                            "distance": 0.6072443608890198,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Tianfu Square",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:13",
+                    "end_time": "15:43",
+                    "transports": [
+                        {
+                            "start": "Sichuan Science and Technology Museum",
+                            "end": "Tianfu Square",
+                            "mode": "walk",
+                            "start_time": "14:10",
+                            "end_time": "14:13",
+                            "cost": 0.0,
+                            "distance": 0.29386031313648164,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Ritz-Carlton Hotel, Fuli - 25th Floor Xianghui All-Day Dining Restaurant",
+                    "type": "dinner",
+                    "price": 252,
+                    "cost": 504,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Tianfu Square",
+                            "end": "Chengdu Ritz-Carlton Hotel, Fuli - 25th Floor Xianghui All-Day Dining Restaurant",
+                            "mode": "walk",
+                            "start_time": "15:43",
+                            "end_time": "15:45",
+                            "cost": 0.0,
+                            "distance": 0.22377490628918262,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Painting Academy",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:16",
+                    "end_time": "19:46",
+                    "transports": [
+                        {
+                            "start": "Chengdu Ritz-Carlton Hotel, Fuli - 25th Floor Xianghui All-Day Dining Restaurant",
+                            "end": "Chengdu Painting Academy",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:16",
+                            "cost": 0.0,
+                            "distance": 1.3891629681326672,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "accommodation",
+                    "price": 158,
+                    "cost": 316,
+                    "start_time": "19:59",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Painting Academy",
+                            "end": "Chengdu Yuehuimei Hotel",
+                            "mode": "walk",
+                            "start_time": "19:46",
+                            "end_time": "19:59",
+                            "cost": 0.0,
+                            "distance": 1.1409791582782,
+                            "price": 0.0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Chengdu Yuehuimei Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Moon City Lake",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:12",
+                    "end_time": "10:42",
+                    "transports": [
+                        {
+                            "start": "Chengdu Yuehuimei Hotel",
+                            "end": "Moon City Lake",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "09:12",
+                            "cost": 0.0,
+                            "distance": 3.563092432009414,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Cooking Fire (Xiaotong Alley Branch)",
+                    "type": "lunch",
+                    "price": 65,
+                    "cost": 130,
+                    "start_time": "11:01",
+                    "end_time": "12:01",
+                    "transports": [
+                        {
+                            "start": "Moon City Lake",
+                            "end": "Simaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:42",
+                            "end_time": "10:46",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Simaqiao-Metro Station",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:46",
+                            "end_time": "10:56",
+                            "cost": 6,
+                            "distance": 5.28,
+                            "price": 3,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "Cooking Fire (Xiaotong Alley Branch)",
+                            "mode": "walk",
+                            "start_time": "10:56",
+                            "end_time": "11:01",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:14",
+                    "end_time": "13:44",
+                    "transports": [
+                        {
+                            "start": "Cooking Fire (Xiaotong Alley Branch)",
+                            "end": "Kuanzhai Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:01",
+                            "end_time": "12:06",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Kuanzhai Alley-Metro Station",
+                            "end": "People's Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:06",
+                            "end_time": "12:07",
+                            "cost": 4,
+                            "distance": 0.89,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "walk",
+                            "start_time": "12:07",
+                            "end_time": "12:14",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu City Tour Sightseeing Bus",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:04",
+                    "end_time": "15:34",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:44",
+                            "end_time": "13:51",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Jinjiang Hotel-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:51",
+                            "end_time": "13:53",
+                            "cost": 4,
+                            "distance": 1.36,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Jinjiang Hotel-Metro Station",
+                            "end": "Chengdu City Tour Sightseeing Bus",
+                            "mode": "walk",
+                            "start_time": "13:53",
+                            "end_time": "14:04",
+                            "cost": 0,
+                            "distance": 0.94,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Ginkgo Golden Pavilion (Jinli Branch)",
+                    "type": "dinner",
+                    "price": 163,
+                    "cost": 326,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu City Tour Sightseeing Bus",
+                            "end": "Ginkgo Golden Pavilion (Jinli Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:34",
+                            "end_time": "15:34",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:25",
+                    "end_time": "19:55",
+                    "transports": [
+                        {
+                            "start": "Ginkgo Golden Pavilion (Jinli Branch)",
+                            "end": "Jinjiang Hotel-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jinjiang Hotel-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:10",
+                            "end_time": "18:17",
+                            "cost": 4,
+                            "distance": 3.91,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "18:17",
+                            "end_time": "18:25",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:55",
+                            "end_time": "20:03",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:03",
+                            "end_time": "21:52",
+                            "cost": 18,
+                            "distance": 54.65,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "21:52",
+                            "end_time": "22:36",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,339 @@
+{
+    "people_number": 4,
+    "start_city": "Guangzhou",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "08:00",
+                    "end_time": "14:48",
+                    "start": "Guangzhou South Railway Station",
+                    "end": "Shanghai Hongqiao Station",
+                    "price": 787.73,
+                    "cost": 3150.92,
+                    "tickets": 4,
+                    "transports": [],
+                    "TrainID": "G818",
+                    "type": "train"
+                },
+                {
+                    "position": "Rainbow Bridge Libao Plaza",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:49",
+                    "end_time": "16:19",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao Station",
+                            "end": "Rainbow Bridge Libao Plaza",
+                            "mode": "taxi",
+                            "start_time": "14:48",
+                            "end_time": "14:49",
+                            "cost": 11.0,
+                            "distance": 0.89,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Happy Square Alla Torre Italian Handmade Pizza (Bingu Branch)",
+                    "type": "dinner",
+                    "price": 130,
+                    "cost": 520,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Rainbow Bridge Libao Plaza",
+                            "end": "Hongqiao Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:19",
+                            "end_time": "16:29",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Railway Station-Metro Station",
+                            "end": "Weining Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:29",
+                            "end_time": "16:42",
+                            "cost": 12,
+                            "distance": 6.91,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Weining Road-Metro Station",
+                            "end": "Happy Square Alla Torre Italian Handmade Pizza (Bingu Branch)",
+                            "mode": "walk",
+                            "start_time": "16:42",
+                            "end_time": "16:43",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "accommodation",
+                    "price": 303,
+                    "cost": 606,
+                    "start_time": "19:04",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Happy Square Alla Torre Italian Handmade Pizza (Bingu Branch)",
+                            "end": "Weining Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:01",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        },
+                        {
+                            "start": "Weining Road-Metro Station",
+                            "end": "Chuansha-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:01",
+                            "end_time": "19:00",
+                            "cost": 28,
+                            "distance": 29.8,
+                            "price": 7,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chuansha-Metro Station",
+                            "end": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "mode": "walk",
+                            "start_time": "19:00",
+                            "end_time": "19:04",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chuansha Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:32",
+                    "end_time": "10:02",
+                    "transports": [
+                        {
+                            "start": "Jiahong Hotel (Shanghai Pudong Airport, Chuansha Metro Station)",
+                            "end": "Chuansha Park",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 11.0,
+                            "distance": 1.53,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chuansha Ancient Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:03",
+                    "end_time": "11:33",
+                    "transports": [
+                        {
+                            "start": "Chuansha Park",
+                            "end": "Chuansha Ancient Town",
+                            "mode": "taxi",
+                            "start_time": "10:02",
+                            "end_time": "10:03",
+                            "cost": 11.0,
+                            "distance": 0.73,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Imperial Banquet Chinese Restaurant",
+                    "type": "lunch",
+                    "price": 433,
+                    "cost": 1732,
+                    "start_time": "12:01",
+                    "end_time": "13:01",
+                    "transports": [
+                        {
+                            "start": "Chuansha Ancient Town",
+                            "end": "Lingkong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:33",
+                            "end_time": "11:51",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lingkong Road-Metro Station",
+                            "end": "East Huaxia Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:51",
+                            "end_time": "11:59",
+                            "cost": 12,
+                            "distance": 4.13,
+                            "price": 3,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "East Huaxia Road-Metro Station",
+                            "end": "Imperial Banquet Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:01",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Maglev Train",
+                    "type": "attraction",
+                    "price": 50,
+                    "cost": 200,
+                    "start_time": "13:31",
+                    "end_time": "15:01",
+                    "transports": [
+                        {
+                            "start": "Imperial Banquet Chinese Restaurant",
+                            "end": "East Huaxia Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:01",
+                            "end_time": "13:03",
+                            "cost": 0,
+                            "distance": 0.23,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Huaxia Road-Metro Station",
+                            "end": "Huamu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:03",
+                            "end_time": "13:25",
+                            "cost": 16,
+                            "distance": 11.38,
+                            "price": 4,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huamu Road-Metro Station",
+                            "end": "Maglev Train",
+                            "mode": "walk",
+                            "start_time": "13:25",
+                            "end_time": "13:31",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yuanwang 1",
+                    "type": "attraction",
+                    "price": 80,
+                    "cost": 320,
+                    "start_time": "15:11",
+                    "end_time": "16:41",
+                    "transports": [
+                        {
+                            "start": "Maglev Train",
+                            "end": "Yuanwang 1",
+                            "mode": "taxi",
+                            "start_time": "15:01",
+                            "end_time": "15:11",
+                            "cost": 29.02,
+                            "distance": 6.95,
+                            "price": 29.02,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "start_time": "20:05",
+                    "end_time": "07:13",
+                    "start": "Shanghai Hongqiao Station",
+                    "end": "Guangzhou South Railway Station",
+                    "price": 727.13,
+                    "cost": 2908.52,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Yuanwang 1",
+                            "end": "South Xizang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:41",
+                            "end_time": "16:48",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "South Xizang Road-Metro Station",
+                            "end": "Hongqiao Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:48",
+                            "end_time": "17:20",
+                            "cost": 20,
+                            "distance": 16.28,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Hongqiao Railway Station-Metro Station",
+                            "end": "Shanghai Hongqiao Station",
+                            "mode": "walk",
+                            "start_time": "17:20",
+                            "end_time": "17:21",
+                            "cost": 0,
+                            "distance": 0.12,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "D935",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 97.45234394073486,
+    "llm_inference_time_sec": 0
+}

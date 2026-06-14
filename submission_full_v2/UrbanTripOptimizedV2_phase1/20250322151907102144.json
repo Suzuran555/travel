@@ -1,0 +1,587 @@
+{
+    "people_number": 1,
+    "start_city": "Guangzhou",
+    "target_city": "Wuhan",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:45",
+                    "end_time": "02:48",
+                    "start": "Guangzhou Baiyun International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 388.13,
+                    "cost": 388.13,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL309",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Wuhan Tianhe International Airport",
+                            "end": "Tianhe Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:48",
+                            "end_time": "02:54",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianhe Airport-Metro Station",
+                            "end": "Guangbutun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:54",
+                            "end_time": "03:55",
+                            "cost": 7,
+                            "distance": 30.94,
+                            "price": 7,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Guangbutun-Metro Station",
+                            "end": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                            "mode": "walk",
+                            "start_time": "03:55",
+                            "end_time": "03:56",
+                            "cost": 0,
+                            "distance": 0.1,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chaotown (Zhuodaoquan Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                            "end": "Guangbutun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guangbutun-Metro Station",
+                            "end": "Huquan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:33",
+                            "cost": 2,
+                            "distance": 1.27,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Huquan-Metro Station",
+                            "end": "Chaotown (Zhuodaoquan Branch)",
+                            "mode": "walk",
+                            "start_time": "08:33",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Tongxing Lane",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:25",
+                    "end_time": "11:55",
+                    "transports": [
+                        {
+                            "start": "Chaotown (Zhuodaoquan Branch)",
+                            "end": "Tongxing Lane",
+                            "mode": "taxi",
+                            "start_time": "10:09",
+                            "end_time": "10:25",
+                            "cost": 43.03,
+                            "distance": 10.74,
+                            "price": 43.03,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Dragon Prince Banquet Hall (East Lake Branch)",
+                    "type": "lunch",
+                    "price": 115,
+                    "cost": 115,
+                    "start_time": "12:19",
+                    "end_time": "13:19",
+                    "transports": [
+                        {
+                            "start": "Tongxing Lane",
+                            "end": "Sanyang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "12:05",
+                            "cost": 0,
+                            "distance": 0.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyang Road-Metro Station",
+                            "end": "Hubei Provincial Museum Hubei Daily-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:05",
+                            "end_time": "12:19",
+                            "cost": 3,
+                            "distance": 7.19,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hubei Provincial Museum Hubei Daily-Metro Station",
+                            "end": "Dragon Prince Banquet Hall (East Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "12:19",
+                            "end_time": "12:19",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Uprising Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:34",
+                    "end_time": "15:04",
+                    "transports": [
+                        {
+                            "start": "Dragon Prince Banquet Hall (East Lake Branch)",
+                            "end": "Hubei Provincial Museum Hubei Daily-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:19",
+                            "end_time": "13:19",
+                            "cost": 0,
+                            "distance": 0.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hubei Provincial Museum Hubei Daily-Metro Station",
+                            "end": "Wuchang Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:19",
+                            "end_time": "13:31",
+                            "cost": 3,
+                            "distance": 6.03,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Wuchang Railway Station-Metro Station",
+                            "end": "Uprising Gate",
+                            "mode": "walk",
+                            "start_time": "13:31",
+                            "end_time": "13:34",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Molly Fantasy Indoor Children's Playground (Wuhan More City Store)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:34",
+                    "end_time": "17:04",
+                    "transports": [
+                        {
+                            "start": "Uprising Gate",
+                            "end": "Wuchang Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:04",
+                            "end_time": "15:07",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wuchang Railway Station-Metro Station",
+                            "end": "Wangjiawan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:07",
+                            "end_time": "15:28",
+                            "cost": 4,
+                            "distance": 10.76,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Wangjiawan-Metro Station",
+                            "end": "Molly Fantasy Indoor Children's Playground (Wuhan More City Store)",
+                            "mode": "walk",
+                            "start_time": "15:28",
+                            "end_time": "15:34",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Yiyuan Road Unique-Flavored Baked Cake (Fengshang Times Plaza Branch)",
+                    "type": "dinner",
+                    "price": 5,
+                    "cost": 5,
+                    "start_time": "17:37",
+                    "end_time": "18:37",
+                    "transports": [
+                        {
+                            "start": "Molly Fantasy Indoor Children's Playground (Wuhan More City Store)",
+                            "end": "Wangjiawan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:04",
+                            "end_time": "17:10",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangjiawan-Metro Station",
+                            "end": "Sanyang Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:10",
+                            "end_time": "17:29",
+                            "cost": 4,
+                            "distance": 9.63,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Sanyang Road-Metro Station",
+                            "end": "Yiyuan Road Unique-Flavored Baked Cake (Fengshang Times Plaza Branch)",
+                            "mode": "walk",
+                            "start_time": "17:29",
+                            "end_time": "17:37",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "International Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:40",
+                    "end_time": "21:10",
+                    "transports": [
+                        {
+                            "start": "Yiyuan Road Unique-Flavored Baked Cake (Fengshang Times Plaza Branch)",
+                            "end": "Sanyang Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:37",
+                            "end_time": "18:45",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyang Road-Metro Station",
+                            "end": "Gujiashan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:45",
+                            "end_time": "19:18",
+                            "cost": 5,
+                            "distance": 16.61,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Gujiashan-Metro Station",
+                            "end": "International Park",
+                            "mode": "walk",
+                            "start_time": "19:18",
+                            "end_time": "19:40",
+                            "cost": 0,
+                            "distance": 1.86,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                    "type": "accommodation",
+                    "price": 37,
+                    "cost": 37,
+                    "start_time": "21:53",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "International Park",
+                            "end": "Gujiashan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:10",
+                            "end_time": "21:32",
+                            "cost": 0,
+                            "distance": 1.86,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gujiashan-Metro Station",
+                            "end": "Guangbutun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:32",
+                            "end_time": "21:52",
+                            "cost": 4,
+                            "distance": 10.39,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Guangbutun-Metro Station",
+                            "end": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                            "mode": "walk",
+                            "start_time": "21:52",
+                            "end_time": "21:53",
+                            "cost": 0,
+                            "distance": 0.1,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Night Tour of Qingchuan Pavilion (The Legend of Yu the Great at Qingchuan)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:02",
+                    "end_time": "10:32",
+                    "transports": [
+                        {
+                            "start": "Ivory International Youth Hostel (Wuhan University Huazhong Normal University Shop)",
+                            "end": "Guangbutun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 0,
+                            "distance": 0.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Guangbutun-Metro Station",
+                            "end": "Tanhualin Wushengmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:31",
+                            "end_time": "08:44",
+                            "cost": 3,
+                            "distance": 6.66,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tanhualin Wushengmen-Metro Station",
+                            "end": "Night Tour of Qingchuan Pavilion (The Legend of Yu the Great at Qingchuan)",
+                            "mode": "walk",
+                            "start_time": "08:44",
+                            "end_time": "09:02",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Feng's Fresh Fish Paste Noodle Soup",
+                    "type": "lunch",
+                    "price": 6,
+                    "cost": 6,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Night Tour of Qingchuan Pavilion (The Legend of Yu the Great at Qingchuan)",
+                            "end": "Tanhualin Wushengmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:32",
+                            "end_time": "10:50",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanhualin Wushengmen-Metro Station",
+                            "end": "Pengliuyang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:50",
+                            "end_time": "10:53",
+                            "cost": 2,
+                            "distance": 1.51,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Pengliuyang-Metro Station",
+                            "end": "Feng's Fresh Fish Paste Noodle Soup",
+                            "mode": "walk",
+                            "start_time": "10:53",
+                            "end_time": "11:00",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wuhan University - New Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:37",
+                    "end_time": "14:07",
+                    "transports": [
+                        {
+                            "start": "Feng's Fresh Fish Paste Noodle Soup",
+                            "end": "Pengliuyang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:07",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pengliuyang-Metro Station",
+                            "end": "Xiaohongshan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:07",
+                            "end_time": "12:16",
+                            "cost": 3,
+                            "distance": 4.93,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xiaohongshan-Metro Station",
+                            "end": "Wuhan University - New Library",
+                            "mode": "walk",
+                            "start_time": "12:16",
+                            "end_time": "12:37",
+                            "cost": 0,
+                            "distance": 1.76,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Goose Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:15",
+                    "end_time": "15:45",
+                    "transports": [
+                        {
+                            "start": "Wuhan University - New Library",
+                            "end": "Goose Pond",
+                            "mode": "taxi",
+                            "start_time": "14:07",
+                            "end_time": "14:15",
+                            "cost": 24.49,
+                            "distance": 5.65,
+                            "price": 24.49,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "21:09",
+                    "end_time": "22:12",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Guangzhou Baiyun International Airport",
+                    "price": 453.61,
+                    "cost": 453.61,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Goose Pond",
+                            "end": "Pangxiejia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:45",
+                            "end_time": "15:54",
+                            "cost": 0,
+                            "distance": 0.76,
+                            "price": 0
+                        },
+                        {
+                            "start": "Pangxiejia-Metro Station",
+                            "end": "Tianhe Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:54",
+                            "end_time": "16:45",
+                            "cost": 6,
+                            "distance": 25.96,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Tianhe Airport-Metro Station",
+                            "end": "Wuhan Tianhe International Airport",
+                            "mode": "walk",
+                            "start_time": "16:45",
+                            "end_time": "16:51",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL597",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 15.157945156097412,
+    "llm_inference_time_sec": 0
+}

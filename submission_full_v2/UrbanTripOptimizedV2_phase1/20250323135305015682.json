@@ -1,0 +1,674 @@
+{
+    "people_number": 3,
+    "start_city": "Suzhou",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "02:15",
+                    "start": "Suzhou Station",
+                    "end": "Nanjing Station",
+                    "price": 94.54,
+                    "cost": 283.62,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "T136",
+                    "type": "train"
+                },
+                {
+                    "position": "Scholars Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:15",
+                            "end_time": "02:17",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:17",
+                            "end_time": "02:30",
+                            "cost": 9,
+                            "distance": 6.58,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Scholars Hotel",
+                            "mode": "walk",
+                            "start_time": "02:30",
+                            "end_time": "02:35",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Pure Enlightenment Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:41",
+                    "end_time": "10:11",
+                    "transports": [
+                        {
+                            "start": "Scholars Hotel",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:35",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Changfu Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:35",
+                            "end_time": "08:36",
+                            "cost": 6,
+                            "distance": 0.84,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Changfu Street-Metro Station",
+                            "end": "Pure Enlightenment Temple",
+                            "mode": "walk",
+                            "start_time": "08:36",
+                            "end_time": "08:41",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Folk Museum",
+                    "type": "attraction",
+                    "price": 18,
+                    "cost": 54,
+                    "start_time": "10:11",
+                    "end_time": "11:41",
+                    "transports": [
+                        {
+                            "start": "Pure Enlightenment Temple",
+                            "end": "Nanjing Folk Museum",
+                            "mode": "taxi",
+                            "start_time": "10:11",
+                            "end_time": "10:11",
+                            "cost": 11.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Ruika (West Lane Branch)",
+                    "type": "lunch",
+                    "price": 55,
+                    "cost": 165,
+                    "start_time": "11:50",
+                    "end_time": "12:50",
+                    "transports": [
+                        {
+                            "start": "Nanjing Folk Museum",
+                            "end": "Changfu Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:41",
+                            "end_time": "11:45",
+                            "cost": 0,
+                            "distance": 0.38,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changfu Street-Metro Station",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:45",
+                            "end_time": "11:46",
+                            "cost": 6,
+                            "distance": 0.84,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Ruika (West Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "11:46",
+                            "end_time": "11:50",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Confucius Temple Snack Square (East Archway Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:01",
+                    "end_time": "14:31",
+                    "transports": [
+                        {
+                            "start": "Ruika (West Lane Branch)",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:50",
+                            "end_time": "12:54",
+                            "cost": 0,
+                            "distance": 0.39,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Changfu Street-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:54",
+                            "end_time": "12:55",
+                            "cost": 6,
+                            "distance": 0.84,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Changfu Street-Metro Station",
+                            "end": "Confucius Temple Snack Square (East Archway Branch)",
+                            "mode": "walk",
+                            "start_time": "12:55",
+                            "end_time": "13:01",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Water Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:52",
+                    "end_time": "16:22",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple Snack Square (East Archway Branch)",
+                            "end": "Changfu Street-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:31",
+                            "end_time": "14:37",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changfu Street-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:37",
+                            "end_time": "14:39",
+                            "cost": 6,
+                            "distance": 1.04,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Water Street",
+                            "mode": "walk",
+                            "start_time": "14:39",
+                            "end_time": "14:52",
+                            "cost": 0,
+                            "distance": 1.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Little Chef Lady Huaiyang Cuisine (Longpanhui Branch)",
+                    "type": "dinner",
+                    "price": 193,
+                    "cost": 579,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Water Street",
+                            "end": "Little Chef Lady Huaiyang Cuisine (Longpanhui Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:22",
+                            "end_time": "16:22",
+                            "cost": 11.0,
+                            "distance": 0.22,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "China Qinhuai Lantern Festival Main Venue (Egret Island Park)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Little Chef Lady Huaiyang Cuisine (Longpanhui Branch)",
+                            "end": "China Qinhuai Lantern Festival Main Venue (Egret Island Park)",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Qinhuai River",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:30",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "China Qinhuai Lantern Festival Main Venue (Egret Island Park)",
+                            "end": "Qinhuai River",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 11.0,
+                            "distance": 0.5,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Scholars Hotel",
+                    "type": "accommodation",
+                    "price": 399,
+                    "cost": 1197,
+                    "start_time": "21:16",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Qinhuai River",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:09",
+                            "cost": 0,
+                            "distance": 0.75,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:09",
+                            "end_time": "21:11",
+                            "cost": 6,
+                            "distance": 1.01,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Scholars Hotel",
+                            "mode": "walk",
+                            "start_time": "21:11",
+                            "end_time": "21:16",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Scholars Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Dream of the Red Chamber Immersive Exhibition and Performance",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:38",
+                    "end_time": "10:08",
+                    "transports": [
+                        {
+                            "start": "Scholars Hotel",
+                            "end": "Zhangfuyuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:35",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhangfuyuan-Metro Station",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:35",
+                            "end_time": "08:38",
+                            "cost": 6,
+                            "distance": 1.57,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Dream of the Red Chamber Immersive Exhibition and Performance",
+                            "mode": "walk",
+                            "start_time": "08:38",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Museum of Lost Love",
+                    "type": "attraction",
+                    "price": 45,
+                    "cost": 135,
+                    "start_time": "10:08",
+                    "end_time": "11:38",
+                    "transports": [
+                        {
+                            "start": "Dream of the Red Chamber Immersive Exhibition and Performance",
+                            "end": "Nanjing Museum of Lost Love",
+                            "mode": "taxi",
+                            "start_time": "10:08",
+                            "end_time": "10:08",
+                            "cost": 11.0,
+                            "distance": 0.47,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Xiaoyunkai Soup Dumpling Shop (Wangjinshi Branch)",
+                    "type": "lunch",
+                    "price": 21,
+                    "cost": 63,
+                    "start_time": "11:51",
+                    "end_time": "12:51",
+                    "transports": [
+                        {
+                            "start": "Nanjing Museum of Lost Love",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:38",
+                            "end_time": "11:44",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:44",
+                            "end_time": "11:45",
+                            "cost": 6,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Xiaoyunkai Soup Dumpling Shop (Wangjinshi Branch)",
+                            "mode": "walk",
+                            "start_time": "11:45",
+                            "end_time": "11:51",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Bizarre Stress Relief Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 147,
+                    "start_time": "13:05",
+                    "end_time": "14:35",
+                    "transports": [
+                        {
+                            "start": "Xiaoyunkai Soup Dumpling Shop (Wangjinshi Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:51",
+                            "end_time": "12:57",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:57",
+                            "end_time": "12:58",
+                            "cost": 6,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Bizarre Stress Relief Museum",
+                            "mode": "walk",
+                            "start_time": "12:58",
+                            "end_time": "13:05",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Hanging Glass Art Museum",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 117,
+                    "start_time": "14:35",
+                    "end_time": "16:05",
+                    "transports": [
+                        {
+                            "start": "Bizarre Stress Relief Museum",
+                            "end": "Nanjing Hanging Glass Art Museum",
+                            "mode": "taxi",
+                            "start_time": "14:35",
+                            "end_time": "14:35",
+                            "cost": 11.0,
+                            "distance": 0.02,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "David's Kitchen: Steak, Pizza, Pasta (Hongmiao Branch)",
+                    "type": "dinner",
+                    "price": 61,
+                    "cost": 183,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Hanging Glass Art Museum",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:05",
+                            "end_time": "16:11",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:11",
+                            "end_time": "16:12",
+                            "cost": 6,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "David's Kitchen: Steak, Pizza, Pasta (Hongmiao Branch)",
+                            "mode": "walk",
+                            "start_time": "16:12",
+                            "end_time": "16:19",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liberation Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:26",
+                    "end_time": "19:56",
+                    "transports": [
+                        {
+                            "start": "David's Kitchen: Steak, Pizza, Pasta (Hongmiao Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:13",
+                            "cost": 6,
+                            "distance": 3.36,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Liberation Gate",
+                            "mode": "walk",
+                            "start_time": "18:13",
+                            "end_time": "18:26",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "22:24",
+                    "end_time": "02:26",
+                    "start": "Nanjing Station",
+                    "end": "Suzhou Station",
+                    "price": 75.63,
+                    "cost": 226.89,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Liberation Gate",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:56",
+                            "end_time": "20:09",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:09",
+                            "end_time": "20:12",
+                            "cost": 6,
+                            "distance": 1.94,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Station",
+                            "mode": "walk",
+                            "start_time": "20:12",
+                            "end_time": "20:14",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K1805",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 4.900163173675537,
+    "llm_inference_time_sec": 0
+}

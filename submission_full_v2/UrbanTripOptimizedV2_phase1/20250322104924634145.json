@@ -1,0 +1,611 @@
+{
+    "people_number": 4,
+    "start_city": "Nanjing",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:57",
+                    "end_time": "03:27",
+                    "start": "Nanjing Lukou International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 567.11,
+                    "cost": 2268.44,
+                    "tickets": 4,
+                    "transports": [],
+                    "FlightID": "FL681",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chongqing Jiangbei International Airport",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:27",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:16",
+                            "cost": 20,
+                            "distance": 17.85,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "04:16",
+                            "end_time": "04:20",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yangtze River Cableway",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 80,
+                    "start_time": "08:38",
+                    "end_time": "10:08",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 8,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Yangtze River Cableway",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:38",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Union International Building",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:08",
+                    "end_time": "11:38",
+                    "transports": [
+                        {
+                            "start": "Yangtze River Cableway",
+                            "end": "Union International Building",
+                            "mode": "taxi",
+                            "start_time": "10:08",
+                            "end_time": "10:08",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chonglin International Buffet Gourmet Restaurant",
+                    "type": "lunch",
+                    "price": 418,
+                    "cost": 1672,
+                    "start_time": "11:38",
+                    "end_time": "12:38",
+                    "transports": [
+                        {
+                            "start": "Union International Building",
+                            "end": "Chonglin International Buffet Gourmet Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:38",
+                            "end_time": "11:38",
+                            "cost": 11.0,
+                            "distance": 0.29,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Arhat Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:38",
+                    "end_time": "14:08",
+                    "transports": [
+                        {
+                            "start": "Chonglin International Buffet Gourmet Restaurant",
+                            "end": "Arhat Temple",
+                            "mode": "taxi",
+                            "start_time": "12:38",
+                            "end_time": "12:38",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chongqing Cloud Eye Observation Deck",
+                    "type": "attraction",
+                    "price": 68,
+                    "cost": 272,
+                    "start_time": "14:08",
+                    "end_time": "15:38",
+                    "transports": [
+                        {
+                            "start": "Arhat Temple",
+                            "end": "Chongqing Cloud Eye Observation Deck",
+                            "mode": "taxi",
+                            "start_time": "14:08",
+                            "end_time": "14:08",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Dawn & Dusk Lounge | Cloud High Tea & Coffee",
+                    "type": "dinner",
+                    "price": 123,
+                    "cost": 492,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Cloud Eye Observation Deck",
+                            "end": "Dawn & Dusk Lounge | Cloud High Tea & Coffee",
+                            "mode": "taxi",
+                            "start_time": "15:38",
+                            "end_time": "15:38",
+                            "cost": 11.0,
+                            "distance": 0.48,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Guotai Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Dawn & Dusk Lounge | Cloud High Tea & Coffee",
+                            "end": "Chongqing Guotai Art Center",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.14,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Hongya Cave",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:30",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Chongqing Guotai Art Center",
+                            "end": "Hongya Cave",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 11.0,
+                            "distance": 0.24,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "21:08",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Hongya Cave",
+                            "end": "Chaotianmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:03",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaotianmen-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:03",
+                            "end_time": "21:04",
+                            "cost": 8,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "21:04",
+                            "end_time": "21:08",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Monument to the People's Liberation",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Monument to the People's Liberation",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 11.0,
+                            "distance": 0.58,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Monument to the People's Liberation",
+                            "end": "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall",
+                            "mode": "taxi",
+                            "start_time": "10:00",
+                            "end_time": "10:00",
+                            "cost": 11.0,
+                            "distance": 0.4,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Huailiang Pan-Fried Buns (Bayi Road Branch)",
+                    "type": "lunch",
+                    "price": 9,
+                    "cost": 36,
+                    "start_time": "11:37",
+                    "end_time": "12:37",
+                    "transports": [
+                        {
+                            "start": "Chongqing Great Bombing 'June 5th' Tunnel Massacre Historical Exhibition Hall",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:31",
+                            "cost": 0,
+                            "distance": 0.14,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Jiaochangkou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:31",
+                            "end_time": "11:33",
+                            "cost": 8,
+                            "distance": 1.15,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Jiaochangkou-Metro Station",
+                            "end": "Huailiang Pan-Fried Buns (Bayi Road Branch)",
+                            "mode": "walk",
+                            "start_time": "11:33",
+                            "end_time": "11:37",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chongqing Loquat Mountain Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:46",
+                    "end_time": "14:16",
+                    "transports": [
+                        {
+                            "start": "Huailiang Pan-Fried Buns (Bayi Road Branch)",
+                            "end": "Jiaochangkou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:37",
+                            "end_time": "12:41",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiaochangkou-Metro Station",
+                            "end": "Huanghuayuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:41",
+                            "end_time": "12:43",
+                            "cost": 8,
+                            "distance": 1.43,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Huanghuayuan-Metro Station",
+                            "end": "Chongqing Loquat Mountain Park",
+                            "mode": "walk",
+                            "start_time": "12:43",
+                            "end_time": "12:46",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Jialing River",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:28",
+                    "end_time": "15:58",
+                    "transports": [
+                        {
+                            "start": "Chongqing Loquat Mountain Park",
+                            "end": "Huanghuayuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:16",
+                            "end_time": "14:19",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Huanghuayuan-Metro Station",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:19",
+                            "end_time": "14:23",
+                            "cost": 8,
+                            "distance": 2.18,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Jialing River",
+                            "mode": "walk",
+                            "start_time": "14:23",
+                            "end_time": "14:28",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 4
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "16:14",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Jialing River",
+                            "end": "Niujiaotuo-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:58",
+                            "end_time": "16:03",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Niujiaotuo-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:03",
+                            "end_time": "16:10",
+                            "cost": 8,
+                            "distance": 3.97,
+                            "price": 2,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "16:10",
+                            "end_time": "16:14",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "22:37",
+                    "end_time": "00:07",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 571.07,
+                    "cost": 2284.28,
+                    "tickets": 4,
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Jiangbei Airport Terminal 3-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "09:09",
+                            "cost": 20,
+                            "distance": 17.85,
+                            "price": 5,
+                            "tickets": 4
+                        },
+                        {
+                            "start": "Jiangbei Airport Terminal 3-Metro Station",
+                            "end": "Chongqing Jiangbei International Airport",
+                            "mode": "walk",
+                            "start_time": "09:09",
+                            "end_time": "09:23",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL391",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

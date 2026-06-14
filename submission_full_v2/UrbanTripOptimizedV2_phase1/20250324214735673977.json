@@ -1,0 +1,664 @@
+{
+    "people_number": 3,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 1713.54,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Jiaotong University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "05:13",
+                            "cost": 9,
+                            "distance": 8.46,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiaotong University-Metro Station",
+                            "end": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                            "mode": "walk",
+                            "start_time": "05:13",
+                            "end_time": "05:16",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Jiao Tong University",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                            "end": "Jiaotong University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:33",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiaotong University-Metro Station",
+                            "end": "Shanghai Library-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:33",
+                            "end_time": "08:35",
+                            "cost": 6,
+                            "distance": 1.08,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shanghai Library-Metro Station",
+                            "end": "Shanghai Jiao Tong University",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Xujiahui Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:15",
+                    "end_time": "11:45",
+                    "transports": [
+                        {
+                            "start": "Shanghai Jiao Tong University",
+                            "end": "Shanghai Library-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:09",
+                            "end_time": "10:13",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shanghai Library-Metro Station",
+                            "end": "Hengshan Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:13",
+                            "end_time": "10:13",
+                            "cost": 6,
+                            "distance": 0.43,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Hengshan Road-Metro Station",
+                            "end": "Xujiahui Park",
+                            "mode": "walk",
+                            "start_time": "10:13",
+                            "end_time": "10:15",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "COLCA Peruvian Spanish Restaurant (Hengshan Road Branch)",
+                    "type": "lunch",
+                    "price": 293,
+                    "cost": 879,
+                    "start_time": "11:45",
+                    "end_time": "12:45",
+                    "transports": [
+                        {
+                            "start": "Xujiahui Park",
+                            "end": "COLCA Peruvian Spanish Restaurant (Hengshan Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:45",
+                            "end_time": "11:45",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Soong Ching Ling Former Residence Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:48",
+                    "end_time": "14:18",
+                    "transports": [
+                        {
+                            "start": "COLCA Peruvian Spanish Restaurant (Hengshan Road Branch)",
+                            "end": "Hengshan Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:45",
+                            "end_time": "12:45",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hengshan Road-Metro Station",
+                            "end": "Shanghai Library-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:45",
+                            "end_time": "12:45",
+                            "cost": 6,
+                            "distance": 0.43,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shanghai Library-Metro Station",
+                            "end": "Shanghai Soong Ching Ling Former Residence Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "12:45",
+                            "end_time": "12:48",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Normandie Apartments",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:18",
+                    "end_time": "15:48",
+                    "transports": [
+                        {
+                            "start": "Shanghai Soong Ching Ling Former Residence Memorial Hall",
+                            "end": "Normandie Apartments",
+                            "mode": "taxi",
+                            "start_time": "14:18",
+                            "end_time": "14:18",
+                            "cost": 11.0,
+                            "distance": 0.07,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Yongfoo Elite (Yongfu Road Branch)",
+                    "type": "dinner",
+                    "price": 724,
+                    "cost": 2172,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Normandie Apartments",
+                            "end": "Yongfoo Elite (Yongfu Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "15:48",
+                            "end_time": "15:48",
+                            "cost": 11.0,
+                            "distance": 0.23,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Juliet's Balcony",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:06",
+                    "end_time": "19:36",
+                    "transports": [
+                        {
+                            "start": "Yongfoo Elite (Yongfu Road Branch)",
+                            "end": "Shanghai Library-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:02",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shanghai Library-Metro Station",
+                            "end": "Changshu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:02",
+                            "end_time": "18:03",
+                            "cost": 6,
+                            "distance": 0.77,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Changshu Road-Metro Station",
+                            "end": "Juliet's Balcony",
+                            "mode": "walk",
+                            "start_time": "18:03",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Yuyuan Road Historical and Cultural Preservation Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:47",
+                    "end_time": "21:17",
+                    "transports": [
+                        {
+                            "start": "Juliet's Balcony",
+                            "end": "Changshu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:36",
+                            "end_time": "19:39",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changshu Road-Metro Station",
+                            "end": "Jing'an Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:39",
+                            "end_time": "19:41",
+                            "cost": 6,
+                            "distance": 1.1,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jing'an Temple-Metro Station",
+                            "end": "Yuyuan Road Historical and Cultural Preservation Area",
+                            "mode": "walk",
+                            "start_time": "19:41",
+                            "end_time": "19:47",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                    "type": "accommodation",
+                    "price": 418,
+                    "cost": 836,
+                    "start_time": "21:31",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Yuyuan Road Historical and Cultural Preservation Area",
+                            "end": "Jing'an Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:17",
+                            "end_time": "21:23",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jing'an Temple-Metro Station",
+                            "end": "Jiaotong University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:23",
+                            "end_time": "21:28",
+                            "cost": 6,
+                            "distance": 2.57,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiaotong University-Metro Station",
+                            "end": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                            "mode": "walk",
+                            "start_time": "21:28",
+                            "end_time": "21:31",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Xujiahui Origin",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:43",
+                    "end_time": "10:13",
+                    "transports": [
+                        {
+                            "start": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                            "end": "Xujiahui Origin",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:43",
+                            "cost": 0.0,
+                            "distance": 1.1182643718576333,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shanghai Stadium (Shanghai Grand Stage)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:25",
+                    "end_time": "11:55",
+                    "transports": [
+                        {
+                            "start": "Xujiahui Origin",
+                            "end": "Shanghai Stadium (Shanghai Grand Stage)",
+                            "mode": "walk",
+                            "start_time": "10:13",
+                            "end_time": "10:25",
+                            "cost": 0.0,
+                            "distance": 1.0736548044946226,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Spice Point",
+                    "type": "lunch",
+                    "price": 167,
+                    "cost": 501,
+                    "start_time": "11:57",
+                    "end_time": "12:57",
+                    "transports": [
+                        {
+                            "start": "Shanghai Stadium (Shanghai Grand Stage)",
+                            "end": "Spice Point",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "11:57",
+                            "cost": 0.0,
+                            "distance": 0.22588797299603575,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Long Museum (West Bund)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:30",
+                    "end_time": "15:00",
+                    "transports": [
+                        {
+                            "start": "Spice Point",
+                            "end": "Long Museum (West Bund)",
+                            "mode": "walk",
+                            "start_time": "12:57",
+                            "end_time": "13:30",
+                            "cost": 0.0,
+                            "distance": 2.7757505776817744,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:53",
+                    "end_time": "16:30",
+                    "transports": [
+                        {
+                            "start": "Long Museum (West Bund)",
+                            "end": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                            "mode": "walk",
+                            "start_time": "15:00",
+                            "end_time": "15:53",
+                            "cost": 0.0,
+                            "distance": 4.453236379408602,
+                            "price": 0.0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Mi He Liang Japanese Cuisine (People's Square Branch)",
+                    "type": "dinner",
+                    "price": 147,
+                    "cost": 441,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Site of the Second National Congress of the Communist Party of China Memorial Hall",
+                            "end": "Mi He Liang Japanese Cuisine (People's Square Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:30",
+                            "end_time": "16:30",
+                            "cost": 11.0,
+                            "distance": 0.61,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Era of Life",
+                    "type": "attraction",
+                    "price": 238,
+                    "cost": 714,
+                    "start_time": "18:08",
+                    "end_time": "19:38",
+                    "transports": [
+                        {
+                            "start": "Mi He Liang Japanese Cuisine (People's Square Branch)",
+                            "end": "People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:03",
+                            "end_time": "18:04",
+                            "cost": 6,
+                            "distance": 0.91,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Era of Life",
+                            "mode": "walk",
+                            "start_time": "18:04",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                    "type": "accommodation",
+                    "price": 418,
+                    "cost": 836,
+                    "start_time": "19:55",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Era of Life",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:38",
+                            "end_time": "19:42",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Jiaotong University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:42",
+                            "end_time": "19:52",
+                            "cost": 9,
+                            "distance": 5.09,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiaotong University-Metro Station",
+                            "end": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                            "mode": "walk",
+                            "start_time": "19:52",
+                            "end_time": "19:55",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:48",
+                    "end_time": "01:19",
+                    "start": "Shanghai Pudong International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 640.93,
+                    "cost": 1922.79,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "QIU GUO HOTEL(Shanghai Xujiahui Jiaotong University Subway Station)",
+                            "end": "Jiaotong University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:33",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiaotong University-Metro Station",
+                            "end": "Pudong International Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:33",
+                            "end_time": "09:44",
+                            "cost": 21,
+                            "distance": 35.76,
+                            "price": 7,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Pudong International Airport-Metro Station",
+                            "end": "Shanghai Pudong International Airport",
+                            "mode": "walk",
+                            "start_time": "09:44",
+                            "end_time": "09:59",
+                            "cost": 0,
+                            "distance": 1.27,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL014",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ]
+}

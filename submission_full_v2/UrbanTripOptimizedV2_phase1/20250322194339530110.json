@@ -1,0 +1,650 @@
+{
+    "people_number": 3,
+    "start_city": "Beijing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:11",
+                    "end_time": "03:36",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 923.58,
+                    "cost": 2770.7400000000002,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL095",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:36",
+                            "end_time": "03:41",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Yangtaishan East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:41",
+                            "end_time": "04:16",
+                            "cost": 15,
+                            "distance": 17.54,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yangtaishan East-Metro Station",
+                            "end": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                            "mode": "walk",
+                            "start_time": "04:16",
+                            "end_time": "04:30",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Longhua Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:07",
+                    "end_time": "10:37",
+                    "transports": [
+                        {
+                            "start": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                            "end": "Yangtaishan East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yangtaishan East-Metro Station",
+                            "end": "Longhua-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:44",
+                            "end_time": "08:51",
+                            "cost": 6,
+                            "distance": 3.64,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Longhua-Metro Station",
+                            "end": "Longhua Park",
+                            "mode": "walk",
+                            "start_time": "08:51",
+                            "end_time": "09:07",
+                            "cost": 0,
+                            "distance": 1.34,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Mandarin Oriental Hotel · East Bay",
+                    "type": "lunch",
+                    "price": 835,
+                    "cost": 2505,
+                    "start_time": "11:21",
+                    "end_time": "12:21",
+                    "transports": [
+                        {
+                            "start": "Longhua Park",
+                            "end": "Longhua-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:37",
+                            "end_time": "10:53",
+                            "cost": 0,
+                            "distance": 1.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longhua-Metro Station",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:53",
+                            "end_time": "11:15",
+                            "cost": 12,
+                            "distance": 11.12,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Shenzhen Mandarin Oriental Hotel · East Bay",
+                            "mode": "walk",
+                            "start_time": "11:15",
+                            "end_time": "11:21",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Guan Shanyue Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:21",
+                    "end_time": "13:51",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Mandarin Oriental Hotel · East Bay",
+                            "end": "Guan Shanyue Art Museum",
+                            "mode": "taxi",
+                            "start_time": "12:21",
+                            "end_time": "12:21",
+                            "cost": 11.0,
+                            "distance": 0.29,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Museum of Contemporary Art and Urban Planning",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:04",
+                    "end_time": "15:34",
+                    "transports": [
+                        {
+                            "start": "Guan Shanyue Art Museum",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:51",
+                            "end_time": "13:59",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:59",
+                            "end_time": "14:01",
+                            "cost": 6,
+                            "distance": 1.31,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Museum of Contemporary Art and Urban Planning",
+                            "mode": "walk",
+                            "start_time": "14:01",
+                            "end_time": "14:04",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                    "type": "dinner",
+                    "price": 111,
+                    "cost": 333,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Museum of Contemporary Art and Urban Planning",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:34",
+                            "end_time": "15:37",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:37",
+                            "end_time": "15:39",
+                            "cost": 6,
+                            "distance": 1.31,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                            "mode": "walk",
+                            "start_time": "15:39",
+                            "end_time": "15:45",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Book City (Central City Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:13",
+                    "end_time": "19:43",
+                    "transports": [
+                        {
+                            "start": "Rongyi: The Beauty of Sichuan Cuisine (UpperHills Branch)",
+                            "end": "Donggualing-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Donggualing-Metro Station",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:08",
+                            "cost": 6,
+                            "distance": 1.31,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Shenzhen Book City (Central City Branch)",
+                            "mode": "walk",
+                            "start_time": "18:08",
+                            "end_time": "18:13",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:54",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Book City (Central City Branch)",
+                            "end": "Lianhua Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:43",
+                            "end_time": "19:48",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lianhua Village-Metro Station",
+                            "end": "Children's Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:48",
+                            "end_time": "19:49",
+                            "cost": 6,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Children's Palace-Metro Station",
+                            "end": "Shenzhen Library",
+                            "mode": "walk",
+                            "start_time": "19:49",
+                            "end_time": "19:54",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                    "type": "accommodation",
+                    "price": 273,
+                    "cost": 546,
+                    "start_time": "21:48",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Library",
+                            "end": "Children's Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:05",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "Children's Palace-Metro Station",
+                            "end": "Yangtaishan East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:05",
+                            "end_time": "21:34",
+                            "cost": 15,
+                            "distance": 14.98,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yangtaishan East-Metro Station",
+                            "end": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                            "mode": "walk",
+                            "start_time": "21:34",
+                            "end_time": "21:48",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Longhua Sports and Cultural Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:08",
+                    "end_time": "10:38",
+                    "transports": [
+                        {
+                            "start": "Kyriad Marvelous Hotel Shenzhen Longhua Dalang Business Center",
+                            "end": "Yangtaishan East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 0,
+                            "distance": 1.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yangtaishan East-Metro Station",
+                            "end": "Qinghu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:44",
+                            "end_time": "08:53",
+                            "cost": 9,
+                            "distance": 4.62,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qinghu-Metro Station",
+                            "end": "Longhua Sports and Cultural Center",
+                            "mode": "walk",
+                            "start_time": "08:53",
+                            "end_time": "09:08",
+                            "cost": 0,
+                            "distance": 1.26,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Longhua DoubleTree by Hilton Hotel - All-Day Dining Restaurant",
+                    "type": "lunch",
+                    "price": 233,
+                    "cost": 699,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Longhua Sports and Cultural Center",
+                            "end": "Shenzhen Longhua DoubleTree by Hilton Hotel - All-Day Dining Restaurant",
+                            "mode": "taxi",
+                            "start_time": "10:38",
+                            "end_time": "10:39",
+                            "cost": 11.0,
+                            "distance": 1.33,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Twenty-Four Histories Academy",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 117,
+                    "start_time": "12:45",
+                    "end_time": "14:15",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Longhua DoubleTree by Hilton Hotel - All-Day Dining Restaurant",
+                            "end": "Qinghu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:10",
+                            "cost": 0,
+                            "distance": 0.88,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qinghu-Metro Station",
+                            "end": "Mugu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:10",
+                            "end_time": "12:27",
+                            "cost": 9,
+                            "distance": 8.85,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Twenty-Four Histories Academy",
+                            "mode": "walk",
+                            "start_time": "12:27",
+                            "end_time": "12:45",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Guanlan Ancient Market",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:56",
+                    "end_time": "16:26",
+                    "transports": [
+                        {
+                            "start": "Twenty-Four Histories Academy",
+                            "end": "Mugu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:15",
+                            "end_time": "14:33",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mugu-Metro Station",
+                            "end": "Songyuanxia-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:33",
+                            "end_time": "14:49",
+                            "cost": 9,
+                            "distance": 8.2,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Songyuanxia-Metro Station",
+                            "end": "Guanlan Ancient Market",
+                            "mode": "walk",
+                            "start_time": "14:49",
+                            "end_time": "14:56",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nine Blades · Beijing Roast Duck (Tian'an Cloud Valley Branch)",
+                    "type": "dinner",
+                    "price": 119,
+                    "cost": 357,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Guanlan Ancient Market",
+                            "end": "Songyuanxia-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:26",
+                            "end_time": "16:33",
+                            "cost": 0,
+                            "distance": 0.66,
+                            "price": 0
+                        },
+                        {
+                            "start": "Songyuanxia-Metro Station",
+                            "end": "Gangtou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:33",
+                            "end_time": "16:47",
+                            "cost": 9,
+                            "distance": 7.07,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gangtou-Metro Station",
+                            "end": "Nine Blades · Beijing Roast Duck (Tian'an Cloud Valley Branch)",
+                            "mode": "walk",
+                            "start_time": "16:47",
+                            "end_time": "16:52",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:17",
+                    "end_time": "19:47",
+                    "transports": [
+                        {
+                            "start": "Nine Blades · Beijing Roast Duck (Tian'an Cloud Valley Branch)",
+                            "end": "Shenzhen University Town",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:17",
+                            "cost": 47.27,
+                            "distance": 11.68,
+                            "price": 47.27,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "23:24",
+                    "end_time": "01:49",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 1006.35,
+                    "cost": 3019.05,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:47",
+                            "end_time": "20:07",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:07",
+                            "end_time": "20:45",
+                            "cost": 15,
+                            "distance": 19.26,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "20:45",
+                            "end_time": "20:50",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL174",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.20992636680603,
+    "llm_inference_time_sec": 0
+}

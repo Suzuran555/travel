@@ -1,0 +1,754 @@
+{
+    "people_number": 3,
+    "start_city": "Chongqing",
+    "target_city": "Shenzhen",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:04",
+                    "end_time": "02:25",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 541.8,
+                    "cost": 1625.3999999999999,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL344",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bao'an International Airport",
+                            "end": "Airport East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "02:25",
+                            "end_time": "02:30",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "02:30",
+                            "end_time": "03:01",
+                            "cost": 15,
+                            "distance": 15.92,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Shenzhen HAPPYOCEAN Hotel",
+                            "mode": "walk",
+                            "start_time": "03:01",
+                            "end_time": "03:01",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Nantou Ancient City",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:36",
+                    "end_time": "10:06",
+                    "transports": [
+                        {
+                            "start": "Shenzhen HAPPYOCEAN Hotel",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:31",
+                            "cost": 6,
+                            "distance": 0.95,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Nantou Ancient City",
+                            "mode": "walk",
+                            "start_time": "08:31",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nantou Ancient City Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:06",
+                    "end_time": "11:36",
+                    "transports": [
+                        {
+                            "start": "Nantou Ancient City",
+                            "end": "Nantou Ancient City Museum",
+                            "mode": "taxi",
+                            "start_time": "10:06",
+                            "end_time": "10:06",
+                            "cost": 11.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Original Beef Way: Chaoshan Fresh Beef Hot Pot (Han Jing Branch)",
+                    "type": "lunch",
+                    "price": 134,
+                    "cost": 402,
+                    "start_time": "11:54",
+                    "end_time": "12:54",
+                    "transports": [
+                        {
+                            "start": "Nantou Ancient City Museum",
+                            "end": "Zhongshan Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:36",
+                            "end_time": "11:40",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhongshan Park-Metro Station",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:40",
+                            "end_time": "11:44",
+                            "cost": 6,
+                            "distance": 2.34,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Original Beef Way: Chaoshan Fresh Beef Hot Pot (Han Jing Branch)",
+                            "mode": "walk",
+                            "start_time": "11:44",
+                            "end_time": "11:54",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen Airport Ferry Cruise",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:01",
+                    "end_time": "15:31",
+                    "transports": [
+                        {
+                            "start": "Original Beef Way: Chaoshan Fresh Beef Hot Pot (Han Jing Branch)",
+                            "end": "Shenzhen University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:54",
+                            "end_time": "13:04",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shenzhen University-Metro Station",
+                            "end": "Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:04",
+                            "end_time": "13:36",
+                            "cost": 15,
+                            "distance": 16.42,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport-Metro Station",
+                            "end": "Shenzhen Airport Ferry Cruise",
+                            "mode": "walk",
+                            "start_time": "13:36",
+                            "end_time": "14:01",
+                            "cost": 0,
+                            "distance": 2.11,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Airport Hyatt Hotel · Market Café Buffet · Joyful Family Restaurant",
+                    "type": "dinner",
+                    "price": 228,
+                    "cost": 684,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Airport Ferry Cruise",
+                            "end": "Shenzhen Airport Hyatt Hotel · Market Café Buffet · Joyful Family Restaurant",
+                            "mode": "taxi",
+                            "start_time": "15:31",
+                            "end_time": "15:33",
+                            "cost": 11.59,
+                            "distance": 1.97,
+                            "price": 11.59,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Xibay Seaside Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:19",
+                    "end_time": "19:49",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Airport Hyatt Hotel · Market Café Buffet · Joyful Family Restaurant",
+                            "end": "Airport-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Airport-Metro Station",
+                            "end": "Gushu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:03",
+                            "end_time": "18:11",
+                            "cost": 9,
+                            "distance": 4.23,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gushu-Metro Station",
+                            "end": "Xibay Seaside Park",
+                            "mode": "walk",
+                            "start_time": "18:11",
+                            "end_time": "18:19",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanshan Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:24",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Xibay Seaside Park",
+                            "end": "Gushu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:49",
+                            "end_time": "19:57",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        },
+                        {
+                            "start": "Gushu-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:57",
+                            "end_time": "20:18",
+                            "cost": 12,
+                            "distance": 10.57,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Nanshan Library",
+                            "mode": "walk",
+                            "start_time": "20:18",
+                            "end_time": "20:24",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "accommodation",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "21:00",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nanshan Library",
+                            "end": "Shenzhen HAPPYOCEAN Hotel",
+                            "mode": "taxi",
+                            "start_time": "21:00",
+                            "end_time": "21:00",
+                            "cost": 11.0,
+                            "distance": 0.58,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Kexing Science and Technology Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:54",
+                    "end_time": "10:24",
+                    "transports": [
+                        {
+                            "start": "Shenzhen HAPPYOCEAN Hotel",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Gaoxinyuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "08:36",
+                            "cost": 6,
+                            "distance": 3.06,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Gaoxinyuan-Metro Station",
+                            "end": "Kexing Science and Technology Park",
+                            "mode": "walk",
+                            "start_time": "08:36",
+                            "end_time": "08:54",
+                            "cost": 0,
+                            "distance": 1.56,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen China Resources Building Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:29",
+                    "end_time": "11:59",
+                    "transports": [
+                        {
+                            "start": "Kexing Science and Technology Park",
+                            "end": "Shenzhen China Resources Building Art Center",
+                            "mode": "taxi",
+                            "start_time": "10:24",
+                            "end_time": "10:29",
+                            "cost": 17.64,
+                            "distance": 3.7,
+                            "price": 17.64,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen Bay Kapok Hotel · Little Nanyang (Shenzhen Bay Branch)",
+                    "type": "lunch",
+                    "price": 205,
+                    "cost": 615,
+                    "start_time": "12:18",
+                    "end_time": "13:18",
+                    "transports": [
+                        {
+                            "start": "Shenzhen China Resources Building Art Center",
+                            "end": "Science Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:59",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 1.01,
+                            "price": 0
+                        },
+                        {
+                            "start": "Science Park-Metro Station",
+                            "end": "Houhai-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:11",
+                            "end_time": "12:13",
+                            "cost": 6,
+                            "distance": 1.03,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Houhai-Metro Station",
+                            "end": "Shenzhen Bay Kapok Hotel · Little Nanyang (Shenzhen Bay Branch)",
+                            "mode": "walk",
+                            "start_time": "12:13",
+                            "end_time": "12:18",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Splendid China Folk Village",
+                    "type": "attraction",
+                    "price": 69,
+                    "cost": 207,
+                    "start_time": "13:40",
+                    "end_time": "15:10",
+                    "transports": [
+                        {
+                            "start": "Shenzhen Bay Kapok Hotel · Little Nanyang (Shenzhen Bay Branch)",
+                            "end": "Houhai-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:18",
+                            "end_time": "13:23",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "Houhai-Metro Station",
+                            "end": "Qiaocheng East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:23",
+                            "end_time": "13:34",
+                            "cost": 9,
+                            "distance": 5.78,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng East-Metro Station",
+                            "end": "Splendid China Folk Village",
+                            "mode": "walk",
+                            "start_time": "13:34",
+                            "end_time": "13:40",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shangri-La Snow Region",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:26",
+                    "end_time": "16:56",
+                    "transports": [
+                        {
+                            "start": "Splendid China Folk Village",
+                            "end": "Qiaocheng East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:10",
+                            "end_time": "15:16",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng East-Metro Station",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:16",
+                            "end_time": "15:18",
+                            "cost": 6,
+                            "distance": 1.5,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Shangri-La Snow Region",
+                            "mode": "walk",
+                            "start_time": "15:18",
+                            "end_time": "15:26",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wild Hunan (Qiaochengfang Branch)",
+                    "type": "dinner",
+                    "price": 129,
+                    "cost": 387,
+                    "start_time": "17:17",
+                    "end_time": "18:17",
+                    "transports": [
+                        {
+                            "start": "Shangri-La Snow Region",
+                            "end": "Qiaocheng North-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:56",
+                            "end_time": "17:04",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qiaocheng North-Metro Station",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:04",
+                            "end_time": "17:07",
+                            "cost": 6,
+                            "distance": 1.91,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Wild Hunan (Qiaochengfang Branch)",
+                            "mode": "walk",
+                            "start_time": "17:07",
+                            "end_time": "17:17",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shenzhen University Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:54",
+                    "end_time": "20:24",
+                    "transports": [
+                        {
+                            "start": "Wild Hunan (Qiaochengfang Branch)",
+                            "end": "Taoyuan Village-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:17",
+                            "end_time": "18:27",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoyuan Village-Metro Station",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:27",
+                            "end_time": "18:34",
+                            "cost": 6,
+                            "distance": 3.81,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Shenzhen University Town",
+                            "mode": "walk",
+                            "start_time": "18:34",
+                            "end_time": "18:54",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "accommodation",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "21:03",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Shenzhen University Town",
+                            "end": "Tanglang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:24",
+                            "end_time": "20:44",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tanglang-Metro Station",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:44",
+                            "end_time": "21:03",
+                            "cost": 12,
+                            "distance": 9.64,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Shenzhen HAPPYOCEAN Hotel",
+                            "mode": "walk",
+                            "start_time": "21:03",
+                            "end_time": "21:03",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "accommodation",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "08:30",
+                    "end_time": "24:00",
+                    "transports": [],
+                    "room_type": 1,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Shenzhen HAPPYOCEAN Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "23:55",
+                    "end_time": "01:16",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Chongqing Jiangbei International Airport",
+                    "price": 515.76,
+                    "cost": 1547.28,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Shenzhen HAPPYOCEAN Hotel",
+                            "end": "Nantou Ancient City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:30",
+                            "cost": 0,
+                            "distance": 0.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nantou Ancient City-Metro Station",
+                            "end": "Airport East-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:30",
+                            "end_time": "09:01",
+                            "cost": 15,
+                            "distance": 15.92,
+                            "price": 5,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Airport East-Metro Station",
+                            "end": "Shenzhen Bao'an International Airport",
+                            "mode": "walk",
+                            "start_time": "09:01",
+                            "end_time": "09:06",
+                            "cost": 0,
+                            "distance": 0.45,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL196",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 9.029882431030273,
+    "llm_inference_time_sec": 0
+}

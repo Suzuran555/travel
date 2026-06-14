@@ -1,0 +1,377 @@
+{
+    "people_number": 1,
+    "start_city": "Chengdu",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "07:05",
+                    "end_time": "16:50",
+                    "start": "Chengdu West Railway Station",
+                    "end": "Beijing West Railway Station",
+                    "price": 609.81,
+                    "cost": 609.81,
+                    "tickets": 1,
+                    "transports": [],
+                    "TrainID": "K547",
+                    "type": "train"
+                },
+                {
+                    "position": "Helude Candied Hawthorn Sticks",
+                    "type": "dinner",
+                    "price": 7,
+                    "cost": 7,
+                    "start_time": "17:07",
+                    "end_time": "18:07",
+                    "transports": [
+                        {
+                            "start": "Beijing West Railway Station",
+                            "end": "Beijing West Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:50",
+                            "end_time": "16:50",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing West Railway Station-Metro Station",
+                            "end": "Dongsi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:50",
+                            "end_time": "17:07",
+                            "cost": 3,
+                            "distance": 8.87,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Dongsi-Metro Station",
+                            "end": "Helude Candied Hawthorn Sticks",
+                            "mode": "walk",
+                            "start_time": "17:07",
+                            "end_time": "17:07",
+                            "cost": 0,
+                            "distance": 0.04,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "COFCO Xiangyun Town",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:10",
+                    "end_time": "20:40",
+                    "transports": [
+                        {
+                            "start": "Helude Candied Hawthorn Sticks",
+                            "end": "Dongsi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.04,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongsi-Metro Station",
+                            "end": "Hualikan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:49",
+                            "cost": 6,
+                            "distance": 21.42,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hualikan-Metro Station",
+                            "end": "COFCO Xiangyun Town",
+                            "mode": "walk",
+                            "start_time": "18:49",
+                            "end_time": "19:10",
+                            "cost": 0,
+                            "distance": 1.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 269,
+                    "start_time": "21:23",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "COFCO Xiangyun Town",
+                            "end": "Hualikan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:40",
+                            "end_time": "21:01",
+                            "cost": 0,
+                            "distance": 1.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hualikan-Metro Station",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:01",
+                            "end_time": "21:04",
+                            "cost": 2,
+                            "distance": 1.61,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "walk",
+                            "start_time": "21:04",
+                            "end_time": "21:23",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "The Palace Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:36",
+                    "end_time": "11:06",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "International Exhibition Center-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:49",
+                            "cost": 0,
+                            "distance": 1.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "International Exhibition Center-Metro Station",
+                            "end": "National Art Museum of China-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:49",
+                            "end_time": "09:29",
+                            "cost": 5,
+                            "distance": 20.39,
+                            "price": 5,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "National Art Museum of China-Metro Station",
+                            "end": "The Palace Museum",
+                            "mode": "walk",
+                            "start_time": "09:29",
+                            "end_time": "09:36",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Dahua Pancake (Jiaodaokou North Scissors Lane Branch)",
+                    "type": "lunch",
+                    "price": 12,
+                    "cost": 12,
+                    "start_time": "11:21",
+                    "end_time": "12:21",
+                    "transports": [
+                        {
+                            "start": "The Palace Museum",
+                            "end": "National Art Museum of China-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:06",
+                            "end_time": "11:13",
+                            "cost": 0,
+                            "distance": 0.63,
+                            "price": 0
+                        },
+                        {
+                            "start": "National Art Museum of China-Metro Station",
+                            "end": "Zhang Zizhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:13",
+                            "end_time": "11:15",
+                            "cost": 2,
+                            "distance": 1.22,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Zhang Zizhong Road-Metro Station",
+                            "end": "Dahua Pancake (Jiaodaokou North Scissors Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "11:15",
+                            "end_time": "11:21",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Purple Bamboo Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:49",
+                    "end_time": "14:19",
+                    "transports": [
+                        {
+                            "start": "Dahua Pancake (Jiaodaokou North Scissors Lane Branch)",
+                            "end": "Zhang Zizhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:21",
+                            "end_time": "12:27",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhang Zizhong Road-Metro Station",
+                            "end": "National Library-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:27",
+                            "end_time": "12:42",
+                            "cost": 3,
+                            "distance": 7.93,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "National Library-Metro Station",
+                            "end": "Purple Bamboo Park",
+                            "mode": "walk",
+                            "start_time": "12:42",
+                            "end_time": "12:49",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Purple Royal Bay Pier",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:38",
+                    "end_time": "16:00",
+                    "transports": [
+                        {
+                            "start": "Purple Bamboo Park",
+                            "end": "National Library-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:19",
+                            "end_time": "14:26",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        },
+                        {
+                            "start": "National Library-Metro Station",
+                            "end": "Weigongcun-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:26",
+                            "end_time": "14:29",
+                            "cost": 2,
+                            "distance": 1.65,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Weigongcun-Metro Station",
+                            "end": "Purple Royal Bay Pier",
+                            "mode": "walk",
+                            "start_time": "14:29",
+                            "end_time": "14:38",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "22:26",
+                    "end_time": "00:20",
+                    "start": "Beijing Capital International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 809.5,
+                    "cost": 809.5,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Purple Royal Bay Pier",
+                            "end": "Weigongcun-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:00",
+                            "end_time": "16:09",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Weigongcun-Metro Station",
+                            "end": "Terminal 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:09",
+                            "end_time": "17:02",
+                            "cost": 6,
+                            "distance": 26.67,
+                            "price": 6,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Terminal 2-Metro Station",
+                            "end": "Beijing Capital International Airport",
+                            "mode": "walk",
+                            "start_time": "17:02",
+                            "end_time": "17:12",
+                            "cost": 0,
+                            "distance": 0.88,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL122",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 12.288525819778442,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,1007 @@
+{
+    "people_number": 5,
+    "start_city": "Chongqing",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "04:39",
+                    "end_time": "04:58",
+                    "start": "Chongqing Jiangbei International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 299.27,
+                    "cost": 1496.35,
+                    "tickets": 5,
+                    "transports": [],
+                    "FlightID": "FL363",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Shuangliu International Airport",
+                            "end": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:58",
+                            "end_time": "05:13",
+                            "cost": 0,
+                            "distance": 1.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shuangliu Airport Terminal 2 East-Metro Station",
+                            "end": "Century City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "05:13",
+                            "end_time": "05:34",
+                            "cost": 20,
+                            "distance": 10.81,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "05:34",
+                            "end_time": "05:44",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Dayuan Central Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:56",
+                    "end_time": "10:26",
+                    "transports": [
+                        {
+                            "start": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "end": "Century City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Dayuan-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:40",
+                            "end_time": "08:44",
+                            "cost": 10,
+                            "distance": 2.25,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dayuan-Metro Station",
+                            "end": "Dayuan Central Park",
+                            "mode": "walk",
+                            "start_time": "08:44",
+                            "end_time": "08:56",
+                            "cost": 0,
+                            "distance": 1.07,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Light Peace Vegetarian Restaurant (Tiexiangsi Water Street Branch)",
+                    "type": "lunch",
+                    "price": 115,
+                    "cost": 575,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Dayuan Central Park",
+                            "end": "Dayuan-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:26",
+                            "end_time": "10:38",
+                            "cost": 0,
+                            "distance": 1.07,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dayuan-Metro Station",
+                            "end": "Jincheng Lake-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:38",
+                            "end_time": "10:41",
+                            "cost": 10,
+                            "distance": 1.54,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jincheng Lake-Metro Station",
+                            "end": "Light Peace Vegetarian Restaurant (Tiexiangsi Water Street Branch)",
+                            "mode": "walk",
+                            "start_time": "10:41",
+                            "end_time": "10:49",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Iron Statue Temple Water Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:01",
+                    "end_time": "13:31",
+                    "transports": [
+                        {
+                            "start": "Light Peace Vegetarian Restaurant (Tiexiangsi Water Street Branch)",
+                            "end": "Iron Statue Temple Water Street",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:01",
+                            "cost": 22.0,
+                            "distance": 0.89,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Nellie's Family Center (Chengdu Global Store)",
+                    "type": "attraction",
+                    "price": 99,
+                    "cost": 495,
+                    "start_time": "13:50",
+                    "end_time": "15:20",
+                    "transports": [
+                        {
+                            "start": "Iron Statue Temple Water Street",
+                            "end": "Jincheng Lake-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:31",
+                            "end_time": "13:41",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Lake-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:41",
+                            "end_time": "13:45",
+                            "cost": 10,
+                            "distance": 2.2,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Nellie's Family Center (Chengdu Global Store)",
+                            "mode": "walk",
+                            "start_time": "13:45",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Lichao Aviation Museum",
+                    "type": "attraction",
+                    "price": 158,
+                    "cost": 790,
+                    "start_time": "15:20",
+                    "end_time": "16:50",
+                    "transports": [
+                        {
+                            "start": "Nellie's Family Center (Chengdu Global Store)",
+                            "end": "Lichao Aviation Museum",
+                            "mode": "taxi",
+                            "start_time": "15:20",
+                            "end_time": "15:20",
+                            "cost": 22.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                    "type": "dinner",
+                    "price": 88,
+                    "cost": 440,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Lichao Aviation Museum",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:50",
+                            "end_time": "16:53",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:53",
+                            "end_time": "16:54",
+                            "cost": 10,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                            "mode": "walk",
+                            "start_time": "16:54",
+                            "end_time": "16:58",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "One Ear Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:25",
+                    "end_time": "19:55",
+                    "transports": [
+                        {
+                            "start": "Ming Xia Hui Sichuan-Style Prawn Restaurant (Global Center Branch)",
+                            "end": "Jincheng Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Square-Metro Station",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "18:21",
+                            "cost": 15,
+                            "distance": 8.58,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "One Ear Pavilion",
+                            "mode": "walk",
+                            "start_time": "18:21",
+                            "end_time": "18:25",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Qingyang District Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:19",
+                    "end_time": "20:30",
+                    "transports": [
+                        {
+                            "start": "One Ear Pavilion",
+                            "end": "Cuqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:55",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cuqiao-Metro Station",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:59",
+                            "end_time": "20:13",
+                            "cost": 15,
+                            "distance": 7.4,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Qingyang District Library",
+                            "mode": "walk",
+                            "start_time": "20:13",
+                            "end_time": "20:19",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "accommodation",
+                    "price": 589,
+                    "cost": 1767,
+                    "start_time": "21:14",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Qingyang District Library",
+                            "end": "Cultural Palace-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:36",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Cultural Palace-Metro Station",
+                            "end": "Century City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:36",
+                            "end_time": "21:04",
+                            "cost": 25,
+                            "distance": 14.21,
+                            "price": 5,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "21:04",
+                            "end_time": "21:14",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Three Saints Flower Village Tourist Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:31",
+                    "end_time": "11:01",
+                    "transports": [
+                        {
+                            "start": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "end": "Century City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Honghe-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:40",
+                            "end_time": "09:00",
+                            "cost": 20,
+                            "distance": 10.15,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Honghe-Metro Station",
+                            "end": "Three Saints Flower Village Tourist Area",
+                            "mode": "walk",
+                            "start_time": "09:00",
+                            "end_time": "09:31",
+                            "cost": 0,
+                            "distance": 2.65,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Casa Jardin Four Seasons",
+                    "type": "lunch",
+                    "price": 137,
+                    "cost": 685,
+                    "start_time": "12:15",
+                    "end_time": "13:15",
+                    "transports": [
+                        {
+                            "start": "Three Saints Flower Village Tourist Area",
+                            "end": "Honghe-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:01",
+                            "end_time": "11:32",
+                            "cost": 0,
+                            "distance": 2.65,
+                            "price": 0
+                        },
+                        {
+                            "start": "Honghe-Metro Station",
+                            "end": "Sichuan Normal University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:32",
+                            "end_time": "11:40",
+                            "cost": 15,
+                            "distance": 4.0,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Sichuan Normal University-Metro Station",
+                            "end": "Casa Jardin Four Seasons",
+                            "mode": "walk",
+                            "start_time": "11:40",
+                            "end_time": "12:15",
+                            "cost": 0,
+                            "distance": 2.92,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Beautiful East",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:31",
+                    "end_time": "16:01",
+                    "transports": [
+                        {
+                            "start": "Casa Jardin Four Seasons",
+                            "end": "Sichuan Normal University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:15",
+                            "end_time": "13:50",
+                            "cost": 0,
+                            "distance": 2.92,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sichuan Normal University-Metro Station",
+                            "end": "Honghe-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:50",
+                            "end_time": "13:58",
+                            "cost": 15,
+                            "distance": 4.0,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Honghe-Metro Station",
+                            "end": "Beautiful East",
+                            "mode": "walk",
+                            "start_time": "13:58",
+                            "end_time": "14:31",
+                            "cost": 0,
+                            "distance": 2.77,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Grand Courtyard River · Immortal Fish Manor (Three Saints Flower Village Branch)",
+                    "type": "dinner",
+                    "price": 112,
+                    "cost": 560,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Beautiful East",
+                            "end": "Honghe-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:01",
+                            "end_time": "16:34",
+                            "cost": 0,
+                            "distance": 2.77,
+                            "price": 0
+                        },
+                        {
+                            "start": "Honghe-Metro Station",
+                            "end": "Chengdu Administrative College-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:34",
+                            "end_time": "16:37",
+                            "cost": 10,
+                            "distance": 1.57,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chengdu Administrative College-Metro Station",
+                            "end": "Grand Courtyard River · Immortal Fish Manor (Three Saints Flower Village Branch)",
+                            "mode": "walk",
+                            "start_time": "16:37",
+                            "end_time": "16:57",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Jiuyanqiao Pier Historic Site",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:39",
+                    "end_time": "20:09",
+                    "transports": [
+                        {
+                            "start": "Grand Courtyard River · Immortal Fish Manor (Three Saints Flower Village Branch)",
+                            "end": "Chengdu Administrative College-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:20",
+                            "cost": 0,
+                            "distance": 1.74,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chengdu Administrative College-Metro Station",
+                            "end": "Niuwangmiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:20",
+                            "end_time": "18:38",
+                            "cost": 20,
+                            "distance": 9.06,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Niuwangmiao-Metro Station",
+                            "end": "Jiuyanqiao Pier Historic Site",
+                            "mode": "walk",
+                            "start_time": "18:38",
+                            "end_time": "18:39",
+                            "cost": 0,
+                            "distance": 0.15,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "20:14",
+                    "end_time": "21:44",
+                    "transports": [
+                        {
+                            "start": "Jiuyanqiao Pier Historic Site",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "taxi",
+                            "start_time": "20:09",
+                            "end_time": "20:14",
+                            "cost": 37.06,
+                            "distance": 3.95,
+                            "price": 18.53,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "accommodation",
+                    "price": 589,
+                    "cost": 1767,
+                    "start_time": "22:24",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:44",
+                            "end_time": "21:51",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Century City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:51",
+                            "end_time": "22:14",
+                            "cost": 20,
+                            "distance": 11.64,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "22:14",
+                            "end_time": "22:24",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 3,
+            "activities": [
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Guanghui Art Museum",
+                    "type": "attraction",
+                    "price": 98,
+                    "cost": 490,
+                    "start_time": "09:11",
+                    "end_time": "10:41",
+                    "transports": [
+                        {
+                            "start": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "end": "Century City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:40",
+                            "end_time": "09:06",
+                            "cost": 20,
+                            "distance": 13.01,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Guanghui Art Museum",
+                            "mode": "walk",
+                            "start_time": "09:06",
+                            "end_time": "09:11",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Unique Mountain Villa",
+                    "type": "lunch",
+                    "price": 150,
+                    "cost": 750,
+                    "start_time": "12:24",
+                    "end_time": "13:24",
+                    "transports": [
+                        {
+                            "start": "Guanghui Art Museum",
+                            "end": "Hangzhou Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:41",
+                            "end_time": "10:46",
+                            "cost": 0,
+                            "distance": 0.44,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hangzhou Road-Metro Station",
+                            "end": "Qingdao Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:46",
+                            "end_time": "10:50",
+                            "cost": 10,
+                            "distance": 2.46,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Qingdao Road-Metro Station",
+                            "end": "Unique Mountain Villa",
+                            "mode": "walk",
+                            "start_time": "10:50",
+                            "end_time": "12:24",
+                            "cost": 0,
+                            "distance": 7.84,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "accommodation",
+                    "price": 589,
+                    "cost": 1767,
+                    "start_time": "15:30",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Unique Mountain Villa",
+                            "end": "Qingdao Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:24",
+                            "end_time": "14:58",
+                            "cost": 0,
+                            "distance": 7.84,
+                            "price": 0
+                        },
+                        {
+                            "start": "Qingdao Road-Metro Station",
+                            "end": "Century City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:58",
+                            "end_time": "15:20",
+                            "cost": 20,
+                            "distance": 11.18,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "15:20",
+                            "end_time": "15:30",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 4,
+            "activities": [
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chengdu Raffles City Hyatt Hotel · Café Z · All-Day Seafood and Steak Buffet Restaurant",
+                    "type": "lunch",
+                    "price": 238,
+                    "cost": 1190,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "end": "Chengdu Raffles City Hyatt Hotel · Café Z · All-Day Seafood and Steak Buffet Restaurant",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "10:45",
+                            "cost": 0.0,
+                            "distance": 11.308010027803192,
+                            "price": 0.0
+                        }
+                    ]
+                },
+                {
+                    "position": "Crispy and Fragrant Family's Guokui and Liangfen (Gengjia Alley Branch)",
+                    "type": "dinner",
+                    "price": 11,
+                    "cost": 55,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Raffles City Hyatt Hotel · Café Z · All-Day Seafood and Steak Buffet Restaurant",
+                            "end": "Chunxi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:03",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chunxi Road-Metro Station",
+                            "end": "Xinnanmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:03",
+                            "end_time": "12:05",
+                            "cost": 10,
+                            "distance": 1.1,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Xinnanmen-Metro Station",
+                            "end": "Crispy and Fragrant Family's Guokui and Liangfen (Gengjia Alley Branch)",
+                            "mode": "walk",
+                            "start_time": "12:05",
+                            "end_time": "12:11",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "accommodation",
+                    "price": 589,
+                    "cost": 1767,
+                    "start_time": "18:35",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Crispy and Fragrant Family's Guokui and Liangfen (Gengjia Alley Branch)",
+                            "end": "Xinnanmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:06",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinnanmen-Metro Station",
+                            "end": "Century City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:06",
+                            "end_time": "18:25",
+                            "cost": 20,
+                            "distance": 9.94,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "mode": "walk",
+                            "start_time": "18:25",
+                            "end_time": "18:35",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 5,
+            "activities": [
+                {
+                    "position": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "start_time": "22:36",
+                    "end_time": "23:54",
+                    "start": "Chengdu East Railway Station",
+                    "end": "Chongqing West Railway Station",
+                    "price": 171.7,
+                    "cost": 858.5,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Four Points by Sheraton Chengdu High-tech Zone Exhibition Center",
+                            "end": "Century City-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.89,
+                            "price": 0
+                        },
+                        {
+                            "start": "Century City-Metro Station",
+                            "end": "Chengdu East Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:40",
+                            "end_time": "09:01",
+                            "cost": 20,
+                            "distance": 10.7,
+                            "price": 4,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chengdu East Railway Station-Metro Station",
+                            "end": "Chengdu East Railway Station",
+                            "mode": "walk",
+                            "start_time": "09:01",
+                            "end_time": "09:01",
+                            "cost": 0,
+                            "distance": 0.0,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "G8575",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 273.1380035877228,
+    "llm_inference_time_sec": 0
+}

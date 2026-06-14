@@ -1,0 +1,252 @@
+{
+    "people_number": 3,
+    "start_city": "Shanghai",
+    "target_city": "Chongqing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "06:01",
+                    "end_time": "19:30",
+                    "start": "Shanghai Hongqiao Station",
+                    "end": "Chongqing North Railway Station",
+                    "price": 865.21,
+                    "cost": 2595.63,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "D2207",
+                    "type": "train"
+                },
+                {
+                    "position": "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant",
+                    "type": "dinner",
+                    "price": 265,
+                    "cost": 795,
+                    "start_time": "19:38",
+                    "end_time": "20:38",
+                    "transports": [
+                        {
+                            "start": "Chongqing North Railway Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:33",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Shiziping-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:33",
+                            "end_time": "19:34",
+                            "cost": 6,
+                            "distance": 0.6,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Shiziping-Metro Station",
+                            "end": "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant",
+                            "mode": "walk",
+                            "start_time": "19:34",
+                            "end_time": "19:38",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "accommodation",
+                    "price": 31,
+                    "cost": 62,
+                    "start_time": "20:57",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Wyndham Grand Plaza Royale Huayu Hotel's Grand Palace Chinese Restaurant",
+                            "end": "Shiziping-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:38",
+                            "end_time": "20:42",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shiziping-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:42",
+                            "end_time": "20:53",
+                            "cost": 9,
+                            "distance": 5.66,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Yachao Capsule Apartment",
+                            "mode": "walk",
+                            "start_time": "20:53",
+                            "end_time": "20:57",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Yachao Capsule Apartment",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Eighteen Steps",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:40",
+                    "end_time": "10:10",
+                    "transports": [
+                        {
+                            "start": "Yachao Capsule Apartment",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:34",
+                            "end_time": "08:35",
+                            "cost": 6,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Eighteen Steps",
+                            "mode": "walk",
+                            "start_time": "08:35",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chongqing Shibati Traditional Style Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:20",
+                    "end_time": "11:50",
+                    "transports": [
+                        {
+                            "start": "Eighteen Steps",
+                            "end": "Linjiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:10",
+                            "end_time": "10:15",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Linjiangmen-Metro Station",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:15",
+                            "end_time": "10:16",
+                            "cost": 6,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Chongqing Shibati Traditional Style Area",
+                            "mode": "walk",
+                            "start_time": "10:16",
+                            "end_time": "10:20",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "start_time": "14:10",
+                    "end_time": "07:57",
+                    "start": "Chongqing North Railway Station",
+                    "end": "Shanghai South Railway Station",
+                    "price": 721.0,
+                    "cost": 2163.0,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Chongqing Shibati Traditional Style Area",
+                            "end": "Xiaoshizi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:50",
+                            "end_time": "11:54",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshizi-Metro Station",
+                            "end": "Chongqing North Station South Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:54",
+                            "end_time": "12:06",
+                            "cost": 9,
+                            "distance": 6.15,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Chongqing North Station South Square-Metro Station",
+                            "end": "Chongqing North Railway Station",
+                            "mode": "walk",
+                            "start_time": "12:06",
+                            "end_time": "12:09",
+                            "cost": 0,
+                            "distance": 0.27,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "Z258",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 2.212681531906128,
+    "llm_inference_time_sec": 0
+}

@@ -1,0 +1,304 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "09:24",
+                    "start": "Nanjing Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D10",
+                    "type": "train"
+                },
+                {
+                    "position": "Ancient Observatory",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 100,
+                    "start_time": "09:25",
+                    "end_time": "10:55",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Ancient Observatory",
+                            "mode": "taxi",
+                            "start_time": "09:24",
+                            "end_time": "09:25",
+                            "cost": 22.0,
+                            "distance": 1.18,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Authentic Beijing Flavor House · Fresh Orange Roast Duck (Xidan Branch)",
+                    "type": "lunch",
+                    "price": 112,
+                    "cost": 560,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "Ancient Observatory",
+                            "end": "Authentic Beijing Flavor House · Fresh Orange Roast Duck (Xidan Branch)",
+                            "mode": "taxi",
+                            "start_time": "10:55",
+                            "end_time": "11:00",
+                            "cost": 34.02,
+                            "distance": 3.52,
+                            "price": 17.01,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Capital Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:02",
+                    "end_time": "13:32",
+                    "transports": [
+                        {
+                            "start": "Authentic Beijing Flavor House · Fresh Orange Roast Duck (Xidan Branch)",
+                            "end": "Capital Museum",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:02",
+                            "cost": 22.0,
+                            "distance": 1.52,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Moon Altar Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:34",
+                    "end_time": "15:04",
+                    "transports": [
+                        {
+                            "start": "Capital Museum",
+                            "end": "Moon Altar Park",
+                            "mode": "taxi",
+                            "start_time": "13:32",
+                            "end_time": "13:34",
+                            "cost": 22.0,
+                            "distance": 1.39,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Xidan Commercial Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:06",
+                    "end_time": "16:36",
+                    "transports": [
+                        {
+                            "start": "Moon Altar Park",
+                            "end": "Xidan Commercial Street",
+                            "mode": "taxi",
+                            "start_time": "15:04",
+                            "end_time": "15:06",
+                            "cost": 23.18,
+                            "distance": 1.97,
+                            "price": 11.59,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Fragrant Princess Roast Chicken (Xidan Branch)",
+                    "type": "dinner",
+                    "price": 31,
+                    "cost": 155,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Xidan Commercial Street",
+                            "end": "Fragrant Princess Roast Chicken (Xidan Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:36",
+                            "end_time": "16:37",
+                            "cost": 22.0,
+                            "distance": 0.72,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Tiananmen Square",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:03",
+                    "end_time": "19:33",
+                    "transports": [
+                        {
+                            "start": "Fragrant Princess Roast Chicken (Xidan Branch)",
+                            "end": "Tiananmen Square",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 25.84,
+                            "distance": 2.35,
+                            "price": 12.92,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "accommodation",
+                    "price": 269,
+                    "cost": 807,
+                    "start_time": "20:06",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Tiananmen Square",
+                            "end": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "mode": "taxi",
+                            "start_time": "19:33",
+                            "end_time": "20:06",
+                            "cost": 189.12,
+                            "distance": 22.19,
+                            "price": 94.56,
+                            "cars": 2
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Beijing Drama Carnival",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:44",
+                    "end_time": "10:14",
+                    "transports": [
+                        {
+                            "start": "Beijing LanWan International Hotel (Capital Airport Xinguozhan Branch)",
+                            "end": "Beijing Drama Carnival",
+                            "mode": "taxi",
+                            "start_time": "08:30",
+                            "end_time": "08:44",
+                            "cost": 78.44,
+                            "distance": 9.86,
+                            "price": 39.22,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "798 Art District",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:14",
+                    "end_time": "11:44",
+                    "transports": [
+                        {
+                            "start": "Beijing Drama Carnival",
+                            "end": "798 Art District",
+                            "mode": "taxi",
+                            "start_time": "10:14",
+                            "end_time": "10:14",
+                            "cost": 22.0,
+                            "distance": 0.2,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "TIAGO HOME KITCHEN (Indigo Store)",
+                    "type": "lunch",
+                    "price": 180,
+                    "cost": 900,
+                    "start_time": "11:47",
+                    "end_time": "12:47",
+                    "transports": [
+                        {
+                            "start": "798 Art District",
+                            "end": "TIAGO HOME KITCHEN (Indigo Store)",
+                            "mode": "taxi",
+                            "start_time": "11:44",
+                            "end_time": "11:47",
+                            "cost": 26.14,
+                            "distance": 2.39,
+                            "price": 13.07,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:22",
+                    "end_time": "00:29",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 416.91,
+                    "cost": 2084.55,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "TIAGO HOME KITCHEN (Indigo Store)",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "taxi",
+                            "start_time": "12:47",
+                            "end_time": "14:05",
+                            "cost": 459.66,
+                            "distance": 52.25,
+                            "price": 229.83,
+                            "cars": 2
+                        }
+                    ],
+                    "FlightID": "FL154",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 0.7497618198394775,
+    "llm_inference_time_sec": 0
+}

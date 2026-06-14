@@ -1,0 +1,464 @@
+{
+    "people_number": 2,
+    "start_city": "Wuhan",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:56",
+                    "end_time": "03:09",
+                    "start": "Wuhan Tianhe International Airport",
+                    "end": "Chengdu Tianfu International Airport",
+                    "price": 522.72,
+                    "cost": 1045.44,
+                    "tickets": 2,
+                    "transports": [],
+                    "FlightID": "FL620",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Sia Suites (Chengdu Tai Koo Li)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Tianfu International Airport",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "walk",
+                            "start_time": "03:09",
+                            "end_time": "03:53",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chunxi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "03:53",
+                            "end_time": "05:36",
+                            "cost": 18,
+                            "distance": 51.61,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Chunxi Road-Metro Station",
+                            "end": "Sia Suites (Chengdu Tai Koo Li)",
+                            "mode": "walk",
+                            "start_time": "05:36",
+                            "end_time": "05:38",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Yulei Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:36",
+                    "end_time": "10:06",
+                    "transports": [
+                        {
+                            "start": "Sia Suites (Chengdu Tai Koo Li)",
+                            "end": "Chunxi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chunxi Road-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:32",
+                            "end_time": "08:33",
+                            "cost": 4,
+                            "distance": 0.9,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Yulei Pavilion",
+                            "mode": "walk",
+                            "start_time": "08:33",
+                            "end_time": "08:36",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chunxi Road",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:06",
+                    "end_time": "11:36",
+                    "transports": [
+                        {
+                            "start": "Yulei Pavilion",
+                            "end": "Chunxi Road",
+                            "mode": "taxi",
+                            "start_time": "10:06",
+                            "end_time": "10:06",
+                            "cost": 11.0,
+                            "distance": 0.45,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Flavorful Noodle House (Longxing Street Branch)",
+                    "type": "lunch",
+                    "price": 26,
+                    "cost": 52,
+                    "start_time": "11:36",
+                    "end_time": "12:36",
+                    "transports": [
+                        {
+                            "start": "Chunxi Road",
+                            "end": "Flavorful Noodle House (Longxing Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:36",
+                            "end_time": "11:36",
+                            "cost": 11.0,
+                            "distance": 0.45,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Hovering Leap Theater (Chunxi Road Maoye Department Store Branch)",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 78,
+                    "start_time": "12:36",
+                    "end_time": "14:06",
+                    "transports": [
+                        {
+                            "start": "Flavorful Noodle House (Longxing Street Branch)",
+                            "end": "Hovering Leap Theater (Chunxi Road Maoye Department Store Branch)",
+                            "mode": "taxi",
+                            "start_time": "12:36",
+                            "end_time": "12:36",
+                            "cost": 11.0,
+                            "distance": 0.51,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Chengdu Hanging Glass Art Museum",
+                    "type": "attraction",
+                    "price": 38,
+                    "cost": 76,
+                    "start_time": "14:06",
+                    "end_time": "15:36",
+                    "transports": [
+                        {
+                            "start": "Hovering Leap Theater (Chunxi Road Maoye Department Store Branch)",
+                            "end": "Chengdu Hanging Glass Art Museum",
+                            "mode": "taxi",
+                            "start_time": "14:06",
+                            "end_time": "14:06",
+                            "cost": 11.0,
+                            "distance": 0.0,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "He's Hong Qigong Skewer Restaurant (Zongfu Road Direct Store)",
+                    "type": "dinner",
+                    "price": 67,
+                    "cost": 134,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Chengdu Hanging Glass Art Museum",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:36",
+                            "end_time": "15:39",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:39",
+                            "end_time": "15:40",
+                            "cost": 4,
+                            "distance": 0.83,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "He's Hong Qigong Skewer Restaurant (Zongfu Road Direct Store)",
+                            "mode": "walk",
+                            "start_time": "15:40",
+                            "end_time": "15:44",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Chengdu Heartbreak Museum (Chunxi Road Flagship Store)",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 78,
+                    "start_time": "18:08",
+                    "end_time": "19:38",
+                    "transports": [
+                        {
+                            "start": "He's Hong Qigong Skewer Restaurant (Zongfu Road Direct Store)",
+                            "end": "Taisheng South Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taisheng South Road-Metro Station",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "18:05",
+                            "cost": 4,
+                            "distance": 0.83,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Chengdu Heartbreak Museum (Chunxi Road Flagship Store)",
+                            "mode": "walk",
+                            "start_time": "18:05",
+                            "end_time": "18:08",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Imperial City Mosque",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:50",
+                    "end_time": "21:20",
+                    "transports": [
+                        {
+                            "start": "Chengdu Heartbreak Museum (Chunxi Road Flagship Store)",
+                            "end": "Second Municipal Hospital-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:38",
+                            "end_time": "19:41",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Second Municipal Hospital-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:41",
+                            "end_time": "19:44",
+                            "cost": 4,
+                            "distance": 1.86,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Imperial City Mosque",
+                            "mode": "walk",
+                            "start_time": "19:44",
+                            "end_time": "19:50",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Sia Suites (Chengdu Tai Koo Li)",
+                    "type": "accommodation",
+                    "price": 428,
+                    "cost": 856,
+                    "start_time": "21:32",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Imperial City Mosque",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:20",
+                            "end_time": "21:26",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Chunxi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:26",
+                            "end_time": "21:30",
+                            "cost": 4,
+                            "distance": 2.01,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Chunxi Road-Metro Station",
+                            "end": "Sia Suites (Chengdu Tai Koo Li)",
+                            "mode": "walk",
+                            "start_time": "21:30",
+                            "end_time": "21:32",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Sia Suites (Chengdu Tai Koo Li)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "08:30",
+                    "transports": []
+                },
+                {
+                    "position": "Chengdu People's Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:40",
+                    "end_time": "10:10",
+                    "transports": [
+                        {
+                            "start": "Sia Suites (Chengdu Tai Koo Li)",
+                            "end": "Chunxi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:30",
+                            "end_time": "08:32",
+                            "cost": 0,
+                            "distance": 0.19,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chunxi Road-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:32",
+                            "end_time": "08:36",
+                            "cost": 4,
+                            "distance": 2.01,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Chengdu People's Park",
+                            "mode": "walk",
+                            "start_time": "08:36",
+                            "end_time": "08:40",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "start_time": "22:35",
+                    "end_time": "23:48",
+                    "start": "Chengdu Tianfu International Airport",
+                    "end": "Wuhan Tianhe International Airport",
+                    "price": 443.37,
+                    "cost": 886.74,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Chengdu People's Park",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:10",
+                            "end_time": "10:14",
+                            "cost": 0,
+                            "distance": 0.37,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:14",
+                            "end_time": "12:01",
+                            "cost": 18,
+                            "distance": 53.61,
+                            "price": 9,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Tianfu Airport Terminal 1 and 2-Metro Station",
+                            "end": "Chengdu Tianfu International Airport",
+                            "mode": "walk",
+                            "start_time": "12:01",
+                            "end_time": "12:45",
+                            "cost": 0,
+                            "distance": 3.72,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL466",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 6.310274600982666,
+    "llm_inference_time_sec": 0
+}

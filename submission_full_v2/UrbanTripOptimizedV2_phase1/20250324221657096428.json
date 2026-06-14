@@ -1,0 +1,223 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "00:02",
+                    "end_time": "09:24",
+                    "start": "Nanjing Station",
+                    "end": "Beijing South Railway Station",
+                    "price": 538.92,
+                    "cost": 2694.6,
+                    "tickets": 5,
+                    "transports": [],
+                    "TrainID": "D10",
+                    "type": "train"
+                },
+                {
+                    "position": "Ancient Observatory",
+                    "type": "attraction",
+                    "price": 20,
+                    "cost": 100,
+                    "start_time": "09:32",
+                    "end_time": "11:02",
+                    "transports": [
+                        {
+                            "start": "Beijing South Railway Station",
+                            "end": "Beijing South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:24",
+                            "end_time": "09:24",
+                            "cost": 0,
+                            "distance": 0.02,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beijing South Railway Station-Metro Station",
+                            "end": "Taoranting-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:24",
+                            "end_time": "09:27",
+                            "cost": 10,
+                            "distance": 1.54,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Taoranting-Metro Station",
+                            "end": "Ancient Observatory",
+                            "mode": "walk",
+                            "start_time": "09:27",
+                            "end_time": "09:32",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                    "type": "lunch",
+                    "price": 60,
+                    "cost": 300,
+                    "start_time": "11:03",
+                    "end_time": "12:03",
+                    "transports": [
+                        {
+                            "start": "Ancient Observatory",
+                            "end": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:02",
+                            "end_time": "11:03",
+                            "cost": 22.0,
+                            "distance": 1.01,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanchizi Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:25",
+                    "end_time": "13:00",
+                    "transports": [
+                        {
+                            "start": "Chen's Small Intestine Restaurant (Nanheng Street Branch)",
+                            "end": "Taoranting-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:03",
+                            "end_time": "12:09",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Taoranting-Metro Station",
+                            "end": "National Art Museum of China-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:09",
+                            "end_time": "12:20",
+                            "cost": 15,
+                            "distance": 5.91,
+                            "price": 3,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "National Art Museum of China-Metro Station",
+                            "end": "Nanchizi Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:20",
+                            "end_time": "12:25",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Beijing Huanghuacheng Water Great Wall Manxin Mansion",
+                    "type": "accommodation",
+                    "price": 525,
+                    "cost": 2625,
+                    "start_time": "18:27",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nanchizi Art Museum",
+                            "end": "National Art Museum of China-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:00",
+                            "end_time": "13:05",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "National Art Museum of China-Metro Station",
+                            "end": "Beishaowa-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:05",
+                            "end_time": "14:14",
+                            "cost": 35,
+                            "distance": 34.9,
+                            "price": 7,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Beishaowa-Metro Station",
+                            "end": "Beijing Huanghuacheng Water Great Wall Manxin Mansion",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "18:27",
+                            "cost": 0,
+                            "distance": 21.15,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 5
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "start_time": "23:22",
+                    "end_time": "00:29",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 416.91,
+                    "cost": 2084.55,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Beijing Huanghuacheng Water Great Wall Manxin Mansion",
+                            "end": "Beishaowa-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:00",
+                            "end_time": "04:13",
+                            "cost": 0,
+                            "distance": 21.15,
+                            "price": 0
+                        },
+                        {
+                            "start": "Beishaowa-Metro Station",
+                            "end": "Daxing Airport-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:13",
+                            "end_time": "06:52",
+                            "cost": 55.0,
+                            "distance": 79.74,
+                            "price": 11.0,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Daxing Airport-Metro Station",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "walk",
+                            "start_time": "06:52",
+                            "end_time": "07:03",
+                            "cost": 0,
+                            "distance": 0.93,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL154",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "search_time_sec": 29.70042109489441,
+    "llm_inference_time_sec": 0
+}
