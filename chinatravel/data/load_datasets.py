@@ -62,6 +62,8 @@ def load_query_local(args, version="", verbose=False):
             file_list = os.listdir(dir_ii)
 
             for file_i in file_list:
+                if not file_i.endswith(".json") or file_i.startswith("._"):
+                    continue
                 query_id = file_i.split(".")[0]
                 if query_id in query_id_list:
                     data_i = json.load(
@@ -164,4 +166,3 @@ if __name__ == "__main__":
             print(uid, query_data[uid])
         else:
             raise ValueError(f"{uid} not in query_data")
-

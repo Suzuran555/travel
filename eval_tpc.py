@@ -152,7 +152,7 @@ if __name__ == "__main__":
     parser.add_argument("--preference", "-p", action="store_true", default=False)
     parser.add_argument("--lang", "--locale", choices=["zh", "en"], default="zh")
     args = parser.parse_args()
-    if args.lang == "en" and not args.method.endswith("_en"):
+    if args.lang == "en" and "_en" not in args.method:
         args.method += "_en"
 
     # print(args.splits)
