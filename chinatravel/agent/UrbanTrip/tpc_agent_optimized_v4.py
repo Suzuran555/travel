@@ -3476,9 +3476,9 @@ class UrbanTripOptimizedV4(BaseAgent):
                 res[key] = extract_list(m.group(1)) if m else None
 
             m = re.search(
-                r"poi_distance\(target_city\(plan\)\s*,\s*'([^']+)'\s*,\s*accommodation_position\)\s*<=\s*([0-9\.]+)",
+                r"poi_distance\(target_city\(plan\)\s*,\s*(['\"])(.+)\1\s*,\s*accommodation_position\)\s*<=\s*([0-9\.]+)",
                 dsl_str)
-            res["must_live_hotel_location_limit"] = [{m.group(1): float(m.group(2))}] if m else None
+            res["must_live_hotel_location_limit"] = [{m.group(2): float(m.group(3))}] if m else None
 
             m = re.search(r"room_type\(activity\)\s*!=\s*([0-9]+)", dsl_str)
             res["bed_number"] = int(m.group(1)) if m else None

@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 
 from chinatravel.environment.tools.accommodations.apis import Accommodations
 from chinatravel.environment.tools.restaurants.apis import Restaurants
@@ -21,6 +22,23 @@ attractions = Attractions()
 _TOOLS_BY_LANG = {
     "zh": (accommodation, restaurants, attractions)
 }
+
+_POI_DISTANCE_ACCOMMODATION_RE = re.compile(
+    r"(poi_distance\(target_city\(plan\)\s*,\s*)(['\"])(.+)\2(\s*,\s*accommodation_position\))"
+)
+
+
+def _normalize_poi_distance_literals(constraint):
+    def replace_match(match):
+        poi_name = match.group(3).replace("\\'", "'").replace('\\"', '"')
+        return f"{match.group(1)}{poi_name!r}{match.group(4)}"
+
+    lines = []
+    for line in constraint.splitlines():
+        if "poi_distance" in line and "accommodation_position" in line:
+            line = _POI_DISTANCE_ACCOMMODATION_RE.sub(replace_match, line)
+        lines.append(line)
+    return "\n".join(lines)
 
 
 def _infer_lang(symbolic_input):
@@ -450,8 +468,9 @@ for activity in allactivities(plan):
         # results.append(vars_dict.get("result", False))
         try:
             # Evaluate the constraint in a safe manner
+            constraint_to_exec = _normalize_poi_distance_literals(constraint)
             exec(
-                constraint,
+                constraint_to_exec,
                 {
                     "__builtins__": {
                         "set": set,
