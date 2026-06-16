@@ -26,6 +26,8 @@ from chinatravel.agent.UrbanTrip.utils import (
     add_time_delta,
     get_time_delta,
     TimeOutError,
+    clamp_time_to_day_end,
+    time_to_minutes,
 )
 from chinatravel.agent.UrbanTrip.segment_index import SegmentIndex
 from chinatravel.agent.UrbanTrip.plan_graph import (
@@ -34,6 +36,19 @@ from chinatravel.agent.UrbanTrip.plan_graph import (
     incremental_space_time_ok,
     repair_full_itinerary,
     sync_itinerary_commonsense,
+)
+from chinatravel.agent.UrbanTrip.search_state import PlanPool, SearchState, VisitingSnapshot, ensure_day_plan
+from chinatravel.agent.UrbanTrip.dfs_search import (
+    arrive_leave_violated,
+    arrived_time,
+    dfs_log,
+    filter_open_at_time,
+    flatten_visiting_indices,
+    is_closed_at_arrival,
+    iterate_transports,
+    rank_poi_dataframe,
+    transport_rules_violated,
+    transports_ranking_to,
 )
 
 # from chinatravel.eval.utils import load_json_file, validate_json, save_json_file
@@ -130,11 +145,18 @@ class UrbanTripOptimizedV5(BaseAgent):
                 succ = True
 
             elif self.least_plan_comm is not None:
-                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_comm) or self.least_plan_comm
+                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_comm)
+                if plan_out is None:
+                    plan_out = deepcopy(self.least_plan_comm)
             elif self.least_plan_schema is not None:
-                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_schema) or self.least_plan_schema
+                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_schema)
+                if plan_out is None:
+                    plan_out = deepcopy(self.least_plan_schema)
             else:
                 plan_out = {}
+
+        if isinstance(plan_out, dict) and plan_out.get("itinerary"):
+            plan_out = self._polish_output_plan(query, plan_out)
 
         return succ, plan_out
 
@@ -167,6 +189,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         # 初始化计时器和计数器
         self._distance_cache = {}  # 每条 query 重置距离缓存
         self.time_before_search = time.time()  # 记录搜索开始时间
+        self._plan_pool = PlanPool()
         self.llm_inference_time_count = 0  # llm推理时间
 
         # reset the cache before searching
@@ -196,7 +219,9 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.least_plan_activity_count = -1
         self._current_dfs_plan = None
         self._current_poi_plan = None
-        self._enable_plan_sync = True
+        # Keep DFS state transitions local: candidate generation performs pruning
+        # before append, while final output polishing handles whole-plan repairs.
+        self._enable_plan_sync = False
         self.FALLBACK_COMPLETE_SEC = 10
         # 提取用户需求
         # 获取用户约束信息
@@ -809,14 +834,47 @@ class UrbanTripOptimizedV5(BaseAgent):
         if self._plan_activity_count(plan) == 0:
             return
 
+        itinerary = deepcopy(plan)
+        repair_full_itinerary(self, query, itinerary)
         res_plan = {
             "people_number": query["people_number"],
             "start_city": query["start_city"],
             "target_city": query["target_city"],
-            "itinerary": plan,
+            "itinerary": itinerary,
         }
         logical_result = evaluate_constraints_py(query["hard_logic_py"], res_plan, verbose=False)
-        self._update_best_plan(query, res_plan, False, logical_result)
+        commonsense_ok = bool(func_commonsense_constraints(query, res_plan, verbose=False))
+        self._update_best_plan(query, res_plan, commonsense_ok, logical_result)
+
+    def _polish_output_plan(self, query, plan):
+        """Repair time chain on every emitted JSON so eval never sees 24:xx/27:xx."""
+        if not plan or not isinstance(plan, dict) or not plan.get("itinerary"):
+            return plan
+        polished = deepcopy(plan)
+        itinerary = polished["itinerary"]
+        repair_full_itinerary(self, query, itinerary)
+        polished["itinerary"] = itinerary
+        shell = self._res_plan_shell(query, itinerary)
+        polished["commonsense_pass"] = bool(
+            func_commonsense_constraints(query, shell, verbose=False)
+        )
+        return polished
+
+    def _arrived_time_too_late_for_hotel(self, arrived_time):
+        if not arrived_time:
+            return True
+        return time_to_minutes(str(arrived_time).split("次日")[-1]) >= time_to_minutes("24:00")
+
+    def _innercity_transports_valid(self, transports):
+        if not isinstance(transports, list):
+            return False
+        day_end = time_to_minutes("24:00")
+        for tr in transports:
+            for key in ("start_time", "end_time"):
+                t = tr.get(key)
+                if t and time_to_minutes(str(t).split("次日")[-1]) >= day_end:
+                    return False
+        return True
 
     def _time_minutes(self, time_str):
         if not time_str:
@@ -840,6 +898,25 @@ class UrbanTripOptimizedV5(BaseAgent):
         if self._is_intercity_activity(activity):
             return activity.get("end", "")
         return ""
+
+    def _last_activity_matches(self, plan, day_idx, poi_type=None, position=None):
+        if not plan or day_idx < 0 or day_idx >= len(plan):
+            return False
+        activities = plan[day_idx].get("activities", [])
+        if not activities:
+            return False
+        last_act = activities[-1]
+        if poi_type is not None and last_act.get("type") != poi_type:
+            return False
+        if position is not None and self._activity_position(last_act) != position:
+            return False
+        return True
+
+    def _pop_last_activity_if_matches(self, plan, day_idx, poi_type=None, position=None):
+        if not self._last_activity_matches(plan, day_idx, poi_type, position):
+            return False
+        plan[day_idx]["activities"].pop()
+        return True
 
     def _res_plan_shell(self, query, itinerary):
         return {
@@ -965,7 +1042,10 @@ class UrbanTripOptimizedV5(BaseAgent):
                 if not isinstance(transports_sel, list):
                     continue
                 arrived_time = transports_sel[-1]["end_time"] if transports_sel else current_time
-            if self._time_minutes(arrived_time) >= 24 * 60:
+            arrived_time = clamp_time_to_day_end(arrived_time)
+            if not self._innercity_transports_valid(transports_sel):
+                continue
+            if self._arrived_time_too_late_for_hotel(arrived_time):
                 continue
             self.add_accommodation(
                 current_plan=itinerary,
@@ -1173,19 +1253,634 @@ class UrbanTripOptimizedV5(BaseAgent):
                 return True
         return False
 
+    def _dfs_log(self, *args, **kwargs):
+        dfs_log(self, *args, **kwargs)
+
+    def _dfs_search_state(self, query, plan, current_day, current_time, current_position):
+        return SearchState.from_dfs(self, query, current_day, current_time, current_position, plan)
+
+    def _try_append_back_transport(
+        self, query, poi_plan, plan, current_day, current_time, current_position
+    ):
+        """Try inner-city legs to the return station, append back intercity, validate."""
+        ensure_day_plan(plan, current_day)
+        destination = poi_plan["back_transport"]["From"]
+        back_begin = poi_plan["back_transport"]["BeginTime"]
+
+        for trans_type in transports_ranking_to(self, query, current_position, destination):
+            self.search_nodes += 1
+            self._dfs_log("collecting innercity transport to back-transport")
+            if current_position == destination:
+                transports_sel = []
+                arrival = current_time
+            else:
+                transports_sel = self.collect_innercity_transport(
+                    query["target_city"],
+                    current_position,
+                    destination,
+                    current_time,
+                    trans_type,
+                )
+                if not isinstance(transports_sel, list):
+                    self.backtrack_count += 1
+                    self._dfs_log("inner-city transport error, backtrack...")
+                    continue
+                arrival = arrived_time(current_time, transports_sel)
+
+            if not self.too_many_backtrack and not time_compare_if_earlier_equal(
+                arrival, back_begin
+            ):
+                self.backtrack_count += 1
+                self._dfs_log("Fail to catch the back transport")
+                continue
+
+            if transport_rules_violated(self, transports_sel):
+                if not self.too_many_backtrack:
+                    self.backtrack_count += 1
+                continue
+
+            plan[current_day]["activities"] = self.add_intercity_transport(
+                plan[current_day]["activities"],
+                poi_plan["back_transport"],
+                innercity_transports=transports_sel,
+                tickets=query["people_number"],
+            )
+
+            if not self.too_many_backtrack and self.check_budgets(plan):
+                plan[current_day]["activities"].pop()
+                return False, plan
+
+            repair_full_itinerary(self, query, plan)
+            res_bool, res_plan = self.constraints_validation(query, plan, poi_plan)
+            if res_bool:
+                return True, res_plan
+            plan[current_day]["activities"].pop()
+            self.backtrack_count += 1
+
+        return False, plan
+
+    def _prepare_restaurant_candidates(
+        self, query, current_position, current_time, res_info
+    ):
+        candidate_res_list = res_info.copy()
+        if self.must_not_visit_restaurant is not None:
+            candidate_res_list = candidate_res_list[
+                ~candidate_res_list["name"].isin(self.must_not_visit_restaurant)
+            ]
+        if self.must_not_visit_restaurant_type is not None:
+            candidate_res_list = candidate_res_list[
+                ~candidate_res_list["cuisine"].isin(self.must_not_visit_restaurant_type)
+            ]
+        if self.must_visit_restaurant is not None:
+            for must_name in self.must_visit_restaurant:
+                if must_name not in candidate_res_list["name"].values:
+                    must_res = res_info[res_info["name"] == must_name]
+                    if not must_res.empty:
+                        candidate_res_list = pd.concat(
+                            [candidate_res_list, must_res]
+                        ).drop_duplicates()
+        if self.must_visit_restaurant_type is not None:
+            found_types = candidate_res_list["cuisine"].unique()
+            missing_types = [
+                t for t in self.must_visit_restaurant_type if t not in found_types
+            ]
+            if missing_types:
+                self._dfs_log(
+                    f"[Warning] must visit restaurant type:{missing_types} is not in candidates"
+                )
+        drop_idx = flatten_visiting_indices(self.restaurants_visiting)
+        candidate_res_list = candidate_res_list.drop(index=drop_idx, errors="ignore")
+        candidate_res_filtered = filter_open_at_time(candidate_res_list, current_time)
+        candidate_res_ranked = rank_poi_dataframe(
+            self,
+            query,
+            current_position,
+            candidate_res_filtered,
+            "restaurant",
+            use_attraction_budget_key=False,
+        )
+        n = self.top_k_candidates
+        must_candidates = pd.DataFrame()
+        if self.must_visit_restaurant is not None:
+            for must_name in self.must_visit_restaurant:
+                if self._visited_contains(self.restaurant_names_visiting, must_name):
+                    continue
+                must_res = res_info[res_info["name"] == must_name]
+                if not must_res.empty:
+                    must_candidates = pd.concat([must_candidates, must_res]).drop_duplicates()
+        must_type_candidates = pd.DataFrame()
+        if self.must_visit_restaurant_type is not None:
+            for cuisine in self.must_visit_restaurant_type:
+                if self._visited_contains(self.food_type_visiting, cuisine):
+                    continue
+                must_type = res_info[res_info["cuisine"] == cuisine]
+                if not must_type.empty:
+                    must_type_candidates = pd.concat(
+                        [must_type_candidates, must_type]
+                    ).drop_duplicates()
+        top_candidates = candidate_res_ranked.iloc[
+            : min(n, len(candidate_res_ranked))
+        ].copy()
+        return must_candidates, must_type_candidates, top_candidates
+
+    def _try_restaurant_candidate(
+        self,
+        query,
+        poi_plan,
+        plan,
+        current_day,
+        current_time,
+        current_position,
+        poi_type,
+        poi_sel,
+        res_info,
+        *,
+        skip_name_dup: bool,
+        skip_cuisine_dup: bool,
+    ):
+        if skip_name_dup and poi_sel["name"] in self.restaurant_names_visiting:
+            return False, plan
+        if skip_cuisine_dup and poi_sel["cuisine"] in self.food_type_visiting:
+            return False, plan
+
+        destination = poi_sel["name"]
+        opentime, endtime = poi_sel["opentime"], poi_sel["endtime"]
+
+        for trans_type in transports_ranking_to(self, query, current_position, destination):
+            self.search_nodes += 1
+            transports_sel = self.collect_innercity_transport(
+                query["target_city"],
+                current_position,
+                destination,
+                current_time,
+                trans_type,
+            )
+            if not isinstance(transports_sel, list):
+                self.backtrack_count += 1
+                self._dfs_log("inner-city transport error, backtrack...")
+                continue
+
+            arrival = arrived_time(current_time, transports_sel)
+            if is_closed_at_arrival(opentime, endtime, arrival, allow_overnight=True):
+                self.backtrack_count += 1
+                self._dfs_log("The restaurant is closed now...")
+                continue
+
+            if transport_rules_violated(self, transports_sel):
+                if not self.too_many_backtrack:
+                    self.backtrack_count += 1
+                continue
+
+            if time_compare_if_earlier_equal(arrival, opentime):
+                act_start_time = opentime
+            else:
+                act_start_time = arrival
+
+            poi_time = self.select_poi_time(poi_sel["name"], 60)
+            act_end_time = add_time_delta(act_start_time, poi_time)
+            aet = act_end_time
+            if time_compare_if_earlier_equal(endtime, act_end_time):
+                act_end_time = endtime
+                if time_compare_if_earlier_equal(endtime, opentime):
+                    act_end_time = aet
+
+            if arrive_leave_violated(self, poi_sel["name"], act_start_time, act_end_time):
+                self.backtrack_count += 1
+                continue
+
+            visiting = VisitingSnapshot.capture(self)
+            try:
+                plan = self.add_restaurant(
+                    plan,
+                    poi_type,
+                    poi_sel,
+                    current_day,
+                    arrival,
+                    transports_sel,
+                )
+                if (
+                    len(plan[current_day]["activities"]) == 0
+                    or plan[current_day]["activities"][-1].get("position") != poi_sel["name"]
+                ):
+                    self.backtrack_count += 1
+                    continue
+            except Exception:
+                self.backtrack_count += 1
+                self._dfs_log("add_restaurant failed, backtrack...")
+                continue
+
+            self._dfs_log(
+                f"add restaurant: {poi_sel['name']}, type: {poi_sel['cuisine']}"
+            )
+            res_idx = res_info[res_info["name"] == poi_sel["name"]].index
+            self.restaurants_visiting.append(res_idx)
+            self.food_type_visiting.append(poi_sel["cuisine"])
+            self.restaurant_names_visiting.append(poi_sel["name"])
+
+            new_time = plan[current_day]["activities"][-1]["end_time"]
+            success, plan = self.dfs_poi(
+                query, poi_plan, plan, new_time, poi_sel["name"], current_day
+            )
+            if success:
+                return True, plan
+
+            self.backtrack_count += 1
+            self._dfs_log("add_restaurant failed, backtrack...")
+            self._pop_last_activity_if_matches(
+                plan, current_day, poi_type, poi_sel["name"]
+            )
+            visiting.restore(self)
+
+        return False, plan
+
+    def _dfs_explore_restaurants(
+        self,
+        query,
+        poi_plan,
+        plan,
+        current_day,
+        current_time,
+        current_position,
+        poi_type,
+    ):
+        res_info = self.memory["restaurants"]
+        must_candidates, must_type_candidates, top_candidates = (
+            self._prepare_restaurant_candidates(
+                query, current_position, current_time, res_info
+            )
+        )
+
+        if self.must_visit_restaurant is not None:
+            flag, _ = self.check_constraint(
+                plan, {"must_visit_restaurant": self.must_visit_restaurant}
+            )
+            if not flag:
+                for _, poi_sel in must_candidates.iterrows():
+                    success, plan = self._try_restaurant_candidate(
+                        query,
+                        poi_plan,
+                        plan,
+                        current_day,
+                        current_time,
+                        current_position,
+                        poi_type,
+                        poi_sel,
+                        res_info,
+                        skip_name_dup=True,
+                        skip_cuisine_dup=False,
+                    )
+                    if success:
+                        return True, plan
+
+        if self.must_visit_restaurant_type is not None:
+            flag, _ = self.check_constraint(
+                plan, {"must_visit_restaurant_type": self.must_visit_restaurant_type}
+            )
+            if not flag:
+                for _, poi_sel in must_type_candidates.iterrows():
+                    success, plan = self._try_restaurant_candidate(
+                        query,
+                        poi_plan,
+                        plan,
+                        current_day,
+                        current_time,
+                        current_position,
+                        poi_type,
+                        poi_sel,
+                        res_info,
+                        skip_name_dup=True,
+                        skip_cuisine_dup=False,
+                    )
+                    if success:
+                        return True, plan
+
+        for _, poi_sel in top_candidates.iterrows():
+            success, plan = self._try_restaurant_candidate(
+                query,
+                poi_plan,
+                plan,
+                current_day,
+                current_time,
+                current_position,
+                poi_type,
+                poi_sel,
+                res_info,
+                skip_name_dup=True,
+                skip_cuisine_dup=True,
+            )
+            if success:
+                return True, plan
+
+        return False, plan
+
+    def _attraction_stage(self, query, current_day, current_time, candidates_type):
+        if (
+            current_day == 0
+            and time_compare_if_earlier_equal("14:00", current_time)
+            and "dinner" in candidates_type
+        ):
+            return 2
+        if "lunch" in candidates_type and "dinner" in candidates_type:
+            return 1
+        if "lunch" not in candidates_type and "dinner" in candidates_type:
+            return 2
+        return 0
+
+    def _attraction_stage_allows(self, stage, act_end_time):
+        if stage == 1:
+            return time_compare_if_earlier_equal(act_end_time, "12:00")
+        if stage == 2:
+            return time_compare_if_earlier_equal(act_end_time, "19:00")
+        return True
+
+    def _prepare_attraction_candidates(
+        self, query, current_position, current_time, attr_info
+    ):
+        candidate_attr_list = attr_info.copy()
+        if self.only_free_attractions is not None and self.only_free_attractions:
+            candidate_attr_list = candidate_attr_list[candidate_attr_list["price"] == 0]
+        if self.must_not_see_attraction is not None:
+            candidate_attr_list = candidate_attr_list[
+                ~candidate_attr_list["name"].isin(self.must_not_see_attraction)
+            ]
+        if self.must_not_see_attraction_type is not None:
+            candidate_attr_list = candidate_attr_list[
+                ~candidate_attr_list["type"].isin(self.must_not_see_attraction_type)
+            ]
+        if self.must_see_attraction is not None:
+            for must_name in self.must_see_attraction:
+                if must_name not in candidate_attr_list["name"].values:
+                    must_attr = attr_info[attr_info["name"] == must_name]
+                    if not must_attr.empty:
+                        candidate_attr_list = pd.concat(
+                            [candidate_attr_list, must_attr]
+                        ).drop_duplicates()
+        if self.must_see_attraction_type is not None:
+            found_types = candidate_attr_list["type"].unique()
+            missing_types = [
+                t for t in self.must_see_attraction_type if t not in found_types
+            ]
+            if missing_types:
+                self._dfs_log(
+                    f"[Warning] must see attraction type:{missing_types} is not in attraction candidates"
+                )
+        drop_idx = flatten_visiting_indices(self.attractions_visiting)
+        candidate_attr_list = candidate_attr_list.drop(index=drop_idx, errors="ignore")
+        candidate_attr_filtered = filter_open_at_time(candidate_attr_list, current_time)
+        candidate_attr_ranked = rank_poi_dataframe(
+            self,
+            query,
+            current_position,
+            candidate_attr_filtered,
+            "attraction",
+            use_attraction_budget_key=True,
+        )
+        n = self.top_k_candidates
+        must_candidates = pd.DataFrame()
+        if self.must_see_attraction is not None:
+            for must_name in self.must_see_attraction:
+                if self._visited_contains(self.attractions_visiting, must_name):
+                    continue
+                must_attr = attr_info[attr_info["name"] == must_name]
+                if not must_attr.empty:
+                    must_candidates = pd.concat(
+                        [must_candidates, must_attr]
+                    ).drop_duplicates()
+        if not must_candidates.empty:
+            must_candidates = must_candidates.copy()
+            must_candidates["open_duration"] = must_candidates.apply(
+                lambda row: get_time_delta(row["opentime"], row["endtime"]),
+                axis=1,
+            )
+            must_candidates = must_candidates.sort_values(
+                by="open_duration", ascending=True
+            ).reset_index(drop=True)
+        must_type_candidates = pd.DataFrame()
+        if self.must_see_attraction_type is not None:
+            for must_type in self.must_see_attraction_type:
+                if self._visited_contains(self.spot_type_visiting, must_type):
+                    continue
+                must_attr = attr_info[attr_info["type"] == must_type]
+                if not must_attr.empty:
+                    must_type_candidates = pd.concat(
+                        [must_type_candidates, must_attr]
+                    ).drop_duplicates()
+        top_candidates = candidate_attr_ranked.iloc[
+            : min(n, len(candidate_attr_ranked))
+        ].copy()
+        return must_candidates, must_type_candidates, top_candidates
+
+    def _try_attraction_candidate(
+        self,
+        query,
+        poi_plan,
+        plan,
+        current_day,
+        current_time,
+        current_position,
+        poi_type,
+        poi_sel,
+        attr_info,
+        stage,
+        *,
+        skip_name_dup: bool,
+        skip_type_dup: bool,
+    ):
+        if skip_name_dup and poi_sel["name"] in self.attraction_names_visiting:
+            return False, plan
+        if skip_type_dup and poi_sel["type"] in self.spot_type_visiting:
+            return False, plan
+
+        self._dfs_log(f"lookahead to add attraction, candidate: {poi_sel['name']}")
+        destination = poi_sel["name"]
+        opentime, endtime = poi_sel["opentime"], poi_sel["endtime"]
+
+        for trans_type in transports_ranking_to(self, query, current_position, destination):
+            self.search_nodes += 1
+            transports_sel = self.collect_innercity_transport(
+                query["target_city"],
+                current_position,
+                destination,
+                current_time,
+                trans_type,
+            )
+            if not isinstance(transports_sel, list):
+                self.backtrack_count += 1
+                self._dfs_log("inner-city transport error, backtrack...")
+                continue
+
+            arrival = arrived_time(current_time, transports_sel)
+            if is_closed_at_arrival(opentime, endtime, arrival, allow_overnight=False):
+                self.backtrack_count += 1
+                self._dfs_log(
+                    f"{poi_sel['name']} closed at {endtime}, start time: {current_time}, "
+                    f"arrival time: {arrival}, backtrack..."
+                )
+                continue
+
+            if transport_rules_violated(self, transports_sel):
+                if not self.too_many_backtrack:
+                    self.backtrack_count += 1
+                continue
+
+            if time_compare_if_earlier_equal(arrival, opentime):
+                act_start_time = opentime
+            else:
+                act_start_time = arrival
+
+            poi_time = self.select_poi_time(poi_sel["name"], 90)
+            act_end_time = add_time_delta(act_start_time, poi_time)
+            if time_compare_if_earlier_equal(endtime, act_end_time):
+                act_end_time = endtime
+
+            if arrive_leave_violated(self, poi_sel["name"], act_start_time, act_end_time):
+                self.backtrack_count += 1
+                continue
+
+            if not self._attraction_stage_allows(stage, act_end_time):
+                continue
+
+            visiting = VisitingSnapshot.capture(self)
+            plan[current_day]["activities"] = self.add_poi(
+                activities=plan[current_day]["activities"],
+                position=poi_sel["name"],
+                poi_type=poi_type,
+                price=int(poi_sel["price"]),
+                cost=int(poi_sel["price"]) * query["people_number"],
+                start_time=act_start_time,
+                end_time=act_end_time,
+                innercity_transports=transports_sel,
+            )
+            plan[current_day]["activities"][-1]["tickets"] = query["people_number"]
+
+            if self._enable_plan_sync and not self._after_append_activity(
+                query, plan, current_day
+            ):
+                self._pop_last_activity_if_matches(
+                    plan, current_day, poi_type, poi_sel["name"]
+                )
+                self.backtrack_count += 1
+                continue
+
+            self._dfs_log(
+                f"add attraction: {poi_sel['name']}, type: {poi_sel['type']}"
+            )
+            attr_idx = attr_info[attr_info["name"] == poi_sel["name"]].index
+            self.attractions_visiting.append(attr_idx)
+            self.spot_type_visiting.append(poi_sel["type"])
+            self.attraction_names_visiting.append(poi_sel["name"])
+
+            success, plan = self.dfs_poi(
+                query, poi_plan, plan, act_end_time, poi_sel["name"], current_day
+            )
+            if success:
+                return True, plan
+
+            self.backtrack_count += 1
+            self._dfs_log("add_attraction failed, backtrack...")
+            self._pop_last_activity_if_matches(
+                plan, current_day, poi_type, poi_sel["name"]
+            )
+            visiting.restore(self)
+
+        return False, plan
+
+    def _dfs_explore_attractions(
+        self,
+        query,
+        poi_plan,
+        plan,
+        current_day,
+        current_time,
+        current_position,
+        poi_type,
+        candidates_type,
+    ):
+        attr_info = self.memory["attractions"]
+        must_candidates, must_type_candidates, top_candidates = (
+            self._prepare_attraction_candidates(
+                query, current_position, current_time, attr_info
+            )
+        )
+        stage = self._attraction_stage(query, current_day, current_time, candidates_type)
+
+        if self.must_see_attraction is not None:
+            flag, _ = self.check_constraint(
+                plan, {"must_see_attraction": self.must_see_attraction}
+            )
+            if not flag:
+                for _, poi_sel in must_candidates.iterrows():
+                    success, plan = self._try_attraction_candidate(
+                        query,
+                        poi_plan,
+                        plan,
+                        current_day,
+                        current_time,
+                        current_position,
+                        poi_type,
+                        poi_sel,
+                        attr_info,
+                        stage,
+                        skip_name_dup=True,
+                        skip_type_dup=False,
+                    )
+                    if success:
+                        return True, plan
+
+        if self.must_see_attraction_type is not None:
+            flag, _ = self.check_constraint(
+                plan, {"must_see_attraction_type": self.must_see_attraction_type}
+            )
+            if not flag:
+                for _, poi_sel in must_type_candidates.iterrows():
+                    success, plan = self._try_attraction_candidate(
+                        query,
+                        poi_plan,
+                        plan,
+                        current_day,
+                        current_time,
+                        current_position,
+                        poi_type,
+                        poi_sel,
+                        attr_info,
+                        stage,
+                        skip_name_dup=True,
+                        skip_type_dup=False,
+                    )
+                    if success:
+                        return True, plan
+
+        for _, poi_sel in top_candidates.iterrows():
+            success, plan = self._try_attraction_candidate(
+                query,
+                poi_plan,
+                plan,
+                current_day,
+                current_time,
+                current_position,
+                poi_type,
+                poi_sel,
+                attr_info,
+                stage,
+                skip_name_dup=True,
+                skip_type_dup=True,
+            )
+            if success:
+                return True, plan
+
+        return False, plan
+
     def dfs_poi(self, query, poi_plan, plan, current_time, current_position, current_day=0):
         if current_day >= query["days"]:
             return False, plan
 
         self._current_dfs_plan = plan
         self._current_poi_plan = poi_plan
-        print("----------------------------------calling dfs_poi-----------------------------------------")
-        # print(f"plan: {plan}")
-        print(f"current_day: {current_day}")
-        print(f"current_time: {current_time}")
-        print(f"current_position: {current_position}")
-
-        print(self.backtrack_count)
+        self._dfs_log("----------------------------------calling dfs_poi-----------------------------------------")
+        self._dfs_log(f"current_day: {current_day}")
+        self._dfs_log(f"current_time: {current_time}")
+        self._dfs_log(f"current_position: {current_position}")
+        self._dfs_log(self.backtrack_count)
         # if self.backtrack_count > 5800 or time.time() - self.time_before_search + 20 > self.TIME_CUT + self.llm_inference_time_count:
         #     self.too_many_backtrack = True
         if time.time() - self.time_before_search + 20 > self.TIME_CUT + self.llm_inference_time_count:
@@ -1200,7 +1895,7 @@ class UrbanTripOptimizedV5(BaseAgent):
                 self.all_satisfy_flag = True
             if backtrack:
                 self.backtrack_count += 1
-                print("requirements can not be satisfied, backtrack...")
+                self._dfs_log("requirements can not be satisfied, backtrack...")
                 return False, plan
 
         self.search_nodes += 1
@@ -1214,11 +1909,11 @@ class UrbanTripOptimizedV5(BaseAgent):
             return True, self._best_effort_plan(query, plan, poi_plan)
 
         # 检查当前时间是否太晚，无法前往酒店或返程交通
-        print("check if too late")
+        self._dfs_log("check if too late")
         if not self.too_many_backtrack:
             if self.check_if_too_late(query, current_day, current_time, current_position, poi_plan):
                 self.backtrack_count += 1
-                print("The current time is too late to go hotel or back-transport, backtrack...")
+                self._dfs_log("The current time is too late to go hotel or back-transport, backtrack...")
                 return False, plan
 
         # 处理第一天的去程城际交通
@@ -1229,10 +1924,10 @@ class UrbanTripOptimizedV5(BaseAgent):
                 plan[current_day]["activities"],
                 poi_plan["go_transport"],
                 innercity_transports=[],
-                tickets=self.query["people_number"],
+                tickets=query["people_number"],
             )
 
-            print(plan)
+            self._dfs_log(plan)
 
             new_time = poi_plan["go_transport"]["EndTime"]  # 更新当前时间为去程交通的结束时间
             new_position = poi_plan["go_transport"]["To"]  # 更新当前位置为目的地（车站）
@@ -1244,7 +1939,7 @@ class UrbanTripOptimizedV5(BaseAgent):
                 return True, plan
             else:
                 self.backtrack_count += 1
-                print("No solution for the given Go Transport, backtrack...")
+                self._dfs_log("No solution for the given Go Transport, backtrack...")
                 return False, plan
 
         # breakfast
@@ -1255,6 +1950,10 @@ class UrbanTripOptimizedV5(BaseAgent):
             self.search_nodes += 1
             # 选择并添加早餐活动
             plan = self.select_and_add_breakfast(plan, poi_plan, current_day, current_time, current_position, [])
+            if not self._last_activity_matches(plan, current_day, "breakfast"):
+                self.backtrack_count += 1
+                self._dfs_log("Breakfast append failed, backtrack...")
+                return False, plan
 
             new_time = plan[current_day]["activities"][-1]["end_time"]  # 更新当前时间为早餐结束时间
             new_position = current_position  # 位置不变
@@ -1266,15 +1965,14 @@ class UrbanTripOptimizedV5(BaseAgent):
             if success:
                 return True, plan
 
-            if plan[current_day]["activities"]:
-                plan[current_day]["activities"].pop()  # 如果后续规划失败，移除早餐活动，进行回溯
+            self._pop_last_activity_if_matches(plan, current_day, "breakfast")
 
             candidates_type = []
             if current_day == query["days"] - 1 and current_time != "":  # 如果是最后一天，考虑返程交通
                 candidates_type.append("back-intercity-transport")
             else:
                 self.backtrack_count += 1
-                print("No solution for the given Breakfast, backtrack...")
+                self._dfs_log("No solution for the given Breakfast, backtrack...")
                 return False, plan
         elif current_time == "00:00" and current_day == query["days"] - 1 and time_compare_if_earlier_equal(poi_plan["back_transport"]["BeginTime"], "11:30"):
             candidates_type = ["back-intercity-transport"]
@@ -1303,7 +2001,7 @@ class UrbanTripOptimizedV5(BaseAgent):
             if current_day == query["days"] - 1 and current_time != "":
                 candidates_type.append("back-intercity-transport")
 
-        print("candidates_type: ", candidates_type)  # 当前可选择的 POI 类型
+        self._dfs_log("candidates_type: ", candidates_type)
 
         # 当还有候选类型时
         while len(candidates_type) > 0:
@@ -1316,101 +2014,18 @@ class UrbanTripOptimizedV5(BaseAgent):
                 current_position,
             )
 
-            print("POI planning, day {} {}, {}, next-poi type: {}".format(current_day, current_time, current_position, poi_type))
+            self._dfs_log(
+                "POI planning, day {} {}, {}, next-poi type: {}".format(
+                    current_day, current_time, current_position, poi_type
+                )
+            )
 
-            # 如果下一个 POI 类型是返程城际交通
             if poi_type == "back-intercity-transport":
-                # 如果是新的一天，添加新的活动列表
-                if len(plan) < current_day + 1:
-                    plan.append({"day": current_day + 1, "activities": []})
-
-                # 获取市内交通排名
-                # transports_ranking = self.ranking_innercity_transport(current_position, poi_plan["back_transport"]["From"], current_day, current_time)
-                transports_ranking = self.innercity_transports_ranking
-                if self.transport_rules_by_distance is not None:
-                    temp_distance = self.calculate_distance(query, current_position, poi_plan["back_transport"]["From"])
-                    transports_ranking = self.get_transport_by_distance(temp_distance)
-                # 遍历市内交通类型
-                for trans_type_sel in transports_ranking:
-                    self.search_nodes += 1
-                    # 收集市内交通选项，从当前位置到返程交通的出发地
-                    print("collecting innercity transport to back-transport")
-                    transports_sel = self.collect_innercity_transport(
-                        query["target_city"],
-                        current_position,
-                        poi_plan["back_transport"]["From"],
-                        current_time,
-                        trans_type_sel,
-                    )
-                    # 没找到则回溯
-                    if not isinstance(transports_sel, list):
-                        self.backtrack_count += 1
-                        print("inner-city transport error, backtrack...")
-                        continue
-
-                    if len(transports_sel) == 0:
-                        arrived_time = current_time
-                    else:
-                        arrived_time = transports_sel[-1]["end_time"]
-
-                    if not self.too_many_backtrack:
-                        if not time_compare_if_earlier_equal(arrived_time, poi_plan["back_transport"]["BeginTime"]):
-                            self.backtrack_count += 1
-                            print("Fail to catch the back transport")
-                            continue
-
-                    backtrack_flag = False
-                    if self.transport_rules_by_distance is not None:
-                        distance = 0
-                        for transport in transports_sel:
-                            if transport["mode"] is not None:
-                                distance += transport.get("distance", 0)
-                        mode = None
-                        if len(transports_sel) == 3:
-                            mode = transports_sel[1]["mode"]
-                        elif len(transports_sel) == 1:
-                            mode = transports_sel[0]["mode"]
-                        if mode is None:
-                            continue
-                        for rule in self.transport_rules_by_distance:
-                            if rule["min_distance"] is not None:
-                                if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                    print("backtrack")
-                                    backtrack_flag = True
-                            if rule["max_distance"] is not None:
-                                if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                    print("backtrack")
-                                    backtrack_flag = True
-                    if backtrack_flag and not self.too_many_backtrack:
-                        self.backtrack_count += 1
-                        continue
-
-
-                    # 添加返程城际交通活动
-                    plan[current_day]["activities"] = self.add_intercity_transport(
-                        plan[current_day]["activities"],
-                        poi_plan["back_transport"],
-                        innercity_transports=transports_sel,
-                        tickets=self.query["people_number"],
-                    )
-
-                    if not self.too_many_backtrack:
-                        over_budget = self.check_budgets(plan)
-                        if over_budget:
-                            plan[current_day]["activities"].pop()
-                            return False, plan
-
-                    repair_full_itinerary(self, query, plan)
-
-                    # 验证计划是否满足所有约束
-                    res_bool, res_plan = self.constraints_validation(
-                        query, plan, poi_plan
-                    )
-                    if res_bool:
-                        return True, res_plan
-                    plan[current_day]["activities"].pop()
-                    self.backtrack_count += 1
-                    continue
+                success, plan = self._try_append_back_transport(
+                    query, poi_plan, plan, current_day, current_time, current_position
+                )
+                if success:
+                    return True, plan
             # 如果下一个 POI 类型是酒店
             elif poi_type == "hotel":
                 # 获取选定的酒店信息
@@ -1449,6 +2064,10 @@ class UrbanTripOptimizedV5(BaseAgent):
                         else:
                             arrived_time = transports_sel[-1]["end_time"]
 
+                        if not self._innercity_transports_valid(transports_sel):
+                            self.backtrack_count += 1
+                            continue
+
                         backtrack_flag = False
                         if self.transport_rules_by_distance is not None:
                             distance = 0
@@ -1475,11 +2094,17 @@ class UrbanTripOptimizedV5(BaseAgent):
                             self.backtrack_count += 1
                             continue
 
+                    arrived_time = clamp_time_to_day_end(arrived_time)
+                    if self._arrived_time_too_late_for_hotel(arrived_time):
+                        self.backtrack_count += 1
+                        continue
+
                     if time_compare_if_earlier_equal("09:00", arrived_time) or (
                         self._innercity_budget_saver_enabled()
                         and current_day < query["days"] - 1
                         and not time_compare_if_earlier_equal(arrived_time, "08:00")
                     ):
+                        before = len(plan[current_day]["activities"])
                         # 添加住宿活动
                         plan = self.add_accommodation(
                             current_plan=plan,
@@ -1489,14 +2114,21 @@ class UrbanTripOptimizedV5(BaseAgent):
                             required_rooms=self.required_rooms,
                             transports_sel=transports_sel,
                         )
+                        if len(plan[current_day]["activities"]) == before:
+                            self.backtrack_count += 1
+                            continue
                         transports_sel = []
 
                     if time_compare_if_earlier_equal(arrived_time, "08:00"):
                         plan = self.select_and_add_breakfast(plan, poi_plan, current_day, current_time, current_position, transports_sel)
+                        if not self._last_activity_matches(plan, current_day, "breakfast"):
+                            self.backtrack_count += 1
+                            continue
                         new_time = plan[current_day]["activities"][-1]["end_time"]  # 更新当前时间为早餐结束时间
                         new_position = hotel_sel["name"]
 
                         if self._innercity_budget_saver_enabled() and current_day < query["days"] - 1:
+                            before = len(plan[current_day]["activities"])
                             plan = self.add_accommodation(
                                 current_plan=plan,
                                 hotel_sel=hotel_sel,
@@ -1505,15 +2137,22 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 required_rooms=self.required_rooms,
                                 transports_sel=[],
                             )
+                            if len(plan[current_day]["activities"]) == before:
+                                self.backtrack_count += 1
+                                continue
                             if not self.too_many_backtrack and self.check_budgets(plan):
-                                plan[current_day]["activities"].pop()
+                                self._pop_last_activity_if_matches(
+                                    plan, current_day, "accommodation", hotel_sel["name"]
+                                )
                             else:
                                 success, plan = self.dfs_poi(
                                     query, poi_plan, plan, "00:00", new_position, current_day + 1
                                 )
                                 if success:
                                     return True, plan
-                                plan[current_day]["activities"].pop()
+                                self._pop_last_activity_if_matches(
+                                    plan, current_day, "accommodation", hotel_sel["name"]
+                                )
 
                         success, plan = self.dfs_poi(
                             query, poi_plan, plan, new_time, new_position, current_day
@@ -1521,7 +2160,7 @@ class UrbanTripOptimizedV5(BaseAgent):
                         if success:
                             return True, plan
 
-                        plan[current_day]["activities"].pop()
+                        self._pop_last_activity_if_matches(plan, current_day, "breakfast")
 
                     new_time = "00:00"  # 新的一天开始
                     new_position = hotel_sel["name"]  # 新位置为酒店
@@ -1535,1440 +2174,49 @@ class UrbanTripOptimizedV5(BaseAgent):
                         return True, plan
 
                     self.backtrack_count += 1
-                    print("Fail with the given accommodation activity, backtrack...")
+                    self._dfs_log("Fail with the given accommodation activity, backtrack...")
 
-                    plan[current_day]["activities"].pop()
+                    self._pop_last_activity_if_matches(
+                        plan, current_day, "accommodation", hotel_sel["name"]
+                    )
 
                     return False, plan
             # 如果是午餐、晚餐或景点
             elif poi_type in ["lunch", "dinner", "attraction"]:
-                # 如果是午餐或晚餐
                 if poi_type in ["lunch", "dinner"]:
-                    res_info = self.memory["restaurants"]
-                    candidate_res_list = res_info.copy()
-
-                    if self.must_not_visit_restaurant is not None:
-                        candidate_res_list = candidate_res_list[
-                            ~candidate_res_list["name"].isin(self.must_not_visit_restaurant)]
-
-                    if self.must_not_visit_restaurant_type is not None:
-                        candidate_res_list = candidate_res_list[
-                            ~candidate_res_list["cuisine"].isin(self.must_not_visit_restaurant_type)]
-
-                    if self.must_visit_restaurant is not None:
-                        for must_name in self.must_visit_restaurant:
-                            if must_name not in candidate_res_list["name"].values:
-                                must_res = res_info[res_info["name"] == must_name]
-                                if not must_res.empty:
-                                    candidate_res_list = pd.concat([candidate_res_list, must_res]).drop_duplicates()
-
-                    if self.must_visit_restaurant_type is not None:
-                        found_types = candidate_res_list["cuisine"].unique()
-                        missing_types = [t for t in self.must_visit_restaurant_type if t not in found_types]
-                        if missing_types:
-                            print(f"[Warning] must visit restaurant type:{missing_types} is not in candidates")
-
-                    # 过滤掉已经访问过的
-                    # restaurants_visiting 中可能混有 Index 对象，扁平化为标量索引后再 drop
-                    _res_drop_idx = []
-                    for _v in self.restaurants_visiting:
-                        if hasattr(_v, "__iter__"):
-                            _res_drop_idx.extend(list(_v))
-                        else:
-                            _res_drop_idx.append(_v)
-                    candidate_res_list = candidate_res_list.drop(index=_res_drop_idx, errors="ignore")
-
-                    # 根据开放时间过滤
-                    candidate_res_filtered = candidate_res_list[
-                        candidate_res_list.apply(
-                            lambda row: (
-                                    time_compare_if_earlier_equal(row["opentime"], current_time) and
-                                    time_compare_if_earlier_equal(current_time, row["endtime"])
-                            ),
-                            axis=1
-                        )
-                    ].copy()
-
-                    # if not self.all_satisfy_flag and (self.overall_budget is not None or self.attraction_budget is not None):
-                    if self.overall_budget is not None or self.attraction_budget is not None:
-                        # 有预算要求，按price从低到高排序
-                        candidate_attr_ranked = candidate_res_filtered.sort_values(by="price").reset_index(drop=True)
-                    else:
-                        candidate_res_filtered["distance"] = candidate_res_filtered.apply(
-                            lambda row: self.calculate_distance(
-                                query, current_position, row["name"]
-                            ),
-                            axis=1
-                        )
-                        candidate_attr_ranked = candidate_res_filtered.sort_values(by="distance").reset_index(drop=True)
-
-                    if self.segment_index is not None:
-                        candidate_attr_ranked = self.segment_index.rank_poi(
-                            self._segment_query(query),
-                            current_position,
-                            "restaurant",
-                            candidate_attr_ranked,
-                            self._segment_constraints(),
-                        )
-
-                    n = self.top_k_candidates  # 选取前 n 个
-
-                    # must see
-                    must_candidates = pd.DataFrame()
-                    if self.must_visit_restaurant is not None:
-                        for must_name in self.must_visit_restaurant:
-                            if self._visited_contains(self.restaurant_names_visiting, must_name):
-                                continue
-                            must_res = res_info[res_info["name"] == must_name]
-                            if not must_res.empty:
-                                must_candidates = pd.concat([must_candidates, must_res]).drop_duplicates()
-
-                    # must cuisine
-                    must_type_candidates = pd.DataFrame()
-                    if self.must_visit_restaurant_type is not None:
-                        for cuisine in self.must_visit_restaurant_type:
-                            if self._visited_contains(self.food_type_visiting, cuisine):
-                                continue
-                            must_type = res_info[res_info["cuisine"] == cuisine]
-                            if not must_type.empty:
-                                must_type_candidates = pd.concat([must_type_candidates, must_type]).drop_duplicates()
-
-                    top_candidates = candidate_attr_ranked.iloc[
-                                     :min(n, len(candidate_attr_ranked))].copy()
-
-                    flag = True
-                    if self.must_visit_restaurant is not None:
-                        temp_cons = {"must_visit_restaurant": self.must_visit_restaurant}
-                        flag, _ = self.check_constraint(plan, temp_cons)
-                    if not flag:
-                        for _, poi_sel in must_candidates.iterrows():
-                            if poi_sel["name"] in self.restaurant_names_visiting:
-                                continue
-                            # 临时添加至计划中，更新当前地点和时间
-                            transports_ranking = self.innercity_transports_ranking
-                            if self.transport_rules_by_distance is not None:
-                                temp_distance = self.calculate_distance(query, current_position, poi_sel["name"])
-                                transports_ranking = self.get_transport_by_distance(temp_distance)
-                            # 遍历市内交通类型
-                            for trans_type_sel in transports_ranking:
-                                self.search_nodes += 1
-                                # 收集市内交通选项，从当前位置到景点
-                                transports_sel = self.collect_innercity_transport(
-                                    query["target_city"],
-                                    current_position,
-                                    poi_sel["name"],
-                                    current_time,
-                                    trans_type_sel,
-                                )
-                                if not isinstance(transports_sel, list):
-                                    self.backtrack_count += 1
-                                    print("inner-city transport error, backtrack...")
-                                    continue
-
-                                if len(transports_sel) == 0:
-                                    arrived_time = current_time
-                                else:
-                                    arrived_time = transports_sel[-1]["end_time"]
-
-                                opentime, endtime = (
-                                    poi_sel["opentime"],
-                                    poi_sel["endtime"],
-                                )
-
-                                # it is closed ...
-                                if time_compare_if_earlier_equal(endtime, arrived_time):
-                                    closed = True
-                                    if time_compare_if_earlier_equal(endtime, opentime):  # 营业到第二天
-                                        closed = False
-                                    if closed:
-                                        self.backtrack_count += 1
-                                        print("The restaurant is closed now...")
-                                        continue
-
-                                backtrack_flag = False
-                                if self.transport_rules_by_distance is not None:
-                                    distance = 0
-                                    for transport in transports_sel:
-                                        if transport["mode"] is not None:
-                                            distance += transport.get("distance", 0)
-                                    mode = None
-                                    if len(transports_sel) == 3:
-                                        mode = transports_sel[1]["mode"]
-                                    elif len(transports_sel) == 1:
-                                        mode = transports_sel[0]["mode"]
-                                    if mode is None:
-                                        continue
-                                    for rule in self.transport_rules_by_distance:
-                                        if rule["min_distance"] is not None:
-                                            if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                        if rule["max_distance"] is not None:
-                                            if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                if backtrack_flag and not self.too_many_backtrack:
-                                    self.backtrack_count += 1
-                                    continue
-
-                                # 确定活动开始时间,如果到达早于开放时间，则从开放时间开始
-                                if time_compare_if_earlier_equal(
-                                        arrived_time, opentime
-                                ):
-                                    act_start_time = opentime
-                                else:
-                                    act_start_time = arrived_time
-
-                                poi_time = self.select_poi_time(poi_sel["name"], 60)
-                                # 计算活动结束时间
-                                act_end_time = add_time_delta(act_start_time, poi_time)
-                                aet = act_end_time
-                                # 如果结束时间超过景点关闭时间，则截断为关闭时间
-                                if time_compare_if_earlier_equal(endtime, act_end_time):
-                                    act_end_time = endtime
-                                    if time_compare_if_earlier_equal(endtime, opentime):  # 营业到第二天
-                                        act_end_time = aet
-
-                                if not self.too_many_backtrack:
-                                    # 到达时间约束
-                                    if self.activities_arrive_time_dict is not None:
-                                        arrive_info = self.activities_arrive_time_dict.get(poi_sel["name"])
-                                        if arrive_info:
-                                            arrive_type, arrive_time = arrive_info
-                                            if arrive_type == "early":  # 要求早于某个时间
-                                                if not time_compare_if_earlier_equal(act_start_time, arrive_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too late: {act_start_time} > {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif arrive_type == "late":  # 要求晚于某个时间
-                                                if not time_compare_if_earlier_equal(arrive_time, act_start_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too early: {act_start_time} < {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                    # 离开时间约束
-                                    if self.activities_leave_time_dict is not None:
-                                        leave_info = self.activities_leave_time_dict.get(poi_sel["name"])
-                                        if leave_info:
-                                            leave_type, leave_time = leave_info
-                                            if leave_type == "early":  # 要求早于某个时间离开
-                                                if not time_compare_if_earlier_equal(act_end_time, leave_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too late: {act_end_time} > {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif leave_type == "late":  # 要求晚于某个时间离开
-                                                if not time_compare_if_earlier_equal(leave_time, act_end_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too early: {act_end_time} < {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                try:
-                                    # 添加餐厅活动
-                                    plan = self.add_restaurant(
-                                        plan,
-                                        poi_type,
-                                        poi_sel,
-                                        current_day,
-                                        arrived_time,
-                                        transports_sel,
-                                    )
-                                    pn = poi_sel["name"]
-                                    pc = poi_sel["cuisine"]
-                                    print(f"add restaurant: {pn}, type: {pc}")
-                                except:
-                                    self.backtrack_count += 1
-                                    print("add_restaurant failed, backtrack...")
-                                    continue
-
-                                new_time = plan[current_day]["activities"][-1]["end_time"]  # 更新当前时间为餐厅结束时间
-                                new_position = poi_sel["name"]  # 更新当前位置为餐厅名称
-
-                                res_idx = res_info[res_info["name"] == poi_sel["name"]].index
-
-                                self.restaurants_visiting.append(res_idx)  # 记录已访问餐厅
-                                self.food_type_visiting.append(poi_sel["cuisine"])  # 记录已访问食物类型
-                                self.restaurant_names_visiting.append(poi_sel["name"])
-
-                                success, plan = self.dfs_poi(
-                                    query,
-                                    poi_plan,
-                                    plan,
-                                    new_time,
-                                    new_position,
-                                    current_day,
-                                )
-
-                                if success:
-                                    return True, plan
-                                # 回溯
-                                self.backtrack_count += 1
-                                print("add_restaurant failed, backtrack...")
-
-                                plan[current_day]["activities"].pop()
-                                self.restaurants_visiting.pop()
-                                self.food_type_visiting.pop()
-                                self.restaurant_names_visiting.pop()
-
-                    flag = True
-                    if self.must_visit_restaurant_type is not None:
-                        temp_cons = {"must_visit_restaurant_type": self.must_visit_restaurant_type}
-                        flag, _ = self.check_constraint(plan, temp_cons)
-                    if not flag:
-                        for _, poi_sel in must_type_candidates.iterrows():
-                            if poi_sel["name"] in self.restaurant_names_visiting:
-                                continue
-                            # must_type 段：用户显式要求该菜系，允许重复以满足"多顿同菜系"类约束，
-                            # 故此处不再按 food_type_visiting 去重（top 段仍保留去重以保多样性）
-                            # 临时添加至计划中，更新当前地点和时间
-                            transports_ranking = self.innercity_transports_ranking
-                            if self.transport_rules_by_distance is not None:
-                                temp_distance = self.calculate_distance(query, current_position, poi_sel["name"])
-                                transports_ranking = self.get_transport_by_distance(temp_distance)
-                            # 遍历市内交通类型
-                            for trans_type_sel in transports_ranking:
-                                self.search_nodes += 1
-                                # 收集市内交通选项，从当前位置到景点
-                                transports_sel = self.collect_innercity_transport(
-                                    query["target_city"],
-                                    current_position,
-                                    poi_sel["name"],
-                                    current_time,
-                                    trans_type_sel,
-                                )
-                                if not isinstance(transports_sel, list):
-                                    self.backtrack_count += 1
-                                    print("inner-city transport error, backtrack...")
-                                    continue
-
-                                if len(transports_sel) == 0:
-                                    arrived_time = current_time
-                                else:
-                                    arrived_time = transports_sel[-1]["end_time"]
-
-                                opentime, endtime = (
-                                    poi_sel["opentime"],
-                                    poi_sel["endtime"],
-                                )
-
-                                # it is closed ...
-                                if time_compare_if_earlier_equal(endtime, arrived_time):
-                                    closed = True
-                                    if time_compare_if_earlier_equal(endtime, opentime):  # 营业到第二天
-                                        closed = False
-                                    if closed:
-                                        self.backtrack_count += 1
-                                        print("The restaurant is closed now...")
-                                        continue
-
-                                backtrack_flag = False
-                                if self.transport_rules_by_distance is not None:
-                                    distance = 0
-                                    for transport in transports_sel:
-                                        if transport["mode"] is not None:
-                                            distance += transport.get("distance", 0)
-                                    mode = None
-                                    if len(transports_sel) == 3:
-                                        mode = transports_sel[1]["mode"]
-                                    elif len(transports_sel) == 1:
-                                        mode = transports_sel[0]["mode"]
-                                    if mode is None:
-                                        continue
-                                    for rule in self.transport_rules_by_distance:
-                                        if rule["min_distance"] is not None:
-                                            if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                        if rule["max_distance"] is not None:
-                                            if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                if backtrack_flag and not self.too_many_backtrack:
-                                    self.backtrack_count += 1
-                                    continue
-                                # 确定活动开始时间,如果到达早于开放时间，则从开放时间开始
-                                if time_compare_if_earlier_equal(
-                                        arrived_time, opentime
-                                ):
-                                    act_start_time = opentime
-                                else:
-                                    act_start_time = arrived_time
-
-                                poi_time = self.select_poi_time(poi_sel["name"], 60)
-                                # 计算活动结束时间
-                                act_end_time = add_time_delta(act_start_time, poi_time)
-                                aet = act_end_time
-                                # 如果结束时间超过景点关闭时间，则截断为关闭时间
-                                if time_compare_if_earlier_equal(endtime, act_end_time):
-                                    act_end_time = endtime
-                                    if time_compare_if_earlier_equal(endtime, opentime):  # 营业到第二天
-                                        act_end_time = aet
-
-                                # 到达时间约束
-                                if not self.too_many_backtrack:
-                                    if self.activities_arrive_time_dict is not None:
-                                        arrive_info = self.activities_arrive_time_dict.get(poi_sel["name"])
-                                        if arrive_info:
-                                            arrive_type, arrive_time = arrive_info
-                                            if arrive_type == "early":  # 要求早于某个时间
-                                                if not time_compare_if_earlier_equal(act_start_time, arrive_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too late: {act_start_time} > {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif arrive_type == "late":  # 要求晚于某个时间
-                                                if not time_compare_if_earlier_equal(arrive_time, act_start_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too early: {act_start_time} < {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                    # 离开时间约束
-                                    if self.activities_leave_time_dict is not None:
-                                        leave_info = self.activities_leave_time_dict.get(poi_sel["name"])
-                                        if leave_info:
-                                            leave_type, leave_time = leave_info
-                                            if leave_type == "early":  # 要求早于某个时间离开
-                                                if not time_compare_if_earlier_equal(act_end_time, leave_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too late: {act_end_time} > {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif leave_type == "late":  # 要求晚于某个时间离开
-                                                if not time_compare_if_earlier_equal(leave_time, act_end_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too early: {act_end_time} < {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                try:
-                                    # 添加餐厅活动
-                                    plan = self.add_restaurant(
-                                        plan,
-                                        poi_type,
-                                        poi_sel,
-                                        current_day,
-                                        arrived_time,
-                                        transports_sel,
-                                    )
-                                    pn = poi_sel["name"]
-                                    pc = poi_sel["cuisine"]
-                                    print(f"add restaurant: {pn}, type: {pc}")
-                                except:
-                                    self.backtrack_count += 1
-                                    print("add_restaurant failed, backtrack...")
-                                    continue
-
-                                new_time = plan[current_day]["activities"][-1]["end_time"]  # 更新当前时间为餐厅结束时间
-                                new_position = poi_sel["name"]  # 更新当前位置为餐厅名称
-
-                                res_idx = res_info[res_info["name"] == poi_sel["name"]].index
-
-                                self.restaurants_visiting.append(res_idx)  # 记录已访问餐厅
-                                self.food_type_visiting.append(poi_sel["cuisine"])  # 记录已访问食物类型
-                                self.restaurant_names_visiting.append(poi_sel["name"])
-
-                                success, plan = self.dfs_poi(
-                                    query,
-                                    poi_plan,
-                                    plan,
-                                    new_time,
-                                    new_position,
-                                    current_day,
-                                )
-
-                                if success:
-                                    return True, plan
-                                # 回溯
-                                self.backtrack_count += 1
-                                print("add_restaurant failed, backtrack...")
-
-                                plan[current_day]["activities"].pop()
-                                self.restaurants_visiting.pop()
-                                self.food_type_visiting.pop()
-                                self.restaurant_names_visiting.pop()
-
-                    for _, poi_sel in top_candidates.iterrows():
-                        if poi_sel["name"] in self.restaurant_names_visiting:
-                            continue
-                        if poi_sel["cuisine"] in self.food_type_visiting:
-                            continue
-                        # 临时添加至计划中，更新当前地点和时间
-                        transports_ranking = self.innercity_transports_ranking
-                        if self.transport_rules_by_distance is not None:
-                            temp_distance = self.calculate_distance(query, current_position, poi_sel["name"])
-                            transports_ranking = self.get_transport_by_distance(temp_distance)
-                        # 遍历市内交通类型
-                        for trans_type_sel in transports_ranking:
-                            self.search_nodes += 1
-                            # 收集市内交通选项，从当前位置到景点
-                            transports_sel = self.collect_innercity_transport(
-                                query["target_city"],
-                                current_position,
-                                poi_sel["name"],
-                                current_time,
-                                trans_type_sel,
-                            )
-                            if not isinstance(transports_sel, list):
-                                self.backtrack_count += 1
-                                print("inner-city transport error, backtrack...")
-                                continue
-
-                            if len(transports_sel) == 0:
-                                arrived_time = current_time
-                            else:
-                                arrived_time = transports_sel[-1]["end_time"]
-
-                            opentime, endtime = (
-                                poi_sel["opentime"],
-                                poi_sel["endtime"],
-                            )
-
-                            # it is closed ...
-                            if time_compare_if_earlier_equal(endtime, arrived_time):
-                                closed = True
-                                if time_compare_if_earlier_equal(endtime, opentime): # 营业到第二天
-                                    closed = False
-                                if closed:
-                                    self.backtrack_count += 1
-                                    print("The restaurant is closed now...")
-                                    continue
-
-                            backtrack_flag = False
-                            if self.transport_rules_by_distance is not None:
-                                distance = 0
-                                for transport in transports_sel:
-                                    if transport["mode"] is not None:
-                                        distance += transport.get("distance", 0)
-                                mode = None
-                                if len(transports_sel) == 3:
-                                    mode = transports_sel[1]["mode"]
-                                elif len(transports_sel) == 1:
-                                    mode = transports_sel[0]["mode"]
-                                if mode is None:
-                                    continue
-                                for rule in self.transport_rules_by_distance:
-                                    if rule["min_distance"] is not None:
-                                        if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                            print("backtrack")
-                                            backtrack_flag = True
-                                    if rule["max_distance"] is not None:
-                                        if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                            print("backtrack")
-                                            backtrack_flag = True
-                            if backtrack_flag and not self.too_many_backtrack:
-                                self.backtrack_count += 1
-                                continue
-
-                            # 确定活动开始时间,如果到达早于开放时间，则从开放时间开始
-                            if time_compare_if_earlier_equal(
-                                    arrived_time, opentime
-                            ):
-                                act_start_time = opentime
-                            else:
-                                act_start_time = arrived_time
-
-                            poi_time = self.select_poi_time(poi_sel["name"], 60)
-                            # 计算活动结束时间
-                            act_end_time = add_time_delta(act_start_time, poi_time)
-                            aet = act_end_time
-                            # 如果结束时间超过景点关闭时间，则截断为关闭时间
-                            if time_compare_if_earlier_equal(endtime, act_end_time):
-                                act_end_time = endtime
-                                if time_compare_if_earlier_equal(endtime, opentime):  # 营业到第二天
-                                    act_end_time = aet
-
-                            if not self.too_many_backtrack:
-                                # 到达时间约束
-                                if self.activities_arrive_time_dict is not None:
-                                    arrive_info = self.activities_arrive_time_dict.get(poi_sel["name"])
-                                    if arrive_info:
-                                        arrive_type, arrive_time = arrive_info
-                                        if arrive_type == "early":  # 要求早于某个时间
-                                            if not time_compare_if_earlier_equal(act_start_time, arrive_time):
-                                                print(
-                                                    f"[Constraint] Arrival for {poi_sel['name']} too late: {act_start_time} > {arrive_time}")
-                                                self.backtrack_count += 1
-                                                continue
-                                        elif arrive_type == "late":  # 要求晚于某个时间
-                                            if not time_compare_if_earlier_equal(arrive_time, act_start_time):
-                                                print(
-                                                    f"[Constraint] Arrival for {poi_sel['name']} too early: {act_start_time} < {arrive_time}")
-                                                self.backtrack_count += 1
-                                                continue
-
-                                # 离开时间约束
-                                if self.activities_leave_time_dict is not None:
-                                    leave_info = self.activities_leave_time_dict.get(poi_sel["name"])
-                                    if leave_info:
-                                        leave_type, leave_time = leave_info
-                                        if leave_type == "early":  # 要求早于某个时间离开
-                                            if not time_compare_if_earlier_equal(act_end_time, leave_time):
-                                                print(
-                                                    f"[Constraint] Leaving {poi_sel['name']} too late: {act_end_time} > {leave_time}")
-                                                self.backtrack_count += 1
-                                                continue
-                                        elif leave_type == "late":  # 要求晚于某个时间离开
-                                            if not time_compare_if_earlier_equal(leave_time, act_end_time):
-                                                print(
-                                                    f"[Constraint] Leaving {poi_sel['name']} too early: {act_end_time} < {leave_time}")
-                                                self.backtrack_count += 1
-                                                continue
-
-                            try:
-                                # 添加餐厅活动
-                                plan = self.add_restaurant(
-                                    plan,
-                                    poi_type,
-                                    poi_sel,
-                                    current_day,
-                                    arrived_time,
-                                    transports_sel,
-                                )
-                                pn = poi_sel["name"]
-                                pc = poi_sel["cuisine"]
-                                print(f"add restaurant: {pn}, type: {pc}")
-                            except:
-                                self.backtrack_count += 1
-                                print("add_restaurant failed, backtrack...")
-                                continue
-
-                            new_time = plan[current_day]["activities"][-1]["end_time"]  # 更新当前时间为餐厅结束时间
-                            new_position = poi_sel["name"]  # 更新当前位置为餐厅名称
-
-                            res_idx = res_info[res_info["name"] == poi_sel["name"]].index
-
-                            self.restaurants_visiting.append(res_idx)  # 记录已访问餐厅
-                            self.food_type_visiting.append(poi_sel["cuisine"])  # 记录已访问食物类型
-                            self.restaurant_names_visiting.append(poi_sel["name"])
-
-                            success, plan = self.dfs_poi(
-                                query,
-                                poi_plan,
-                                plan,
-                                new_time,
-                                new_position,
-                                current_day,
-                            )
-
-                            if success:
-                                return True, plan
-                            # 回溯
-                            self.backtrack_count += 1
-                            print("add_restaurant failed, backtrack...")
-
-                            plan[current_day]["activities"].pop()
-                            self.restaurants_visiting.pop()
-                            self.food_type_visiting.pop()
-                            self.restaurant_names_visiting.pop()
-
-                # 如果是景点
+                    success, plan = self._dfs_explore_restaurants(
+                        query,
+                        poi_plan,
+                        plan,
+                        current_day,
+                        current_time,
+                        current_position,
+                        poi_type,
+                    )
+                    if success:
+                        return True, plan
                 elif poi_type == "attraction":
-                    attr_info = self.memory["attractions"]
-                    candidate_attr_list = attr_info.copy()
+                    success, plan = self._dfs_explore_attractions(
+                        query,
+                        poi_plan,
+                        plan,
+                        current_day,
+                        current_time,
+                        current_position,
+                        poi_type,
+                        candidates_type,
+                    )
+                    if success:
+                        return True, plan
 
-                    # 仅选择免费的景点
-                    if self.only_free_attractions is not None and self.only_free_attractions:
-                        candidate_attr_list = candidate_attr_list[candidate_attr_list["price"] == 0]
-
-                    # 删除不想游览的景点
-                    if self.must_not_see_attraction is not None:
-                        candidate_attr_list = candidate_attr_list[
-                            ~candidate_attr_list["name"].isin(self.must_not_see_attraction)]
-
-                    # 删除不想游览的景点类型
-                    if self.must_not_see_attraction_type is not None:
-                        candidate_attr_list = candidate_attr_list[
-                            ~candidate_attr_list["type"].isin(self.must_not_see_attraction_type)]
-
-                    # 确保必须游览的景点在候选集中
-                    if self.must_see_attraction is not None:
-                        for must_name in self.must_see_attraction:
-                            if must_name not in candidate_attr_list["name"].values:
-                                must_attr = attr_info[attr_info["name"] == must_name]
-                                if not must_attr.empty:
-                                    candidate_attr_list = pd.concat([candidate_attr_list, must_attr]).drop_duplicates()
-
-                    # 确保必须游览的类型景点存在
-                    if self.must_see_attraction_type is not None:
-                        found_types = candidate_attr_list["type"].unique()
-                        missing_types = [t for t in self.must_see_attraction_type if t not in found_types]
-                        if missing_types:
-                            print(f"[Warning] must see attraction type:{missing_types} is not in attraction candidates")
-
-                    # 过滤掉已经访问过的景点
-                    # attractions_visiting 中可能混有 Index 对象，扁平化为标量索引后再 drop
-                    _attr_drop_idx = []
-                    for _v in self.attractions_visiting:
-                        if hasattr(_v, "__iter__"):
-                            _attr_drop_idx.extend(list(_v))
-                        else:
-                            _attr_drop_idx.append(_v)
-                    candidate_attr_list = candidate_attr_list.drop(index=_attr_drop_idx, errors="ignore")
-
-                    # 根据开放时间过滤
-                    candidate_attr_filtered = candidate_attr_list[
-                        candidate_attr_list.apply(
-                            lambda row: (
-                                    time_compare_if_earlier_equal(row["opentime"], current_time) and
-                                    time_compare_if_earlier_equal(current_time, row["endtime"])
-                            ),
-                            axis=1
-                        )
-                    ].copy()
-
-                    # if not self.all_satisfy_flag and (self.overall_budget is not None or self.attraction_budget is not None):
-                    if self.overall_budget is not None or self.attraction_budget is not None:
-                        print("sorted by price")
-                        # 有预算要求，按price从低到高排序
-                        candidate_attr_ranked = candidate_attr_filtered.sort_values(by="price").reset_index(drop=True)
-                    else:
-                        print("sorted by distance")
-                        # 根据current_position计算距离景点的距离并排序
-                        candidate_attr_filtered["distance"] = candidate_attr_filtered.apply(
-                            lambda row: self.calculate_distance(
-                                query, current_position, row["name"]
-                            ),
-                            axis=1
-                        )
-                        candidate_attr_ranked = candidate_attr_filtered.sort_values(by="distance").reset_index(
-                            drop=True)
-
-                    if self.segment_index is not None:
-                        candidate_attr_ranked = self.segment_index.rank_poi(
-                            self._segment_query(query),
-                            current_position,
-                            "attraction",
-                            candidate_attr_ranked,
-                            self._segment_constraints(),
-                        )
-
-                    # 检查时间段
-                    stage = 0
-                    if current_day == 0 and time_compare_if_earlier_equal("14:00", current_time) and "dinner" in candidates_type:
-                        stage = 2
-                    elif "lunch" in candidates_type and "dinner" in candidates_type:
-                        stage = 1
-                    elif "lunch" not in candidates_type and "dinner" in candidates_type:
-                        stage = 2
-                    # elif "lunch" not in candidates_type and "dinner" not in candidates_type:
-                    #     stage = 3
-
-                    n = self.top_k_candidates  # 选取前 n 个景点
-
-                    must_candidates = pd.DataFrame()
-                    if self.must_see_attraction is not None:
-                        for must_name in self.must_see_attraction:
-                            if self._visited_contains(self.attractions_visiting, must_name):
-                                continue
-                            must_attr = attr_info[attr_info["name"] == must_name]
-                            if not must_attr.empty:
-                                must_candidates = pd.concat([must_candidates, must_attr]).drop_duplicates()
-
-                    if not must_candidates.empty:
-                        must_candidates = must_candidates.copy()
-                        must_candidates["open_duration"] = must_candidates.apply(
-                            lambda row: get_time_delta(row["opentime"], row["endtime"]),
-                            axis=1
-                        )
-                        must_candidates = must_candidates.sort_values(by="open_duration", ascending=True).reset_index(drop=True)
-
-                    must_type_candidates = pd.DataFrame()
-                    if self.must_see_attraction_type is not None:
-                        for must_type in self.must_see_attraction_type:
-                            if self._visited_contains(self.spot_type_visiting, must_type):
-                                continue
-                            must_attr = attr_info[attr_info["type"] == must_type]
-                            if not must_attr.empty:
-                                must_type_candidates = pd.concat([must_type_candidates, must_attr]).drop_duplicates()
-
-                    top_candidates = candidate_attr_ranked.iloc[
-                                     :min(n, len(candidate_attr_ranked))].copy()
-
-
-                    flag = True
-                    if self.must_see_attraction is not None:
-                        temp_cons = {"must_see_attraction": self.must_see_attraction}
-                        flag, _ = self.check_constraint(plan, temp_cons)
-                    if not flag:
-                        for _, poi_sel in must_candidates.iterrows():
-                            if poi_sel["name"] in self.attraction_names_visiting:
-                                continue
-                            print(f"lookahead to add attraction, candidate: {poi_sel['name']}")
-                            # 临时添加至计划中，更新当前地点和时间
-                            transports_ranking = self.innercity_transports_ranking
-                            if self.transport_rules_by_distance is not None:
-                                temp_distance = self.calculate_distance(query, current_position, poi_sel["name"])
-                                transports_ranking = self.get_transport_by_distance(temp_distance)
-                            # 遍历市内交通类型
-                            for trans_type_sel in transports_ranking:
-                                self.search_nodes += 1
-                                # 收集市内交通选项，从当前位置到景点
-                                transports_sel = self.collect_innercity_transport(
-                                    query["target_city"],
-                                    current_position,
-                                    poi_sel["name"],
-                                    current_time,
-                                    trans_type_sel,
-                                )
-                                if not isinstance(transports_sel, list):
-                                    self.backtrack_count += 1
-                                    print("inner-city transport error, backtrack...")
-                                    continue
-
-                                if len(transports_sel) == 0:
-                                    arrived_time = current_time
-                                else:
-                                    arrived_time = transports_sel[-1]["end_time"]
-
-                                opentime, endtime = (
-                                    poi_sel["opentime"],
-                                    poi_sel["endtime"],
-                                )
-
-                                # it is closed ...
-                                if time_compare_if_earlier_equal(endtime, arrived_time):
-                                    self.backtrack_count += 1
-                                    print(
-                                        f"{poi_sel['name']} closed at {endtime}, start time: {current_time}, arrival time: {arrived_time}, backtrack...")
-                                    continue
-
-                                backtrack_flag = False
-                                if self.transport_rules_by_distance is not None:
-                                    distance = 0
-                                    for transport in transports_sel:
-                                        if transport["mode"] is not None:
-                                            distance += transport.get("distance", 0)
-                                    mode = None
-                                    if len(transports_sel) == 3:
-                                        mode = transports_sel[1]["mode"]
-                                    elif len(transports_sel) == 1:
-                                        mode = transports_sel[0]["mode"]
-                                    if mode is None:
-                                        continue
-                                    for rule in self.transport_rules_by_distance:
-                                        if rule["min_distance"] is not None:
-                                            if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                        if rule["max_distance"] is not None:
-                                            if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                if backtrack_flag and not self.too_many_backtrack:
-                                    self.backtrack_count += 1
-                                    continue
-
-                                # 确定活动开始时间,如果到达早于开放时间，则从开放时间开始
-                                if time_compare_if_earlier_equal(arrived_time, opentime):
-                                    act_start_time = opentime
-                                else:
-                                    act_start_time = arrived_time
-
-                                # 选择景点游览时间
-                                poi_time = self.select_poi_time(poi_sel["name"], 90)
-                                # 计算活动结束时间
-                                act_end_time = add_time_delta(act_start_time, poi_time)
-                                # 如果结束时间超过景点关闭时间，则截断为关闭时间
-                                if time_compare_if_earlier_equal(endtime, act_end_time):
-                                    act_end_time = endtime
-
-                                if not self.too_many_backtrack:
-                                    # 到达时间约束
-                                    if self.activities_arrive_time_dict is not None:
-                                        arrive_info = self.activities_arrive_time_dict.get(poi_sel["name"])
-                                        if arrive_info:
-                                            arrive_type, arrive_time = arrive_info
-                                            if arrive_type == "early":  # 要求早于某个时间
-                                                if not time_compare_if_earlier_equal(act_start_time, arrive_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too late: {act_start_time} > {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif arrive_type == "late":  # 要求晚于某个时间
-                                                if not time_compare_if_earlier_equal(arrive_time, act_start_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too early: {act_start_time} < {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                    # 离开时间约束
-                                    if self.activities_leave_time_dict is not None:
-                                        leave_info = self.activities_leave_time_dict.get(poi_sel["name"])
-                                        if leave_info:
-                                            leave_type, leave_time = leave_info
-                                            if leave_type == "early":  # 要求早于某个时间离开
-                                                if not time_compare_if_earlier_equal(act_end_time, leave_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too late: {act_end_time} > {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif leave_type == "late":  # 要求晚于某个时间离开
-                                                if not time_compare_if_earlier_equal(leave_time, act_end_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too early: {act_end_time} < {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                flag = False
-                                if stage == 1:
-                                    if time_compare_if_earlier_equal(act_end_time, "12:00"):
-                                        flag = True
-
-                                if stage == 2:
-                                    if time_compare_if_earlier_equal(act_end_time, "19:00"):
-                                        flag = True
-
-                                if stage == 0 or stage == 3:
-                                    flag = True
-
-                                if not flag:
-                                    continue
-
-                                plan[current_day]["activities"] = self.add_poi(
-                                    activities=plan[current_day]["activities"],
-                                    position=poi_sel["name"],
-                                    poi_type=poi_type,
-                                    price=int(poi_sel["price"]),
-                                    cost=int(poi_sel["price"])
-                                         * self.query["people_number"],
-                                    start_time=act_start_time,
-                                    end_time=act_end_time,
-                                    innercity_transports=transports_sel,
-                                )
-                                # 设置门票数量
-                                plan[current_day]["activities"][-1]["tickets"] = (
-                                    self.query["people_number"]
-                                )
-
-                                if self._enable_plan_sync and not self._after_append_activity(
-                                    query, plan, current_day
-                                ):
-                                    plan[current_day]["activities"].pop()
-                                    self.backtrack_count += 1
-                                    continue
-
-                                pn = poi_sel["name"]
-                                pc = poi_sel["type"]
-                                print(f"add attraction: {pn}, type: {pc}")
-
-                                new_time = act_end_time  # 更新当前时间为活动结束时间
-                                new_position = poi_sel["name"]  # 更新当前位置为景点名称
-
-                                attr_idx = attr_info[attr_info["name"] == poi_sel["name"]].index
-
-                                self.attractions_visiting.append(attr_idx)  # 记录已访问景点
-                                self.spot_type_visiting.append(poi_sel["type"])  # 记录已访问景点类型
-                                self.attraction_names_visiting.append(poi_sel["name"])  # 记录已访问景点名称
-
-                                success, plan = self.dfs_poi(
-                                    query,
-                                    poi_plan,
-                                    plan,
-                                    new_time,
-                                    new_position,
-                                    current_day,
-                                )
-
-                                if success:
-                                    return True, plan
-
-                                self.backtrack_count += 1
-                                print("add_attraction failed, backtrack...")
-
-                                plan[current_day]["activities"].pop()
-                                self.attractions_visiting.pop()
-                                self.spot_type_visiting.pop()
-                                self.attraction_names_visiting.pop()
-
-                    flag = True
-                    if self.must_see_attraction_type is not None:
-                        temp_cons = {"must_see_attraction_type": self.must_see_attraction_type}
-                        flag, _ = self.check_constraint(plan, temp_cons)
-                    if not flag:
-                        for _, poi_sel in must_type_candidates.iterrows():
-                            if poi_sel["name"] in self.attraction_names_visiting:
-                                continue
-                            # must_type 段：用户显式要求该景点类型，允许重复以满足"多个同类型景点"约束，
-                            # 故此处不再按 spot_type_visiting 去重（top 段仍保留去重以保多样性）
-                            print(f"lookahead to add attraction, candidate: {poi_sel['name']}")
-                            # 临时添加至计划中，更新当前地点和时间
-                            transports_ranking = self.innercity_transports_ranking
-                            if self.transport_rules_by_distance is not None:
-                                temp_distance = self.calculate_distance(query, current_position, poi_sel["name"])
-                                transports_ranking = self.get_transport_by_distance(temp_distance)
-                            # 遍历市内交通类型
-                            for trans_type_sel in transports_ranking:
-                                self.search_nodes += 1
-                                # 收集市内交通选项，从当前位置到景点
-                                transports_sel = self.collect_innercity_transport(
-                                    query["target_city"],
-                                    current_position,
-                                    poi_sel["name"],
-                                    current_time,
-                                    trans_type_sel,
-                                )
-                                if not isinstance(transports_sel, list):
-                                    self.backtrack_count += 1
-                                    print("inner-city transport error, backtrack...")
-                                    continue
-
-                                if len(transports_sel) == 0:
-                                    arrived_time = current_time
-                                else:
-                                    arrived_time = transports_sel[-1]["end_time"]
-
-                                opentime, endtime = (
-                                    poi_sel["opentime"],
-                                    poi_sel["endtime"],
-                                )
-
-                                # it is closed ...
-                                if time_compare_if_earlier_equal(endtime, arrived_time):
-                                    self.backtrack_count += 1
-                                    print(
-                                        f"{poi_sel['name']} closed at {endtime}, start time: {current_time}, arrival time: {arrived_time}, backtrack...")
-                                    continue
-
-                                backtrack_flag = False
-                                if self.transport_rules_by_distance is not None:
-                                    distance = 0
-                                    for transport in transports_sel:
-                                        if transport["mode"] is not None:
-                                            distance += transport.get("distance", 0)
-                                    mode = None
-                                    if len(transports_sel) == 3:
-                                        mode = transports_sel[1]["mode"]
-                                    elif len(transports_sel) == 1:
-                                        mode = transports_sel[0]["mode"]
-                                    if mode is None:
-                                        continue
-                                    for rule in self.transport_rules_by_distance:
-                                        if rule["min_distance"] is not None:
-                                            if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                        if rule["max_distance"] is not None:
-                                            if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                                print("backtrack")
-                                                backtrack_flag = True
-                                if backtrack_flag and not self.too_many_backtrack:
-                                    self.backtrack_count += 1
-                                    continue
-
-                                # 确定活动开始时间,如果到达早于开放时间，则从开放时间开始
-                                if time_compare_if_earlier_equal(arrived_time, opentime):
-                                    act_start_time = opentime
-                                else:
-                                    act_start_time = arrived_time
-
-                                # 选择景点游览时间
-                                poi_time = self.select_poi_time(poi_sel["name"], 90)
-                                # 计算活动结束时间
-                                act_end_time = add_time_delta(act_start_time, poi_time)
-                                # 如果结束时间超过景点关闭时间，则截断为关闭时间
-                                if time_compare_if_earlier_equal(endtime, act_end_time):
-                                    act_end_time = endtime
-
-                                if not self.too_many_backtrack:
-                                    # 到达时间约束
-                                    if self.activities_arrive_time_dict is not None:
-                                        arrive_info = self.activities_arrive_time_dict.get(poi_sel["name"])
-                                        if arrive_info:
-                                            arrive_type, arrive_time = arrive_info
-                                            if arrive_type == "early":  # 要求早于某个时间
-                                                if not time_compare_if_earlier_equal(act_start_time, arrive_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too late: {act_start_time} > {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif arrive_type == "late":  # 要求晚于某个时间
-                                                if not time_compare_if_earlier_equal(arrive_time, act_start_time):
-                                                    print(
-                                                        f"[Constraint] Arrival for {poi_sel['name']} too early: {act_start_time} < {arrive_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                    # 离开时间约束
-                                    if self.activities_leave_time_dict is not None:
-                                        leave_info = self.activities_leave_time_dict.get(poi_sel["name"])
-                                        if leave_info:
-                                            leave_type, leave_time = leave_info
-                                            if leave_type == "early":  # 要求早于某个时间离开
-                                                if not time_compare_if_earlier_equal(act_end_time, leave_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too late: {act_end_time} > {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-                                            elif leave_type == "late":  # 要求晚于某个时间离开
-                                                if not time_compare_if_earlier_equal(leave_time, act_end_time):
-                                                    print(
-                                                        f"[Constraint] Leaving {poi_sel['name']} too early: {act_end_time} < {leave_time}")
-                                                    self.backtrack_count += 1
-                                                    continue
-
-                                flag = False
-                                if stage == 1:
-                                    if time_compare_if_earlier_equal(act_end_time, "12:00"):
-                                        flag = True
-
-                                if stage == 2:
-                                    if time_compare_if_earlier_equal(act_end_time, "19:00"):
-                                        flag = True
-
-                                if stage == 0 or stage == 3:
-                                    flag = True
-
-                                if not flag:
-                                    continue
-
-                                plan[current_day]["activities"] = self.add_poi(
-                                    activities=plan[current_day]["activities"],
-                                    position=poi_sel["name"],
-                                    poi_type=poi_type,
-                                    price=int(poi_sel["price"]),
-                                    cost=int(poi_sel["price"])
-                                         * self.query["people_number"],
-                                    start_time=act_start_time,
-                                    end_time=act_end_time,
-                                    innercity_transports=transports_sel,
-                                )
-                                # 设置门票数量
-                                plan[current_day]["activities"][-1]["tickets"] = (
-                                    self.query["people_number"]
-                                )
-
-                                if self._enable_plan_sync and not self._after_append_activity(
-                                    query, plan, current_day
-                                ):
-                                    plan[current_day]["activities"].pop()
-                                    self.backtrack_count += 1
-                                    continue
-
-                                pn = poi_sel["name"]
-                                pc = poi_sel["type"]
-                                print(f"add attraction: {pn}, type: {pc}")
-
-                                new_time = act_end_time  # 更新当前时间为活动结束时间
-                                new_position = poi_sel["name"]  # 更新当前位置为景点名称
-
-                                attr_idx = attr_info[attr_info["name"] == poi_sel["name"]].index
-
-                                self.attractions_visiting.append(attr_idx)  # 记录已访问景点
-                                self.spot_type_visiting.append(poi_sel["type"])  # 记录已访问景点类型
-                                self.attraction_names_visiting.append(poi_sel["name"])  # 记录已访问景点名称
-
-                                success, plan = self.dfs_poi(
-                                    query,
-                                    poi_plan,
-                                    plan,
-                                    new_time,
-                                    new_position,
-                                    current_day,
-                                )
-
-                                if success:
-                                    return True, plan
-
-                                self.backtrack_count += 1
-                                print("add_attraction failed, backtrack...")
-
-                                plan[current_day]["activities"].pop()
-                                self.attractions_visiting.pop()
-                                self.spot_type_visiting.pop()
-                                self.attraction_names_visiting.pop()
-
-                    for _, poi_sel in top_candidates.iterrows():
-                        if poi_sel["name"] in self.attraction_names_visiting:
-                            continue
-                        if poi_sel["type"] in self.spot_type_visiting:
-                            continue
-                        print(f"lookahead to add attraction, candidate: {poi_sel['name']}")
-                        # 临时添加至计划中，更新当前地点和时间
-                        transports_ranking = self.innercity_transports_ranking
-                        if self.transport_rules_by_distance is not None:
-                            temp_distance = self.calculate_distance(query, current_position, poi_sel["name"])
-                            transports_ranking = self.get_transport_by_distance(temp_distance)
-                        # 遍历市内交通类型
-                        for trans_type_sel in transports_ranking:
-                            self.search_nodes += 1
-                            # 收集市内交通选项，从当前位置到景点
-                            transports_sel = self.collect_innercity_transport(
-                                query["target_city"],
-                                current_position,
-                                poi_sel["name"],
-                                current_time,
-                                trans_type_sel,
-                            )
-                            if not isinstance(transports_sel, list):
-                                self.backtrack_count += 1
-                                print("inner-city transport error, backtrack...")
-                                continue
-
-                            if len(transports_sel) == 0:
-                                arrived_time = current_time
-                            else:
-                                arrived_time = transports_sel[-1]["end_time"]
-
-                            opentime, endtime = (
-                                poi_sel["opentime"],
-                                poi_sel["endtime"],
-                            )
-
-                            # it is closed ...
-                            if time_compare_if_earlier_equal(endtime, arrived_time):
-                                self.backtrack_count += 1
-                                print(
-                                    f"{poi_sel['name']} closed at {endtime}, start time: {current_time}, arrival time: {arrived_time}, backtrack...")
-                                continue
-
-                            backtrack_flag = False
-                            if self.transport_rules_by_distance is not None:
-                                distance = 0
-                                for transport in transports_sel:
-                                    if transport["mode"] is not None:
-                                        distance += transport.get("distance", 0)
-                                mode = None
-                                if len(transports_sel) == 3:
-                                    mode = transports_sel[1]["mode"]
-                                elif len(transports_sel) == 1:
-                                    mode = transports_sel[0]["mode"]
-                                if mode is None:
-                                    continue
-                                for rule in self.transport_rules_by_distance:
-                                    if rule["min_distance"] is not None:
-                                        if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                            print("backtrack")
-                                            backtrack_flag = True
-                                    if rule["max_distance"] is not None:
-                                        if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                            print("backtrack")
-                                            backtrack_flag = True
-                            if backtrack_flag and not self.too_many_backtrack:
-                                self.backtrack_count += 1
-                                continue
-
-                            # 确定活动开始时间,如果到达早于开放时间，则从开放时间开始
-                            if time_compare_if_earlier_equal(arrived_time, opentime):
-                                act_start_time = opentime
-                            else:
-                                act_start_time = arrived_time
-
-                            # 选择景点游览时间
-                            poi_time = self.select_poi_time(poi_sel["name"], 90)
-                            # 计算活动结束时间
-                            act_end_time = add_time_delta(act_start_time, poi_time)
-                            # 如果结束时间超过景点关闭时间，则截断为关闭时间
-                            if time_compare_if_earlier_equal(endtime, act_end_time):
-                                act_end_time = endtime
-
-                            if not self.too_many_backtrack:
-                                # 到达时间约束
-                                if self.activities_arrive_time_dict is not None:
-                                    arrive_info = self.activities_arrive_time_dict.get(poi_sel["name"])
-                                    if arrive_info:
-                                        arrive_type, arrive_time = arrive_info
-                                        if arrive_type == "early":  # 要求早于某个时间
-                                            if not time_compare_if_earlier_equal(act_start_time, arrive_time):
-                                                print(
-                                                    f"[Constraint] Arrival for {poi_sel['name']} too late: {act_start_time} > {arrive_time}")
-                                                self.backtrack_count += 1
-                                                continue
-                                        elif arrive_type == "late":  # 要求晚于某个时间
-                                            if not time_compare_if_earlier_equal(arrive_time, act_start_time):
-                                                print(
-                                                    f"[Constraint] Arrival for {poi_sel['name']} too early: {act_start_time} < {arrive_time}")
-                                                self.backtrack_count += 1
-                                                continue
-
-                                # 离开时间约束
-                                if self.activities_leave_time_dict is not None:
-                                    leave_info = self.activities_leave_time_dict.get(poi_sel["name"])
-                                    if leave_info:
-                                        leave_type, leave_time = leave_info
-                                        if leave_type == "early":  # 要求早于某个时间离开
-                                            if not time_compare_if_earlier_equal(act_end_time, leave_time):
-                                                print(
-                                                    f"[Constraint] Leaving {poi_sel['name']} too late: {act_end_time} > {leave_time}")
-                                                self.backtrack_count += 1
-                                                continue
-                                        elif leave_type == "late":  # 要求晚于某个时间离开
-                                            if not time_compare_if_earlier_equal(leave_time, act_end_time):
-                                                print(
-                                                    f"[Constraint] Leaving {poi_sel['name']} too early: {act_end_time} < {leave_time}")
-                                                self.backtrack_count += 1
-                                                continue
-
-                            flag = False
-                            if stage == 1:
-                                if time_compare_if_earlier_equal(act_end_time, "12:00"):
-                                    flag = True
-
-                            if stage == 2:
-                                if time_compare_if_earlier_equal(act_end_time, "19:00"):
-                                    flag = True
-
-                            if stage == 0 or stage == 3:
-                                flag = True
-
-                            if not flag:
-                                continue
-
-                            plan[current_day]["activities"] = self.add_poi(
-                                activities=plan[current_day]["activities"],
-                                position=poi_sel["name"],
-                                poi_type=poi_type,
-                                price=int(poi_sel["price"]),
-                                cost=int(poi_sel["price"])
-                                     * self.query["people_number"],
-                                start_time=act_start_time,
-                                end_time=act_end_time,
-                                innercity_transports=transports_sel,
-                            )
-                            # 设置门票数量
-                            plan[current_day]["activities"][-1]["tickets"] = (
-                                self.query["people_number"]
-                            )
-
-                            if self._enable_plan_sync and not self._after_append_activity(
-                                query, plan, current_day
-                            ):
-                                plan[current_day]["activities"].pop()
-                                self.backtrack_count += 1
-                                continue
-
-                            pn = poi_sel["name"]
-                            pc = poi_sel["type"]
-                            print(f"add attraction: {pn}, type: {pc}")
-
-                            new_time = act_end_time  # 更新当前时间为活动结束时间
-                            new_position = poi_sel["name"]  # 更新当前位置为景点名称
-
-                            attr_idx = attr_info[attr_info["name"] == poi_sel["name"]].index
-
-                            self.attractions_visiting.append(attr_idx)  # 记录已访问景点
-                            self.spot_type_visiting.append(poi_sel["type"])  # 记录已访问景点类型
-                            self.attraction_names_visiting.append(poi_sel["name"])  # 记录已访问景点名称
-
-                            success, plan = self.dfs_poi(
-                                query,
-                                poi_plan,
-                                plan,
-                                new_time,
-                                new_position,
-                                current_day,
-                            )
-
-                            if success:
-                                return True, plan
-
-                            self.backtrack_count += 1
-                            print("add_attraction failed, backtrack...")
-
-                            plan[current_day]["activities"].pop()
-                            self.attractions_visiting.pop()
-                            self.spot_type_visiting.pop()
-                            self.attraction_names_visiting.pop()
-
-                # 如果是旅行的最后一天
                 if current_day == query["days"] - 1:
-
-                    # go back
-
-                    if len(plan) < current_day + 1:
-                        plan.append({"day": current_day + 1, "activities": []})
-                    self.search_nodes += 1
-                    # 获取市内交通排名
-                    # transports_ranking = self.ranking_innercity_transport(current_position, poi_plan["back_transport"]["From"], current_day, current_time)
-                    transports_ranking = self.innercity_transports_ranking
-                    if self.transport_rules_by_distance is not None:
-                        temp_distance = self.calculate_distance(query, current_position, poi_plan["back_transport"]["From"])
-                        transports_ranking = self.get_transport_by_distance(temp_distance)
-                    # 遍历市内交通类型
-                    for trans_type_sel in transports_ranking:
-                        self.search_nodes += 1
-                        # 收集市内交通选项，从当前位置到返程交通的出发地
-                        print("last day, collecting innercity transport to back-transport")
-                        transports_sel = self.collect_innercity_transport(
-                            query["target_city"],
-                            current_position,
-                            poi_plan["back_transport"]["From"],
-                            current_time,
-                            trans_type_sel,
-                        )
-                        if not isinstance(transports_sel, list):
-                            self.backtrack_count += 1
-                            print("inner-city transport error, backtrack...")
-                            continue
-
-                        if len(transports_sel) == 0:
-                            arrived_time = current_time
-                        else:
-                            arrived_time = transports_sel[-1]["end_time"]
-
-                        if not self.too_many_backtrack:
-                            if not time_compare_if_earlier_equal(arrived_time, poi_plan["back_transport"]["BeginTime"]):
-                                self.backtrack_count += 1
-                                print("Fail to catch the back transport")
-                                continue
-
-                        backtrack_flag = False
-                        if self.transport_rules_by_distance is not None:
-                            distance = 0
-                            for transport in transports_sel:
-                                if transport["mode"] is not None:
-                                    distance += transport.get("distance", 0)
-                            mode = None
-                            if len(transports_sel) == 3:
-                                mode = transports_sel[1]["mode"]
-                            elif len(transports_sel) == 1:
-                                mode = transports_sel[0]["mode"]
-                            if mode is None:
-                                continue
-                            for rule in self.transport_rules_by_distance:
-                                if rule["min_distance"] is not None:
-                                    if distance > rule["min_distance"] and mode not in rule["transport_type"]:
-                                        print("backtrack")
-                                        backtrack_flag = True
-                                if rule["max_distance"] is not None:
-                                    if distance < rule["max_distance"] and mode not in rule["transport_type"]:
-                                        print("backtrack")
-                                        backtrack_flag = True
-                        if backtrack_flag and not self.too_many_backtrack:
-                            self.backtrack_count += 1
-                            continue
-
-                        # 添加返程城际交通活动
-                        plan[current_day]["activities"] = self.add_intercity_transport(
-                            plan[current_day]["activities"],
-                            poi_plan["back_transport"],
-                            innercity_transports=transports_sel,
-                            tickets=self.query["people_number"],
-                        )
-
-                        if not self.too_many_backtrack:
-                            over_budget = self.check_budgets(plan)
-                            if over_budget:
-                                plan[current_day]["activities"].pop()
-                                return False, plan
-
-                        repair_full_itinerary(self, query, plan)
-
-                        # 验证计划是否满足所有约束
-                        res_bool, res_plan = self.constraints_validation(
-                            query, plan, poi_plan
-                        )
-
-                        if res_bool:
-                            return True, res_plan
-                        plan[current_day]["activities"].pop()
-                        self.backtrack_count += 1
-                        continue
-
+                    success, plan = self._try_append_back_transport(
+                        query, poi_plan, plan, current_day, current_time, current_position
+                    )
+                    if success:
+                        return True, plan
                 # 如果不是最后一天且天数大于 1
-                elif self.query["days"] > 1 and current_day < query["days"] - 1:
+                elif query["days"] > 1 and current_day < query["days"] - 1:
                     # go to hotel
                     hotel_sel = poi_plan["accommodation"]  # 获取选定的酒店信息
                     self.search_nodes += 1
@@ -2980,7 +2228,7 @@ class UrbanTripOptimizedV5(BaseAgent):
                     for trans_type_sel in transports_ranking:
                         self.search_nodes += 1
                         # 收集市内交通选项，从当前位置到酒店
-                        print("not last day, but last event, collecting innercity transport to hotel")
+                        self._dfs_log("not last day, but last event, collecting innercity transport to hotel")
                         transports_sel = self.collect_innercity_transport(
                             query["target_city"],
                             current_position,
@@ -2988,10 +2236,10 @@ class UrbanTripOptimizedV5(BaseAgent):
                             current_time,
                             trans_type_sel,
                         )
-                        print(f"from: {current_position} to {hotel_sel['name']}")
+                        self._dfs_log(f"from: {current_position} to {hotel_sel['name']}")
                         if not isinstance(transports_sel, list):
                             self.backtrack_count += 1
-                            print("inner-city transport error, backtrack...")
+                            self._dfs_log("inner-city transport error, backtrack...")
                             continue
 
                         if len(transports_sel) == 0:
@@ -3034,6 +2282,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                             required_rooms=self.required_rooms,
                             transports_sel=transports_sel,
                         )
+                        if not self._last_activity_matches(
+                            plan, current_day, "accommodation", hotel_sel["name"]
+                        ):
+                            self.backtrack_count += 1
+                            continue
 
                         new_time = "00:00"  # 新的一天开始
                         new_position = hotel_sel["name"]  # 新位置为酒店名称
@@ -3054,19 +2307,21 @@ class UrbanTripOptimizedV5(BaseAgent):
                             return True, plan
                         else:
                             self.backtrack_count += 1
-                            print("Try the go back hotel, failed, backtrack...")
+                            self._dfs_log("Try the go back hotel, failed, backtrack...")
 
-                            plan[current_day]["activities"].pop()
+                            self._pop_last_activity_if_matches(
+                                plan, current_day, "accommodation", hotel_sel["name"]
+                            )
 
                             continue
             else:
                 # raise Exception("Not Implemented.")
-                print("incorrect poi type: {}".format(poi_type))
+                self._dfs_log("incorrect poi type: {}".format(poi_type))
                 continue
 
             candidates_type.remove(poi_type)
-            print(f"remove: {poi_type}, candidate type: {candidates_type}")
-            print("try another poi type, backtrack...")
+            self._dfs_log(f"remove: {poi_type}, candidate type: {candidates_type}")
+            self._dfs_log("try another poi type, backtrack...")
 
         return False, plan
 
@@ -3624,7 +2879,9 @@ class UrbanTripOptimizedV5(BaseAgent):
         )
         if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
             if not self._after_append_activity(self.query, plan, current_day):
-                plan[current_day]["activities"].pop()
+                self._pop_last_activity_if_matches(
+                    plan, current_day, "breakfast", hotel_name
+                )
         return plan
 
     def select_next_poi_type(self, candidates_type, plan, poi_plan, current_day, current_time, current_position):
@@ -3710,7 +2967,15 @@ class UrbanTripOptimizedV5(BaseAgent):
             dsl = str(dsl) if dsl is not None else ""
 
         def extract_list(s):
-            return re.findall(r"[\"']([^\"']+)[\"']", s) or [s.strip()]
+            # Prefer double-quoted tokens so apostrophes inside names (e.g. Feng's) parse correctly.
+            items = re.findall(r'"([^"]*)"', s)
+            if items:
+                return items
+            items = re.findall(r"'([^']*)'", s)
+            if items:
+                return items
+            stripped = s.strip()
+            return [stripped] if stripped else []
 
         def parse_single_dsl(dsl_str, query):
             """对单条 DSL 进行匹配"""
@@ -3907,6 +3172,7 @@ class UrbanTripOptimizedV5(BaseAgent):
     def constraints_validation(self, query, plan, poi_plan):
 
         self.constraints_validation_count += 1
+        repair_full_itinerary(self, query, plan)
 
         res_plan = {
             "people_number": query["people_number"],
@@ -4039,6 +3305,12 @@ class UrbanTripOptimizedV5(BaseAgent):
             required_rooms,
             transports_sel,
     ):
+        transports_sel = list(transports_sel) if transports_sel else []
+        if transports_sel and not self._innercity_transports_valid(transports_sel):
+            return current_plan
+        arrived_time = clamp_time_to_day_end(arrived_time)
+        if self._arrived_time_too_late_for_hotel(arrived_time):
+            return current_plan
 
         current_plan[current_day]["activities"] = self.add_poi(
             activities=current_plan[current_day]["activities"],
@@ -4055,7 +3327,9 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
             if not self._after_append_activity(self.query, current_plan, current_day):
-                current_plan[current_day]["activities"].pop()
+                self._pop_last_activity_if_matches(
+                    current_plan, current_day, "accommodation", hotel_sel["name"]
+                )
 
         return current_plan
 
@@ -4123,7 +3397,9 @@ class UrbanTripOptimizedV5(BaseAgent):
         )
         if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
             if not self._after_append_activity(self.query, current_plan, current_day):
-                current_plan[current_day]["activities"].pop()
+                self._pop_last_activity_if_matches(
+                    current_plan, current_day, poi_type, poi_sel["name"]
+                )
         return current_plan
 
     def add_attraction(
@@ -4167,7 +3443,9 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         if getattr(self, "_enable_plan_sync", False) and getattr(self, "query", None) is not None:
             if not self._after_append_activity(self.query, current_plan, current_day):
-                current_plan[current_day]["activities"].pop()
+                self._pop_last_activity_if_matches(
+                    current_plan, current_day, poi_type, poi_sel["name"]
+                )
 
         return current_plan
 

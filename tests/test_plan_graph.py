@@ -253,6 +253,42 @@ class PlanGraphTest(unittest.TestCase):
         agent.collect_innercity_transport.assert_not_called()
         self.assertIs(itinerary[0]["activities"][1]["transports"], transports)
 
+    def test_forward_time_chain_fixes_late_accommodation(self):
+        itinerary = [
+            {
+                "day": 1,
+                "activities": [
+                    {
+                        "position": "Hotel",
+                        "type": "accommodation",
+                        "price": 100,
+                        "cost": 100,
+                        "start_time": "27:22",
+                        "end_time": "24:00",
+                        "transports": [
+                            {
+                                "start": "A",
+                                "end": "B",
+                                "mode": "metro",
+                                "start_time": "25:16",
+                                "end_time": "27:13",
+                                "cost": 0,
+                                "distance": 1,
+                                "price": 0,
+                            }
+                        ],
+                        "room_type": 1,
+                        "rooms": 1,
+                    }
+                ],
+            }
+        ]
+        forward_time_chain(itinerary)
+        act = itinerary[0]["activities"][0]
+        self.assertEqual(act["transports"][0]["end_time"], "27:13")
+        self.assertEqual(act["start_time"], "23:00")
+        self.assertEqual(act["end_time"], "24:00")
+
     def test_repair_full_itinerary(self):
         query = {
             "people_number": 2,

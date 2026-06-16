@@ -1,6 +1,12 @@
 """Incremental commonsense helpers for itinerary chains (space + time)."""
 
-from chinatravel.agent.UrbanTrip.utils import add_time_delta, time_compare_if_earlier_equal
+from chinatravel.agent.UrbanTrip.utils import (
+    add_time_delta,
+    clamp_time_to_day_end,
+    sanitize_transport_times,
+    time_compare_if_earlier_equal,
+    time_to_minutes,
+)
 from chinatravel.symbol_verification.commonsense_constraint import (
     Is_attractions_correct,
     Is_restaurants_correct,
@@ -142,30 +148,52 @@ def build_position_chain(itinerary):
     return positions
 
 
+def sanitize_itinerary_times(itinerary):
+    """Fix activity clocks that rolled past 24:00; do not rewrite transport legs (eval checks durations)."""
+    for day in itinerary:
+        for act in day.get("activities", []):
+            if is_intercity_activity(act):
+                continue
+            st = act.get("start_time")
+            if not st:
+                continue
+            st_min = time_to_minutes(str(st).split("次日")[-1])
+            day_end = time_to_minutes("24:00")
+            if st_min >= day_end:
+                if act.get("type") == "accommodation":
+                    act["start_time"] = "23:00"
+                else:
+                    act["start_time"] = clamp_time_to_day_end(st)
+            et = act.get("end_time")
+            if et and act.get("type") != "accommodation":
+                act["end_time"] = clamp_time_to_day_end(et)
+
+
 def forward_time_chain(itinerary):
     """Align transport.end -> activity.start and ensure positive activity duration."""
+    sanitize_itinerary_times(itinerary)
     for day in itinerary:
         for act in day.get("activities", []):
             if is_intercity_activity(act):
                 continue
             transports = act.get("transports") or []
-            for tr in transports:
-                end_min = _time_minutes(tr.get("end_time"))
-                if end_min >= 24 * 60:
-                    tr["end_time"] = "23:59"
             st = act.get("start_time")
             et = act.get("end_time")
             if transports:
                 te = transports[-1].get("end_time")
-                if te and (not st or _time_minutes(te) > _time_minutes(st)):
+                if te and (not st or time_to_minutes(te) > time_to_minutes(st)):
                     act["start_time"] = te
                     st = te
             if not st or not et:
                 continue
-            if _time_minutes(st) < _time_minutes(et):
+            st_min = time_to_minutes(st)
+            et_min = time_to_minutes(et)
+            if st_min < et_min:
                 continue
             if act.get("type") == "accommodation":
-                if _time_minutes(st) >= 24 * 60:
+                if st_min >= time_to_minutes("24:00"):
+                    act["start_time"] = "23:00"
+                elif st_min >= et_min:
                     act["start_time"] = "23:00"
                 act["end_time"] = "24:00"
             else:
@@ -290,6 +318,7 @@ def sync_itinerary_commonsense(agent, query, itinerary, day_idx):
 
 
 def repair_full_itinerary(agent, query, itinerary):
+    sanitize_itinerary_times(itinerary)
     for day_idx, day in enumerate(itinerary):
         for act_idx in range(len(day.get("activities", []))):
             repair_activity_edge(agent, query, itinerary, day_idx, act_idx)

@@ -10,9 +10,34 @@ class TimeOutError(Exception):
         super().__init__(self.message)
 
 def time_to_minutes(tstr: str) -> int:
-    """'HH:MM' -> 分钟"""
+    """'HH:MM' or '27:22' -> minutes since midnight (no upper bound)."""
+    if not tstr:
+        return 0
+    tstr = str(tstr).split("次日")[-1]
     h, m = map(int, tstr.split(":"))
     return h * 60 + m
+
+
+def clamp_time_to_day_end(time_str, latest: str = "23:59"):
+    """Clamp clock times to the same calendar day (eval uses end-of-day 24:00)."""
+    if not time_str:
+        return time_str
+    t = str(time_str).split("次日")[-1]
+    if time_to_minutes(t) > time_to_minutes(latest):
+        return latest
+    parts = t.split(":")
+    return f"{int(parts[0]):02d}:{int(parts[1]):02d}"
+
+
+def sanitize_transport_times(transports):
+    """Cap metro/walk legs that rolled past midnight (e.g. 27:22) before eval."""
+    if not transports:
+        return transports
+    for tr in transports:
+        for key in ("start_time", "end_time"):
+            if tr.get(key):
+                tr[key] = clamp_time_to_day_end(tr[key])
+    return transports
 
 def minutes_to_time(minutes: int) -> str:
     """分钟 -> 'HH:MM'"""
