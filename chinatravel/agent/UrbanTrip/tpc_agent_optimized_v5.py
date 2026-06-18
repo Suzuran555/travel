@@ -61,6 +61,7 @@ from chinatravel.symbol_verification.hard_constraint import (
     get_symbolic_concepts,
     evaluate_constraints,
     evaluate_constraints_py,
+    normalize_hard_logic_constraint,
 )
 from chinatravel.symbol_verification.preference import evaluate_preference_py
 from chinatravel.environment.tools.poi.apis import Poi
@@ -238,6 +239,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.must_not_see_attraction_type = constraints_json.get("must_not_see_attraction_type", None)
         self.only_free_attractions = constraints_json.get("only_free_attractions", None)
 
+        # restaurant
         # restaurant
         self.must_visit_restaurant = constraints_json.get("must_visit_restaurant", None)
         self.must_visit_restaurant_type = constraints_json.get("must_visit_restaurant_type", None)
@@ -2656,6 +2658,53 @@ class UrbanTripOptimizedV5(BaseAgent):
                     return max(int(round(float(duration))), 0)
         return 45
 
+    def _required_poi_constraints_present(self):
+        return any(
+            getattr(self, attr, None)
+            for attr in (
+                "must_see_attraction",
+                "must_visit_restaurant",
+                "must_see_attraction_type",
+                "must_visit_restaurant_type",
+            )
+        )
+
+    def _poi_has_visit_window(
+        self,
+        query,
+        start_position,
+        earliest_time,
+        poi,
+        latest_position=None,
+        latest_time=None,
+        min_visit_buffer=30,
+    ):
+        if poi is None or not start_position or not earliest_time:
+            return True
+        name = poi.get("name")
+        if not name:
+            return True
+        travel_min = self._estimate_intracity_travel_minutes(
+            query["target_city"], start_position, name
+        )
+        arrived = add_time_delta(earliest_time, travel_min)
+        open_min = time_to_minutes(str(poi.get("opentime", "00:00")))
+        close_min = time_to_minutes(str(poi.get("endtime", "23:59")))
+        arrived_min = time_to_minutes(arrived)
+        if close_min <= open_min:
+            close_min += 24 * 60
+        visit_start = max(arrived_min, open_min)
+        visit_end_limit = close_min
+        if latest_position and latest_time:
+            leave_travel_min = self._estimate_intracity_travel_minutes(
+                query["target_city"], name, latest_position
+            )
+            visit_end_limit = min(
+                visit_end_limit,
+                time_to_minutes(str(latest_time)) - leave_travel_min,
+            )
+        return visit_start + min_visit_buffer <= visit_end_limit
+
     def _can_reach_poi_after_arrival(self, query, go_row, poi_names, poi_df):
         if not poi_names or poi_df is None or poi_df.empty:
             return True
@@ -2669,21 +2718,83 @@ class UrbanTripOptimizedV5(BaseAgent):
             matches = poi_df[poi_df["name"] == name]
             if matches.empty:
                 continue
-            poi = matches.iloc[0]
-            opentime, endtime = poi["opentime"], poi["endtime"]
-            travel_min = self._estimate_intracity_travel_minutes(
-                city, arrival_station, name
-            )
-            arrived = add_time_delta(arrival_time, travel_min)
-            if time_compare_if_earlier_equal(endtime, arrived):
+            if not self._poi_has_visit_window(
+                query, arrival_station, arrival_time, matches.iloc[0], min_visit_buffer=min_visit_buffer
+            ):
                 return False
-            visit_start = (
-                opentime
-                if time_compare_if_earlier_equal(arrived, opentime)
-                else arrived
-            )
-            if time_compare_if_earlier_equal(
-                endtime, add_time_delta(visit_start, min_visit_buffer)
+        return True
+
+    def _can_reach_poi_type_after_arrival(self, query, go_row, required_types, poi_df, type_col):
+        if not required_types or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        if not arrival_station or not arrival_time:
+            return True
+        for required_type in required_types:
+            matches = poi_df[poi_df[type_col] == required_type]
+            if matches.empty:
+                continue
+            if not any(
+                self._poi_has_visit_window(
+                    query, arrival_station, arrival_time, row
+                )
+                for _, row in matches.iterrows()
+            ):
+                return False
+        return True
+
+    def _can_reach_poi_between_intercity(
+        self, query, go_row, back_row, poi_names, poi_df
+    ):
+        if not poi_names or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        depart_station = back_row.get("From")
+        depart_time = back_row.get("BeginTime")
+        if not arrival_station or not arrival_time or not depart_station or not depart_time:
+            return True
+        for name in poi_names:
+            matches = poi_df[poi_df["name"] == name]
+            if matches.empty:
+                continue
+            if not self._poi_has_visit_window(
+                query,
+                arrival_station,
+                arrival_time,
+                matches.iloc[0],
+                latest_position=depart_station,
+                latest_time=depart_time,
+            ):
+                return False
+        return True
+
+    def _can_reach_poi_type_between_intercity(
+        self, query, go_row, back_row, required_types, poi_df, type_col
+    ):
+        if not required_types or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        depart_station = back_row.get("From")
+        depart_time = back_row.get("BeginTime")
+        if not arrival_station or not arrival_time or not depart_station or not depart_time:
+            return True
+        for required_type in required_types:
+            matches = poi_df[poi_df[type_col] == required_type]
+            if matches.empty:
+                continue
+            if not any(
+                self._poi_has_visit_window(
+                    query,
+                    arrival_station,
+                    arrival_time,
+                    row,
+                    latest_position=depart_station,
+                    latest_time=depart_time,
+                )
+                for _, row in matches.iterrows()
             ):
                 return False
         return True
@@ -2711,12 +2822,57 @@ class UrbanTripOptimizedV5(BaseAgent):
     def _can_satisfy_required_poi_after_go_arrival(self, query, go_row):
         return self._can_visit_must_see_after_go_arrival(
             query, go_row
-        ) and self._can_visit_must_restaurant_after_go_arrival(query, go_row)
+        ) and self._can_visit_must_restaurant_after_go_arrival(
+            query, go_row
+        ) and self._can_reach_poi_type_after_arrival(
+            query,
+            go_row,
+            getattr(self, "must_see_attraction_type", None),
+            self.memory.get("attractions"),
+            "type",
+        ) and self._can_reach_poi_type_after_arrival(
+            query,
+            go_row,
+            getattr(self, "must_visit_restaurant_type", None),
+            self.memory.get("restaurants"),
+            "cuisine",
+        )
+
+    def _can_satisfy_required_poi_between_intercity(self, query, go_row, back_row):
+        if query.get("days", 0) > 2:
+            return True
+        return self._can_reach_poi_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_see_attraction", None),
+            self.memory.get("attractions"),
+        ) and self._can_reach_poi_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_visit_restaurant", None),
+            self.memory.get("restaurants"),
+        ) and self._can_reach_poi_type_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_see_attraction_type", None),
+            self.memory.get("attractions"),
+            "type",
+        ) and self._can_reach_poi_type_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_visit_restaurant_type", None),
+            self.memory.get("restaurants"),
+            "cuisine",
+        )
 
     def _prioritize_required_poi_feasible_go_trains(
         self, transport_info, query, ordered_indices
     ):
-        if not self.must_see_attraction and not self.must_visit_restaurant:
+        if not self._required_poi_constraints_present():
             return ordered_indices
         feasible = []
         infeasible = []
@@ -2730,6 +2886,25 @@ class UrbanTripOptimizedV5(BaseAgent):
         if not feasible:
             return ordered_indices
         feasible.sort(key=lambda i: transport_info.iloc[i].get("EndTime", "99:99"))
+        return feasible + infeasible
+
+    def _prioritize_required_poi_feasible_back_trains(
+        self, transport_info, query, selected_go, ordered_indices
+    ):
+        if not self._required_poi_constraints_present():
+            return ordered_indices
+        feasible = []
+        infeasible = []
+        for idx in ordered_indices:
+            if self._can_satisfy_required_poi_between_intercity(
+                query, selected_go, transport_info.iloc[idx]
+            ):
+                feasible.append(idx)
+            else:
+                infeasible.append(idx)
+        if not feasible:
+            return ordered_indices
+        feasible.sort(key=lambda i: transport_info.iloc[i].get("BeginTime", "00:00"), reverse=True)
         return feasible + infeasible
 
     def ranking_intercity_transport_go(self, transport_info, query):
@@ -2793,7 +2968,9 @@ class UrbanTripOptimizedV5(BaseAgent):
             reranked.extend(idx for idx in ranking_idx if idx not in set(reranked))
             ranking_idx = reranked
 
-        return ranking_idx
+        return self._prioritize_required_poi_feasible_back_trains(
+            transport_info, query, selected_go, ranking_idx
+        )
 
     def ranking_hotel(self, hotel_info, query):
         candidate_idx = set(range(len(hotel_info)))
@@ -2966,16 +3143,67 @@ class UrbanTripOptimizedV5(BaseAgent):
         elif not isinstance(dsl, str):
             dsl = str(dsl) if dsl is not None else ""
 
+        def _unescape_literal_text(text):
+            return text.replace("\\'", "'").replace('\\"', '"')
+
         def extract_list(s):
-            # Prefer double-quoted tokens so apostrophes inside names (e.g. Feng's) parse correctly.
-            items = re.findall(r'"([^"]*)"', s)
-            if items:
-                return items
-            items = re.findall(r"'([^']*)'", s)
+            items = []
+            idx = 0
+            while idx < len(s):
+                while idx < len(s) and s[idx] in " \t\r\n,":
+                    idx += 1
+                if idx >= len(s):
+                    break
+                quote = s[idx] if s[idx] in "'\"" else None
+                if quote is None:
+                    end = s.find(",", idx)
+                    if end == -1:
+                        end = len(s)
+                    value = s[idx:end].strip()
+                    if value:
+                        items.append(value)
+                    idx = end + 1
+                    continue
+                content_start = idx + 1
+                closing = None
+                scan = content_start
+                while scan < len(s):
+                    if s[scan] == quote and s[scan - 1] != "\\":
+                        rest = s[scan + 1 :].lstrip()
+                        if not rest or rest[0] in ",}])":
+                            closing = scan
+                            break
+                    scan += 1
+                if closing is None:
+                    break
+                items.append(_unescape_literal_text(s[content_start:closing]))
+                idx = closing + 1
             if items:
                 return items
             stripped = s.strip()
             return [stripped] if stripped else []
+
+        def _literal_value(text):
+            try:
+                return ast.literal_eval(text)
+            except (SyntaxError, ValueError):
+                return text.strip("'\"")
+
+        activity_literal = r"(?P<name>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")"
+
+        def extract_activity_time_pairs(dsl_str, value_pattern, converter):
+            normalized = normalize_hard_logic_constraint(dsl_str)
+            pattern = re.compile(
+                r"if\s+activity_position\(activity\)\s*==\s*"
+                + activity_literal
+                + r".*?"
+                + value_pattern,
+                flags=re.S,
+            )
+            pairs = []
+            for match in pattern.finditer(normalized):
+                pairs.append((_literal_value(match.group("name")), converter(match)))
+            return pairs
 
         def parse_single_dsl(dsl_str, query):
             """对单条 DSL 进行匹配"""
@@ -3010,21 +3238,24 @@ class UrbanTripOptimizedV5(BaseAgent):
                 res.pop("only_free_attractions", None)  # 如果不存在不会报错
 
             # activities time
-            matches = re.findall(
-                r"if\s+activity_position\(activity\)\s*==\s*'([^']+)'.*?activity_time\(activity\)\s*>=\s*([0-9]+)",
-                dsl_str, flags=re.S
+            matches = extract_activity_time_pairs(
+                dsl_str,
+                r"activity_time\(activity\)\s*>=\s*(?P<value>[0-9]+)",
+                lambda match: int(match.group("value")),
             )
             res["activities_stay_time_dict"] = {name: int(time) for name, time in matches} if matches else None
 
-            matches = re.findall(
-                r"if\s+activity_position\(activity\)\s*==\s*'([^']+)'.*?activity_start_time\(activity\)\s*<=\s*'([^']+)'",
-                dsl_str, flags=re.S
+            matches = extract_activity_time_pairs(
+                dsl_str,
+                r"activity_start_time\(activity\)\s*<=\s*(?P<value>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")",
+                lambda match: _literal_value(match.group("value")),
             )
             res["activities_arrive_time_dict"] = {name: ["early", t] for name, t in matches} if matches else None
 
-            matches = re.findall(
-                r"if\s+activity_position\(activity\)\s*==\s*'([^']+)'.*?activity_end_time\(activity\)\s*>=\s*'([^']+)'",
-                dsl_str, flags=re.S
+            matches = extract_activity_time_pairs(
+                dsl_str,
+                r"activity_end_time\(activity\)\s*>=\s*(?P<value>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")",
+                lambda match: _literal_value(match.group("value")),
             )
             res["activities_leave_time_dict"] = {name: ["late", t] for name, t in matches} if matches else None
 

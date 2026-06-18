@@ -13,6 +13,7 @@ from chinatravel.evaluation.utils import load_json_file
 import pandas as pd
 
 from copy import deepcopy
+from chinatravel.symbol_verification.hard_constraint import normalize_hard_logic_constraint
 
 accommodation = Accommodations()
 restaurants = Restaurants()
@@ -36,7 +37,7 @@ def collect_personal_error(problem, plan, verbose=False):
         try:
             # Evaluate the constraint in a safe manner
             exec(
-                constraint,
+                normalize_hard_logic_constraint(constraint),
                 {
                     "__builtins__": {
                         "set": set,

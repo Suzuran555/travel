@@ -13,6 +13,7 @@ from tqdm import tqdm
 from copy import deepcopy
 from chinatravel.agent.llms import Deepseek, GPT4o, Qwen, Mistral, GLM4Plus
 from chinatravel.symbol_verification.concept_func import func_dict
+from chinatravel.symbol_verification.hard_constraint import normalize_hard_logic_constraint
 from chinatravel.agent.nesy_agent.prompts import NL2SL_INSTRUCTION
 from chinatravel.agent.nesy_agent.ast_checker import HardLogicPyChecker
 from chinatravel.data.load_datasets import save_json_file, load_json_file
@@ -331,7 +332,7 @@ def check(query):
         try:
             # Evaluate the constraint in a safe manner
             exec(
-                constraint,
+                normalize_hard_logic_constraint(constraint),
                 {
                     "__builtins__": {
                         "set": set,
