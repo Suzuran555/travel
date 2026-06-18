@@ -103,6 +103,135 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.visited_attractions = set()
         self.visited_restaurants = set()
 
+    def _public_query(self, query):
+        return {
+            key: deepcopy(value)
+            for key, value in query.items()
+            if not str(key).startswith("_urbantrip_")
+        }
+
+    def _normalize_transport_rules(self):
+        if self.transport_rules_by_distance is None:
+            return
+        if isinstance(self.transport_rules_by_distance, str):
+            self.transport_rules_by_distance = json.loads(self.transport_rules_by_distance)
+        elif isinstance(self.transport_rules_by_distance, dict):
+            self.transport_rules_by_distance = [self.transport_rules_by_distance]
+        elif isinstance(self.transport_rules_by_distance, list):
+            self.transport_rules_by_distance = [
+                rule for rule in self.transport_rules_by_distance if isinstance(rule, dict)
+            ]
+
+    def _install_constraint_state(self, constraints_json, requirement_list):
+        self.all_satisfy = constraints_json.get("all_satisfy", None)
+
+        self.must_see_attraction = constraints_json.get("must_see_attraction", None)
+        self.must_see_attraction_type = constraints_json.get("must_see_attraction_type", None)
+        self.must_not_see_attraction = constraints_json.get("must_not_see_attraction", None)
+        self.must_not_see_attraction_type = constraints_json.get("must_not_see_attraction_type", None)
+        self.only_free_attractions = constraints_json.get("only_free_attractions", None)
+
+        self.must_visit_restaurant = constraints_json.get("must_visit_restaurant", None)
+        self.must_visit_restaurant_type = constraints_json.get("must_visit_restaurant_type", None)
+        self.must_not_visit_restaurant = constraints_json.get("must_not_visit_restaurant", None)
+        self.must_not_visit_restaurant_type = constraints_json.get("must_not_visit_restaurant_type", None)
+
+        self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
+        self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
+        self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
+
+        self.must_live_hotel = constraints_json.get("must_live_hotel", None)
+        self.must_not_live_hotel = constraints_json.get("must_not_live_hotel", None)
+        self.must_live_hotel_feature = constraints_json.get("must_live_hotel_feature", None)
+        self.must_live_hotel_location_limit = constraints_json.get("must_live_hotel_location_limit", None)
+        self.bed_number = constraints_json.get("bed_number", None)
+        self.room_number = constraints_json.get("room_number", None)
+
+        self.must_innercity_transport = constraints_json.get("must_innercity_transport", None)
+        self.must_not_innercity_transport = constraints_json.get("must_not_innercity_transport", None)
+        self.transport_rules_by_distance = constraints_json.get("transport_rules_by_distance", None)
+
+        self.must_depart_transport = constraints_json.get("must_depart_transport", None)
+        self.must_return_transport = constraints_json.get("must_return_transport", None)
+        self.must_not_depart_transport = constraints_json.get("must_not_depart_transport", None)
+        self.must_not_return_transport = constraints_json.get("must_not_return_transport", None)
+
+        self.attraction_budget = constraints_json.get("attraction_budget", None)
+        self.restaurant_budget = constraints_json.get("restaurant_budget", None)
+        self.hotel_budget = constraints_json.get("hotel_budget", None)
+        self.innercity_budget = constraints_json.get("innercity_budget", None)
+        self.intercity_budget = constraints_json.get("intercity_budget", None)
+        self.overall_budget = constraints_json.get("overall_budget", None)
+
+        self.requirement_list = requirement_list
+        self._normalize_transport_rules()
+
+    def _constraint_branch_has_guidance(self, constraints_json):
+        return any(
+            key != "all_satisfy" and value is not None
+            for key, value in constraints_json.items()
+        )
+
+    def _constraint_search_branches(self, results_main, requirement_list):
+        if results_main.get("all_satisfy", True):
+            return [(deepcopy(results_main), deepcopy(requirement_list), "all")]
+
+        branches = []
+        for idx, branch_constraints in enumerate(requirement_list or []):
+            branch_constraints = deepcopy(branch_constraints)
+            branch_constraints["all_satisfy"] = True
+            if not self._constraint_branch_has_guidance(branch_constraints):
+                continue
+            branches.append((branch_constraints, [deepcopy(branch_constraints)], f"or_branch_{idx}"))
+
+        legacy = deepcopy(results_main)
+        branches.append((legacy, deepcopy(requirement_list), "legacy_merged_or"))
+        return branches
+
+    def _plan_passes_original_hard_logic(self, query, plan):
+        if not isinstance(plan, dict) or not plan.get("itinerary"):
+            return False
+        public_query = self._public_query(query)
+        try:
+            if not func_commonsense_constraints(public_query, plan, verbose=False):
+                return False
+            logical_result = evaluate_constraints_py(
+                public_query["hard_logic_py"], plan, verbose=False
+            )
+        except Exception:
+            return False
+        return bool(logical_result) and all(logical_result)
+
+    def _search_with_installed_constraints(self, query, constraints_json, requirement_list):
+        branch_query = self._public_query(query)
+        branch_query["_urbantrip_constraints_override"] = (
+            deepcopy(constraints_json),
+            deepcopy(requirement_list),
+        )
+        branch_query["_urbantrip_search_start"] = self.time_before_search
+        return self.generate_plan_with_search(branch_query)
+
+    def _run_constraint_search_branches(self, query, constraints_json, requirement_list):
+        fallback_success = None
+        fallback_failure = None
+        for branch_constraints, branch_requirements, branch_name in self._constraint_search_branches(
+            constraints_json, requirement_list
+        ):
+            print(f"Trying constraint branch: {branch_name}")
+            success, plan = self._search_with_installed_constraints(
+                query, branch_constraints, branch_requirements
+            )
+            if success and self._plan_passes_original_hard_logic(query, plan):
+                return True, plan
+            if success and fallback_success is None:
+                fallback_success = plan
+            elif not success and fallback_failure is None:
+                fallback_failure = plan
+
+        if fallback_success is not None:
+            return True, fallback_success
+        return False, fallback_failure or {"error_info": "No solution found."}
+
     def run(self, query, prob_idx, oralce_translation=True):
         method_name = self.method + "_" + self.backbone_llm.name
         if oralce_translation:
@@ -189,7 +318,7 @@ class UrbanTripOptimizedV5(BaseAgent):
     def generate_plan_with_search(self, query):
         # 初始化计时器和计数器
         self._distance_cache = {}  # 每条 query 重置距离缓存
-        self.time_before_search = time.time()  # 记录搜索开始时间
+        self.time_before_search = query.get("_urbantrip_search_start", time.time())  # 记录搜索开始时间
         self._plan_pool = PlanPool()
         self.llm_inference_time_count = 0  # llm推理时间
 
@@ -227,60 +356,15 @@ class UrbanTripOptimizedV5(BaseAgent):
         # 提取用户需求
         # 获取用户约束信息
         # constraints_json = self.extract_user_constraints(query)
-        constraints_json, requirement_list = self.extract_user_constraints_by_DSL(query)
+        override = query.get("_urbantrip_constraints_override")
+        if override is not None:
+            constraints_json, requirement_list = deepcopy(override[0]), deepcopy(override[1])
+        else:
+            constraints_json, requirement_list = self.extract_user_constraints_by_DSL(query)
+            if constraints_json.get("all_satisfy") is False:
+                return self._run_constraint_search_branches(query, constraints_json, requirement_list)
 
-        # 用户偏好约束字段赋值
-        self.all_satisfy = constraints_json.get("all_satisfy", None)
-
-        # attractions
-        self.must_see_attraction = constraints_json.get("must_see_attraction", None)
-        self.must_see_attraction_type = constraints_json.get("must_see_attraction_type", None)
-        self.must_not_see_attraction = constraints_json.get("must_not_see_attraction", None)
-        self.must_not_see_attraction_type = constraints_json.get("must_not_see_attraction_type", None)
-        self.only_free_attractions = constraints_json.get("only_free_attractions", None)
-
-        # restaurant
-        # restaurant
-        self.must_visit_restaurant = constraints_json.get("must_visit_restaurant", None)
-        self.must_visit_restaurant_type = constraints_json.get("must_visit_restaurant_type", None)
-        self.must_not_visit_restaurant = constraints_json.get("must_not_visit_restaurant", None)
-        self.must_not_visit_restaurant_type = constraints_json.get("must_not_visit_restaurant_type", None)
-
-        self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
-        self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
-        self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
-
-        # hotel
-        self.must_live_hotel = constraints_json.get("must_live_hotel", None)
-        self.must_not_live_hotel = constraints_json.get("must_not_live_hotel", None)
-        self.must_live_hotel_feature = constraints_json.get("must_live_hotel_feature", None)
-        self.must_live_hotel_location_limit = constraints_json.get("must_live_hotel_location_limit", None)
-        # hotel room/bed num
-        self.bed_number = constraints_json.get("bed_number", None)  # 例如 ['单床', '双床']
-        self.room_number = constraints_json.get("room_number", None)
-
-        # innercity transport
-        self.must_innercity_transport = constraints_json.get("must_innercity_transport", None)
-        self.must_not_innercity_transport = constraints_json.get("must_not_innercity_transport", None)
-
-        # transport rules
-        self.transport_rules_by_distance = constraints_json.get("transport_rules_by_distance", None)
-
-        # intercity transport
-        self.must_depart_transport = constraints_json.get("must_depart_transport", None)
-        self.must_return_transport = constraints_json.get("must_return_transport", None)
-        self.must_not_depart_transport = constraints_json.get("must_not_depart_transport", None)
-        self.must_not_return_transport = constraints_json.get("must_not_return_transport", None)
-
-        # 提取所需预算
-        self.attraction_budget = constraints_json.get("attraction_budget", None)
-        self.restaurant_budget = constraints_json.get("restaurant_budget", None)
-        self.hotel_budget = constraints_json.get("hotel_budget", None)
-        self.innercity_budget = constraints_json.get("innercity_budget", None)
-        self.intercity_budget = constraints_json.get("intercity_budget", None)
-        self.overall_budget = constraints_json.get("overall_budget", None)
-
-        self.requirement_list = requirement_list
+        self._install_constraint_state(constraints_json, requirement_list)
         self.all_satisfy_flag = False # 是否满足用户需求
         self.too_many_backtrack = False
         self.stop_search = False
@@ -290,16 +374,6 @@ class UrbanTripOptimizedV5(BaseAgent):
             "target_city": query["target_city"],
             "itinerary": [],
         }
-
-        if self.transport_rules_by_distance is not None:
-            if isinstance(self.transport_rules_by_distance, str):
-                    self.transport_rules_by_distance = json.loads(self.transport_rules_by_distance)
-            elif isinstance(self.transport_rules_by_distance, dict):
-                self.transport_rules_by_distance = [self.transport_rules_by_distance]
-            elif isinstance(self.transport_rules_by_distance, list):
-                self.transport_rules_by_distance = [
-                    rule for rule in self.transport_rules_by_distance if isinstance(rule, dict)
-                ]
 
         source_city = query["start_city"] # 获取出发城市
         target_city = query["target_city"] # 获取目标城市
