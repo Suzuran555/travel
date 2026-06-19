@@ -61,6 +61,7 @@ from chinatravel.symbol_verification.hard_constraint import (
     get_symbolic_concepts,
     evaluate_constraints,
     evaluate_constraints_py,
+    normalize_hard_logic_constraint,
 )
 from chinatravel.symbol_verification.preference import evaluate_preference_py
 from chinatravel.environment.tools.poi.apis import Poi
@@ -84,6 +85,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.method = kwargs["method"]
         self.memory = {}
         self.TIME_CUT = 60 * 5 - 10
+        self.EXTERNAL_TIMEOUT_BUFFER = 15  # finish search+fallback before run_tpc func_timeout (default 330s)
         self.top_k_candidates = kwargs.get("top_k_candidates", 50)  # 候选截断数，提速后放宽以缓解"正解排第 n+1 不可达"
         self.debug = kwargs.get("debug", False)
         self.lang = kwargs.get("lang", "zh")
@@ -101,6 +103,135 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         self.visited_attractions = set()
         self.visited_restaurants = set()
+
+    def _public_query(self, query):
+        return {
+            key: deepcopy(value)
+            for key, value in query.items()
+            if not str(key).startswith("_urbantrip_")
+        }
+
+    def _normalize_transport_rules(self):
+        if self.transport_rules_by_distance is None:
+            return
+        if isinstance(self.transport_rules_by_distance, str):
+            self.transport_rules_by_distance = json.loads(self.transport_rules_by_distance)
+        elif isinstance(self.transport_rules_by_distance, dict):
+            self.transport_rules_by_distance = [self.transport_rules_by_distance]
+        elif isinstance(self.transport_rules_by_distance, list):
+            self.transport_rules_by_distance = [
+                rule for rule in self.transport_rules_by_distance if isinstance(rule, dict)
+            ]
+
+    def _install_constraint_state(self, constraints_json, requirement_list):
+        self.all_satisfy = constraints_json.get("all_satisfy", None)
+
+        self.must_see_attraction = constraints_json.get("must_see_attraction", None)
+        self.must_see_attraction_type = constraints_json.get("must_see_attraction_type", None)
+        self.must_not_see_attraction = constraints_json.get("must_not_see_attraction", None)
+        self.must_not_see_attraction_type = constraints_json.get("must_not_see_attraction_type", None)
+        self.only_free_attractions = constraints_json.get("only_free_attractions", None)
+
+        self.must_visit_restaurant = constraints_json.get("must_visit_restaurant", None)
+        self.must_visit_restaurant_type = constraints_json.get("must_visit_restaurant_type", None)
+        self.must_not_visit_restaurant = constraints_json.get("must_not_visit_restaurant", None)
+        self.must_not_visit_restaurant_type = constraints_json.get("must_not_visit_restaurant_type", None)
+
+        self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
+        self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
+        self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
+
+        self.must_live_hotel = constraints_json.get("must_live_hotel", None)
+        self.must_not_live_hotel = constraints_json.get("must_not_live_hotel", None)
+        self.must_live_hotel_feature = constraints_json.get("must_live_hotel_feature", None)
+        self.must_live_hotel_location_limit = constraints_json.get("must_live_hotel_location_limit", None)
+        self.bed_number = constraints_json.get("bed_number", None)
+        self.room_number = constraints_json.get("room_number", None)
+
+        self.must_innercity_transport = constraints_json.get("must_innercity_transport", None)
+        self.must_not_innercity_transport = constraints_json.get("must_not_innercity_transport", None)
+        self.transport_rules_by_distance = constraints_json.get("transport_rules_by_distance", None)
+
+        self.must_depart_transport = constraints_json.get("must_depart_transport", None)
+        self.must_return_transport = constraints_json.get("must_return_transport", None)
+        self.must_not_depart_transport = constraints_json.get("must_not_depart_transport", None)
+        self.must_not_return_transport = constraints_json.get("must_not_return_transport", None)
+
+        self.attraction_budget = constraints_json.get("attraction_budget", None)
+        self.restaurant_budget = constraints_json.get("restaurant_budget", None)
+        self.hotel_budget = constraints_json.get("hotel_budget", None)
+        self.innercity_budget = constraints_json.get("innercity_budget", None)
+        self.intercity_budget = constraints_json.get("intercity_budget", None)
+        self.overall_budget = constraints_json.get("overall_budget", None)
+
+        self.requirement_list = requirement_list
+        self._normalize_transport_rules()
+
+    def _constraint_branch_has_guidance(self, constraints_json):
+        return any(
+            key != "all_satisfy" and value is not None
+            for key, value in constraints_json.items()
+        )
+
+    def _constraint_search_branches(self, results_main, requirement_list):
+        if results_main.get("all_satisfy", True):
+            return [(deepcopy(results_main), deepcopy(requirement_list), "all")]
+
+        branches = []
+        for idx, branch_constraints in enumerate(requirement_list or []):
+            branch_constraints = deepcopy(branch_constraints)
+            branch_constraints["all_satisfy"] = True
+            if not self._constraint_branch_has_guidance(branch_constraints):
+                continue
+            branches.append((branch_constraints, [deepcopy(branch_constraints)], f"or_branch_{idx}"))
+
+        legacy = deepcopy(results_main)
+        branches.append((legacy, deepcopy(requirement_list), "legacy_merged_or"))
+        return branches
+
+    def _plan_passes_original_hard_logic(self, query, plan):
+        if not isinstance(plan, dict) or not plan.get("itinerary"):
+            return False
+        public_query = self._public_query(query)
+        try:
+            if not func_commonsense_constraints(public_query, plan, verbose=False):
+                return False
+            logical_result = evaluate_constraints_py(
+                public_query["hard_logic_py"], plan, verbose=False
+            )
+        except Exception:
+            return False
+        return bool(logical_result) and all(logical_result)
+
+    def _search_with_installed_constraints(self, query, constraints_json, requirement_list):
+        branch_query = self._public_query(query)
+        branch_query["_urbantrip_constraints_override"] = (
+            deepcopy(constraints_json),
+            deepcopy(requirement_list),
+        )
+        branch_query["_urbantrip_search_start"] = self.time_before_search
+        return self.generate_plan_with_search(branch_query)
+
+    def _run_constraint_search_branches(self, query, constraints_json, requirement_list):
+        fallback_success = None
+        fallback_failure = None
+        for branch_constraints, branch_requirements, branch_name in self._constraint_search_branches(
+            constraints_json, requirement_list
+        ):
+            print(f"Trying constraint branch: {branch_name}")
+            success, plan = self._search_with_installed_constraints(
+                query, branch_constraints, branch_requirements
+            )
+            if success and self._plan_passes_original_hard_logic(query, plan):
+                return True, plan
+            if success and fallback_success is None:
+                fallback_success = plan
+            elif not success and fallback_failure is None:
+                fallback_failure = plan
+
+        if fallback_success is not None:
+            return True, fallback_success
+        return False, fallback_failure or {"error_info": "No solution found."}
 
     def run(self, query, prob_idx, oralce_translation=True):
         method_name = self.method + "_" + self.backbone_llm.name
@@ -138,25 +269,25 @@ class UrbanTripOptimizedV5(BaseAgent):
         if succ:
             plan_out = plan
         else:
-            if self.least_plan_logic is not None:
-                plan_out = self.least_plan_logic
-
+            plan_out = None
+            if self.least_plan_logic is not None and self.least_plan_logic.get("itinerary"):
+                plan_out = deepcopy(self.least_plan_logic)
                 print("The least plan with logic constraints: ", plan_out)
                 succ = True
-
-            elif self.least_plan_comm is not None:
-                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_comm)
-                if plan_out is None:
-                    plan_out = deepcopy(self.least_plan_comm)
-            elif self.least_plan_schema is not None:
-                plan_out = self._finalize_best_effort_plan(self.query, self.least_plan_schema)
-                if plan_out is None:
-                    plan_out = deepcopy(self.least_plan_schema)
             else:
-                plan_out = {}
+                for cand in (self.least_plan_comm, self.least_plan_schema):
+                    if cand is not None and cand.get("itinerary"):
+                        plan_out = self._finalize_best_effort_plan(self.query, cand)
+                        if plan_out is None:
+                            plan_out = deepcopy(cand)
+                        break
+            if plan_out is None and isinstance(plan, dict) and plan.get("itinerary"):
+                plan_out = plan
+            elif plan_out is None:
+                plan_out = plan if isinstance(plan, dict) else {}
 
         if isinstance(plan_out, dict) and plan_out.get("itinerary"):
-            plan_out = self._polish_output_plan(query, plan_out)
+            plan_out = self._eprsafe_output_plan(query, plan_out)
 
         return succ, plan_out
 
@@ -188,7 +319,8 @@ class UrbanTripOptimizedV5(BaseAgent):
     def generate_plan_with_search(self, query):
         # 初始化计时器和计数器
         self._distance_cache = {}  # 每条 query 重置距离缓存
-        self.time_before_search = time.time()  # 记录搜索开始时间
+        self._candidate_static_cache = {}
+        self.time_before_search = query.get("_urbantrip_search_start", time.time())  # 记录搜索开始时间
         self._plan_pool = PlanPool()
         self.llm_inference_time_count = 0  # llm推理时间
 
@@ -226,59 +358,15 @@ class UrbanTripOptimizedV5(BaseAgent):
         # 提取用户需求
         # 获取用户约束信息
         # constraints_json = self.extract_user_constraints(query)
-        constraints_json, requirement_list = self.extract_user_constraints_by_DSL(query)
+        override = query.get("_urbantrip_constraints_override")
+        if override is not None:
+            constraints_json, requirement_list = deepcopy(override[0]), deepcopy(override[1])
+        else:
+            constraints_json, requirement_list = self.extract_user_constraints_by_DSL(query)
+            if constraints_json.get("all_satisfy") is False:
+                return self._run_constraint_search_branches(query, constraints_json, requirement_list)
 
-        # 用户偏好约束字段赋值
-        self.all_satisfy = constraints_json.get("all_satisfy", None)
-
-        # attractions
-        self.must_see_attraction = constraints_json.get("must_see_attraction", None)
-        self.must_see_attraction_type = constraints_json.get("must_see_attraction_type", None)
-        self.must_not_see_attraction = constraints_json.get("must_not_see_attraction", None)
-        self.must_not_see_attraction_type = constraints_json.get("must_not_see_attraction_type", None)
-        self.only_free_attractions = constraints_json.get("only_free_attractions", None)
-
-        # restaurant
-        self.must_visit_restaurant = constraints_json.get("must_visit_restaurant", None)
-        self.must_visit_restaurant_type = constraints_json.get("must_visit_restaurant_type", None)
-        self.must_not_visit_restaurant = constraints_json.get("must_not_visit_restaurant", None)
-        self.must_not_visit_restaurant_type = constraints_json.get("must_not_visit_restaurant_type", None)
-
-        self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
-        self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
-        self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
-
-        # hotel
-        self.must_live_hotel = constraints_json.get("must_live_hotel", None)
-        self.must_not_live_hotel = constraints_json.get("must_not_live_hotel", None)
-        self.must_live_hotel_feature = constraints_json.get("must_live_hotel_feature", None)
-        self.must_live_hotel_location_limit = constraints_json.get("must_live_hotel_location_limit", None)
-        # hotel room/bed num
-        self.bed_number = constraints_json.get("bed_number", None)  # 例如 ['单床', '双床']
-        self.room_number = constraints_json.get("room_number", None)
-
-        # innercity transport
-        self.must_innercity_transport = constraints_json.get("must_innercity_transport", None)
-        self.must_not_innercity_transport = constraints_json.get("must_not_innercity_transport", None)
-
-        # transport rules
-        self.transport_rules_by_distance = constraints_json.get("transport_rules_by_distance", None)
-
-        # intercity transport
-        self.must_depart_transport = constraints_json.get("must_depart_transport", None)
-        self.must_return_transport = constraints_json.get("must_return_transport", None)
-        self.must_not_depart_transport = constraints_json.get("must_not_depart_transport", None)
-        self.must_not_return_transport = constraints_json.get("must_not_return_transport", None)
-
-        # 提取所需预算
-        self.attraction_budget = constraints_json.get("attraction_budget", None)
-        self.restaurant_budget = constraints_json.get("restaurant_budget", None)
-        self.hotel_budget = constraints_json.get("hotel_budget", None)
-        self.innercity_budget = constraints_json.get("innercity_budget", None)
-        self.intercity_budget = constraints_json.get("intercity_budget", None)
-        self.overall_budget = constraints_json.get("overall_budget", None)
-
-        self.requirement_list = requirement_list
+        self._install_constraint_state(constraints_json, requirement_list)
         self.all_satisfy_flag = False # 是否满足用户需求
         self.too_many_backtrack = False
         self.stop_search = False
@@ -288,16 +376,6 @@ class UrbanTripOptimizedV5(BaseAgent):
             "target_city": query["target_city"],
             "itinerary": [],
         }
-
-        if self.transport_rules_by_distance is not None:
-            if isinstance(self.transport_rules_by_distance, str):
-                    self.transport_rules_by_distance = json.loads(self.transport_rules_by_distance)
-            elif isinstance(self.transport_rules_by_distance, dict):
-                self.transport_rules_by_distance = [self.transport_rules_by_distance]
-            elif isinstance(self.transport_rules_by_distance, list):
-                self.transport_rules_by_distance = [
-                    rule for rule in self.transport_rules_by_distance if isinstance(rule, dict)
-                ]
 
         source_city = query["start_city"] # 获取出发城市
         target_city = query["target_city"] # 获取目标城市
@@ -431,9 +509,9 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             # 遍历排序后的返程交通
             for back_i in ranking_back:
-                if time.time() > self.time_before_search + self.TIME_CUT:
+                if self._search_time_exceeded():
                     self.default_plan["backtrack_count"] = self.backtrack_count
-                    return True, self._best_effort_plan(query, None, poi_plan)
+                    return self._best_effort_search_result(query, None, poi_plan)
 
                 back_info_i = back_info.iloc[back_i]  # 获取当前返程交通信息
                 if pd.isna(back_info_i["Cost"]):
@@ -540,10 +618,12 @@ class UrbanTripOptimizedV5(BaseAgent):
                         # print(success, plan)
                         if success:
                             return True, plan
+                        if self._is_terminal_plan_failure(plan):
+                            return False, plan
                         else:
-                            if time.time() > self.time_before_search + self.TIME_CUT:
+                            if self._search_time_exceeded():
                                 self.default_plan["backtrack_count"] = self.backtrack_count
-                                return True, self._best_effort_plan(query, plan, poi_plan)
+                                return self._best_effort_search_result(query, plan, poi_plan)
 
                             self.backtrack_count += 1
                             print("search failed given the intercity-transport and hotels, backtrack...")
@@ -641,10 +721,12 @@ class UrbanTripOptimizedV5(BaseAgent):
                         # print(success, plan)
                         if success:
                             return True, plan
+                        if self._is_terminal_plan_failure(plan):
+                            return False, plan
                         else:
-                            if time.time() > self.time_before_search + self.TIME_CUT:
+                            if self._search_time_exceeded():
                                 self.default_plan["backtrack_count"] = self.backtrack_count
-                                return True, self._best_effort_plan(query, plan, poi_plan)
+                                return self._best_effort_search_result(query, plan, poi_plan)
 
                             self.backtrack_count += 1
                             print("search failed given the intercity-transport and hotels, backtrack...")
@@ -729,10 +811,12 @@ class UrbanTripOptimizedV5(BaseAgent):
                             # print(success, plan)
                             if success:
                                 return True, plan
+                            if self._is_terminal_plan_failure(plan):
+                                return False, plan
                             else:
-                                if time.time() > self.time_before_search + self.TIME_CUT:
+                                if self._search_time_exceeded():
                                     self.default_plan["backtrack_count"] = self.backtrack_count
-                                    return True, self._best_effort_plan(query, None, poi_plan)
+                                    return self._best_effort_search_result(query, None, poi_plan)
 
                                 self.backtrack_count += 1
                                 print("search failed given the intercity-transport and hotels, backtrack...")
@@ -773,10 +857,12 @@ class UrbanTripOptimizedV5(BaseAgent):
                     # print(success, plan)
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
                     else:
-                        if time.time() > self.time_before_search + self.TIME_CUT:
+                        if self._search_time_exceeded():
                             self.default_plan["backtrack_count"] = self.backtrack_count
-                            return True, self._best_effort_plan(query, None, poi_plan)
+                            return self._best_effort_search_result(query, None, poi_plan)
 
                         self.backtrack_count += 1
                         print("search failed given the intercity-transport and hotels, backtrack...")
@@ -860,6 +946,46 @@ class UrbanTripOptimizedV5(BaseAgent):
         )
         return polished
 
+    def _strip_poi_types(self, itinerary, poi_types):
+        for day in itinerary:
+            day["activities"] = [
+                act for act in day.get("activities", [])
+                if act.get("type") not in poi_types
+            ]
+
+    def _eprsafe_output_plan(self, query, plan):
+        """Polish plan; if commonsense still fails, strip risky POIs and re-complete skeleton."""
+        if not plan or not isinstance(plan, dict) or not plan.get("itinerary"):
+            return plan
+        plan = self._polish_output_plan(query, plan)
+        if plan.get("commonsense_pass"):
+            return plan
+
+        stripped = deepcopy(plan)
+        itinerary = stripped["itinerary"]
+        strip_groups = (("attraction",), ("lunch", "dinner"), ("breakfast",))
+        for poi_types in strip_groups:
+            self._strip_poi_types(itinerary, poi_types)
+            self._drop_broken_activities(itinerary)
+            self._ensure_day_count(query, itinerary)
+            repair_full_itinerary(self, query, itinerary)
+            shell = self._res_plan_shell(query, itinerary)
+            if self._commonsense_passes(query, shell):
+                stripped["itinerary"] = itinerary
+                stripped["commonsense_pass"] = True
+                return stripped
+
+        poi_plan = getattr(self, "_current_poi_plan", None)
+        if poi_plan:
+            completed = self._fallback_complete_for_commonsense(query, poi_plan, stripped)
+            if completed is not None:
+                return self._polish_output_plan(query, completed)
+
+        stripped["commonsense_pass"] = self._commonsense_passes(
+            query, self._res_plan_shell(query, itinerary)
+        )
+        return stripped
+
     def _arrived_time_too_late_for_hotel(self, arrived_time):
         if not arrived_time:
             return True
@@ -900,7 +1026,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         return ""
 
     def _last_activity_matches(self, plan, day_idx, poi_type=None, position=None):
-        if not plan or day_idx < 0 or day_idx >= len(plan):
+        if not isinstance(plan, list) or not plan or day_idx < 0 or day_idx >= len(plan):
             return False
         activities = plan[day_idx].get("activities", [])
         if not activities:
@@ -918,6 +1044,9 @@ class UrbanTripOptimizedV5(BaseAgent):
         plan[day_idx]["activities"].pop()
         return True
 
+    def _is_terminal_plan_failure(self, plan):
+        return isinstance(plan, dict) and not plan.get("itinerary")
+
     def _res_plan_shell(self, query, itinerary):
         return {
             "people_number": query["people_number"],
@@ -925,6 +1054,12 @@ class UrbanTripOptimizedV5(BaseAgent):
             "target_city": query["target_city"],
             "itinerary": itinerary,
         }
+
+    def _effective_time_cut(self):
+        return self.TIME_CUT - getattr(self, "EXTERNAL_TIMEOUT_BUFFER", 15)
+
+    def _search_time_exceeded(self, slack=0):
+        return time.time() > self.time_before_search + self._effective_time_cut() + slack
 
     def _commonsense_passes(self, query, res_plan):
         return bool(func_commonsense_constraints(query, res_plan, verbose=False))
@@ -1212,8 +1347,19 @@ class UrbanTripOptimizedV5(BaseAgent):
             if completed is not None:
                 print("Timeout fallback: completed plan passes commonsense checks.")
                 return completed
-            print("Timeout fallback: could not repair plan to commonsense; trying next candidate.")
-            return None
+            print("Timeout fallback: could not repair plan to commonsense; returning partial seed.")
+            seed = deepcopy(seed_plan)
+            itinerary = seed.get("itinerary", [])
+            if itinerary:
+                repair_full_itinerary(self, query, itinerary)
+            seed["commonsense_pass"] = (
+                self._commonsense_passes(query, self._res_plan_shell(query, itinerary))
+                if itinerary
+                else False
+            )
+            seed["fallback_completed"] = False
+            seed["backtrack_count"] = self.backtrack_count
+            return seed
         seed_plan = deepcopy(seed_plan)
         seed_plan["backtrack_count"] = self.backtrack_count
         seed_plan["commonsense_pass"] = False
@@ -1236,10 +1382,27 @@ class UrbanTripOptimizedV5(BaseAgent):
                 finalized = self._finalize_best_effort_plan(query, cand, poi_plan)
                 if finalized is not None:
                     return finalized
-        return {
-            "error": "No solution found before search cutoff",
-            "backtrack_count": self.backtrack_count,
-        }
+        if isinstance(plan, list) and self._plan_activity_count(plan) > 0:
+            shell = self._res_plan_shell(query, deepcopy(plan))
+            finalized = self._finalize_best_effort_plan(query, shell, poi_plan)
+            if finalized is not None:
+                return finalized
+        fallback = deepcopy(self.default_plan)
+        fallback["backtrack_count"] = self.backtrack_count
+        return fallback
+
+    def _is_search_cutoff_error(self, plan):
+        return (
+            isinstance(plan, dict)
+            and not plan.get("itinerary")
+            and plan.get("error") == "No solution found before search cutoff"
+        )
+
+    def _best_effort_search_result(self, query=None, plan=None, poi_plan=None):
+        fallback_plan = self._best_effort_plan(query, plan, poi_plan)
+        if isinstance(fallback_plan, dict) and fallback_plan.get("itinerary"):
+            return True, fallback_plan
+        return False, fallback_plan
 
     def _visited_contains(self, visited_items, value):
         for item in visited_items:
@@ -1255,6 +1418,23 @@ class UrbanTripOptimizedV5(BaseAgent):
 
     def _dfs_log(self, *args, **kwargs):
         dfs_log(self, *args, **kwargs)
+
+    def _cache_value_key(self, value):
+        if value is None:
+            return None
+        if isinstance(value, dict):
+            return tuple(
+                sorted((key, self._cache_value_key(val)) for key, val in value.items())
+            )
+        if isinstance(value, (list, tuple, set)):
+            return tuple(self._cache_value_key(item) for item in value)
+        return value
+
+    def _candidate_frame_key(self, candidates):
+        name_key = None
+        if "name" in candidates.columns:
+            name_key = tuple(candidates["name"].astype(str).tolist())
+        return (len(candidates), tuple(candidates.index.tolist()), name_key)
 
     def _dfs_search_state(self, query, plan, current_day, current_time, current_position):
         return SearchState.from_dfs(self, query, current_day, current_time, current_position, plan)
@@ -1319,9 +1499,19 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         return False, plan
 
-    def _prepare_restaurant_candidates(
-        self, query, current_position, current_time, res_info
-    ):
+    def _filter_restaurant_hard_candidates(self, res_info):
+        cache_key = (
+            "restaurant_hard",
+            self._candidate_frame_key(res_info),
+            self._cache_value_key(self.must_not_visit_restaurant),
+            self._cache_value_key(self.must_not_visit_restaurant_type),
+            self._cache_value_key(self.must_visit_restaurant),
+            self._cache_value_key(self.must_visit_restaurant_type),
+        )
+        cached = self._candidate_static_cache.get(cache_key)
+        if cached is not None:
+            return cached.copy()
+
         candidate_res_list = res_info.copy()
         if self.must_not_visit_restaurant is not None:
             candidate_res_list = candidate_res_list[
@@ -1348,36 +1538,83 @@ class UrbanTripOptimizedV5(BaseAgent):
                 self._dfs_log(
                     f"[Warning] must visit restaurant type:{missing_types} is not in candidates"
                 )
-        drop_idx = flatten_visiting_indices(self.restaurants_visiting)
-        candidate_res_list = candidate_res_list.drop(index=drop_idx, errors="ignore")
-        candidate_res_filtered = filter_open_at_time(candidate_res_list, current_time)
-        candidate_res_ranked = rank_poi_dataframe(
+        self._candidate_static_cache[cache_key] = candidate_res_list.copy()
+        return candidate_res_list
+
+    def _filter_dynamic_poi_candidates(
+        self,
+        query,
+        current_position,
+        current_time,
+        candidates,
+        visited_indices,
+        poi_kind,
+        *,
+        use_attraction_budget_key,
+    ):
+        drop_idx = flatten_visiting_indices(visited_indices)
+        open_cache_key = (
+            poi_kind,
+            "open_at",
+            self._candidate_frame_key(candidates),
+            current_time,
+        )
+        open_candidates = self._candidate_static_cache.get(open_cache_key)
+        if open_candidates is None:
+            open_candidates = filter_open_at_time(candidates, current_time)
+            self._candidate_static_cache[open_cache_key] = open_candidates.copy()
+        candidates = open_candidates.drop(index=drop_idx, errors="ignore")
+        return rank_poi_dataframe(
             self,
             query,
             current_position,
-            candidate_res_filtered,
+            candidates,
+            poi_kind,
+            use_attraction_budget_key=use_attraction_budget_key,
+        )
+
+    def _required_restaurant_name_candidates(self, res_info):
+        must_candidates = pd.DataFrame()
+        if self.must_visit_restaurant is None:
+            return must_candidates
+        for must_name in self.must_visit_restaurant:
+            if self._visited_contains(self.restaurant_names_visiting, must_name):
+                continue
+            must_res = res_info[res_info["name"] == must_name]
+            if not must_res.empty:
+                must_candidates = pd.concat([must_candidates, must_res]).drop_duplicates()
+        return must_candidates
+
+    def _required_restaurant_type_candidates(self, res_info):
+        must_type_candidates = pd.DataFrame()
+        if self.must_visit_restaurant_type is None:
+            return must_type_candidates
+        for cuisine in self.must_visit_restaurant_type:
+            if self._visited_contains(self.food_type_visiting, cuisine):
+                continue
+            must_type = res_info[res_info["cuisine"] == cuisine]
+            if not must_type.empty:
+                must_type_candidates = pd.concat(
+                    [must_type_candidates, must_type]
+                ).drop_duplicates()
+        return must_type_candidates
+
+    def _prepare_restaurant_candidates(
+        self, query, current_position, current_time, res_info
+    ):
+        candidate_res_list = self._filter_restaurant_hard_candidates(res_info)
+        candidate_res_ranked = self._filter_dynamic_poi_candidates(
+            query,
+            current_position,
+            current_time,
+            candidate_res_list,
+            self.restaurants_visiting,
             "restaurant",
             use_attraction_budget_key=False,
         )
         n = self.top_k_candidates
-        must_candidates = pd.DataFrame()
-        if self.must_visit_restaurant is not None:
-            for must_name in self.must_visit_restaurant:
-                if self._visited_contains(self.restaurant_names_visiting, must_name):
-                    continue
-                must_res = res_info[res_info["name"] == must_name]
-                if not must_res.empty:
-                    must_candidates = pd.concat([must_candidates, must_res]).drop_duplicates()
-        must_type_candidates = pd.DataFrame()
-        if self.must_visit_restaurant_type is not None:
-            for cuisine in self.must_visit_restaurant_type:
-                if self._visited_contains(self.food_type_visiting, cuisine):
-                    continue
-                must_type = res_info[res_info["cuisine"] == cuisine]
-                if not must_type.empty:
-                    must_type_candidates = pd.concat(
-                        [must_type_candidates, must_type]
-                    ).drop_duplicates()
+        must_candidates = self._required_restaurant_name_candidates(res_info)
+        must_type_candidates = self._required_restaurant_type_candidates(res_info)
         top_candidates = candidate_res_ranked.iloc[
             : min(n, len(candidate_res_ranked))
         ].copy()
@@ -1483,6 +1720,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             if success:
                 return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
 
             self.backtrack_count += 1
             self._dfs_log("add_restaurant failed, backtrack...")
@@ -1531,6 +1770,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
 
         if self.must_visit_restaurant_type is not None:
             flag, _ = self.check_constraint(
@@ -1553,6 +1794,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
 
         for _, poi_sel in top_candidates.iterrows():
             success, plan = self._try_restaurant_candidate(
@@ -1570,6 +1813,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             if success:
                 return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
 
         return False, plan
 
@@ -1593,9 +1838,20 @@ class UrbanTripOptimizedV5(BaseAgent):
             return time_compare_if_earlier_equal(act_end_time, "19:00")
         return True
 
-    def _prepare_attraction_candidates(
-        self, query, current_position, current_time, attr_info
-    ):
+    def _filter_attraction_hard_candidates(self, attr_info):
+        cache_key = (
+            "attraction_hard",
+            self._candidate_frame_key(attr_info),
+            self._cache_value_key(self.only_free_attractions),
+            self._cache_value_key(self.must_not_see_attraction),
+            self._cache_value_key(self.must_not_see_attraction_type),
+            self._cache_value_key(self.must_see_attraction),
+            self._cache_value_key(self.must_see_attraction_type),
+        )
+        cached = self._candidate_static_cache.get(cache_key)
+        if cached is not None:
+            return cached.copy()
+
         candidate_attr_list = attr_info.copy()
         if self.only_free_attractions is not None and self.only_free_attractions:
             candidate_attr_list = candidate_attr_list[candidate_attr_list["price"] == 0]
@@ -1624,28 +1880,21 @@ class UrbanTripOptimizedV5(BaseAgent):
                 self._dfs_log(
                     f"[Warning] must see attraction type:{missing_types} is not in attraction candidates"
                 )
-        drop_idx = flatten_visiting_indices(self.attractions_visiting)
-        candidate_attr_list = candidate_attr_list.drop(index=drop_idx, errors="ignore")
-        candidate_attr_filtered = filter_open_at_time(candidate_attr_list, current_time)
-        candidate_attr_ranked = rank_poi_dataframe(
-            self,
-            query,
-            current_position,
-            candidate_attr_filtered,
-            "attraction",
-            use_attraction_budget_key=True,
-        )
-        n = self.top_k_candidates
+        self._candidate_static_cache[cache_key] = candidate_attr_list.copy()
+        return candidate_attr_list
+
+    def _required_attraction_name_candidates(self, attr_info):
         must_candidates = pd.DataFrame()
-        if self.must_see_attraction is not None:
-            for must_name in self.must_see_attraction:
-                if self._visited_contains(self.attractions_visiting, must_name):
-                    continue
-                must_attr = attr_info[attr_info["name"] == must_name]
-                if not must_attr.empty:
-                    must_candidates = pd.concat(
-                        [must_candidates, must_attr]
-                    ).drop_duplicates()
+        if self.must_see_attraction is None:
+            return must_candidates
+        for must_name in self.must_see_attraction:
+            if self._visited_contains(self.attractions_visiting, must_name):
+                continue
+            must_attr = attr_info[attr_info["name"] == must_name]
+            if not must_attr.empty:
+                must_candidates = pd.concat(
+                    [must_candidates, must_attr]
+                ).drop_duplicates()
         if not must_candidates.empty:
             must_candidates = must_candidates.copy()
             must_candidates["open_duration"] = must_candidates.apply(
@@ -1655,16 +1904,38 @@ class UrbanTripOptimizedV5(BaseAgent):
             must_candidates = must_candidates.sort_values(
                 by="open_duration", ascending=True
             ).reset_index(drop=True)
+        return must_candidates
+
+    def _required_attraction_type_candidates(self, attr_info):
         must_type_candidates = pd.DataFrame()
-        if self.must_see_attraction_type is not None:
-            for must_type in self.must_see_attraction_type:
-                if self._visited_contains(self.spot_type_visiting, must_type):
-                    continue
-                must_attr = attr_info[attr_info["type"] == must_type]
-                if not must_attr.empty:
-                    must_type_candidates = pd.concat(
-                        [must_type_candidates, must_attr]
-                    ).drop_duplicates()
+        if self.must_see_attraction_type is None:
+            return must_type_candidates
+        for must_type in self.must_see_attraction_type:
+            if self._visited_contains(self.spot_type_visiting, must_type):
+                continue
+            must_attr = attr_info[attr_info["type"] == must_type]
+            if not must_attr.empty:
+                must_type_candidates = pd.concat(
+                    [must_type_candidates, must_attr]
+                ).drop_duplicates()
+        return must_type_candidates
+
+    def _prepare_attraction_candidates(
+        self, query, current_position, current_time, attr_info
+    ):
+        candidate_attr_list = self._filter_attraction_hard_candidates(attr_info)
+        candidate_attr_ranked = self._filter_dynamic_poi_candidates(
+            query,
+            current_position,
+            current_time,
+            candidate_attr_list,
+            self.attractions_visiting,
+            "attraction",
+            use_attraction_budget_key=True,
+        )
+        n = self.top_k_candidates
+        must_candidates = self._required_attraction_name_candidates(attr_info)
+        must_type_candidates = self._required_attraction_type_candidates(attr_info)
         top_candidates = candidate_attr_ranked.iloc[
             : min(n, len(candidate_attr_ranked))
         ].copy()
@@ -1775,6 +2046,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             if success:
                 return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
 
             self.backtrack_count += 1
             self._dfs_log("add_attraction failed, backtrack...")
@@ -1826,6 +2099,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
 
         if self.must_see_attraction_type is not None:
             flag, _ = self.check_constraint(
@@ -1849,6 +2124,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
 
         for _, poi_sel in top_candidates.iterrows():
             success, plan = self._try_attraction_candidate(
@@ -1867,6 +2144,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             if success:
                 return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
 
         return False, plan
 
@@ -1883,11 +2162,11 @@ class UrbanTripOptimizedV5(BaseAgent):
         self._dfs_log(self.backtrack_count)
         # if self.backtrack_count > 5800 or time.time() - self.time_before_search + 20 > self.TIME_CUT + self.llm_inference_time_count:
         #     self.too_many_backtrack = True
-        if time.time() - self.time_before_search + 20 > self.TIME_CUT + self.llm_inference_time_count:
+        if self._search_time_exceeded(slack=20):
             self.too_many_backtrack = True
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
-            return True, self._best_effort_plan(query, plan, poi_plan)
+            return self._best_effort_search_result(query, plan, poi_plan)
 
         if not self.all_satisfy_flag and not self.too_many_backtrack:
             ok, backtrack = self.check_requirement(plan)
@@ -1902,11 +2181,11 @@ class UrbanTripOptimizedV5(BaseAgent):
         # 检查是否超时
         if self.stop_search:
             self.default_plan["backtrack_count"] = self.backtrack_count
-            return True, self._best_effort_plan(query, plan, poi_plan)
-        if time.time() - self.time_before_search > self.TIME_CUT + self.llm_inference_time_count:
+            return self._best_effort_search_result(query, plan, poi_plan)
+        if self._search_time_exceeded():
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
-            return True, self._best_effort_plan(query, plan, poi_plan)
+            return self._best_effort_search_result(query, plan, poi_plan)
 
         # 检查当前时间是否太晚，无法前往酒店或返程交通
         self._dfs_log("check if too late")
@@ -1927,6 +2206,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                 tickets=query["people_number"],
             )
 
+            self._update_best_plan_from_partial(query, plan)
+
             self._dfs_log(plan)
 
             new_time = poi_plan["go_transport"]["EndTime"]  # 更新当前时间为去程交通的结束时间
@@ -1937,6 +2218,8 @@ class UrbanTripOptimizedV5(BaseAgent):
 
             if success:
                 return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
             else:
                 self.backtrack_count += 1
                 self._dfs_log("No solution for the given Go Transport, backtrack...")
@@ -1964,6 +2247,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             if success:
                 return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
 
             self._pop_last_activity_if_matches(plan, current_day, "breakfast")
 
@@ -2150,6 +2435,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 )
                                 if success:
                                     return True, plan
+                                if self._is_terminal_plan_failure(plan):
+                                    return False, plan
                                 self._pop_last_activity_if_matches(
                                     plan, current_day, "accommodation", hotel_sel["name"]
                                 )
@@ -2159,6 +2446,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                         )
                         if success:
                             return True, plan
+                        if self._is_terminal_plan_failure(plan):
+                            return False, plan
 
                         self._pop_last_activity_if_matches(plan, current_day, "breakfast")
 
@@ -2172,6 +2461,8 @@ class UrbanTripOptimizedV5(BaseAgent):
 
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
 
                     self.backtrack_count += 1
                     self._dfs_log("Fail with the given accommodation activity, backtrack...")
@@ -2195,6 +2486,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
                 elif poi_type == "attraction":
                     success, plan = self._dfs_explore_attractions(
                         query,
@@ -2208,6 +2501,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
 
                 if current_day == query["days"] - 1:
                     success, plan = self._try_append_back_transport(
@@ -2215,6 +2510,8 @@ class UrbanTripOptimizedV5(BaseAgent):
                     )
                     if success:
                         return True, plan
+                    if self._is_terminal_plan_failure(plan):
+                        return False, plan
                 # 如果不是最后一天且天数大于 1
                 elif query["days"] > 1 and current_day < query["days"] - 1:
                     # go to hotel
@@ -2305,6 +2602,8 @@ class UrbanTripOptimizedV5(BaseAgent):
 
                         if success:
                             return True, plan
+                        if self._is_terminal_plan_failure(plan):
+                            return False, plan
                         else:
                             self.backtrack_count += 1
                             self._dfs_log("Try the go back hotel, failed, backtrack...")
@@ -2656,6 +2955,53 @@ class UrbanTripOptimizedV5(BaseAgent):
                     return max(int(round(float(duration))), 0)
         return 45
 
+    def _required_poi_constraints_present(self):
+        return any(
+            getattr(self, attr, None)
+            for attr in (
+                "must_see_attraction",
+                "must_visit_restaurant",
+                "must_see_attraction_type",
+                "must_visit_restaurant_type",
+            )
+        )
+
+    def _poi_has_visit_window(
+        self,
+        query,
+        start_position,
+        earliest_time,
+        poi,
+        latest_position=None,
+        latest_time=None,
+        min_visit_buffer=30,
+    ):
+        if poi is None or not start_position or not earliest_time:
+            return True
+        name = poi.get("name")
+        if not name:
+            return True
+        travel_min = self._estimate_intracity_travel_minutes(
+            query["target_city"], start_position, name
+        )
+        arrived = add_time_delta(earliest_time, travel_min)
+        open_min = time_to_minutes(str(poi.get("opentime", "00:00")))
+        close_min = time_to_minutes(str(poi.get("endtime", "23:59")))
+        arrived_min = time_to_minutes(arrived)
+        if close_min <= open_min:
+            close_min += 24 * 60
+        visit_start = max(arrived_min, open_min)
+        visit_end_limit = close_min
+        if latest_position and latest_time:
+            leave_travel_min = self._estimate_intracity_travel_minutes(
+                query["target_city"], name, latest_position
+            )
+            visit_end_limit = min(
+                visit_end_limit,
+                time_to_minutes(str(latest_time)) - leave_travel_min,
+            )
+        return visit_start + min_visit_buffer <= visit_end_limit
+
     def _can_reach_poi_after_arrival(self, query, go_row, poi_names, poi_df):
         if not poi_names or poi_df is None or poi_df.empty:
             return True
@@ -2669,21 +3015,83 @@ class UrbanTripOptimizedV5(BaseAgent):
             matches = poi_df[poi_df["name"] == name]
             if matches.empty:
                 continue
-            poi = matches.iloc[0]
-            opentime, endtime = poi["opentime"], poi["endtime"]
-            travel_min = self._estimate_intracity_travel_minutes(
-                city, arrival_station, name
-            )
-            arrived = add_time_delta(arrival_time, travel_min)
-            if time_compare_if_earlier_equal(endtime, arrived):
+            if not self._poi_has_visit_window(
+                query, arrival_station, arrival_time, matches.iloc[0], min_visit_buffer=min_visit_buffer
+            ):
                 return False
-            visit_start = (
-                opentime
-                if time_compare_if_earlier_equal(arrived, opentime)
-                else arrived
-            )
-            if time_compare_if_earlier_equal(
-                endtime, add_time_delta(visit_start, min_visit_buffer)
+        return True
+
+    def _can_reach_poi_type_after_arrival(self, query, go_row, required_types, poi_df, type_col):
+        if not required_types or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        if not arrival_station or not arrival_time:
+            return True
+        for required_type in required_types:
+            matches = poi_df[poi_df[type_col] == required_type]
+            if matches.empty:
+                continue
+            if not any(
+                self._poi_has_visit_window(
+                    query, arrival_station, arrival_time, row
+                )
+                for _, row in matches.iterrows()
+            ):
+                return False
+        return True
+
+    def _can_reach_poi_between_intercity(
+        self, query, go_row, back_row, poi_names, poi_df
+    ):
+        if not poi_names or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        depart_station = back_row.get("From")
+        depart_time = back_row.get("BeginTime")
+        if not arrival_station or not arrival_time or not depart_station or not depart_time:
+            return True
+        for name in poi_names:
+            matches = poi_df[poi_df["name"] == name]
+            if matches.empty:
+                continue
+            if not self._poi_has_visit_window(
+                query,
+                arrival_station,
+                arrival_time,
+                matches.iloc[0],
+                latest_position=depart_station,
+                latest_time=depart_time,
+            ):
+                return False
+        return True
+
+    def _can_reach_poi_type_between_intercity(
+        self, query, go_row, back_row, required_types, poi_df, type_col
+    ):
+        if not required_types or poi_df is None or poi_df.empty:
+            return True
+        arrival_station = go_row.get("To")
+        arrival_time = go_row.get("EndTime")
+        depart_station = back_row.get("From")
+        depart_time = back_row.get("BeginTime")
+        if not arrival_station or not arrival_time or not depart_station or not depart_time:
+            return True
+        for required_type in required_types:
+            matches = poi_df[poi_df[type_col] == required_type]
+            if matches.empty:
+                continue
+            if not any(
+                self._poi_has_visit_window(
+                    query,
+                    arrival_station,
+                    arrival_time,
+                    row,
+                    latest_position=depart_station,
+                    latest_time=depart_time,
+                )
+                for _, row in matches.iterrows()
             ):
                 return False
         return True
@@ -2711,12 +3119,57 @@ class UrbanTripOptimizedV5(BaseAgent):
     def _can_satisfy_required_poi_after_go_arrival(self, query, go_row):
         return self._can_visit_must_see_after_go_arrival(
             query, go_row
-        ) and self._can_visit_must_restaurant_after_go_arrival(query, go_row)
+        ) and self._can_visit_must_restaurant_after_go_arrival(
+            query, go_row
+        ) and self._can_reach_poi_type_after_arrival(
+            query,
+            go_row,
+            getattr(self, "must_see_attraction_type", None),
+            self.memory.get("attractions"),
+            "type",
+        ) and self._can_reach_poi_type_after_arrival(
+            query,
+            go_row,
+            getattr(self, "must_visit_restaurant_type", None),
+            self.memory.get("restaurants"),
+            "cuisine",
+        )
+
+    def _can_satisfy_required_poi_between_intercity(self, query, go_row, back_row):
+        if query.get("days", 0) > 2:
+            return True
+        return self._can_reach_poi_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_see_attraction", None),
+            self.memory.get("attractions"),
+        ) and self._can_reach_poi_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_visit_restaurant", None),
+            self.memory.get("restaurants"),
+        ) and self._can_reach_poi_type_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_see_attraction_type", None),
+            self.memory.get("attractions"),
+            "type",
+        ) and self._can_reach_poi_type_between_intercity(
+            query,
+            go_row,
+            back_row,
+            getattr(self, "must_visit_restaurant_type", None),
+            self.memory.get("restaurants"),
+            "cuisine",
+        )
 
     def _prioritize_required_poi_feasible_go_trains(
         self, transport_info, query, ordered_indices
     ):
-        if not self.must_see_attraction and not self.must_visit_restaurant:
+        if not self._required_poi_constraints_present():
             return ordered_indices
         feasible = []
         infeasible = []
@@ -2730,6 +3183,25 @@ class UrbanTripOptimizedV5(BaseAgent):
         if not feasible:
             return ordered_indices
         feasible.sort(key=lambda i: transport_info.iloc[i].get("EndTime", "99:99"))
+        return feasible + infeasible
+
+    def _prioritize_required_poi_feasible_back_trains(
+        self, transport_info, query, selected_go, ordered_indices
+    ):
+        if not self._required_poi_constraints_present():
+            return ordered_indices
+        feasible = []
+        infeasible = []
+        for idx in ordered_indices:
+            if self._can_satisfy_required_poi_between_intercity(
+                query, selected_go, transport_info.iloc[idx]
+            ):
+                feasible.append(idx)
+            else:
+                infeasible.append(idx)
+        if not feasible:
+            return ordered_indices
+        feasible.sort(key=lambda i: transport_info.iloc[i].get("BeginTime", "00:00"), reverse=True)
         return feasible + infeasible
 
     def ranking_intercity_transport_go(self, transport_info, query):
@@ -2793,7 +3265,9 @@ class UrbanTripOptimizedV5(BaseAgent):
             reranked.extend(idx for idx in ranking_idx if idx not in set(reranked))
             ranking_idx = reranked
 
-        return ranking_idx
+        return self._prioritize_required_poi_feasible_back_trains(
+            transport_info, query, selected_go, ranking_idx
+        )
 
     def ranking_hotel(self, hotel_info, query):
         candidate_idx = set(range(len(hotel_info)))
@@ -2966,16 +3440,67 @@ class UrbanTripOptimizedV5(BaseAgent):
         elif not isinstance(dsl, str):
             dsl = str(dsl) if dsl is not None else ""
 
+        def _unescape_literal_text(text):
+            return text.replace("\\'", "'").replace('\\"', '"')
+
         def extract_list(s):
-            # Prefer double-quoted tokens so apostrophes inside names (e.g. Feng's) parse correctly.
-            items = re.findall(r'"([^"]*)"', s)
-            if items:
-                return items
-            items = re.findall(r"'([^']*)'", s)
+            items = []
+            idx = 0
+            while idx < len(s):
+                while idx < len(s) and s[idx] in " \t\r\n,":
+                    idx += 1
+                if idx >= len(s):
+                    break
+                quote = s[idx] if s[idx] in "'\"" else None
+                if quote is None:
+                    end = s.find(",", idx)
+                    if end == -1:
+                        end = len(s)
+                    value = s[idx:end].strip()
+                    if value:
+                        items.append(value)
+                    idx = end + 1
+                    continue
+                content_start = idx + 1
+                closing = None
+                scan = content_start
+                while scan < len(s):
+                    if s[scan] == quote and s[scan - 1] != "\\":
+                        rest = s[scan + 1 :].lstrip()
+                        if not rest or rest[0] in ",}])":
+                            closing = scan
+                            break
+                    scan += 1
+                if closing is None:
+                    break
+                items.append(_unescape_literal_text(s[content_start:closing]))
+                idx = closing + 1
             if items:
                 return items
             stripped = s.strip()
             return [stripped] if stripped else []
+
+        def _literal_value(text):
+            try:
+                return ast.literal_eval(text)
+            except (SyntaxError, ValueError):
+                return text.strip("'\"")
+
+        activity_literal = r"(?P<name>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")"
+
+        def extract_activity_time_pairs(dsl_str, value_pattern, converter):
+            normalized = normalize_hard_logic_constraint(dsl_str)
+            pattern = re.compile(
+                r"if\s+activity_position\(activity\)\s*==\s*"
+                + activity_literal
+                + r".*?"
+                + value_pattern,
+                flags=re.S,
+            )
+            pairs = []
+            for match in pattern.finditer(normalized):
+                pairs.append((_literal_value(match.group("name")), converter(match)))
+            return pairs
 
         def parse_single_dsl(dsl_str, query):
             """对单条 DSL 进行匹配"""
@@ -3010,21 +3535,24 @@ class UrbanTripOptimizedV5(BaseAgent):
                 res.pop("only_free_attractions", None)  # 如果不存在不会报错
 
             # activities time
-            matches = re.findall(
-                r"if\s+activity_position\(activity\)\s*==\s*'([^']+)'.*?activity_time\(activity\)\s*>=\s*([0-9]+)",
-                dsl_str, flags=re.S
+            matches = extract_activity_time_pairs(
+                dsl_str,
+                r"activity_time\(activity\)\s*>=\s*(?P<value>[0-9]+)",
+                lambda match: int(match.group("value")),
             )
             res["activities_stay_time_dict"] = {name: int(time) for name, time in matches} if matches else None
 
-            matches = re.findall(
-                r"if\s+activity_position\(activity\)\s*==\s*'([^']+)'.*?activity_start_time\(activity\)\s*<=\s*'([^']+)'",
-                dsl_str, flags=re.S
+            matches = extract_activity_time_pairs(
+                dsl_str,
+                r"activity_start_time\(activity\)\s*<=\s*(?P<value>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")",
+                lambda match: _literal_value(match.group("value")),
             )
             res["activities_arrive_time_dict"] = {name: ["early", t] for name, t in matches} if matches else None
 
-            matches = re.findall(
-                r"if\s+activity_position\(activity\)\s*==\s*'([^']+)'.*?activity_end_time\(activity\)\s*>=\s*'([^']+)'",
-                dsl_str, flags=re.S
+            matches = extract_activity_time_pairs(
+                dsl_str,
+                r"activity_end_time\(activity\)\s*>=\s*(?P<value>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")",
+                lambda match: _literal_value(match.group("value")),
             )
             res["activities_leave_time_dict"] = {name: ["late", t] for name, t in matches} if matches else None
 
@@ -3305,6 +3833,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             required_rooms,
             transports_sel,
     ):
+        if not isinstance(current_plan, list):
+            return current_plan
         transports_sel = list(transports_sel) if transports_sel else []
         if transports_sel and not self._innercity_transports_valid(transports_sel):
             return current_plan
@@ -3312,6 +3842,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         if self._arrived_time_too_late_for_hotel(arrived_time):
             return current_plan
 
+        ensure_day_plan(current_plan, current_day)
         current_plan[current_day]["activities"] = self.add_poi(
             activities=current_plan[current_day]["activities"],
             position=hotel_sel["name"],

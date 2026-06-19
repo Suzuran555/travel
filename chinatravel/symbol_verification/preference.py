@@ -13,6 +13,7 @@ from chinatravel.evaluation.utils import load_json_file
 import pandas as pd
 
 from copy import deepcopy
+from chinatravel.symbol_verification.hard_constraint import normalize_hard_logic_constraint
 
 accommodation = Accommodations()
 restaurants = Restaurants()
@@ -60,7 +61,7 @@ def evaluate_preference_py(preference_list, plan, verbose=False):
         try:
             # Evaluate the constraint in a safe manner
             exec(
-                preference_code,
+                normalize_hard_logic_constraint(preference_code),
                 {
                     "__builtins__": {
                         "set": set,
