@@ -49,7 +49,7 @@ if __name__ == "__main__":
         "--timeout",
         "-t",
         type=int,
-        default=300,
+        default=330,
         help="Timeout in seconds for each query",
     )
     parser.add_argument("--lang", "--locale", choices=["zh", "en"], default="zh", help="Language environment to load.")
