@@ -100,6 +100,7 @@ if __name__ == "__main__":
         "log_dir": log_dir,
         "debug": True,
         "lang": args.lang,
+        "external_timeout": args.timeout,
     }
     agent = init_agent(kwargs)
 
