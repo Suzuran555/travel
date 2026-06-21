@@ -5010,7 +5010,17 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         arrived_time = current_time  # 兜底默认值，防止后续分支未赋值时引用导致 NameError
 
-        if current_time != "" and time_compare_if_earlier_equal("23:00", current_time):
+        # The blanket "after 23:00 = give up" rule wrongly prunes a late
+        # intercity arrival on a non-final day, where the only remaining move is
+        # to go to the hotel and sleep (a perfectly valid plan). Only keep the
+        # hard cutoff on the final day (where a late state risks missing the
+        # return transport); on other days fall through to the hotel-reachability
+        # branch below.
+        if (
+            current_time != ""
+            and time_compare_if_earlier_equal("23:00", current_time)
+            and current_day == query["days"] - 1
+        ):
             print("too late, after 23:00")
             return True
 
