@@ -261,6 +261,12 @@ def repair_activity_edge(agent, query, itinerary, day_idx, act_idx):
         return True
 
     prev_pos = activity_position(prev_act)
+    arrive_info = (getattr(agent, "activities_arrive_time_dict", None) or {}).get(
+        curr_pos
+    )
+    arrive_deadline = None
+    if arrive_info and arrive_info[0] == "early":
+        arrive_deadline = arrive_info[1]
     if not needs_transport(prev_pos, curr_pos):
         act["transports"] = []
         if act.get("position"):
@@ -268,7 +274,15 @@ def repair_activity_edge(agent, query, itinerary, day_idx, act_idx):
         return True
 
     existing = act.get("transports") or []
-    if _transports_connect(existing, prev_pos, curr_pos):
+    existing_arrival = existing[-1].get("end_time") if existing else None
+    existing_meets_deadline = (
+        arrive_deadline is None
+        or (
+            existing_arrival
+            and time_compare_if_earlier_equal(existing_arrival, arrive_deadline)
+        )
+    )
+    if _transports_connect(existing, prev_pos, curr_pos) and existing_meets_deadline:
         apply_activity_time_rules(agent, act)
         forward_time_chain(itinerary)
         apply_activity_time_rules(agent, act)
@@ -287,18 +301,28 @@ def repair_activity_edge(agent, query, itinerary, day_idx, act_idx):
         if mode not in modes:
             modes.append(mode)
 
+    fallback = None
     for mode in modes:
         transports = agent.collect_innercity_transport(
             city, prev_pos, curr_pos, start_time, mode
         )
         if isinstance(transports, list):
-            act["transports"] = transports
-            if transports:
-                act["start_time"] = transports[-1]["end_time"]
-            apply_activity_time_rules(agent, act)
-            forward_time_chain(itinerary)
-            apply_activity_time_rules(agent, act)
-            return True
+            if fallback is None:
+                fallback = transports
+            arrival = transports[-1].get("end_time") if transports else start_time
+            if arrive_deadline is None or time_compare_if_earlier_equal(
+                arrival, arrive_deadline
+            ):
+                fallback = transports
+                break
+    if fallback is not None:
+        act["transports"] = fallback
+        if fallback:
+            act["start_time"] = fallback[-1]["end_time"]
+        apply_activity_time_rules(agent, act)
+        forward_time_chain(itinerary)
+        apply_activity_time_rules(agent, act)
+        return True
     return False
 
 

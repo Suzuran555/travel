@@ -86,7 +86,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.memory = {}
         external_timeout = kwargs.get("external_timeout")
         self.TIME_CUT = external_timeout if external_timeout is not None else (60 * 5 - 10)
-        self.EXTERNAL_TIMEOUT_BUFFER = 15  # finish search+fallback before run_tpc func_timeout (default 330s)
+        self.EXTERNAL_TIMEOUT_BUFFER = 60  # leave enough time for repair/fallback before the 330s outer timeout
         self.top_k_candidates = kwargs.get("top_k_candidates", 50)  # 候选截断数，提速后放宽以缓解"正解排第 n+1 不可达"
         self.debug = kwargs.get("debug", False)
         self.use_llm_dynamic_weights = kwargs.get(
@@ -1227,6 +1227,120 @@ class UrbanTripOptimizedV5(BaseAgent):
             itinerary, target_row, target_kind
         )
 
+    def _replace_windowed_activity_in_itinerary(
+        self, itinerary, target_row, target_kind
+    ):
+        """Place a required POI directly in its verifier time window.
+
+        Search and ordinary replacement preserve the old activity slot.  That
+        cannot repair a named POI whose verifier requires ``start <= T`` and
+        ``end >= U`` when the closest generated slot starts after ``T``.  Pick
+        the existing target (when present), otherwise the closest compatible
+        slot, schedule it at the latest allowed start, and remove only
+        same-day activities that overlap the required interval.  Transport and
+        the remaining time chain are rebuilt by ``_try_accept_repair``.
+        """
+        name = target_row["name"]
+        arrive_info = (self.activities_arrive_time_dict or {}).get(name)
+        leave_info = (self.activities_leave_time_dict or {}).get(name)
+        if not arrive_info and not leave_info:
+            return None
+
+        desired_start = (
+            arrive_info[1]
+            if arrive_info and arrive_info[0] == "early"
+            else None
+        )
+        if desired_start is None:
+            return None
+        scheduled = self._scheduled_poi_times(
+            name,
+            desired_start,
+            target_row.get("opentime", "00:00"),
+            target_row.get("endtime", "23:59"),
+            90 if target_kind == "attraction" else 60,
+            "attraction" if target_kind == "attraction" else "dinner",
+        )
+        if scheduled is None:
+            return None
+        desired_start, desired_end = scheduled
+
+        protected = set(self.must_see_attraction or []) | set(
+            self.must_visit_restaurant or []
+        )
+        candidates = []
+        for day_idx, day in enumerate(itinerary or []):
+            for act_idx, activity in enumerate(day.get("activities", [])):
+                act_type = activity.get("type")
+                if target_kind == "attraction" and act_type != "attraction":
+                    continue
+                if target_kind == "restaurant" and act_type not in {"lunch", "dinner"}:
+                    continue
+                position = self._activity_position(activity)
+                if position in protected and position != name:
+                    continue
+                distance = abs(
+                    self._time_minutes(activity.get("start_time", desired_start))
+                    - self._time_minutes(desired_start)
+                )
+                day_size = len(day.get("activities", []))
+                candidates.append(
+                    (position != name, day_size, distance, day_idx, act_idx)
+                )
+        if not candidates:
+            return None
+
+        _, _, _, day_idx, act_idx = min(candidates)
+        updated = deepcopy(itinerary)
+        activity = updated[day_idx]["activities"][act_idx]
+        target_was_present = self._activity_position(activity) == name
+        activity["position"] = name
+        activity["price"] = int(target_row["price"])
+        activity["cost"] = int(target_row["price"]) * self.query["people_number"]
+        activity["start_time"], activity["end_time"] = desired_start, desired_end
+        if target_kind == "attraction":
+            activity["type"] = "attraction"
+            activity["tickets"] = self.query["people_number"]
+
+        start_min = self._time_minutes(desired_start)
+        end_min = self._time_minutes(desired_end)
+        cleaned = []
+        for idx, other in enumerate(updated[day_idx]["activities"]):
+            if idx == act_idx:
+                cleaned.append(other)
+                continue
+            if self._is_intercity_activity(other):
+                cleaned.append(other)
+                continue
+            if other.get("type") == "accommodation":
+                other_start = self._time_minutes(other.get("start_time"))
+                other_end = self._time_minutes(other.get("end_time"))
+                if other_start < end_min and start_min < other_end:
+                    other["start_time"] = desired_end
+                cleaned.append(other)
+                continue
+            position = self._activity_position(other)
+            if position in protected:
+                cleaned.append(other)
+                continue
+            other_start = self._time_minutes(other.get("start_time"))
+            other_end = self._time_minutes(other.get("end_time"))
+            if other_start < end_min and start_min < other_end:
+                continue
+            # A newly inserted fixed-window stop can make the next attraction
+            # unreachable before closing even when its old clock does not
+            # overlap.  Leave a three-hour travel margin; later attractions
+            # and meals remain available for the rest of the day.
+            if (
+                not target_was_present
+                and other.get("type") == "attraction"
+                and end_min <= other_start < end_min + 180
+            ):
+                continue
+            cleaned.append(other)
+        updated[day_idx]["activities"] = cleaned
+        return updated
+
     def _swap_order_pair_in_itinerary(self, itinerary, before_name, after_name):
         updated = deepcopy(itinerary)
         before_ref = None
@@ -1285,14 +1399,16 @@ class UrbanTripOptimizedV5(BaseAgent):
         positions = self._plan_positions(repaired.get("itinerary"))
         attr_info = self.memory["attractions"]
         for name in self.must_see_attraction or []:
-            if name in positions:
-                continue
             match = attr_info[attr_info["name"] == name]
             if match.empty:
                 continue
-            candidate_itinerary = self._replace_activity_in_itinerary(
+            candidate_itinerary = self._replace_windowed_activity_in_itinerary(
                 repaired["itinerary"], match.iloc[0], "attraction"
             )
+            if candidate_itinerary is None and name not in positions:
+                candidate_itinerary = self._replace_activity_in_itinerary(
+                    repaired["itinerary"], match.iloc[0], "attraction"
+                )
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
                 positions = self._plan_positions(repaired.get("itinerary"))
@@ -1321,14 +1437,16 @@ class UrbanTripOptimizedV5(BaseAgent):
         positions = self._plan_positions(repaired.get("itinerary"))
         res_info = self.memory["restaurants"]
         for name in self.must_visit_restaurant or []:
-            if name in positions:
-                continue
             match = res_info[res_info["name"] == name]
             if match.empty:
                 continue
-            candidate_itinerary = self._replace_activity_in_itinerary(
+            candidate_itinerary = self._replace_windowed_activity_in_itinerary(
                 repaired["itinerary"], match.iloc[0], "restaurant"
             )
+            if candidate_itinerary is None and name not in positions:
+                candidate_itinerary = self._replace_activity_in_itinerary(
+                    repaired["itinerary"], match.iloc[0], "restaurant"
+                )
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
                 positions = self._plan_positions(repaired.get("itinerary"))
@@ -2462,7 +2580,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self._dfs_log(self.backtrack_count)
         # if self.backtrack_count > 5800 or time.time() - self.time_before_search + 20 > self.TIME_CUT + self.llm_inference_time_count:
         #     self.too_many_backtrack = True
-        if self._search_time_exceeded(slack=20):
+        if self._search_time_exceeded():
             self.too_many_backtrack = True
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
@@ -3602,6 +3720,17 @@ class UrbanTripOptimizedV5(BaseAgent):
             anchors.append(go_transport["To"])
         if back_transport is not None:
             anchors.append(back_transport["From"])
+        # An early named POI is effectively another fixed terminal: choosing a
+        # cheap airport hotel tens of kilometres away can make ``start <= T``
+        # impossible or consume the whole inner-city budget the next morning.
+        for poi_name, arrive_info in (self.activities_arrive_time_dict or {}).items():
+            if (
+                arrive_info
+                and arrive_info[0] == "early"
+                and time_compare_if_earlier_equal(arrive_info[1], "09:00")
+                and poi_name not in anchors
+            ):
+                anchors.append(poi_name)
 
         ranking_idx = [
             idx
@@ -4314,6 +4443,13 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         def parse_single_dsl(dsl_str, query):
             """对单条 DSL 进行匹配"""
+            # Use the same canonical concept labels and legacy quote repair as
+            # the official evaluator before extracting planner constraints.
+            # Otherwise names such as ``Chef's ...`` are truncated and English
+            # type aliases (for example ``red tourism sites``) never match the
+            # database values used by search.
+            dsl_str = normalize_concept_constraint_source(dsl_str)
+            dsl_str = normalize_hard_logic_constraint(dsl_str)
             res = {}
 
             def _append_unique(key, values):

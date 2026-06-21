@@ -27,6 +27,13 @@ CITY_NAMES = {
     ],
 }
 
+# Corrections for known English-database translation drift.  Keep these at the
+# data-loading boundary so the planner, POI routing, and official commonsense
+# checks all use the same canonical name without changing evaluation logic.
+EN_POI_NAME_CORRECTIONS = {
+    "Sola Bistro": "Bistro Sola",
+}
+
 
 def normalize_lang(lang=None, en_version=False):
     if en_version:
@@ -47,6 +54,12 @@ def city_names(lang):
 
 def city_lookup(lang):
     return dict(zip(CITY_SLUGS, city_names(lang)))
+
+
+def canonical_poi_name(name, lang):
+    if normalize_lang(lang) == "en":
+        return EN_POI_NAME_CORRECTIONS.get(name, name)
+    return name
 
 
 def database_dirname(lang):
