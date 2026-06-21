@@ -46,6 +46,36 @@ def _safe_float(value, default=0.0):
         return default
 
 
+def _normalize_lower_better(values):
+    if not values:
+        return []
+    clean = [_safe_float(value, 10**6) for value in values]
+    finite = [value for value in clean if value < 10**6]
+    if not finite:
+        return [1.0 for _ in clean]
+    low = min(finite)
+    high = max(finite)
+    if high <= low:
+        return [0.0 if value < 10**6 else 1.0 for value in clean]
+    return [
+        1.0 if value >= 10**6 else max(0.0, min(1.0, (value - low) / (high - low)))
+        for value in clean
+    ]
+
+
+def _time_margin_minutes(current_time, end_time):
+    if not current_time or not end_time:
+        return 10**6
+    try:
+        current = _time_to_minutes(current_time)
+        end = _time_to_minutes(end_time)
+    except (TypeError, ValueError):
+        return 10**6
+    if end < current:
+        end += 24 * 60
+    return max(0, end - current)
+
+
 class SegmentIndex:
     def __init__(self, lang="en", segment_dir=None, top_k=50):
         self.lang = normalize_lang(lang)
@@ -225,6 +255,11 @@ class SegmentIndex:
 
         city = query.get("target_city")
         query_text = self._query_text(query, extra=f"{current_position} {poi_type}")
+        constraints = constraints or {}
+        dynamic = constraints.get("dynamic_ranking") or {}
+        weights = dynamic.get("weights") or {}
+        current_time = dynamic.get("current_time")
+        pending = dynamic.get("pending") or {}
         rows = []
         candidate_segments = []
         for pos, (_, row) in enumerate(candidate_df.iterrows()):
@@ -236,17 +271,88 @@ class SegmentIndex:
             route_cost = _safe_float(best_segment.get("cost"), 10**6) if best_segment else 10**6
             route_distance = _safe_float(best_segment.get("distance"), 10**6) if best_segment else 10**6
             base_score = _safe_float(best_segment.get("base_score"), 10**6) if best_segment else 10**6
-            rows.append((pos, name, hard_bonus, route_cost, route_distance, base_score, row))
+            price = _safe_float(row.get("price"), 0.0)
+            close_margin = _time_margin_minutes(current_time, row.get("endtime"))
+            coverage_gain = self._must_coverage_gain(name, row, poi_type, pending)
+            order_penalty = self._order_block_penalty(name, pending)
+            rows.append(
+                {
+                    "pos": pos,
+                    "name": name,
+                    "hard_bonus": hard_bonus,
+                    "route_cost": route_cost,
+                    "route_distance": route_distance,
+                    "base_score": base_score,
+                    "price": price,
+                    "close_margin": close_margin,
+                    "coverage_gain": coverage_gain,
+                    "order_penalty": order_penalty,
+                    "row": row,
+                    "segment": best_segment,
+                }
+            )
 
         tfidf = self._tfidf_scores(query_text, candidate_segments)
+        route_cost_norm = _normalize_lower_better([row["route_cost"] for row in rows])
+        route_distance_norm = _normalize_lower_better([row["route_distance"] for row in rows])
+        base_score_norm = _normalize_lower_better([row["base_score"] for row in rows])
+        price_norm = _normalize_lower_better([row["price"] for row in rows])
+        close_margin_norm = _normalize_lower_better([row["close_margin"] for row in rows])
+        max_gain = max([row["coverage_gain"] for row in rows] or [0.0])
+        max_penalty = max([row["order_penalty"] for row in rows] or [0.0])
+
+        def weight(name, default):
+            return max(0.0, _safe_float(weights.get(name), default))
+
         scored = []
-        for pos, name, hard_bonus, route_cost, route_distance, base_score, row in rows:
-            best_segment = self._best_intracity_segment(city, current_position, name)
+        for idx, row in enumerate(rows):
+            best_segment = row["segment"]
             semantic = tfidf.get(id(best_segment), 0.0) if best_segment else 0.0
-            scored.append(((-hard_bonus, route_cost, route_distance, base_score, -semantic, pos), pos))
+            gain_norm = (row["coverage_gain"] / max_gain) if max_gain > 0 else 0.0
+            weighted_score = (
+                weight("route_cost", 0.45) * route_cost_norm[idx]
+                + weight("route_distance", 0.15) * route_distance_norm[idx]
+                + weight("base_score", 0.10) * base_score_norm[idx]
+                + weight("poi_price", 0.20) * price_norm[idx]
+                + weight("time_margin", 0.20) * close_margin_norm[idx]
+                - weight("must_coverage", 1.00) * gain_norm
+                + weight("order_block", 1.20)
+                * ((row["order_penalty"] / max_penalty) if max_penalty > 0 else 0.0)
+                - weight("semantic", 0.0) * semantic
+            )
+            fallback_key = (
+                -row["hard_bonus"],
+                row["route_cost"],
+                row["route_distance"],
+                row["base_score"],
+                -semantic,
+                row["pos"],
+            )
+            scored.append(((weighted_score, fallback_key), row["pos"]))
 
         order = [pos for _, pos in sorted(scored, key=lambda item: item[0])]
         return candidate_df.iloc[order].reset_index(drop=True)
+
+    def _must_coverage_gain(self, name, row, poi_type, pending):
+        gain = 0.0
+        if name in set(pending.get("order_predecessors") or []):
+            gain += 750.0
+        if poi_type in {"lunch", "dinner", "restaurant"}:
+            if name in set(pending.get("restaurant_names") or []):
+                gain += 1000.0
+            if row.get("cuisine") in set(pending.get("restaurant_types") or []):
+                gain += 100.0
+        if poi_type == "attraction":
+            if name in set(pending.get("attraction_names") or []):
+                gain += 1000.0
+            if row.get("type") in set(pending.get("attraction_types") or []):
+                gain += 100.0
+        return gain
+
+    def _order_block_penalty(self, name, pending):
+        if name in set(pending.get("order_blocked") or []):
+            return 500.0
+        return 0.0
 
     def _hard_anchor_bonus(self, name, row, poi_type, constraints):
         bonus = 0

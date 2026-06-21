@@ -7,7 +7,11 @@ from transformers import AutoConfig
 # from modelscope import AutoModelForCausalLM, AutoTokenizer
 import tiktoken
 
-from vllm import LLM, SamplingParams
+try:
+    from vllm import LLM, SamplingParams
+except ModuleNotFoundError:
+    LLM = None
+    SamplingParams = None
 import re
 import sys
 import os
@@ -43,6 +47,11 @@ def merge_repeated_role(messages):
         last_role = cur_role
         ptr -= 1
     return messages
+
+
+def require_vllm():
+    if LLM is None or SamplingParams is None:
+        raise ModuleNotFoundError("vllm is required for local vLLM-backed models")
 
 
 class AbstractLLM(ABC):
@@ -210,6 +219,7 @@ class GPT4o(AbstractLLM):
 class Qwen(AbstractLLM):
     def __init__(self, model_name, max_model_len=None):
         super().__init__()
+        require_vllm()
         self.path = os.path.join(
             project_root_path, "chinatravel", "local_llm", model_name
         )
@@ -329,6 +339,7 @@ class Qwen(AbstractLLM):
 class Mistral(AbstractLLM):
     def __init__(self, max_model_len=None):
         super().__init__()
+        require_vllm()
         self.path = os.path.join(
             project_root_path, "chinatravel", "local_llm", "Mistral-7B-Instruct-v0.3",
         )
@@ -400,6 +411,7 @@ class Mistral(AbstractLLM):
 class Llama(AbstractLLM):
     def __init__(self, model_name):
         super().__init__()
+        require_vllm()
 
 
         Llama_supported = ["Llama3-3B", "Llama3-8B"]
