@@ -1945,10 +1945,15 @@ class UrbanTripOptimizedV5(BaseAgent):
                 ~candidate_res_list["name"].isin(self.must_not_visit_restaurant)
             ]
         if self.must_not_visit_restaurant_type is not None:
-            _excluded_cuisines = {str(t).lower() for t in self.must_not_visit_restaurant_type}
-            candidate_res_list = candidate_res_list[
-                ~candidate_res_list["cuisine"].astype(str).str.lower().isin(_excluded_cuisines)
-            ]
+            # Canonicalize DB cuisine the same way the verifier does (e.g. DB "cafe"
+            # -> "coffee shop"), then match case-insensitively, so alias/case variants
+            # are excluded consistently with the official eval.
+            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+            _excluded = {normalize_concept_value("restaurant", str(t)).lower() for t in self.must_not_visit_restaurant_type}
+            _canon = candidate_res_list["cuisine"].astype(str).map(
+                lambda c: str(normalize_concept_value("restaurant", c)).lower()
+            )
+            candidate_res_list = candidate_res_list[~_canon.isin(_excluded)]
         if self.must_visit_restaurant is not None:
             for must_name in self.must_visit_restaurant:
                 if must_name not in candidate_res_list["name"].values:
@@ -2289,14 +2294,15 @@ class UrbanTripOptimizedV5(BaseAgent):
                 ~candidate_attr_list["name"].isin(self.must_not_see_attraction)
             ]
         if self.must_not_see_attraction_type is not None:
-            # DB attraction types are inconsistently cased across cities (e.g.
-            # "university campus" vs "University campus") while the planner's
-            # concept normalization may capitalize the constraint. Match
-            # case-insensitively so forbidden types are excluded regardless.
-            _excluded_types = {str(t).lower() for t in self.must_not_see_attraction_type}
-            candidate_attr_list = candidate_attr_list[
-                ~candidate_attr_list["type"].astype(str).str.lower().isin(_excluded_types)
-            ]
+            # Canonicalize DB types the same way the verifier does (alias + case),
+            # so forbidden types are excluded consistently regardless of the DB's
+            # inconsistent casing/aliases across cities.
+            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+            _excluded_types = {normalize_concept_value("attraction", str(t)).lower() for t in self.must_not_see_attraction_type}
+            _canon_attr = candidate_attr_list["type"].astype(str).map(
+                lambda t: str(normalize_concept_value("attraction", t)).lower()
+            )
+            candidate_attr_list = candidate_attr_list[~_canon_attr.isin(_excluded_types)]
         if self.must_see_attraction is not None:
             for must_name in self.must_see_attraction:
                 if must_name not in candidate_attr_list["name"].values:
@@ -3138,11 +3144,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 print("visited must_not_see_attraction")
                                 backtrack = True
 
-                        # must_not_see_attraction_type (case-insensitive: DB types
-                        # are inconsistently cased across cities)
+                        # must_not_see_attraction_type (canonicalized like the verifier)
                         if "must_not_see_attraction_type" in constraints:
-                            _excl = {str(t).lower() for t in constraints["must_not_see_attraction_type"]}
-                            if str(poi_info["type"]).lower() in _excl:
+                            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+                            _excl = {normalize_concept_value("attraction", str(t)).lower() for t in constraints["must_not_see_attraction_type"]}
+                            if str(normalize_concept_value("attraction", poi_info["type"])).lower() in _excl:
                                 print("visited must_not_see_attraction_type")
                                 backtrack = True
 
@@ -3164,10 +3170,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 print("visited must_not_visit_restaurant")
                                 backtrack = True
 
-                        # must_not_visit_restaurant_type (case-insensitive)
+                        # must_not_visit_restaurant_type (canonicalized like the verifier)
                         if "must_not_visit_restaurant_type" in constraints:
-                            _excl_cui = {str(t).lower() for t in constraints["must_not_visit_restaurant_type"]}
-                            if str(poi_info["cuisine"]).lower() in _excl_cui:
+                            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+                            _excl_cui = {normalize_concept_value("restaurant", str(t)).lower() for t in constraints["must_not_visit_restaurant_type"]}
+                            if str(normalize_concept_value("restaurant", poi_info["cuisine"])).lower() in _excl_cui:
                                 print("visited must_not_visit_restaurant_type")
                                 backtrack = True
 
