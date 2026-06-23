@@ -145,6 +145,12 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.must_not_visit_restaurant = constraints_json.get("must_not_visit_restaurant", None)
         self.must_not_visit_restaurant_type = constraints_json.get("must_not_visit_restaurant_type", None)
 
+        # DSL `{...} & set` means "any one of" (disjunction); `{...} <= set` means
+        # "all of" (conjunction). These flags let check_constraint pick intersection
+        # vs subset accordingly. Default False keeps the original subset (all) behavior.
+        self.must_see_attraction_type_match_any = constraints_json.get("attraction_type_match_any", False)
+        self.must_visit_restaurant_type_match_any = constraints_json.get("restaurant_type_match_any", False)
+
         self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
         self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
         self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
@@ -1939,8 +1945,9 @@ class UrbanTripOptimizedV5(BaseAgent):
                 ~candidate_res_list["name"].isin(self.must_not_visit_restaurant)
             ]
         if self.must_not_visit_restaurant_type is not None:
+            _excluded_cuisines = {str(t).lower() for t in self.must_not_visit_restaurant_type}
             candidate_res_list = candidate_res_list[
-                ~candidate_res_list["cuisine"].isin(self.must_not_visit_restaurant_type)
+                ~candidate_res_list["cuisine"].astype(str).str.lower().isin(_excluded_cuisines)
             ]
         if self.must_visit_restaurant is not None:
             for must_name in self.must_visit_restaurant:
@@ -2282,8 +2289,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                 ~candidate_attr_list["name"].isin(self.must_not_see_attraction)
             ]
         if self.must_not_see_attraction_type is not None:
+            # DB attraction types are inconsistently cased across cities (e.g.
+            # "university campus" vs "University campus") while the planner's
+            # concept normalization may capitalize the constraint. Match
+            # case-insensitively so forbidden types are excluded regardless.
+            _excluded_types = {str(t).lower() for t in self.must_not_see_attraction_type}
             candidate_attr_list = candidate_attr_list[
-                ~candidate_attr_list["type"].isin(self.must_not_see_attraction_type)
+                ~candidate_attr_list["type"].astype(str).str.lower().isin(_excluded_types)
             ]
         if self.must_see_attraction is not None:
             for must_name in self.must_see_attraction:
@@ -3126,9 +3138,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 print("visited must_not_see_attraction")
                                 backtrack = True
 
-                        # must_not_see_attraction_type
+                        # must_not_see_attraction_type (case-insensitive: DB types
+                        # are inconsistently cased across cities)
                         if "must_not_see_attraction_type" in constraints:
-                            if poi_info["type"] in constraints["must_not_see_attraction_type"]:
+                            _excl = {str(t).lower() for t in constraints["must_not_see_attraction_type"]}
+                            if str(poi_info["type"]).lower() in _excl:
                                 print("visited must_not_see_attraction_type")
                                 backtrack = True
 
@@ -3150,9 +3164,10 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 print("visited must_not_visit_restaurant")
                                 backtrack = True
 
-                        # must_not_visit_restaurant_type
+                        # must_not_visit_restaurant_type (case-insensitive)
                         if "must_not_visit_restaurant_type" in constraints:
-                            if poi_info["cuisine"] in constraints["must_not_visit_restaurant_type"]:
+                            _excl_cui = {str(t).lower() for t in constraints["must_not_visit_restaurant_type"]}
+                            if str(poi_info["cuisine"]).lower() in _excl_cui:
                                 print("visited must_not_visit_restaurant_type")
                                 backtrack = True
 
@@ -3165,7 +3180,10 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         if "must_see_attraction_type" in constraints:
             required = set(constraints["must_see_attraction_type"])
-            if not required.issubset(visited_attraction_types):
+            if getattr(self, "must_see_attraction_type_match_any", False):
+                if not (required & visited_attraction_types):
+                    logic_fail = True
+            elif not required.issubset(visited_attraction_types):
                 logic_fail = True
 
         if "must_visit_restaurant" in constraints:
@@ -3175,7 +3193,10 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         if "must_visit_restaurant_type" in constraints:
             required = set(constraints["must_visit_restaurant_type"])
-            if not required.issubset(visited_restaurant_types):
+            if getattr(self, "must_visit_restaurant_type_match_any", False):
+                if not (required & visited_restaurant_types):
+                    logic_fail = True
+            elif not required.issubset(visited_restaurant_types):
                 logic_fail = True
 
         if "must_innercity_transport" in constraints:
@@ -4532,6 +4553,18 @@ class UrbanTripOptimizedV5(BaseAgent):
             res["must_visit_restaurant_type"] = _extract_set_constraints("restaurant_type_set")
             res["must_not_visit_restaurant"] = _extract_set_constraints("restaurant_name_set", negative=True)
             res["must_not_visit_restaurant_type"] = _extract_set_constraints("restaurant_type_set", negative=True)
+
+            def _match_any(var_name):
+                # Positive `result = ({...} & var)` / `(var & {...})` is intersection
+                # semantics -> "any one of". `<=` (subset) is "all of". NEG uses
+                # `result = not(... & ...)` and is excluded by requiring `(` right after `=`.
+                return bool(
+                    re.search(rf"result\s*=\s*\(\s*\{{[^}}]*\}}\s*&\s*{var_name}", dsl_str)
+                    or re.search(rf"result\s*=\s*\(\s*{var_name}\s*&\s*\{{[^}}]*\}}", dsl_str)
+                )
+
+            res["attraction_type_match_any"] = _match_any("attraction_type_set")
+            res["restaurant_type_match_any"] = _match_any("restaurant_type_set")
 
             # hotel
             res["must_live_hotel"] = _extract_set_constraints("accommodation_name_set")
