@@ -3623,11 +3623,24 @@ class UrbanTripOptimizedV5(BaseAgent):
         return re.sub(r"\s+", " ", str(value).strip().lower())
 
     def _normalized_hotel_features(self, hotel_row):
-        return [
-            self._normalize_hotel_feature(item)
-            for item in str(hotel_row.get("featurehoteltype", "")).split(",")
-            if item.strip()
-        ]
+        # Apply the same concept alias the official verifier uses (accommodation_type
+        # -> normalize_concept_value), so a DB feature like "Bed and breakfast"
+        # matches a "homestay" constraint. Without this the planner compares the raw
+        # DB value against the (alias-normalized) constraint and finds no hotel,
+        # failing the whole search.
+        try:
+            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+        except Exception:
+            normalize_concept_value = None
+        features = []
+        for item in str(hotel_row.get("featurehoteltype", "")).split(","):
+            item = item.strip()
+            if not item:
+                continue
+            if normalize_concept_value is not None:
+                item = normalize_concept_value("accommodation", item)
+            features.append(self._normalize_hotel_feature(item))
+        return features
 
     def _hotel_matches_forbidden_feature(self, hotel_row):
         if not self.must_not_live_hotel_feature:
