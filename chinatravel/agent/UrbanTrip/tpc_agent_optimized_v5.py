@@ -1427,11 +1427,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                     if act.get("type") != "attraction":
                         continue
                     match = attr_info[attr_info["name"] == act.get("position")]
-                    if not match.empty and match.iloc[0].get("type") == attr_type:
+                    if not match.empty and self._canon_type("attraction", match.iloc[0].get("type")) == self._canon_type("attraction", attr_type):
                         present = True
             if present:
                 continue
-            match = attr_info[attr_info["type"] == attr_type]
+            match = attr_info[self._type_match_mask(attr_info["type"], attr_type, "attraction")]
             if match.empty:
                 continue
             candidate_itinerary = self._replace_activity_in_itinerary(
@@ -1465,11 +1465,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                     if act.get("type") not in {"lunch", "dinner"}:
                         continue
                     match = res_info[res_info["name"] == act.get("position")]
-                    if not match.empty and match.iloc[0].get("cuisine") == cuisine:
+                    if not match.empty and self._canon_type("restaurant", match.iloc[0].get("cuisine")) == self._canon_type("restaurant", cuisine):
                         present = True
             if present:
                 continue
-            match = res_info[res_info["cuisine"] == cuisine]
+            match = res_info[self._type_match_mask(res_info["cuisine"], cuisine, "restaurant")]
             if match.empty:
                 continue
             candidate_itinerary = self._replace_activity_in_itinerary(
@@ -2033,7 +2033,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         for cuisine in self.must_visit_restaurant_type:
             if self._visited_contains(self.food_type_visiting, cuisine):
                 continue
-            must_type = res_info[res_info["cuisine"] == cuisine]
+            must_type = res_info[self._type_match_mask(res_info["cuisine"], cuisine, "restaurant")]
             if not must_type.empty:
                 must_type_candidates = pd.concat(
                     [must_type_candidates, must_type]
@@ -2353,7 +2353,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         for must_type in self.must_see_attraction_type:
             if self._visited_contains(self.spot_type_visiting, must_type):
                 continue
-            must_attr = attr_info[attr_info["type"] == must_type]
+            must_attr = attr_info[self._type_match_mask(attr_info["type"], must_type, "attraction")]
             if not must_attr.empty:
                 must_type_candidates = pd.concat(
                     [must_type_candidates, must_attr]
@@ -3074,6 +3074,18 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         return False, plan
 
+    def _canon_type(self, kind, value):
+        """Canonicalize a POI type/cuisine the same way the verifier does
+        (concept alias + lowercase), so the planner matches DB values like
+        "hot pot"/"university campus" against constraint labels "Hot pot"/"University campus"."""
+        from chinatravel.symbol_verification.concept_func import normalize_concept_value
+        return str(normalize_concept_value(kind, str(value))).lower()
+
+    def _type_match_mask(self, series, target, kind):
+        """Boolean mask of rows whose canonicalized type/cuisine equals target."""
+        t = self._canon_type(kind, target)
+        return series.astype(str).map(lambda v: self._canon_type(kind, v) == t)
+
     def check_constraint(self, plan, constraints):
         # 初始化访问记录
         visited_attractions = set()
@@ -3186,11 +3198,14 @@ class UrbanTripOptimizedV5(BaseAgent):
                 logic_fail = True
 
         if "must_see_attraction_type" in constraints:
-            required = set(constraints["must_see_attraction_type"])
+            # Canonicalize both sides (alias + case) like the verifier: DB types are
+            # inconsistently cased across cities (e.g. "university campus").
+            required = {self._canon_type("attraction", t) for t in constraints["must_see_attraction_type"]}
+            visited_ct = {self._canon_type("attraction", t) for t in visited_attraction_types}
             if getattr(self, "must_see_attraction_type_match_any", False):
-                if not (required & visited_attraction_types):
+                if not (required & visited_ct):
                     logic_fail = True
-            elif not required.issubset(visited_attraction_types):
+            elif not required.issubset(visited_ct):
                 logic_fail = True
 
         if "must_visit_restaurant" in constraints:
@@ -3199,11 +3214,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                 logic_fail = True
 
         if "must_visit_restaurant_type" in constraints:
-            required = set(constraints["must_visit_restaurant_type"])
+            # Canonicalize both sides: DB cuisine e.g. "hot pot" -> "Hot pot".
+            required = {self._canon_type("restaurant", t) for t in constraints["must_visit_restaurant_type"]}
+            visited_ct = {self._canon_type("restaurant", t) for t in visited_restaurant_types}
             if getattr(self, "must_visit_restaurant_type_match_any", False):
-                if not (required & visited_restaurant_types):
+                if not (required & visited_ct):
                     logic_fail = True
-            elif not required.issubset(visited_restaurant_types):
+            elif not required.issubset(visited_ct):
                 logic_fail = True
 
         if "must_innercity_transport" in constraints:
