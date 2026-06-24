@@ -3346,7 +3346,13 @@ class UrbanTripOptimizedV5(BaseAgent):
         days = max(1, int(self.query.get("days", 1))) if hasattr(self, "query") else 1
         people = max(1, int(self.query.get("people_number", 1))) if hasattr(self, "query") else 1
         per_day_budget = float(self.innercity_budget) / days
-        return per_day_budget <= max(25.0, people * 18.0)
+        # Inner-city cost scales with party size (per-ticket * people, taxi cars),
+        # so a budget that looks loose in absolute terms can be tight per person.
+        # Additive: keep the original trigger and also enable the saver when the
+        # per-person-per-day budget is tight (catches large-party tight-budget trips
+        # that otherwise waste budget on taxis and exhaust it before completing).
+        per_person_per_day = per_day_budget / people
+        return per_day_budget <= max(25.0, people * 18.0) or per_person_per_day <= 60.0
 
     def _budget_pressure(self, budget, spent):
         if budget is None:
