@@ -184,6 +184,61 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         self.requirement_list = requirement_list
         self._normalize_transport_rules()
+        self._force_arrive_time_pois()
+
+    def _force_arrive_time_pois(self):
+        """An arrive-time constraint (`if pos==X and start<=T: result=True`) requires
+        the plan to actually VISIT X before T, but the parser only records the time
+        window in activities_arrive_time_dict, so the named POI was never forced as a
+        must-visit and the search could skip it. Add each such POI to the matching
+        must-visit set (by its DB type) so the search includes it."""
+        arrive = getattr(self, "activities_arrive_time_dict", None) or {}
+        if not arrive:
+            return
+        mem = getattr(self, "memory", {}) or {}
+
+        def _names(kind):
+            df = mem.get(kind)
+            try:
+                return set(df["name"].astype(str)) if df is not None else set()
+            except Exception:
+                return set()
+
+        rest_names, attr_names, acc_names = _names("restaurants"), _names("attractions"), _names("accommodations")
+
+        def _add(attr, name):
+            cur = getattr(self, attr, None) or []
+            if not isinstance(cur, list):
+                cur = [cur]
+            if name not in cur:
+                setattr(self, attr, cur + [name])
+
+        for name in arrive:
+            if name in rest_names:
+                _add("must_visit_restaurant", name)
+            elif name in attr_names:
+                _add("must_see_attraction", name)
+            elif name in acc_names:
+                _add("must_live_hotel", name)
+
+    def _pending_early_arrive_restaurant(self, current_time):
+        """True if an unplaced must-visit restaurant has an 'early' arrive-time
+        deadline still ahead of current_time. Used to serve it as an early lunch
+        before morning attractions push the schedule past the deadline."""
+        arrive = getattr(self, "activities_arrive_time_dict", None) or {}
+        if not arrive:
+            return False
+        visiting = getattr(self, "restaurant_names_visiting", []) or []
+        for name in (self.must_visit_restaurant or []):
+            info = arrive.get(name)
+            if not info or info[0] != "early":
+                continue
+            if self._visited_contains(visiting, name):
+                continue
+            # only worth forcing lunch if we can still make the deadline (<= deadline)
+            if time_compare_if_earlier_equal(current_time, info[1]):
+                return True
+        return False
 
     def _constraint_branch_has_guidance(self, constraints_json):
         return any(
@@ -4335,6 +4390,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                 return "hotel", candidates_type
             else:
                 return candidates_type[0], candidates_type
+
+        # Arrive-time restaurant: a named restaurant must be visited before T
+        # (e.g. <=11:00). Take lunch BEFORE morning attractions push the clock past
+        # the deadline, so the required restaurant can be served at the early-lunch
+        # slot. Tightly gated: only when such a restaurant is still pending.
+        if "lunch" in candidates_type and self._pending_early_arrive_restaurant(current_time):
+            return "lunch", candidates_type
 
         if time_compare_if_earlier_equal("08:30", current_time) and time_compare_if_earlier_equal(current_time, "10:30"):
             if "attraction" in candidates_type:
