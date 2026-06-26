@@ -199,17 +199,20 @@ class SegmentIndex:
         return ordered + remaining
 
     def _matching_intercity_score(self, row, mode):
-        from_city = row.get("From")
-        to_city = row.get("To")
+        from_station = row.get("From")
+        to_station = row.get("To")
         row_id = row.get("FlightID") if mode == "airplane" else row.get("TrainID")
         candidates = []
         for segment in self.intercity_segments:
             if segment.get("mode") != mode:
                 continue
+            # Route must match first: the same TrainID/FlightID can appear on
+            # multiple legs, so matching by id alone leaks a wrong-route score.
+            if segment.get("from") != from_station or segment.get("to") != to_station:
+                continue
             if segment.get("id") == row_id:
                 return _safe_float(segment.get("base_score"))
-            if segment.get("from") == from_city and segment.get("to") == to_city:
-                candidates.append(segment)
+            candidates.append(segment)
         if not candidates:
             return 10**9
         return min(_safe_float(segment.get("base_score")) for segment in candidates)

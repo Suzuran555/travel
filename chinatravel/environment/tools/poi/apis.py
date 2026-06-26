@@ -1,6 +1,12 @@
 import os
 import json
-from chinatravel.environment.language import CITY_SLUGS, city_names, normalize_lang, relative_database_path
+from chinatravel.environment.language import (
+    CITY_SLUGS,
+    canonical_poi_name,
+    city_names,
+    normalize_lang,
+    relative_database_path,
+)
 
 
 class Poi:
@@ -19,7 +25,7 @@ class Poi:
             self.data[city] = json.load(open(data_path_list[i], "r", encoding="utf-8"))
             city_data = {}
             for name_pos in self.data[city]:
-                name = name_pos["name"]
+                name = canonical_poi_name(name_pos["name"], self.lang)
                 pos = name_pos["position"]
                 city_data[name] = tuple(pos)
             self.data[city] = city_data

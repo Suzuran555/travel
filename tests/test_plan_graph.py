@@ -253,6 +253,66 @@ class PlanGraphTest(unittest.TestCase):
         agent.collect_innercity_transport.assert_not_called()
         self.assertIs(itinerary[0]["activities"][1]["transports"], transports)
 
+    def test_repair_replaces_late_route_for_early_arrival_constraint(self):
+        query = {
+            "people_number": 1,
+            "start_city": "A",
+            "target_city": "B",
+            "days": 1,
+        }
+        itinerary = [
+            {
+                "day": 1,
+                "activities": [
+                    {
+                        "position": "Hotel",
+                        "type": "breakfast",
+                        "start_time": "07:30",
+                        "end_time": "08:00",
+                        "transports": [],
+                    },
+                    {
+                        "position": "Museum",
+                        "type": "attraction",
+                        "start_time": "08:30",
+                        "end_time": "10:00",
+                        "transports": [
+                            {
+                                "start": "Hotel",
+                                "end": "Museum",
+                                "mode": "walk",
+                                "start_time": "08:00",
+                                "end_time": "09:30",
+                            }
+                        ],
+                    },
+                ],
+            }
+        ]
+        agent = MagicMock()
+        agent.activities_arrive_time_dict = {"Museum": ["early", "08:30"]}
+        agent.innercity_transports_ranking = ["walk", "metro"]
+        agent.segment_index = None
+        agent.memory = {}
+
+        def route(_city, start, end, start_time, mode):
+            arrival = "09:30" if mode == "walk" else "08:20"
+            return [
+                {
+                    "start": start,
+                    "end": end,
+                    "mode": mode,
+                    "start_time": start_time,
+                    "end_time": arrival,
+                }
+            ]
+
+        agent.collect_innercity_transport.side_effect = route
+        self.assertTrue(repair_activity_edge(agent, query, itinerary, 0, 1))
+        repaired = itinerary[0]["activities"][1]
+        self.assertEqual(repaired["transports"][0]["mode"], "metro")
+        self.assertEqual(repaired["start_time"], "08:20")
+
     def test_forward_time_chain_fixes_late_accommodation(self):
         itinerary = [
             {

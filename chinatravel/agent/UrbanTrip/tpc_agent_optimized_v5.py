@@ -86,7 +86,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.memory = {}
         external_timeout = kwargs.get("external_timeout")
         self.TIME_CUT = external_timeout if external_timeout is not None else (60 * 5 - 10)
-        self.EXTERNAL_TIMEOUT_BUFFER = 15  # finish search+fallback before run_tpc func_timeout (default 330s)
+        self.EXTERNAL_TIMEOUT_BUFFER = 60  # leave enough time for repair/fallback before the 330s outer timeout
         self.top_k_candidates = kwargs.get("top_k_candidates", 50)  # 候选截断数，提速后放宽以缓解"正解排第 n+1 不可达"
         self.enable_dav_postprocess = kwargs.get("enable_dav_postprocess", True)
         self.dav_postprocess_seconds = max(0.0, float(kwargs.get("dav_postprocess_seconds", 8.0)))
@@ -153,6 +153,12 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.must_not_visit_restaurant = constraints_json.get("must_not_visit_restaurant", None)
         self.must_not_visit_restaurant_type = constraints_json.get("must_not_visit_restaurant_type", None)
 
+        # DSL `{...} & set` means "any one of" (disjunction); `{...} <= set` means
+        # "all of" (conjunction). These flags let check_constraint pick intersection
+        # vs subset accordingly. Default False keeps the original subset (all) behavior.
+        self.must_see_attraction_type_match_any = constraints_json.get("attraction_type_match_any", False)
+        self.must_visit_restaurant_type_match_any = constraints_json.get("restaurant_type_match_any", False)
+
         self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
         self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
         self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
@@ -186,6 +192,61 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         self.requirement_list = requirement_list
         self._normalize_transport_rules()
+        self._force_arrive_time_pois()
+
+    def _force_arrive_time_pois(self):
+        """An arrive-time constraint (`if pos==X and start<=T: result=True`) requires
+        the plan to actually VISIT X before T, but the parser only records the time
+        window in activities_arrive_time_dict, so the named POI was never forced as a
+        must-visit and the search could skip it. Add each such POI to the matching
+        must-visit set (by its DB type) so the search includes it."""
+        arrive = getattr(self, "activities_arrive_time_dict", None) or {}
+        if not arrive:
+            return
+        mem = getattr(self, "memory", {}) or {}
+
+        def _names(kind):
+            df = mem.get(kind)
+            try:
+                return set(df["name"].astype(str)) if df is not None else set()
+            except Exception:
+                return set()
+
+        rest_names, attr_names, acc_names = _names("restaurants"), _names("attractions"), _names("accommodations")
+
+        def _add(attr, name):
+            cur = getattr(self, attr, None) or []
+            if not isinstance(cur, list):
+                cur = [cur]
+            if name not in cur:
+                setattr(self, attr, cur + [name])
+
+        for name in arrive:
+            if name in rest_names:
+                _add("must_visit_restaurant", name)
+            elif name in attr_names:
+                _add("must_see_attraction", name)
+            elif name in acc_names:
+                _add("must_live_hotel", name)
+
+    def _pending_early_arrive_restaurant(self, current_time):
+        """True if an unplaced must-visit restaurant has an 'early' arrive-time
+        deadline still ahead of current_time. Used to serve it as an early lunch
+        before morning attractions push the schedule past the deadline."""
+        arrive = getattr(self, "activities_arrive_time_dict", None) or {}
+        if not arrive:
+            return False
+        visiting = getattr(self, "restaurant_names_visiting", []) or []
+        for name in (self.must_visit_restaurant or []):
+            info = arrive.get(name)
+            if not info or info[0] != "early":
+                continue
+            if self._visited_contains(visiting, name):
+                continue
+            # only worth forcing lunch if we can still make the deadline (<= deadline)
+            if time_compare_if_earlier_equal(current_time, info[1]):
+                return True
+        return False
 
     def _constraint_branch_has_guidance(self, constraints_json):
         return any(
@@ -1501,6 +1562,120 @@ class UrbanTripOptimizedV5(BaseAgent):
             itinerary, target_row, target_kind
         )
 
+    def _replace_windowed_activity_in_itinerary(
+        self, itinerary, target_row, target_kind
+    ):
+        """Place a required POI directly in its verifier time window.
+
+        Search and ordinary replacement preserve the old activity slot.  That
+        cannot repair a named POI whose verifier requires ``start <= T`` and
+        ``end >= U`` when the closest generated slot starts after ``T``.  Pick
+        the existing target (when present), otherwise the closest compatible
+        slot, schedule it at the latest allowed start, and remove only
+        same-day activities that overlap the required interval.  Transport and
+        the remaining time chain are rebuilt by ``_try_accept_repair``.
+        """
+        name = target_row["name"]
+        arrive_info = (self.activities_arrive_time_dict or {}).get(name)
+        leave_info = (self.activities_leave_time_dict or {}).get(name)
+        if not arrive_info and not leave_info:
+            return None
+
+        desired_start = (
+            arrive_info[1]
+            if arrive_info and arrive_info[0] == "early"
+            else None
+        )
+        if desired_start is None:
+            return None
+        scheduled = self._scheduled_poi_times(
+            name,
+            desired_start,
+            target_row.get("opentime", "00:00"),
+            target_row.get("endtime", "23:59"),
+            90 if target_kind == "attraction" else 60,
+            "attraction" if target_kind == "attraction" else "dinner",
+        )
+        if scheduled is None:
+            return None
+        desired_start, desired_end = scheduled
+
+        protected = set(self.must_see_attraction or []) | set(
+            self.must_visit_restaurant or []
+        )
+        candidates = []
+        for day_idx, day in enumerate(itinerary or []):
+            for act_idx, activity in enumerate(day.get("activities", [])):
+                act_type = activity.get("type")
+                if target_kind == "attraction" and act_type != "attraction":
+                    continue
+                if target_kind == "restaurant" and act_type not in {"lunch", "dinner"}:
+                    continue
+                position = self._activity_position(activity)
+                if position in protected and position != name:
+                    continue
+                distance = abs(
+                    self._time_minutes(activity.get("start_time", desired_start))
+                    - self._time_minutes(desired_start)
+                )
+                day_size = len(day.get("activities", []))
+                candidates.append(
+                    (position != name, day_size, distance, day_idx, act_idx)
+                )
+        if not candidates:
+            return None
+
+        _, _, _, day_idx, act_idx = min(candidates)
+        updated = deepcopy(itinerary)
+        activity = updated[day_idx]["activities"][act_idx]
+        target_was_present = self._activity_position(activity) == name
+        activity["position"] = name
+        activity["price"] = int(target_row["price"])
+        activity["cost"] = int(target_row["price"]) * self.query["people_number"]
+        activity["start_time"], activity["end_time"] = desired_start, desired_end
+        if target_kind == "attraction":
+            activity["type"] = "attraction"
+            activity["tickets"] = self.query["people_number"]
+
+        start_min = self._time_minutes(desired_start)
+        end_min = self._time_minutes(desired_end)
+        cleaned = []
+        for idx, other in enumerate(updated[day_idx]["activities"]):
+            if idx == act_idx:
+                cleaned.append(other)
+                continue
+            if self._is_intercity_activity(other):
+                cleaned.append(other)
+                continue
+            if other.get("type") == "accommodation":
+                other_start = self._time_minutes(other.get("start_time"))
+                other_end = self._time_minutes(other.get("end_time"))
+                if other_start < end_min and start_min < other_end:
+                    other["start_time"] = desired_end
+                cleaned.append(other)
+                continue
+            position = self._activity_position(other)
+            if position in protected:
+                cleaned.append(other)
+                continue
+            other_start = self._time_minutes(other.get("start_time"))
+            other_end = self._time_minutes(other.get("end_time"))
+            if other_start < end_min and start_min < other_end:
+                continue
+            # A newly inserted fixed-window stop can make the next attraction
+            # unreachable before closing even when its old clock does not
+            # overlap.  Leave a three-hour travel margin; later attractions
+            # and meals remain available for the rest of the day.
+            if (
+                not target_was_present
+                and other.get("type") == "attraction"
+                and end_min <= other_start < end_min + 180
+            ):
+                continue
+            cleaned.append(other)
+        updated[day_idx]["activities"] = cleaned
+        return updated
+
     def _swap_order_pair_in_itinerary(self, itinerary, before_name, after_name):
         updated = deepcopy(itinerary)
         before_ref = None
@@ -1559,14 +1734,16 @@ class UrbanTripOptimizedV5(BaseAgent):
         positions = self._plan_positions(repaired.get("itinerary"))
         attr_info = self.memory["attractions"]
         for name in self.must_see_attraction or []:
-            if name in positions:
-                continue
             match = attr_info[attr_info["name"] == name]
             if match.empty:
                 continue
-            candidate_itinerary = self._replace_activity_in_itinerary(
+            candidate_itinerary = self._replace_windowed_activity_in_itinerary(
                 repaired["itinerary"], match.iloc[0], "attraction"
             )
+            if candidate_itinerary is None and name not in positions:
+                candidate_itinerary = self._replace_activity_in_itinerary(
+                    repaired["itinerary"], match.iloc[0], "attraction"
+                )
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
                 positions = self._plan_positions(repaired.get("itinerary"))
@@ -1579,11 +1756,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                     if act.get("type") != "attraction":
                         continue
                     match = attr_info[attr_info["name"] == act.get("position")]
-                    if not match.empty and match.iloc[0].get("type") == attr_type:
+                    if not match.empty and self._canon_type("attraction", match.iloc[0].get("type")) == self._canon_type("attraction", attr_type):
                         present = True
             if present:
                 continue
-            match = attr_info[attr_info["type"] == attr_type]
+            match = attr_info[self._type_match_mask(attr_info["type"], attr_type, "attraction")]
             if match.empty:
                 continue
             candidate_itinerary = self._replace_activity_in_itinerary(
@@ -1595,14 +1772,16 @@ class UrbanTripOptimizedV5(BaseAgent):
         positions = self._plan_positions(repaired.get("itinerary"))
         res_info = self.memory["restaurants"]
         for name in self.must_visit_restaurant or []:
-            if name in positions:
-                continue
             match = res_info[res_info["name"] == name]
             if match.empty:
                 continue
-            candidate_itinerary = self._replace_activity_in_itinerary(
+            candidate_itinerary = self._replace_windowed_activity_in_itinerary(
                 repaired["itinerary"], match.iloc[0], "restaurant"
             )
+            if candidate_itinerary is None and name not in positions:
+                candidate_itinerary = self._replace_activity_in_itinerary(
+                    repaired["itinerary"], match.iloc[0], "restaurant"
+                )
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
                 positions = self._plan_positions(repaired.get("itinerary"))
@@ -1615,11 +1794,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                     if act.get("type") not in {"lunch", "dinner"}:
                         continue
                     match = res_info[res_info["name"] == act.get("position")]
-                    if not match.empty and match.iloc[0].get("cuisine") == cuisine:
+                    if not match.empty and self._canon_type("restaurant", match.iloc[0].get("cuisine")) == self._canon_type("restaurant", cuisine):
                         present = True
             if present:
                 continue
-            match = res_info[res_info["cuisine"] == cuisine]
+            match = res_info[self._type_match_mask(res_info["cuisine"], cuisine, "restaurant")]
             if match.empty:
                 continue
             candidate_itinerary = self._replace_activity_in_itinerary(
@@ -2095,9 +2274,15 @@ class UrbanTripOptimizedV5(BaseAgent):
                 ~candidate_res_list["name"].isin(self.must_not_visit_restaurant)
             ]
         if self.must_not_visit_restaurant_type is not None:
-            candidate_res_list = candidate_res_list[
-                ~candidate_res_list["cuisine"].isin(self.must_not_visit_restaurant_type)
-            ]
+            # Canonicalize DB cuisine the same way the verifier does (e.g. DB "cafe"
+            # -> "coffee shop"), then match case-insensitively, so alias/case variants
+            # are excluded consistently with the official eval.
+            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+            _excluded = {normalize_concept_value("restaurant", str(t)).lower() for t in self.must_not_visit_restaurant_type}
+            _canon = candidate_res_list["cuisine"].astype(str).map(
+                lambda c: str(normalize_concept_value("restaurant", c)).lower()
+            )
+            candidate_res_list = candidate_res_list[~_canon.isin(_excluded)]
         if self.must_visit_restaurant is not None:
             for must_name in self.must_visit_restaurant:
                 if must_name not in candidate_res_list["name"].values:
@@ -2177,7 +2362,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         for cuisine in self.must_visit_restaurant_type:
             if self._visited_contains(self.food_type_visiting, cuisine):
                 continue
-            must_type = res_info[res_info["cuisine"] == cuisine]
+            must_type = res_info[self._type_match_mask(res_info["cuisine"], cuisine, "restaurant")]
             if not must_type.empty:
                 must_type_candidates = pd.concat(
                     [must_type_candidates, must_type]
@@ -2438,9 +2623,15 @@ class UrbanTripOptimizedV5(BaseAgent):
                 ~candidate_attr_list["name"].isin(self.must_not_see_attraction)
             ]
         if self.must_not_see_attraction_type is not None:
-            candidate_attr_list = candidate_attr_list[
-                ~candidate_attr_list["type"].isin(self.must_not_see_attraction_type)
-            ]
+            # Canonicalize DB types the same way the verifier does (alias + case),
+            # so forbidden types are excluded consistently regardless of the DB's
+            # inconsistent casing/aliases across cities.
+            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+            _excluded_types = {normalize_concept_value("attraction", str(t)).lower() for t in self.must_not_see_attraction_type}
+            _canon_attr = candidate_attr_list["type"].astype(str).map(
+                lambda t: str(normalize_concept_value("attraction", t)).lower()
+            )
+            candidate_attr_list = candidate_attr_list[~_canon_attr.isin(_excluded_types)]
         if self.must_see_attraction is not None:
             for must_name in self.must_see_attraction:
                 if must_name not in candidate_attr_list["name"].values:
@@ -2491,7 +2682,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         for must_type in self.must_see_attraction_type:
             if self._visited_contains(self.spot_type_visiting, must_type):
                 continue
-            must_attr = attr_info[attr_info["type"] == must_type]
+            must_attr = attr_info[self._type_match_mask(attr_info["type"], must_type, "attraction")]
             if not must_attr.empty:
                 must_type_candidates = pd.concat(
                     [must_type_candidates, must_attr]
@@ -2736,7 +2927,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self._dfs_log(self.backtrack_count)
         # if self.backtrack_count > 5800 or time.time() - self.time_before_search + 20 > self.TIME_CUT + self.llm_inference_time_count:
         #     self.too_many_backtrack = True
-        if self._search_time_exceeded(slack=20):
+        if self._search_time_exceeded():
             self.too_many_backtrack = True
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
@@ -3212,6 +3403,18 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         return False, plan
 
+    def _canon_type(self, kind, value):
+        """Canonicalize a POI type/cuisine the same way the verifier does
+        (concept alias + lowercase), so the planner matches DB values like
+        "hot pot"/"university campus" against constraint labels "Hot pot"/"University campus"."""
+        from chinatravel.symbol_verification.concept_func import normalize_concept_value
+        return str(normalize_concept_value(kind, str(value))).lower()
+
+    def _type_match_mask(self, series, target, kind):
+        """Boolean mask of rows whose canonicalized type/cuisine equals target."""
+        t = self._canon_type(kind, target)
+        return series.astype(str).map(lambda v: self._canon_type(kind, v) == t)
+
     def check_constraint(self, plan, constraints):
         # 初始化访问记录
         visited_attractions = set()
@@ -3282,9 +3485,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 print("visited must_not_see_attraction")
                                 backtrack = True
 
-                        # must_not_see_attraction_type
+                        # must_not_see_attraction_type (canonicalized like the verifier)
                         if "must_not_see_attraction_type" in constraints:
-                            if poi_info["type"] in constraints["must_not_see_attraction_type"]:
+                            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+                            _excl = {normalize_concept_value("attraction", str(t)).lower() for t in constraints["must_not_see_attraction_type"]}
+                            if str(normalize_concept_value("attraction", poi_info["type"])).lower() in _excl:
                                 print("visited must_not_see_attraction_type")
                                 backtrack = True
 
@@ -3306,9 +3511,11 @@ class UrbanTripOptimizedV5(BaseAgent):
                                 print("visited must_not_visit_restaurant")
                                 backtrack = True
 
-                        # must_not_visit_restaurant_type
+                        # must_not_visit_restaurant_type (canonicalized like the verifier)
                         if "must_not_visit_restaurant_type" in constraints:
-                            if poi_info["cuisine"] in constraints["must_not_visit_restaurant_type"]:
+                            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+                            _excl_cui = {normalize_concept_value("restaurant", str(t)).lower() for t in constraints["must_not_visit_restaurant_type"]}
+                            if str(normalize_concept_value("restaurant", poi_info["cuisine"])).lower() in _excl_cui:
                                 print("visited must_not_visit_restaurant_type")
                                 backtrack = True
 
@@ -3320,8 +3527,14 @@ class UrbanTripOptimizedV5(BaseAgent):
                 logic_fail = True
 
         if "must_see_attraction_type" in constraints:
-            required = set(constraints["must_see_attraction_type"])
-            if not required.issubset(visited_attraction_types):
+            # Canonicalize both sides (alias + case) like the verifier: DB types are
+            # inconsistently cased across cities (e.g. "university campus").
+            required = {self._canon_type("attraction", t) for t in constraints["must_see_attraction_type"]}
+            visited_ct = {self._canon_type("attraction", t) for t in visited_attraction_types}
+            if getattr(self, "must_see_attraction_type_match_any", False):
+                if not (required & visited_ct):
+                    logic_fail = True
+            elif not required.issubset(visited_ct):
                 logic_fail = True
 
         if "must_visit_restaurant" in constraints:
@@ -3330,8 +3543,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                 logic_fail = True
 
         if "must_visit_restaurant_type" in constraints:
-            required = set(constraints["must_visit_restaurant_type"])
-            if not required.issubset(visited_restaurant_types):
+            # Canonicalize both sides: DB cuisine e.g. "hot pot" -> "Hot pot".
+            required = {self._canon_type("restaurant", t) for t in constraints["must_visit_restaurant_type"]}
+            visited_ct = {self._canon_type("restaurant", t) for t in visited_restaurant_types}
+            if getattr(self, "must_visit_restaurant_type_match_any", False):
+                if not (required & visited_ct):
+                    logic_fail = True
+            elif not required.issubset(visited_ct):
                 logic_fail = True
 
         if "must_innercity_transport" in constraints:
@@ -3457,7 +3675,13 @@ class UrbanTripOptimizedV5(BaseAgent):
         days = max(1, int(self.query.get("days", 1))) if hasattr(self, "query") else 1
         people = max(1, int(self.query.get("people_number", 1))) if hasattr(self, "query") else 1
         per_day_budget = float(self.innercity_budget) / days
-        return per_day_budget <= max(25.0, people * 18.0)
+        # Inner-city cost scales with party size (per-ticket * people, taxi cars),
+        # so a budget that looks loose in absolute terms can be tight per person.
+        # Additive: keep the original trigger and also enable the saver when the
+        # per-person-per-day budget is tight (catches large-party tight-budget trips
+        # that otherwise waste budget on taxis and exhaust it before completing).
+        per_person_per_day = per_day_budget / people
+        return per_day_budget <= max(25.0, people * 18.0) or per_person_per_day <= 60.0
 
     def _budget_pressure(self, budget, spent):
         if budget is None:
@@ -3758,11 +3982,24 @@ class UrbanTripOptimizedV5(BaseAgent):
         return re.sub(r"\s+", " ", str(value).strip().lower())
 
     def _normalized_hotel_features(self, hotel_row):
-        return [
-            self._normalize_hotel_feature(item)
-            for item in str(hotel_row.get("featurehoteltype", "")).split(",")
-            if item.strip()
-        ]
+        # Apply the same concept alias the official verifier uses (accommodation_type
+        # -> normalize_concept_value), so a DB feature like "Bed and breakfast"
+        # matches a "homestay" constraint. Without this the planner compares the raw
+        # DB value against the (alias-normalized) constraint and finds no hotel,
+        # failing the whole search.
+        try:
+            from chinatravel.symbol_verification.concept_func import normalize_concept_value
+        except Exception:
+            normalize_concept_value = None
+        features = []
+        for item in str(hotel_row.get("featurehoteltype", "")).split(","):
+            item = item.strip()
+            if not item:
+                continue
+            if normalize_concept_value is not None:
+                item = normalize_concept_value("accommodation", item)
+            features.append(self._normalize_hotel_feature(item))
+        return features
 
     def _hotel_matches_forbidden_feature(self, hotel_row):
         if not self.must_not_live_hotel_feature:
@@ -3876,6 +4113,17 @@ class UrbanTripOptimizedV5(BaseAgent):
             anchors.append(go_transport["To"])
         if back_transport is not None:
             anchors.append(back_transport["From"])
+        # An early named POI is effectively another fixed terminal: choosing a
+        # cheap airport hotel tens of kilometres away can make ``start <= T``
+        # impossible or consume the whole inner-city budget the next morning.
+        for poi_name, arrive_info in (self.activities_arrive_time_dict or {}).items():
+            if (
+                arrive_info
+                and arrive_info[0] == "early"
+                and time_compare_if_earlier_equal(arrive_info[1], "09:00")
+                and poi_name not in anchors
+            ):
+                anchors.append(poi_name)
 
         ranking_idx = [
             idx
@@ -4417,6 +4665,13 @@ class UrbanTripOptimizedV5(BaseAgent):
             else:
                 return candidates_type[0], candidates_type
 
+        # Arrive-time restaurant: a named restaurant must be visited before T
+        # (e.g. <=11:00). Take lunch BEFORE morning attractions push the clock past
+        # the deadline, so the required restaurant can be served at the early-lunch
+        # slot. Tightly gated: only when such a restaurant is still pending.
+        if "lunch" in candidates_type and self._pending_early_arrive_restaurant(current_time):
+            return "lunch", candidates_type
+
         if time_compare_if_earlier_equal("08:30", current_time) and time_compare_if_earlier_equal(current_time, "10:30"):
             if "attraction" in candidates_type:
                 return "attraction", candidates_type
@@ -4588,6 +4843,13 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         def parse_single_dsl(dsl_str, query):
             """对单条 DSL 进行匹配"""
+            # Use the same canonical concept labels and legacy quote repair as
+            # the official evaluator before extracting planner constraints.
+            # Otherwise names such as ``Chef's ...`` are truncated and English
+            # type aliases (for example ``red tourism sites``) never match the
+            # database values used by search.
+            dsl_str = normalize_concept_constraint_source(dsl_str)
+            dsl_str = normalize_hard_logic_constraint(dsl_str)
             res = {}
 
             def _append_unique(key, values):
@@ -4670,6 +4932,18 @@ class UrbanTripOptimizedV5(BaseAgent):
             res["must_visit_restaurant_type"] = _extract_set_constraints("restaurant_type_set")
             res["must_not_visit_restaurant"] = _extract_set_constraints("restaurant_name_set", negative=True)
             res["must_not_visit_restaurant_type"] = _extract_set_constraints("restaurant_type_set", negative=True)
+
+            def _match_any(var_name):
+                # Positive `result = ({...} & var)` / `(var & {...})` is intersection
+                # semantics -> "any one of". `<=` (subset) is "all of". NEG uses
+                # `result = not(... & ...)` and is excluded by requiring `(` right after `=`.
+                return bool(
+                    re.search(rf"result\s*=\s*\(\s*\{{[^}}]*\}}\s*&\s*{var_name}", dsl_str)
+                    or re.search(rf"result\s*=\s*\(\s*{var_name}\s*&\s*\{{[^}}]*\}}", dsl_str)
+                )
+
+            res["attraction_type_match_any"] = _match_any("attraction_type_set")
+            res["restaurant_type_match_any"] = _match_any("restaurant_type_set")
 
             # hotel
             res["must_live_hotel"] = _extract_set_constraints("accommodation_name_set")
@@ -5148,7 +5422,17 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         arrived_time = current_time  # 兜底默认值，防止后续分支未赋值时引用导致 NameError
 
-        if current_time != "" and time_compare_if_earlier_equal("23:00", current_time):
+        # The blanket "after 23:00 = give up" rule wrongly prunes a late
+        # intercity arrival on a non-final day, where the only remaining move is
+        # to go to the hotel and sleep (a perfectly valid plan). Only keep the
+        # hard cutoff on the final day (where a late state risks missing the
+        # return transport); on other days fall through to the hotel-reachability
+        # branch below.
+        if (
+            current_time != ""
+            and time_compare_if_earlier_equal("23:00", current_time)
+            and current_day == query["days"] - 1
+        ):
             print("too late, after 23:00")
             return True
 

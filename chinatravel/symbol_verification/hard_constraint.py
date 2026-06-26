@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 import re
 
 from chinatravel.environment.tools.accommodations.apis import Accommodations
@@ -9,7 +10,11 @@ from chinatravel.environment.tools.intercity_transport.apis import IntercityTran
 from chinatravel.environment.tools.transportation.apis import Transportation
 from chinatravel.environment.language import CITY_NAMES, normalize_lang
 
-from chinatravel.symbol_verification.concept_func import func_dict, set_concept_func_lang
+from chinatravel.symbol_verification.concept_func import (
+    func_dict,
+    normalize_concept_constraint_source,
+    set_concept_func_lang,
+)
 from chinatravel.evaluation.utils import load_json_file
 
 import pandas as pd
@@ -22,64 +27,6 @@ attractions = Attractions()
 _TOOLS_BY_LANG = {
     "zh": (accommodation, restaurants, attractions)
 }
-
-_POI_DISTANCE_ACCOMMODATION_RE = re.compile(
-    r"(poi_distance\(target_city\(plan\)\s*,\s*)(['\"])(.+)\2(\s*,\s*accommodation_position\))"
-)
-
-
-def _normalize_poi_distance_literals(constraint):
-    def replace_match(match):
-        poi_name = match.group(3).replace("\\'", "'").replace('\\"', '"')
-        return f"{match.group(1)}{poi_name!r}{match.group(4)}"
-
-    lines = []
-    for line in constraint.splitlines():
-        if "poi_distance" in line and "accommodation_position" in line:
-            line = _POI_DISTANCE_ACCOMMODATION_RE.sub(replace_match, line)
-        lines.append(line)
-    return "\n".join(lines)
-
-
-def _replace_comparison_literal(line, pattern):
-    match = re.search(pattern, line)
-    if not match:
-        return line
-    quote = match.group("quote")
-    content_start = match.end()
-    closing = None
-    for idx in range(content_start, len(line)):
-        if line[idx] != quote:
-            continue
-        if idx > content_start and line[idx - 1] == "\\":
-            continue
-        rest = line[idx + 1 :].lstrip()
-        if not rest or rest[0] in ":)]},&|":
-            closing = idx
-    if closing is None:
-        return line
-    raw_value = line[content_start:closing]
-    value = raw_value.replace("\\'", "'").replace('\\"', '"')
-    return f"{line[:match.start('quote')]}{value!r}{line[closing + 1:]}"
-
-
-def _normalize_activity_position_literals(constraint):
-    pattern = (
-        r"activity_position\(activity\)\s*(?:==|!=)\s*"
-        r"(?P<quote>['\"])"
-    )
-    return "\n".join(
-        _replace_comparison_literal(line, pattern)
-        if "activity_position(activity)" in line
-        else line
-        for line in constraint.splitlines()
-    )
-
-
-def normalize_hard_logic_constraint(constraint):
-    constraint = _normalize_poi_distance_literals(constraint)
-    constraint = _normalize_activity_position_literals(constraint)
-    return constraint
 
 
 def _infer_lang(symbolic_input):
@@ -103,6 +50,41 @@ def _set_tool_lang(lang):
         )
     accommodation, restaurants, attractions = _TOOLS_BY_LANG[lang]
     set_concept_func_lang(lang)
+
+
+_ACTIVITY_POSITION_EQ_RE = re.compile(
+    r"^(?P<prefix>\s*if\s+activity_position\(activity\)\s*==\s*)'"
+    r"(?P<value>.*)'(?P<suffix>\s*:\s*)$",
+    re.MULTILINE,
+)
+_POI_DISTANCE_TARGET_RE = re.compile(
+    r"poi_distance\((?P<prefix>\s*target_city\(plan\)\s*,\s*)'"
+    r"(?P<value>[^\n]*)'(?P<suffix>\s*,\s*accommodation_position\s*\))"
+)
+
+
+def _normalize_legacy_hard_logic_py(constraint):
+    """Rewrite generated POI string literals that were emitted with single quotes."""
+    if not isinstance(constraint, str):
+        return constraint
+
+    def replace_activity_position(match):
+        return (
+            f"{match.group('prefix')}"
+            f"{json.dumps(match.group('value'), ensure_ascii=False)}"
+            f"{match.group('suffix')}"
+        )
+
+    def replace_poi_distance(match):
+        return (
+            "poi_distance("
+            f"{match.group('prefix')}"
+            f"{json.dumps(match.group('value'), ensure_ascii=False)}"
+            f"{match.group('suffix')}"
+        )
+
+    constraint = _ACTIVITY_POSITION_EQ_RE.sub(replace_activity_position, constraint)
+    return _POI_DISTANCE_TARGET_RE.sub(replace_poi_distance, constraint)
 
 
 def calc_cost_from_itinerary_wo_intercity(itinerary, people_number):
@@ -503,15 +485,17 @@ for activity in allactivities(plan):
 """
     # hard_logic_py.append(debug_logic_py)
     for constraint in hard_logic_py:
+        original_constraint = constraint
+        constraint = normalize_concept_constraint_source(constraint)
+        constraint = _normalize_legacy_hard_logic_py(constraint)
         vars_dict = deepcopy(func_dict)
         vars_dict["plan"] = plan
         # exec(constraint, {"__builtins__": {"set": set, "print": print}}, vars_dict)
         # results.append(vars_dict.get("result", False))
         try:
             # Evaluate the constraint in a safe manner
-            constraint_to_exec = normalize_hard_logic_constraint(constraint)
             exec(
-                constraint_to_exec,
+                constraint,
                 {
                     "__builtins__": {
                         "set": set,
@@ -526,7 +510,7 @@ for activity in allactivities(plan):
             # results.append(result)
         except Exception as e:
             if verbose:
-                print(f"Error evaluating constraint '{constraint}': {e}")
+                print(f"Error evaluating constraint '{original_constraint}': {e}")
             results.append(False)
         # print(results)
     return results
@@ -547,3 +531,70 @@ if __name__ == "__main__":
         symbolic_input_list, plan_json_list
     )
     print("macro: {}%, micro: {}%".format(macro_accuracy, micro_accuracy))
+
+
+# ---------------------------------------------------------------------------
+# Backward-compat shim: the planner (nl2sl_hybrid*, UrbanTrip v2-v5,
+# personal_constraint_nl) imports normalize_hard_logic_constraint to normalize
+# DSL literals (escaped quotes in POI names / poi_distance args) before parsing.
+# The official verifier dropped this helper in favor of its own canonicalization
+# path, so we re-expose it here for the agent side only. It does NOT change the
+# evaluator's exec path.
+# ---------------------------------------------------------------------------
+_POI_DISTANCE_ACCOMMODATION_RE = re.compile(
+    r"(poi_distance\(target_city\(plan\)\s*,\s*)(['\"])(.+)\2(\s*,\s*accommodation_position\))"
+)
+
+
+def _normalize_poi_distance_literals(constraint):
+    def replace_match(match):
+        poi_name = match.group(3).replace("\\'", "'").replace('\\"', '"')
+        return f"{match.group(1)}{poi_name!r}{match.group(4)}"
+
+    lines = []
+    for line in constraint.splitlines():
+        if "poi_distance" in line and "accommodation_position" in line:
+            line = _POI_DISTANCE_ACCOMMODATION_RE.sub(replace_match, line)
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def _replace_comparison_literal(line, pattern):
+    match = re.search(pattern, line)
+    if not match:
+        return line
+    quote = match.group("quote")
+    content_start = match.end()
+    closing = None
+    for idx in range(content_start, len(line)):
+        if line[idx] != quote:
+            continue
+        if idx > content_start and line[idx - 1] == "\\":
+            continue
+        rest = line[idx + 1 :].lstrip()
+        if not rest or rest[0] in ":)]},&|":
+            closing = idx
+    if closing is None:
+        return line
+    raw_value = line[content_start:closing]
+    value = raw_value.replace("\\'", "'").replace('\\"', '"')
+    return f"{line[:match.start('quote')]}{value!r}{line[closing + 1:]}"
+
+
+def _normalize_activity_position_literals(constraint):
+    pattern = (
+        r"activity_position\(activity\)\s*(?:==|!=)\s*"
+        r"(?P<quote>['\"])"
+    )
+    return "\n".join(
+        _replace_comparison_literal(line, pattern)
+        if "activity_position(activity)" in line
+        else line
+        for line in constraint.splitlines()
+    )
+
+
+def normalize_hard_logic_constraint(constraint):
+    constraint = _normalize_poi_distance_literals(constraint)
+    constraint = _normalize_activity_position_literals(constraint)
+    return constraint

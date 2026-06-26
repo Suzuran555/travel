@@ -6,6 +6,47 @@ from chinatravel.environment.language import CITY_NAMES, normalize_lang
 
 _current_lang = "zh"
 _TOOLS_BY_LANG = {}
+_CONCEPT_VALUE_ALIASES = {
+    "attraction": {
+        "Art Museum": "Art museum",
+        "Cultural Attractions": "Cultural Landscape",
+        "Historical Site": "historical site",
+        "Natural Scenery": "natural scenery",
+        "Park": "park",
+        "red tourism sites": "Red tourism sites",
+        "university campus": "University campus",
+    },
+    "restaurant": {
+        "Bread and Desserts": "Bakery and Desserts",
+        "cafe": "coffee shop",
+        "Fast food and simple meals": "Fast food and casual dining",
+        "hot pot": "Hot pot",
+    },
+    "accommodation": {
+        "Air Purifier": "Air purifier",
+        "Bed and Breakfast": "homestay",
+        "Bed and breakfast": "homestay",
+        "Designer Hotel": "Designer hotel",
+        "Family Theme Room": "Family-themed room",
+        "Family-themed Room": "Family-themed room",
+        "Great View from the Window": "Great view from the window",
+        "Scenic Window View": "Great view from the window",
+        "Instagrammable swimming pool": "Instagrammable pool",
+        "Chess and Card Room": "Mahjong and Card Game Room",
+        "Mahjong and Card Room": "Mahjong and Card Game Room",
+        "Serviced Apartment": "Hotel Apartment",
+        "small but beautiful": "small and beautiful",
+        "SPA": "Spa",
+        "Stunning night views": "Stunning Night Views",
+        "Swimming pool": "Swimming Pool",
+        "viral swimming pool": "Instagrammable pool",
+    },
+}
+_CONCEPT_LITERAL_ALIASES = {
+    alias: canonical
+    for aliases in _CONCEPT_VALUE_ALIASES.values()
+    for alias, canonical in aliases.items()
+}
 
 
 def _infer_lang_from_city(city):
@@ -28,6 +69,24 @@ def _tools_for_lang(lang=None):
 def set_concept_func_lang(lang=None):
     global _current_lang
     _current_lang = normalize_lang(lang)
+
+
+def normalize_concept_value(kind, value):
+    if not isinstance(value, str):
+        return value
+    return _CONCEPT_VALUE_ALIASES.get(kind, {}).get(value, value)
+
+
+def normalize_concept_constraint_source(source):
+    if not isinstance(source, str):
+        return source
+    normalized = source
+    for alias, canonical in _CONCEPT_LITERAL_ALIASES.items():
+        for quote in ("'", '"'):
+            normalized = normalized.replace(
+                f"{quote}{alias}{quote}", f"{quote}{canonical}{quote}"
+            )
+    return normalized
 
 
 def day_count(plan):
@@ -202,7 +261,7 @@ def restaurant_type(activity, target_city):
         target_city, key="name", func=lambda x: x == activity["position"]
     )["cuisine"]
     if not select_food_type.empty:
-        return select_food_type.iloc[0]
+        return normalize_concept_value("restaurant", select_food_type.iloc[0])
     return "empty"
 
 
@@ -212,7 +271,7 @@ def attraction_type(activity, target_city):
         target_city, key="name", func=lambda x: x == activity["position"]
     )["type"]
     if not select_attr_type.empty:
-        return select_attr_type.iloc[0]
+        return normalize_concept_value("attraction", select_attr_type.iloc[0])
     return ""
 
 
@@ -222,7 +281,7 @@ def accommodation_type(activity, target_city):
         target_city, key="name", func=lambda x: x == activity["position"]
     )["featurehoteltype"]
     if not select_hotel_type.empty:
-        return select_hotel_type.iloc[0]
+        return normalize_concept_value("accommodation", select_hotel_type.iloc[0])
     return ""
 
 
