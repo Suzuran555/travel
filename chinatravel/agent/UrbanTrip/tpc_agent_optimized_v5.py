@@ -88,6 +88,12 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.TIME_CUT = external_timeout if external_timeout is not None else (60 * 5 - 10)
         self.EXTERNAL_TIMEOUT_BUFFER = 15  # finish search+fallback before run_tpc func_timeout (default 330s)
         self.top_k_candidates = kwargs.get("top_k_candidates", 50)  # 候选截断数，提速后放宽以缓解"正解排第 n+1 不可达"
+        self.enable_dav_postprocess = kwargs.get("enable_dav_postprocess", True)
+        self.dav_postprocess_seconds = max(0.0, float(kwargs.get("dav_postprocess_seconds", 8.0)))
+        self.dav_postprocess_max_attempts = max(0, int(kwargs.get("dav_postprocess_max_attempts", 24)))
+        self.dav_postprocess_candidates_per_gap = max(
+            1, int(kwargs.get("dav_postprocess_candidates_per_gap", 3))
+        )
         self.debug = kwargs.get("debug", False)
         self.use_llm_dynamic_weights = kwargs.get(
             "use_llm_dynamic_weights",
@@ -96,6 +102,8 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.dynamic_weight_debug = kwargs.get("dynamic_weight_debug", False)
         self._dynamic_weight_cache = {}
         self._dynamic_ranking_context = None
+        self._candidate_static_cache = {}
+        self.too_many_backtrack = False
         self.lang = kwargs.get("lang", "zh")
         self.poi_search = Poi(lang=self.lang)
         self._distance_cache = {}  # (city, frozenset({start, end})) -> 球面距离，单次搜索内复用
@@ -300,6 +308,7 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         if isinstance(plan_out, dict) and plan_out.get("itinerary"):
             plan_out = self._eprsafe_output_plan(query, plan_out)
+            plan_out = self._postprocess_insert_attractions_for_dav(query, plan_out)
 
         return succ, plan_out
 
@@ -1090,6 +1099,271 @@ class UrbanTripOptimizedV5(BaseAgent):
 
     def _hard_pass_count(self, query, res_plan):
         return int(np.sum(self._hard_logic_results(query, res_plan)))
+
+    def _plan_passes_all_constraints(self, query, res_plan):
+        if not isinstance(res_plan, dict) or not res_plan.get("itinerary"):
+            return False
+        public_query = self._public_query(query)
+        try:
+            if not func_commonsense_constraints(public_query, res_plan, verbose=False):
+                return False
+            logical_result = evaluate_constraints_py(
+                public_query["hard_logic_py"], res_plan, verbose=False
+            )
+        except Exception:
+            return False
+        return bool(logical_result) and all(logical_result)
+
+    def _activity_start_position(self, activity):
+        if not isinstance(activity, dict):
+            return ""
+        if self._is_intercity_activity(activity):
+            return activity.get("start", "")
+        return activity.get("position", "")
+
+    def _activity_end_position(self, activity):
+        return self._activity_position(activity)
+
+    def _poi_coordinate(self, name):
+        if not name:
+            return None
+        for key in ("attractions", "restaurants", "accommodations"):
+            info = self.memory.get(key)
+            if info is None or "name" not in info.columns:
+                continue
+            match = info[info["name"] == name]
+            if not match.empty and {"lat", "lon"}.issubset(match.columns):
+                row = match.iloc[0]
+                try:
+                    return float(row["lat"]), float(row["lon"])
+                except (TypeError, ValueError):
+                    return None
+        return None
+
+    def _rank_dav_insertion_candidates(self, candidates, prev_position, next_position):
+        if candidates.empty:
+            return candidates
+        prev_coord = self._poi_coordinate(prev_position)
+        next_coord = self._poi_coordinate(next_position)
+        if prev_coord is None or next_coord is None:
+            return candidates.sort_values(by=["price", "name"], ascending=[True, True])
+
+        direct_distance = geodesic(prev_coord, next_coord).kilometers
+
+        def added_distance(row):
+            try:
+                attr_coord = (float(row["lat"]), float(row["lon"]))
+            except (TypeError, ValueError):
+                return float("inf")
+            return (
+                geodesic(prev_coord, attr_coord).kilometers
+                + geodesic(attr_coord, next_coord).kilometers
+                - direct_distance
+            )
+        # Use the distance to order candidates
+        ranked = candidates.copy()
+        ranked["_dav_added_distance"] = ranked.apply(added_distance, axis=1)
+        return ranked.sort_values(
+            by=["_dav_added_distance", "price", "name"], ascending=[True, True, True]
+        ).drop(columns=["_dav_added_distance"], errors="ignore")
+
+    def _postprocess_transport_modes(self, query, start, end):
+        modes = list(self.innercity_transports_ranking)
+        if self.transport_rules_by_distance is not None:
+            distance = self.calculate_distance(query, start, end)
+            modes = self.get_transport_by_distance(distance)
+        return modes
+
+    def _postprocess_collect_transport(self, query, start, end, start_time, mode):
+        transports = self.collect_innercity_transport(
+            query["target_city"], start, end, start_time, mode
+        )
+        if not isinstance(transports, list):
+            return None, None
+        if transport_rules_violated(self, transports):
+            return None, None
+        if not self._innercity_transports_valid(transports):
+            return None, None
+        return transports, arrived_time(start_time, transports) if transports else start_time
+
+    def _try_build_dav_insertion(
+        self, query, itinerary, day_idx, insert_idx, attr_row
+    ):
+        """Build one candidate itinerary with an extra attraction inserted.
+
+        The insertion point is the gap before ``activities[insert_idx]`` on
+        ``day_idx``:
+
+            previous activity -> candidate attraction -> next activity
+
+        This helper only checks local schedule/transport feasibility for that
+        gap and rewires the next activity's incoming transport.  It returns a
+        deep-copied itinerary candidate, or ``None`` if the attraction cannot
+        fit.  Whole-plan commonsense and hard-logic validation happen later in
+        ``_validated_dav_insertion_plan`` before the candidate can be accepted.
+        """
+        updated = deepcopy(itinerary)
+        activities = updated[day_idx].get("activities", [])
+        if insert_idx <= 0 or insert_idx >= len(activities):
+            return None
+
+        prev_act = activities[insert_idx - 1]
+        next_act = activities[insert_idx]
+        prev_position = self._activity_end_position(prev_act)
+        next_position = self._activity_start_position(next_act)
+        current_time = prev_act.get("end_time", "")
+        next_start = next_act.get("start_time", "")
+        if not prev_position or not next_position or not current_time or not next_start:
+            return None
+        if not time_compare_if_earlier_equal(current_time, next_start):
+            return None
+
+        for mode_to_attr in self._postprocess_transport_modes(query, prev_position, attr_row["name"]):
+            transports_to_attr, attr_arrival = self._postprocess_collect_transport(
+                query, prev_position, attr_row["name"], current_time, mode_to_attr
+            )
+            if transports_to_attr is None:
+                continue
+            scheduled = self._scheduled_poi_times(
+                attr_row["name"],
+                attr_arrival,
+                attr_row.get("opentime", "00:00"),
+                attr_row.get("endtime", "23:59"),
+                90,
+                "attraction",
+            )
+            if scheduled is None:
+                continue
+            attr_start, attr_end = scheduled
+            if not time_compare_if_earlier_equal(attr_end, next_start):
+                continue
+
+            for mode_to_next in self._postprocess_transport_modes(query, attr_row["name"], next_position):
+                transports_to_next, next_arrival = self._postprocess_collect_transport(
+                    query, attr_row["name"], next_position, attr_end, mode_to_next
+                )
+                if transports_to_next is None:
+                    continue
+                if not time_compare_if_earlier_equal(next_arrival, next_start):
+                    continue
+
+                activities.insert(
+                    insert_idx,
+                    {
+                        "position": attr_row["name"],
+                        "type": "attraction",
+                        "price": int(attr_row["price"]),
+                        "cost": int(attr_row["price"]) * query["people_number"],
+                        "tickets": query["people_number"],
+                        "start_time": attr_start,
+                        "end_time": attr_end,
+                        "transports": transports_to_attr,
+                    },
+                )
+                activities[insert_idx + 1]["transports"] = transports_to_next
+                return updated
+        return None
+
+    def _validated_dav_insertion_plan(self, query, plan, candidate_itinerary):
+        candidate = deepcopy(plan)
+        candidate["itinerary"] = candidate_itinerary
+        repair_full_itinerary(self, query, candidate["itinerary"])
+        if not self._plan_passes_all_constraints(query, candidate):
+            return None
+        candidate["commonsense_pass"] = True
+        candidate["hard_pass_count"] = self._hard_pass_count(query, candidate)
+        return candidate
+
+    def _postprocess_insert_attractions_for_dav(self, query, plan):
+        """Conservatively insert extra along-route attractions for DAV.
+
+        This runs only after a full valid plan exists.  Each proposed insertion
+        is accepted only if whole-plan commonsense and all hard-logic
+        constraints still pass, so the 85% hard-score block remains protected.
+        """
+        if (
+            not self.enable_dav_postprocess
+            or self.dav_postprocess_seconds <= 0
+            or self.dav_postprocess_max_attempts <= 0
+            or not isinstance(plan, dict)
+            or not plan.get("itinerary")
+        ):
+            return plan
+        if not self._plan_passes_all_constraints(query, plan):
+            return plan
+
+        timeout_guard = self.time_before_search + max(1, self.TIME_CUT - 5)
+        deadline = min(time.time() + self.dav_postprocess_seconds, timeout_guard)
+        accepted = 0
+        attempts = 0
+        max_insertions = max(1, int(query.get("days", 1)))
+        improved = deepcopy(plan)
+
+        while (
+            accepted < max_insertions
+            and attempts < self.dav_postprocess_max_attempts
+            and time.time() < deadline
+        ):
+            itinerary = improved.get("itinerary", [])
+            existing_positions = self._plan_positions(itinerary)
+            attr_candidates = self._filter_attraction_hard_candidates(
+                self.memory["attractions"]
+            )
+            attr_candidates = attr_candidates[
+                ~attr_candidates["name"].isin(existing_positions)
+            ]
+            if attr_candidates.empty:
+                break
+
+            inserted_this_round = False
+            for day_idx, day in enumerate(itinerary):
+                activities = day.get("activities", [])
+                for insert_idx in range(1, len(activities)):
+                    if attempts >= self.dav_postprocess_max_attempts or time.time() >= deadline:
+                        break
+                    prev_act = activities[insert_idx - 1]
+                    next_act = activities[insert_idx]
+                    if prev_act.get("type") == "accommodation" or next_act.get("type") == "breakfast":
+                        continue
+                    prev_position = self._activity_end_position(prev_act)
+                    next_position = self._activity_start_position(next_act)
+                    ranked = self._rank_dav_insertion_candidates(
+                        attr_candidates, prev_position, next_position
+                    )
+                    for _, attr_row in ranked.head(self.dav_postprocess_candidates_per_gap).iterrows():
+                        if attempts >= self.dav_postprocess_max_attempts or time.time() >= deadline:
+                            break
+                        attempts += 1
+                        candidate_itinerary = self._try_build_dav_insertion(
+                            query, itinerary, day_idx, insert_idx, attr_row
+                        )
+                        if candidate_itinerary is None:
+                            continue
+                        candidate = self._validated_dav_insertion_plan(
+                            query, improved, candidate_itinerary
+                        )
+                        if candidate is None:
+                            continue
+                        improved = candidate
+                        accepted += 1
+                        inserted_this_round = True
+                        print(
+                            f"DAV postprocess inserted attraction: {attr_row['name']} "
+                            f"(accepted={accepted}, attempts={attempts})"
+                        )
+                        break
+                    if inserted_this_round:
+                        break
+                if inserted_this_round or attempts >= self.dav_postprocess_max_attempts:
+                    break
+            if not inserted_this_round:
+                break
+
+        if accepted:
+            improved["dav_postprocess_insertions"] = accepted
+            improved["dav_postprocess_attempts"] = attempts
+            return improved
+        return plan
 
     def _try_accept_repair(self, query, current_plan, candidate_itinerary):
         candidate = self._res_plan_shell(query, deepcopy(candidate_itinerary))
