@@ -47,6 +47,11 @@ def main():
     parser.add_argument("--split", "--splits", dest="splits", required=True)
     parser.add_argument("--lang", "--locale", choices=["zh", "en"], default="en")
     parser.add_argument("--method", default=None)
+    parser.add_argument(
+        "--results-dir",
+        default=None,
+        help="Directory containing per-query JSON result files. Defaults to results/<method>.",
+    )
     parser.add_argument("--log", default=None)
     parser.add_argument("--out", required=True)
     parser.add_argument("--sample-limit", type=int, default=50)
@@ -56,7 +61,7 @@ def main():
     eval_args = SimpleNamespace(splits=args.splits, method=method, lang=args.lang)
 
     query_index, query_data = load_query(eval_args)
-    results_dir = os.path.join(PROJECT_ROOT, "results", method)
+    results_dir = args.results_dir or os.path.join(PROJECT_ROOT, "results", method)
     _, result_data = load_result(eval_args, query_index, results_dir)
     plans = result_data["default"]
 
@@ -98,6 +103,7 @@ def main():
     summary = {
         "split": args.splits,
         "method": method,
+        "results_dir": os.path.abspath(results_dir),
         "total": len(query_index),
         "counts": {
             "schema_pass": len(schema_pass),
