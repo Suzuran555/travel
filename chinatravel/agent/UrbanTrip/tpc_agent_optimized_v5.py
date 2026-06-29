@@ -89,10 +89,19 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.EXTERNAL_TIMEOUT_BUFFER = 60  # leave enough time for repair/fallback before the 330s outer timeout
         self.top_k_candidates = kwargs.get("top_k_candidates", 50)  # 候选截断数，提速后放宽以缓解"正解排第 n+1 不可达"
         self.enable_dav_postprocess = kwargs.get("enable_dav_postprocess", True)
-        self.dav_postprocess_seconds = max(0.0, float(kwargs.get("dav_postprocess_seconds", 8.0)))
-        self.dav_postprocess_max_attempts = max(0, int(kwargs.get("dav_postprocess_max_attempts", 24)))
+        self.dav_postprocess_seconds = max(0.0, float(kwargs.get("dav_postprocess_seconds", 14.0)))
+        self.dav_postprocess_max_attempts = max(0, int(kwargs.get("dav_postprocess_max_attempts", 96)))
         self.dav_postprocess_candidates_per_gap = max(
-            1, int(kwargs.get("dav_postprocess_candidates_per_gap", 3))
+            1, int(kwargs.get("dav_postprocess_candidates_per_gap", 5))
+        )
+        self.dav_postprocess_target_per_day = max(
+            1, int(kwargs.get("dav_postprocess_target_per_day", 4))
+        )
+        self.dav_postprocess_attraction_minutes = max(
+            30, int(kwargs.get("dav_postprocess_attraction_minutes", 60))
+        )
+        self.require_complete_daily_meals = bool(
+            kwargs.get("require_complete_daily_meals", False)
         )
         self.debug = kwargs.get("debug", False)
         self.use_llm_dynamic_weights = kwargs.get(
@@ -1032,7 +1041,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         polished["commonsense_pass"] = bool(
             func_commonsense_constraints(query, shell, verbose=False)
         )
-        return polished
+        return self._annotate_daily_meal_check(polished)
 
     def _strip_poi_types(self, itinerary, poi_types):
         for day in itinerary:
@@ -1173,7 +1182,53 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
         except Exception:
             return False
+        if self.require_complete_daily_meals:
+            meal_report = self._daily_meal_report(res_plan)
+            if not meal_report["pass"]:
+                return False
         return bool(logical_result) and all(logical_result)
+
+    def _daily_meal_report(self, res_plan):
+        meal_types = ("breakfast", "lunch", "dinner")
+        report = {
+            "pass": False,
+            "target_meals_per_day": len(meal_types),
+            "total_meals": 0,
+            "missing": [],
+            "days": [],
+        }
+        if not isinstance(res_plan, dict) or not isinstance(res_plan.get("itinerary"), list):
+            report["missing"].append({"day": None, "meals": list(meal_types)})
+            return report
+
+        for fallback_day, day in enumerate(res_plan.get("itinerary", []), start=1):
+            day_no = day.get("day", fallback_day)
+            present = []
+            for act in day.get("activities", []):
+                act_type = act.get("type")
+                if act_type in meal_types and act_type not in present:
+                    present.append(act_type)
+            missing = [meal for meal in meal_types if meal not in present]
+            report["total_meals"] += len(present)
+            day_report = {
+                "day": day_no,
+                "present": present,
+                "missing": missing,
+                "pass": not missing,
+            }
+            report["days"].append(day_report)
+            if missing:
+                report["missing"].append({"day": day_no, "meals": missing})
+
+        report["pass"] = not report["missing"]
+        return report
+
+    def _annotate_daily_meal_check(self, plan):
+        if isinstance(plan, dict) and plan.get("itinerary"):
+            report = self._daily_meal_report(plan)
+            plan["daily_meal_check"] = report
+            plan["meal_completeness_pass"] = report["pass"]
+        return plan
 
     def _activity_start_position(self, activity):
         if not isinstance(activity, dict):
@@ -1290,7 +1345,7 @@ class UrbanTripOptimizedV5(BaseAgent):
                 attr_arrival,
                 attr_row.get("opentime", "00:00"),
                 attr_row.get("endtime", "23:59"),
-                90,
+                self.dav_postprocess_attraction_minutes,
                 "attraction",
             )
             if scheduled is None:
@@ -1349,16 +1404,26 @@ class UrbanTripOptimizedV5(BaseAgent):
             or not isinstance(plan, dict)
             or not plan.get("itinerary")
         ):
-            return plan
+            return self._annotate_daily_meal_check(plan)
         if not self._plan_passes_all_constraints(query, plan):
-            return plan
+            return self._annotate_daily_meal_check(plan)
 
         timeout_guard = self.time_before_search + max(1, self.TIME_CUT - 5)
         deadline = min(time.time() + self.dav_postprocess_seconds, timeout_guard)
         accepted = 0
         attempts = 0
-        max_insertions = max(1, int(query.get("days", 1)))
         improved = deepcopy(plan)
+        day_count = max(1, len(improved.get("itinerary", [])) or int(query.get("days", 1)))
+        current_attractions = sum(
+            1
+            for day in improved.get("itinerary", [])
+            for act in day.get("activities", [])
+            if act.get("type") == "attraction"
+        )
+        target_attractions = self.dav_postprocess_target_per_day * day_count
+        max_insertions = max(0, target_attractions - current_attractions)
+        if max_insertions <= 0:
+            return self._annotate_daily_meal_check(improved)
 
         while (
             accepted < max_insertions
@@ -1423,8 +1488,8 @@ class UrbanTripOptimizedV5(BaseAgent):
         if accepted:
             improved["dav_postprocess_insertions"] = accepted
             improved["dav_postprocess_attempts"] = attempts
-            return improved
-        return plan
+            return self._annotate_daily_meal_check(improved)
+        return self._annotate_daily_meal_check(plan)
 
     def _try_accept_repair(self, query, current_plan, candidate_itinerary):
         candidate = self._res_plan_shell(query, deepcopy(candidate_itinerary))
@@ -5152,6 +5217,14 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         print(logical_result)
 
+        meal_report = self._daily_meal_report(res_plan)
+        res_plan["daily_meal_check"] = meal_report
+        res_plan["meal_completeness_pass"] = meal_report["pass"]
+        if meal_report["pass"]:
+            print("Daily meal completeness passed.")
+        else:
+            print("Daily meal completeness failed:", meal_report["missing"])
+
 
         logical_pass = True
         for idx, item in enumerate(logical_result):
@@ -5168,6 +5241,8 @@ class UrbanTripOptimizedV5(BaseAgent):
             self.logical_pass_count += 1
 
         bool_result = bool_result and logical_pass
+        if self.require_complete_daily_meals:
+            bool_result = bool_result and meal_report["pass"]
 
         if bool_result:
             print("\n Pass! \n")
