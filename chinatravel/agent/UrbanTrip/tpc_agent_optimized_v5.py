@@ -103,6 +103,15 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.require_complete_daily_meals = bool(
             kwargs.get("require_complete_daily_meals", False)
         )
+        self.enable_meal_postprocess = kwargs.get("enable_meal_postprocess", True)
+        self.meal_postprocess_seconds = max(0.0, float(kwargs.get("meal_postprocess_seconds", 10.0)))
+        self.meal_postprocess_max_attempts = max(0, int(kwargs.get("meal_postprocess_max_attempts", 120)))
+        self.meal_postprocess_candidates_per_gap = max(
+            1, int(kwargs.get("meal_postprocess_candidates_per_gap", 8))
+        )
+        self.meal_postprocess_minutes = max(
+            30, int(kwargs.get("meal_postprocess_minutes", 30))
+        )
         self.debug = kwargs.get("debug", False)
         self.use_llm_dynamic_weights = kwargs.get(
             "use_llm_dynamic_weights",
@@ -378,6 +387,7 @@ class UrbanTripOptimizedV5(BaseAgent):
 
         if isinstance(plan_out, dict) and plan_out.get("itinerary"):
             plan_out = self._eprsafe_output_plan(query, plan_out)
+            plan_out = self._postprocess_insert_missing_meals(query, plan_out)
             plan_out = self._postprocess_insert_attractions_for_dav(query, plan_out)
 
         return succ, plan_out
@@ -1170,7 +1180,7 @@ class UrbanTripOptimizedV5(BaseAgent):
     def _hard_pass_count(self, query, res_plan):
         return int(np.sum(self._hard_logic_results(query, res_plan)))
 
-    def _plan_passes_all_constraints(self, query, res_plan):
+    def _plan_passes_official_constraints(self, query, res_plan):
         if not isinstance(res_plan, dict) or not res_plan.get("itinerary"):
             return False
         public_query = self._public_query(query)
@@ -1182,11 +1192,16 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
         except Exception:
             return False
+        return bool(logical_result) and all(logical_result)
+
+    def _plan_passes_all_constraints(self, query, res_plan):
+        if not self._plan_passes_official_constraints(query, res_plan):
+            return False
         if self.require_complete_daily_meals:
             meal_report = self._daily_meal_report(res_plan)
             if not meal_report["pass"]:
                 return False
-        return bool(logical_result) and all(logical_result)
+        return True
 
     def _daily_meal_report(self, res_plan):
         meal_types = ("breakfast", "lunch", "dinner")
@@ -1229,6 +1244,333 @@ class UrbanTripOptimizedV5(BaseAgent):
             plan["daily_meal_check"] = report
             plan["meal_completeness_pass"] = report["pass"]
         return plan
+
+    def _meal_time_valid(self, meal_type, start_time, end_time):
+        try:
+            start_min = time_to_minutes(str(start_time).split("次日")[-1])
+            end_min = time_to_minutes(str(end_time).split("次日")[-1])
+        except (TypeError, ValueError):
+            return False
+        windows = {
+            "breakfast": (time_to_minutes("06:00"), time_to_minutes("09:00")),
+            "lunch": (time_to_minutes("11:00"), time_to_minutes("14:00")),
+            "dinner": (time_to_minutes("17:00"), time_to_minutes("20:00")),
+        }
+        if meal_type not in windows:
+            return False
+        earliest_end, latest_start = windows[meal_type]
+        return start_min < latest_start and end_min > earliest_end and start_min < end_min
+
+    def _candidate_plan_with_itinerary(self, plan, itinerary):
+        candidate = deepcopy(plan)
+        candidate["itinerary"] = itinerary
+        return candidate
+
+    def _accept_meal_candidate(self, query, plan, candidate_itinerary):
+        candidate = self._candidate_plan_with_itinerary(plan, candidate_itinerary)
+        repair_full_itinerary(self, query, candidate["itinerary"])
+        if not self._plan_passes_official_constraints(query, candidate):
+            return None
+        return self._annotate_daily_meal_check(candidate)
+
+    def _hotel_name_for_breakfast_day(self, itinerary, day_idx):
+        if day_idx > 0:
+            for act in reversed(itinerary[day_idx - 1].get("activities", [])):
+                if act.get("type") == "accommodation" and act.get("position"):
+                    return act["position"]
+        for act in itinerary[day_idx].get("activities", []):
+            if act.get("type") == "accommodation" and act.get("position"):
+                return act["position"]
+        poi_plan = getattr(self, "_current_poi_plan", None) or {}
+        hotel = poi_plan.get("accommodation")
+        if isinstance(hotel, dict):
+            return hotel.get("name")
+        return None
+
+    def _try_insert_hotel_breakfast_at_day_start(self, query, plan, day_idx):
+        updated = deepcopy(plan.get("itinerary", []))
+        if day_idx < 0 or day_idx >= len(updated):
+            return None
+        activities = updated[day_idx].setdefault("activities", [])
+        if any(act.get("type") == "breakfast" for act in activities):
+            return None
+        hotel_name = self._hotel_name_for_breakfast_day(updated, day_idx)
+        if not hotel_name:
+            return None
+        breakfast = {
+            "position": hotel_name,
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "06:00",
+            "end_time": "06:30",
+            "transports": [],
+        }
+
+        if not activities:
+            activities.insert(0, breakfast)
+            return self._accept_meal_candidate(query, plan, updated)
+
+        first = activities[0]
+        if not self._is_intercity_activity(first):
+            if not time_compare_if_earlier_equal("06:30", first.get("start_time", "00:00")):
+                return None
+            transports = first.get("transports") or []
+            first_start = transports[0].get("start") if transports else self._activity_start_position(first)
+            if first_start and first_start != hotel_name:
+                return None
+            activities.insert(0, breakfast)
+            return self._accept_meal_candidate(query, plan, updated)
+
+        if day_idx == 0 and len(activities) > 1:
+            return self._try_insert_hotel_breakfast_between(
+                query, plan, day_idx, 1, hotel_name
+            )
+        return None
+
+    def _try_insert_hotel_breakfast_between(self, query, plan, day_idx, insert_idx, hotel_name):
+        updated = deepcopy(plan.get("itinerary", []))
+        activities = updated[day_idx].get("activities", [])
+        if insert_idx <= 0 or insert_idx >= len(activities):
+            return None
+        prev_act = activities[insert_idx - 1]
+        next_act = activities[insert_idx]
+        prev_position = self._activity_end_position(prev_act)
+        next_position = self._activity_start_position(next_act)
+        current_time = prev_act.get("end_time", "")
+        next_start = next_act.get("start_time", "")
+        if not prev_position or not next_position or not current_time or not next_start:
+            return None
+
+        for mode_to_hotel in self._postprocess_transport_modes(query, prev_position, hotel_name):
+            transports_to_hotel, arrival = self._postprocess_collect_transport(
+                query, prev_position, hotel_name, current_time, mode_to_hotel
+            )
+            if transports_to_hotel is None:
+                continue
+            start_time = arrival
+            if time_compare_if_earlier_equal(start_time, "06:00"):
+                start_time = "06:00"
+            end_time = add_time_delta(start_time, 30)
+            if not self._meal_time_valid("breakfast", start_time, end_time):
+                continue
+            if not time_compare_if_earlier_equal(end_time, next_start):
+                continue
+
+            for mode_to_next in self._postprocess_transport_modes(query, hotel_name, next_position):
+                transports_to_next, next_arrival = self._postprocess_collect_transport(
+                    query, hotel_name, next_position, end_time, mode_to_next
+                )
+                if transports_to_next is None:
+                    continue
+                if not time_compare_if_earlier_equal(next_arrival, next_start):
+                    continue
+                activities.insert(
+                    insert_idx,
+                    {
+                        "position": hotel_name,
+                        "type": "breakfast",
+                        "price": 0,
+                        "cost": 0,
+                        "start_time": start_time,
+                        "end_time": end_time,
+                        "transports": transports_to_hotel,
+                    },
+                )
+                activities[insert_idx + 1]["transports"] = transports_to_next
+                return self._accept_meal_candidate(query, plan, updated)
+        return None
+
+    def _meal_restaurant_positions(self, itinerary):
+        positions = set()
+        restaurants = self.memory.get("restaurants")
+        restaurant_names = set(restaurants["name"].astype(str)) if restaurants is not None else set()
+        for day in itinerary or []:
+            for act in day.get("activities", []):
+                if act.get("type") in {"breakfast", "lunch", "dinner"}:
+                    pos = act.get("position")
+                    if pos in restaurant_names:
+                        positions.add(pos)
+        return positions
+
+    def _meal_candidates_for_gap(self, meal_type, existing_restaurants):
+        candidates = self._filter_restaurant_hard_candidates(self.memory["restaurants"])
+        candidates = candidates[~candidates["name"].isin(existing_restaurants)]
+        if candidates.empty:
+            return candidates
+        if meal_type == "breakfast":
+            target_time = "08:00"
+        elif meal_type == "lunch":
+            target_time = "11:30"
+        else:
+            target_time = "17:30"
+        return filter_open_at_time(candidates, target_time)
+
+    def _try_build_meal_insertion(self, query, itinerary, day_idx, insert_idx, meal_type, res_row):
+        updated = deepcopy(itinerary)
+        activities = updated[day_idx].get("activities", [])
+        if insert_idx <= 0 or insert_idx >= len(activities):
+            return None
+        prev_act = activities[insert_idx - 1]
+        next_act = activities[insert_idx]
+        prev_position = self._activity_end_position(prev_act)
+        next_position = self._activity_start_position(next_act)
+        current_time = prev_act.get("end_time", "")
+        next_start = next_act.get("start_time", "")
+        if not prev_position or not next_position or not current_time or not next_start:
+            return None
+        if not time_compare_if_earlier_equal(current_time, next_start):
+            return None
+
+        for mode_to_res in self._postprocess_transport_modes(query, prev_position, res_row["name"]):
+            transports_to_res, res_arrival = self._postprocess_collect_transport(
+                query, prev_position, res_row["name"], current_time, mode_to_res
+            )
+            if transports_to_res is None:
+                continue
+            scheduled = self._scheduled_poi_times(
+                res_row["name"],
+                res_arrival,
+                res_row.get("opentime", "00:00"),
+                res_row.get("endtime", "23:59"),
+                self.meal_postprocess_minutes,
+                meal_type,
+            )
+            if scheduled is None:
+                continue
+            meal_start, meal_end = scheduled
+            if not self._meal_time_valid(meal_type, meal_start, meal_end):
+                continue
+            if not time_compare_if_earlier_equal(meal_end, next_start):
+                continue
+
+            for mode_to_next in self._postprocess_transport_modes(query, res_row["name"], next_position):
+                transports_to_next, next_arrival = self._postprocess_collect_transport(
+                    query, res_row["name"], next_position, meal_end, mode_to_next
+                )
+                if transports_to_next is None:
+                    continue
+                if not time_compare_if_earlier_equal(next_arrival, next_start):
+                    continue
+                activities.insert(
+                    insert_idx,
+                    {
+                        "position": res_row["name"],
+                        "type": meal_type,
+                        "price": int(res_row["price"]),
+                        "cost": int(res_row["price"]) * query["people_number"],
+                        "start_time": meal_start,
+                        "end_time": meal_end,
+                        "transports": transports_to_res,
+                    },
+                )
+                activities[insert_idx + 1]["transports"] = transports_to_next
+                return updated
+        return None
+
+    def _postprocess_insert_one_restaurant_meal(
+        self, query, plan, day_idx, meal_type, deadline, attempts
+    ):
+        itinerary = plan.get("itinerary", [])
+        existing_restaurants = self._meal_restaurant_positions(itinerary)
+        meal_candidates = self._meal_candidates_for_gap(meal_type, existing_restaurants)
+        if meal_candidates.empty:
+            return plan, attempts, False
+
+        activities = itinerary[day_idx].get("activities", [])
+        for insert_idx in range(1, len(activities)):
+            if attempts >= self.meal_postprocess_max_attempts or time.time() >= deadline:
+                return plan, attempts, False
+            prev_act = activities[insert_idx - 1]
+            next_act = activities[insert_idx]
+            if next_act.get("type") == "breakfast":
+                continue
+            prev_position = self._activity_end_position(prev_act)
+            next_position = self._activity_start_position(next_act)
+            ranked = self._rank_dav_insertion_candidates(
+                meal_candidates, prev_position, next_position
+            )
+            for _, res_row in ranked.head(self.meal_postprocess_candidates_per_gap).iterrows():
+                if attempts >= self.meal_postprocess_max_attempts or time.time() >= deadline:
+                    return plan, attempts, False
+                attempts += 1
+                candidate_itinerary = self._try_build_meal_insertion(
+                    query, itinerary, day_idx, insert_idx, meal_type, res_row
+                )
+                if candidate_itinerary is None:
+                    continue
+                candidate = self._accept_meal_candidate(query, plan, candidate_itinerary)
+                if candidate is None:
+                    continue
+                print(
+                    f"Meal postprocess inserted {meal_type}: {res_row['name']} "
+                    f"(day={day_idx + 1}, attempts={attempts})"
+                )
+                return candidate, attempts, True
+        return plan, attempts, False
+
+    def _postprocess_insert_missing_meals(self, query, plan):
+        if (
+            not self.enable_meal_postprocess
+            or self.meal_postprocess_seconds <= 0
+            or self.meal_postprocess_max_attempts <= 0
+            or not isinstance(plan, dict)
+            or not plan.get("itinerary")
+        ):
+            return self._annotate_daily_meal_check(plan)
+        if not self._plan_passes_official_constraints(query, plan):
+            return self._annotate_daily_meal_check(plan)
+
+        timeout_guard = self.time_before_search + max(1, self.TIME_CUT - 5)
+        deadline = min(time.time() + self.meal_postprocess_seconds, timeout_guard)
+        improved = self._annotate_daily_meal_check(deepcopy(plan))
+        attempts = 0
+        insertions = 0
+
+        while time.time() < deadline and attempts < self.meal_postprocess_max_attempts:
+            report = self._daily_meal_report(improved)
+            if report["pass"]:
+                break
+            changed = False
+            for day_report in report["days"]:
+                day_idx = int(day_report["day"]) - 1
+                if "breakfast" in day_report["missing"]:
+                    candidate = self._try_insert_hotel_breakfast_at_day_start(
+                        query, improved, day_idx
+                    )
+                    attempts += 1
+                    if candidate is not None:
+                        improved = candidate
+                        insertions += 1
+                        changed = True
+                        print(f"Meal postprocess inserted breakfast at hotel (day={day_idx + 1})")
+                        break
+                    improved, attempts, accepted = self._postprocess_insert_one_restaurant_meal(
+                        query, improved, day_idx, "breakfast", deadline, attempts
+                    )
+                    if accepted:
+                        insertions += 1
+                        changed = True
+                        break
+                for meal_type in ("lunch", "dinner"):
+                    if meal_type not in day_report["missing"]:
+                        continue
+                    improved, attempts, accepted = self._postprocess_insert_one_restaurant_meal(
+                        query, improved, day_idx, meal_type, deadline, attempts
+                    )
+                    if accepted:
+                        insertions += 1
+                        changed = True
+                        break
+                if changed:
+                    break
+            if not changed:
+                break
+
+        improved = self._annotate_daily_meal_check(improved)
+        improved["meal_postprocess_insertions"] = insertions
+        improved["meal_postprocess_attempts"] = attempts
+        return improved
 
     def _activity_start_position(self, activity):
         if not isinstance(activity, dict):
