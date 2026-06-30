@@ -1,0 +1,45 @@
+{
+  "split": "TPC_IJCAI_2026_phase1",
+  "method": "UrbanTripOptimizedV5_TPCLLM_en_oracletranslation",
+  "results_dir": "/home/junyi/travel/logs/_ARCHIVE_plusvisit_DAV_results",
+  "total": 1000,
+  "counts": {
+    "schema_pass": 1000,
+    "commonsense_pass": 999,
+    "logic_pass": 996,
+    "final_pass": 995,
+    "schema_fail": 0,
+    "commonsense_fail": 1,
+    "logic_fail_after_commonsense": 4,
+    "final_fail": 5
+  },
+  "metrics": {
+    "schema_rate": 100.0,
+    "MicEPR": 99.98,
+    "MacEPR": 99.9,
+    "C-LPR": 99.71973094170403,
+    "FPR": 99.5,
+    "DAV": 72.80820770519264,
+    "ATT": 70.05686121635476,
+    "DDR": 54.51758793969853
+  },
+  "samples": {
+    "schema_fail": [],
+    "commonsense_fail": [
+      "20250322190653673035"
+    ],
+    "logic_fail_after_commonsense": [
+      "20250322153759813190",
+      "20250322164349699070",
+      "20250322180059097796",
+      "20250324080829616606"
+    ],
+    "final_fail": [
+      "20250322153759813190",
+      "20250322164349699070",
+      "20250322180059097796",
+      "20250322190653673035",
+      "20250324080829616606"
+    ]
+  }
+}
