@@ -60,7 +60,7 @@ def agent_for(city):
 
 MEALWIN = {"lunch": (10 * 60 + 30, 14 * 60), "dinner": (16 * 60 + 30, 21 * 60)}
 
-def on_the_way(ag, query, posA, posB, df, k=12, max_detour=4.0):
+def on_the_way(ag, query, posA, posB, df, k=24, max_detour=8.0):
     """Recall candidates on the path A->B ranked by detour distance (km)."""
     try:
         dAB = ag.calculate_distance(query, posA, posB)
