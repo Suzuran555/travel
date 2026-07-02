@@ -226,6 +226,15 @@ class SegmentIndex:
             anchors.append(go_transport.get("To"))
         if back_transport is not None:
             anchors.append(back_transport.get("From"))
+        # Geo-aware: must-visit POIs are fixed destinations; anchoring hotels on
+        # them mirrors the agent-side _rank_hotels_for_innercity_budget so far
+        # hotels (e.g. airport hotels) are penalised consistently in both paths.
+        for name in (query.get("must_see_attraction") or []):
+            if name and name not in anchors:
+                anchors.append(name)
+        for name in (query.get("must_visit_restaurant") or []):
+            if name and name not in anchors:
+                anchors.append(name)
 
         city = query.get("target_city")
         scored = []

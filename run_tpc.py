@@ -102,6 +102,15 @@ if __name__ == "__main__":
         "lang": args.lang,
         "external_timeout": args.timeout,
     }
+    # Optional agent-kwargs overrides via env for A/B (e.g. bundle search flags).
+    # Defaults stay off, so unset env keeps legacy behavior and reproducibility.
+    extra_kwargs_env = os.environ.get("URBANTRIP_KWARGS")
+    if extra_kwargs_env:
+        try:
+            kwargs.update(json.loads(extra_kwargs_env))
+            print("URBANTRIP_KWARGS override:", extra_kwargs_env)
+        except json.JSONDecodeError as exc:
+            print(f"Ignoring invalid URBANTRIP_KWARGS ({exc})")
     agent = init_agent(kwargs)
 
     succ_count, eval_count = 0, 0

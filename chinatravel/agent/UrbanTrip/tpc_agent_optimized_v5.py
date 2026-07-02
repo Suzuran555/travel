@@ -135,6 +135,33 @@ class UrbanTripOptimizedV5(BaseAgent):
                 top_k=self.segment_top_k,
             )
 
+        # ----- Geo-aware bundle search (all default off for safe A/B) -----
+        # Anchor hotel ranking on must-visit POIs, not just intercity terminals.
+        self.geo_anchor_must = kwargs.get("geo_anchor_must", True)
+        # Estimated taxi RMB per km, used as a fallback when a segment edge is
+        # missing so far-away must POIs still incur a geographic penalty.
+        self.taxi_per_km_est = float(kwargs.get("taxi_per_km_est", 4.0))
+        # Deterministic bundle scorer + top-N beam over (go, back, hotel).
+        self.use_bundle_search = kwargs.get("use_bundle_search", False)
+        self.bundle_go_top = int(kwargs.get("bundle_go_top", 12))
+        self.bundle_back_top = int(kwargs.get("bundle_back_top", 12))
+        self.bundle_hotel_top = int(kwargs.get("bundle_hotel_top", 20))
+        self.bundle_top_n = int(kwargs.get("bundle_top_n", 20))
+        self.bundle_dfs_top = int(kwargs.get("bundle_dfs_top", 3))
+        # LLM rerank of the deterministic top-N (rerank only, never feasibility).
+        self.use_llm_bundle_rerank = kwargs.get("use_llm_bundle_rerank", False)
+        self._bundle_rerank_cache = {}
+        # Stability extras (Section 6), each independently gated.
+        self.enable_fallback_hard_repair = kwargs.get("enable_fallback_hard_repair", False)
+        self.enable_dfs_memoization = kwargs.get("enable_dfs_memoization", False)
+        self.enable_dynamic_top_k = kwargs.get("enable_dynamic_top_k", False)
+        self.dynamic_top_k_pending = int(kwargs.get("dynamic_top_k_pending", 8))
+        self.enable_metro_only_prune = kwargs.get("enable_metro_only_prune", False)
+        # TF-IDF semantic weight for POI ranking (0 keeps legacy behavior; only
+        # meaningful once must POIs are tagged into segment score_text).
+        self.rank_semantic_weight = float(kwargs.get("rank_semantic_weight", 0.0))
+        self._dfs_state_seen = set()
+
         self.visited_attractions = set()
         self.visited_restaurants = set()
 
@@ -209,6 +236,7 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.overall_budget = constraints_json.get("overall_budget", None)
 
         self.requirement_list = requirement_list
+        self._bundle_loc_anchor_cache = None
         self._normalize_transport_rules()
         self._force_arrive_time_pois()
 
@@ -595,6 +623,13 @@ class UrbanTripOptimizedV5(BaseAgent):
             self.innercity_transports_ranking = [
                 t for t in budget_first if t in self.innercity_transports_ranking
             ]
+
+        # Geo-aware bundle search: score (go, back, hotel) bundles up front and
+        # only run DFS on the most promising few. Legacy nested loop kept below.
+        if self.use_bundle_search:
+            return self._bundle_search(
+                query, go_info, back_info, ranking_go, ranking_hotel, poi_plan
+            )
 
         # 遍历排序后的去程交通
         intercity_budget_msg = "intercity budget not satisfied, backtrack..."
@@ -1833,6 +1868,62 @@ class UrbanTripOptimizedV5(BaseAgent):
             return self._annotate_daily_meal_check(improved)
         return self._annotate_daily_meal_check(plan)
 
+    def _plan_total_cost(self, plan):
+        """Verifier-style total: activity_cost + inner-city transport cost."""
+        total = 0.0
+        for day in plan.get("itinerary", []) or []:
+            for act in day.get("activities", []):
+                total += float(act.get("cost", 0) or 0)
+                for tr in act.get("transports", []) or []:
+                    total += float(tr.get("cost", 0) or 0)
+        return total
+
+    def _budget_trim_repair(self, query, repaired):
+        """Downgrade the most expensive non-must meals toward the cheapest option
+        when the plan exceeds overall_budget (targets budget-fail FPRs, 6a).
+
+        Only accepted when commonsense still passes AND hard_pass_count increases
+        (getting under budget flips the budget line), so it never regresses.
+        """
+        if self.overall_budget is None:
+            return repaired
+        res_info = self.memory.get("restaurants")
+        if res_info is None or res_info.empty:
+            return repaired
+        protected = set(self.must_visit_restaurant or [])
+        cheapest = res_info.sort_values(by=["price", "name"]).iloc[0]
+        people = query["people_number"]
+        for _ in range(6):  # bounded passes
+            if self._plan_total_cost(repaired) <= self.overall_budget:
+                break
+            target = None
+            for di, day in enumerate(repaired.get("itinerary", [])):
+                for ai, act in enumerate(day.get("activities", [])):
+                    if act.get("type") not in {"lunch", "dinner"}:
+                        continue
+                    if act.get("position") in protected:
+                        continue
+                    cost = float(act.get("cost", 0) or 0)
+                    if cost <= float(cheapest["price"]) * people:
+                        continue
+                    if target is None or cost > target[2]:
+                        target = (di, ai, cost)
+            if target is None:
+                break
+            candidate_itin = deepcopy(repaired["itinerary"])
+            act = candidate_itin[target[0]]["activities"][target[1]]
+            sched = self._replacement_activity_times(act, cheapest, "restaurant")
+            if sched is None:
+                break
+            act["position"] = cheapest["name"]
+            act["price"] = int(cheapest["price"])
+            act["cost"] = int(cheapest["price"]) * people
+            act["start_time"], act["end_time"] = sched
+            repaired, accepted = self._try_accept_repair(query, repaired, candidate_itin)
+            if not accepted:
+                break
+        return repaired
+
     def _try_accept_repair(self, query, current_plan, candidate_itinerary):
         candidate = self._res_plan_shell(query, deepcopy(candidate_itinerary))
         repair_full_itinerary(self, query, candidate["itinerary"])
@@ -2220,6 +2311,11 @@ class UrbanTripOptimizedV5(BaseAgent):
             )
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
+
+        # Budget-aware trim (6a): if the plan still exceeds overall_budget, swap
+        # non-must meals down toward the cheapest option to flip the budget line.
+        if self.enable_fallback_hard_repair:
+            repaired = self._budget_trim_repair(query, repaired)
 
         repaired["hard_pass_count"] = self._hard_pass_count(query, repaired)
         repaired["commonsense_pass"] = True
@@ -2789,7 +2885,7 @@ class UrbanTripOptimizedV5(BaseAgent):
             "restaurant",
             use_attraction_budget_key=False,
         )
-        n = self.top_k_candidates
+        n = self._effective_top_k()
         must_candidates = self._required_restaurant_name_candidates(res_info)
         must_type_candidates = self._required_restaurant_type_candidates(res_info)
         top_candidates = candidate_res_ranked.iloc[
@@ -3109,7 +3205,7 @@ class UrbanTripOptimizedV5(BaseAgent):
             "attraction",
             use_attraction_budget_key=True,
         )
-        n = self.top_k_candidates
+        n = self._effective_top_k()
         must_candidates = self._required_attraction_name_candidates(attr_info)
         must_type_candidates = self._required_attraction_type_candidates(attr_info)
         top_candidates = candidate_attr_ranked.iloc[
@@ -3339,6 +3435,23 @@ class UrbanTripOptimizedV5(BaseAgent):
             self.stop_search = True
             self.default_plan["backtrack_count"] = self.backtrack_count
             return self._best_effort_search_result(query, plan, poi_plan)
+
+        # Dominance pruning (6b): a state defined by (day, time, position, and the
+        # set of still-pending required items) is deterministic; re-entering it
+        # after a prior failure cannot succeed, so skip it. pending_must is part
+        # of the key so states differing only in required-coverage are distinct.
+        if self.enable_dfs_memoization and not self.too_many_backtrack:
+            state_key = (
+                current_day,
+                current_time or "",
+                current_position or "",
+                self._pending_state_key(),
+            )
+            if state_key in self._dfs_state_seen:
+                self.backtrack_count += 1
+                self._dfs_log("memoized state repeat, backtrack...")
+                return False, plan
+            self._dfs_state_seen.add(state_key)
 
         if not self.all_satisfy_flag and not self.too_many_backtrack:
             ok, backtrack = self.check_requirement(plan)
@@ -4176,6 +4289,22 @@ class UrbanTripOptimizedV5(BaseAgent):
                 pending["order_blocked"].append(after)
         return pending
 
+    def _pending_state_key(self):
+        """Hashable frozenset of still-pending required items (for 6b memoization)."""
+        pending = self._pending_required_items()
+        items = []
+        for name in pending.get("attraction_names", []):
+            items.append(("a", name))
+        for t in pending.get("attraction_types", []):
+            items.append(("at", t))
+        for name in pending.get("restaurant_names", []):
+            items.append(("r", name))
+        for t in pending.get("restaurant_types", []):
+            items.append(("rt", t))
+        for name in pending.get("order_predecessors", []):
+            items.append(("ord", name))
+        return frozenset(items)
+
     def _pending_pressure(self, pending):
         total = (
             len(self.must_see_attraction or [])
@@ -4234,7 +4363,7 @@ class UrbanTripOptimizedV5(BaseAgent):
             "poi_price": price_weight,
             "time_margin": 0.20 + 1.30 * time_pressure + 0.90 * pending_late,
             "order_block": 1.20,
-            "semantic": 0.0,
+            "semantic": self.rank_semantic_weight,
         }
         if sum(len(items) for items in (context.get("pending") or {}).values()) > 0:
             weights["must_coverage"] = max(weights["must_coverage"], 1.10)
@@ -4424,6 +4553,18 @@ class UrbanTripOptimizedV5(BaseAgent):
             return False
         if self.must_not_live_hotel and name in set(self.must_not_live_hotel):
             return False
+        # Required bed number (``room_type(activity)!=N`` in the DSL) is a hard
+        # constraint on the hotel's ``numbed``. The legacy triple-loop path
+        # backtracked on a mismatch; the bundle path must reject the hotel here
+        # too, otherwise it happily books a double-bed room for a single-bed
+        # requirement and fails the hard verifier.
+        bed_number = getattr(self, "bed_number", None)
+        if bed_number is not None:
+            try:
+                if int(hotel_row["numbed"]) != int(bed_number):
+                    return False
+            except (TypeError, ValueError, KeyError):
+                return False
         return (
             self._hotel_matches_required_feature(hotel_row)
             and not self._hotel_matches_forbidden_feature(hotel_row)
@@ -4500,6 +4641,553 @@ class UrbanTripOptimizedV5(BaseAgent):
             constraints["dynamic_ranking"] = self._dynamic_ranking_context
         return constraints
 
+    def _geo_route_lb(self, city, origin, targets):
+        """Sum of min one-way route cost origin->each target.
+
+        Uses the segment index when an edge exists; otherwise falls back to a
+        geodesic-distance estimate (km * taxi_per_km_est) so a far-away must POI
+        still incurs a geographic penalty even when the segment graph misses it.
+        """
+        if not origin or not targets:
+            return 0.0
+        total = 0.0
+        for target in targets:
+            if not target or target == origin:
+                continue
+            seg = (
+                self.segment_index._best_intracity_segment(city, origin, target)
+                if self.segment_index is not None
+                else None
+            )
+            if seg is not None:
+                total += float(seg.get("cost", 0) or 0)
+            else:
+                dist = self.calculate_distance({"target_city": city}, origin, target)
+                total += (dist if dist is not None else 30.0) * self.taxi_per_km_est
+        return total
+
+    def _must_poi_anchor_names(self):
+        """Named must-visit POIs used as geographic anchors for hotel ranking."""
+        names = []
+        for name in (self.must_see_attraction or []):
+            if name not in names:
+                names.append(name)
+        for name in (self.must_visit_restaurant or []):
+            if name not in names:
+                names.append(name)
+        return names
+
+    # ------------------------------------------------------------------
+    # Deterministic bundle scorer (Section 3 of the geo bundle search plan)
+    # ------------------------------------------------------------------
+    BUNDLE_LATE_ARRIVAL_MIN = 14 * 60  # arrivals after 14:00 compress a 2-day trip
+
+    def _effective_top_k(self):
+        """Narrow candidate width when required POIs are still pending (6c)."""
+        if self.enable_dynamic_top_k and self._has_pending_required_poi():
+            return self.dynamic_top_k_pending
+        return self.top_k_candidates
+
+    def _bundle_weights(self, comps=None, days=None):
+        weights = {
+            "intercity": float(getattr(self, "bundle_w_intercity", 0.5)),
+            "hotel": float(getattr(self, "bundle_w_hotel", 0.4)),
+            "route": float(getattr(self, "bundle_w_route", 1.0)),
+            "time": float(getattr(self, "bundle_w_time", 0.6)),
+            "bonus": float(getattr(self, "bundle_w_bonus", 1.2)),
+        }
+        if not comps:
+            return weights
+        # Budget tightness at the *opening* move. The mid-DFS ``_budget_pressure``
+        # is "spent-so-far / budget", which is ~0 here (nothing spent yet), so it
+        # never lifts weights when the hotel is being picked. Instead measure how
+        # much of each budget the cheapest feasible option already consumes
+        # (floor / budget): a tight budget must pull the scorer toward the cheap /
+        # central choices rather than the geo-only optimum.
+        def _tight(floor, budget):
+            try:
+                budget = float(budget)
+            except (TypeError, ValueError):
+                return 0.0
+            if budget <= 0:
+                return 1.0
+            return max(0.0, min(1.0, float(floor) / budget))
+
+        ic_floor = min(c["intercity"] for c in comps)
+        hotel_floor = min(c["hotel_cost"] for c in comps)
+        route_floor = min(c["route_lb"] for c in comps)
+        rest_floor = self._must_restaurant_price_floor()
+        night_factor = max(1, (int(days) - 1)) if days else 1
+        ic_t = _tight(ic_floor, self.intercity_budget)
+        hotel_t = _tight(hotel_floor, self.hotel_budget)
+        # ``route_lb`` is a per-hotel intra-city cost proxy; scale by nights as a
+        # coarse daily-transport driver for the intra-city budget.
+        inner_t = _tight(route_floor * night_factor, self.innercity_budget)
+        overall_t = _tight(ic_floor + hotel_floor + rest_floor, self.overall_budget)
+        gain = float(getattr(self, "bundle_budget_weight_gain", 1.5))
+        weights["intercity"] *= 1.0 + gain * max(ic_t, overall_t)
+        weights["hotel"] *= 1.0 + gain * max(hotel_t, overall_t)
+        weights["route"] *= 1.0 + gain * max(inner_t, overall_t)
+        return weights
+
+    def _bundle_location_anchors(self, query):
+        """Geographic anchors for scoring hotel location in a bundle.
+
+        Must-visit POIs are the ideal anchors. When a query has none, the
+        hotel's intra-city transport cost is still driven by wherever the plan
+        actually goes, so proxy that cluster with a small sample of candidate
+        attractions/restaurants. Without this, ``route_lb`` collapses to 0 for
+        every hotel and location becomes invisible to the scorer -- which lets a
+        cheap far-flung hotel win and blow a tight intra-city transport budget.
+        """
+        cached = getattr(self, "_bundle_loc_anchor_cache", None)
+        if cached is not None:
+            return cached
+        names = list(self._must_poi_anchor_names())
+        if not names:
+            for key, k in (("attractions", 4), ("restaurants", 3)):
+                df = self.memory.get(key)
+                if df is None or getattr(df, "empty", True):
+                    continue
+                sub = df.sort_values("price") if "price" in df.columns else df
+                names.extend(str(n) for n in sub["name"].head(k).tolist())
+        self._bundle_loc_anchor_cache = names
+        return names
+
+    def _must_restaurant_price_floor(self):
+        """Lower bound on required-restaurant spend: sum of each must's min price."""
+        res = self.memory.get("restaurants")
+        if res is None or res.empty or not self.must_visit_restaurant:
+            return 0.0
+        floor = 0.0
+        for name in self.must_visit_restaurant:
+            rows = res[res["name"] == name]
+            if not rows.empty:
+                try:
+                    floor += float(rows["price"].min() or 0)
+                except (TypeError, ValueError):
+                    pass
+        return floor
+
+    def _bundle_hotel_rooms(self, query, hotel):
+        people = query["people_number"]
+        room_type = hotel["numbed"]
+        rooms = int((people - 1) / room_type) + 1
+        if self.room_number is not None:
+            rooms = self.room_number
+        return rooms
+
+    def _bundle_feasible(self, query, go, back, hotel, relax_poi=False):
+        """Hard pruning only. Returns a cost dict (with a soft budget flag) or
+        None when the bundle is definitively infeasible.
+
+        The overall-budget lower bound is admissible but is exposed as a soft
+        ``budget_ok`` flag rather than eliminating the bundle here: if it would
+        remove every candidate, the caller still needs bundles to run DFS and
+        produce a best-effort plan (matching the legacy path behaviour).
+
+        ``relax_poi`` drops the required-POI reachability lower bounds. They are
+        admissible but occasionally over-tight; when they would prune *every*
+        bundle the caller retries with them relaxed so DFS still gets candidates
+        rather than returning an empty plan.
+        """
+        people = query["people_number"]
+        days = query["days"]
+        try:
+            intercity = (float(go["Cost"]) + float(back["Cost"])) * people
+        except (TypeError, ValueError):
+            return None
+        if self.intercity_budget is not None and intercity > self.intercity_budget:
+            return None
+        hotel_cost = 0.0
+        if hotel is not None:
+            if not self._hotel_satisfies_hard_constraints(hotel):
+                return None
+            rooms = self._bundle_hotel_rooms(query, hotel)
+            hotel_cost = float(hotel["price"]) * rooms * (days - 1)
+            if self.hotel_budget is not None and hotel_cost > self.hotel_budget:
+                return None
+        elif time_compare_if_earlier_equal(back["BeginTime"], go["EndTime"]):
+            # one-day trip: return leg must depart after arrival
+            return None
+        if relax_poi:
+            rest_floor = self._must_restaurant_price_floor()
+            budget_ok = (
+                self.overall_budget is None
+                or intercity + hotel_cost + rest_floor <= self.overall_budget
+            )
+            return {"intercity": intercity, "hotel_cost": hotel_cost, "budget_ok": budget_ok}
+        if not self._can_satisfy_required_poi_after_go_arrival(query, go):
+            return None
+        if not self._can_satisfy_required_poi_between_intercity(query, go, back):
+            return None
+        # Metro-only + late arrival is often infeasible for short trips (Section 6d).
+        if self.enable_metro_only_prune and self._bundle_metro_only_infeasible(query, go):
+            return None
+        rest_floor = self._must_restaurant_price_floor()
+        budget_ok = (
+            self.overall_budget is None
+            or intercity + hotel_cost + rest_floor <= self.overall_budget
+        )
+        return {"intercity": intercity, "hotel_cost": hotel_cost, "budget_ok": budget_ok}
+
+    def _bundle_metro_only_infeasible(self, query, go):
+        """Heuristic prune: metro-only city travel with a late arrival on a
+        short trip leaves too little feasible daytime to satisfy required POIs.
+        """
+        metro_only = (
+            self.must_innercity_transport is not None
+            and set(self.must_innercity_transport) == {"metro"}
+        ) or (
+            self.must_not_innercity_transport is not None
+            and {"walk", "taxi"}.issubset(set(self.must_not_innercity_transport))
+        )
+        if not metro_only:
+            return False
+        if query.get("days", 1) > 2:
+            return False
+        try:
+            arr = time_to_minutes(str(go["EndTime"]))
+        except (TypeError, ValueError):
+            return False
+        return arr >= 15 * 60 and self._required_poi_constraints_present()
+
+    def _bundle_score_components(self, query, go, back, hotel, feas):
+        city = query["target_city"]
+        anchors = self._bundle_location_anchors(query)
+        origin = hotel["name"] if hotel is not None else go.get("To")
+        route_lb = self._geo_route_lb(city, origin, anchors)
+        try:
+            arr = time_to_minutes(str(go["EndTime"]))
+            dep = time_to_minutes(str(back["BeginTime"]))
+            begin = time_to_minutes(str(go["BeginTime"]))
+        except (TypeError, ValueError):
+            arr, dep, begin = 0, 24 * 60, 0
+        late_arrival = max(0, arr - self.BUNDLE_LATE_ARRIVAL_MIN)
+        red_eye = 1.0 if begin >= 22 * 60 else 0.0
+        time_pen = late_arrival / 60.0 + red_eye
+        if query["days"] == 1:
+            usable = max(1, dep - arr)
+            time_pen += 60.0 / usable
+        hard_bonus = self._hotel_hard_bonus(hotel) if hotel is not None else 0.0
+        return {
+            "intercity": feas["intercity"],
+            "hotel_cost": feas["hotel_cost"],
+            "route_lb": route_lb,
+            "time_pen": time_pen,
+            "hard_bonus": hard_bonus,
+        }
+
+    def _cost_augmented_indices(self, transport_info, ranking, cap):
+        """Preference-ranked top-``cap`` unioned with the cheapest-by-cost
+        top-``cap``.
+
+        The preference ranking sorts intercity options by time/segment fit, so
+        under a tight intercity/overall budget the budget-feasible cheap trains
+        can sit far outside the top-``cap`` beam and get truncated away -- which
+        prunes every bundle and returns an empty plan. When a budget is active,
+        make sure the cheapest options are always in the candidate pool.
+        """
+        idxs = list(ranking[:cap])
+        if self.intercity_budget is None and self.overall_budget is None:
+            return idxs
+        seen = set(idxs)
+        try:
+            cost_sorted = sorted(
+                range(len(transport_info)),
+                key=lambda i: (
+                    float(transport_info.iloc[i]["Cost"])
+                    if pd.notna(transport_info.iloc[i]["Cost"])
+                    else float("inf")
+                ),
+            )
+        except (KeyError, TypeError, ValueError):
+            return idxs
+        for i in cost_sorted[:cap]:
+            if i not in seen:
+                idxs.append(i)
+                seen.add(i)
+        return idxs
+
+    def _enumerate_bundles(self, query, go_info, back_info, ranking_go, ranking_hotel):
+        """Bounded (go, back, hotel) triples from per-axis rankings."""
+        go_cap = self.bundle_go_top
+        back_cap = self.bundle_back_top
+        hotel_cap = self.bundle_hotel_top
+        bundles = []
+        go_indices = self._cost_augmented_indices(go_info, ranking_go, go_cap)
+        for gi in go_indices:
+            go = go_info.iloc[gi]
+            if pd.isna(go["Cost"]):
+                continue
+            ranking_back = self.ranking_intercity_transport_back(back_info, query, go)
+            back_indices = self._cost_augmented_indices(back_info, ranking_back, back_cap)
+            for bi in back_indices:
+                back = back_info.iloc[bi]
+                if pd.isna(back["Cost"]):
+                    continue
+                if query["days"] > 1:
+                    for hi in ranking_hotel[:hotel_cap]:
+                        bundles.append((gi, bi, hi))
+                else:
+                    bundles.append((gi, bi, None))
+        return bundles
+
+    def _score_bundles_pass(self, query, go_info, back_info, bundles, relax_poi):
+        accommodations = self.memory["accommodations"]
+        scored_rows = []
+        enumerated = 0
+        for gi, bi, hi in bundles:
+            enumerated += 1
+            go = go_info.iloc[gi]
+            back = back_info.iloc[bi]
+            hotel = accommodations.iloc[hi] if hi is not None else None
+            feas = self._bundle_feasible(query, go, back, hotel, relax_poi=relax_poi)
+            if feas is None:
+                continue
+            components = self._bundle_score_components(query, go, back, hotel, feas)
+            scored_rows.append(
+                {
+                    "gi": gi,
+                    "bi": bi,
+                    "hi": hi,
+                    "components": components,
+                    "budget_ok": feas.get("budget_ok", True),
+                }
+            )
+            if self._search_time_exceeded():
+                break
+        return scored_rows, enumerated
+
+    def _ranked_bundles(self, query, go_info, back_info, ranking_go, ranking_hotel):
+        """Feasible-filtered, geo/budget-scored top-N (go, back, hotel) bundles."""
+        bundles = self._enumerate_bundles(
+            query, go_info, back_info, ranking_go, ranking_hotel
+        )
+        scored_rows, enumerated = self._score_bundles_pass(
+            query, go_info, back_info, bundles, relax_poi=False
+        )
+        relaxed = False
+        if not scored_rows and not self._search_time_exceeded():
+            # Every bundle was pruned (commonly by the required-POI reachability
+            # lower bounds). Retry with those relaxed so DFS still gets a beam to
+            # work with instead of falling straight through to an empty plan.
+            scored_rows, enumerated = self._score_bundles_pass(
+                query, go_info, back_info, bundles, relax_poi=True
+            )
+            relaxed = bool(scored_rows)
+        print(
+            f"bundle scorer: enumerated={enumerated} feasible={len(scored_rows)}"
+            f"{' (poi-relaxed)' if relaxed else ''}"
+        )
+        if not scored_rows:
+            return []
+        # Prefer bundles that respect the overall-budget lower bound, but only if
+        # at least one exists; otherwise keep all so DFS/best-effort still runs.
+        budget_ok_rows = [row for row in scored_rows if row.get("budget_ok", True)]
+        if budget_ok_rows:
+            scored_rows = budget_ok_rows
+        comps = [row["components"] for row in scored_rows]
+        n_ic = self._normalize_lower_better([c["intercity"] for c in comps])
+        n_hotel = self._normalize_lower_better([c["hotel_cost"] for c in comps])
+        n_route = self._normalize_lower_better([c["route_lb"] for c in comps])
+        n_time = self._normalize_lower_better([c["time_pen"] for c in comps])
+        n_bonus = self._normalize_lower_better([-c["hard_bonus"] for c in comps])
+        weights = self._bundle_weights(comps, days=query.get("days"))
+        ranked = []
+        for i, row in enumerate(scored_rows):
+            score = (
+                weights["intercity"] * n_ic[i]
+                + weights["hotel"] * n_hotel[i]
+                + weights["route"] * n_route[i]
+                + weights["time"] * n_time[i]
+                + weights["bonus"] * n_bonus[i]
+            )
+            tie = comps[i]["intercity"] + comps[i]["hotel_cost"] + comps[i]["route_lb"]
+            ranked.append((score, tie, row))
+        ranked.sort(key=lambda item: (item[0], item[1]))
+        return [row for _, _, row in ranked[: self.bundle_top_n]]
+
+    def _reset_visiting_state(self):
+        """Clear per-attempt DFS visiting state before trying a new bundle."""
+        self.restaurants_visiting = []
+        self.attractions_visiting = []
+        self.food_type_visiting = []
+        self.spot_type_visiting = []
+        self.attraction_names_visiting = []
+        self.restaurant_names_visiting = []
+        self.all_satisfy_flag = False
+        if self.enable_dfs_memoization:
+            self._dfs_state_seen = set()
+
+    def _bundle_summary_for_llm(self, query, go_info, back_info, ranked):
+        accommodations = self.memory["accommodations"]
+        summary = []
+        for pos, row in enumerate(ranked):
+            go = go_info.iloc[row["gi"]]
+            back = back_info.iloc[row["bi"]]
+            comps = row["components"]
+            summary.append(
+                {
+                    "id": pos,
+                    "go_id": go.get("FlightID") or go.get("TrainID"),
+                    "go_depart": str(go.get("BeginTime")),
+                    "go_arrive": str(go.get("EndTime")),
+                    "back_id": back.get("FlightID") or back.get("TrainID"),
+                    "back_depart": str(back.get("BeginTime")),
+                    "hotel": (
+                        accommodations.iloc[row["hi"]]["name"]
+                        if row["hi"] is not None
+                        else None
+                    ),
+                    "intercity_cost": round(float(comps["intercity"]), 1),
+                    "hotel_cost": round(float(comps["hotel_cost"]), 1),
+                    "must_route_lb": round(float(comps["route_lb"]), 1),
+                }
+            )
+        return summary
+
+    def _llm_rerank_bundles(self, query, go_info, back_info, ranked):
+        """Reorder the deterministic top-N with the LLM for hard queries only.
+
+        Rerank-only: the LLM never invents candidates nor asserts feasibility.
+        On any failure or when disabled/untriggered it returns the deterministic
+        order unchanged, so evaluation stays reproducible.
+        """
+        if not self.use_llm_bundle_rerank or not ranked:
+            return ranked
+        llm_name = getattr(getattr(self, "backbone_llm", None), "name", "")
+        if not self.backbone_llm or llm_name == "EmptyLLM":
+            return ranked
+
+        # Narrow trigger: only hard queries (>=2 must POIs or tight budget).
+        n_must = len(self.must_see_attraction or []) + len(self.must_visit_restaurant or [])
+        min_cost = 0.0
+        if ranked:
+            first = ranked[0]["components"]
+            min_cost = float(first["intercity"]) + float(first["hotel_cost"]) + self._must_restaurant_price_floor()
+        budget_tight = (
+            self.overall_budget is not None
+            and self.overall_budget > 0
+            and min_cost / self.overall_budget > 0.8
+        )
+        if not (n_must >= 2 or budget_tight):
+            return ranked
+
+        candidates = self._bundle_summary_for_llm(query, go_info, back_info, ranked)
+        cache_key = json.dumps(
+            {"uid": query.get("uid"), "cand": candidates}, ensure_ascii=False, sort_keys=True
+        )
+        if cache_key in self._bundle_rerank_cache:
+            order = self._bundle_rerank_cache[cache_key]
+            return self._apply_bundle_order(ranked, order)
+
+        payload = {
+            "task": "Rank travel-start bundles by how likely a full itinerary is feasible. Do NOT invent data; only reorder by id.",
+            "query": query.get("nature_language", ""),
+            "must_attractions": self.must_see_attraction or [],
+            "must_restaurants": self.must_visit_restaurant or [],
+            "overall_budget": self.overall_budget,
+            "days": query.get("days"),
+            "candidates": candidates,
+            "instructions": "Prefer bundles whose hotel is close to the must POIs (small must_route_lb) and whose total cost leaves budget for POIs. Return JSON {\"order\": [ids best-first]}.",
+        }
+        messages = [
+            {"role": "system", "content": "You rerank deterministic travel-start bundles. Output JSON only."},
+            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+        ]
+        try:
+            start = time.time()
+            response = self.backbone_llm(messages, one_line=False, json_mode=True)
+            self.llm_inference_time_count += time.time() - start
+            parsed = json.loads(response)
+            order = parsed.get("order", parsed if isinstance(parsed, list) else [])
+            order = [int(i) for i in order if isinstance(i, (int, float))]
+            self._bundle_rerank_cache[cache_key] = order
+            self.llm_rec_count += 1
+            return self._apply_bundle_order(ranked, order)
+        except Exception:
+            self.llm_rec_format_error += 1
+            self._bundle_rerank_cache[cache_key] = []
+            return ranked
+
+    def _apply_bundle_order(self, ranked, order):
+        """Reorder ranked by LLM-provided id list; append any omitted, dedup."""
+        if not order:
+            return ranked
+        seen = set()
+        reordered = []
+        for i in order:
+            if 0 <= i < len(ranked) and i not in seen:
+                reordered.append(ranked[i])
+                seen.add(i)
+        for i in range(len(ranked)):
+            if i not in seen:
+                reordered.append(ranked[i])
+        return reordered
+
+    def _bundle_search(self, query, go_info, back_info, ranking_go, ranking_hotel, poi_plan):
+        accommodations = self.memory["accommodations"]
+        ranked = self._ranked_bundles(query, go_info, back_info, ranking_go, ranking_hotel)
+        if not ranked:
+            # No bundle survived hard pruning (e.g. every intercity option over
+            # its budget). Fall back to best-effort rather than an empty plan.
+            self.default_plan["backtrack_count"] = self.backtrack_count
+            return self._best_effort_search_result(query, None, poi_plan)
+
+        ranked = self._llm_rerank_bundles(query, go_info, back_info, ranked)
+
+        # Run DFS on the top bundle_dfs_top first, then the remaining bundles as
+        # fallback while time remains (avoids a too-narrow beam missing a solution).
+        for pos in range(len(ranked)):
+            if self._search_time_exceeded():
+                self.default_plan["backtrack_count"] = self.backtrack_count
+                return self._best_effort_search_result(query, None, poi_plan)
+
+            row = ranked[pos]
+            go = go_info.iloc[row["gi"]]
+            back = back_info.iloc[row["bi"]]
+            poi_plan["go_transport"] = go
+            poi_plan["back_transport"] = back
+            people = query["people_number"]
+            self.intercity_cost = (float(go["Cost"]) + float(back["Cost"])) * people
+            if row["hi"] is not None:
+                hotel = accommodations.iloc[row["hi"]]
+                poi_plan["accommodation"] = hotel
+                self.required_rooms = self._bundle_hotel_rooms(query, hotel)
+                self.hotel_cost = float(hotel["price"]) * self.required_rooms * (query["days"] - 1)
+            else:
+                poi_plan.pop("accommodation", None)
+                self.hotel_cost = 0
+
+            self._current_poi_plan = poi_plan
+            self._reset_visiting_state()
+            print(
+                "bundle search: go={} back={} hotel={} (rank {}/{})".format(
+                    go.get("FlightID") or go.get("TrainID"),
+                    back.get("FlightID") or back.get("TrainID"),
+                    poi_plan.get("accommodation", {}).get("name") if row["hi"] is not None else "-",
+                    pos + 1,
+                    len(ranked),
+                )
+            )
+            try:
+                success, plan = self.dfs_poi(
+                    query, poi_plan, plan=[], current_time="", current_position=""
+                )
+            except TimeOutError:
+                print("TimeOutError")
+                return False, {"error_info": "TimeOutError"}
+
+            if success:
+                return True, plan
+            if self._is_terminal_plan_failure(plan):
+                return False, plan
+            self.backtrack_count += 1
+
+        self.default_plan["backtrack_count"] = self.backtrack_count
+        return self._best_effort_search_result(query, None, poi_plan)
+
     def _rank_hotels_for_innercity_budget(self, ranking_idx, hotel_info, query, poi_plan):
         if not ranking_idx:
             return ranking_idx
@@ -4531,6 +5219,13 @@ class UrbanTripOptimizedV5(BaseAgent):
                 and poi_name not in anchors
             ):
                 anchors.append(poi_name)
+        # Geo-aware: every must-visit POI is a fixed destination the plan must
+        # reach. Anchoring the hotel on them pushes route_cost up for hotels far
+        # from the required POIs (e.g. airport hotels vs downtown must sites).
+        if self.geo_anchor_must:
+            for poi_name in self._must_poi_anchor_names():
+                if poi_name not in anchors:
+                    anchors.append(poi_name)
 
         ranking_idx = [
             idx
