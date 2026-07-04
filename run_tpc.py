@@ -37,7 +37,7 @@ if __name__ == "__main__":
         "-a",
         type=str,
         default=None,
-        choices=["TPCAgent", "UrbanTrip", "UrbanTripOptimized", "UrbanTripOptimizedV2", "UrbanTripOptimizedV3", "UrbanTripOptimizedV4", "UrbanTripOptimizedV5"],
+        choices=["TPCAgent", "UrbanTrip", "UrbanTripOptimized", "UrbanTripOptimizedV2", "UrbanTripOptimizedV3", "UrbanTripOptimizedV4", "UrbanTripOptimizedV5", "UrbanTripOptimizedV6"],
     )
     parser.add_argument(
         "--llm",

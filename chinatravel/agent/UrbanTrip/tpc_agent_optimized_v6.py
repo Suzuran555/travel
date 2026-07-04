@@ -74,7 +74,7 @@ from chinatravel.agent.nesy_agent.nl2sl_hybrid import nl2sl_reflect
 from copy import deepcopy
 
 
-class UrbanTripOptimizedV5(BaseAgent):
+class UrbanTripOptimizedV6(BaseAgent):
     def __init__(self, **kwargs):
         super().__init__(name="TPC", **kwargs)
         cache_dir = kwargs.get("cache_dir", "cache/")
@@ -150,7 +150,13 @@ class UrbanTripOptimizedV5(BaseAgent):
         self.lang = kwargs.get("lang", "zh")
         self.poi_search = Poi(lang=self.lang)
         self._distance_cache = {}  # (city, frozenset({start, end})) -> 球面距离，单次搜索内复用
-        self.use_segments = kwargs.get("use_segments", True)
+        # v6 default: off. Full 1000-query A/B (v14 base flags, segments on
+        # vs off) showed the precomputed segment graph both fixes and
+        # introduces failures -- net FPR -0.2 but ATT +9.1 (likely stale/
+        # suboptimal edges skewing hotel & intercity ranking), so this is kept
+        # a class-default divergence from v5 pending root-cause triage of the
+        # newly-introduced failures (still overridable via kwargs for A/B).
+        self.use_segments = kwargs.get("use_segments", False)
         self.segment_top_k = kwargs.get("segment_top_k", 50)
         self.segment_index = None
         if self.use_segments:
@@ -165,7 +171,8 @@ class UrbanTripOptimizedV5(BaseAgent):
         # SegmentIndex.rank_poi). This flag re-applies the same coverage/
         # order-block bonuses via a segment-independent scorer (crude
         # distance standing in for route_cost). No-op whenever segments are
-        # on. Default off pending A/B.
+        # on. Default off pending A/B; v6 has segments off by default so this
+        # is the flag that actually matters here.
         self.enable_segment_independent_must_rank = kwargs.get(
             "enable_segment_independent_must_rank", False
         )

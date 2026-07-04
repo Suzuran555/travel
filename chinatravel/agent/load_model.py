@@ -28,6 +28,7 @@ def init_agent(kwargs):
     from .UrbanTrip.tpc_agent_optimized_v3 import UrbanTripOptimizedV3
     from .UrbanTrip.tpc_agent_optimized_v4 import UrbanTripOptimizedV4
     from .UrbanTrip.tpc_agent_optimized_v5 import UrbanTripOptimizedV5
+    from .UrbanTrip.tpc_agent_optimized_v6 import UrbanTripOptimizedV6
 
     if kwargs["method"] == "RuleNeSy":
         agent = RuleDrivenAgent(
@@ -98,6 +99,10 @@ def init_agent(kwargs):
         )
     elif kwargs["method"] == "UrbanTripOptimizedV5":
         agent = UrbanTripOptimizedV5(
+            **kwargs
+        )
+    elif kwargs["method"] == "UrbanTripOptimizedV6":
+        agent = UrbanTripOptimizedV6(
             **kwargs
         )
     else:

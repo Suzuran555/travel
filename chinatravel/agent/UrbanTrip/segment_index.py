@@ -345,7 +345,13 @@ class SegmentIndex:
         order = [pos for _, pos in sorted(scored, key=lambda item: item[0])]
         return candidate_df.iloc[order].reset_index(drop=True)
 
-    def _must_coverage_gain(self, name, row, poi_type, pending):
+    # Static: these three carry no segment-graph state (no self.* access), so
+    # they're usable directly as SegmentIndex.<name>(...) even when no
+    # SegmentIndex instance exists (segments-off path in dfs_search.py's
+    # rank_poi_dataframe_must_aware) -- keeps must-visit coverage/order-block
+    # ranking from silently disappearing whenever use_segments=False.
+    @staticmethod
+    def _must_coverage_gain(name, row, poi_type, pending):
         gain = 0.0
         if name in set(pending.get("order_predecessors") or []):
             gain += 750.0
@@ -361,12 +367,14 @@ class SegmentIndex:
                 gain += 100.0
         return gain
 
-    def _order_block_penalty(self, name, pending):
+    @staticmethod
+    def _order_block_penalty(name, pending):
         if name in set(pending.get("order_blocked") or []):
             return 500.0
         return 0.0
 
-    def _hard_anchor_bonus(self, name, row, poi_type, constraints):
+    @staticmethod
+    def _hard_anchor_bonus(name, row, poi_type, constraints):
         bonus = 0
         constraints = constraints or {}
         if poi_type in {"lunch", "dinner", "restaurant"}:

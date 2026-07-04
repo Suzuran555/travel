@@ -1,0 +1,47 @@
+{
+  "split": "TPC_IJCAI_2026_phase1",
+  "method": "UrbanTripOptimizedV5_TPCLLM_en_oracletranslation",
+  "results_dir": "/home/elljames/travel/results/UrbanTripOptimizedV5_TPCLLM_en_oracletranslation",
+  "total": 1000,
+  "counts": {
+    "schema_pass": 1000,
+    "commonsense_pass": 996,
+    "logic_pass": 997,
+    "final_pass": 994,
+    "schema_fail": 0,
+    "commonsense_fail": 4,
+    "logic_fail_after_commonsense": 2,
+    "final_fail": 6
+  },
+  "metrics": {
+    "schema_rate": 100.0,
+    "MicEPR": 99.936,
+    "MacEPR": 99.6,
+    "C-LPR": 99.55156950672645,
+    "FPR": 99.4,
+    "DAV": 87.20405767940984,
+    "ATT": 78.7668574560764,
+    "DDR": 63.16845517549746
+  },
+  "samples": {
+    "schema_fail": [],
+    "commonsense_fail": [
+      "20250322132938348367",
+      "20250322153243197259",
+      "20250323094506224861",
+      "20250325023523969179"
+    ],
+    "logic_fail_after_commonsense": [
+      "20250322112845828125",
+      "20250322153759813190"
+    ],
+    "final_fail": [
+      "20250322112845828125",
+      "20250322132938348367",
+      "20250322153243197259",
+      "20250322153759813190",
+      "20250323094506224861",
+      "20250325023523969179"
+    ]
+  }
+}
