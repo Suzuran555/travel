@@ -20,7 +20,8 @@ from chinatravel.evaluation.schema_constraint import evaluate_schema_constraints
 from chinatravel.evaluation.commonsense_constraint import evaluate_commonsense_constraints
 from chinatravel.evaluation.hard_constraint import evaluate_hard_constraints_v2
 
-RES = "results/UrbanTripOptimizedV5_TPCLLM_en_oracletranslation"
+import os as _os
+RES = _os.environ.get("ENRICH_RES", "results/UrbanTripOptimizedV5_TPCLLM_en_oracletranslation")
 args = argparse.Namespace(splits="TPC_IJCAI_2026_phase1", method="x", lang="en", preference=False)
 qi, qd = load_query(args)
 sch = load_json_file("chinatravel/evaluation/output_schema.json")
