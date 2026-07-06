@@ -204,6 +204,14 @@ class UrbanTripOptimizedV6(BaseAgent):
         self.enable_dynamic_top_k = kwargs.get("enable_dynamic_top_k", False)
         self.dynamic_top_k_pending = int(kwargs.get("dynamic_top_k_pending", 8))
         self.enable_metro_only_prune = kwargs.get("enable_metro_only_prune", False)
+        # Travel-day intercity timing bias: prefer earlier arrival + later return
+        # departure on multi-day trips so travel days can hold breakfast/dinner and
+        # more attractions (DDR/DAV structural lever). Default off; DFS re-validates
+        # every bundle, so this only re-orders within the hard-feasible/budget set.
+        self.enable_travelday_time_bias = kwargs.get("enable_travelday_time_bias", False)
+        self.travelday_arr_weight = float(kwargs.get("travelday_arr_weight", 0.15))
+        self.travelday_dep_weight = float(kwargs.get("travelday_dep_weight", 0.15))
+        self.travelday_pool_extra = int(kwargs.get("travelday_pool_extra", 8))
         # TF-IDF semantic weight for POI ranking (0 keeps legacy behavior; only
         # meaningful once must POIs are tagged into segment score_text).
         self.rank_semantic_weight = float(kwargs.get("rank_semantic_weight", 0.0))
@@ -5040,6 +5048,17 @@ class UrbanTripOptimizedV6(BaseAgent):
         if query["days"] == 1:
             usable = max(1, dep - arr)
             time_pen += 60.0 / usable
+        elif getattr(self, "enable_travelday_time_bias", False):
+            # Multi-day: reward earlier arrival (opens day-1 breakfast/attractions)
+            # and later return departure (opens last-day lunch/dinner). Both are
+            # penalties (lower time_pen sorts first). Bounded so cost still breaks
+            # near-ties; DFS + _bundle_feasible keep hard/budget constraints intact.
+            arr_pen = max(0.0, (arr - 6 * 60) / 60.0)
+            dep_pen = max(0.0, (20 * 60 - dep) / 60.0)
+            time_pen += (
+                self.travelday_arr_weight * arr_pen
+                + self.travelday_dep_weight * dep_pen
+            )
         hard_bonus = self._hotel_hard_bonus(hotel) if hotel is not None else 0.0
         return {
             "intercity": feas["intercity"],
@@ -5080,19 +5099,51 @@ class UrbanTripOptimizedV6(BaseAgent):
                 seen.add(i)
         return idxs
 
+    def _time_augmented_indices(self, transport_info, idxs, col, extra, latest):
+        """Union in the ``extra`` earliest/latest-``col`` legs so the timing bias
+        (Patch 3) has early-arrival / late-departure candidates to prefer even
+        when the cost-augmented beam would otherwise crowd them out. Additive: it
+        never removes candidates, and every added bundle is still hard/budget
+        gated by ``_bundle_feasible`` + DFS."""
+        if extra <= 0:
+            return idxs
+        seen = set(idxs)
+        try:
+            order = sorted(
+                range(len(transport_info)),
+                key=lambda i: (
+                    time_to_minutes(str(transport_info.iloc[i][col]))
+                    if pd.notna(transport_info.iloc[i][col]) else 0
+                ),
+                reverse=latest,
+            )
+        except (KeyError, TypeError, ValueError):
+            return idxs
+        out = list(idxs)
+        for i in order[:extra]:
+            if i not in seen:
+                out.append(i); seen.add(i)
+        return out
+
     def _enumerate_bundles(self, query, go_info, back_info, ranking_go, ranking_hotel):
         """Bounded (go, back, hotel) triples from per-axis rankings."""
         go_cap = self.bundle_go_top
         back_cap = self.bundle_back_top
         hotel_cap = self.bundle_hotel_top
+        bias = getattr(self, "enable_travelday_time_bias", False) and query["days"] > 1
+        extra = int(getattr(self, "travelday_pool_extra", 0))
         bundles = []
         go_indices = self._cost_augmented_indices(go_info, ranking_go, go_cap)
+        if bias:  # add earliest-arrival go legs
+            go_indices = self._time_augmented_indices(go_info, go_indices, "EndTime", extra, latest=False)
         for gi in go_indices:
             go = go_info.iloc[gi]
             if pd.isna(go["Cost"]):
                 continue
             ranking_back = self.ranking_intercity_transport_back(back_info, query, go)
             back_indices = self._cost_augmented_indices(back_info, ranking_back, back_cap)
+            if bias:  # add latest-departure back legs
+                back_indices = self._time_augmented_indices(back_info, back_indices, "BeginTime", extra, latest=True)
             for bi in back_indices:
                 back = back_info.iloc[bi]
                 if pd.isna(back["Cost"]):
