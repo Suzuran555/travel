@@ -215,6 +215,19 @@ class UrbanTripOptimizedV6(BaseAgent):
         # TF-IDF semantic weight for POI ranking (0 keeps legacy behavior; only
         # meaningful once must POIs are tagged into segment score_text).
         self.rank_semantic_weight = float(kwargs.get("rank_semantic_weight", 0.0))
+        # ATT lever (default off; ships off): make POI candidate ordering see
+        # transit TIME. With use_segments=False (the live config) POI ranking is
+        # a plain price/distance sort, so a geometrically far "free" pick costs
+        # nothing; with segments on, rank_poi's route_cost is blind to distance
+        # for metro (flat fare) and walk (0 yuan). Under this flag POI ranking
+        # is routed through SegmentIndex.rank_poi (via a ranking-ONLY segment
+        # index when self.segment_index is None -- hotel/intercity ranking and
+        # travel-minute estimation stay untouched) and a ``transit_time``
+        # weight is injected, scaled by the running avg leg minutes of the
+        # partial plan (ATT pressure).
+        self.enable_transit_time_score = kwargs.get("enable_transit_time_score", False)
+        self._transit_rank_segment_index = None
+        self._transit_rank_segment_dir = kwargs.get("segment_dir")
         self._dfs_state_seen = set()
 
         self.visited_attractions = set()
@@ -4440,6 +4453,56 @@ class UrbanTripOptimizedV6(BaseAgent):
         spend["overall"] += spend["innercity"]
         return spend
 
+    def _running_avg_transit_minutes(self, plan=None):
+        """Average transit minutes per activity-with-transports in the current
+        partial plan, mirroring the ATT metric's definition (sum of leg
+        durations within an activity's ``transports`` chain, averaged over
+        activities that have a non-empty chain). 0.0 when nothing planned yet.
+        """
+        plan = plan if plan is not None else getattr(self, "_current_dfs_plan", None)
+        total = 0.0
+        count = 0
+        for day_activities in plan or []:
+            for activity in day_activities.get("activities", []):
+                transports = activity.get("transports") or []
+                if not transports:
+                    continue
+                minutes = 0.0
+                valid = True
+                for leg in transports:
+                    try:
+                        minutes += time_to_minutes(str(leg["end_time"])) - time_to_minutes(
+                            str(leg["start_time"])
+                        )
+                    except (KeyError, TypeError, ValueError):
+                        valid = False
+                        break
+                if valid:
+                    total += max(0.0, minutes)
+                    count += 1
+        return (total / count) if count else 0.0
+
+    def _get_transit_rank_segment_index(self):
+        """Segment index used ONLY for POI ranking under
+        enable_transit_time_score. When use_segments is off (the live config)
+        this builds a lazy, TF-IDF-free SegmentIndex and keeps
+        ``self.segment_index`` None, so the segments-on regressions previously
+        observed in hotel/intercity ranking and travel-minute estimation
+        cannot resurface; only candidate ordering changes.
+        """
+        if not getattr(self, "enable_transit_time_score", False):
+            return None
+        if self.segment_index is not None:
+            return self.segment_index
+        if self._transit_rank_segment_index is None:
+            self._transit_rank_segment_index = SegmentIndex(
+                lang=self.lang,
+                segment_dir=self._transit_rank_segment_dir,
+                top_k=self.segment_top_k,
+                build_tfidf=False,
+            )
+        return self._transit_rank_segment_index
+
     def _pending_required_items(self):
         pending = {
             "attraction_names": [],
@@ -4544,6 +4607,13 @@ class UrbanTripOptimizedV6(BaseAgent):
             "order_block": 1.20,
             "semantic": self.rank_semantic_weight,
         }
+        if getattr(self, "enable_transit_time_score", False):
+            # ATT pressure: the metric is 1.0 while the running avg leg stays
+            # <= 15 min and hits 0 at 120 min, so scale the transit-time weight
+            # with how far the current partial plan already is above 15 min.
+            avg_leg_minutes = self._running_avg_transit_minutes()
+            att_pressure = max(0.0, min(1.0, avg_leg_minutes / 15.0 - 1.0))
+            weights["transit_time"] = 0.3 + 1.5 * att_pressure
         if sum(len(items) for items in (context.get("pending") or {}).values()) > 0:
             weights["must_coverage"] = max(weights["must_coverage"], 1.10)
         return weights
@@ -4923,6 +4993,12 @@ class UrbanTripOptimizedV6(BaseAgent):
         if cached is not None:
             return cached
         names = list(self._must_poi_anchor_names())
+        if not names and getattr(self, "enable_transit_time_score", False):
+            # ATT lever: price-sorted anchor heads can be geographically
+            # scattered, letting a hotel far from where the plan will actually
+            # go look fine. Anchor on the medoid cluster of the cheapest
+            # candidate attractions instead (same 4+3 anchor counts).
+            names = self._transit_medoid_anchor_names(query)
         if not names:
             for key, k in (("attractions", 4), ("restaurants", 3)):
                 df = self.memory.get(key)
@@ -4931,6 +5007,51 @@ class UrbanTripOptimizedV6(BaseAgent):
                 sub = df.sort_values("price") if "price" in df.columns else df
                 names.extend(str(n) for n in sub["name"].head(k).tolist())
         self._bundle_loc_anchor_cache = names
+        return names
+
+    def _transit_medoid_anchor_names(self, query, pool_k=12):
+        """Geo-clustered anchors (enable_transit_time_score only): medoid of
+        the ``pool_k`` cheapest candidate attractions plus its 3 nearest pool
+        mates, then the 3 candidate restaurants nearest the medoid. Falls back
+        to [] (caller keeps the legacy price-head anchors) when data is missing.
+        """
+        city = query["target_city"]
+        att_df = self.memory.get("attractions")
+        if att_df is None or getattr(att_df, "empty", True):
+            return []
+        pool_df = att_df.sort_values("price") if "price" in att_df.columns else att_df
+        pool = []
+        for name in pool_df["name"].head(pool_k).tolist():
+            name = str(name)
+            if name not in pool:
+                pool.append(name)
+        if not pool:
+            return []
+
+        def dist(a, b):
+            d = self.calculate_distance({"target_city": city}, a, b)
+            return d if d is not None else 30.0
+
+        medoid = min(
+            (sum(dist(a, b) for b in pool if b != a), idx, a)
+            for idx, a in enumerate(pool)
+        )[2]
+        near = sorted(
+            (dist(medoid, a), idx, a) for idx, a in enumerate(pool) if a != medoid
+        )
+        names = [medoid] + [a for _, _, a in near[:3]]
+        res_df = self.memory.get("restaurants")
+        if res_df is not None and not getattr(res_df, "empty", True):
+            res_pool_df = res_df.sort_values("price") if "price" in res_df.columns else res_df
+            res_pool = []
+            for name in res_pool_df["name"].head(pool_k).tolist():
+                name = str(name)
+                if name not in res_pool and name not in names:
+                    res_pool.append(name)
+            res_near = sorted(
+                (dist(medoid, r), idx, r) for idx, r in enumerate(res_pool)
+            )
+            names.extend(r for _, _, r in res_near[:3])
         return names
 
     def _must_restaurant_price_floor(self):

@@ -121,7 +121,16 @@ def rank_poi_dataframe(
     *,
     use_attraction_budget_key: bool = False,
 ) -> pd.DataFrame:
-    if agent.segment_index is None and getattr(
+    # enable_transit_time_score (ATT lever): POI ranking goes through
+    # SegmentIndex.rank_poi (whose weighted score carries the transit_time
+    # term) even when use_segments=False, via a ranking-only index that leaves
+    # agent.segment_index None for every other consumer. With the flag off,
+    # _get_transit_rank_segment_index returns None and behavior is unchanged.
+    segment_index = agent.segment_index
+    if segment_index is None and getattr(agent, "enable_transit_time_score", False):
+        segment_index = agent._get_transit_rank_segment_index()
+
+    if segment_index is None and getattr(
         agent, "enable_segment_independent_must_rank", False
     ):
         return rank_poi_dataframe_must_aware(
@@ -146,8 +155,8 @@ def rank_poi_dataframe(
             axis=1,
         )
         ranked = work.sort_values(by="distance").reset_index(drop=True)
-    if agent.segment_index is not None:
-        ranked = agent.segment_index.rank_poi(
+    if segment_index is not None:
+        ranked = segment_index.rank_poi(
             agent._segment_query(query),
             current_position,
             poi_kind,

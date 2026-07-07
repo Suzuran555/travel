@@ -77,7 +77,10 @@ def _time_margin_minutes(current_time, end_time):
 
 
 class SegmentIndex:
-    def __init__(self, lang="en", segment_dir=None, top_k=50):
+    def __init__(self, lang="en", segment_dir=None, top_k=50, build_tfidf=True):
+        # ``build_tfidf=False`` skips the TF-IDF fit (used by the ranking-only
+        # index behind enable_transit_time_score, where the semantic weight is
+        # unused); _tfidf_scores then returns {} which matches semantic=0.
         self.lang = normalize_lang(lang)
         self.top_k = top_k
         if segment_dir is None:
@@ -114,7 +117,7 @@ class SegmentIndex:
         self._tfidf_vectorizer = None
         self._intracity_matrix = None
         self._intracity_docs = []
-        if self.intracity_segments:
+        if self.intracity_segments and build_tfidf:
             self._build_tfidf()
 
     def _load_jsonl(self, filename):
@@ -283,6 +286,11 @@ class SegmentIndex:
             route_cost = _safe_float(best_segment.get("cost"), 10**6) if best_segment else 10**6
             route_distance = _safe_float(best_segment.get("distance"), 10**6) if best_segment else 10**6
             base_score = _safe_float(best_segment.get("base_score"), 10**6) if best_segment else 10**6
+            # Estimated transit minutes to the candidate (ATT lever). route_cost
+            # is blind to distance for metro (flat fare) / walk (free), so a
+            # far "cheap" POI needs this term to be penalised at all. Inert
+            # unless the caller supplies a positive ``transit_time`` weight.
+            transit_minutes = _safe_float(best_segment.get("duration"), 10**6) if best_segment else 10**6
             price = _safe_float(row.get("price"), 0.0)
             close_margin = _time_margin_minutes(current_time, row.get("endtime"))
             coverage_gain = self._must_coverage_gain(name, row, poi_type, pending)
@@ -294,6 +302,7 @@ class SegmentIndex:
                     "hard_bonus": hard_bonus,
                     "route_cost": route_cost,
                     "route_distance": route_distance,
+                    "transit_minutes": transit_minutes,
                     "base_score": base_score,
                     "price": price,
                     "close_margin": close_margin,
@@ -307,6 +316,7 @@ class SegmentIndex:
         tfidf = self._tfidf_scores(query_text, candidate_segments)
         route_cost_norm = _normalize_lower_better([row["route_cost"] for row in rows])
         route_distance_norm = _normalize_lower_better([row["route_distance"] for row in rows])
+        transit_time_norm = _normalize_lower_better([row["transit_minutes"] for row in rows])
         base_score_norm = _normalize_lower_better([row["base_score"] for row in rows])
         price_norm = _normalize_lower_better([row["price"] for row in rows])
         close_margin_norm = _normalize_lower_better([row["close_margin"] for row in rows])
@@ -324,6 +334,10 @@ class SegmentIndex:
             weighted_score = (
                 weight("route_cost", 0.45) * route_cost_norm[idx]
                 + weight("route_distance", 0.15) * route_distance_norm[idx]
+                # Default 0.0 keeps legacy behavior bit-identical: the weight is
+                # only supplied by _default_dynamic_weights under the
+                # enable_transit_time_score kwarg.
+                + weight("transit_time", 0.0) * transit_time_norm[idx]
                 + weight("base_score", 0.10) * base_score_norm[idx]
                 + weight("poi_price", 0.20) * price_norm[idx]
                 + weight("time_margin", 0.20) * close_margin_norm[idx]
