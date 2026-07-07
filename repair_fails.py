@@ -16,6 +16,7 @@ import enrich_route as ER
 RES = ER.RES
 # donor dirs, richest/best first
 DONORS = [
+    "_ARCHIVE_V6_best_98.95",
     "_ARCHIVE_V6_enriched_98.12",
     "_ARCHIVE_V6_patched_enriched",
     "_ARCHIVE_stacked_95.67_results",
