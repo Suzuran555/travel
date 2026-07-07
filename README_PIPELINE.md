@@ -38,5 +38,6 @@ improved. FPR can therefore never regress from enrichment.
   some scripts default to a stale dir.
 
 ## Score trajectory (phase1, 1000 queries)
-fresh 97.71 → endday/gapmeal/att/repair 99.09 → merge/gapattr/travelday/bfstack **99.61**
-(DAV 98.08, ATT 97.06, DDR 98.04, FPR 99.9, C-LPR 99.97, EPR 100; archive `_ARCHIVE_V6_top5`)
+fresh 97.71 → endday/gapmeal/att/repair 99.09 → merge/gapattr/travelday/bfstack 99.61
+→ bfstack seed-gate + cap fix **99.71** (DAV 98.08, ATT 97.06, DDR **100.0**, FPR 99.9,
+C-LPR 99.97, EPR 100; archive `_ARCHIVE_V6_ddr100`)

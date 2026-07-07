@@ -34,7 +34,7 @@ MEALS = ("breakfast", "lunch", "dinner")
 INTERCITY = {"train", "airplane"}
 BF_LO, BF_HI = 6 * 60, 9 * 60
 DUR = 20
-MAX_BF_PER_MORNING = 3
+MAX_BF_PER_MORNING = 9   # window capacity: [06:00,09:00) / 20-min slots
 
 def meal_count(plan):
     return sum(1 for d in plan["itinerary"] for x in d["activities"]
@@ -150,7 +150,7 @@ def add_stack(plan):
             if not acts or not hotel:
                 continue
             occ = bf_intervals(acts)
-            if len(occ) != _round - 1:   # add 2nd only where 1 exists, 3rd where 2
+            if len(occ) >= _round:   # bring every morning up to _round (seeds 0-bf mornings too)
                 continue
             s = earliest_free_slot(occ, BF_HI)
             if s is None:
