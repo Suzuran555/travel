@@ -58,20 +58,26 @@ def enrich_plan(ag, query, plan):
             cand.append((cur_t, di, ai, origin, dest, depart))
         cand.sort(reverse=True)            # largest current transit first
         for cur_t, di_, ai, origin, dest, depart in cand:
-            taxi = ag.collect_innercity_transport(city, origin, dest, depart, "taxi")
-            if not isinstance(taxi, list) or taxi == []:
-                continue
-            if innercity_transport_time(taxi) >= cur_t:   # must be strictly faster
-                continue
-            trial = copy.deepcopy(plan)
-            trial["itinerary"][di_]["activities"][ai]["transports"] = taxi
-            try:
-                ag._repair_itinerary_times(trial["itinerary"])
-            except Exception:
-                continue
-            if att_of(trial) > att_of(plan) + 1e-9 and passes(ER._cur, trial):
-                plan["itinerary"][di_]["activities"] = trial["itinerary"][di_]["activities"]
-                swaps += 1
+            # Try metro FIRST (cheap, budget-safe -> rescues long WALK legs where the
+            # taxi is faster but blows the innercity_transport_cost cap), then taxi
+            # (fastest, for metro-sandwich legs with budget slack). Keep the first
+            # strictly-faster alternative that still passes and raises ATT.
+            for mode in ("metro", "taxi"):
+                alt = ag.collect_innercity_transport(city, origin, dest, depart, mode)
+                if not isinstance(alt, list) or alt == []:
+                    continue
+                if innercity_transport_time(alt) >= cur_t:   # must be strictly faster
+                    continue
+                trial = copy.deepcopy(plan)
+                trial["itinerary"][di_]["activities"][ai]["transports"] = alt
+                try:
+                    ag._repair_itinerary_times(trial["itinerary"])
+                except Exception:
+                    continue
+                if att_of(trial) > att_of(plan) + 1e-9 and passes(ER._cur, trial):
+                    plan["itinerary"][di_]["activities"] = trial["itinerary"][di_]["activities"]
+                    swaps += 1
+                    break
     return swaps
 
 if __name__ == "__main__":
