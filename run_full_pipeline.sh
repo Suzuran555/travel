@@ -39,7 +39,9 @@ evaluate() {
 
 stage() { echo; echo "===== STAGE: $1 ($(date +%H:%M:%S)) ====="; }
 
-DEFAULT_STAGES="planner eval0 endday gapmeal att repair merge gapattr travelday bfstack repair2 final"
+# After 'final', the ATT pilot re-plans the ATT<1 uids with enable_transit_time_score
+# and merges per-uid, gated on passes() + soft improvement — see chain_endgame.sh steps 5-9.
+DEFAULT_STAGES="planner eval0 endday gapmeal att repair merge gapattr endattr travelday bfstack repair2 final"
 [ "${SKIP_PLANNER:-0}" = "1" ] && DEFAULT_STAGES="${DEFAULT_STAGES#planner }"
 
 for s in ${STAGES:-$DEFAULT_STAGES}; do
@@ -62,6 +64,8 @@ for s in ${STAGES:-$DEFAULT_STAGES}; do
               else echo "no donor archive -> skip"; fi ;;
     gapattr)  stage "enrich_gapattr: gap-attraction inserts (DAV)"
               par enrich_gapattr.py pipe_gapattr ;;
+    endattr)  stage "enrich_endattr: evening-append attractions (DAV)"
+              par enrich_endattr.py pipe_endattr ;;
     travelday) stage "enrich_travelday_meals: real meals on travel days (DDR)"
               par enrich_travelday_meals.py pipe_travelday ;;
     bfstack)  stage "enrich_bfstack --stack: hotel-breakfast deficit cover (DDR)"
