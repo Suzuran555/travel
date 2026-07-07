@@ -262,7 +262,26 @@ class SegmentIndex:
         scored.sort(key=lambda item: (item[1], item[2], item[3]))
         return [idx for idx, _, _, _ in scored]
 
-    def rank_poi(self, query, current_position, poi_type, candidate_df, constraints):
+    def rank_poi(
+        self,
+        query,
+        current_position,
+        poi_type,
+        candidate_df,
+        constraints,
+        transit_signal_min_duration=False,
+    ):
+        # ``transit_signal_min_duration`` (sub-flag of enable_transit_time_score,
+        # default False = round-1 behavior): the round-1 transit_minutes signal
+        # read best_segment["duration"], but _best_intracity_segment sorts by
+        # COST first, so a free walk edge always wins and the signal degrades
+        # to walk-minutes, over-penalising mid-distance POIs a metro/taxi would
+        # reach quickly. With this True, transit_minutes is instead the MINIMUM
+        # duration across all mode variants of the edge (walk/metro/taxi,
+        # direct + reverse -- the same candidate universe _best_intracity_segment
+        # considers), keeping the missing-edge fallback 10**6 -> norm 1.0.
+        # Only the transit_minutes component changes; cost/distance/base_score
+        # still come from best_segment.
         if candidate_df is None or len(candidate_df) == 0:
             return candidate_df
         if not self.has_intracity or not current_position:
@@ -290,7 +309,10 @@ class SegmentIndex:
             # is blind to distance for metro (flat fare) / walk (free), so a
             # far "cheap" POI needs this term to be penalised at all. Inert
             # unless the caller supplies a positive ``transit_time`` weight.
-            transit_minutes = _safe_float(best_segment.get("duration"), 10**6) if best_segment else 10**6
+            if transit_signal_min_duration:
+                transit_minutes = self._min_intracity_duration(city, current_position, name)
+            else:
+                transit_minutes = _safe_float(best_segment.get("duration"), 10**6) if best_segment else 10**6
             price = _safe_float(row.get("price"), 0.0)
             close_margin = _time_margin_minutes(current_time, row.get("endtime"))
             coverage_gain = self._must_coverage_gain(name, row, poi_type, pending)
@@ -425,6 +447,30 @@ class SegmentIndex:
                 _safe_float(segment.get("distance"), 10**6),
             ),
         )
+
+    def _min_intracity_duration(self, city, start, end):
+        """Minimum transit duration (minutes) across all mode variants of an
+        edge (walk/metro/taxi, direct + reverse) -- the transit_signal_min_duration
+        signal for rank_poi. Falls back to 10**6 (-> norm 1.0) when no variant
+        exists, matching the missing-edge behavior of the round-1 signal.
+        Durations are read straight off the stored per-mode segments; no
+        reversal is needed because _reverse_route leaves ``duration`` unchanged.
+        """
+        if not start or not end:
+            return 10**6
+        best = 10**6
+        for candidate_mode in ("walk", "metro", "taxi"):
+            for key in (
+                (city, start, end, candidate_mode),
+                (city, end, start, candidate_mode),
+            ):
+                segment = self._intracity_by_key.get(key)
+                if segment is None:
+                    continue
+                duration = _safe_float(segment.get("duration"), 10**6)
+                if duration < best:
+                    best = duration
+        return best
 
     def _reverse_route(self, segment):
         route = []

@@ -226,6 +226,13 @@ class UrbanTripOptimizedV6(BaseAgent):
         # weight is injected, scaled by the running avg leg minutes of the
         # partial plan (ATT pressure).
         self.enable_transit_time_score = kwargs.get("enable_transit_time_score", False)
+        # Sub-flag of enable_transit_time_score (default off; no effect unless
+        # the parent flag is on): round 1 fed rank_poi the duration of the
+        # cheapest segment, which is walk-minutes whenever a walk edge exists
+        # (cost sorts first) and over-penalises mid-distance POIs. With this
+        # True, the transit_minutes signal becomes the minimum duration across
+        # mode variants (walk/metro/taxi) of the edge instead.
+        self.transit_signal_min_duration = kwargs.get("transit_signal_min_duration", False)
         self._transit_rank_segment_index = None
         self._transit_rank_segment_dir = kwargs.get("segment_dir")
         self._dfs_state_seen = set()

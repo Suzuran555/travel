@@ -162,6 +162,12 @@ def rank_poi_dataframe(
             poi_kind,
             ranked,
             agent._segment_constraints(),
+            # Sub-flag gated on the parent flag so enable_transit_time_score
+            # off stays bit-identical regardless of the sub-flag value.
+            transit_signal_min_duration=bool(
+                getattr(agent, "enable_transit_time_score", False)
+                and getattr(agent, "transit_signal_min_duration", False)
+            ),
         )
     return ranked
 
