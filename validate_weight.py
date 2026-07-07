@@ -5,10 +5,11 @@ sys.path.insert(0, os.path.abspath("."))
 import validate_bias as V
 
 W = float(os.environ.get("HIWEIGHT", "0.30"))
+L = float(os.environ.get("LOWEIGHT", "0.15"))
 n = int(sys.argv[sys.argv.index("--n")+1]) if "--n" in sys.argv else 20
 sample = V.pick_sample(n)
-print(f"sample ({len(sample)}): weight 0.15 vs {W}", flush=True)
-lo = V.make_agent({"enable_travelday_time_bias": True, "travelday_arr_weight":0.15, "travelday_dep_weight":0.15})
+print(f"sample ({len(sample)}): weight {L} vs {W}", flush=True)
+lo = V.make_agent({"enable_travelday_time_bias": True, "travelday_arr_weight":L, "travelday_dep_weight":L})
 hi = V.make_agent({"enable_travelday_time_bias": True, "travelday_arr_weight":W, "travelday_dep_weight":W})
 def ddr(p):
     d=max(1,len(p.get("itinerary",[]))); m=sum(1 for dd in p["itinerary"] for x in dd["activities"] if x.get("type") in ("breakfast","lunch","dinner")); return min(1.0,m/d/3)
