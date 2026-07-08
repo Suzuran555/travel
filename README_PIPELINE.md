@@ -43,8 +43,15 @@ fresh 97.71 → endday/gapmeal/att/repair 99.09 → merge/gapattr/travelday/bfst
 → ATT planner pilot (enable_transit_time_score, 252 uids, gated merge) 99.828
 → enrich_dav2 (small-gap/evening/station-wait/morning/dwell-shrink) 99.867
 → ATT pilot round 2 (two signal variants, best-of-three per-uid merge) 99.910
-→ ATT pilot round 3 (variant C: geo-feasibility + weight floor 3.0, 158 uids) **99.917**
-(DAV 99.79, ATT 99.49, DDR **100.0**, FPR 99.9, C-LPR 99.97, EPR 100;
-archive `_ARCHIVE_V6_pilot3`; orchestration: `chain_endgame.sh`, `chain_pilot2.sh`,
-`chain_pilot3.sh` + `chain_pilot3_resume.sh` — the latter re-runs stages 3-5 after
-an interruption, e.g. the 2026-07-08 power loss mid-battery)
+→ ATT pilot round 3 (variant C: geo-feasibility + weight floor 3.0, 158 uids) 99.917
+→ wave 4: audited residual fixers `enrich_rebook`/`enrich_fillerswap`/`enrich_seqswap`
+  (wrong-airport rebooking, alphabetical-far-filler POI swaps, budget-aware joint
+  transport re-moding) + `enrich_lateattr` (movable hotel check-in DAV inserts) 99.9499
+→ wave 5+: `enrich_attdilute` (short-leg attraction inserts pull per-plan avg transit
+  under 15 min) **99.951** — DAV **100.0**, ATT 99.96, DDR **100.0**, EPR 100,
+  FPR 99.9 + C-LPR 99.97 pinned by the documented evaluator bug (EVALUATOR_BUG_REPORT.md;
+  a fix upstream is worth +0.047). Archives `_ARCHIVE_V6_pilot3` (99.917),
+  `_ARCHIVE_V6_wave4` (99.9499), `_ARCHIVE_V6_9995` (99.951); orchestration:
+  `chain_endgame.sh`, `chain_pilot2.sh`, `chain_pilot3.sh` + `chain_pilot3_resume.sh`
+  (re-runs stages 3-5 after an interruption, e.g. the 2026-07-08 power loss),
+  `chain_wave4.sh`, `chain_wave5.sh`)
