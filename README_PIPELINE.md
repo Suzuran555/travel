@@ -41,6 +41,7 @@ improved. FPR can therefore never regress from enrichment.
 fresh 97.71 → endday/gapmeal/att/repair 99.09 → merge/gapattr/travelday/bfstack 99.61
 → bfstack seed-gate + cap fix 99.71 → gapattr v2/endattr/taxi-first waves 99.756
 → ATT planner pilot (enable_transit_time_score, 252 uids, gated merge) 99.828
-→ enrich_dav2 (small-gap/evening/station-wait/morning/dwell-shrink) **99.867**
-(DAV 99.79, ATT 98.49, DDR **100.0**, FPR 99.9, C-LPR 99.97, EPR 100;
-archive `_ARCHIVE_V6_dav2`; pilot orchestration: `chain_endgame.sh`)
+→ enrich_dav2 (small-gap/evening/station-wait/morning/dwell-shrink) 99.867
+→ ATT pilot round 2 (two signal variants, best-of-three per-uid merge) **99.910**
+(DAV 99.79, ATT 99.35, DDR **100.0**, FPR 99.9, C-LPR 99.97, EPR 100;
+archive `_ARCHIVE_V6_pilot2`; orchestration: `chain_endgame.sh`, `chain_pilot2.sh`)
