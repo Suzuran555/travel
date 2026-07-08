@@ -115,7 +115,16 @@ def init_llm(llm_name, max_model_len=None):
 
     from .tpc_agent.tpc_llm import TPCLLM
 
-    if llm_name == "deepseek":
+    if "ollama" in llm_name.lower():
+        from .llms import OllamaChat
+
+        # e.g. --llm ollama-qwen3.6-27b -> ollama tag qwen3.6:27b
+        tag_map = {"ollama-qwen3.6-27b": "qwen3.6:27b"}
+        tag = os.environ.get("OLLAMA_TAG") or tag_map.get(
+            llm_name.lower(), llm_name.lower().replace("ollama-", "", 1)
+        )
+        llm = OllamaChat(model_tag=tag, display_name="Qwen3.6-27B")
+    elif llm_name == "deepseek":
         llm = Deepseek()
     elif llm_name == "gpt-4o":
         llm = GPT4o()

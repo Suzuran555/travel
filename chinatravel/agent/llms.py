@@ -475,6 +475,60 @@ class EmptyLLM(AbstractLLM):
     def _get_response(self, messages, one_line, json_mode):
         return "Empty LLM response"
 
+
+class OllamaChat(AbstractLLM):
+    """Local Ollama-served chat model (Apple-Silicon substitute for the
+    organizers' SGLang/vLLM serving of Qwen3.6-27B in Phase 2).
+
+    Sampling mirrors the repo's Qwen3 settings (temperature 0.6, top_p 0.95,
+    top_k 20) so behavior tracks the Phase-2 harness as closely as the
+    different serving stack allows. Thinking blocks are stripped.
+    """
+
+    def __init__(self, model_tag="qwen3.6:27b", display_name="Qwen3.6-27B"):
+        super().__init__()
+        import requests  # noqa: F401 - fail fast if missing
+
+        self.model_tag = model_tag
+        self.name = display_name
+        self.host = os.environ.get("OLLAMA_HOST_URL", "http://localhost:11434")
+
+    def _get_response(self, messages, one_line, json_mode):
+        import requests
+
+        payload = {
+            "model": self.model_tag,
+            "messages": merge_repeated_role(list(messages)),
+            "stream": False,
+            "options": {
+                "temperature": 0.6,
+                "top_p": 0.95,
+                "top_k": 20,
+                "num_predict": 4096,
+                "num_ctx": 32768,
+            },
+        }
+        if json_mode:
+            payload["format"] = "json"
+        resp = requests.post(f"{self.host}/api/chat", json=payload, timeout=1200)
+        resp.raise_for_status()
+        body = resp.json()
+        content = body.get("message", {}).get("content", "")
+        content = re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL).strip()
+        self.input_token_count += body.get("prompt_eval_count", 0) or 0
+        self.output_token_count += body.get("eval_count", 0) or 0
+        self.input_token_maxx = max(
+            self.input_token_maxx, body.get("prompt_eval_count", 0) or 0
+        )
+        if json_mode:
+            content = repair_json(content, ensure_ascii=False)
+        if one_line:
+            for line in content.splitlines():
+                if line.strip():
+                    return line.strip()
+        return content
+
+
 if __name__ == "__main__":
     # model = Mistral()
     model = GPT4o()

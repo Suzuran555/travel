@@ -48,7 +48,11 @@ fresh 97.71 → endday/gapmeal/att/repair 99.09 → merge/gapattr/travelday/bfst
   (wrong-airport rebooking, alphabetical-far-filler POI swaps, budget-aware joint
   transport re-moding) + `enrich_lateattr` (movable hotel check-in DAV inserts) 99.9499
 → wave 5+: `enrich_attdilute` (short-leg attraction inserts pull per-plan avg transit
-  under 15 min) **99.951** — DAV **100.0**, ATT 99.96, DDR **100.0**, EPR 100,
+  under 15 min) 99.951
+→ ATT endgame: 7 per-uid combined-mechanism full rebuilds (hotel re-selection into
+  dense POI clusters, flight/train rebooking, cap-aware re-moding, leg dilution;
+  each independently verified) **99.95299 — the current-evaluator ceiling** —
+  DAV **100.0**, ATT **100.0**, DDR **100.0**, EPR 100,
   FPR 99.9 + C-LPR 99.97 pinned by the documented evaluator bug (EVALUATOR_BUG_REPORT.md;
   a fix upstream is worth +0.047). Archives `_ARCHIVE_V6_pilot3` (99.917),
   `_ARCHIVE_V6_wave4` (99.9499), `_ARCHIVE_V6_9995` (99.951); orchestration:

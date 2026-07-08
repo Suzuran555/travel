@@ -499,8 +499,8 @@ class UrbanTripOptimizedV6(BaseAgent):
         self.backbone_llm.input_token_maxx = 0
 
         # natural language -> symoblic language -> plan
-        # if not oralce_translation:
-        #     query = self.translate_nl2sl(query, load_cache=load_cache)
+        if not oralce_translation:
+            query = self.translate_nl2sl(query, load_cache=True)
 
         succ, plan = self.symbolic_search(query)
 
