@@ -246,6 +246,29 @@ class UrbanTripOptimizedV6(BaseAgent):
         # taxi time model, + 10 min coverage-trust handicap) via the agent's
         # Poi coordinate table; missing coordinates keep the 10**6 constant.
         self.transit_geo_fallback = kwargs.get("transit_geo_fallback", False)
+        # ATT feasibility flag (default off = legacy behavior, independent of
+        # enable_transit_time_score): _estimate_intracity_travel_minutes -- the
+        # travel estimate behind _poi_has_visit_window and hence behind ALL
+        # required-POI reachability pruning (_bundle_feasible and the go/back
+        # train feasibility prioritizers) -- returns a flat 45 minutes in the
+        # live config (use_segments=False -> self.segment_index is None), so a
+        # must POI 77 km away "fits" any visit window and DFS then commits to
+        # catastrophic legs. With this True the estimate becomes: minimum
+        # duration across mode variants of the segment edge when one exists
+        # (an admissible lower bound on realizable travel), else geodesic km
+        # * 1.5 (the environment's exact taxi time model) + 10 when both
+        # coordinates exist, else the legacy 45. Estimates come from the same
+        # lazy ranking-only SegmentIndex used by enable_transit_time_score;
+        # hotel/intercity RANKING and route building stay untouched.
+        self.transit_geo_feasibility = kwargs.get("transit_geo_feasibility", False)
+        # Floor of the injected transit_time weight under
+        # enable_transit_time_score (only read inside that flag's branch;
+        # default 0.3 reproduces the committed formula 0.3 + 1.5*att_pressure
+        # bit-identically). Low-running-avg plans have att_pressure 0, so the
+        # floor is the only transit signal until damage is already done;
+        # raising it (e.g. 0.8) makes candidate ordering distance-aware from
+        # the first pick.
+        self.transit_weight_floor = float(kwargs.get("transit_weight_floor", 0.3))
         self._transit_rank_segment_index = None
         self._transit_rank_segment_dir = kwargs.get("segment_dir")
         self._dfs_state_seen = set()
@@ -4512,6 +4535,15 @@ class UrbanTripOptimizedV6(BaseAgent):
         """
         if not getattr(self, "enable_transit_time_score", False):
             return None
+        return self._build_transit_rank_segment_index()
+
+    def _build_transit_rank_segment_index(self):
+        """Shared lazy builder for the ranking/feasibility-only SegmentIndex
+        (used by _get_transit_rank_segment_index and, under
+        transit_geo_feasibility, by _estimate_intracity_travel_minutes).
+        Reuses self.segment_index when segments are on so behavior matches the
+        pre-refactor accessor exactly.
+        """
         if self.segment_index is not None:
             return self.segment_index
         if self._transit_rank_segment_index is None:
@@ -4520,8 +4552,9 @@ class UrbanTripOptimizedV6(BaseAgent):
                 segment_dir=self._transit_rank_segment_dir,
                 top_k=self.segment_top_k,
                 build_tfidf=False,
-                # Coordinate table for the transit_geo_fallback estimate; inert
-                # unless rank_poi is called with transit_geo_fallback=True.
+                # Coordinate table for the transit_geo_fallback /
+                # transit_geo_feasibility estimates; inert unless one of those
+                # flags asks for a geo estimate.
                 poi_search=self.poi_search,
             )
         return self._transit_rank_segment_index
@@ -4636,7 +4669,11 @@ class UrbanTripOptimizedV6(BaseAgent):
             # with how far the current partial plan already is above 15 min.
             avg_leg_minutes = self._running_avg_transit_minutes()
             att_pressure = max(0.0, min(1.0, avg_leg_minutes / 15.0 - 1.0))
-            weights["transit_time"] = 0.3 + 1.5 * att_pressure
+            # transit_weight_floor default 0.3 keeps this bit-identical to the
+            # committed 0.3 + 1.5 * att_pressure formula.
+            weights["transit_time"] = (
+                float(getattr(self, "transit_weight_floor", 0.3)) + 1.5 * att_pressure
+            )
         if sum(len(items) for items in (context.get("pending") or {}).values()) > 0:
             weights["must_coverage"] = max(weights["must_coverage"], 1.10)
         return weights
@@ -5669,6 +5706,19 @@ class UrbanTripOptimizedV6(BaseAgent):
         return [idx for _, idx in sorted(weighted, key=lambda item: item[0])]
 
     def _estimate_intracity_travel_minutes(self, city, start, end):
+        if getattr(self, "transit_geo_feasibility", False):
+            # Distance-aware feasibility estimate (see the flag's __init__
+            # comment): min duration across the edge's mode variants when the
+            # segment graph covers the pair (optimistic -> admissible, cannot
+            # over-prune realizable windows), else geodesic km * 1.5 + 10 via
+            # the coordinate table, else fall through to the legacy paths.
+            idx = self._build_transit_rank_segment_index()
+            if idx is not None:
+                minutes = idx._min_intracity_duration(city, start, end)
+                if minutes >= 10**6:
+                    minutes = idx._geo_fallback_minutes(city, start, end)
+                if minutes < 10**6:
+                    return max(int(round(float(minutes))), 0)
         if self.segment_index is not None:
             seg = self.segment_index._best_intracity_segment(city, start, end)
             if seg is not None:
