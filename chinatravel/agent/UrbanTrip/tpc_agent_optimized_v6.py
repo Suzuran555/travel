@@ -164,6 +164,9 @@ class UrbanTripOptimizedV6(BaseAgent):
                 lang=self.lang,
                 segment_dir=kwargs.get("segment_dir"),
                 top_k=self.segment_top_k,
+                # Coordinate table for the transit_geo_fallback estimate; inert
+                # unless rank_poi is called with transit_geo_fallback=True.
+                poi_search=self.poi_search,
             )
         # Phase D: when use_segments=False, agent.segment_index is None so
         # rank_poi_dataframe's fallback sort has no notion of pending
@@ -233,6 +236,16 @@ class UrbanTripOptimizedV6(BaseAgent):
         # True, the transit_minutes signal becomes the minimum duration across
         # mode variants (walk/metro/taxi) of the edge instead.
         self.transit_signal_min_duration = kwargs.get("transit_signal_min_duration", False)
+        # Sub-flag of enable_transit_time_score (default off; no effect unless
+        # the parent flag is on; composes with transit_signal_min_duration):
+        # POIs with ZERO edges in intracity_segments make BOTH transit signals
+        # return the 10**6 constant -> norm 1.0, so ranking cannot distinguish
+        # near from far among uncovered POIs (Chengdu-class coverage holes).
+        # With this True, SegmentIndex.rank_poi estimates transit minutes for
+        # edge-less pairs from geodesic distance (km * 1.5, the environment's
+        # taxi time model, + 10 min coverage-trust handicap) via the agent's
+        # Poi coordinate table; missing coordinates keep the 10**6 constant.
+        self.transit_geo_fallback = kwargs.get("transit_geo_fallback", False)
         self._transit_rank_segment_index = None
         self._transit_rank_segment_dir = kwargs.get("segment_dir")
         self._dfs_state_seen = set()
@@ -4507,6 +4520,9 @@ class UrbanTripOptimizedV6(BaseAgent):
                 segment_dir=self._transit_rank_segment_dir,
                 top_k=self.segment_top_k,
                 build_tfidf=False,
+                # Coordinate table for the transit_geo_fallback estimate; inert
+                # unless rank_poi is called with transit_geo_fallback=True.
+                poi_search=self.poi_search,
             )
         return self._transit_rank_segment_index
 

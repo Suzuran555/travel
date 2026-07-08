@@ -4,6 +4,7 @@ from collections import defaultdict
 
 import numpy as np
 import pandas as pd
+from geopy.distance import geodesic
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -77,12 +78,37 @@ def _time_margin_minutes(current_time, end_time):
 
 
 class SegmentIndex:
-    def __init__(self, lang="en", segment_dir=None, top_k=50, build_tfidf=True):
+    # Environment taxi time model: every taxi edge in intracity_segments
+    # satisfies duration == round(1.5 * distance) and the stored ``distance``
+    # equals the geodesic km between the endpoints (verified across all 37.6k
+    # taxi edges), so 1.5 min per geodesic km reproduces exactly the taxi
+    # duration a covered edge would report. Used only by the
+    # ``transit_geo_fallback`` estimate for pairs with NO segment edge.
+    GEO_FALLBACK_MIN_PER_KM = 1.5
+    # Coverage-trust handicap added on top of the taxi model. The taxi model is
+    # a FLOOR: realized legs to uncovered POIs are often metro (station-walk
+    # overhead) or walk, so at equal signal a measured covered edge should win
+    # over an estimated one (A/B: without this, a well-covered round-1 winner
+    # regressed 0.975 -> 0.878 ATT as optimistic estimates outranked measured
+    # durations). For fully-uncovered candidate lists (the Chengdu-class
+    # coverage holes this fallback exists for) an additive constant cancels in
+    # _normalize_lower_better's min-max normalization, so it only acts as a
+    # mixed-list tiebreak toward covered POIs.
+    GEO_FALLBACK_BASE_MIN = 10.0
+
+    def __init__(self, lang="en", segment_dir=None, top_k=50, build_tfidf=True, poi_search=None):
         # ``build_tfidf=False`` skips the TF-IDF fit (used by the ranking-only
         # index behind enable_transit_time_score, where the semantic weight is
         # unused); _tfidf_scores then returns {} which matches semantic=0.
+        # ``poi_search`` (optional): a Poi coordinate table (the agent's
+        # ``self.poi_search``); only read by _geo_fallback_minutes under the
+        # transit_geo_fallback sub-flag, inert otherwise.
         self.lang = normalize_lang(lang)
         self.top_k = top_k
+        self.poi_search = poi_search
+        # (city, frozenset({start, end})) -> minutes; coordinates are static
+        # data, so this cache is safe to keep across queries.
+        self._geo_minutes_cache = {}
         if segment_dir is None:
             segment_dir = os.path.join(
                 PROJECT_ROOT, "chinatravel", "environment", "segments", self.lang
@@ -270,6 +296,7 @@ class SegmentIndex:
         candidate_df,
         constraints,
         transit_signal_min_duration=False,
+        transit_geo_fallback=False,
     ):
         # ``transit_signal_min_duration`` (sub-flag of enable_transit_time_score,
         # default False = round-1 behavior): the round-1 transit_minutes signal
@@ -313,6 +340,18 @@ class SegmentIndex:
                 transit_minutes = self._min_intracity_duration(city, current_position, name)
             else:
                 transit_minutes = _safe_float(best_segment.get("duration"), 10**6) if best_segment else 10**6
+            # ``transit_geo_fallback`` (sub-flag of enable_transit_time_score,
+            # default False): when the segment lookup finds NO usable edge in
+            # any mode/direction, both signal variants above degrade to the
+            # 10**6 constant -> norm 1.0, so ranking cannot tell near from far
+            # among uncovered POIs (whole cities, e.g. Chengdu, have near-zero
+            # edge coverage). Replace that constant with a geographic estimate:
+            # geodesic km * 1.5 min/km (the environment's own taxi time model)
+            # + 10 min coverage-trust handicap (see the GEO_FALLBACK_*
+            # constants), keeping 10**6 when coordinates are missing. Applies
+            # to BOTH variants; only transit_minutes changes.
+            if transit_geo_fallback and transit_minutes >= 10**6:
+                transit_minutes = self._geo_fallback_minutes(city, current_position, name)
             price = _safe_float(row.get("price"), 0.0)
             close_margin = _time_margin_minutes(current_time, row.get("endtime"))
             coverage_gain = self._must_coverage_gain(name, row, poi_type, pending)
@@ -471,6 +510,47 @@ class SegmentIndex:
                 if duration < best:
                     best = duration
         return best
+
+    def _geo_fallback_minutes(self, city, start, end):
+        """Geographic transit-minutes estimate for POI pairs with NO segment
+        edge (transit_geo_fallback signal): geodesic km between the POIs'
+        coordinates * GEO_FALLBACK_MIN_PER_KM (the environment's taxi time
+        model, so the estimate is on the same scale as real taxi durations)
+        + GEO_FALLBACK_BASE_MIN (coverage-trust handicap, see the constant's
+        comment). Kept unrounded for finer ranking discrimination. Returns
+        10**6 (-> norm 1.0, the previous constant) when no coordinate table
+        was supplied or either POI has no coordinates, so missing data ranks
+        exactly as before.
+        """
+        if self.poi_search is None or not start or not end:
+            return 10**6
+        if start == end:
+            return 0.0
+        key = (city, frozenset((start, end)))
+        cached = self._geo_minutes_cache.get(key)
+        if cached is not None:
+            return cached
+        try:
+            coord_a = self.poi_search.search(city, start)
+            coord_b = self.poi_search.search(city, end)
+        except (KeyError, TypeError, AttributeError):
+            coord_a = coord_b = None
+        # Poi.search returns an error STRING (not None) for unknown names, so
+        # only accept genuine coordinate pairs.
+        if (
+            isinstance(coord_a, (tuple, list))
+            and isinstance(coord_b, (tuple, list))
+            and len(coord_a) >= 2
+            and len(coord_b) >= 2
+        ):
+            minutes = (
+                geodesic(coord_a, coord_b).kilometers * self.GEO_FALLBACK_MIN_PER_KM
+                + self.GEO_FALLBACK_BASE_MIN
+            )
+        else:
+            minutes = 10**6
+        self._geo_minutes_cache[key] = minutes
+        return minutes
 
     def _reverse_route(self, segment):
         route = []
