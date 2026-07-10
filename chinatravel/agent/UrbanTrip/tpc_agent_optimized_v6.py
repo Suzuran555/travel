@@ -7100,7 +7100,9 @@ class UrbanTripOptimizedV6(BaseAgent):
         # print(poi_info)
         while True:
             info_i = self.env("next_page()")["data"]
-            if len(info_i) == 0:
+            if not isinstance(info_i, pd.DataFrame) or len(info_i) == 0:
+                # New WorldEnv returns the string "No more data." at exhaustion
+                # (the old env returned an empty DataFrame).
                 break
             else:
                 poi_info = pd.concat([poi_info, info_i], axis=0, ignore_index=True)
@@ -7162,7 +7164,9 @@ class UrbanTripOptimizedV6(BaseAgent):
         # print(poi_info)
         while True:
             info_i = self.env("next_page()")["data"]
-            if len(info_i) == 0:
+            if not isinstance(info_i, pd.DataFrame) or len(info_i) == 0:
+                # New WorldEnv returns the string "No more data." at exhaustion
+                # (the old env returned an empty DataFrame).
                 break
             else:
                 trans_info = pd.concat([trans_info, info_i], axis=0, ignore_index=True)

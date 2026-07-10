@@ -31,6 +31,8 @@ _ALLOWED_NODES = (
     ast.For,
     ast.If,
     ast.Pass,
+    ast.Break,
+    ast.Continue,
     ast.Name,
     ast.Load,
     ast.Store,
