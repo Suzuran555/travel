@@ -499,8 +499,28 @@ class UrbanTripOptimizedV6(BaseAgent):
         self.backbone_llm.input_token_maxx = 0
 
         # natural language -> symoblic language -> plan
+        # V6 does not inherit NesyAgent.translate_nl2sl; load the pre-translated
+        # DSL from the per-model cache (pretranslate.py / claude workflow), and
+        # fall back to a live nl2sl call only when the cache is missing.
         if not oralce_translation:
-            query = self.translate_nl2sl(query, load_cache=True)
+            _tdir = os.path.join(
+                self.cache_dir, f"translation_{self.backbone_llm.name}_reflect"
+            )
+            _tfp = os.path.join(_tdir, f"{query['uid']}.json")
+            if os.path.exists(_tfp):
+                with open(_tfp, "r") as _fh:
+                    query = json.load(_fh)
+            else:
+                from chinatravel.agent.nesy_agent.nl2sl_hybrid_en import (
+                    nl2sl_reflect as _nl2sl_reflect_en,
+                )
+
+                query = _nl2sl_reflect_en(query, self.backbone_llm)
+                if "error" in query:
+                    query["hard_logic_py"] = {}
+                os.makedirs(_tdir, exist_ok=True)
+                with open(_tfp, "w") as _fh:
+                    json.dump(query, _fh, ensure_ascii=False)
 
         succ, plan = self.symbolic_search(query)
 

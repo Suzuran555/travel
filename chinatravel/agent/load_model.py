@@ -119,11 +119,16 @@ def init_llm(llm_name, max_model_len=None):
         from .llms import OllamaChat
 
         # e.g. --llm ollama-qwen3.6-27b -> ollama tag qwen3.6:27b
-        tag_map = {"ollama-qwen3.6-27b": "qwen3.6:27b"}
+        tag_map = {"ollama-qwen3.6-27b": "qwen3.6:27b", "ollama-qwen3-8b": "qwen3:8b"}
         tag = os.environ.get("OLLAMA_TAG") or tag_map.get(
             llm_name.lower(), llm_name.lower().replace("ollama-", "", 1)
         )
-        llm = OllamaChat(model_tag=tag, display_name="Qwen3.6-27B")
+        # display name keys the translation cache dir - MUST be unique per model
+        name_map = {"qwen3.6:27b": "Qwen3.6-27B", "qwen3:8b": "Qwen3-8B"}
+        llm = OllamaChat(
+            model_tag=tag,
+            display_name=name_map.get(tag, tag.replace(":", "-").replace("/", "-")),
+        )
     elif llm_name == "deepseek":
         llm = Deepseek()
     elif llm_name == "gpt-4o":
@@ -138,6 +143,11 @@ def init_llm(llm_name, max_model_len=None):
         llm = Llama(llm_name)
     elif llm_name == "rule":
         return EmptyLLM()
+    elif llm_name == "claude-cache":
+        # cache-only shim: planner reads translation_Claude_reflect/<uid>.json
+        # (pre-translated offline); any live LLM call returns the Empty stub.
+        llm = TPCLLM()
+        llm.name = "Claude"
     elif llm_name == "TPCLLM":
         llm = TPCLLM()
     else:

@@ -500,17 +500,21 @@ class OllamaChat(AbstractLLM):
             "model": self.model_tag,
             "messages": merge_repeated_role(list(messages)),
             "stream": False,
+            # thinking OFF: at Apple-silicon decode speeds a 4k-token thinking
+            # budget is ~20 min/call and the nl2sl reflect loop retries
+            # timeouts forever. Set OLLAMA_THINK=1 to measure thinking mode.
+            "think": os.environ.get("OLLAMA_THINK", "0") == "1",
             "options": {
                 "temperature": 0.6,
                 "top_p": 0.95,
                 "top_k": 20,
-                "num_predict": 4096,
+                "num_predict": 3072,
                 "num_ctx": 32768,
             },
         }
         if json_mode:
             payload["format"] = "json"
-        resp = requests.post(f"{self.host}/api/chat", json=payload, timeout=1200)
+        resp = requests.post(f"{self.host}/api/chat", json=payload, timeout=3600)
         resp.raise_for_status()
         body = resp.json()
         content = body.get("message", {}).get("content", "")
