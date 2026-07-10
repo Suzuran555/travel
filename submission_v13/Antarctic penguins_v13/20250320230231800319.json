@@ -1,0 +1,606 @@
+{
+    "people_number": 2,
+    "start_city": "Guangzhou",
+    "target_city": "Hangzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "07:16",
+                    "end_time": "04:24",
+                    "start": "Guangzhou Station",
+                    "end": "Hangzhou South Railway Station",
+                    "price": 419.25,
+                    "cost": 838.5,
+                    "tickets": 2,
+                    "transports": [],
+                    "TrainID": "K512",
+                    "type": "train"
+                },
+                {
+                    "position": "Zhongshan West Lake Hotel Hangzhou",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Hangzhou South Railway Station",
+                            "end": "South Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:24",
+                            "end_time": "04:27",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "South Railway Station-Metro Station",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:27",
+                            "end_time": "04:58",
+                            "cost": 10,
+                            "distance": 15.72,
+                            "price": 5,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Zhongshan West Lake Hotel Hangzhou",
+                            "mode": "walk",
+                            "start_time": "04:58",
+                            "end_time": "05:04",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hangzhou West Lake Scenic Area - First Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:30",
+                    "end_time": "08:00",
+                    "transports": [
+                        {
+                            "start": "Zhongshan West Lake Hotel Hangzhou",
+                            "end": "Hangzhou West Lake Scenic Area - First Park",
+                            "mode": "taxi",
+                            "start_time": "06:30",
+                            "end_time": "06:30",
+                            "cost": 11.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lakeside Sunshine and Rain",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "transports": [
+                        {
+                            "start": "Hangzhou West Lake Scenic Area - First Park",
+                            "end": "Lakeside Sunshine and Rain",
+                            "mode": "taxi",
+                            "start_time": "08:00",
+                            "end_time": "08:00",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "West Lake Foreign Affairs Cruise",
+                    "type": "attraction",
+                    "price": 48,
+                    "cost": 96,
+                    "start_time": "09:30",
+                    "end_time": "11:00",
+                    "transports": [
+                        {
+                            "start": "Lakeside Sunshine and Rain",
+                            "end": "West Lake Foreign Affairs Cruise",
+                            "mode": "taxi",
+                            "start_time": "09:30",
+                            "end_time": "09:30",
+                            "cost": 11.0,
+                            "distance": 0.16,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wahaha Tongle Fang (Qingchun Branch)",
+                    "type": "lunch",
+                    "price": 144,
+                    "cost": 288,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "West Lake Foreign Affairs Cruise",
+                            "end": "Wahaha Tongle Fang (Qingchun Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:00",
+                            "end_time": "11:00",
+                            "cost": 11.0,
+                            "distance": 0.01,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Hangzhou Suspended Glass Art Museum",
+                    "type": "attraction",
+                    "price": 49,
+                    "cost": 98,
+                    "start_time": "12:16",
+                    "end_time": "13:46",
+                    "transports": [
+                        {
+                            "start": "Wahaha Tongle Fang (Qingchun Branch)",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:00",
+                            "end_time": "12:07",
+                            "cost": 0,
+                            "distance": 0.6,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:07",
+                            "end_time": "12:09",
+                            "cost": 4,
+                            "distance": 1.37,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Hangzhou Suspended Glass Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:09",
+                            "end_time": "12:16",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lakeside Road Pedestrian Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:46",
+                    "end_time": "15:16",
+                    "transports": [
+                        {
+                            "start": "Hangzhou Suspended Glass Art Museum",
+                            "end": "Lakeside Road Pedestrian Street",
+                            "mode": "taxi",
+                            "start_time": "13:46",
+                            "end_time": "13:46",
+                            "cost": 11.0,
+                            "distance": 0.45,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Wind and Wave Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:25",
+                    "end_time": "16:55",
+                    "transports": [
+                        {
+                            "start": "Lakeside Road Pedestrian Street",
+                            "end": "Zhonghe North Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:16",
+                            "end_time": "15:21",
+                            "cost": 0,
+                            "distance": 0.47,
+                            "price": 0
+                        },
+                        {
+                            "start": "Zhonghe North Road-Metro Station",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:21",
+                            "end_time": "15:22",
+                            "cost": 4,
+                            "distance": 0.92,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Wind and Wave Pavilion",
+                            "mode": "walk",
+                            "start_time": "15:22",
+                            "end_time": "15:25",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "No. 23 Wall Gate Cuisine (Wulin Branch)",
+                    "type": "dinner",
+                    "price": 69,
+                    "cost": 138,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Wind and Wave Pavilion",
+                            "end": "No. 23 Wall Gate Cuisine (Wulin Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:55",
+                            "end_time": "16:55",
+                            "cost": 11.0,
+                            "distance": 0.16,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Lakeview Teahouse Restaurant",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "No. 23 Wall Gate Cuisine (Wulin Branch)",
+                            "end": "Lakeview Teahouse Restaurant",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.21,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Lingering Snow on the Broken Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:30",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Lakeview Teahouse Restaurant",
+                            "end": "Lingering Snow on the Broken Bridge",
+                            "mode": "taxi",
+                            "start_time": "19:30",
+                            "end_time": "19:30",
+                            "cost": 11.0,
+                            "distance": 0.26,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Zhongshan West Lake Hotel Hangzhou",
+                    "type": "accommodation",
+                    "price": 499,
+                    "cost": 998,
+                    "start_time": "21:13",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Lingering Snow on the Broken Bridge",
+                            "end": "Fengqi Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:05",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Fengqi Road-Metro Station",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:05",
+                            "end_time": "21:07",
+                            "cost": 4,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Zhongshan West Lake Hotel Hangzhou",
+                            "mode": "walk",
+                            "start_time": "21:07",
+                            "end_time": "21:13",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Zhongshan West Lake Hotel Hangzhou",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "China Seal Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:53",
+                    "end_time": "08:23",
+                    "transports": [
+                        {
+                            "start": "Zhongshan West Lake Hotel Hangzhou",
+                            "end": "Longxiang Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:36",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Longxiang Bridge-Metro Station",
+                            "end": "Yellow Dragon Cave-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:36",
+                            "end_time": "06:41",
+                            "cost": 4,
+                            "distance": 2.56,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Yellow Dragon Cave-Metro Station",
+                            "end": "China Seal Museum",
+                            "mode": "walk",
+                            "start_time": "06:41",
+                            "end_time": "06:53",
+                            "cost": 0,
+                            "distance": 1.01,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "704 Project (Lin Biao's Hangzhou Villa)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:26",
+                    "end_time": "09:56",
+                    "transports": [
+                        {
+                            "start": "China Seal Museum",
+                            "end": "704 Project (Lin Biao's Hangzhou Villa)",
+                            "mode": "taxi",
+                            "start_time": "08:23",
+                            "end_time": "08:26",
+                            "cost": 13.26,
+                            "distance": 2.45,
+                            "price": 13.26,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "West Lake Longjing Tea Cultural Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:57",
+                    "end_time": "11:27",
+                    "transports": [
+                        {
+                            "start": "704 Project (Lin Biao's Hangzhou Villa)",
+                            "end": "West Lake Longjing Tea Cultural Scenic Area",
+                            "mode": "taxi",
+                            "start_time": "09:56",
+                            "end_time": "09:57",
+                            "cost": 11.0,
+                            "distance": 1.07,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 2
+                },
+                {
+                    "position": "Relais & Châteaux Hangzhou Zixuan Resort - Jiexianglou (Bapanling Road Branch)",
+                    "type": "lunch",
+                    "price": 650,
+                    "cost": 1300,
+                    "start_time": "11:28",
+                    "end_time": "12:28",
+                    "transports": [
+                        {
+                            "start": "West Lake Longjing Tea Cultural Scenic Area",
+                            "end": "Relais & Châteaux Hangzhou Zixuan Resort - Jiexianglou (Bapanling Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:27",
+                            "end_time": "11:28",
+                            "cost": 11.0,
+                            "distance": 0.9,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Grandma Sun's Scallion Pancake Rolls",
+                    "type": "dinner",
+                    "price": 10,
+                    "cost": 20,
+                    "start_time": "17:00",
+                    "end_time": "17:30",
+                    "transports": [
+                        {
+                            "start": "Relais & Châteaux Hangzhou Zixuan Resort - Jiexianglou (Bapanling Road Branch)",
+                            "end": "Wushan Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:28",
+                            "end_time": "13:04",
+                            "cost": 0,
+                            "distance": 3.05,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wushan Square-Metro Station",
+                            "end": "Jiangcheng Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:04",
+                            "end_time": "13:06",
+                            "cost": 4,
+                            "distance": 1.45,
+                            "price": 2,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "Jiangcheng Road-Metro Station",
+                            "end": "Grandma Sun's Scallion Pancake Rolls",
+                            "mode": "walk",
+                            "start_time": "13:06",
+                            "end_time": "13:16",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "19:49",
+                    "end_time": "15:04",
+                    "start": "Hangzhou South Railway Station",
+                    "end": "Guangzhou Station",
+                    "price": 419.25,
+                    "cost": 838.5,
+                    "tickets": 2,
+                    "transports": [
+                        {
+                            "start": "Grandma Sun's Scallion Pancake Rolls",
+                            "end": "Jiangcheng Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:30",
+                            "end_time": "17:40",
+                            "cost": 0,
+                            "distance": 0.86,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangcheng Road-Metro Station",
+                            "end": "South Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:40",
+                            "end_time": "18:07",
+                            "cost": 8,
+                            "distance": 13.6,
+                            "price": 4,
+                            "tickets": 2
+                        },
+                        {
+                            "start": "South Railway Station-Metro Station",
+                            "end": "Hangzhou South Railway Station",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K511",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 2.4243438243865967,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 1,
+    "meal_postprocess_attempts": 1
+}

@@ -1,0 +1,602 @@
+{
+    "people_number": 3,
+    "start_city": "Chengdu",
+    "target_city": "Suzhou",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "17:42",
+                    "end_time": "04:27",
+                    "start": "Chengdu West Railway Station",
+                    "end": "Suzhou Station",
+                    "price": 630.35,
+                    "cost": 1891.0500000000002,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "K292",
+                    "type": "train"
+                },
+                {
+                    "position": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Suzhou Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:27",
+                            "end_time": "04:28",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:28",
+                            "end_time": "04:33",
+                            "cost": 6,
+                            "distance": 2.57,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                            "mode": "walk",
+                            "start_time": "04:33",
+                            "end_time": "04:35",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Crane Garden",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:30",
+                    "end_time": "08:00",
+                    "transports": [
+                        {
+                            "start": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                            "end": "Crane Garden",
+                            "mode": "taxi",
+                            "start_time": "06:30",
+                            "end_time": "06:30",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Qu Garden of Suzhou",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "transports": [
+                        {
+                            "start": "Crane Garden",
+                            "end": "Qu Garden of Suzhou",
+                            "mode": "taxi",
+                            "start_time": "08:00",
+                            "end_time": "08:00",
+                            "cost": 11.0,
+                            "distance": 0.07,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "City God Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:30",
+                    "end_time": "11:00",
+                    "transports": [
+                        {
+                            "start": "Qu Garden of Suzhou",
+                            "end": "City God Temple",
+                            "mode": "taxi",
+                            "start_time": "09:30",
+                            "end_time": "09:30",
+                            "cost": 11.0,
+                            "distance": 0.2,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Lu Zhenxing (White Pagoda Branch)",
+                    "type": "lunch",
+                    "price": 26,
+                    "cost": 78,
+                    "start_time": "11:00",
+                    "end_time": "12:00",
+                    "transports": [
+                        {
+                            "start": "City God Temple",
+                            "end": "Lu Zhenxing (White Pagoda Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:00",
+                            "end_time": "11:00",
+                            "cost": 11.0,
+                            "distance": 0.08,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanshan Haunted School",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:00",
+                    "end_time": "13:30",
+                    "transports": [
+                        {
+                            "start": "Lu Zhenxing (White Pagoda Branch)",
+                            "end": "Nanshan Haunted School",
+                            "mode": "taxi",
+                            "start_time": "12:00",
+                            "end_time": "12:00",
+                            "cost": 11.0,
+                            "distance": 0.57,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Mysterious Taoist Temple",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:30",
+                    "end_time": "15:00",
+                    "transports": [
+                        {
+                            "start": "Nanshan Haunted School",
+                            "end": "Mysterious Taoist Temple",
+                            "mode": "taxi",
+                            "start_time": "13:30",
+                            "end_time": "13:30",
+                            "cost": 11.0,
+                            "distance": 0.13,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Top Scholar Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:17",
+                    "end_time": "16:00",
+                    "transports": [
+                        {
+                            "start": "Mysterious Taoist Temple",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:00",
+                            "end_time": "15:07",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Xiangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:07",
+                            "end_time": "15:09",
+                            "cost": 6,
+                            "distance": 1.04,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiangmen-Metro Station",
+                            "end": "Suzhou Top Scholar Museum",
+                            "mode": "walk",
+                            "start_time": "15:09",
+                            "end_time": "15:17",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Ban Yuan De Qu Tang Suzhou Cuisine Restaurant (Huntang Lane Branch)",
+                    "type": "dinner",
+                    "price": 289,
+                    "cost": 867,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Top Scholar Museum",
+                            "end": "Ban Yuan De Qu Tang Suzhou Cuisine Restaurant (Huntang Lane Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:00",
+                            "end_time": "16:00",
+                            "cost": 11.0,
+                            "distance": 0.18,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Suzhou Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:12",
+                    "end_time": "19:42",
+                    "transports": [
+                        {
+                            "start": "Ban Yuan De Qu Tang Suzhou Cuisine Restaurant (Huntang Lane Branch)",
+                            "end": "Xiangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:07",
+                            "cost": 0,
+                            "distance": 0.59,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiangmen-Metro Station",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:07",
+                            "end_time": "18:08",
+                            "cost": 6,
+                            "distance": 0.82,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Suzhou Park",
+                            "mode": "walk",
+                            "start_time": "18:08",
+                            "end_time": "18:12",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Suzhou Water Tour",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:54",
+                    "end_time": "20:30",
+                    "transports": [
+                        {
+                            "start": "Suzhou Park",
+                            "end": "Lindun Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:42",
+                            "end_time": "19:46",
+                            "cost": 0,
+                            "distance": 0.4,
+                            "price": 0
+                        },
+                        {
+                            "start": "Lindun Road-Metro Station",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:46",
+                            "end_time": "19:48",
+                            "cost": 6,
+                            "distance": 1.42,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Suzhou Water Tour",
+                            "mode": "walk",
+                            "start_time": "19:48",
+                            "end_time": "19:54",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                    "type": "accommodation",
+                    "price": 250,
+                    "cost": 500,
+                    "start_time": "20:41",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Suzhou Water Tour",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "20:30",
+                            "end_time": "20:36",
+                            "cost": 0,
+                            "distance": 0.54,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "20:36",
+                            "end_time": "20:39",
+                            "cost": 6,
+                            "distance": 1.84,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                            "mode": "walk",
+                            "start_time": "20:39",
+                            "end_time": "20:41",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Longevity Peach Lake Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "07:12",
+                    "end_time": "08:42",
+                    "transports": [
+                        {
+                            "start": "Zeyiju Jingshe (Suzhou Guanqian Street Pingjiang Road)",
+                            "end": "Xuanqiao Lane-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:32",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanqiao Lane-Metro Station",
+                            "end": "Mudu-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:32",
+                            "end_time": "06:54",
+                            "cost": 12,
+                            "distance": 11.41,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Mudu-Metro Station",
+                            "end": "Longevity Peach Lake Scenic Area",
+                            "mode": "walk",
+                            "start_time": "06:54",
+                            "end_time": "07:12",
+                            "cost": 0,
+                            "distance": 1.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                    "type": "lunch",
+                    "price": 9,
+                    "cost": 27,
+                    "start_time": "11:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Longevity Peach Lake Scenic Area",
+                            "end": "Mudu-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:42",
+                            "end_time": "09:00",
+                            "cost": 0,
+                            "distance": 1.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Mudu-Metro Station",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:00",
+                            "end_time": "09:23",
+                            "cost": 12,
+                            "distance": 11.57,
+                            "price": 4,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "mode": "walk",
+                            "start_time": "09:23",
+                            "end_time": "09:28",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Old Wang's Egg Pancake (Shuyuan Alley Branch)",
+                    "type": "dinner",
+                    "price": 10,
+                    "cost": 30,
+                    "start_time": "17:00",
+                    "end_time": "17:30",
+                    "transports": [
+                        {
+                            "start": "Wang's Linji Baked Pancake (Shuangta Main Store)",
+                            "end": "Wangxing Bridge Suzhou University-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:30",
+                            "end_time": "11:35",
+                            "cost": 0,
+                            "distance": 0.42,
+                            "price": 0
+                        },
+                        {
+                            "start": "Wangxing Bridge Suzhou University-Metro Station",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:35",
+                            "end_time": "11:37",
+                            "cost": 6,
+                            "distance": 1.22,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Old Wang's Egg Pancake (Shuyuan Alley Branch)",
+                            "mode": "walk",
+                            "start_time": "11:37",
+                            "end_time": "11:40",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "21:43",
+                    "end_time": "08:44",
+                    "start": "Suzhou Station",
+                    "end": "Chengdu West Railway Station",
+                    "price": 630.35,
+                    "cost": 1891.0500000000002,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Old Wang's Egg Pancake (Shuyuan Alley Branch)",
+                            "end": "Sanyuanfang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:30",
+                            "end_time": "17:33",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Sanyuanfang-Metro Station",
+                            "end": "Suzhou Railway Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:33",
+                            "end_time": "17:40",
+                            "cost": 6,
+                            "distance": 3.85,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Suzhou Railway Station-Metro Station",
+                            "end": "Suzhou Station",
+                            "mode": "walk",
+                            "start_time": "17:40",
+                            "end_time": "17:41",
+                            "cost": 0,
+                            "distance": 0.13,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K282",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 1.62677001953125,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 2,
+    "meal_postprocess_attempts": 2
+}

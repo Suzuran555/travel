@@ -1,0 +1,600 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 571.18,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "05:20",
+                            "cost": 4,
+                            "distance": 12.0,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "mode": "walk",
+                            "start_time": "05:20",
+                            "end_time": "05:21",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "West Nanjing Road",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:37",
+                    "end_time": "08:07",
+                    "transports": [
+                        {
+                            "start": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:31",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:31",
+                            "end_time": "06:33",
+                            "cost": 2,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "West Nanjing Road",
+                            "mode": "walk",
+                            "start_time": "06:33",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Moller Villa",
+                    "type": "attraction",
+                    "price": 80,
+                    "cost": 80,
+                    "start_time": "08:07",
+                    "end_time": "09:37",
+                    "transports": [
+                        {
+                            "start": "West Nanjing Road",
+                            "end": "Moller Villa",
+                            "mode": "taxi",
+                            "start_time": "08:07",
+                            "end_time": "08:07",
+                            "cost": 11.0,
+                            "distance": 0.51,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Mao Zedong's Former Residence",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:48",
+                    "end_time": "11:18",
+                    "transports": [
+                        {
+                            "start": "Moller Villa",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:37",
+                            "end_time": "09:40",
+                            "cost": 0,
+                            "distance": 0.28,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Natural History Museum-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:40",
+                            "end_time": "09:41",
+                            "cost": 2,
+                            "distance": 0.77,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Natural History Museum-Metro Station",
+                            "end": "Mao Zedong's Former Residence",
+                            "mode": "walk",
+                            "start_time": "09:41",
+                            "end_time": "09:48",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Cong's Restaurant (Liuhe Building Branch)",
+                    "type": "lunch",
+                    "price": 268,
+                    "cost": 268,
+                    "start_time": "11:33",
+                    "end_time": "12:33",
+                    "transports": [
+                        {
+                            "start": "Mao Zedong's Former Residence",
+                            "end": "Natural History Museum-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:18",
+                            "end_time": "11:25",
+                            "cost": 0,
+                            "distance": 0.62,
+                            "price": 0
+                        },
+                        {
+                            "start": "Natural History Museum-Metro Station",
+                            "end": "People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:25",
+                            "end_time": "11:27",
+                            "cost": 2,
+                            "distance": 1.28,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Cong's Restaurant (Liuhe Building Branch)",
+                            "mode": "walk",
+                            "start_time": "11:27",
+                            "end_time": "11:33",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "X-META: Luoyang Rising Wind - Immersive Full-Sensory VR Metaverse Theme Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:33",
+                    "end_time": "14:03",
+                    "transports": [
+                        {
+                            "start": "Cong's Restaurant (Liuhe Building Branch)",
+                            "end": "X-META: Luoyang Rising Wind - Immersive Full-Sensory VR Metaverse Theme Park",
+                            "mode": "taxi",
+                            "start_time": "12:33",
+                            "end_time": "12:33",
+                            "cost": 11.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai History Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:03",
+                    "end_time": "15:33",
+                    "transports": [
+                        {
+                            "start": "X-META: Luoyang Rising Wind - Immersive Full-Sensory VR Metaverse Theme Park",
+                            "end": "Shanghai History Museum",
+                            "mode": "taxi",
+                            "start_time": "14:03",
+                            "end_time": "14:03",
+                            "cost": 11.0,
+                            "distance": 0.13,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Bella Vita Italian Restaurant (Haifang Road Branch)",
+                    "type": "dinner",
+                    "price": 213,
+                    "cost": 213,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Shanghai History Museum",
+                            "end": "People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:33",
+                            "end_time": "15:39",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Changping Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:39",
+                            "end_time": "15:45",
+                            "cost": 2,
+                            "distance": 3.1,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Changping Road-Metro Station",
+                            "end": "Bella Vita Italian Restaurant (Haifang Road Branch)",
+                            "mode": "walk",
+                            "start_time": "15:45",
+                            "end_time": "15:49",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Tribute to the Master: Picasso Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:15",
+                    "end_time": "19:45",
+                    "transports": [
+                        {
+                            "start": "Bella Vita Italian Restaurant (Haifang Road Branch)",
+                            "end": "Changping Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.34,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changping Road-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "18:07",
+                            "cost": 2,
+                            "distance": 1.71,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Tribute to the Master: Picasso Art Center",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:15",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Jing'an Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:46",
+                    "end_time": "21:00",
+                    "transports": [
+                        {
+                            "start": "Tribute to the Master: Picasso Art Center",
+                            "end": "Jing'an Park",
+                            "mode": "taxi",
+                            "start_time": "19:45",
+                            "end_time": "19:46",
+                            "cost": 11.0,
+                            "distance": 0.71,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "accommodation",
+                    "price": 307,
+                    "cost": 307,
+                    "start_time": "21:11",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Jing'an Park",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:00",
+                            "end_time": "21:08",
+                            "cost": 0,
+                            "distance": 0.67,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:08",
+                            "end_time": "21:10",
+                            "cost": 2,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "mode": "walk",
+                            "start_time": "21:10",
+                            "end_time": "21:11",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Hoping Fat Tea Cafe (People's Square Branch)",
+                    "type": "lunch",
+                    "price": 84,
+                    "cost": 84,
+                    "start_time": "11:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:31",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "People's Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:31",
+                            "end_time": "06:34",
+                            "cost": 2,
+                            "distance": 1.87,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Hoping Fat Tea Cafe (People's Square Branch)",
+                            "mode": "walk",
+                            "start_time": "06:34",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Lao Zhengxing Restaurant (Fuzhou Road Branch)",
+                    "type": "dinner",
+                    "price": 180,
+                    "cost": 180,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Hoping Fat Tea Cafe (People's Square Branch)",
+                            "end": "Lao Zhengxing Restaurant (Fuzhou Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.22,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Era of Life",
+                    "type": "attraction",
+                    "price": 238,
+                    "cost": 238,
+                    "start_time": "18:10",
+                    "end_time": "19:40",
+                    "transports": [
+                        {
+                            "start": "Lao Zhengxing Restaurant (Fuzhou Road Branch)",
+                            "end": "People's Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:05",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Square-Metro Station",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:05",
+                            "end_time": "18:06",
+                            "cost": 2,
+                            "distance": 0.91,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Era of Life",
+                            "mode": "walk",
+                            "start_time": "18:06",
+                            "end_time": "18:10",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "21:44",
+                    "end_time": "23:15",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 598.43,
+                    "cost": 598.43,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Era of Life",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:40",
+                            "end_time": "19:44",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:44",
+                            "end_time": "20:09",
+                            "cost": 4,
+                            "distance": 12.63,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Shanghai Hongqiao International Airport",
+                            "mode": "walk",
+                            "start_time": "20:09",
+                            "end_time": "20:18",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL017",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 10.166314840316772,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 1,
+    "meal_postprocess_attempts": 1
+}

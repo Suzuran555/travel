@@ -1,0 +1,724 @@
+{
+    "people_number": 3,
+    "start_city": "Suzhou",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "21:43",
+                    "end_time": "00:46",
+                    "start": "Suzhou Station",
+                    "end": "Nanjing Station",
+                    "price": 75.63,
+                    "cost": 226.89,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "K282",
+                    "type": "train"
+                },
+                {
+                    "position": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:46",
+                            "end_time": "00:48",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:48",
+                            "end_time": "00:57",
+                            "cost": 9,
+                            "distance": 4.51,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "mode": "walk",
+                            "start_time": "00:57",
+                            "end_time": "01:04",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Hongshan Forest Zoo",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 117,
+                    "start_time": "08:30",
+                    "end_time": "10:00",
+                    "transports": [
+                        {
+                            "start": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Maigaoqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:37",
+                            "end_time": "06:49",
+                            "cost": 9,
+                            "distance": 6.13,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Maigaoqiao-Metro Station",
+                            "end": "Hongshan Forest Zoo",
+                            "mode": "walk",
+                            "start_time": "06:49",
+                            "end_time": "06:55",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Shence Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:17",
+                    "end_time": "11:47",
+                    "transports": [
+                        {
+                            "start": "Hongshan Forest Zoo",
+                            "end": "Maigaoqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "10:00",
+                            "end_time": "10:06",
+                            "cost": 0,
+                            "distance": 0.53,
+                            "price": 0
+                        },
+                        {
+                            "start": "Maigaoqiao-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:06",
+                            "end_time": "10:09",
+                            "cost": 6,
+                            "distance": 1.94,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Shence Gate",
+                            "mode": "walk",
+                            "start_time": "10:09",
+                            "end_time": "10:17",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "DQ (Nanjing Mall Store)",
+                    "type": "lunch",
+                    "price": 27,
+                    "cost": 81,
+                    "start_time": "12:02",
+                    "end_time": "13:02",
+                    "transports": [
+                        {
+                            "start": "Shence Gate",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:47",
+                            "end_time": "11:55",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Xiaoshi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:55",
+                            "end_time": "11:57",
+                            "cost": 6,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xiaoshi-Metro Station",
+                            "end": "DQ (Nanjing Mall Store)",
+                            "mode": "walk",
+                            "start_time": "11:57",
+                            "end_time": "12:02",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shence Gate Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:17",
+                    "end_time": "14:47",
+                    "transports": [
+                        {
+                            "start": "DQ (Nanjing Mall Store)",
+                            "end": "Xiaoshi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:02",
+                            "end_time": "13:07",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xiaoshi-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:07",
+                            "end_time": "13:09",
+                            "cost": 6,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Shence Gate Park",
+                            "mode": "walk",
+                            "start_time": "13:09",
+                            "end_time": "13:17",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Pioneer Bookstore (Xuanwu Lake Branch)",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:49",
+                    "end_time": "16:19",
+                    "transports": [
+                        {
+                            "start": "Shence Gate Park",
+                            "end": "Pioneer Bookstore (Xuanwu Lake Branch)",
+                            "mode": "taxi",
+                            "start_time": "14:47",
+                            "end_time": "14:49",
+                            "cost": 11.0,
+                            "distance": 1.68,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "San Pin Tang Fine Huaiyang Cuisine (Xuanwu Lake Branch)",
+                    "type": "dinner",
+                    "price": 266,
+                    "cost": 798,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Pioneer Bookstore (Xuanwu Lake Branch)",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:19",
+                            "end_time": "16:31",
+                            "cost": 0,
+                            "distance": 1.0,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:31",
+                            "end_time": "16:34",
+                            "cost": 6,
+                            "distance": 1.94,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "San Pin Tang Fine Huaiyang Cuisine (Xuanwu Lake Branch)",
+                            "mode": "walk",
+                            "start_time": "16:34",
+                            "end_time": "16:40",
+                            "cost": 0,
+                            "distance": 0.51,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Liberation Gate",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "San Pin Tang Fine Huaiyang Cuisine (Xuanwu Lake Branch)",
+                            "end": "Liberation Gate",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.63,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Museum of Paleontology",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:59",
+                    "end_time": "21:29",
+                    "transports": [
+                        {
+                            "start": "Liberation Gate",
+                            "end": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:43",
+                            "cost": 0,
+                            "distance": 1.1,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Forestry University · Xinzhuang-Metro Station",
+                            "end": "Rooster Crowing Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:43",
+                            "end_time": "19:47",
+                            "cost": 6,
+                            "distance": 2.42,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Rooster Crowing Temple-Metro Station",
+                            "end": "Nanjing Museum of Paleontology",
+                            "mode": "walk",
+                            "start_time": "19:47",
+                            "end_time": "19:59",
+                            "cost": 0,
+                            "distance": 1.0,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                    "type": "accommodation",
+                    "price": 102,
+                    "cost": 204,
+                    "start_time": "21:49",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Museum of Paleontology",
+                            "end": "Rooster Crowing Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:29",
+                            "end_time": "21:41",
+                            "cost": 0,
+                            "distance": 1.0,
+                            "price": 0
+                        },
+                        {
+                            "start": "Rooster Crowing Temple-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:41",
+                            "end_time": "21:42",
+                            "cost": 6,
+                            "distance": 0.97,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "mode": "walk",
+                            "start_time": "21:42",
+                            "end_time": "21:49",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Nanjing 1912 Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:46",
+                    "end_time": "08:16",
+                    "transports": [
+                        {
+                            "start": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Jiuhua Mountain-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:37",
+                            "end_time": "06:39",
+                            "cost": 6,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Jiuhua Mountain-Metro Station",
+                            "end": "Nanjing 1912 Street",
+                            "mode": "walk",
+                            "start_time": "06:39",
+                            "end_time": "06:46",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Dream of the Red Chamber Immersive Exhibition and Performance",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:27",
+                    "end_time": "09:57",
+                    "transports": [
+                        {
+                            "start": "Nanjing 1912 Street",
+                            "end": "Jiuhua Mountain-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:16",
+                            "end_time": "08:23",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiuhua Mountain-Metro Station",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:23",
+                            "end_time": "08:27",
+                            "cost": 6,
+                            "distance": 2.03,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Dream of the Red Chamber Immersive Exhibition and Performance",
+                            "mode": "walk",
+                            "start_time": "08:27",
+                            "end_time": "08:27",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Culture and Art Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:01",
+                    "end_time": "11:31",
+                    "transports": [
+                        {
+                            "start": "Dream of the Red Chamber Immersive Exhibition and Performance",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:57",
+                            "end_time": "09:57",
+                            "cost": 0,
+                            "distance": 0.08,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:57",
+                            "end_time": "09:58",
+                            "cost": 6,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Nanjing Culture and Art Center",
+                            "mode": "walk",
+                            "start_time": "09:58",
+                            "end_time": "10:01",
+                            "cost": 0,
+                            "distance": 0.29,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Clip Coffee",
+                    "type": "lunch",
+                    "price": 27,
+                    "cost": 81,
+                    "start_time": "11:31",
+                    "end_time": "12:31",
+                    "transports": [
+                        {
+                            "start": "Nanjing Culture and Art Center",
+                            "end": "Clip Coffee",
+                            "mode": "taxi",
+                            "start_time": "11:31",
+                            "end_time": "11:31",
+                            "cost": 11.0,
+                            "distance": 0.11,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Nanjing Museum of Lost Love",
+                    "type": "attraction",
+                    "price": 45,
+                    "cost": 135,
+                    "start_time": "12:42",
+                    "end_time": "14:12",
+                    "transports": [
+                        {
+                            "start": "Clip Coffee",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:31",
+                            "end_time": "12:35",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:35",
+                            "end_time": "12:36",
+                            "cost": 6,
+                            "distance": 0.78,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Nanjing Museum of Lost Love",
+                            "mode": "walk",
+                            "start_time": "12:36",
+                            "end_time": "12:42",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                    "type": "dinner",
+                    "price": 6,
+                    "cost": 18,
+                    "start_time": "17:00",
+                    "end_time": "17:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Museum of Lost Love",
+                            "end": "Daxinggong-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:12",
+                            "end_time": "14:18",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        },
+                        {
+                            "start": "Daxinggong-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:18",
+                            "end_time": "14:24",
+                            "cost": 6,
+                            "distance": 3.29,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "14:24",
+                            "end_time": "14:33",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "22:24",
+                    "end_time": "02:26",
+                    "start": "Nanjing Station",
+                    "end": "Suzhou Station",
+                    "price": 75.63,
+                    "cost": 226.89,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:30",
+                            "end_time": "17:39",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:39",
+                            "end_time": "17:43",
+                            "cost": 6,
+                            "distance": 2.44,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Station",
+                            "mode": "walk",
+                            "start_time": "17:43",
+                            "end_time": "17:45",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K1805",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 5.425333738327026,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 1,
+    "meal_postprocess_attempts": 1
+}

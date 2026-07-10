@@ -1,0 +1,746 @@
+{
+    "people_number": 1,
+    "start_city": "Shenzhen",
+    "target_city": "Shanghai",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "03:17",
+                    "end_time": "04:48",
+                    "start": "Shenzhen Bao'an International Airport",
+                    "end": "Shanghai Hongqiao International Airport",
+                    "price": 571.18,
+                    "cost": 571.18,
+                    "tickets": 1,
+                    "transports": [],
+                    "FlightID": "FL164",
+                    "type": "airplane"
+                },
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Hongqiao International Airport",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "walk",
+                            "start_time": "04:48",
+                            "end_time": "04:57",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "04:57",
+                            "end_time": "05:20",
+                            "cost": 4,
+                            "distance": 12.0,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "mode": "walk",
+                            "start_time": "05:20",
+                            "end_time": "05:21",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Heartbreak Museum",
+                    "type": "attraction",
+                    "price": 29,
+                    "cost": 29,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:31",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:31",
+                            "end_time": "06:36",
+                            "cost": 2,
+                            "distance": 2.51,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Shanghai Heartbreak Museum",
+                            "mode": "walk",
+                            "start_time": "06:36",
+                            "end_time": "06:44",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Sir Elly's Rooftop Restaurant",
+                    "type": "lunch",
+                    "price": 1097,
+                    "cost": 1097,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Heartbreak Museum",
+                            "end": "Sir Elly's Rooftop Restaurant",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Columbia Circle",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:55",
+                    "end_time": "14:25",
+                    "transports": [
+                        {
+                            "start": "Sir Elly's Rooftop Restaurant",
+                            "end": "East Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:36",
+                            "cost": 0,
+                            "distance": 0.57,
+                            "price": 0
+                        },
+                        {
+                            "start": "East Nanjing Road-Metro Station",
+                            "end": "Jiangsu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:36",
+                            "end_time": "12:47",
+                            "cost": 3,
+                            "distance": 5.5,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Jiangsu Road-Metro Station",
+                            "end": "Columbia Circle",
+                            "mode": "walk",
+                            "start_time": "12:47",
+                            "end_time": "12:55",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Expo Culture Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:52",
+                    "end_time": "16:22",
+                    "transports": [
+                        {
+                            "start": "Columbia Circle",
+                            "end": "Jiangsu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:25",
+                            "end_time": "14:33",
+                            "cost": 0,
+                            "distance": 0.68,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jiangsu Road-Metro Station",
+                            "end": "Expo Avenue-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:33",
+                            "end_time": "14:46",
+                            "cost": 3,
+                            "distance": 6.6,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Expo Avenue-Metro Station",
+                            "end": "Expo Culture Park",
+                            "mode": "walk",
+                            "start_time": "14:46",
+                            "end_time": "14:52",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Yuejiang (Mercedes-Benz Branch)",
+                    "type": "dinner",
+                    "price": 449,
+                    "cost": 449,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Expo Culture Park",
+                            "end": "Expo Avenue-Metro Station",
+                            "mode": "walk",
+                            "start_time": "16:22",
+                            "end_time": "16:28",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        },
+                        {
+                            "start": "Expo Avenue-Metro Station",
+                            "end": "China Art Museum-Metro Station",
+                            "mode": "metro",
+                            "start_time": "16:28",
+                            "end_time": "16:29",
+                            "cost": 2,
+                            "distance": 0.93,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "China Art Museum-Metro Station",
+                            "end": "Yuejiang (Mercedes-Benz Branch)",
+                            "mode": "walk",
+                            "start_time": "16:29",
+                            "end_time": "16:34",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Shanghai Expo Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "Yuejiang (Mercedes-Benz Branch)",
+                            "end": "Shanghai Expo Park",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.38,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Unicorn Starry Sky Art Museum, Tianzifang Flagship Store",
+                    "type": "attraction",
+                    "price": 59,
+                    "cost": 59,
+                    "start_time": "19:51",
+                    "end_time": "21:21",
+                    "transports": [
+                        {
+                            "start": "Shanghai Expo Park",
+                            "end": "China Art Museum-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:40",
+                            "cost": 0,
+                            "distance": 0.87,
+                            "price": 0
+                        },
+                        {
+                            "start": "China Art Museum-Metro Station",
+                            "end": "Site of the First National Congress of the Communist Party of China · Xintiandi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:40",
+                            "end_time": "19:47",
+                            "cost": 2,
+                            "distance": 3.87,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · Xintiandi-Metro Station",
+                            "end": "Unicorn Starry Sky Art Museum, Tianzifang Flagship Store",
+                            "mode": "walk",
+                            "start_time": "19:47",
+                            "end_time": "19:51",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "accommodation",
+                    "price": 307,
+                    "cost": 307,
+                    "start_time": "21:32",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Unicorn Starry Sky Art Museum, Tianzifang Flagship Store",
+                            "end": "Site of the First National Congress of the Communist Party of China · Xintiandi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:21",
+                            "end_time": "21:25",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Site of the First National Congress of the Communist Party of China · Xintiandi-Metro Station",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:25",
+                            "end_time": "21:31",
+                            "cost": 2,
+                            "distance": 3.24,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "mode": "walk",
+                            "start_time": "21:31",
+                            "end_time": "21:32",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 1,
+                    "rooms": 1
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Eileen Chang's Former Residence",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:39",
+                    "end_time": "08:09",
+                    "transports": [
+                        {
+                            "start": "SuShi Qingshe Hotel (Hanzhong Road subway station)",
+                            "end": "Hanzhong Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:31",
+                            "cost": 0,
+                            "distance": 0.11,
+                            "price": 0
+                        },
+                        {
+                            "start": "Hanzhong Road-Metro Station",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:31",
+                            "end_time": "06:33",
+                            "cost": 2,
+                            "distance": 1.34,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Eileen Chang's Former Residence",
+                            "mode": "walk",
+                            "start_time": "06:33",
+                            "end_time": "06:39",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Juliet's Balcony",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:22",
+                    "end_time": "09:52",
+                    "transports": [
+                        {
+                            "start": "Eileen Chang's Former Residence",
+                            "end": "West Nanjing Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:09",
+                            "end_time": "08:15",
+                            "cost": 0,
+                            "distance": 0.58,
+                            "price": 0
+                        },
+                        {
+                            "start": "West Nanjing Road-Metro Station",
+                            "end": "Changshu Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:15",
+                            "end_time": "08:19",
+                            "cost": 2,
+                            "distance": 2.08,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Changshu Road-Metro Station",
+                            "end": "Juliet's Balcony",
+                            "mode": "walk",
+                            "start_time": "08:19",
+                            "end_time": "08:22",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Shanghai Jiao Tong University",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Juliet's Balcony",
+                            "end": "Changshu Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:52",
+                            "end_time": "09:55",
+                            "cost": 0,
+                            "distance": 0.32,
+                            "price": 0
+                        },
+                        {
+                            "start": "Changshu Road-Metro Station",
+                            "end": "Shanghai Library-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:55",
+                            "end_time": "09:56",
+                            "cost": 2,
+                            "distance": 0.77,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Shanghai Library-Metro Station",
+                            "end": "Shanghai Jiao Tong University",
+                            "mode": "walk",
+                            "start_time": "09:56",
+                            "end_time": "10:00",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "A Breeze of Spring (Wukang Road Branch)",
+                    "type": "lunch",
+                    "price": 75,
+                    "cost": 75,
+                    "start_time": "11:30",
+                    "end_time": "12:30",
+                    "transports": [
+                        {
+                            "start": "Shanghai Jiao Tong University",
+                            "end": "A Breeze of Spring (Wukang Road Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:30",
+                            "cost": 11.0,
+                            "distance": 0.06,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Xujiahui Origin",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:44",
+                    "end_time": "14:14",
+                    "transports": [
+                        {
+                            "start": "A Breeze of Spring (Wukang Road Branch)",
+                            "end": "Shanghai Library-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:30",
+                            "end_time": "12:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Shanghai Library-Metro Station",
+                            "end": "Xujiahui-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:34",
+                            "end_time": "12:37",
+                            "cost": 2,
+                            "distance": 1.57,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xujiahui-Metro Station",
+                            "end": "Xujiahui Origin",
+                            "mode": "walk",
+                            "start_time": "12:37",
+                            "end_time": "12:44",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "Site of the Provisional Government of the Republic of Korea",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:37",
+                    "end_time": "16:07",
+                    "transports": [
+                        {
+                            "start": "Xujiahui Origin",
+                            "end": "Xujiahui-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:14",
+                            "end_time": "14:21",
+                            "cost": 0,
+                            "distance": 0.64,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xujiahui-Metro Station",
+                            "end": "Great World-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:21",
+                            "end_time": "14:31",
+                            "cost": 3,
+                            "distance": 5.38,
+                            "price": 3,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Great World-Metro Station",
+                            "end": "Site of the Provisional Government of the Republic of Korea",
+                            "mode": "walk",
+                            "start_time": "14:31",
+                            "end_time": "14:37",
+                            "cost": 0,
+                            "distance": 0.5,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "position": "MAYITA Little Maya Mexican Restaurant (Xintiandi Branch)",
+                    "type": "dinner",
+                    "price": 227,
+                    "cost": 227,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Site of the Provisional Government of the Republic of Korea",
+                            "end": "MAYITA Little Maya Mexican Restaurant (Xintiandi Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:07",
+                            "end_time": "16:07",
+                            "cost": 11.0,
+                            "distance": 0.15,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Era of Life",
+                    "type": "attraction",
+                    "price": 238,
+                    "cost": 238,
+                    "start_time": "18:11",
+                    "end_time": "19:41",
+                    "transports": [
+                        {
+                            "start": "MAYITA Little Maya Mexican Restaurant (Xintiandi Branch)",
+                            "end": "Great World-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:04",
+                            "cost": 0,
+                            "distance": 0.36,
+                            "price": 0
+                        },
+                        {
+                            "start": "Great World-Metro Station",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:04",
+                            "end_time": "18:07",
+                            "cost": 2,
+                            "distance": 1.61,
+                            "price": 2,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Era of Life",
+                            "mode": "walk",
+                            "start_time": "18:07",
+                            "end_time": "18:11",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 1
+                },
+                {
+                    "start_time": "21:44",
+                    "end_time": "23:15",
+                    "start": "Shanghai Hongqiao International Airport",
+                    "end": "Shenzhen Bao'an International Airport",
+                    "price": 598.43,
+                    "cost": 598.43,
+                    "tickets": 1,
+                    "transports": [
+                        {
+                            "start": "Era of Life",
+                            "end": "Xinzha Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:41",
+                            "end_time": "19:45",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xinzha Road-Metro Station",
+                            "end": "Hongqiao Terminal 1-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:45",
+                            "end_time": "20:10",
+                            "cost": 4,
+                            "distance": 12.63,
+                            "price": 4,
+                            "tickets": 1
+                        },
+                        {
+                            "start": "Hongqiao Terminal 1-Metro Station",
+                            "end": "Shanghai Hongqiao International Airport",
+                            "mode": "walk",
+                            "start_time": "20:10",
+                            "end_time": "20:19",
+                            "cost": 0,
+                            "distance": 0.78,
+                            "price": 0
+                        }
+                    ],
+                    "FlightID": "FL017",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 7.917303085327148,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 0,
+    "meal_postprocess_attempts": 0
+}

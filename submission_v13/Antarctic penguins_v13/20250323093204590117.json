@@ -1,0 +1,542 @@
+{
+    "people_number": 5,
+    "start_city": "Nanjing",
+    "target_city": "Beijing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "01:22",
+                    "end_time": "02:29",
+                    "start": "Nanjing Lukou International Airport",
+                    "end": "Beijing Daxing International Airport",
+                    "price": 405.41,
+                    "cost": 2027.0500000000002,
+                    "tickets": 5,
+                    "transports": [],
+                    "FlightID": "FL651",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Sunworld Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Beijing Daxing International Airport",
+                            "end": "Sunworld Hotel",
+                            "mode": "taxi",
+                            "start_time": "02:29",
+                            "end_time": "03:38",
+                            "cost": 403.86,
+                            "distance": 46.05,
+                            "price": 201.93,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Old Beijing Style Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:37",
+                    "end_time": "08:07",
+                    "transports": [
+                        {
+                            "start": "Sunworld Hotel",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:34",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "Dengshikou-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:34",
+                            "end_time": "06:35",
+                            "cost": 10,
+                            "distance": 0.6,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dengshikou-Metro Station",
+                            "end": "Old Beijing Style Street",
+                            "mode": "walk",
+                            "start_time": "06:35",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Wangfujing Catholic Church in Beijing",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:11",
+                    "end_time": "09:41",
+                    "transports": [
+                        {
+                            "start": "Old Beijing Style Street",
+                            "end": "Dengshikou-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:07",
+                            "end_time": "08:09",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dengshikou-Metro Station",
+                            "end": "Dongsi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:09",
+                            "end_time": "08:10",
+                            "cost": 10,
+                            "distance": 0.81,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dongsi-Metro Station",
+                            "end": "Wangfujing Catholic Church in Beijing",
+                            "mode": "walk",
+                            "start_time": "08:10",
+                            "end_time": "08:11",
+                            "cost": 0,
+                            "distance": 0.12,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Lao She Memorial Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:41",
+                    "end_time": "11:11",
+                    "transports": [
+                        {
+                            "start": "Wangfujing Catholic Church in Beijing",
+                            "end": "Lao She Memorial Museum",
+                            "mode": "taxi",
+                            "start_time": "09:41",
+                            "end_time": "09:41",
+                            "cost": 22.0,
+                            "distance": 0.34,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Helude Candied Hawthorn Sticks",
+                    "type": "lunch",
+                    "price": 7,
+                    "cost": 35,
+                    "start_time": "11:11",
+                    "end_time": "12:11",
+                    "transports": [
+                        {
+                            "start": "Lao She Memorial Museum",
+                            "end": "Helude Candied Hawthorn Sticks",
+                            "mode": "taxi",
+                            "start_time": "11:11",
+                            "end_time": "11:11",
+                            "cost": 22.0,
+                            "distance": 0.26,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Suspended Glass Art Museum",
+                    "type": "attraction",
+                    "price": 39,
+                    "cost": 195,
+                    "start_time": "12:11",
+                    "end_time": "13:41",
+                    "transports": [
+                        {
+                            "start": "Helude Candied Hawthorn Sticks",
+                            "end": "Suspended Glass Art Museum",
+                            "mode": "taxi",
+                            "start_time": "12:11",
+                            "end_time": "12:11",
+                            "cost": 22.0,
+                            "distance": 0.28,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Shijia Hutong",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "13:49",
+                    "end_time": "15:19",
+                    "transports": [
+                        {
+                            "start": "Suspended Glass Art Museum",
+                            "end": "Dongsi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "13:41",
+                            "end_time": "13:44",
+                            "cost": 0,
+                            "distance": 0.26,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongsi-Metro Station",
+                            "end": "Chaoyangmen-Metro Station",
+                            "mode": "metro",
+                            "start_time": "13:44",
+                            "end_time": "13:46",
+                            "cost": 10,
+                            "distance": 1.46,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Chaoyangmen-Metro Station",
+                            "end": "Shijia Hutong",
+                            "mode": "walk",
+                            "start_time": "13:46",
+                            "end_time": "13:49",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ritan Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:26",
+                    "end_time": "16:56",
+                    "transports": [
+                        {
+                            "start": "Shijia Hutong",
+                            "end": "Chaoyangmen-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:19",
+                            "end_time": "15:22",
+                            "cost": 0,
+                            "distance": 0.33,
+                            "price": 0
+                        },
+                        {
+                            "start": "Chaoyangmen-Metro Station",
+                            "end": "Dongdaqiao-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:22",
+                            "end_time": "15:24",
+                            "cost": 10,
+                            "distance": 1.47,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Dongdaqiao-Metro Station",
+                            "end": "Ritan Park",
+                            "mode": "walk",
+                            "start_time": "15:24",
+                            "end_time": "15:26",
+                            "cost": 0,
+                            "distance": 0.22,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Ito (Parkview Green Shopping Centre Branch)",
+                    "type": "dinner",
+                    "price": 297,
+                    "cost": 1485,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Ritan Park",
+                            "end": "Ito (Parkview Green Shopping Centre Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:56",
+                            "end_time": "16:56",
+                            "cost": 22.0,
+                            "distance": 0.13,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Beijing Workers' Stadium",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:09",
+                    "end_time": "19:39",
+                    "transports": [
+                        {
+                            "start": "Ito (Parkview Green Shopping Centre Branch)",
+                            "end": "Dongdaqiao-Metro Station",
+                            "mode": "walk",
+                            "start_time": "18:00",
+                            "end_time": "18:03",
+                            "cost": 0,
+                            "distance": 0.31,
+                            "price": 0
+                        },
+                        {
+                            "start": "Dongdaqiao-Metro Station",
+                            "end": "Workers' Stadium-Metro Station",
+                            "mode": "metro",
+                            "start_time": "18:03",
+                            "end_time": "18:05",
+                            "cost": 10,
+                            "distance": 1.24,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Workers' Stadium-Metro Station",
+                            "end": "Beijing Workers' Stadium",
+                            "mode": "walk",
+                            "start_time": "18:05",
+                            "end_time": "18:09",
+                            "cost": 0,
+                            "distance": 0.41,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Monument to the People's Heroes",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:46",
+                    "end_time": "21:16",
+                    "transports": [
+                        {
+                            "start": "Beijing Workers' Stadium",
+                            "end": "Monument to the People's Heroes",
+                            "mode": "taxi",
+                            "start_time": "19:39",
+                            "end_time": "19:46",
+                            "cost": 45.24,
+                            "distance": 5.12,
+                            "price": 22.62,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Sunworld Hotel",
+                    "type": "accommodation",
+                    "price": 662,
+                    "cost": 1986,
+                    "start_time": "21:27",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Monument to the People's Heroes",
+                            "end": "Tiananmen East-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:16",
+                            "end_time": "21:21",
+                            "cost": 0,
+                            "distance": 0.43,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tiananmen East-Metro Station",
+                            "end": "Goldfish Alley-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:21",
+                            "end_time": "21:23",
+                            "cost": 10,
+                            "distance": 1.2,
+                            "price": 2,
+                            "tickets": 5
+                        },
+                        {
+                            "start": "Goldfish Alley-Metro Station",
+                            "end": "Sunworld Hotel",
+                            "mode": "walk",
+                            "start_time": "21:23",
+                            "end_time": "21:27",
+                            "cost": 0,
+                            "distance": 0.35,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 3
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Sunworld Hotel",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Beijing Working People's Cultural Palace",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:30",
+                    "end_time": "08:00",
+                    "transports": [
+                        {
+                            "start": "Sunworld Hotel",
+                            "end": "Beijing Working People's Cultural Palace",
+                            "mode": "taxi",
+                            "start_time": "06:30",
+                            "end_time": "06:30",
+                            "cost": 22.0,
+                            "distance": 0.61,
+                            "price": 11.0,
+                            "cars": 2
+                        }
+                    ],
+                    "tickets": 5
+                },
+                {
+                    "position": "Dahua Pancake (Jiaodaokou North Scissors Lane Branch)",
+                    "type": "lunch",
+                    "price": 12,
+                    "cost": 60,
+                    "start_time": "11:00",
+                    "end_time": "11:30",
+                    "transports": [
+                        {
+                            "start": "Beijing Working People's Cultural Palace",
+                            "end": "Dahua Pancake (Jiaodaokou North Scissors Lane Branch)",
+                            "mode": "taxi",
+                            "start_time": "08:00",
+                            "end_time": "08:03",
+                            "cost": 23.86,
+                            "distance": 2.07,
+                            "price": 11.93,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "position": "Imperial Crispy Beef Pancake - Niujie Gourmet",
+                    "type": "dinner",
+                    "price": 14,
+                    "cost": 70,
+                    "start_time": "17:00",
+                    "end_time": "17:30",
+                    "transports": [
+                        {
+                            "start": "Dahua Pancake (Jiaodaokou North Scissors Lane Branch)",
+                            "end": "Imperial Crispy Beef Pancake - Niujie Gourmet",
+                            "mode": "taxi",
+                            "start_time": "11:30",
+                            "end_time": "11:40",
+                            "cost": 57.8,
+                            "distance": 6.92,
+                            "price": 28.9,
+                            "cars": 2
+                        }
+                    ]
+                },
+                {
+                    "start_time": "23:22",
+                    "end_time": "00:29",
+                    "start": "Beijing Daxing International Airport",
+                    "end": "Nanjing Lukou International Airport",
+                    "price": 416.91,
+                    "cost": 2084.55,
+                    "tickets": 5,
+                    "transports": [
+                        {
+                            "start": "Imperial Crispy Beef Pancake - Niujie Gourmet",
+                            "end": "Beijing Daxing International Airport",
+                            "mode": "taxi",
+                            "start_time": "17:30",
+                            "end_time": "18:34",
+                            "cost": 374.9,
+                            "distance": 42.83,
+                            "price": 187.45,
+                            "cars": 2
+                        }
+                    ],
+                    "FlightID": "FL154",
+                    "type": "airplane"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 2.4020538330078125,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 2,
+    "meal_postprocess_attempts": 2
+}

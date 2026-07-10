@@ -1,0 +1,626 @@
+{
+    "people_number": 3,
+    "start_city": "Suzhou",
+    "target_city": "Nanjing",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "21:43",
+                    "end_time": "00:46",
+                    "start": "Suzhou Station",
+                    "end": "Nanjing Station",
+                    "price": 75.63,
+                    "cost": 226.89,
+                    "tickets": 3,
+                    "transports": [],
+                    "TrainID": "K282",
+                    "type": "train"
+                },
+                {
+                    "position": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Nanjing Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "walk",
+                            "start_time": "00:46",
+                            "end_time": "00:48",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "00:48",
+                            "end_time": "00:57",
+                            "cost": 9,
+                            "distance": 4.51,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "mode": "walk",
+                            "start_time": "00:57",
+                            "end_time": "01:04",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Wende Bridge",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:47",
+                    "end_time": "08:17",
+                    "transports": [
+                        {
+                            "start": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:37",
+                            "end_time": "06:42",
+                            "cost": 6,
+                            "distance": 2.77,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Wende Bridge",
+                            "mode": "walk",
+                            "start_time": "06:42",
+                            "end_time": "06:47",
+                            "cost": 0,
+                            "distance": 0.48,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Confucius Temple Pedestrian Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:17",
+                    "end_time": "09:47",
+                    "transports": [
+                        {
+                            "start": "Wende Bridge",
+                            "end": "Nanjing Confucius Temple Pedestrian Street",
+                            "mode": "taxi",
+                            "start_time": "08:17",
+                            "end_time": "08:17",
+                            "cost": 11.0,
+                            "distance": 0.05,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Confucius Temple and Qinhuai River Scenic Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:47",
+                    "end_time": "11:17",
+                    "transports": [
+                        {
+                            "start": "Nanjing Confucius Temple Pedestrian Street",
+                            "end": "Confucius Temple and Qinhuai River Scenic Area",
+                            "mode": "taxi",
+                            "start_time": "09:47",
+                            "end_time": "09:47",
+                            "cost": 11.0,
+                            "distance": 0.04,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Lu's Soup Dumpling King (Changbai Street Branch)",
+                    "type": "lunch",
+                    "price": 24,
+                    "cost": 72,
+                    "start_time": "11:17",
+                    "end_time": "12:17",
+                    "transports": [
+                        {
+                            "start": "Confucius Temple and Qinhuai River Scenic Area",
+                            "end": "Lu's Soup Dumpling King (Changbai Street Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:17",
+                            "end_time": "11:17",
+                            "cost": 11.0,
+                            "distance": 0.49,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Former Residence of Qin Dashi",
+                    "type": "attraction",
+                    "price": 4,
+                    "cost": 12,
+                    "start_time": "12:17",
+                    "end_time": "13:47",
+                    "transports": [
+                        {
+                            "start": "Lu's Soup Dumpling King (Changbai Street Branch)",
+                            "end": "Former Residence of Qin Dashi",
+                            "mode": "taxi",
+                            "start_time": "12:17",
+                            "end_time": "12:17",
+                            "cost": 11.0,
+                            "distance": 0.2,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Mingchao Chronicles Immersive Digital Experience Hall",
+                    "type": "attraction",
+                    "price": 59,
+                    "cost": 177,
+                    "start_time": "13:47",
+                    "end_time": "15:17",
+                    "transports": [
+                        {
+                            "start": "Former Residence of Qin Dashi",
+                            "end": "Mingchao Chronicles Immersive Digital Experience Hall",
+                            "mode": "taxi",
+                            "start_time": "13:47",
+                            "end_time": "13:47",
+                            "cost": 11.0,
+                            "distance": 0.07,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Intangible Cultural Heritage Hall · Nanjing Intangible Cultural Heritage Experience Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "15:17",
+                    "end_time": "16:47",
+                    "transports": [
+                        {
+                            "start": "Mingchao Chronicles Immersive Digital Experience Hall",
+                            "end": "Intangible Cultural Heritage Hall · Nanjing Intangible Cultural Heritage Experience Center",
+                            "mode": "taxi",
+                            "start_time": "15:17",
+                            "end_time": "15:17",
+                            "cost": 11.0,
+                            "distance": 0.02,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "JinTongJi Halal Restaurant (Fuzimiao Station Branch)",
+                    "type": "dinner",
+                    "price": 35,
+                    "cost": 105,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Intangible Cultural Heritage Hall · Nanjing Intangible Cultural Heritage Experience Center",
+                            "end": "JinTongJi Halal Restaurant (Fuzimiao Station Branch)",
+                            "mode": "taxi",
+                            "start_time": "16:47",
+                            "end_time": "16:47",
+                            "cost": 11.0,
+                            "distance": 0.3,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Pan Pond",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "18:00",
+                    "end_time": "19:30",
+                    "transports": [
+                        {
+                            "start": "JinTongJi Halal Restaurant (Fuzimiao Station Branch)",
+                            "end": "Pan Pond",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:00",
+                            "cost": 11.0,
+                            "distance": 0.54,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Nanjing Yuhuatai Scenic Area - Meigang",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:48",
+                    "end_time": "21:18",
+                    "transports": [
+                        {
+                            "start": "Pan Pond",
+                            "end": "Confucius Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "19:30",
+                            "end_time": "19:36",
+                            "cost": 0,
+                            "distance": 0.56,
+                            "price": 0
+                        },
+                        {
+                            "start": "Confucius Temple-Metro Station",
+                            "end": "Yuhua Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "19:36",
+                            "end_time": "19:40",
+                            "cost": 6,
+                            "distance": 2.26,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Yuhua Gate-Metro Station",
+                            "end": "Nanjing Yuhuatai Scenic Area - Meigang",
+                            "mode": "walk",
+                            "start_time": "19:40",
+                            "end_time": "19:48",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                    "type": "accommodation",
+                    "price": 102,
+                    "cost": 204,
+                    "start_time": "21:42",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "Nanjing Yuhuatai Scenic Area - Meigang",
+                            "end": "Yuhua Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "21:18",
+                            "end_time": "21:26",
+                            "cost": 0,
+                            "distance": 0.69,
+                            "price": 0
+                        },
+                        {
+                            "start": "Yuhua Gate-Metro Station",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "metro",
+                            "start_time": "21:26",
+                            "end_time": "21:35",
+                            "cost": 9,
+                            "distance": 4.99,
+                            "price": 3,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "mode": "walk",
+                            "start_time": "21:35",
+                            "end_time": "21:42",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Jiangsu Wutai Mountain Sports Center",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:47",
+                    "end_time": "08:17",
+                    "transports": [
+                        {
+                            "start": "My Home Hotel (Nanjing East Military District General Courtyard Presidential Palace Branch)",
+                            "end": "Floating Bridge-Metro Station",
+                            "mode": "walk",
+                            "start_time": "06:30",
+                            "end_time": "06:37",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Floating Bridge-Metro Station",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "metro",
+                            "start_time": "06:37",
+                            "end_time": "06:40",
+                            "cost": 6,
+                            "distance": 1.63,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Jiangsu Wutai Mountain Sports Center",
+                            "mode": "walk",
+                            "start_time": "06:40",
+                            "end_time": "06:47",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Hohai University Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:39",
+                    "end_time": "10:09",
+                    "transports": [
+                        {
+                            "start": "Jiangsu Wutai Mountain Sports Center",
+                            "end": "Drum Tower-Metro Station",
+                            "mode": "walk",
+                            "start_time": "08:17",
+                            "end_time": "08:24",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "Drum Tower-Metro Station",
+                            "end": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "mode": "metro",
+                            "start_time": "08:24",
+                            "end_time": "08:29",
+                            "cost": 6,
+                            "distance": 2.67,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Caochangmen · Nanjing University of the Arts · Jiangsu Second Normal University-Metro Station",
+                            "end": "Hohai University Library",
+                            "mode": "walk",
+                            "start_time": "08:29",
+                            "end_time": "08:39",
+                            "cost": 0,
+                            "distance": 0.85,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Beiqiu Museum of Contemporary Art",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:13",
+                    "end_time": "11:43",
+                    "transports": [
+                        {
+                            "start": "Hohai University Library",
+                            "end": "Beiqiu Museum of Contemporary Art",
+                            "mode": "taxi",
+                            "start_time": "10:09",
+                            "end_time": "10:13",
+                            "cost": 15.08,
+                            "distance": 2.96,
+                            "price": 15.08,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Revival",
+                    "type": "lunch",
+                    "price": 300,
+                    "cost": 900,
+                    "start_time": "11:44",
+                    "end_time": "12:44",
+                    "transports": [
+                        {
+                            "start": "Beiqiu Museum of Contemporary Art",
+                            "end": "Revival",
+                            "mode": "taxi",
+                            "start_time": "11:43",
+                            "end_time": "11:44",
+                            "cost": 11.0,
+                            "distance": 0.82,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                    "type": "dinner",
+                    "price": 6,
+                    "cost": 18,
+                    "start_time": "17:00",
+                    "end_time": "17:30",
+                    "transports": [
+                        {
+                            "start": "Revival",
+                            "end": "Rooster Crowing Temple-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:44",
+                            "end_time": "12:49",
+                            "cost": 0,
+                            "distance": 0.49,
+                            "price": 0
+                        },
+                        {
+                            "start": "Rooster Crowing Temple-Metro Station",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:49",
+                            "end_time": "12:52",
+                            "cost": 6,
+                            "distance": 1.93,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "mode": "walk",
+                            "start_time": "12:52",
+                            "end_time": "13:01",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "22:24",
+                    "end_time": "02:26",
+                    "start": "Nanjing Station",
+                    "end": "Suzhou Station",
+                    "price": 75.63,
+                    "cost": 226.89,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Master Zuo's Plum Blossom Cake (Tongjia Lane Branch)",
+                            "end": "Xuanwu Gate-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:30",
+                            "end_time": "17:39",
+                            "cost": 0,
+                            "distance": 0.79,
+                            "price": 0
+                        },
+                        {
+                            "start": "Xuanwu Gate-Metro Station",
+                            "end": "Nanjing Station-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:39",
+                            "end_time": "17:43",
+                            "cost": 6,
+                            "distance": 2.44,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Nanjing Station-Metro Station",
+                            "end": "Nanjing Station",
+                            "mode": "walk",
+                            "start_time": "17:43",
+                            "end_time": "17:45",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        }
+                    ],
+                    "TrainID": "K1805",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 4.379205942153931,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 1,
+    "meal_postprocess_attempts": 1
+}

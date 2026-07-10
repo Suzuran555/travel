@@ -1,0 +1,562 @@
+{
+    "people_number": 3,
+    "start_city": "Hangzhou",
+    "target_city": "Chengdu",
+    "itinerary": [
+        {
+            "day": 1,
+            "activities": [
+                {
+                    "start_time": "02:32",
+                    "end_time": "04:27",
+                    "start": "Hangzhou Xiaoshan International Airport",
+                    "end": "Chengdu Shuangliu International Airport",
+                    "price": 751.16,
+                    "cost": 2253.48,
+                    "tickets": 3,
+                    "transports": [],
+                    "FlightID": "FL539",
+                    "type": "airplane"
+                },
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": [
+                        {
+                            "start": "Chengdu Shuangliu International Airport",
+                            "end": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "mode": "taxi",
+                            "start_time": "04:27",
+                            "end_time": "04:36",
+                            "cost": 25.7,
+                            "distance": 6.0,
+                            "price": 25.7,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Tanghu Park",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:39",
+                    "end_time": "08:09",
+                    "transports": [
+                        {
+                            "start": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "end": "Tanghu Park",
+                            "mode": "taxi",
+                            "start_time": "06:30",
+                            "end_time": "06:39",
+                            "cost": 26.29,
+                            "distance": 6.17,
+                            "price": 26.29,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Iron Statue Temple Water Street",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:27",
+                    "end_time": "09:57",
+                    "transports": [
+                        {
+                            "start": "Tanghu Park",
+                            "end": "Iron Statue Temple Water Street",
+                            "mode": "taxi",
+                            "start_time": "08:09",
+                            "end_time": "08:27",
+                            "cost": 51.45,
+                            "distance": 12.61,
+                            "price": 51.45,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Tower of Vitality",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "10:18",
+                    "end_time": "11:48",
+                    "transports": [
+                        {
+                            "start": "Iron Statue Temple Water Street",
+                            "end": "Jincheng Lake-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:57",
+                            "end_time": "10:07",
+                            "cost": 0,
+                            "distance": 0.9,
+                            "price": 0
+                        },
+                        {
+                            "start": "Jincheng Lake-Metro Station",
+                            "end": "Heart Island-Metro Station",
+                            "mode": "metro",
+                            "start_time": "10:07",
+                            "end_time": "10:12",
+                            "cost": 6,
+                            "distance": 2.86,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Heart Island-Metro Station",
+                            "end": "Tower of Vitality",
+                            "mode": "walk",
+                            "start_time": "10:12",
+                            "end_time": "10:18",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Hawaii Global Seafood Artistry (High-Tech Branch)",
+                    "type": "lunch",
+                    "price": 379,
+                    "cost": 1137,
+                    "start_time": "12:00",
+                    "end_time": "17:40",
+                    "transports": [
+                        {
+                            "start": "Tower of Vitality",
+                            "end": "Heart Island-Metro Station",
+                            "mode": "walk",
+                            "start_time": "11:48",
+                            "end_time": "11:54",
+                            "cost": 0,
+                            "distance": 0.52,
+                            "price": 0
+                        },
+                        {
+                            "start": "Heart Island-Metro Station",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "metro",
+                            "start_time": "11:54",
+                            "end_time": "11:55",
+                            "cost": 6,
+                            "distance": 0.79,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Hawaii Global Seafood Artistry (High-Tech Branch)",
+                            "mode": "walk",
+                            "start_time": "11:55",
+                            "end_time": "12:00",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "Ministry of Crab MOC Restaurant",
+                    "type": "dinner",
+                    "price": 503,
+                    "cost": 1509,
+                    "start_time": "17:52",
+                    "end_time": "18:52",
+                    "transports": [
+                        {
+                            "start": "Hawaii Global Seafood Artistry (High-Tech Branch)",
+                            "end": "Incubation Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "17:40",
+                            "end_time": "17:45",
+                            "cost": 0,
+                            "distance": 0.46,
+                            "price": 0
+                        },
+                        {
+                            "start": "Incubation Park-Metro Station",
+                            "end": "Financial City-Metro Station",
+                            "mode": "metro",
+                            "start_time": "17:45",
+                            "end_time": "17:46",
+                            "cost": 6,
+                            "distance": 0.74,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Financial City-Metro Station",
+                            "end": "Ministry of Crab MOC Restaurant",
+                            "mode": "walk",
+                            "start_time": "17:46",
+                            "end_time": "17:52",
+                            "cost": 0,
+                            "distance": 0.55,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "position": "One Ear Pavilion",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "19:02",
+                    "end_time": "20:32",
+                    "transports": [
+                        {
+                            "start": "Ministry of Crab MOC Restaurant",
+                            "end": "One Ear Pavilion",
+                            "mode": "taxi",
+                            "start_time": "18:52",
+                            "end_time": "19:02",
+                            "cost": 29.28,
+                            "distance": 7.02,
+                            "price": 29.28,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "accommodation",
+                    "price": 167,
+                    "cost": 334,
+                    "start_time": "20:34",
+                    "end_time": "24:00",
+                    "transports": [
+                        {
+                            "start": "One Ear Pavilion",
+                            "end": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "mode": "taxi",
+                            "start_time": "20:32",
+                            "end_time": "20:34",
+                            "cost": 11.0,
+                            "distance": 1.42,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "room_type": 2,
+                    "rooms": 2
+                }
+            ]
+        },
+        {
+            "day": 2,
+            "activities": [
+                {
+                    "position": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                    "type": "breakfast",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:00",
+                    "end_time": "06:30",
+                    "transports": []
+                },
+                {
+                    "position": "Red Wall Alley",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "06:43",
+                    "end_time": "08:13",
+                    "transports": [
+                        {
+                            "start": "Quigg Hotel (Chengdu Shuangliu Airport)",
+                            "end": "Red Wall Alley",
+                            "mode": "taxi",
+                            "start_time": "06:30",
+                            "end_time": "06:43",
+                            "cost": 35.68,
+                            "distance": 8.85,
+                            "price": 35.68,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Liu Xiang's Tomb",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "08:13",
+                    "end_time": "09:43",
+                    "transports": [
+                        {
+                            "start": "Red Wall Alley",
+                            "end": "Liu Xiang's Tomb",
+                            "mode": "taxi",
+                            "start_time": "08:13",
+                            "end_time": "08:13",
+                            "cost": 11.0,
+                            "distance": 0.27,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Chengdu Library",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "09:53",
+                    "end_time": "11:23",
+                    "transports": [
+                        {
+                            "start": "Liu Xiang's Tomb",
+                            "end": "People's Park-Metro Station",
+                            "mode": "walk",
+                            "start_time": "09:43",
+                            "end_time": "09:50",
+                            "cost": 0,
+                            "distance": 0.61,
+                            "price": 0
+                        },
+                        {
+                            "start": "People's Park-Metro Station",
+                            "end": "Tianfu Square-Metro Station",
+                            "mode": "metro",
+                            "start_time": "09:50",
+                            "end_time": "09:51",
+                            "cost": 6,
+                            "distance": 0.88,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Tianfu Square-Metro Station",
+                            "end": "Chengdu Library",
+                            "mode": "walk",
+                            "start_time": "09:51",
+                            "end_time": "09:53",
+                            "cost": 0,
+                            "distance": 0.21,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Lucky Rabbit · Hand-Torn Roasted Rabbit (Tianfu Square Branch)",
+                    "type": "lunch",
+                    "price": 38,
+                    "cost": 114,
+                    "start_time": "11:23",
+                    "end_time": "12:23",
+                    "transports": [
+                        {
+                            "start": "Chengdu Library",
+                            "end": "Lucky Rabbit · Hand-Torn Roasted Rabbit (Tianfu Square Branch)",
+                            "mode": "taxi",
+                            "start_time": "11:23",
+                            "end_time": "11:23",
+                            "cost": 11.0,
+                            "distance": 0.41,
+                            "price": 11.0,
+                            "cars": 1
+                        }
+                    ]
+                },
+                {
+                    "position": "Sichuan Art Museum",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "12:31",
+                    "end_time": "14:01",
+                    "transports": [
+                        {
+                            "start": "Lucky Rabbit · Hand-Torn Roasted Rabbit (Tianfu Square Branch)",
+                            "end": "Tianfu Square-Metro Station",
+                            "mode": "walk",
+                            "start_time": "12:23",
+                            "end_time": "12:26",
+                            "cost": 0,
+                            "distance": 0.25,
+                            "price": 0
+                        },
+                        {
+                            "start": "Tianfu Square-Metro Station",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "metro",
+                            "start_time": "12:26",
+                            "end_time": "12:28",
+                            "cost": 6,
+                            "distance": 1.0,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "Sichuan Art Museum",
+                            "mode": "walk",
+                            "start_time": "12:28",
+                            "end_time": "12:31",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                    "type": "attraction",
+                    "price": 0,
+                    "cost": 0,
+                    "start_time": "14:16",
+                    "end_time": "15:46",
+                    "transports": [
+                        {
+                            "start": "Sichuan Art Museum",
+                            "end": "Luomashi-Metro Station",
+                            "mode": "walk",
+                            "start_time": "14:01",
+                            "end_time": "14:04",
+                            "cost": 0,
+                            "distance": 0.3,
+                            "price": 0
+                        },
+                        {
+                            "start": "Luomashi-Metro Station",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "metro",
+                            "start_time": "14:04",
+                            "end_time": "14:08",
+                            "cost": 6,
+                            "distance": 2.15,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "mode": "walk",
+                            "start_time": "14:08",
+                            "end_time": "14:16",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        }
+                    ],
+                    "tickets": 3
+                },
+                {
+                    "position": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                    "type": "dinner",
+                    "price": 17,
+                    "cost": 51,
+                    "start_time": "17:00",
+                    "end_time": "18:00",
+                    "transports": [
+                        {
+                            "start": "Manjushri Lane Manjushri Temple Historical and Cultural Protection Area",
+                            "end": "North Renmin Road-Metro Station",
+                            "mode": "walk",
+                            "start_time": "15:46",
+                            "end_time": "15:54",
+                            "cost": 0,
+                            "distance": 0.72,
+                            "price": 0
+                        },
+                        {
+                            "start": "North Renmin Road-Metro Station",
+                            "end": "Liangjia Lane-Metro Station",
+                            "mode": "metro",
+                            "start_time": "15:54",
+                            "end_time": "15:56",
+                            "cost": 6,
+                            "distance": 1.02,
+                            "price": 2,
+                            "tickets": 3
+                        },
+                        {
+                            "start": "Liangjia Lane-Metro Station",
+                            "end": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "mode": "walk",
+                            "start_time": "15:56",
+                            "end_time": "16:04",
+                            "cost": 0,
+                            "distance": 0.73,
+                            "price": 0
+                        }
+                    ]
+                },
+                {
+                    "start_time": "18:57",
+                    "end_time": "05:24",
+                    "start": "Chengdu West Railway Station",
+                    "end": "Hangzhou South Railway Station",
+                    "price": 616.66,
+                    "cost": 1849.98,
+                    "tickets": 3,
+                    "transports": [
+                        {
+                            "start": "Rongrong Peking University Bedspread Noodles (Main Store)",
+                            "end": "Chengdu West Railway Station",
+                            "mode": "taxi",
+                            "start_time": "18:00",
+                            "end_time": "18:14",
+                            "cost": 39.38,
+                            "distance": 9.91,
+                            "price": 39.38,
+                            "cars": 1
+                        }
+                    ],
+                    "TrainID": "K352",
+                    "type": "train"
+                }
+            ]
+        }
+    ],
+    "daily_meal_check": {
+        "pass": true,
+        "target_meals_per_day": 3,
+        "total_meals": 6,
+        "missing": [],
+        "days": [
+            {
+                "day": 1,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            },
+            {
+                "day": 2,
+                "present": [
+                    "breakfast",
+                    "lunch",
+                    "dinner"
+                ],
+                "missing": [],
+                "pass": true
+            }
+        ]
+    },
+    "meal_completeness_pass": true,
+    "search_time_sec": 2.838244915008545,
+    "llm_inference_time_sec": 0,
+    "commonsense_pass": true,
+    "meal_postprocess_insertions": 0,
+    "meal_postprocess_attempts": 0
+}

@@ -1,0 +1,553 @@
+{
+ "people_number": 4,
+ "start_city": "Guangzhou",
+ "target_city": "Beijing",
+ "itinerary": [
+  {
+   "day": 1,
+   "activities": [
+    {
+     "start_time": "03:00",
+     "end_time": "05:21",
+     "start": "Guangzhou Baiyun International Airport",
+     "end": "Beijing Capital International Airport",
+     "price": 902.14,
+     "cost": 3608.56,
+     "tickets": 4,
+     "transports": [],
+     "FlightID": "FL259",
+     "type": "airplane"
+    },
+    {
+     "position": "Empark Prime Hotel Beijing",
+     "type": "breakfast",
+     "price": 0,
+     "cost": 0,
+     "start_time": "06:17",
+     "end_time": "06:47",
+     "transports": [
+      {
+       "start": "Beijing Capital International Airport",
+       "end": "Terminal 2-Metro Station",
+       "mode": "walk",
+       "start_time": "05:21",
+       "end_time": "05:31",
+       "cost": 0,
+       "distance": 0.88,
+       "price": 0
+      },
+      {
+       "start": "Terminal 2-Metro Station",
+       "end": "National Art Museum of China-Metro Station",
+       "mode": "metro",
+       "start_time": "05:31",
+       "end_time": "06:17",
+       "cost": 24,
+       "distance": 23.24,
+       "price": 6,
+       "tickets": 4
+      },
+      {
+       "start": "National Art Museum of China-Metro Station",
+       "end": "Empark Prime Hotel Beijing",
+       "mode": "walk",
+       "start_time": "06:17",
+       "end_time": "06:17",
+       "cost": 0,
+       "distance": 0.03,
+       "price": 0
+      }
+     ]
+    },
+    {
+     "position": "Old Beijing Style Street",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "06:56",
+     "end_time": "07:56",
+     "transports": [
+      {
+       "start": "Empark Prime Hotel Beijing",
+       "end": "Old Beijing Style Street",
+       "mode": "walk",
+       "start_time": "06:47",
+       "end_time": "06:56",
+       "cost": 0.0,
+       "distance": 0.7533873527455376,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Wangfujing",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "07:59",
+     "end_time": "08:59",
+     "transports": [
+      {
+       "start": "Old Beijing Style Street",
+       "end": "Wangfujing",
+       "mode": "walk",
+       "start_time": "07:56",
+       "end_time": "07:59",
+       "cost": 0.0,
+       "distance": 0.2741019178668429,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Wangfujing Catholic Church in Beijing",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "09:04",
+     "end_time": "10:04",
+     "transports": [
+      {
+       "start": "Wangfujing",
+       "end": "Wangfujing Catholic Church in Beijing",
+       "mode": "walk",
+       "start_time": "08:59",
+       "end_time": "09:04",
+       "cost": 0.0,
+       "distance": 0.4297484314508786,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Peace Pastry Shop",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "10:08",
+     "end_time": "10:58",
+     "transports": [
+      {
+       "start": "Wangfujing Catholic Church in Beijing",
+       "end": "Peace Pastry Shop",
+       "mode": "walk",
+       "start_time": "10:04",
+       "end_time": "10:08",
+       "cost": 0.0,
+       "distance": 0.3939689941768633,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Yuebin Restaurant (Cuihua Hutong Branch)",
+     "type": "lunch",
+     "price": 93.0,
+     "cost": 372.0,
+     "start_time": "11:08",
+     "end_time": "11:48",
+     "transports": [
+      {
+       "start": "Peace Pastry Shop",
+       "end": "Yuebin Restaurant (Cuihua Hutong Branch)",
+       "mode": "walk",
+       "start_time": "10:58",
+       "end_time": "11:08",
+       "cost": 0.0,
+       "distance": 0.8796074794418856,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Big Locust Tree Barbecue Restaurant (East Street Branch)",
+     "type": "dinner",
+     "price": 103.0,
+     "cost": 412.0,
+     "start_time": "17:00",
+     "end_time": "17:40",
+     "transports": [
+      {
+       "start": "Yuebin Restaurant (Cuihua Hutong Branch)",
+       "end": "Big Locust Tree Barbecue Restaurant (East Street Branch)",
+       "mode": "walk",
+       "start_time": "11:48",
+       "end_time": "11:51",
+       "cost": 0.0,
+       "distance": 0.2840545240161387,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Empark Prime Hotel Beijing",
+     "type": "accommodation",
+     "price": 1260.0,
+     "cost": 5040.0,
+     "start_time": "17:42",
+     "end_time": "24:00",
+     "transports": [
+      {
+       "start": "Big Locust Tree Barbecue Restaurant (East Street Branch)",
+       "end": "Empark Prime Hotel Beijing",
+       "mode": "walk",
+       "start_time": "17:40",
+       "end_time": "17:42",
+       "cost": 0.0,
+       "distance": 0.1807242966834575,
+       "price": 0.0
+      }
+     ],
+     "room_type": 1,
+     "rooms": 4
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "activities": [
+    {
+     "position": "Empark Prime Hotel Beijing",
+     "type": "breakfast",
+     "price": 0,
+     "cost": 0,
+     "start_time": "06:30",
+     "end_time": "07:00",
+     "transports": []
+    },
+    {
+     "position": "Beijing Working People's Cultural Palace",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "07:08",
+     "end_time": "08:38",
+     "transports": [
+      {
+       "start": "Empark Prime Hotel Beijing",
+       "end": "Beijing Working People's Cultural Palace",
+       "mode": "walk",
+       "start_time": "07:00",
+       "end_time": "07:08",
+       "cost": 0.0,
+       "distance": 0.7100697150518945,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "The Palace Museum",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "08:45",
+     "end_time": "10:15",
+     "transports": [
+      {
+       "start": "Beijing Working People's Cultural Palace",
+       "end": "The Palace Museum",
+       "mode": "walk",
+       "start_time": "08:38",
+       "end_time": "08:45",
+       "cost": 0.0,
+       "distance": 0.6403548771257599,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Palace of Heavenly Purity",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "10:18",
+     "end_time": "11:18",
+     "transports": [
+      {
+       "start": "The Palace Museum",
+       "end": "Palace of Heavenly Purity",
+       "mode": "walk",
+       "start_time": "10:15",
+       "end_time": "10:18",
+       "cost": 0.0,
+       "distance": 0.2643041901495497,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Imperial Garden",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "11:19",
+     "end_time": "12:19",
+     "transports": [
+      {
+       "start": "Palace of Heavenly Purity",
+       "end": "Imperial Garden",
+       "mode": "walk",
+       "start_time": "11:18",
+       "end_time": "11:19",
+       "cost": 0.0,
+       "distance": 0.12684176783176726,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "SUSU Su Su (Longfusi Branch)",
+     "type": "lunch",
+     "price": 159.0,
+     "cost": 636.0,
+     "start_time": "12:29",
+     "end_time": "13:09",
+     "transports": [
+      {
+       "start": "Imperial Garden",
+       "end": "SUSU Su Su (Longfusi Branch)",
+       "mode": "walk",
+       "start_time": "12:19",
+       "end_time": "12:29",
+       "cost": 0.0,
+       "distance": 0.9028315157036878,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Meizhou Dongpo (Wangfujing Branch)",
+     "type": "dinner",
+     "price": 104.0,
+     "cost": 416.0,
+     "start_time": "17:00",
+     "end_time": "17:40",
+     "transports": [
+      {
+       "start": "SUSU Su Su (Longfusi Branch)",
+       "end": "Meizhou Dongpo (Wangfujing Branch)",
+       "mode": "walk",
+       "start_time": "13:09",
+       "end_time": "13:24",
+       "cost": 0.0,
+       "distance": 1.283291326912659,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Empark Prime Hotel Beijing",
+     "type": "accommodation",
+     "price": 1260.0,
+     "cost": 5040.0,
+     "start_time": "17:50",
+     "end_time": "24:00",
+     "transports": [
+      {
+       "start": "Meizhou Dongpo (Wangfujing Branch)",
+       "end": "Empark Prime Hotel Beijing",
+       "mode": "walk",
+       "start_time": "17:40",
+       "end_time": "17:50",
+       "cost": 0.0,
+       "distance": 0.8959938292327465,
+       "price": 0.0
+      }
+     ],
+     "room_type": 1,
+     "rooms": 4
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "activities": [
+    {
+     "position": "Empark Prime Hotel Beijing",
+     "type": "breakfast",
+     "price": 0,
+     "cost": 0,
+     "start_time": "06:30",
+     "end_time": "07:00",
+     "transports": []
+    },
+    {
+     "position": "Jingshan Park",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "07:13",
+     "end_time": "08:33",
+     "transports": [
+      {
+       "start": "Empark Prime Hotel Beijing",
+       "end": "Jingshan Park",
+       "mode": "walk",
+       "start_time": "07:00",
+       "end_time": "07:13",
+       "cost": 0.0,
+       "distance": 1.1454298159665548,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Gate of Divine Prowess",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "08:37",
+     "end_time": "09:37",
+     "transports": [
+      {
+       "start": "Jingshan Park",
+       "end": "Gate of Divine Prowess",
+       "mode": "walk",
+       "start_time": "08:33",
+       "end_time": "08:37",
+       "cost": 0.0,
+       "distance": 0.383336929906225,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Corner Tower",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "09:41",
+     "end_time": "10:41",
+     "transports": [
+      {
+       "start": "Gate of Divine Prowess",
+       "end": "Corner Tower",
+       "mode": "walk",
+       "start_time": "09:37",
+       "end_time": "09:41",
+       "cost": 0.0,
+       "distance": 0.36354262789817426,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Lao She Memorial Museum",
+     "type": "attraction",
+     "price": 0.0,
+     "cost": 0.0,
+     "tickets": 4,
+     "start_time": "10:50",
+     "end_time": "11:50",
+     "transports": [
+      {
+       "start": "Corner Tower",
+       "end": "Lao She Memorial Museum",
+       "mode": "walk",
+       "start_time": "10:41",
+       "end_time": "10:50",
+       "cost": 0.0,
+       "distance": 0.7613366742307475,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Helude Candied Hawthorn Sticks",
+     "type": "lunch",
+     "price": 7.0,
+     "cost": 28.0,
+     "start_time": "11:53",
+     "end_time": "12:33",
+     "transports": [
+      {
+       "start": "Lao She Memorial Museum",
+       "end": "Helude Candied Hawthorn Sticks",
+       "mode": "walk",
+       "start_time": "11:50",
+       "end_time": "11:53",
+       "cost": 0.0,
+       "distance": 0.2647141335558357,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "position": "Four Seasons Minfu Roast Duck Restaurant (Wangfujing Dengshikou Branch)",
+     "type": "dinner",
+     "price": 162.0,
+     "cost": 648.0,
+     "start_time": "17:00",
+     "end_time": "17:40",
+     "transports": [
+      {
+       "start": "Helude Candied Hawthorn Sticks",
+       "end": "Four Seasons Minfu Roast Duck Restaurant (Wangfujing Dengshikou Branch)",
+       "mode": "walk",
+       "start_time": "12:33",
+       "end_time": "12:45",
+       "cost": 0.0,
+       "distance": 1.0469567897276666,
+       "price": 0.0
+      }
+     ]
+    },
+    {
+     "start_time": "20:00",
+     "end_time": "22:21",
+     "start": "Beijing Capital International Airport",
+     "end": "Guangzhou Baiyun International Airport",
+     "price": 923.22,
+     "cost": 3692.88,
+     "tickets": 4,
+     "transports": [
+      {
+       "start": "Four Seasons Minfu Roast Duck Restaurant (Wangfujing Dengshikou Branch)",
+       "end": "Goldfish Alley-Metro Station",
+       "mode": "walk",
+       "start_time": "17:40",
+       "end_time": "17:44",
+       "cost": 0,
+       "distance": 0.38,
+       "price": 0
+      },
+      {
+       "start": "Goldfish Alley-Metro Station",
+       "end": "Terminal 2-Metro Station",
+       "mode": "metro",
+       "start_time": "17:44",
+       "end_time": "18:31",
+       "cost": 24,
+       "distance": 23.91,
+       "price": 6,
+       "tickets": 4
+      },
+      {
+       "start": "Terminal 2-Metro Station",
+       "end": "Beijing Capital International Airport",
+       "mode": "walk",
+       "start_time": "18:31",
+       "end_time": "18:41",
+       "cost": 0,
+       "distance": 0.88,
+       "price": 0
+      }
+     ],
+     "FlightID": "FL104",
+     "type": "airplane"
+    }
+   ]
+  }
+ ]
+}
