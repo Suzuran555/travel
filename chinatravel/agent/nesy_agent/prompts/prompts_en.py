@@ -266,6 +266,12 @@ Your response must be in legal json format. Pay attention to the format of the h
 (20) activity_time: the duration of the activity.
 If only one day in the trip, you should ignore rooms and room_type. As well as other constraints if they are not needed.
 If you find some constraints are not in those mentioned above, you can add them to the hard_logic.
+
+Rules (follow strictly):
+(a) ALWAYS include the base constraints: 'days==N', 'people_number==N', 'tickets==N' (N = people_number) and 'taxi_cars==M' (M = (people_number+3)//4, as an integer). Include 'cost<=B' only when a budget B is stated.
+(b) NEVER output rooms or room_type unless the request explicitly mentions rooms, number of beds, or bed/room type. A hotel name, hotel feature or hotel price alone does NOT imply rooms/room_type.
+(c) Copy every attraction/restaurant/hotel name VERBATIM from the request as ONE string: keep parentheses, '·', branch suffixes and spacing exactly; never split one name into two, never shorten or translate it.
+(d) Every requirement sentence in the request must map to exactly one hard_logic item, and every hard_logic item beyond the base ones in (a) must come from an explicit sentence in the request. Do not invent constraints.
 """
 
 nl2sl_example = "Examples:\n"
@@ -280,11 +286,11 @@ Answer: {'start_city': "Shanghai", 'target_city': "Beijing", 'days': 2, 'people_
 """
 nl2sl_example_3 = """
 nature_language: I am currently in Chongqing. I plan to travel alone to Hangzhou for two days, taking a high-speed train (G), with a budget of 3000 CNY. I enjoy natural scenery and would like to stay in a hotel with a single bed and smart room control. I prefer to spend no more than 100 CNY per person for each meal, and I would like to use the subway as much as possible. Please provide a travel itinerary.。
-Answer: {'start_city': 'Chengdu', 'target_city': 'Hangzhou', 'days': 2, 'people_number': 1, 'hard_logic': ['days==2', 'people_number==1', 'cost<=3000', 'tickets==1', 'rooms==1', 'room_type==1', "intercity_transport=={'train'}", "{'natural scenery'}<=spot_type", "{'Smart Room Control'}<=hotel_feature", 'food_price<=100', "transport_type<={'metro'}" ]}
+Answer: {'start_city': 'Chongqing', 'target_city': 'Hangzhou', 'days': 2, 'people_number': 1, 'hard_logic': ['days==2', 'people_number==1', 'cost<=3000', 'tickets==1', 'rooms==1', 'room_type==1', "intercity_transport=={'train'}", "{'natural scenery'}<=spot_type", "{'Smart Room Control'}<=hotel_feature", 'food_price<=100', "transport_type<={'metro'}", 'taxi_cars==1' ]}
 """
 nl2sl_example_4 = """
 nature_language: I am currently in Suzhou. My friends and I plan to visit Beijing for three days with a budget of 8000 CNY. We will take the train, want to try Beijing cuisine, and visit the Palace Museum. We prefer a hotel with butler service."。
-Answer: {'start_city': 'Suzhou', 'target_city': 'Beijing', 'days': 3, 'people_number': 2, 'hard_logic': ['days==3', 'people_number==2', 'cost<=8000', 'tickets==2', , 'taxi_cars==1', "intercity_transport=={'train'}", "{'Beijing cuisine'}<=food_type", "{'The Palace Museum'}<=attraction_names", "{'Butler Service'}<=hotel_feature"]}
+Answer: {'start_city': 'Suzhou', 'target_city': 'Beijing', 'days': 3, 'people_number': 2, 'hard_logic': ['days==3', 'people_number==2', 'cost<=8000', 'tickets==2', 'taxi_cars==1', "intercity_transport=={'train'}", "{'Beijing cuisine'}<=food_type", "{'The Palace Museum'}<=attraction_names", "{'Butler Service'}<=hotel_feature"]}
 """
 
 

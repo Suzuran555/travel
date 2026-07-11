@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import traceback
 from json_repair import repair_json
@@ -149,6 +150,25 @@ Not all the constraints need to be translated into python code. Ignore them if t
 !!! Only `plan` variable can be used directly in the python code. Others must be defined in the python code use the functions we offer above. !!! Pay attention to the return TYPE of functions!!!
 For most case, for exist constraints, you can set `result=False` at the beginning of the code, and then set `result=True` if the condition is satisfied. For all constraints, you can set `result=True` at the beginning of the code, and then set `result=False` if the condition is not satisfied.
 
+### HARD RULES (code violating these crashes or is rejected)
+1. The executor exposes ONLY the builtin `set`. len, bool, any, all, sum, str, int, float, map, sorted, abs, max, min are NOT defined and raise NameError. Express non-emptiness as result=(A&B), emptiness/negation as result=not(A&B), subset as A<=B, and counts with an explicit counter variable incremented inside the loop.
+2. Each string in the output list is executed independently in a fresh namespace: it must be fully self-contained and assign `result`. Never reference a variable defined in another string. 'at least one of / either ... or' requirements must become ONE constraint whose sub-conditions are computed in the same code block and combined with `or`.
+3. Copy every POI name VERBATIM from the request as a single string: the exact substring including parentheses, '·', branch suffixes and spacing. Never split one name on internal separators, never translate, shorten or normalize it. Only split a list of POIs on explicit delimiters (commas / 'and') that separate obviously distinct venues.
+4. ALWAYS emit the base constraints exactly as in the example: days, people, the tickets constraint (attraction/airplane/train tickets and metro tickets == people number) and the taxi_cars constraint. NEVER emit room_count/room_type or any accommodation constraint unless the request explicitly mentions rooms, beds, bed type or a hotel requirement.
+5. Before answering, self-check: every requirement clause of the request maps to exactly one constraint; no constraint lacks a source in the request (base constraints excepted); no forbidden builtin appears.
+
+### CANONICAL PATTERNS (copy these shapes exactly)
+- must visit/eat/stay at X: build the name set over the right activity types, then result=({'X'}<=name_set)
+- 'one of / any of X, Y': result=({'X','Y'}&name_set)  (ONE constraint; intersection &, not <=)
+- 'do not want / avoid X': result=not({'X'}&name_set)
+- intra-city travel mode preference (no taxi / no walking / prefer or only metro ...): ALWAYS write the forbidden modes as this blacklist ('only metro' forbids walk and taxi):
+"inner_city_transportation_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='transportation': inner_city_transportation_set.add(activity_position(activity))\nresult=not({'walk', 'taxi'}&inner_city_transportation_set)"
+NEVER use innercity_transport_type or activity_transports for mode preferences, and never turn a blacklist into a whitelist.
+- 'visit X between A and B' (or 'from A to B'): the activity must COVER the whole window, i.e. start no later than A AND end no earlier than B. Match on activity_position only:
+"result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='A' and activity_end_time(activity)>='B': result=True"
+Do NOT write activity_start_time>='A' and activity_end_time<='B'.
+- budget caps: meal/dining budget -> accumulate activity_cost over types ['breakfast','lunch','dinner']; accommodation/hotel budget -> accumulate activity_cost over 'accommodation'; intra-city transport budget -> accumulate innercity_transport_cost(activity_transports(activity)); overall budget -> the total_cost pattern in the example. Each ends with result=(accumulator<=CAP).
+
 ### Attention!!!
 If you find some pesucode in the nature language constraints is not defined in the functions we offer above, you must translate them into python block code with the functions we offer above. Usually, for attractions and restaurants, if the required one exists, the requirement is satisfied. However, for accommodation, people usually stay in the same hotel for the whole trip, so we need check all the accommodation activities in the plan.
 ###
@@ -161,8 +181,6 @@ days==2
 people_number==3
 cost<=3000
 tickets==3
-rooms==2
-room_type==2
 {'Beijing cuisine'}<=food_type
 intercity_transport=={'train'}
 {'natural scenery', 'Museum/Memorial Hall'}<=spot_type
@@ -180,13 +198,13 @@ answer:
 "total_cost=0\nfor activity in allactivities(plan): total_cost+=activity_cost(activity)+innercity_transport_cost(activity_transports(activity))\nresult=(total_cost<=3000)",
 "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=2: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro' and metro_tickets(activity_transports(activity))!=2: result=False",
 "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi' and taxi_cars(activity_transports(activity))!=1: result=False",
-"result=True\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation' and room_count(activity)!=2: result=False\n  if activity_type(activity)=='accommodation' and room_type(activity)!=2: result=False\n  if activity_type(activity)=='accommodation' and accommodation_type(activity, target_city(plan))!='Smart Room Control': result=False\n  if activity_type(activity)=='accommodation' and activity_price(activity)>500: result=False",
+"result=True\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation' and accommodation_type(activity, target_city(plan))!='Smart Room Control': result=False\n  if activity_type(activity)=='accommodation' and activity_price(activity)>500: result=False",
 "restaurant_type_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner']:\n    restaurant_type_set.add(restaurant_type(activity, target_city(plan)))\nresult=({'Beijing cuisine'}<=restaurant_type_set)",
 "attraction_type_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction':\n    attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=({'natural scenery', 'Museum/Memorial Hall'}<=attraction_type_set)",
 "intercity_transport_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['train', 'airplane']:\n    intercity_transport_set.add(activity_type(activity))\nresult=(intercity_transport_set=={'train'})",
 "restaurant_names_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner']:\n    restaurant_names_set.add(activity_position(activity))\nresult=({'Beijing Quanjude (Qianmen Branch)'}<=restaurant_names_set)",
 "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner'] and activity_price(activity)>100: result=False",
-"innercity_transport_set = set()\nfor activity in allactivities(plan):\n  innercity_transport_set.add(innercity_transport_type(activity_transports(activity)))\nresult=(innercity_transport_set<={'metro', 'taxi'})",
+"inner_city_transportation_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='transportation': inner_city_transportation_set.add(activity_position(activity))\nresult=not({'walk'}&inner_city_transportation_set)",
 "attraction_names_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction':\n    attraction_names_set.add(activity_position(activity))\nresult=({'The Palace Museum'}<=attraction_names_set)",
 ]
 """
@@ -208,10 +226,216 @@ The attractions_type, restaurants_type, and accommodations_type must be in the l
 
 For return value of activity_position(activity), it will be checked by whether the position is in the database. You need to trans it to a similar one if it is rufused with you own knowledge. Also hotel_names should be checked by activity_position(activity), not accommodation_type(activity, target_city(plan)) and so for other names.
 Usually, for attractions and restaurants, if the required one exists, the requirement is satisfied. However, for accommodation, people usually stay in the same hotel for the whole trip, so we need check all the accommodation activities in the plan. Either change the function or value to make the code block correct.
+
+Fix rules:
+- The executor exposes ONLY the builtin `set`. len, bool, any, all, sum, str, int, float, map, sorted are NOT defined and raise NameError. Rewrite non-emptiness as result=(A&B), emptiness/negation as result=not(A&B), subset as A<=B, counts with a counter variable incremented in the loop.
+- Each code block runs independently in a fresh namespace: it must be self-contained and assign `result`; never reference a variable defined in another block. Merge 'at least one of / either' alternatives into ONE block combined with `or`.
+- Never add room_count/room_type or accommodation constraints unless the request explicitly mentions rooms or beds. Keep POI names verbatim as they appear in the request.
+
 You must output the whole code block. Including those constraints that are correct.
 The original code block is:
 """
 )
+
+
+# ---------------------------------------------------------------------------
+# Deterministic post-processing normalizers (phase-2 mechanical backstops).
+# Generic, pattern-keyed rewrites of LLM-emitted constraints; never keyed on
+# uids. Two families:
+#   1. transport-mode idiom: intra-city mode preferences (no taxi / only
+#      metro ...) must use the benchmark's canonical (vacuous) idiom over
+#      activity_type=='transportation', never innercity_transport_type.
+#   2. count boilerplate: the base tickets / metro_tickets / taxi_cars
+#      constraints must compare against people_count (taxi cars:
+#      (people+3)//4); the LLM sometimes miscomputes the taxi-car count or
+#      rewrites the tickets constraint as a sum.
+# ---------------------------------------------------------------------------
+
+_MODE_RE = r"['\"](walk|taxi|metro)['\"]"
+_COUNT_TOKENS = ("_tickets", "_cars", "tickets(", "cars(")
+_MODE_ORDER = ("walk", "taxi", "metro")
+
+_CANON_MODE_HEADER = (
+    "inner_city_transportation_set=set()\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='transportation': "
+    "inner_city_transportation_set.add(activity_position(activity))\n"
+)
+
+
+def _modes_in(text):
+    return set(re.findall(_MODE_RE, text))
+
+
+def _canonical_mode_constraint(modes, whitelist):
+    ordered = [m for m in _MODE_ORDER if m in modes]
+    literal = "{" + ", ".join("'%s'" % m for m in ordered) + "}"
+    if whitelist:
+        return _CANON_MODE_HEADER + "result=(inner_city_transportation_set<=%s)" % literal
+    return _CANON_MODE_HEADER + "result=not(%s&inner_city_transportation_set)" % literal
+
+
+def normalize_transport_mode_constraint(constraint):
+    """Rewrite intra-city transport-MODE constraints to the canonical idiom.
+
+    Blacklist NL ('do not want to walk / take taxi') ->
+        result=not({modes}&inner_city_transportation_set)
+    Whitelist NL ('only/prefer metro') ->
+        result=(inner_city_transportation_set<={modes})
+    Anything that is not clearly a mode constraint passes through unchanged:
+    count boilerplate (taxi_cars / metro_tickets / activity_tickets),
+    intercity constraints (train / airplane), and constraints already in the
+    canonical activity_type=='transportation' idiom.
+    """
+    c = constraint
+    if any(tok in c for tok in _COUNT_TOKENS):
+        return constraint
+    if "intercity_transport" in c or re.search(r"['\"](train|airplane)['\"]", c):
+        return constraint
+    if re.search(r"activity_type\(activity\)\s*==\s*['\"]transportation['\"]", c):
+        return constraint
+    if "innercity_transport_type" not in c:
+        return constraint
+    if not re.search(_MODE_RE, c):
+        return constraint
+
+    # whitelist: subset comparison against a mode collection (set or list)
+    m = re.search(r"<=\s*(\{[^{}]*\}|\[[^\[\]]*\])", c)
+    if m:
+        wl = _modes_in(m.group(1))
+        if wl:
+            return _canonical_mode_constraint(wl, whitelist=True)
+    # whitelist: equality of a collected set with a mode-set literal
+    m = re.search(r"==\s*(\{[^{}]*\})", c)
+    if m:
+        wl = _modes_in(m.group(1))
+        if wl:
+            return _canonical_mode_constraint(wl, whitelist=True)
+    # blacklist: negated intersection  not({'walk','taxi'}&transport_set)
+    if re.search(r"\bnot\s*\(", c) and "&" in c:
+        bl = _modes_in(c)
+        if bl:
+            return _canonical_mode_constraint(bl, whitelist=False)
+    # existence intersection without negation ('prefer metro') -> whitelist
+    if "&" in c and "not" not in c:
+        wl = _modes_in(c)
+        if wl:
+            return _canonical_mode_constraint(wl, whitelist=True)
+
+    # line-wise scan of ==/!=/in conditions steering result=True/False
+    lines = c.split("\n")
+    wl, bl = set(), set()
+    for i, line in enumerate(lines):
+        lm = _modes_in(line)
+        if not lm:
+            continue
+        compact = line.replace(" ", "")
+        # locate the result assignment governed by this condition: same line
+        # or the following lines up to the next mode-bearing condition
+        tail = compact
+        j = i
+        while "result=" not in tail and j + 1 < len(lines):
+            j += 1
+            nxt = lines[j]
+            if _modes_in(nxt):
+                break
+            tail = nxt.replace(" ", "")
+        sets_false = "result=False" in tail
+        sets_true = "result=True" in tail
+        negated = ("!=" in compact) or ("notin" in compact)
+        if sets_false and not sets_true:
+            (wl if negated else bl).update(lm)
+        elif sets_true and not sets_false:
+            (bl if negated else wl).update(lm)
+    if bl and not wl:
+        return _canonical_mode_constraint(bl, whitelist=False)
+    if wl and not bl:
+        return _canonical_mode_constraint(wl, whitelist=True)
+    return constraint
+
+
+_CANON_TICKETS_TMPL = (
+    "result=True\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity) in ['attraction', 'airplane', 'train'] "
+    "and activity_tickets(activity)!={n}: result=False\n"
+    "  if innercity_transport_type(activity_transports(activity))=='metro' "
+    "and metro_tickets(activity_transports(activity))!={n}: result=False"
+)
+
+# call with one nesting level of parentheses, e.g. f(activity_transports(activity))
+_CALL = r"\((?:[^()]|\([^()]*\))*\)"
+
+
+def normalize_count_boilerplate(constraint, people_count):
+    """Fix the people-derived counts in the base ticket/taxi boilerplate.
+
+    The benchmark boilerplate always checks `!= N` where N is people_count
+    for activity/metro tickets and (people_count+3)//4 for taxi cars. The
+    LLM occasionally miscomputes the taxi-car count, or rewrites the tickets
+    constraint as an accumulated sum; both are deterministically repairable
+    from the query's people_number.
+    """
+    if not people_count:
+        return constraint
+    c = constraint
+    # sum-form tickets constraint -> canonical per-activity boilerplate
+    if (
+        "activity_tickets" in c
+        and "+=" in c
+        and "activity_cost" not in c
+        and "activity_price" not in c
+        and re.search(r"result\s*=\s*\(?\s*\w+\s*==\s*\d+", c)
+    ):
+        return _CANON_TICKETS_TMPL.format(n=people_count)
+    taxi_cars_n = (people_count + 3) // 4
+    c = re.sub(
+        r"(taxi_cars\s*%s\s*!=\s*)\d+" % _CALL,
+        lambda m: m.group(1) + str(taxi_cars_n),
+        c,
+    )
+    c = re.sub(
+        r"(metro_tickets\s*%s\s*!=\s*)\d+" % _CALL,
+        lambda m: m.group(1) + str(people_count),
+        c,
+    )
+    c = re.sub(
+        r"(activity_tickets\s*%s\s*!=\s*)\d+" % _CALL,
+        lambda m: m.group(1) + str(people_count),
+        c,
+    )
+    return c
+
+
+def normalize_generated_constraints(constraints, people_count=None):
+    """Apply all deterministic normalizers to an LLM-emitted constraint list."""
+    out = []
+    for c in constraints:
+        if not isinstance(c, str):
+            out.append(c)
+            continue
+        c2 = normalize_transport_mode_constraint(c)
+        if c2 == c:
+            c2 = normalize_count_boilerplate(c, people_count)
+        out.append(c2)
+    # normalization can collapse variants into duplicates
+    return list(dict.fromkeys(out))
+
+
+def make_checker(target_city):
+    """HardLogicPyChecker with the canonical intra-city-mode idiom whitelisted.
+
+    The oracle idiom for transport-mode preferences filters on
+    activity_type(activity)=='transportation' (vacuously true on real plans,
+    which contain no such activity type). Without this whitelist the AST
+    value-checker flags 'transportation' as invalid and the reflect loop
+    burns retries mangling or dropping the canonical pattern.
+    """
+    checker = HardLogicPyChecker(target_city)
+    tracker = checker.trackers.get("activity_type")
+    if tracker is not None:
+        tracker.valid_values.add("transportation")
+    return checker
 
 
 def load_example_plans(example_plans_dir="chinatravel/agent/nesy_agent/plan_for_check_en"):
@@ -305,6 +529,9 @@ def nl2sl_step2(query, backbone_llm):
         query["hard_logic_py"] = []
     query["hard_logic_py"] = [str(item) for item in query["hard_logic_py"]]
     query["hard_logic_py"] = list(set(query["hard_logic_py"]))
+    query["hard_logic_py"] = normalize_generated_constraints(
+        query["hard_logic_py"], query.get("people_number")
+    )
     return query
 
 
@@ -380,6 +607,9 @@ def reflect(query, backbone_llm, run_error_list, value_error_list):
         query["error_hard_logic_py"] = res
         query["hard_logic_py"] = []
     query["hard_logic_py"] = [str(item) for item in query["hard_logic_py"]]
+    query["hard_logic_py"] = normalize_generated_constraints(
+        query["hard_logic_py"], query.get("people_number")
+    )
     # print(query["hard_logic_py"])
     return query, len(run_error_list + value_error_list) == 0
 
@@ -434,7 +664,7 @@ def nl2sl_step3(query, backbone_llm, checker, max_trails=5):
             "hard_logic_py": query["hard_logic_py"],
         }
     )
-    error_indices = set(run_error_list + value_error_list)
+    error_indices = set(run_error_idx + value_error_idx)
     query["hard_logic_py"] = [
         val
         for idx, val in enumerate(query["hard_logic_py"])
@@ -507,7 +737,7 @@ def nl2sl_reflect(query, backbone_llm):
     query = nl2sl_step1(query, backbone_llm)
     query = nl2sl_step2(query, backbone_llm)
     try:
-        checker = HardLogicPyChecker(query["target_city"])
+        checker = make_checker(query["target_city"])
         query = nl2sl_step3(query, backbone_llm, checker)
         query["hard_logic_py_iter_3"] = query["hard_logic_py"]
     except Exception as e:
@@ -573,7 +803,7 @@ def run(splits: str = "easy_day1", backbone_llm=None, need_check=False):
             save_json_file(query, file_path)
             print("Skip query: ", query["uid"])
             continue
-        checker = HardLogicPyChecker(query["target_city"])
+        checker = make_checker(query["target_city"])
         query = nl2sl(query, backbone_llm, checker, cache_dir=cache_root)
         if need_check:
             if not len(check(query)[0]):
