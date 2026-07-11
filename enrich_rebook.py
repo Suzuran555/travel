@@ -39,6 +39,8 @@ RES = os.environ.get("ENRICH_RES", "results/UrbanTripOptimizedV6_TPCLLM_en_oracl
 REPO = os.path.dirname(os.path.abspath(__file__))
 qargs = argparse.Namespace(splits="TPC_IJCAI_2026_phase1", method="x", lang="en", preference=False)
 qi, qd = load_query(qargs)
+from constraint_gate import apply_gate
+apply_gate(qd)  # GATE_CONSTRAINTS=generated swaps in generated hard_logic_py; default (oracle) = no-op
 sch = load_json_file("chinatravel/evaluation/output_schema.json")
 
 
