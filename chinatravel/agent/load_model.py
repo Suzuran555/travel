@@ -111,6 +111,8 @@ def init_agent(kwargs):
 
 
 def init_llm(llm_name, max_model_len=None):
+    import os
+
     from .llms import Deepseek, GPT4o, GLM4Plus, Qwen, Mistral, Llama, EmptyLLM
 
     from .tpc_agent.tpc_llm import TPCLLM
