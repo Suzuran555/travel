@@ -269,9 +269,10 @@ If you find some constraints are not in those mentioned above, you can add them 
 
 Rules (follow strictly):
 (a) ALWAYS include the base constraints: 'days==N', 'people_number==N', 'tickets==N' (N = people_number) and 'taxi_cars==M' (M = (people_number+3)//4, as an integer). Include 'cost<=B' only when a budget B is stated.
-(b) NEVER output rooms or room_type unless the request explicitly mentions rooms, number of beds, or bed/room type. A hotel name, hotel feature or hotel price alone does NOT imply rooms/room_type.
+(b) NEVER output rooms, room_type or room_count (in any spelling or form) unless the request explicitly mentions rooms, number of beds, or bed/room type. A hotel name, hotel feature or hotel price alone does NOT imply rooms/room_type.
 (c) Copy every attraction/restaurant/hotel name VERBATIM from the request as ONE string: keep parentheses, '·', branch suffixes and spacing exactly; never split one name into two, never shorten or translate it.
-(d) Every requirement sentence in the request must map to exactly one hard_logic item, and every hard_logic item beyond the base ones in (a) must come from an explicit sentence in the request. Do not invent constraints.
+(d) Every requirement sentence in the request must map to exactly one hard_logic item, and every hard_logic item beyond the base ones in (a) must come from an explicit sentence in the request. Do not invent constraints. Before answering, re-read the request and self-check both directions: no requirement dropped, none invented.
+(e) If the request says the trip must satisfy AT LEAST/ANY ONE of several numbered conditions ('at least one of the following', 'any one of', 'either of the following'), output ONE hard_logic string that joins the branch expressions with ' or ' (e.g. "hotel_price<=3300 or ({'Xidan Commercial Street'}&attraction_names)==set()"). Never keep only one branch as an unconditional constraint, and never output the branches as separate items (that would mean AND).
 """
 
 nl2sl_example = "Examples:\n"
