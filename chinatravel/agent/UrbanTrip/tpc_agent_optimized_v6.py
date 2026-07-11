@@ -511,6 +511,20 @@ class UrbanTripOptimizedV6(BaseAgent):
                 canonicalize_query_hard_logic,
             )
 
+            # Structured fields the benchmark provides directly in the query.
+            # The NL->DSL translator re-derives them from the natural-language
+            # text and may get them wrong (e.g. days=null when the NL is
+            # truncated); the given values are authoritative and must never be
+            # clobbered by the translation output.
+            _given_fields = {
+                k: query[k]
+                for k in (
+                    "uid", "days", "people_number",
+                    "start_city", "target_city", "nature_language",
+                )
+                if query.get(k) is not None
+            }
+
             if os.path.exists(_tfp):
                 with open(_tfp, "r") as _fh:
                     query = json.load(_fh)
@@ -531,6 +545,8 @@ class UrbanTripOptimizedV6(BaseAgent):
                     json.dump(query, _fh, ensure_ascii=False)
                 # canonicalize after persisting the raw translation
                 query = canonicalize_query_hard_logic(query)
+
+            query.update(_given_fields)
 
         succ, plan = self.symbolic_search(query)
 
