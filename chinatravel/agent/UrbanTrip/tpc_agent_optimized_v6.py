@@ -507,9 +507,17 @@ class UrbanTripOptimizedV6(BaseAgent):
                 self.cache_dir, f"translation_{self.backbone_llm.name}_reflect"
             )
             _tfp = os.path.join(_tdir, f"{query['uid']}.json")
+            from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (
+                canonicalize_query_hard_logic,
+            )
+
             if os.path.exists(_tfp):
                 with open(_tfp, "r") as _fh:
                     query = json.load(_fh)
+                # Open-weight translators emit a different (semantically equal)
+                # DSL dialect; canonicalize the style before the regex-based
+                # constraint extractor sees it.
+                query = canonicalize_query_hard_logic(query)
             else:
                 from chinatravel.agent.nesy_agent.nl2sl_hybrid_en import (
                     nl2sl_reflect as _nl2sl_reflect_en,
@@ -521,6 +529,8 @@ class UrbanTripOptimizedV6(BaseAgent):
                 os.makedirs(_tdir, exist_ok=True)
                 with open(_tfp, "w") as _fh:
                     json.dump(query, _fh, ensure_ascii=False)
+                # canonicalize after persisting the raw translation
+                query = canonicalize_query_hard_logic(query)
 
         succ, plan = self.symbolic_search(query)
 
@@ -6406,7 +6416,32 @@ class UrbanTripOptimizedV6(BaseAgent):
             # type aliases (for example ``red tourism sites``) never match the
             # database values used by search.
             dsl_str = normalize_concept_constraint_source(dsl_str)
+            # Keep a pre-quote-repair copy: _normalize_activity_position_literals
+            # merges two `activity_position(...)=='A' or ...=='B'` comparisons on
+            # one line into a single garbage literal, so name mentions are also
+            # scanned on the unrepaired text (well-formed literals need no repair).
+            raw_dsl_str = dsl_str
             dsl_str = normalize_hard_logic_constraint(dsl_str)
+
+            _literal_re = r"'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\""
+
+            def _inline_named_literal_sets(text):
+                # `forbidden = {'A', 'B'}` ... `position in forbidden` -> inline
+                # the literal so membership/set patterns can see the contents.
+                for named_match in re.finditer(
+                    rf"\b([A-Za-z_]\w*)\s*=\s*(\{{\s*(?:{_literal_re})"
+                    rf"(?:\s*,\s*(?:{_literal_re}))*\s*,?\s*\}})",
+                    text,
+                ):
+                    text = re.sub(
+                        r"(?<![\w.])%s\b(?!\s*=[^=])" % re.escape(named_match.group(1)),
+                        lambda _m, rep=named_match.group(2): rep,
+                        text,
+                    )
+                return text
+
+            inlined_dsl_str = _inline_named_literal_sets(dsl_str)
+            inlined_raw_dsl_str = _inline_named_literal_sets(raw_dsl_str)
             res = {}
 
             def _append_unique(key, values):
@@ -6422,21 +6457,103 @@ class UrbanTripOptimizedV6(BaseAgent):
                         current.append(value)
                 res[key] = current
 
+            def _flag_negated(name):
+                # `not flag` / `not(flag)` anywhere in the constraint means the
+                # flag contributes with inverted polarity to `result`.
+                return bool(
+                    re.search(r"\bnot\s*\(?\s*" + re.escape(name) + r"\b", dsl_str)
+                )
+
+            def _mention_sign(match_end, text=None):
+                """Classify the outcome of the statement containing a mention.
+
+                True = the mention drives the constraint (directly or through a
+                flag variable) to failure, i.e. it is an exclusion / violated
+                cap; False = it is a requirement; None = no True/False signal.
+                """
+                if text is None:
+                    text = dsl_str
+                tail_lines = text[match_end:].split("\n")
+                for line_idx, segment in enumerate(tail_lines[:4]):
+                    if line_idx > 0 and re.match(
+                        r"\s*(if|for|while|result_list)\b", segment
+                    ):
+                        break
+                    mm = re.search(r"\b([A-Za-z_]\w*)\s*=\s*(True|False)\b", segment)
+                    if mm:
+                        flag, value = mm.group(1), mm.group(2) == "True"
+                        if flag == "result":
+                            return not value
+                        # flag set to True on match + used negated => exclusion;
+                        # flag set to False on match + used positively => exclusion.
+                        return value == _flag_negated(flag)
+                return None
+
+            _set_groups_cache = {}
+
+            def _set_constraint_groups(var_name):
+                """Collect every set-membership idiom on ``var_name``.
+
+                Returns (positive_groups, negative_values) where each positive
+                group is (values, op) with op in {'&', '<=', 'in'}.  Handles the
+                oracle idioms (``result = ({...} & var)``) as well as the Qwen
+                dialect: intermediate flag variables (``cond = ({...} <= var)``
+                later combined with or/not), and literal membership tests
+                (``'X' in var`` / ``not ('X' in var)`` / ``'X' not in var``).
+                """
+                if var_name in _set_groups_cache:
+                    return _set_groups_cache[var_name]
+                # Named literal-set variables (e.g. `forbidden = {'A', 'B'}` ...
+                # `result=not(forbidden & var)`) are already inlined here.
+                literal = _literal_re
+                set_dsl = inlined_dsl_str
+                pos, neg = [], []
+                # not({...} & var) / not(var & {...}) -- any LHS (result or flag)
+                for pat in (
+                    rf"not\s*\(\s*\{{([^}}]*)\}}\s*(?:&|<=)\s*{var_name}\b",
+                    rf"not\s*\(\s*{var_name}\s*(?:&|<=)\s*\{{([^}}]*)\}}",
+                ):
+                    for match in re.finditer(pat, set_dsl):
+                        neg.extend(extract_list(match.group(1)))
+                # LHS = ({...} OP var) / LHS = (var OP {...}); tolerate extra
+                # parentheses from `result=((...) or (...))` disjunctions.
+                for pat in (
+                    rf"([A-Za-z_]\w*)\s*=\s*\(+\s*\{{(?P<items>[^}}]*)\}}\s*(?P<op>&|<=)\s*{var_name}\b",
+                    rf"([A-Za-z_]\w*)\s*=\s*\(+\s*{var_name}\s*(?P<op>&|<=)\s*\{{(?P<items>[^}}]*)\}}",
+                ):
+                    for match in re.finditer(pat, set_dsl):
+                        lhs = match.group(1)
+                        values = extract_list(match.group("items"))
+                        if lhs != "result" and _flag_negated(lhs):
+                            neg.extend(values)
+                        else:
+                            pos.append((values, match.group("op")))
+                # literal membership: 'X' in var / 'X' not in var, possibly via flag
+                membership = (
+                    rf"(?:([A-Za-z_]\w*)\s*=\s*\(?\s*)?(?P<pre>not\s+)?\(?\s*"
+                    rf"(?P<lit>{literal})\s+(?P<op>not\s+in|in)\s+{var_name}\b"
+                )
+                for match in re.finditer(membership, set_dsl):
+                    value = _literal_value(match.group("lit"))
+                    negated = bool(match.group("pre")) ^ match.group("op").startswith("not")
+                    lhs = match.group(1)
+                    if lhs and lhs != "result" and _flag_negated(lhs):
+                        negated = not negated
+                    if negated:
+                        neg.append(value)
+                    else:
+                        pos.append(([value], "in"))
+                _set_groups_cache[var_name] = (pos, neg)
+                return pos, neg
+
             def _extract_set_constraints(var_name, negative=False):
+                pos, neg = _set_constraint_groups(var_name)
                 if negative:
-                    patterns = [
-                        rf"result\s*=\s*not\s*\(\s*\{{([^}}]*)\}}\s*(?:&|<=)\s*{var_name}",
-                        rf"result\s*=\s*not\s*\(\s*{var_name}\s*(?:&|<=)\s*\{{([^}}]*)\}}",
-                    ]
+                    values = list(neg)
                 else:
-                    patterns = [
-                        rf"result\s*=\s*\(\s*\{{([^}}]*)\}}\s*(?:&|<=)\s*{var_name}",
-                        rf"result\s*=\s*\(\s*{var_name}\s*(?:&|<=)\s*\{{([^}}]*)\}}",
-                    ]
-                values = []
-                for pat in patterns:
-                    for match in re.finditer(pat, dsl_str):
-                        values.extend(extract_list(match.group(1)))
+                    values = []
+                    for group_values, _op in pos:
+                        values.extend(group_values)
                 return values or None
 
             # all_satisfy
@@ -6453,10 +6570,37 @@ class UrbanTripOptimizedV6(BaseAgent):
             res["must_not_see_attraction_type"] = _extract_set_constraints("attraction_type_set", negative=True)
 
             # only_free_attractions
+            # Oracle idiom: sum attraction costs and require the sum <= 0.
+            # Qwen idiom: fail the constraint when any single attraction has a
+            # non-zero cost/price.  NOTE: activity_price reads the per-person
+            # `price` field while activity_cost reads the total `cost` field --
+            # for "free attraction" both are zero, so widening the DETECTOR to
+            # the price spelling is safe (the constraint text itself is never
+            # rewritten between price and cost).
             m = re.search(
                 r"attraction_cost\s*\+=\s*activity_cost\(activity\).*?attraction_cost\s*<=\s*0",
                 dsl_str, flags=re.S
             )
+            if not m:
+                # Per-activity spelling of "no paid attraction": a zero
+                # cost/price check that drives result (or a flag feeding it)
+                # to failure, guarded by an attraction filter.
+                for zero_match in re.finditer(
+                    r"activity_(?:cost|price)\(activity\)\s*(?:>|!=)\s*0(?:\.0)?\s*:",
+                    dsl_str,
+                ):
+                    # guard scope: from the enclosing `for` down to the check
+                    guard_lines = dsl_str[: zero_match.start()].split("\n")
+                    for guard_start in range(len(guard_lines) - 1, -1, -1):
+                        if re.match(r"\s*for\b", guard_lines[guard_start]):
+                            break
+                    guard = "\n".join(guard_lines[guard_start:] or guard_lines[-3:])
+                    if re.search(
+                        r"activity_type\(activity\)\s*==\s*['\"]attraction['\"]",
+                        guard,
+                    ) and _mention_sign(zero_match.end()) is True:
+                        m = zero_match
+                        break
             if m:
                 res["only_free_attractions"] = True
             else:
@@ -6491,12 +6635,16 @@ class UrbanTripOptimizedV6(BaseAgent):
             res["must_not_visit_restaurant_type"] = _extract_set_constraints("restaurant_type_set", negative=True)
 
             def _match_any(var_name):
-                # Positive `result = ({...} & var)` / `(var & {...})` is intersection
-                # semantics -> "any one of". `<=` (subset) is "all of". NEG uses
-                # `result = not(... & ...)` and is excluded by requiring `(` right after `=`.
-                return bool(
-                    re.search(rf"result\s*=\s*\(\s*\{{[^}}]*\}}\s*&\s*{var_name}", dsl_str)
-                    or re.search(rf"result\s*=\s*\(\s*{var_name}\s*&\s*\{{[^}}]*\}}", dsl_str)
+                # `&` (intersection) is "any one of"; multi-element `<=` (subset)
+                # is "all of".  A singleton positive constraint is identical under
+                # both readings ({'x'} <= S  <=>  {'x'} & S  <=>  'x' in S), so it
+                # counts as match-any regardless of which idiom the translator
+                # picked -- this keeps oracle and open-weight dialects in parity.
+                pos, _neg = _set_constraint_groups(var_name)
+                if any(op == "<=" and len(values) > 1 for values, op in pos):
+                    return False
+                return any(
+                    op == "&" or len(values) == 1 for values, op in pos
                 )
 
             res["attraction_type_match_any"] = _match_any("attraction_type_set")
@@ -6555,11 +6703,57 @@ class UrbanTripOptimizedV6(BaseAgent):
 
             if res["must_depart_transport"] is None and res["must_not_depart_transport"] is None and res[
                 "must_return_transport"] is None and res["must_not_return_transport"] is None:
-                m = re.search(r'result=\(\{([^}]*)\}==intercity_transport_set\)', dsl_str)
+                m = re.search(r'result\s*=\s*\(\s*\{([^}]*)\}\s*==\s*intercity_transport_set\s*\)', dsl_str)
+                if m is None:
+                    m = re.search(r'result\s*=\s*\(\s*intercity_transport_set\s*==\s*\{([^}]*)\}\s*\)', dsl_str)
                 res["intercity transport"] = extract_list(m.group(1)) if m else None
                 if res.get("intercity transport"):
                     res["must_depart_transport"] = res["intercity transport"]
                     res["must_return_transport"] = res["intercity transport"]
+
+            if res["must_depart_transport"] is None and res["must_not_depart_transport"] is None and res[
+                "must_return_transport"] is None and res["must_not_return_transport"] is None:
+                # Qwen: banned mode via set intersection ...
+                m = re.search(
+                    r"not\s*\(\s*\{([^}]*)\}\s*&\s*intercity_transport_set\b", dsl_str
+                )
+                if m:
+                    banned = extract_list(m.group(1))
+                    if banned:
+                        res["must_not_depart_transport"] = list(banned)
+                        res["must_not_return_transport"] = list(banned)
+                else:
+                    # ... or per-leg type checks inside a result=True loop:
+                    #   if activity_type(activity) != 'train': result=False
+                    m = re.search(
+                        r"activity_type\(activity\)\s*(?P<op>!=|==)\s*"
+                        r"['\"](?P<mode>train|airplane)['\"]\s*:\s*result\s*=\s*False",
+                        dsl_str,
+                    )
+                    if m:
+                        if m.group("op") == "!=":
+                            res["must_depart_transport"] = [m.group("mode")]
+                            res["must_return_transport"] = [m.group("mode")]
+                        else:
+                            res["must_not_depart_transport"] = [m.group("mode")]
+                            res["must_not_return_transport"] = [m.group("mode")]
+
+            # The intercity domain only has two modes, so "must take train" and
+            # "must not take airplane" are the same requirement written two ways
+            # (oracle uses !=, Qwen tends to pin the whole transport set).
+            # Complete each singleton to its canonical pair so both dialects
+            # extract identical fields.
+            _intercity_modes = {"airplane", "train"}
+
+            def _complete_transport_pair(pos_key, neg_key):
+                pos_v, neg_v = res.get(pos_key), res.get(neg_key)
+                if pos_v and not neg_v and len(pos_v) == 1 and pos_v[0] in _intercity_modes:
+                    res[neg_key] = sorted(_intercity_modes - {pos_v[0]})
+                elif neg_v and not pos_v and len(neg_v) == 1 and neg_v[0] in _intercity_modes:
+                    res[pos_key] = sorted(_intercity_modes - {neg_v[0]})
+
+            _complete_transport_pair("must_depart_transport", "must_not_depart_transport")
+            _complete_transport_pair("must_return_transport", "must_not_return_transport")
 
             # budget
             budget_patterns = {
@@ -6581,6 +6775,75 @@ class UrbanTripOptimizedV6(BaseAgent):
 
             m = re.search(r"result=\(food_cost/food_count/people_count\(plan\)<=([0-9\.]+)\)", dsl_str)
             res["restaurant_budget_per_meal"] = float(m.group(1)) if m else None
+
+            # Qwen sometimes expresses a category budget as a per-activity cost
+            # cap inside a result=True loop ("if accommodation activity costs
+            # more than N, fail").  Capping the category total at N enforces the
+            # same intent, so map it onto the corresponding budget field.
+            def _cap_category(match_start):
+                context = "\n".join(dsl_str[:match_start].split("\n")[-2:])
+                if re.search(
+                    r"activity_type\(activity\)\s*==\s*['\"]accommodation['\"]", context
+                ):
+                    return "hotel_budget"
+                if re.search(
+                    r"activity_type\(activity\)\s*==\s*['\"]attraction['\"]", context
+                ):
+                    return "attraction_budget"
+                if re.search(
+                    r"activity_type\(activity\)\s+in\s+\[[^\]]*['\"]breakfast['\"]",
+                    context,
+                ):
+                    return "restaurant_budget"
+                return None
+
+            for match in re.finditer(
+                r"activity_(?:cost|price)\(activity\)\s*>\s*([0-9]+(?:\.[0-9]+)?)\s*:",
+                dsl_str,
+            ):
+                cap_value = float(match.group(1))
+                if cap_value <= 0:
+                    continue  # handled by only_free_attractions
+                if _mention_sign(match.end()) is not True:
+                    continue
+                budget_key = _cap_category(match.start())
+                if budget_key is not None and res.get(budget_key) is None:
+                    res[budget_key] = cap_value
+
+            # Category-total accumulator compared with `> N` feeding a failure
+            # flag (e.g. `if accommodation_cost>2900.0: budget_ok=False`).
+            _accumulator_budgets = (
+                ("attraction_cost", "attraction_budget"),
+                ("restaurant_cost", "restaurant_budget"),
+                ("accommodation_cost", "hotel_budget"),
+                ("inner_city_transportation_cost", "innercity_budget"),
+                ("inter_city_transportation_cost", "intercity_budget"),
+                ("total_cost", "overall_budget"),
+            )
+            for accumulator, budget_key in _accumulator_budgets:
+                if res.get(budget_key) is not None:
+                    continue
+                for match in re.finditer(
+                    rf"\b{accumulator}\s*>\s*([0-9]+(?:\.[0-9]+)?)\s*:", dsl_str
+                ):
+                    if _mention_sign(match.end()) is True:
+                        res[budget_key] = float(match.group(1))
+                        break
+
+            # A free-attractions-only requirement implies a zero attraction
+            # budget (the oracle spelling `attraction_cost<=0` sets both).
+            if res.get("only_free_attractions") and res.get("attraction_budget") is None:
+                res["attraction_budget"] = 0.0
+
+            # LLM translators emit sentinel "budgets" (e.g. total_cost<=999999999)
+            # for "no budget mentioned"; the oracle omits the constraint instead.
+            for budget_key in (
+                "attraction_budget", "restaurant_budget", "hotel_budget",
+                "innercity_budget", "intercity_budget", "overall_budget",
+                "restaurant_budget_per_meal",
+            ):
+                if res.get(budget_key) is not None and res[budget_key] >= 1_000_000:
+                    res[budget_key] = None
 
             attr_info = self.memory["attractions"]
             res_info = self.memory["restaurants"]
@@ -6617,19 +6880,96 @@ class UrbanTripOptimizedV6(BaseAgent):
 
             # Any hard_logic predicate that explicitly mentions an activity position is
             # a search target, even when it is not written as a *_name_set constraint.
-            mentioned_names = []
-            for match in re.finditer(
-                r"activity_position\(activity\)\s*==\s*" + any_activity_literal,
-                dsl_str,
-            ):
-                mentioned_names.append(_literal_value(match.group("name")))
-            for name in mentioned_names:
+            # Mentions that drive the constraint (or a flag variable feeding it) to
+            # False are exclusions, not targets -- e.g. the Qwen idiom
+            #   if activity_type(a)=='attraction' and activity_position(a)=='X': result=False
+            # or   ... activity_position(a)=='X': visited_x=True   +   result=not(visited_x).
+            excluded_names = []
+            target_names = []
+            _seen_mentions = set()
+
+            def _record_mention(name, sign):
+                if (name, sign is True) in _seen_mentions:
+                    return
+                _seen_mentions.add((name, sign is True))
+                if sign is True:
+                    excluded_names.append(name)
+                else:
+                    target_names.append(name)
+
+            # activity_position may be compared directly or through a local alias
+            # (`pos = activity_position(activity)` ... `if pos == 'X'` /
+            # `if pos in ['X', 'Y']`).
+            for mention_text in (inlined_dsl_str, inlined_raw_dsl_str):
+                position_exprs = [r"activity_position\(activity\)"] + [
+                    re.escape(alias)
+                    for alias in re.findall(
+                        r"\b([A-Za-z_]\w*)\s*=\s*activity_position\(activity\)",
+                        mention_text,
+                    )
+                ]
+                for position_expr in position_exprs:
+                    for match in re.finditer(
+                        rf"(?<![\w.]){position_expr}\s*==\s*" + any_activity_literal,
+                        mention_text,
+                    ):
+                        _record_mention(
+                            _literal_value(match.group("name")),
+                            _mention_sign(match.end(), mention_text),
+                        )
+                    # membership over a list or (inlined) set literal
+                    for match in re.finditer(
+                        rf"(?<![\w.]){position_expr}\s+in\s+[\[{{]([^\]}}]*)[\]}}]",
+                        mention_text,
+                    ):
+                        sign = _mention_sign(match.end(), mention_text)
+                        for name in extract_list(match.group(1)):
+                            _record_mention(name, sign)
+            for name in excluded_names:
+                if name in attr_info["name"].values:
+                    _append_unique("must_not_see_attraction", [name])
+                elif name in res_info["name"].values:
+                    _append_unique("must_not_visit_restaurant", [name])
+                elif name in hotel_info["name"].values:
+                    _append_unique("must_not_live_hotel", [name])
+            for name in target_names:
+                if name in excluded_names:
+                    continue
                 if name in attr_info["name"].values:
                     _append_unique("must_see_attraction", [name])
                 elif name in res_info["name"].values:
                     _append_unique("must_visit_restaurant", [name])
                 elif name in hotel_info["name"].values:
                     _append_unique("must_live_hotel", [name])
+
+            # Same classification for direct type-predicate mentions, e.g.
+            #   if restaurant_type(a, target_city(plan))=='Snacks': result=False
+            # (exclude type)  /  ...!='Swimming Pool': result=False (require type).
+            _type_mention_specs = (
+                ("attraction_type", "must_see_attraction_type",
+                 "must_not_see_attraction_type", "attraction_type_match_any"),
+                ("restaurant_type", "must_visit_restaurant_type",
+                 "must_not_visit_restaurant_type", "restaurant_type_match_any"),
+                ("accommodation_type", "must_live_hotel_feature",
+                 "must_not_live_hotel_feature", None),
+            )
+            for func_name, pos_key, neg_key, match_any_key in _type_mention_specs:
+                for match in re.finditer(
+                    rf"{func_name}\(activity\s*,\s*target_city\(plan\)\s*\)\s*"
+                    r"(?P<op>==|!=)\s*" + any_activity_literal,
+                    dsl_str,
+                ):
+                    sign = _mention_sign(match.end())
+                    if sign is None:
+                        continue
+                    negative = sign ^ (match.group("op") == "!=")
+                    _append_unique(
+                        neg_key if negative else pos_key,
+                        [_literal_value(match.group("name"))],
+                    )
+                    if not negative and match_any_key is not None:
+                        # single required type: "any" and "all" coincide
+                        res[match_any_key] = True
 
             order_name_by_idx = {}
             for match in re.finditer(
@@ -6656,6 +6996,32 @@ class UrbanTripOptimizedV6(BaseAgent):
                             _append_unique("must_visit_restaurant", [name])
             if order_pairs:
                 res["must_visit_order"] = order_pairs
+
+            # A translator sometimes files a POI under the wrong category set
+            # (e.g. an attraction inside restaurant_name_set).  Re-route each
+            # positive target to the POI table it actually belongs to so search
+            # can satisfy the user's real requirement.
+            _poi_routes = (
+                ("must_see_attraction", attr_info),
+                ("must_visit_restaurant", res_info),
+                ("must_live_hotel", hotel_info),
+            )
+            for key_from, table_from in _poi_routes:
+                names = res.get(key_from)
+                if not isinstance(names, list) or not names:
+                    continue
+                kept = []
+                for name in names:
+                    if name in table_from["name"].values:
+                        kept.append(name)
+                        continue
+                    for key_to, table_to in _poi_routes:
+                        if key_to != key_from and name in table_to["name"].values:
+                            _append_unique(key_to, [name])
+                            break
+                    else:
+                        kept.append(name)
+                res[key_from] = kept
 
             res_filtered = {k: v for k, v in res.items() if v is not None}
 

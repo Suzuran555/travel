@@ -409,6 +409,13 @@ def normalize_count_boilerplate(constraint, people_count):
 
 def normalize_generated_constraints(constraints, people_count=None):
     """Apply all deterministic normalizers to an LLM-emitted constraint list."""
+    # Style canonicalizer shared with the V6 cache-load path: rewrites the
+    # open-weight DSL dialect (set-variable spellings, budget accumulator
+    # names) into the oracle dialect without changing evaluation semantics.
+    from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (
+        canonicalize_hard_logic_py,
+    )
+
     out = []
     for c in constraints:
         if not isinstance(c, str):
@@ -417,6 +424,7 @@ def normalize_generated_constraints(constraints, people_count=None):
         c2 = normalize_transport_mode_constraint(c)
         if c2 == c:
             c2 = normalize_count_boilerplate(c, people_count)
+        c2 = canonicalize_hard_logic_py(c2)
         out.append(c2)
     # normalization can collapse variants into duplicates
     return list(dict.fromkeys(out))
