@@ -466,6 +466,12 @@ class UrbanTripOptimizedV6(BaseAgent):
         return False, fallback_failure or {"error_info": "No solution found."}
 
     def run(self, query, prob_idx, oralce_translation=True):
+        # Wall-clock the WHOLE run from entry: live NL->DSL translation below
+        # can take 80-160s, and the search-time budget (TIME_CUT, derived from
+        # external_timeout) must cover it, or translation + search together
+        # overrun the harness watchdog.  generate_plan_with_search picks this
+        # up via query["_urbantrip_search_start"].
+        run_entry = time.time()
         method_name = self.method + "_" + self.backbone_llm.name
         if oralce_translation:
             method_name = method_name + "_oracletranslation"
@@ -541,6 +547,10 @@ class UrbanTripOptimizedV6(BaseAgent):
                 query = canonicalize_query_hard_logic(query)
 
             query.update(_given_fields)
+
+        # deduct time already spent (translation, cache IO) from the search
+        # budget -- the clock starts at run() entry, not at search entry
+        query.setdefault("_urbantrip_search_start", run_entry)
 
         succ, plan = self.symbolic_search(query)
 

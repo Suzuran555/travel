@@ -210,6 +210,35 @@ _TRANSPORT_TYPE_GUARD_RE = re.compile(
     r"['\"]\s*:\s*(.*)$"
 )
 
+# Any guard whose condition is PURELY an activity_type test (a single
+# equality or membership -- no and/or with other predicates).  Used for the
+# generic transport-budget guard repair: the benchmark's canonical
+# transport-budget idiom accumulates innercity_transport_cost over ALL
+# activities, but open-weight translators often guard the accumulation with a
+# real (or partial) activity-type list, e.g.
+#   if activity_type(activity) in ['breakfast','lunch','dinner','attraction',
+#                                  'accommodation']: cost+=...
+# which silently EXCLUDES the transports attached to the remaining activity
+# types (train / airplane legs), so the generated cap undercounts versus the
+# oracle's unguarded sum.  When the guarded body does nothing but accumulate
+# transport quantities, the guard is an artifact of the dialect, never a
+# semantic restriction (no benchmark constraint caps per-category transport
+# spend), so it is removed to restore the canonical all-activities sum.
+_ACTIVITY_TYPE_ONLY_GUARD_RE = re.compile(
+    r"^(\s*)if\s+activity_type\(activity\)\s*"
+    r"(?:==\s*(?:'[^']*'|\"[^\"]*\")"
+    r"|in\s*\[[^\]]*\]"
+    r"|in\s*\([^()]*\)"
+    r"|in\s*\{[^{}]*\})"
+    r"\s*:\s*(.*)$"
+)
+
+# An accumulation statement whose right-hand side reads a transport quantity.
+_TRANSPORT_ACCUM_LINE_RE = re.compile(
+    r"^[A-Za-z_]\w*\s*(?:\+=|=\s*[A-Za-z_]\w*\s*\+)\s*.*"
+    r"\binnercity_transport_(?:cost|price|time|distance)\s*\("
+)
+
 # DSL functions that read an activity's transports (see concept_func.py).
 _TRANSPORT_FUNC_RE = re.compile(
     r"\b(?:activity_transports|innercity_transport_cost|innercity_transport_time"
@@ -244,23 +273,49 @@ def _transport_only_lines(block_lines):
     return saw_any
 
 
+def _transport_accumulation_lines(block_lines):
+    """True iff every non-empty line is an accumulation of a transport
+    quantity (the transport-budget guard shape; see
+    ``_ACTIVITY_TYPE_ONLY_GUARD_RE``)."""
+    saw_any = False
+    for line in block_lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        saw_any = True
+        if not _TRANSPORT_ACCUM_LINE_RE.match(stripped):
+            return False
+    return saw_any
+
+
 def _repair_transport_type_guards(text):
-    """Remove always-False ``activity_type(activity)=='transportation'`` guards
-    whose bodies only touch the activity's transports (see module docstring)."""
+    """Remove activity-type guards that corrupt per-transport constraints:
+
+    1. always-False pseudo-type guards (``=='transportation'`` etc.) whose
+       bodies only touch the activity's transports, and
+    2. real/partial activity-type guards whose bodies do nothing but
+       accumulate transport quantities (transport-budget caps): the canonical
+       oracle idiom sums over ALL activities' transports.
+
+    See the module docstring and the regex comments above."""
     lines = text.split("\n")
     out = []
     idx = 0
     while idx < len(lines):
         line = lines[idx]
         m = _TRANSPORT_TYPE_GUARD_RE.match(line)
+        body_ok = _transport_only_lines
+        if not m:
+            m = _ACTIVITY_TYPE_ONLY_GUARD_RE.match(line)
+            body_ok = _transport_accumulation_lines
         if not m:
             out.append(line)
             idx += 1
             continue
         guard_indent, inline_stmt = m.group(1), m.group(2)
         if inline_stmt:
-            # inline form: "if activity_type(...)=='transportation': STMT"
-            if _transport_only_lines([inline_stmt]):
+            # inline form: "if activity_type(...)==...: STMT"
+            if body_ok([inline_stmt]):
                 out.append(guard_indent + inline_stmt)
             else:
                 out.append(line)
@@ -276,7 +331,7 @@ def _repair_transport_type_guards(text):
             block_end += 1
         block = lines[block_start:block_end]
         nonempty = [b for b in block if b.strip()]
-        if nonempty and _transport_only_lines(block):
+        if nonempty and body_ok(block):
             dedent = min(len(b) - len(b.lstrip()) for b in nonempty) - len(guard_indent)
             dedent = max(dedent, 0)
             for b in block:
@@ -434,10 +489,19 @@ def canonicalize_hard_logic_list(constraints):
 
 
 def canonicalize_query_hard_logic(query):
-    """Canonicalize query['hard_logic_py'] in place (returns the query)."""
+    """Canonicalize query['hard_logic_py'] in place (returns the query).
+
+    The list is also put into a deterministic, content-keyed order: the LLM
+    emits the same constraint set in a run-dependent order (sampling jitter),
+    and downstream constraint extraction / search tie-breaks are sensitive to
+    list order.  Sorting by constraint text makes content-identical
+    translations produce byte-identical planner inputs.  Evaluation semantics
+    are unaffected (every constraint must hold regardless of order).
+    """
     if isinstance(query, dict) and query.get("hard_logic_py"):
         hl = canonicalize_hard_logic_list(query["hard_logic_py"])
         if isinstance(hl, (list, tuple)):
             hl = ground_hard_logic_entities(hl, query.get("target_city"))
+            hl = sorted(hl, key=lambda c: str(c))
         query["hard_logic_py"] = hl
     return query

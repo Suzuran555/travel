@@ -42,6 +42,13 @@ Timing knobs (defaults fit a 300 s per-query harness timeout):
 |---|---|---|
 | `TPC_TIME_BUDGET` | 290 | total seconds per query the agent aims for |
 | `TPC_ENRICH_RESERVE` | 45 | seconds reserved for post-planning enrichment |
+| `TPC_EMIT_MARGIN` | 15 | seconds before budget end by which SOME schema-valid plan is always returned; on planner overrun a deterministic env-DB fallback plan (intercity legs + hotel + hotel breakfasts) is emitted |
+
+The whole `run()` is wall-clocked from entry: live NL→DSL translation time is
+deducted from the search budget (`_urbantrip_search_start`), every backbone
+request is capped to the emission deadline, and the planner runs in a worker
+thread that is abandoned in favor of the prebuilt fallback plan if it misses
+the emission deadline.
 
 ## What run(query) does
 

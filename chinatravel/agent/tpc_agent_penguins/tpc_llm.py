@@ -21,6 +21,7 @@ per model: CHINATRAVEL_LLM_NAME overrides, default "Qwen3.6-27B".
 """
 import os
 import re
+import time
 
 import requests
 
@@ -65,6 +66,11 @@ class TPCLLM:
         self.ollama_host = os.environ.get("OLLAMA_HOST_URL", "http://localhost:11434")
         self.ollama_tag = os.environ.get("OLLAMA_TAG", "")
         self.timeout = float(os.environ.get("CHINATRAVEL_LLM_TIMEOUT", "3600"))
+        # Optional per-query wall-clock deadline (epoch seconds).  The agent
+        # sets this at the start of every run() so that a single blocking
+        # request can never outlive the query's emission deadline (the
+        # harness watchdog cannot interrupt a blocking socket read).
+        self.request_deadline = None
         self.max_tokens = int(os.environ.get("CHINATRAVEL_LLM_MAX_TOKENS", "3072"))
         # determinism: greedy decoding + fixed seed unless explicitly overridden
         self.temperature = float(os.environ.get("PENGUINS_TEMPERATURE", "0.0"))
@@ -101,6 +107,14 @@ class TPCLLM:
                     return line.strip()
         return content
 
+    def _effective_timeout(self):
+        """Per-request timeout, capped by the agent-set per-query deadline."""
+        timeout = self.timeout
+        deadline = getattr(self, "request_deadline", None)
+        if deadline:
+            timeout = min(timeout, max(2.0, deadline - time.time()))
+        return timeout
+
     # ---- backends ------------------------------------------------------------
     def _openai_chat(self, messages, json_mode):
         payload = {
@@ -118,13 +132,13 @@ class TPCLLM:
             payload["response_format"] = {"type": "json_object"}
         headers = {"Authorization": f"Bearer {self.openai_key}"}
         url = f"{self.openai_base}/chat/completions"
-        resp = requests.post(url, json=payload, headers=headers, timeout=self.timeout)
+        resp = requests.post(url, json=payload, headers=headers, timeout=self._effective_timeout())
         if resp.status_code == 400:
             # server may reject non-standard extras (top_k / template kwargs /
             # response_format) -- retry with the bare standard payload
             for k in ("top_k", "chat_template_kwargs", "response_format", "seed"):
                 payload.pop(k, None)
-            resp = requests.post(url, json=payload, headers=headers, timeout=self.timeout)
+            resp = requests.post(url, json=payload, headers=headers, timeout=self._effective_timeout())
         resp.raise_for_status()
         body = resp.json()
         content = body["choices"][0]["message"].get("content", "")
@@ -148,7 +162,7 @@ class TPCLLM:
         }
         if json_mode:
             payload["format"] = "json"
-        resp = requests.post(f"{self.ollama_host}/api/chat", json=payload, timeout=self.timeout)
+        resp = requests.post(f"{self.ollama_host}/api/chat", json=payload, timeout=self._effective_timeout())
         resp.raise_for_status()
         body = resp.json()
         content = body.get("message", {}).get("content", "")
