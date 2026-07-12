@@ -435,7 +435,10 @@ def normalize_count_boilerplate(constraint, people_count):
 # ---------------------------------------------------------------------------
 
 _ROOM_FUNC_RE = re.compile(r"\broom_(?:count|type)\s*\(")
-_ROOM_NL_RE = re.compile(r"room|bed|单人间|双人间|标间|床", re.IGNORECASE)
+_ROOM_NL_RE = re.compile(
+    r"room|bed|单人间|双人间|标间|床|房间|客房|房型|开[一两二三四五六七八九十\d]+间",
+    re.IGNORECASE,
+)
 
 # functions whose presence makes a pruned block still worth keeping
 _DOMAIN_FUNC_RE = re.compile(
@@ -661,16 +664,44 @@ CORRECT single constraint:
 Executor rules: only the builtin `set` exists (no len/any/all/sum); the block must be fully self-contained and assign `result`; copy POI names verbatim from the request.
 The available functions are:"""
 
+disjunction_reflect_tail = (
+    "\nRe-emit ONLY the corrected disjunction constraint, as a json list "
+    "containing exactly one string.\nThe request is:\n"
+)
 
-def reflect_disjunction(query, backbone_llm, gap):
-    """One targeted reflection turn; returns the best candidate string or None."""
+
+# ---------------------------------------------------------------------------
+# Instruction-language switch (phase-2 H1 probe). PENGUINS_PROMPT_LANG=zh
+# swaps the INSTRUCTION/explanation text of every prompt in this module for
+# natural-Chinese renderings of the same hardened rules / few-shots /
+# checklists (prompts_zh_instr.py). The DSL itself is untouched: python code
+# shapes, function docs, value vocabularies, few-shot examples, POI handling
+# and output format stay English, and the deterministic normalizers /
+# verifiers below run identically. Default ("en" or unset) changes nothing.
+# ---------------------------------------------------------------------------
+if os.environ.get("PENGUINS_PROMPT_LANG", "en").strip().lower() == "zh":
+    from chinatravel.agent.nesy_agent.prompts import prompts_zh_instr as _zh_instr
+
+    NL2SL_INSTRUCTION = _zh_instr.NL2SL_INSTRUCTION
+    sl_trans_prompt = _zh_instr.build_sl_trans_prompt(func_docs)
+    reflect_prompt = _zh_instr.build_reflect_prompt(func_docs)
+    disjunction_reflect_header = _zh_instr.disjunction_reflect_header
+    disjunction_reflect_tail = _zh_instr.disjunction_reflect_tail
+
+
+def reflect_disjunction(query, backbone_llm, gap, header=None, tail=None):
+    """One targeted reflection turn; returns the best candidate string or None.
+
+    header/tail default to this module's (possibly language-switched) prompt
+    text; the zh query path passes its own Chinese renderings."""
+    if header is None:
+        header = disjunction_reflect_header
+    if tail is None:
+        tail = disjunction_reflect_tail
     content = (
-        disjunction_reflect_header.format(
-            marker=gap["marker"], k=gap["branch_count"]
-        )
+        header.format(marker=gap["marker"], k=gap["branch_count"])
         + func_docs
-        + "\nRe-emit ONLY the corrected disjunction constraint, as a json list "
-        "containing exactly one string.\nThe request is:\n"
+        + tail
         + query["nature_language"]
         + "\nanswer:\n"
     )
@@ -687,7 +718,7 @@ def reflect_disjunction(query, backbone_llm, gap):
     return max(items, key=_or_arity)
 
 
-def enforce_disjunction(query, backbone_llm, max_trails=2):
+def enforce_disjunction(query, backbone_llm, max_trails=2, header=None, tail=None):
     """Mechanical verifier: if the NL demands a disjunction the constraints
     lack, inject targeted reflection turns until one OR-combined constraint
     validates, then merge it (dropping lone-branch fragments).
@@ -720,7 +751,7 @@ def enforce_disjunction(query, backbone_llm, max_trails=2):
     )
     query["disjunction_gap"] = gap
     for attempt in range(max_trails):
-        candidate = reflect_disjunction(query, backbone_llm, gap)
+        candidate = reflect_disjunction(query, backbone_llm, gap, header, tail)
         if not candidate:
             continue
         normalized = normalize_generated_constraints(

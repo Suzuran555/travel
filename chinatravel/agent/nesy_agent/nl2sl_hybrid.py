@@ -131,29 +131,57 @@ Return: str
 
 sl_trans_prompt = (
     """
-We offer some functions below, try to translate the constraints in nature language into python code and output them in json list format.
+下面提供了一组函数。请把自然语言约束翻译成 python 代码，并以 json list 格式输出。
+（代码、函数名和 activity 类型等 DSL 取值保持英文；POI 名称、菜系、景点类型等数据取值保持与请求/上方列表一致的中文。）
 variables:
 (1) plan: a dict of the generated plan with information of the specific plan.
 
 functions:"""
     + func_docs
     + """
-You need to response in the following format:
+你需要按如下格式回答：
 [
     "python code block 1",
     "python code block 2",
     ...
 ]
 
-Not all the constraints need to be translated into python code. Ignore them if they can not be translated into legal python code.
-!!! Only `plan` variable can be used directly in the python code. Others must be defined in the python code use the functions we offer above. !!! Pay attention to the return TYPE of functions!!!
-For most case, for exist constraints, you can set `result=False` at the beginning of the code, and then set `result=True` if the condition is satisfied. For all constraints, you can set `result=True` at the beginning of the code, and then set `result=False` if the condition is not satisfied.
+并非所有约束都需要翻译成 python 代码；无法翻译成合法 python 代码的约束请忽略。
+!!! 代码中只能直接使用 `plan` 变量，其余变量必须在代码中用上面提供的函数定义。!!! 注意函数返回值的类型！！！
+通常，对"存在性"约束，可以在代码开头设 result=False，条件满足时置 result=True；对"全部都要满足"的约束，在代码开头设 result=True，条件不满足时置 result=False。
 
-### Attention!!!
-If you find some pesucode in the nature language constraints is not defined in the functions we offer above, you must translate them into python block code with the functions we offer above. Usually, for attractions and restaurants, if the required one exists, the requirement is satisfied. However, for accommodation, people usually stay in the same hotel for the whole trip, so we need check all the accommodation activities in the plan.
+### 硬性规则（违反这些规则的代码会崩溃或被拒绝）
+1. 执行器只暴露内建函数 `set`。len、bool、any、all、sum、str、int、float、map、sorted、abs、max、min 都未定义，使用会抛 NameError。非空判断写成 result=(A&B)，判空/否定写成 result=not(A&B)，子集判断用 A<=B，计数用循环内显式递增的计数变量。
+2. 输出列表中的每个字符串都会在全新的命名空间中独立执行：它必须完全自包含并给 `result` 赋值。绝不能引用另一个字符串中定义的变量。"至少满足其一 / 任选其一"类需求必须写成一条约束：在同一代码块内计算所有子条件并用 `or` 连接。
+3. 每个 POI 名称必须从请求中逐字复制为一个字符串：完整的原始子串，包括括号、'·'、分店后缀和空格。绝不在内部分隔符处拆分一个名称，绝不翻译、缩写或归一化。只有当明确的分隔符（顿号、逗号、"和"）分隔的是明显不同的场所时才拆分列表。
+4. 永远输出基础约束，形式与示例完全一致：days、people、tickets 约束（attraction/airplane/train 票数和 metro 票数 == 人数）以及 taxi_cars 约束。除非请求明确提到房间、床、床型或酒店房型要求，绝不输出 room_count/room_type 或任何住宿房间约束：任何形式的 `room_count(activity)!=N` 或 `room_type(activity)!=N` 检查都不允许，无论是单独成条还是嵌在别的循环里。
+5. 作答前自查：请求中的每个需求子句恰好映射为一条约束；除基础约束外，每条约束都能在请求中找到出处；没有出现被禁止的内建函数。
+
+### 标准写法（严格照抄这些代码形状）
+- 必须游览/就餐/入住 X：按正确的 activity 类型收集名称集合，然后 result=({'X'}<=name_set)
+- "X、Y 里去一个 / 任选其一"：result=({'X','Y'}&name_set)（一条约束；用交集 &，不要用 <=）
+- "不想去 / 避开 X"：result=not({'X'}&name_set)
+- 市内交通方式偏好（不打车 / 不走路 / 只坐或尽量坐地铁 等）：一律把被禁止的方式写成如下黑名单形式（"只坐地铁"禁止 walk 和 taxi）：
+"inner_city_transportation_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='transportation': inner_city_transportation_set.add(activity_position(activity))\nresult=not({'walk', 'taxi'}&inner_city_transportation_set)"
+绝不要用 innercity_transport_type 或 activity_transports 表达方式偏好，也绝不要把黑名单改写成白名单。
+- "在 A 到 B 之间游览 X"：该活动必须覆盖整个时间窗，即开始不晚于 A 且结束不早于 B。只按 activity_position 匹配：
+"result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='A' and activity_end_time(activity)>='B': result=True"
+不要写成 activity_start_time>='A' and activity_end_time<='B'。
+- 预算上限：餐饮预算 -> 对类型 ['breakfast','lunch','dinner'] 累加 activity_cost；住宿/酒店预算 -> 对 'accommodation' 累加 activity_cost；市内交通预算 -> 累加 innercity_transport_cost(activity_transports(activity))；总预算 -> 用示例中的 total_cost 写法。每条以 result=(累加变量<=上限) 结束。
+
+### 析取（"至少满足以下条件之一"、"满足任意一条"、"任选其一"）
+这类请求列出若干编号分支，但规划只需满足其中一条。必须翻译成恰好一条自包含约束：在同一代码块内计算每个分支条件，并用 `or` 连接。
+NL: '……必须满足以下要求中的至少一个：1. 不想去西单商业街和定陵；2. 住宿预算为3300.0。'
+正确（一条约束）：
+"attraction_name_set=set()\nhotel_cost=0\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))\n  if activity_type(activity)=='accommodation': hotel_cost+=activity_cost(activity)\nbranch_1=not({'西单商业街', '定陵'}&attraction_name_set)\nbranch_2=(hotel_cost<=3300.0)\nresult=(branch_1 or branch_2)"
+错误——折叠（禁止）：只输出一个分支，例如只写 "result=(hotel_cost<=3300.0)"，会把"至少满足其一"变成无条件硬性要求。
+错误——拆分（禁止）：把 branch_1 和 branch_2 输出为两条列表项意味着两者都必须满足（AND 语义）。
+
+### 注意!!!
+如果自然语言约束中出现上面函数未定义的伪代码，必须用上面提供的函数把它改写成 python 代码块。通常，对景点和餐厅，只要所需的那一项出现即满足要求；但住宿通常整个行程都住同一家酒店，所以需要检查规划中所有住宿活动。
 ###
 
-if you find some error in nature language constraints, you need to fix them in the code block. if {'自然景观'} <= spot_type, you need to change it to '自然风光' in the code block as we offer above. As the same, if {'大学'} <= spot_type, you need to change it to '大学校园' and '繁华的商业街' to '商业街区' in the code block. Also for restaurant_type and accommodation_type.
+如果发现自然语言约束本身有错误，需要在代码块中修正。例如出现 {'自然景观'} <= spot_type 时，应改用上面提供的 '自然风光'；同理 {'大学'} <= spot_type 应改为 '大学校园'，'繁华的商业街' 应改为 '商业街区'。restaurant_type 和 accommodation_type 的取值同样如此处理。
 
 Example:
 nature_language:
@@ -161,8 +189,6 @@ days==2
 people_number==3
 cost<=3000
 tickets==3
-rooms==2
-room_type==2
 {'北京菜'}<=food_type
 intercity_transport=={'train'}
 {'自然风光', '博物馆/纪念馆'}<=spot_type
@@ -180,13 +206,13 @@ answer:
 "total_cost=0\nfor activity in allactivities(plan): total_cost+=activity_cost(activity)+innercity_transport_cost(activity_transports(activity))\nresult=(total_cost<=3000)",
 "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['attraction', 'airplane', 'train'] and activity_tickets(activity)!=2: result=False\n  if innercity_transport_type(activity_transports(activity))=='metro' and metro_tickets(activity_transports(activity))!=2: result=False",
 "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi' and taxi_cars(activity_transports(activity))!=1: result=False",
-"result=True\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation' and room_count(activity)!=2: result=False\n  if activity_type(activity)=='accommodation' and room_type(activity)!=2: result=False\n  if activity_type(activity)=='accommodation' and accommodation_type(activity, target_city(plan))!='智能客控': result=False\n  if activity_type(activity)=='accommodation' and activity_price(activity)>500: result=False",
+"result=True\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation' and accommodation_type(activity, target_city(plan))!='智能客控': result=False\n  if activity_type(activity)=='accommodation' and activity_price(activity)>500: result=False",
 "restaurant_type_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner']:\n    restaurant_type_set.add(restaurant_type(activity, target_city(plan)))\nresult=({'北京菜'}<=restaurant_type_set)",
 "attraction_type_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction':\n    attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=({'自然风光', '博物馆/纪念馆'}<=attraction_type_set)",
 "intercity_transport_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['train', 'airplane']:\n    intercity_transport_set.add(activity_type(activity))\nresult=(intercity_transport_set=={'train'})",
 "restaurant_names_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner']:\n    restaurant_names_set.add(activity_position(activity))\nresult=({'北京全聚德(前门店)'}<=restaurant_names_set)",
 "result=True\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner'] and activity_price(activity)>100: result=False",
-"innercity_transport_set = set()\nfor activity in allactivities(plan):\n  innercity_transport_set.add(innercity_transport_type(activity_transports(activity)))\nresult=(innercity_transport_set<={'metro', 'taxi'})",
+"inner_city_transportation_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='transportation': inner_city_transportation_set.add(activity_position(activity))\nresult=not({'walk'}&inner_city_transportation_set)",
 "attraction_names_set = set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction':\n    attraction_names_set.add(activity_position(activity))\nresult=({'故宫博物院'}<=attraction_names_set)",
 ]
 """
@@ -194,7 +220,7 @@ answer:
 
 reflect_prompt = (
     """
-we offer some functions below, try to reflect on the python code block and fix them and output in the same format.
+下面提供了一组函数。请反思给定的 python 代码块，修复其中的错误，并按相同格式输出。
 [
 "python code block 1",
 "python code block 2",
@@ -203,15 +229,67 @@ we offer some functions below, try to reflect on the python code block and fix t
 We offer functions below:"""
     + func_docs
     + """
-Try to fix the error in the code block and output them in json list format.
-The attractions_type, restaurants_type, and accommodations_type must be in the list we offer above. You must trans the original type to !!!a similar one!!! we offer if the original type is not in the list we offer above. For example '购物街' to '商业街区' and '本地特色菜' usually refers to the local cuisine in the city.
-For return value of activity_position(activity), it will be checked by whether the position is in the database. You need to trans it to a similar one if it is rufused with you own knowledge. For example, '故宫' to '故宫博物院', 'A near B' may be 'A(B店)' or 'A（B店）' or other similar ones.
-Also hotel_names should be checked by activity_position(activity), not accommodation_type(activity, target_city(plan)) and so for other names.
-Usually, for attractions and restaurants, if the required one exists, the requirement is satisfied. However, for accommodation, people usually stay in the same hotel for the whole trip, so we need check all the accommodation activities in the plan. Either change the function or value to make the code block correct.
-You must output the whole code block. Including those constraints that are correct.
+请修复代码块中的错误，并以 json list 格式输出。
+attractions_type、restaurants_type、accommodations_type 必须在上面给出的列表之内。若原类型不在列表中，必须把它改写为列表中!!!最相近的一个!!!。例如 '购物街' 改为 '商业街区'；'本地特色菜' 通常指该城市的本地菜系。
+activity_position(activity) 的返回值会被检查是否存在于数据库中。若某个名称被拒绝，请凭你自己的知识把它改成最相近的名称。例如 '故宫' 改为 '故宫博物院'；'A附近的B' 可能是 'A(B店)' 或 'A（B店）' 等类似形式。
+同时 hotel_names 应当用 activity_position(activity) 检查，而不是 accommodation_type(activity, target_city(plan))；其他名称同理。
+通常，对景点和餐厅，只要所需的那一项存在即满足要求；但住宿通常整个行程都住同一家酒店，所以需要检查规划中所有住宿活动。可以修改函数或取值使代码块正确。
+
+修复规则：
+- 执行器只暴露内建函数 `set`。len、bool、any、all、sum、str、int、float、map、sorted 未定义，使用会抛 NameError。非空判断改写为 result=(A&B)，判空/否定改写为 result=not(A&B)，子集判断用 A<=B，计数用循环内递增的计数变量。
+- 每个代码块在全新的命名空间中独立运行：必须自包含并给 `result` 赋值；绝不引用其他块中定义的变量。"至少满足其一 / 任选其一"类分支必须合并成一条用 `or` 连接的代码块。
+- 除非请求明确提到房间或床，绝不新增 room_count/room_type 或住宿约束。POI 名称保持与请求逐字一致。
+
+你必须输出完整的代码块列表，包括那些本来就正确的约束。
 The original code block is:
 """
 )
+
+
+# ---------------------------------------------------------------------------
+# Hardening ported from the (rounds 1-3 validated) English module
+# nl2sl_hybrid_en.py. The normalizers and the disjunction verifier operate on
+# the emitted DSL, which is shared between the two paths (python code, English
+# function names); their NL-facing guards (room-strip regex, disjunction
+# markers) already carry Chinese terms. Only the reflect-turn prompt text is
+# re-rendered in Chinese here.
+# ---------------------------------------------------------------------------
+from chinatravel.agent.nesy_agent.nl2sl_hybrid_en import (
+    normalize_generated_constraints,
+    enforce_disjunction,
+)
+
+disjunction_reflect_header_zh = """
+该请求包含一个"或"式需求（标记: "{marker}"，共 {k} 个编号分支）：规划只需满足这些编号分支中的至少一个，而不是全部。
+规则：这类需求必须翻译成恰好一条自包含的 python 约束，在同一代码块内计算每个分支条件，并用 `or` 连接。
+错误——折叠（禁止）：只把一个分支单独作为约束输出，会把"至少满足其一"变成无条件硬性要求。
+错误——拆分（禁止）：把分支输出成多条独立约束意味着它们全部都必须满足（AND 语义）。
+示例：
+NL: '……必须满足以下要求中的至少一个：1. 不想去西单商业街和定陵；2. 住宿预算为3300.0。'
+正确的单条约束：
+"attraction_name_set=set()\\nhotel_cost=0\\nfor activity in allactivities(plan):\\n  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))\\n  if activity_type(activity)=='accommodation': hotel_cost+=activity_cost(activity)\\nbranch_1=not({{'西单商业街', '定陵'}}&attraction_name_set)\\nbranch_2=(hotel_cost<=3300.0)\\nresult=(branch_1 or branch_2)"
+执行器规则：只有内建函数 `set` 可用（没有 len/any/all/sum）；代码块必须完全自包含并给 `result` 赋值；POI 名称必须从请求中逐字复制。
+可用函数如下："""
+
+disjunction_reflect_tail_zh = (
+    "\n只重新输出修正后的析取约束本身：一个恰好包含一个字符串的 json list。"
+    "\nThe request is:\n"
+)
+
+
+def make_checker(target_city):
+    """HardLogicPyChecker with the canonical intra-city-mode idiom whitelisted.
+
+    The oracle idiom for transport-mode preferences filters on
+    activity_type(activity)=='transportation' (vacuously true on real plans).
+    Without this whitelist the AST value-checker flags 'transportation' as
+    invalid and the reflect loop burns retries mangling the canonical pattern.
+    """
+    checker = HardLogicPyChecker(target_city)
+    tracker = checker.trackers.get("activity_type")
+    if tracker is not None:
+        tracker.valid_values.add("transportation")
+    return checker
 
 
 def load_example_plans(example_plans_dir="chinatravel/agent/nesy_agent/plan_for_check"):
@@ -313,6 +391,11 @@ def nl2sl_step2(query, backbone_llm):
         query["hard_logic_py"] = []
     query["hard_logic_py"] = [str(item) for item in query["hard_logic_py"]]
     query["hard_logic_py"] = list(set(query["hard_logic_py"]))
+    query["hard_logic_py"] = normalize_generated_constraints(
+        query["hard_logic_py"],
+        query.get("people_number"),
+        query.get("nature_language"),
+    )
     return query
 
 
@@ -388,6 +471,11 @@ def reflect(query, backbone_llm, run_error_list, value_error_list):
         query["error_hard_logic_py"] = res
         query["hard_logic_py"] = []
     query["hard_logic_py"] = [str(item) for item in query["hard_logic_py"]]
+    query["hard_logic_py"] = normalize_generated_constraints(
+        query["hard_logic_py"],
+        query.get("people_number"),
+        query.get("nature_language"),
+    )
     # print(query["hard_logic_py"])
     return query, len(run_error_list + value_error_list) == 0
 
@@ -442,12 +530,21 @@ def nl2sl_step3(query, backbone_llm, checker, max_trails=5):
             "hard_logic_py": query["hard_logic_py"],
         }
     )
-    error_indices = set(run_error_list + value_error_list)
+    error_indices = set(run_error_idx + value_error_idx)
     query["hard_logic_py"] = [
         val
         for idx, val in enumerate(query["hard_logic_py"])
         if idx not in error_indices
     ]
+    # mechanical disjunction verifier (ported from the en module): runs on the
+    # final surviving list so a missing OR-constraint is re-requested even when
+    # the reflect loop above converged without errors; zh reflect prompt text
+    query = enforce_disjunction(
+        query,
+        backbone_llm,
+        header=disjunction_reflect_header_zh,
+        tail=disjunction_reflect_tail_zh,
+    )
     # ood_idx = list(set(run_error_idx + value_error_idx))
     # if len(ood_idx):
     #     query["ood"] = True
@@ -493,10 +590,14 @@ def nl2sl_reflect(query, backbone_llm, lang="zh"):
             return query
     query = nl2sl_step1(query, backbone_llm, lang=lang)
     query = nl2sl_step2(query, backbone_llm)
-    checker = HardLogicPyChecker(query["target_city"])
-    query = nl2sl_step3(query, backbone_llm, checker)
-    query["hard_logic_py_iter_3"] = query["hard_logic_py"]
+    try:
+        checker = make_checker(query["target_city"])
+        query = nl2sl_step3(query, backbone_llm, checker)
+        query["hard_logic_py_iter_3"] = query["hard_logic_py"]
+    except Exception:
+        import traceback
 
+        query["reflect_error"] = traceback.format_exc()
     return query
 
 
@@ -558,7 +659,7 @@ def run(splits: str = "easy_day1", backbone_llm=None, need_check=False):
             save_json_file(query, file_path)
             print("Skip query: ", query["uid"])
             continue
-        checker = HardLogicPyChecker(query["target_city"])
+        checker = make_checker(query["target_city"])
         query = nl2sl(query, backbone_llm, checker, cache_dir=cache_root)
         if need_check:
             if not len(check(query)[0]):

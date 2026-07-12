@@ -40,10 +40,13 @@ def main():
         model_tag=args.tag,
         display_name=name_map.get(args.tag, args.tag.replace(":", "-")),
     )
+    # Optional suffix (e.g. "_zhinstr") to write into a separate cache dir
+    # without touching the live translation cache. Default: unset = no change.
+    suffix = os.environ.get("PENGUINS_CACHE_SUFFIX", "")
     cache_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "cache",
-        f"translation_{llm.name}_reflect",
+        f"translation_{llm.name}_reflect{suffix}",
     )
     os.makedirs(cache_dir, exist_ok=True)
 

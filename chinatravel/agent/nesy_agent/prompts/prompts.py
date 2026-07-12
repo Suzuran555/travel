@@ -266,6 +266,13 @@ Your response must be in legal json format. Pay attention to the format of the h
 (20) activity_time: the duration of the activity.
 If only one day in the trip, you should ignore rooms and room_type. As well as other constraints if they are not needed.
 If you find some constraints are not in those mentioned above, you can add them to the hard_logic.
+
+规则（必须严格遵守）：
+(a) 永远输出基础约束：'days==N'、'people_number==N'、'tickets==N'（N = people_number）以及 'taxi_cars==M'（M = (people_number+3)//4，取整数）。只有当查询明确给出预算 B 时才输出 'cost<=B'。
+(b) 除非查询明确提到房间数、床数或床型/房型，否则绝不输出 rooms、room_type 或 room_count（任何拼写或形式都不行）。只出现酒店名、酒店特色或酒店价格并不意味着需要 rooms/room_type。
+(c) 每个景点/餐厅/酒店名称必须从查询中逐字复制为一个完整字符串：保留括号、'·'、分店后缀和空格；绝不把一个名称拆成两个，绝不缩写或改写。
+(d) 查询中的每一句需求必须恰好映射为一条 hard_logic；除 (a) 的基础约束外，每条 hard_logic 都必须在查询中有明确出处。不得凭空发明约束。作答前重读查询并双向自查：没有遗漏需求，也没有多造约束。
+(e) 如果查询说行程只需满足若干编号条件中的至少/任意一个（"满足以下条件中的至少一个"、"任选其一"等），必须输出一条用 ' or ' 连接各分支表达式的 hard_logic 字符串（例如 "hotel_price<=3300 or ({'西单商业街'}&attraction_names)==set()"）。绝不能只保留一个分支作为无条件约束，也绝不能把分支拆成多条独立项（那等价于 AND）。
 """
 
 nl2sl_example = "Examples:\n"
@@ -280,11 +287,11 @@ Answer: {'start_city': "上海", 'target_city': "北京", 'days': 2, 'people_num
 """
 nl2sl_example_3 = """
 nature_language: 当前位置重庆。我一个人想去杭州玩2天，坐高铁（G），预算3000人民币，喜欢自然风光，住一间单床且有智能客控的酒店，人均每顿饭不超过100元，尽可能坐地铁，请给我一个旅行规划。
-Answer: {'start_city': '成都', 'target_city': '杭州', 'days': 2, 'people_number': 1, 'hard_logic': ['days==2', 'people_number==1', 'cost<=3000', 'tickets==1', 'rooms==1', 'room_type==1', "intercity_transport=={'train'}", "{'自然风光'}<=spot_type", "{'智能客控'}<=hotel_feature", 'food_price<=100', "transport_type<={'metro'}" ]}
+Answer: {'start_city': '重庆', 'target_city': '杭州', 'days': 2, 'people_number': 1, 'hard_logic': ['days==2', 'people_number==1', 'cost<=3000', 'tickets==1', 'rooms==1', 'room_type==1', "intercity_transport=={'train'}", "{'自然风光'}<=spot_type", "{'智能客控'}<=hotel_feature", 'food_price<=100', "transport_type<={'metro'}", 'taxi_cars==1' ]}
 """
 nl2sl_example_4 = """
 nature_language: 当前位置苏州。我和我的朋友想去北京玩3天，预算8000人民币，坐火车去，想吃北京菜，想去故宫博物院看看，住的酒店最好有管家服务。
-Answer: {'start_city': '上海', 'target_city': '北京', 'days': 3, 'people_number': 2, 'hard_logic': ['days==3', 'people_number==2', 'cost<=8000', 'tickets==2', , 'taxi_cars==1', "intercity_transport=={'train'}", "{'北京菜'}<=food_type", "{'故宫博物院'}<=attraction_names", "{'管家服务'}<=hotel_feature"]}
+Answer: {'start_city': '苏州', 'target_city': '北京', 'days': 3, 'people_number': 2, 'hard_logic': ['days==3', 'people_number==2', 'cost<=8000', 'tickets==2', 'taxi_cars==1', "intercity_transport=={'train'}", "{'北京菜'}<=food_type", "{'故宫博物院'}<=attraction_names", "{'管家服务'}<=hotel_feature"]}
 """
 
 nl2sl_example_5 = """
