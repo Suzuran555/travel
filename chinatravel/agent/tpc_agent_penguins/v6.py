@@ -105,6 +105,30 @@ class UrbanTripOptimizedV6(BaseAgent):
         self.dav_postprocess_prioritize_large_gaps = kwargs.get(
             "dav_postprocess_prioritize_large_gaps", True
         )
+        # Evening-window repair for REQUIRED attractions (hard constraints):
+        # some must_see names/types only open after the normal day template
+        # ends (e.g. a 'university campus' whose only city instances open
+        # 19:00-22:00), so the DFS checks into the hotel early and ships a
+        # plan that violates its own hard constraint.  This repair inserts
+        # the missing POI between the last day activity and the MOVABLE
+        # hotel check-in (enrich_lateattr pattern).  Constraint-driven ONLY:
+        # it never fires on plans whose official hard logic already passes,
+        # and never fires for soft-metric-only gaps.
+        self.enable_evening_required_repair = kwargs.get(
+            "enable_evening_required_repair", True
+        )
+        self.evening_repair_seconds = max(
+            0.0, float(kwargs.get("evening_repair_seconds", 8.0))
+        )
+        self.evening_repair_max_attempts = max(
+            0, int(kwargs.get("evening_repair_max_attempts", 60))
+        )
+        self.evening_repair_candidates = max(
+            1, int(kwargs.get("evening_repair_candidates", 8))
+        )
+        self.evening_repair_visit_minutes = max(
+            30, int(kwargs.get("evening_repair_visit_minutes", 30))
+        )
         self.require_complete_daily_meals = bool(
             kwargs.get("require_complete_daily_meals", False)
         )
@@ -596,6 +620,11 @@ class UrbanTripOptimizedV6(BaseAgent):
         if isinstance(plan_out, dict) and plan_out.get("itinerary"):
             plan_out = self._eprsafe_output_plan(query, plan_out)
             plan_out = self._postprocess_insert_missing_meals(query, plan_out)
+            # constraint-driven: fires only when a must_see attraction
+            # name/type is still missing AND official hard logic fails;
+            # runs BEFORE the DAV pass so a repaired all-pass plan can
+            # still receive soft-metric insertions.
+            plan_out = self._postprocess_repair_required_evening_pois(query, plan_out)
             plan_out = self._postprocess_insert_attractions_for_dav(query, plan_out)
 
         return succ, plan_out
@@ -2102,6 +2131,304 @@ class UrbanTripOptimizedV6(BaseAgent):
             improved["dav_postprocess_attempts"] = attempts
             return self._annotate_daily_meal_check(improved)
         return self._annotate_daily_meal_check(plan)
+
+    # ---- evening-window repair for required attractions (hard constraints) ----
+
+    def _plan_attraction_canon_types(self, itinerary):
+        """Canonicalized types of every attraction visited in the itinerary."""
+        attr_info = self.memory.get("attractions")
+        types = set()
+        if attr_info is None:
+            return types
+        for day in itinerary or []:
+            for act in day.get("activities", []):
+                if act.get("type") != "attraction":
+                    continue
+                match = attr_info[attr_info["name"] == act.get("position")]
+                if not match.empty:
+                    types.add(self._canon_type("attraction", match.iloc[0].get("type")))
+        return types
+
+    def _missing_required_attraction_items(self, itinerary):
+        """(missing_names, missing_types) still owed by the installed hard
+        constraints.  Honors must_see_attraction_type_match_any: with the
+        any-of semantics the requirement is satisfied as soon as ONE of the
+        listed types is present."""
+        positions = self._plan_positions(itinerary)
+        missing_names = [
+            n for n in (self.must_see_attraction or []) if n not in positions
+        ]
+        missing_types = []
+        required_types = list(self.must_see_attraction_type or [])
+        if required_types:
+            visited = self._plan_attraction_canon_types(itinerary)
+            absent = [
+                t
+                for t in required_types
+                if self._canon_type("attraction", t) not in visited
+            ]
+            if getattr(self, "must_see_attraction_type_match_any", False):
+                # any-of: only unsatisfied when NONE of the types is present
+                missing_types = absent if len(absent) == len(required_types) else []
+            else:
+                missing_types = absent
+        return missing_names, missing_types
+
+    def _evening_repair_candidate_rows(self, itinerary, missing_names, missing_types):
+        """Attraction rows able to discharge a missing name/type requirement,
+        filtered by the other attraction hard constraints and de-duplicated
+        against POIs already in the plan.  Returns None when empty."""
+        attr_info = self.memory.get("attractions")
+        if attr_info is None or (not missing_names and not missing_types):
+            return None
+        frames = []
+        for name in missing_names:
+            match = attr_info[attr_info["name"] == name]
+            if not match.empty:
+                frames.append(match)
+        for attr_type in missing_types:
+            match = attr_info[
+                self._type_match_mask(attr_info["type"], attr_type, "attraction")
+            ]
+            if not match.empty:
+                frames.append(match)
+        if not frames:
+            return None
+        candidates = pd.concat(frames).drop_duplicates(subset=["name"])
+        allowed = self._filter_attraction_hard_candidates(attr_info)
+        candidates = candidates[candidates["name"].isin(allowed["name"])]
+        candidates = candidates[
+            ~candidates["name"].isin(self._plan_positions(itinerary))
+        ]
+        # a NaN price cannot be booked (int() below would crash /写 NaN 计划)
+        candidates = candidates[
+            pd.to_numeric(candidates["price"], errors="coerce").notna()
+        ]
+        return None if candidates.empty else candidates
+
+    def _try_build_evening_insertion(self, query, itinerary, day_idx, hotel_idx, attr_row):
+        """Insert ``attr_row`` between the last day activity and the MOVABLE
+        hotel check-in (accommodation runs to 24:00, so its start_time can
+        shift later):
+
+            previous activity -> required attraction -> hotel check-in
+
+        The visit must sit inside the POI's own open window (waiting after
+        an early transport arrival is fine -- the recorded visit simply
+        starts at opening), last at least ``evening_repair_visit_minutes``,
+        end before midnight, and the rebuilt attraction->hotel transports
+        must arrive strictly before 24:00.  Returns a deep-copied itinerary
+        candidate or None; whole-plan validation happens in
+        ``_accept_monotone_hard_improvement``."""
+        updated = deepcopy(itinerary)
+        activities = updated[day_idx].get("activities", [])
+        if hotel_idx <= 0 or hotel_idx >= len(activities):
+            return None
+        hotel_act = activities[hotel_idx]
+        if hotel_act.get("type") != "accommodation":
+            return None
+        prev_act = activities[hotel_idx - 1]
+        prev_position = self._activity_end_position(prev_act)
+        hotel_position = self._activity_position(hotel_act)
+        current_time = prev_act.get("end_time", "")
+        if not prev_position or not hotel_position or not current_time:
+            return None
+        if prev_position == attr_row["name"]:
+            return None
+
+        opentime = attr_row.get("opentime", "00:00")
+        endtime = attr_row.get("endtime", "23:59")
+        for mode_to_attr in self._postprocess_transport_modes(
+            query, prev_position, attr_row["name"]
+        ):
+            transports_to_attr, attr_arrival = self._postprocess_collect_transport(
+                query, prev_position, attr_row["name"], current_time, mode_to_attr
+            )
+            if transports_to_attr is None:
+                continue
+            scheduled = self._scheduled_poi_times(
+                attr_row["name"],
+                attr_arrival,
+                opentime,
+                endtime,
+                self.evening_repair_visit_minutes,
+                "attraction",
+            )
+            if scheduled is None:
+                continue
+            attr_start, attr_end = scheduled
+            # visit must fit the POI's SAME-DAY open window...
+            if not time_compare_if_earlier_equal(opentime, attr_start):
+                continue
+            if not time_compare_if_earlier_equal(endtime, opentime):
+                # normal (non-overnight) window: closing time is a hard bound
+                if not time_compare_if_earlier_equal(attr_end, endtime):
+                    continue
+            # ...run for the minimum dwell, and finish before midnight
+            if get_time_delta(attr_start, attr_end) < self.evening_repair_visit_minutes:
+                continue
+            if not time_compare_if_earlier_equal(attr_end, "23:59"):
+                continue
+
+            for mode_to_hotel in self._postprocess_transport_modes(
+                query, attr_row["name"], hotel_position
+            ):
+                transports_to_hotel, hotel_arrival = self._postprocess_collect_transport(
+                    query, attr_row["name"], hotel_position, attr_end, mode_to_hotel
+                )
+                if transports_to_hotel is None:
+                    continue
+                if self._arrived_time_too_late_for_hotel(hotel_arrival):
+                    continue
+
+                activities.insert(
+                    hotel_idx,
+                    {
+                        "position": attr_row["name"],
+                        "type": "attraction",
+                        "price": int(attr_row["price"]),
+                        "cost": int(attr_row["price"]) * query["people_number"],
+                        "tickets": query["people_number"],
+                        "start_time": attr_start,
+                        "end_time": attr_end,
+                        "transports": transports_to_attr,
+                    },
+                )
+                moved_hotel = activities[hotel_idx + 1]
+                moved_hotel["transports"] = transports_to_hotel
+                moved_hotel["start_time"] = hotel_arrival
+                return updated
+        return None
+
+    def _accept_monotone_hard_improvement(self, query, current_plan, candidate_itinerary):
+        """Accept a repair candidate only when commonsense still passes and
+        the hard-logic vector improves MONOTONICALLY: no currently-passing
+        constraint flips to fail (protects budget lines against the added
+        ticket/transport cost) and at least one failing constraint flips to
+        pass.  Returns the validated candidate plan or None."""
+        candidate = deepcopy(current_plan)
+        candidate["itinerary"] = deepcopy(candidate_itinerary)
+        repair_full_itinerary(self, query, candidate["itinerary"])
+        if not self._commonsense_passes(query, candidate):
+            return None
+        current_results = [bool(r) for r in self._hard_logic_results(query, current_plan)]
+        candidate_results = [bool(r) for r in self._hard_logic_results(query, candidate)]
+        if not candidate_results or len(candidate_results) != len(current_results):
+            return None
+        if any(cur and not new for cur, new in zip(current_results, candidate_results)):
+            return None
+        if sum(candidate_results) <= sum(current_results):
+            return None
+        candidate["hard_pass_count"] = int(sum(candidate_results))
+        candidate["commonsense_pass"] = True
+        return candidate
+
+    def _postprocess_repair_required_evening_pois(self, query, plan):
+        """Evening-window repair for REQUIRED attraction names/types.
+
+        Fires ONLY when (a) the official constraints do NOT already fully
+        pass and (b) a must_see attraction name/type is verifiably absent
+        from the plan -- i.e. the normal day template found no reachable
+        open window for it.  It then tries to slot one matching POI between
+        the last scheduled activity of a day and the movable hotel check-in
+        (visit inside the POI's open window, >= 30 min, rebuilt transports,
+        hotel arrival before 24:00).  Acceptance is monotone on the
+        hard-logic vector, so budget/other passing constraints can never
+        regress; fully-passing plans and soft-metric-only gaps are never
+        touched."""
+        if (
+            not getattr(self, "enable_evening_required_repair", True)
+            or self.evening_repair_seconds <= 0
+            or self.evening_repair_max_attempts <= 0
+            or not isinstance(plan, dict)
+            or not plan.get("itinerary")
+        ):
+            return plan
+        if self._plan_passes_official_constraints(query, plan):
+            # hard block already satisfied: never risk a regression
+            return plan
+        missing_names, missing_types = self._missing_required_attraction_items(
+            plan.get("itinerary")
+        )
+        if not missing_names and not missing_types:
+            # the failure is not a missing required attraction (e.g. budget
+            # or a soft-metric gap): not this repair's job
+            return plan
+
+        timeout_guard = self.time_before_search + max(1, self.TIME_CUT - 5)
+        deadline = min(time.time() + self.evening_repair_seconds, timeout_guard)
+        improved = deepcopy(plan)
+        attempts = 0
+        accepted = 0
+
+        progress = True
+        while (
+            progress
+            and (missing_names or missing_types)
+            and attempts < self.evening_repair_max_attempts
+            and time.time() < deadline
+        ):
+            progress = False
+            itinerary = improved.get("itinerary", [])
+            candidates = self._evening_repair_candidate_rows(
+                itinerary, missing_names, missing_types
+            )
+            if candidates is None:
+                break
+            for day_idx, day in enumerate(itinerary):
+                activities = day.get("activities", [])
+                hotel_idx = next(
+                    (
+                        idx
+                        for idx, act in enumerate(activities)
+                        if act.get("type") == "accommodation"
+                    ),
+                    None,
+                )
+                if hotel_idx is None or hotel_idx == 0:
+                    continue
+                prev_position = self._activity_end_position(activities[hotel_idx - 1])
+                hotel_position = self._activity_position(activities[hotel_idx])
+                ranked = self._rank_dav_insertion_candidates(
+                    candidates, prev_position, hotel_position
+                )
+                for _, attr_row in ranked.head(self.evening_repair_candidates).iterrows():
+                    if (
+                        attempts >= self.evening_repair_max_attempts
+                        or time.time() >= deadline
+                    ):
+                        break
+                    attempts += 1
+                    candidate_itinerary = self._try_build_evening_insertion(
+                        query, itinerary, day_idx, hotel_idx, attr_row
+                    )
+                    if candidate_itinerary is None:
+                        continue
+                    candidate = self._accept_monotone_hard_improvement(
+                        query, improved, candidate_itinerary
+                    )
+                    if candidate is None:
+                        continue
+                    improved = candidate
+                    accepted += 1
+                    progress = True
+                    print(
+                        f"Evening repair inserted required attraction: {attr_row['name']} "
+                        f"(day={day_idx + 1}, attempts={attempts})"
+                    )
+                    break
+                if progress:
+                    break
+            if progress:
+                missing_names, missing_types = self._missing_required_attraction_items(
+                    improved.get("itinerary")
+                )
+
+        if accepted:
+            improved["evening_repair_insertions"] = accepted
+            improved["evening_repair_attempts"] = attempts
+            return improved
+        return plan
 
     def _plan_total_cost(self, plan):
         """Verifier-style total: activity_cost + inner-city transport cost."""

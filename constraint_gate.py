@@ -49,14 +49,25 @@ if GATE_MODE not in ("oracle", "generated"):
 
 
 def generated_constraints(uid):
-    """The generated hard_logic_py list for uid from the translation cache."""
+    """The generated hard_logic_py list for uid from the translation cache.
+
+    The list is canonicalized exactly like the planner does at load time
+    (UrbanTripOptimizedV6.run -> canonicalize_query_hard_logic), so gating
+    sees the same effective constraints the planning pipeline enforced --
+    including repairs of vacuous dialect patterns that would otherwise let
+    an edit silently violate the intended constraint.
+    """
     path = os.path.join(GATE_CACHE, f"{uid}.json")
     with open(path, "r", encoding="utf-8") as fh:
         data = json.load(fh)
     hl = data.get("hard_logic_py", [])
     if isinstance(hl, str):  # some caches store the list as a repr string
         hl = ast.literal_eval(hl)
-    return list(hl)
+    from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (
+        canonicalize_query_hard_logic,
+    )
+    data["hard_logic_py"] = list(hl)
+    return canonicalize_query_hard_logic(data)["hard_logic_py"]
 
 
 def constraints_for(uid, query):
