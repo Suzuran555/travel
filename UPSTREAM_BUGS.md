@@ -75,6 +75,31 @@ sample were caused solely by this (fidelity 46% → ~89% once removed). Since ph
 Qwen3.6-27B, every team building on the stock prompt inherits this. Fix: use an example whose
 NL explicitly requests rooms, or drop the room fields from the example.
 
+## BUG 8 — Evaluator: `people_number` NameError zeroes valid constraints
+**Severity: high (scoring correctness) · Component: `chinatravel/symbol_verification/hard_constraint.py` (`evaluate_constraints_py` exec namespace)**
+
+Official human-split oracle constraints reference the bare variable `people_number` (e.g.
+`total_cost<=people_number*6000`, uid `h20241029143814437710`), but `evaluate_constraints_py`
+never injects `people_number` into the exec namespace — the constraint raises `NameError` and
+scores **False for any plan from any team**, even plans that satisfy it (ours: 8611 ≤ 12000).
+Fix: inject `people_number` (and any other query-level scalars used by oracle DSL) into the
+constraint exec environment.
+
+## BUG 9 — Data: human-split oracle constraints unsatisfiable in the databases
+**Severity: high (depresses all teams' scores) · Component: human-split query data vs POI/transport DBs**
+
+In a random 60-uid sample of the human split, **9 uids (15%)** carry oracle constraints that are
+unsatisfiable against the shipped databases (zh and en both), verified literal-by-literal:
+- concept literals with zero DB rows: 约会圣地 (Shanghai), 海边/迷人海景 (Guangzhou),
+  古风写真/位置超好 (Hangzhou), 位置超好 (Nanjing), 历史名宅/'Historic Residence' (Beijing),
+  上海菜 (not a cuisine label; DB uses 本帮菜)
+- `{'airplane'}==intercity_transport_set` for Suzhou round trips — `airplane.jsonl` contains no
+  Suzhou flights in either language
+- one uid whose oracle REQUIRES a museum while its NL says 除了博物馆 ("except museums")
+If the held-out phase-2 set inherits this defect rate, absolute harness scores will be capped
+~15% below 100 for the entire field. Recommend a data-vs-DB satisfiability pass before final
+evaluation.
+
 ## BUG 7 — agent_env harness: cannot load EN data
 **Severity: low (developer tooling) · Component: `agent_env/scripts/solve_script_with_harness.py`**
 
