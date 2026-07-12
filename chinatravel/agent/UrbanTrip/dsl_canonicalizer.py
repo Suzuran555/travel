@@ -479,6 +479,159 @@ def ground_hard_logic_entities(constraints, target_city):
     return out
 
 
+# ---------------------------------------------------------------------------
+# Type-literal normalization against the DB type vocabulary
+#
+# LLM translators re-case / re-space category labels ("University campus"
+# where the Hangzhou DB says "university campus").  The official verifier is
+# case-tolerant via its concept alias table, but the planner-side extractor
+# and POI selection match the DB literally, so a mis-cased label silently
+# weakens the constraint during SEARCH.  Rewrite the literal to the DB's
+# exact spelling whenever it matches a DB type of the same category under a
+# case-insensitive + whitespace-collapsed comparison.
+#
+# Scope guard: ONLY literals in type-set membership expressions are touched
+# ({...} <=/&/== <cat>_type_set, or 'X' [not] in <cat>_type_set).  POI names
+# are never rewritten (they only appear against *_name_set variables, and a
+# literal is replaced only when it folds onto a DB type of that category).
+# ---------------------------------------------------------------------------
+
+# zh city spelling -> database directory key (the environment database uses
+# pinyin directory names for both language variants)
+_ZH_CITY_DIRS = {
+    "北京": "beijing", "上海": "shanghai", "南京": "nanjing", "苏州": "suzhou",
+    "杭州": "hangzhou", "深圳": "shenzhen", "成都": "chengdu", "武汉": "wuhan",
+    "广州": "guangzhou", "重庆": "chongqing",
+}
+
+_DB_ROOT_ZH = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "..", "environment", "database",
+))
+
+# category -> (subdir, filename template, type column)
+_TYPE_SOURCES = {
+    "attraction": ("attractions", "attractions.csv", "type"),
+    "restaurant": ("restaurants", "restaurants_{key}.csv", "cuisine"),
+    "accommodation": ("accommodations", "accommodations.csv", "featurehoteltype"),
+}
+
+_poi_type_cache = {}
+
+
+def _fold_type(value):
+    """Case-insensitive + whitespace-collapsed comparison key."""
+    return re.sub(r"\s+", " ", str(value).strip()).casefold()
+
+
+def _city_poi_types(city):
+    """{'attraction': {folded: exact}, ...} type vocabulary of a city from the
+    public environment database; {} when unavailable.  Folded keys shared by
+    two DIFFERENT exact spellings are dropped (ambiguous -> never rewritten).
+    """
+    city = (city or "").strip()
+    if not city:
+        return {}
+    if city in _ZH_CITY_DIRS:
+        key, root = _ZH_CITY_DIRS[city], _DB_ROOT_ZH
+    else:
+        key, root = city.lower(), _DB_ROOT
+    cache_key = (root, key)
+    if cache_key in _poi_type_cache:
+        return _poi_type_cache[cache_key]
+    vocab = {}
+    for cat, (subdir, fname, column) in _TYPE_SOURCES.items():
+        path = os.path.join(root, subdir, key, fname.format(key=key))
+        table = {}
+        ambiguous = set()
+        try:
+            with open(path, newline="", encoding="utf-8") as fh:
+                for row in csv.DictReader(fh):
+                    exact = (row.get(column) or "").strip()
+                    if not exact:
+                        continue
+                    folded = _fold_type(exact)
+                    if table.get(folded, exact) != exact:
+                        ambiguous.add(folded)
+                    table[folded] = exact
+        except OSError:
+            _poi_type_cache[cache_key] = {}
+            return {}
+        for folded in ambiguous:
+            table.pop(folded, None)
+        vocab[cat] = table
+    _poi_type_cache[cache_key] = vocab
+    return vocab
+
+
+_QUOTED_LITERAL_RE = re.compile(r"'((?:\\.|[^\\'])*)'|\"((?:\\.|[^\\\"])*)\"")
+
+
+def _rewrite_type_literals_in(text, table):
+    """Rewrite every quoted literal in ``text`` whose folded form matches a DB
+    type onto the DB's exact spelling (quote style preserved)."""
+
+    def _repl(match):
+        raw = match.group(1) if match.group(1) is not None else match.group(2)
+        exact = table.get(_fold_type(raw))
+        if exact is None or exact == raw:
+            return match.group(0)
+        quote = match.group(0)[0]
+        return f"{quote}{exact}{quote}"
+
+    return _QUOTED_LITERAL_RE.sub(_repl, text)
+
+
+def _type_membership_res(category):
+    """Regexes whose ENTIRE match is the literal-bearing span of a type-set
+    membership expression for one category (context sits in lookarounds)."""
+    var = r"%s_type_set" % category
+    literal = r"'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\""
+    return (
+        # {...} <= / & / == var
+        re.compile(r"\{[^{}]*\}(?=\s*(?:<=|==|&)\s*" + var + r"\b)"),
+        # var <= / & / == {...}   (only quoted literals inside the braces can
+        # match the rewriter, so the whole expression is a safe span)
+        re.compile(r"\b" + var + r"\s*(?:<=|==|&)\s*\{[^{}]*\}"),
+        # 'X' in var / 'X' not in var
+        re.compile("(?:" + literal + r")(?=\s+(?:not\s+)?in\s+" + var + r"\b)"),
+    )
+
+
+def normalize_type_literals(constraints, target_city):
+    """Normalize type literals of type-set membership constraints in a
+    hard_logic_py list against the target city's DB vocabulary (best effort;
+    any failure leaves the constraint untouched)."""
+    if not isinstance(constraints, (list, tuple)):
+        return constraints
+    try:
+        vocab = _city_poi_types(target_city)
+    except Exception:
+        return list(constraints)
+    if not vocab:
+        return list(constraints)
+    out = []
+    for constraint in constraints:
+        if not isinstance(constraint, str):
+            out.append(constraint)
+            continue
+        try:
+            for category, table in vocab.items():
+                if not table or ("%s_type_set" % category) not in constraint:
+                    continue
+                for pattern in _type_membership_res(category):
+                    constraint = pattern.sub(
+                        lambda m, _t=table: _rewrite_type_literals_in(
+                            m.group(0), _t
+                        ),
+                        constraint,
+                    )
+        except Exception:
+            pass
+        out.append(constraint)
+    return out
+
+
 def canonicalize_hard_logic_list(constraints):
     """Canonicalize a hard_logic_py list (str / list / tuple tolerated)."""
     if isinstance(constraints, str):
@@ -502,6 +655,7 @@ def canonicalize_query_hard_logic(query):
         hl = canonicalize_hard_logic_list(query["hard_logic_py"])
         if isinstance(hl, (list, tuple)):
             hl = ground_hard_logic_entities(hl, query.get("target_city"))
+            hl = normalize_type_literals(hl, query.get("target_city"))
             hl = sorted(hl, key=lambda c: str(c))
         query["hard_logic_py"] = hl
     return query

@@ -391,6 +391,110 @@ def test_extractor_reroutes_misfiled_poi():
     assert "Scenic Garden" not in (res.get("must_visit_restaurant") or [])
 
 
+# ---------------------------------------------------------------------------
+# Type-literal case/spacing normalization against the DB type vocabulary
+# (round-4 residual: uid h20241029143911770965).
+# ---------------------------------------------------------------------------
+
+from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (  # noqa: E402
+    normalize_type_literals,
+)
+
+# the exact Qwen3.6-27B emission for h20241029143911770965 (mis-cased
+# 'University campus'; the Hangzhou EN DB spells it 'university campus')
+H965_TYPE_CONSTRAINT = (
+    "attraction_type_set = set()\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='attraction':\n"
+    "    attraction_type_set.add(attraction_type(activity, target_city(plan)))\n"
+    "result=({'University campus'}<=attraction_type_set)"
+)
+
+
+def test_type_literal_normalized_to_db_spelling_h965():
+    out = normalize_type_literals([H965_TYPE_CONSTRAINT], "Hangzhou")
+    assert len(out) == 1
+    assert "'university campus'" in out[0]
+    assert "'University campus'" not in out[0]
+    # nothing else changed
+    assert out[0] == H965_TYPE_CONSTRAINT.replace(
+        "'University campus'", "'university campus'")
+
+
+def test_type_literal_normalization_via_query_entrypoint_h965():
+    query = {
+        "uid": "h20241029143911770965",
+        "target_city": "Hangzhou",
+        "hard_logic_py": [
+            H965_TYPE_CONSTRAINT,
+            "result=(day_count(plan)==2)",
+        ],
+    }
+    out = canonicalize_query_hard_logic(query)
+    joined = "\n".join(out["hard_logic_py"])
+    assert "'university campus'" in joined
+    assert "'University campus'" not in joined
+
+
+def test_type_literal_whitespace_collapse_and_reversed_operands():
+    c = "result=({'University   Campus'}<=attraction_type_set)"
+    out = normalize_type_literals([c], "Hangzhou")
+    assert "'university campus'" in out[0]
+    c2 = "result=(attraction_type_set&{'UNIVERSITY CAMPUS'})"
+    out2 = normalize_type_literals([c2], "Hangzhou")
+    assert "'university campus'" in out2[0]
+    c3 = "result=('University campus' in attraction_type_set)"
+    out3 = normalize_type_literals([c3], "Hangzhou")
+    assert "'university campus' in attraction_type_set" in out3[0]
+
+
+def test_type_literal_hotel_feature_recased_to_db():
+    # Hangzhou EN accommodations DB spells it 'Family-themed Room'
+    c = (
+        "accommodation_type_set=set()\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity) == 'accommodation': "
+        "accommodation_type_set.add(accommodation_type(activity, target_city(plan)))\n"
+        "result=({'Family-themed room'}<=accommodation_type_set)"
+    )
+    out = normalize_type_literals([c], "Hangzhou")
+    assert "'Family-themed Room'" in out[0]
+
+
+def test_type_literal_normalization_never_touches_poi_names():
+    name_constraint = (
+        "attraction_name_set = set()\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity)=='attraction':\n"
+        "    attraction_name_set.add(activity_position(activity))\n"
+        "result=({'West Lake'}<=attraction_name_set)"
+    )
+    out = normalize_type_literals([name_constraint], "Hangzhou")
+    assert out[0] == name_constraint
+    # a POI-name literal inside a TYPE-set expression that does not fold onto
+    # any DB type is also left alone
+    odd = "result=({'Lingyin Temple'}<=attraction_type_set)"
+    assert normalize_type_literals([odd], "Hangzhou")[0] == odd
+
+
+def test_type_literal_unknown_city_and_exact_literals_untouched():
+    exact = "result=({'university campus'}<=attraction_type_set)"
+    assert normalize_type_literals([exact], "Hangzhou")[0] == exact
+    miscased = "result=({'University campus'}<=attraction_type_set)"
+    assert normalize_type_literals([miscased], "Atlantis")[0] == miscased
+    assert normalize_type_literals([miscased], None)[0] == miscased
+
+
+def test_type_literal_zh_city_vocabulary():
+    # zh-city routing hits the zh database; latin-cased variants of zh DB
+    # entries ('spa' vs the DB's 'SPA') are folded onto the exact spelling
+    c = "result=({'spa'}<=accommodation_type_set)"
+    out = normalize_type_literals([c], "杭州")
+    assert "'SPA'" in out[0]
+    exact = "result=({'亲子主题房'}<=accommodation_type_set)"
+    assert normalize_type_literals([exact], "杭州")[0] == exact
+
+
 def main():
     tests = [
         (name, fn)

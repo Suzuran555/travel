@@ -14,6 +14,7 @@ from copy import deepcopy
 from chinatravel.symbol_verification.concept_func import func_dict
 from .sv_compat import normalize_hard_logic_constraint
 from .prompts_en import NL2SL_INSTRUCTION
+from .constraint_coverage import enforce_coverage
 from chinatravel.agent.nesy_agent.ast_checker_en import HardLogicPyChecker
 from chinatravel.data.load_datasets import save_json_file, load_json_file
 
@@ -153,6 +154,7 @@ For most case, for exist constraints, you can set `result=False` at the beginnin
 3. Copy every POI name VERBATIM from the request as a single string: the exact substring including parentheses, '·', branch suffixes and spacing. Never split one name on internal separators, never translate, shorten or normalize it. Only split a list of POIs on explicit delimiters (commas / 'and') that separate obviously distinct venues.
 4. ALWAYS emit the base constraints exactly as in the example: days, people, the tickets constraint (attraction/airplane/train tickets and metro tickets == people number) and the taxi_cars constraint. NEVER emit room_count/room_type or any accommodation constraint unless the request explicitly mentions rooms, beds, bed type or a hotel requirement: no `room_count(activity)!=N` or `room_type(activity)!=N` check in any form, standalone or inside another loop.
 5. Before answering, self-check: every requirement clause of the request maps to exactly one constraint; no constraint lacks a source in the request (base constraints excepted); no forbidden builtin appears.
+6. Colloquial idioms are HARD requirements: 'taste/try the local specialties/cuisine' requires the target city's signature cuisine in restaurant_type_set (Beijing->'Beijing cuisine', Shanghai->'Shanghai cuisine', Nanjing/Suzhou/Hangzhou->'Jiangsu-Zhejiang cuisine', Guangzhou/Shenzhen->'Cantonese cuisine', Chengdu/Chongqing->'Sichuan cuisine', Wuhan->'Hubei cuisine'). Any mention of airfare / air tickets (机票) means intercity transport must be airplane. An explicit room-count phrase ('a twin room', 'one room', 'two rooms', '一间') overrides the default room count: 'the three of us stay in a twin room' means ONE room (room_count==1, room_type==2), not three.
 
 ### CANONICAL PATTERNS (copy these shapes exactly)
 - must visit/eat/stay at X: build the name set over the right activity types, then result=({'X'}<=name_set)
@@ -432,7 +434,10 @@ def normalize_count_boilerplate(constraint, people_count):
 # ---------------------------------------------------------------------------
 
 _ROOM_FUNC_RE = re.compile(r"\broom_(?:count|type)\s*\(")
-_ROOM_NL_RE = re.compile(r"room|bed|单人间|双人间|标间|床", re.IGNORECASE)
+_ROOM_NL_RE = re.compile(
+    r"room|bed|单人间|双人间|标间|床|房间|客房|房型|开[一两二三四五六七八九十\d]+间",
+    re.IGNORECASE,
+)
 
 # functions whose presence makes a pruned block still worth keeping
 _DOMAIN_FUNC_RE = re.compile(
@@ -658,16 +663,44 @@ CORRECT single constraint:
 Executor rules: only the builtin `set` exists (no len/any/all/sum); the block must be fully self-contained and assign `result`; copy POI names verbatim from the request.
 The available functions are:"""
 
+disjunction_reflect_tail = (
+    "\nRe-emit ONLY the corrected disjunction constraint, as a json list "
+    "containing exactly one string.\nThe request is:\n"
+)
 
-def reflect_disjunction(query, backbone_llm, gap):
-    """One targeted reflection turn; returns the best candidate string or None."""
+
+# ---------------------------------------------------------------------------
+# Instruction-language switch (phase-2 H1 probe). PENGUINS_PROMPT_LANG=zh
+# swaps the INSTRUCTION/explanation text of every prompt in this module for
+# natural-Chinese renderings of the same hardened rules / few-shots /
+# checklists (prompts_zh_instr.py). The DSL itself is untouched: python code
+# shapes, function docs, value vocabularies, few-shot examples, POI handling
+# and output format stay English, and the deterministic normalizers /
+# verifiers below run identically. Default ("en" or unset) changes nothing.
+# ---------------------------------------------------------------------------
+if os.environ.get("PENGUINS_PROMPT_LANG", "en").strip().lower() == "zh":
+    from . import prompts_zh_instr as _zh_instr
+
+    NL2SL_INSTRUCTION = _zh_instr.NL2SL_INSTRUCTION
+    sl_trans_prompt = _zh_instr.build_sl_trans_prompt(func_docs)
+    reflect_prompt = _zh_instr.build_reflect_prompt(func_docs)
+    disjunction_reflect_header = _zh_instr.disjunction_reflect_header
+    disjunction_reflect_tail = _zh_instr.disjunction_reflect_tail
+
+
+def reflect_disjunction(query, backbone_llm, gap, header=None, tail=None):
+    """One targeted reflection turn; returns the best candidate string or None.
+
+    header/tail default to this module's (possibly language-switched) prompt
+    text; the zh query path passes its own Chinese renderings."""
+    if header is None:
+        header = disjunction_reflect_header
+    if tail is None:
+        tail = disjunction_reflect_tail
     content = (
-        disjunction_reflect_header.format(
-            marker=gap["marker"], k=gap["branch_count"]
-        )
+        header.format(marker=gap["marker"], k=gap["branch_count"])
         + func_docs
-        + "\nRe-emit ONLY the corrected disjunction constraint, as a json list "
-        "containing exactly one string.\nThe request is:\n"
+        + tail
         + query["nature_language"]
         + "\nanswer:\n"
     )
@@ -684,7 +717,7 @@ def reflect_disjunction(query, backbone_llm, gap):
     return max(items, key=_or_arity)
 
 
-def enforce_disjunction(query, backbone_llm, max_trails=2):
+def enforce_disjunction(query, backbone_llm, max_trails=2, header=None, tail=None):
     """Mechanical verifier: if the NL demands a disjunction the constraints
     lack, inject targeted reflection turns until one OR-combined constraint
     validates, then merge it (dropping lone-branch fragments).
@@ -717,7 +750,7 @@ def enforce_disjunction(query, backbone_llm, max_trails=2):
     )
     query["disjunction_gap"] = gap
     for attempt in range(max_trails):
-        candidate = reflect_disjunction(query, backbone_llm, gap)
+        candidate = reflect_disjunction(query, backbone_llm, gap, header, tail)
         if not candidate:
             continue
         normalized = normalize_generated_constraints(
@@ -997,6 +1030,11 @@ def nl2sl_step3(query, backbone_llm, checker, max_trails=5):
     # missing OR-constraint is re-requested even when the reflect loop above
     # converged without errors
     query = enforce_disjunction(query, backbone_llm)
+    # round-4 coverage / span-grounding verifier: deterministic NL-triggered
+    # fixes for dropped (local-cuisine, airfare->airplane, budget), invented
+    # (taxi-car scaling, ungrounded cost caps) and wrong (explicit room
+    # count, category-disjunction expansion) constraints
+    query = enforce_coverage(query, lang="en")
     # ood_idx = list(set(run_error_idx + value_error_idx))
     # if len(ood_idx):
     #     query["ood"] = True

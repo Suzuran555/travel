@@ -126,6 +126,40 @@ def test_deterministic_order(mod):
     assert len(q1["hard_logic_py"]) == 4
 
 
+# the exact Qwen3.6-27B emission for uid h20241029143911770965: the type
+# literal is mis-cased vs the Hangzhou EN DB ('University campus' vs
+# 'university campus'), which starves planner-side POI selection
+H965_TYPE_CONSTRAINT = (
+    "attraction_type_set = set()\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='attraction':\n"
+    "    attraction_type_set.add(attraction_type(activity, target_city(plan)))\n"
+    "result=({'University campus'}<=attraction_type_set)"
+)
+
+POI_NAME_CONSTRAINT = (
+    "attraction_name_set = set()\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='attraction':\n"
+    "    attraction_name_set.add(activity_position(activity))\n"
+    "result=({'West Lake'}<=attraction_name_set)"
+)
+
+
+def test_type_literal_db_normalization(mod):
+    q = mod.canonicalize_query_hard_logic({
+        "uid": "h20241029143911770965",
+        "target_city": "Hangzhou",
+        "hard_logic_py": [H965_TYPE_CONSTRAINT, POI_NAME_CONSTRAINT],
+    })
+    joined = "\n".join(q["hard_logic_py"])
+    assert "'university campus'" in joined, \
+        "type literal not folded onto DB spelling:\n" + joined
+    assert "'University campus'" not in joined
+    # POI names are never rewritten
+    assert POI_NAME_CONSTRAINT in q["hard_logic_py"]
+
+
 if __name__ == "__main__":
     import types
     pkg_mod = types.SimpleNamespace(
@@ -135,5 +169,6 @@ if __name__ == "__main__":
     for name, mod in (("package", pkg_mod), ("main-tree twin", twin)):
         test_guard_widening(mod)
         test_deterministic_order(mod)
+        test_type_literal_db_normalization(mod)
         print(f"[{name}] canonicalizer hardening tests passed")
     print("ALL PASSED")

@@ -55,8 +55,19 @@ the emission deadline.
 1. Strips the oracle constraint annotations (`hard_logic*`) from the query —
    the agent acts only on constraints it generates itself.
 2. NL→DSL translation with the backbone LLM (hardened prompts, mechanical
-   disjunction/count verifiers, DSL canonicalization), cached under
+   disjunction/count/coverage verifiers, DSL canonicalization + DB
+   type-literal normalization), cached under
    `cache/translation_<name>_reflect/`.
+
+   **Bilingual routing** (`lang_router.py`): the query language is detected
+   from `nature_language` (CJK-character ratio); Chinese queries are
+   translated with the hardened Chinese prompt stack
+   (`nl2sl_hybrid_zh.py` + `prompts_zh.py`), English queries with the
+   hardened English stack (`nl2sl_hybrid_en.py` + `prompts_en.py`). The
+   runner's `--lang` is honoured as the fallback for degenerate text only;
+   the default route is `en`. (`PENGUINS_PROMPT_LANG=zh` additionally swaps
+   the en stack's instruction text for Chinese renderings — an A/B knob,
+   off by default.)
 3. `UrbanTripOptimizedV6` symbolic search (vendored planner + its search
    stack; the intracity/intercity segment ranking tables ship inside
    `data/segments/en/`).

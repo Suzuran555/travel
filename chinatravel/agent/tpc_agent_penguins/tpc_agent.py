@@ -3,7 +3,8 @@
 run(query) pipeline, all in-process and within the per-query time budget:
 
   1. NL -> DSL translation with the backbone LLM (vendored hardened
-     nl2sl_hybrid_en prompts + mechanical verifiers), then DSL
+     bilingual prompt stacks -- nl2sl_hybrid_en / nl2sl_hybrid_zh, routed
+     per query by lang_router.py -- + mechanical verifiers), then DSL
      canonicalization. The oracle constraint fields of the query are
      STRIPPED before anything else runs -- the agent only ever acts on its
      own generated constraints.
