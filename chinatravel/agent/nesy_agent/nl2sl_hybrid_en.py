@@ -18,6 +18,7 @@ from chinatravel.symbol_verification.concept_func import func_dict
 from chinatravel.symbol_verification.hard_constraint import normalize_hard_logic_constraint
 from chinatravel.agent.nesy_agent.prompts.prompts_en import NL2SL_INSTRUCTION
 from chinatravel.agent.nesy_agent.ast_checker_en import HardLogicPyChecker
+from chinatravel.agent.nesy_agent.constraint_coverage import enforce_coverage
 from chinatravel.data.load_datasets import save_json_file, load_json_file
 
 
@@ -156,6 +157,7 @@ For most case, for exist constraints, you can set `result=False` at the beginnin
 3. Copy every POI name VERBATIM from the request as a single string: the exact substring including parentheses, '·', branch suffixes and spacing. Never split one name on internal separators, never translate, shorten or normalize it. Only split a list of POIs on explicit delimiters (commas / 'and') that separate obviously distinct venues.
 4. ALWAYS emit the base constraints exactly as in the example: days, people, the tickets constraint (attraction/airplane/train tickets and metro tickets == people number) and the taxi_cars constraint. NEVER emit room_count/room_type or any accommodation constraint unless the request explicitly mentions rooms, beds, bed type or a hotel requirement: no `room_count(activity)!=N` or `room_type(activity)!=N` check in any form, standalone or inside another loop.
 5. Before answering, self-check: every requirement clause of the request maps to exactly one constraint; no constraint lacks a source in the request (base constraints excepted); no forbidden builtin appears.
+6. Colloquial idioms are HARD requirements: 'taste/try the local specialties/cuisine' requires the target city's signature cuisine in restaurant_type_set (Beijing->'Beijing cuisine', Shanghai->'Shanghai cuisine', Nanjing/Suzhou/Hangzhou->'Jiangsu-Zhejiang cuisine', Guangzhou/Shenzhen->'Cantonese cuisine', Chengdu/Chongqing->'Sichuan cuisine', Wuhan->'Hubei cuisine'). Any mention of airfare / air tickets (机票) means intercity transport must be airplane. An explicit room-count phrase ('a twin room', 'one room', 'two rooms', '一间') overrides the default room count: 'the three of us stay in a twin room' means ONE room (room_count==1, room_type==2), not three.
 
 ### CANONICAL PATTERNS (copy these shapes exactly)
 - must visit/eat/stay at X: build the name set over the right activity types, then result=({'X'}<=name_set)
@@ -1030,6 +1032,11 @@ def nl2sl_step3(query, backbone_llm, checker, max_trails=5):
     # missing OR-constraint is re-requested even when the reflect loop above
     # converged without errors
     query = enforce_disjunction(query, backbone_llm)
+    # round-4 coverage / span-grounding verifier: deterministic NL-triggered
+    # fixes for dropped (local-cuisine, airfare->airplane, budget), invented
+    # (taxi-car scaling, ungrounded cost caps) and wrong (explicit room
+    # count, category-disjunction expansion) constraints
+    query = enforce_coverage(query, lang="en")
     # ood_idx = list(set(run_error_idx + value_error_idx))
     # if len(ood_idx):
     #     query["ood"] = True

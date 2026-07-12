@@ -258,6 +258,7 @@ from chinatravel.agent.nesy_agent.nl2sl_hybrid_en import (
     normalize_generated_constraints,
     enforce_disjunction,
 )
+from chinatravel.agent.nesy_agent.constraint_coverage import enforce_coverage
 
 disjunction_reflect_header_zh = """
 该请求包含一个"或"式需求（标记: "{marker}"，共 {k} 个编号分支）：规划只需满足这些编号分支中的至少一个，而不是全部。
@@ -545,6 +546,12 @@ def nl2sl_step3(query, backbone_llm, checker, max_trails=5):
         header=disjunction_reflect_header_zh,
         tail=disjunction_reflect_tail_zh,
     )
+    # round-4 coverage / span-grounding verifier (zh DSL literal tables):
+    # deterministic NL-triggered fixes for dropped (local-cuisine,
+    # 机票->airplane, budget), invented (taxi-car scaling, ungrounded cost
+    # caps) and wrong (explicit room count, 或者-category expansion)
+    # constraints
+    query = enforce_coverage(query, lang="zh")
     # ood_idx = list(set(run_error_idx + value_error_idx))
     # if len(ood_idx):
     #     query["ood"] = True

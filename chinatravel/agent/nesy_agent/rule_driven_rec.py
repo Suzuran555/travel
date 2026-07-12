@@ -33,6 +33,12 @@ class RuleDrivenAgent(NesyAgent):
         super().__init__(**kwargs)
 
     def ranking_intercity_transport_go(self, transport_info, query):
+        # empty table (e.g. airplane-only requirement on a route with no
+        # flights): no options to rank -- guard the KeyError 'BeginTime'
+        # crash on column-less empty frames
+        if transport_info is None or len(transport_info) == 0 \
+                or "BeginTime" not in transport_info:
+            return np.array([], dtype=int)
         time_list = transport_info["BeginTime"].tolist()
         sorted_lst = sorted(enumerate(time_list), key=lambda x: x[1])
         sorted_indices = [index for index, value in sorted_lst]
@@ -48,6 +54,10 @@ class RuleDrivenAgent(NesyAgent):
         return ranking_idx
 
     def ranking_intercity_transport_back(self, transport_info, query, selected_go):
+        # empty table: no options to rank (see ranking_intercity_transport_go)
+        if transport_info is None or len(transport_info) == 0 \
+                or "BeginTime" not in transport_info:
+            return np.array([], dtype=int)
         time_list = transport_info["BeginTime"].tolist()
         sorted_lst = sorted(enumerate(time_list), key=lambda x: x[1])
         sorted_indices = [index for index, value in sorted_lst]
