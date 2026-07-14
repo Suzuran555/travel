@@ -166,7 +166,14 @@ NEVER use innercity_transport_type or activity_transports for mode preferences, 
 - 'visit X between A and B' (or 'from A to B'): the activity must COVER the whole window, i.e. start no later than A AND end no earlier than B. Match on activity_position only:
 "result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='A' and activity_end_time(activity)>='B': result=True"
 Do NOT write activity_start_time>='A' and activity_end_time<='B'.
-- budget caps: meal/dining budget -> accumulate activity_cost over types ['breakfast','lunch','dinner']; accommodation/hotel budget -> accumulate activity_cost over 'accommodation'; intra-city transport budget -> accumulate innercity_transport_cost(activity_transports(activity)); overall budget -> the total_cost pattern in the example. Each ends with result=(accumulator<=CAP).
+- budget caps are SCOPED - map the budget noun to its own aggregation, NEVER to the total_cost pattern: meal/dining/food budget -> restaurant_cost accumulating activity_cost over ['breakfast','lunch','dinner']; accommodation/hotel budget -> accommodation_cost over 'accommodation'; sightseeing/attraction budget -> attraction_cost over 'attraction'; inter-city/cross-city transportation budget -> inter_city_transportation_cost accumulating activity_cost over ['airplane','train']; intra-city / within-the-city / local transportation budget -> inner_city_transportation_cost accumulating innercity_transport_cost(activity_transports(activity)) over ALL activities with NO activity_type filter. Each ends with result=(accumulator<=CAP). ONLY an explicit 'total/overall (travel) budget' uses the total_cost pattern in the example; translating a scoped budget as total_cost makes the query unsatisfiable.
+- 'only (want to) visit free attractions': "attraction_cost=0\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_cost+=activity_cost(activity)\nresult=attraction_cost<=0"
+- DIRECTIONAL intercity modes - 'take MODE to the destination' / 'return by MODE' (also the negated 'do not want to ...') constrain ONLY the first/last activity, never the global mode set:
+"result=False\nintercity_transport_go=''\nintercity_transport_back=''\nif allactivities(plan)[0]['type'] == \\"train\\" and intercity_transport_origin(allactivities(plan)[0])==start_city(plan) and allactivities(plan)[-1]['type'] == \\"airplane\\" and intercity_transport_origin(allactivities(plan)[-1])==target_city(plan):\n  result=True"
+(use != for negated wishes; drop the leg that is not mentioned). When direction words ('to the destination', 'return', 'back') are present, a global intercity_transport_set constraint is WRONG and often contradictory.
+- 'arrive at X no later than T' -> existential on the START time: "result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='T':\n      result=True". 'leave/depart (from) X no earlier than T' -> the same shape with activity_end_time(activity)>='T'. Never swap start/end and never write the vacuous universal (result=True ...) form.
+- 'if the distance between two locations exceeds D km, take a taxi': "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity)) != 'taxi' and innercity_transport_distance(activity_transports(activity))>D:\n    result=False\n    break"
+- 'accommodation within D km of X': "result=False\naccommodation_position=''\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation': accommodation_position=activity_position(activity)\nresult=(poi_distance(target_city(plan), 'X', accommodation_position)<=D)"
 
 ### DISJUNCTION ('must meet at least/any one of the following', 'either of the following')
 Such a request lists numbered branches but the plan only has to satisfy ONE of them. Translate it as exactly ONE self-contained constraint that computes EVERY branch condition in the same code block and combines them with `or`.
@@ -490,6 +497,7 @@ def normalize_generated_constraints(constraints, people_count=None, nature_langu
     # names) into the oracle dialect without changing evaluation semantics.
     from .dsl_canonicalizer import (
         canonicalize_hard_logic_py,
+        _repair_transport_type_guards,
     )
 
     out = []
@@ -502,9 +510,13 @@ def normalize_generated_constraints(constraints, people_count=None, nature_langu
             c2 = normalize_count_boilerplate(c, people_count)
         # multi-branch (or-combined) blocks: the style canonicalizer classifies
         # accumulators by a single activity-type filter and would misname
-        # branch accumulators (e.g. hotel_cost -> attraction_cost); skip it.
+        # branch accumulators (e.g. hotel_cost -> attraction_cost); skip it,
+        # but still repair vacuous 'transportation' type guards -- a guarded
+        # branch otherwise sums nothing and passes vacuously (round 5).
         if _or_arity(c2) == 0:
             c2 = canonicalize_hard_logic_py(c2)
+        else:
+            c2 = _repair_transport_type_guards(c2)
         out.append(c2)
     out = strip_room_constraints(out, nature_language)
     # normalization can collapse variants into duplicates

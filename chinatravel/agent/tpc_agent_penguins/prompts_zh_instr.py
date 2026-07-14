@@ -141,7 +141,14 @@ _SL_TRANS_BODY = """
 - "在 A 到 B 之间（或 from A to B）游览 X"：该活动必须覆盖整个时间窗，即开始不晚于 A 且结束不早于 B。只按 activity_position 匹配：
 "result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='A' and activity_end_time(activity)>='B': result=True"
 不要写成 activity_start_time>='A' and activity_end_time<='B'。
-- 预算上限：餐饮预算 -> 对类型 ['breakfast','lunch','dinner'] 累加 activity_cost；住宿/酒店预算 -> 对 'accommodation' 累加 activity_cost；市内交通预算 -> 累加 innercity_transport_cost(activity_transports(activity))；总预算 -> 用示例中的 total_cost 写法。每条以 result=(累加变量<=上限) 结束。
+- 预算上限是分范围的——把预算名词映射到它自己的聚合，绝不映射到 total_cost 写法：餐饮/用餐预算 -> restaurant_cost 对 ['breakfast','lunch','dinner'] 累加 activity_cost；住宿/酒店预算 -> accommodation_cost 对 'accommodation' 累加 activity_cost；景点/门票预算 -> attraction_cost 对 'attraction' 累加 activity_cost；城际/跨城交通预算 -> inter_city_transportation_cost 对 ['airplane','train'] 累加 activity_cost；市内/本地交通预算 -> inner_city_transportation_cost 对所有活动（不加任何 activity_type 过滤）累加 innercity_transport_cost(activity_transports(activity))。每条以 result=(累加变量<=上限) 结束。只有明确的"总预算/总花费"才用示例中的 total_cost 写法；把分范围预算写成 total_cost 会让查询无解。
+- "只去/只参观免费景点"："attraction_cost=0\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_cost+=activity_cost(activity)\nresult=attraction_cost<=0"
+- 有方向的城际交通——"坐X去(目的地)/坐Y返回"（含否定"不想坐X去"）只约束第一个/最后一个活动，绝不约束全局交通方式集合：
+"result=False\nintercity_transport_go=''\nintercity_transport_back=''\nif allactivities(plan)[0]['type'] == \\"train\\" and intercity_transport_origin(allactivities(plan)[0])==start_city(plan) and allactivities(plan)[-1]['type'] == \\"airplane\\" and intercity_transport_origin(allactivities(plan)[-1])==target_city(plan):\n  result=True"
+（否定用 !=；未提到的一程省略对应子句）。出现"去程/返程/回来"等方向词时，全局 intercity_transport_set 约束是错误的且常自相矛盾。
+- "到达 X 不晚于 T" -> 对开始时间做存在性检查："result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='T':\n      result=True"。"离开 X 不早于 T" -> 同形状但用 activity_end_time(activity)>='T'。绝不颠倒 start/end，绝不写成空洞的全称（result=True ...）形式。
+- "两地距离超过 D 公里就打车"："result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity)) != 'taxi' and innercity_transport_distance(activity_transports(activity))>D:\n    result=False\n    break"
+- "住宿在 X 附近 D 公里以内"："result=False\naccommodation_position=''\nfor activity in allactivities(plan):\n  if activity_type(activity)=='accommodation': accommodation_position=activity_position(activity)\nresult=(poi_distance(target_city(plan), 'X', accommodation_position)<=D)"
 
 ### 析取（'must meet at least/any one of the following'、'either of the following'、"至少满足以下条件之一"）
 这类请求列出若干编号分支，但规划只需满足其中一条。必须翻译成恰好一条自包含约束：在同一代码块内计算每个分支条件，并用 `or` 连接。

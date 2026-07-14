@@ -288,11 +288,14 @@ _WORD2NUM = {
     "六": 6, "七": 7, "八": 8, "九": 9, "十": 10,
 }
 _ROOM_TYPE_WORDS = (
-    r"(?:twin|double|single|standard|triple|quad|king|queen|"
+    r"(?:twin|double|standard|triple|quad|king|queen|"
     r"big[- ]?bed|two[- ]?bed|double[- ]?bed|family)"
 )
 # 'a/an <room-type> room' counts as ONE room only when a room-type word
 # pins it down; bare numerals/count words before 'room(s)' always count.
+# 'single' is deliberately excluded: 'a single(-bed) room' names the room
+# TYPE (the oracle constrains room_type only, and one single room cannot
+# hold a multi-person party), unlike 'a twin room' which pins one room.
 _ROOM_ARTICLE_EN_RE = re.compile(
     r"\b(a|an)\s+%s(?:[- ]bed)?\s+room\b" % _ROOM_TYPE_WORDS, re.IGNORECASE
 )
@@ -654,7 +657,9 @@ def _is_pure_cost_constraint(code):
         return False
     if _literals(code) - _SCAFFOLD_LITERALS:
         return False  # carries POI/type identity: not a pure budget cap
-    return bool(_cost_caps(code))
+    # a zero cap is a 'free of charge' requirement (only-free-attractions),
+    # grounded in wording rather than a stated amount: never a budget cap
+    return bool({cap for cap in _cost_caps(code) if cap > 0})
 
 
 def _grounded(cap, nl_nums, people, days):
@@ -710,7 +715,8 @@ def drop_ungrounded_cost_caps(constraints, query):
 _BUDGET_QUALIFIER_RE = re.compile(
     r"accommodation|hotel|lodging|room|meal|dining|food|restaurant|"
     r"transport|taxi|airfare|air\s*ticket|flight|train|tickets?|"
-    r"住宿|酒店|餐|吃|交通|打车|机票|车票|门票",
+    r"sightseeing|attraction|"
+    r"住宿|酒店|餐|吃|交通|打车|机票|车票|门票|景点|游玩|观光",
     re.IGNORECASE,
 )
 _BUDGET_NEAR_RE = re.compile(
@@ -785,6 +791,1136 @@ def inject_overall_budget(constraints, query):
     }
 
 
+# ===========================================================================
+# ROUND-5 rules (phase-2, full-1000 sweep autopsy).  All deterministic,
+# NL-marker-triggered, never keyed on uids.  Injected/rewritten constraints
+# use the ORACLE dialect verbatim: the planner's DSL extractor demonstrably
+# honors that dialect (the oracle-translation pipeline scores 100.00), so a
+# rewrite into oracle shape simultaneously fixes verification semantics AND
+# planner-side enforcement.
+# ===========================================================================
+
+_CJK_RE = re.compile(u"[㐀-䶿一-鿿豈-﫿]")
+_LATIN_RE = re.compile(r"[A-Za-z]")
+
+
+def detect_nl_lang(nature_language, default="en"):
+    """'zh' or 'en' by CJK-character ratio (mirrors lang_router)."""
+    text = nature_language if isinstance(nature_language, str) else ""
+    cjk = len(_CJK_RE.findall(text))
+    latin = len(_LATIN_RE.findall(text))
+    if cjk + latin == 0:
+        return default
+    return "zh" if cjk / (cjk + latin) >= 0.20 else "en"
+
+
+# --- disjunction region ----------------------------------------------------
+# Requirements listed AFTER a 'satisfy one of the following' marker are
+# OR-branches: no round-5 rule may inject/rescope them into unconditional
+# hard constraints.  (Mirror of the nl2sl disjunction verifier's marker set;
+# kept local to avoid a circular import.)
+
+_R5_DISJ_MARKER_RE = re.compile(
+    r"(?:at\s+least\s+|any\s+)?(?:one|any|either)\s+of\s+"
+    r"(?:the\s+following|these|them)"
+    r"|(?:meet|satisfy|satisfies)\s+either\b|requir\w*\s+either"
+    r"|\(any\s+one\)"
+    r"|满足以下(?:要求|条件)?(?:中的)?(?:至少|任意|任一)?一(?:个|项|条)"
+    r"|(?:至少|任意|任一)满足(?:以下|下列|其中)之?一|任选其一|满足其一",
+    re.IGNORECASE,
+)
+# enumerated branch labels after the marker ('1. ' / '(2) ' / '3、'); a bare
+# 'one of the following hotels: A or B' inline-any-of has no such labels and
+# must NOT open a region
+_BRANCH_LABEL_1_RE = re.compile(r"(?<![\d.])1\s*(?:[.)]\s|、)")
+_BRANCH_LABEL_2_RE = re.compile(r"(?<![\d.])2\s*(?:[.)]\s|、)")
+
+
+def _disjunction_region_start(nature_language):
+    """Char offset where OR-branch content begins, or None.  Requires BOTH a
+    disjunction marker and at least two enumerated branch labels after it."""
+    if not nature_language:
+        return None
+    m = _R5_DISJ_MARKER_RE.search(nature_language)
+    if not m:
+        return None
+    tail = nature_language[m.end():]
+    if _BRANCH_LABEL_1_RE.search(tail) and _BRANCH_LABEL_2_RE.search(tail):
+        return m.end()
+    return None
+
+
+def _in_disjunction_region(nature_language, offset):
+    start = _disjunction_region_start(nature_language)
+    return start is not None and offset >= start
+
+
+# --- rule r5.0: base boilerplate injection (empty/degenerate translations) --
+
+_BOILER_TICKETS_TMPL = (
+    "result=True\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity) in ['attraction', 'airplane', 'train'] "
+    "and activity_tickets(activity)!={n}: result=False\n"
+    "  if innercity_transport_type(activity_transports(activity))=='metro' "
+    "and metro_tickets(activity_transports(activity))!={n}: result=False"
+)
+_BOILER_TAXI_TMPL = (
+    "result=True\n"
+    "for activity in allactivities(plan):\n"
+    "  if innercity_transport_type(activity_transports(activity))=='taxi' "
+    "and taxi_cars(activity_transports(activity))!={n}: result=False"
+)
+
+
+def inject_base_boilerplate(constraints, query):
+    """Append the benchmark's universal day/people/tickets/taxi boilerplate
+    when it is missing (empty or gutted translations run the planner
+    unconstrained otherwise).  Derived from the query's given fields only."""
+    added = []
+    cons = list(constraints)
+    days = query.get("days")
+    people = query.get("people_number")
+    joined = "\n".join(c for c in cons if isinstance(c, str))
+    if days and not re.search(r"day_count\(plan\)\s*==", joined):
+        added.append("result=(day_count(plan)==%d)" % int(days))
+    if people and not re.search(r"people_count\(plan\)\s*==", joined):
+        added.append("result=(people_count(plan)==%d)" % int(people))
+    if people and "activity_tickets" not in joined:
+        added.append(_BOILER_TICKETS_TMPL.format(n=int(people)))
+    if people and "taxi_cars" not in joined:
+        cars = 1 if is_human_register(query) else (int(people) + 3) // 4
+        added.append(_BOILER_TAXI_TMPL.format(n=cars))
+    if not added:
+        return constraints, None
+    return cons + added, {"rule": "base_boilerplate_injected", "added": added}
+
+
+# --- rule r5.1: deterministic budget-scope canonicalizer --------------------
+# Mechanism (top round-5 category): the NL states a SCOPED budget ('dining
+# budget of 2200', 'budget for intra-city transportation is 40') and the
+# translator emits the canonical TOTAL-cost cap with that amount.  An
+# infeasible total cap collapses the search to an empty plan.  Rescope the
+# cap onto the oracle's scoped aggregation; drop leftover/invented total
+# caps whose amount has no total/overall-budget support in the NL.
+
+_SCOPE_PATTERNS = {
+    "en": (
+        ("innercity", re.compile(
+            r"intra-?\s*city|within\s+the\s+city|local\s+transport"
+            r"|(?<![a-z])(?<!inter)city\s+transport|getting\s+around",
+            re.IGNORECASE)),
+        ("intercity", re.compile(
+            r"inter-?\s*city|cross-?\s*city|between\s+cities", re.IGNORECASE)),
+        ("dining", re.compile(
+            r"dining|meals?\b|food\b", re.IGNORECASE)),
+        ("accommodation", re.compile(
+            r"accommodation|hotels?\b|lodging", re.IGNORECASE)),
+        ("attraction", re.compile(
+            r"sightseeing|attractions?\b", re.IGNORECASE)),
+        ("total", re.compile(
+            r"total|overall|entire\s+trip|whole\s+trip", re.IGNORECASE)),
+    ),
+    "zh": (
+        ("innercity", re.compile(r"市内|市区|城市内|本地交通|市里")),
+        ("intercity", re.compile(r"城际|跨城|城市间|城市之间")),
+        ("dining", re.compile(r"餐饮|用餐|吃饭|餐费|伙食")),
+        ("accommodation", re.compile(r"住宿|酒店|旅馆|旅店")),
+        ("attraction", re.compile(r"景点|门票|游览|观光|游玩")),
+        ("total", re.compile(r"总(?:预算|花费|开销|费用)?|全部|整体|全程")),
+    ),
+}
+
+# amount AFTER the budget word ('budget of/is N', gap tolerant) or amount
+# DIRECTLY before it ('3000元的预算'); a loose before-gap would swallow
+# unrelated numbers ('... for 3 days, with a meal budget' -> amount 3)
+_R5_BUDGET_MENTION_RE = re.compile(
+    r"(?:budget|预算)[^.;!?。！？；\n]{0,60}?(\d[\d,，]*(?:\.\d+)?)"
+    r"|(\d[\d,，]*(?:\.\d+)?)\s*(?:yuan|rmb|元|块)?\s*(?:的)?\s*(?:budget|预算)",
+    re.IGNORECASE,
+)
+
+# oracle-dialect scoped budget templates (planner extractor parses these)
+_SCOPED_BUDGET_TMPLS = {
+    "innercity": (
+        "inner_city_transportation_cost=0\n"
+        "for activity in allactivities(plan):\n"
+        "    inner_city_transportation_cost += "
+        "innercity_transport_cost(activity_transports(activity))\n"
+        "result=(inner_city_transportation_cost<=%s)"
+    ),
+    "intercity": (
+        "inter_city_transportation_cost=0\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity) in ['airplane','train']: "
+        "inter_city_transportation_cost+=activity_cost(activity)\n"
+        "result=(inter_city_transportation_cost<=%s)"
+    ),
+    "dining": (
+        "restaurant_cost=0\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity) in ['breakfast', 'lunch', 'dinner']: "
+        "restaurant_cost+=activity_cost(activity)\n"
+        "result=(restaurant_cost<=%s)"
+    ),
+    "accommodation": (
+        "accommodation_cost=0\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity)=='accommodation': "
+        "accommodation_cost+=activity_cost(activity)\n"
+        "result=(accommodation_cost<=%s)"
+    ),
+    "attraction": (
+        "attraction_cost=0\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity)=='attraction': "
+        "attraction_cost+=activity_cost(activity)\n"
+        "result=(attraction_cost<=%s)"
+    ),
+}
+
+_CLAUSE_BOUNDARY_RE = re.compile(r"[.;!?。！？；\n,，]")
+_MEAL_FILTER_RE = re.compile(
+    r"activity_type\(activity\)\s*in\s*\[\s*['\"](?:breakfast|lunch|dinner)")
+_ACC_FILTER_RE = re.compile(r"activity_type\(activity\)\s*==\s*['\"]accommodation")
+_ATTR_FILTER_RE = re.compile(r"activity_type\(activity\)\s*==\s*['\"]attraction")
+_INTERCITY_FILTER_RE = re.compile(
+    r"activity_type\(activity\)\s*in\s*[\[({]\s*['\"](?:train|airplane)['\"]\s*,"
+    r"\s*['\"](?:train|airplane)")
+_ANY_TYPE_FILTER_RE = re.compile(r"activity_type\(activity\)\s*(?:==|!=|\s+in\s+|in\s*[\[({])")
+
+
+def scoped_budget_mentions(nature_language, lang="en"):
+    """[(scope, amount, offset)] for every classifiable budget mention.
+    scope in {innercity,intercity,dining,accommodation,attraction,total};
+    unclassifiable / ambiguous mentions are skipped."""
+    if not nature_language:
+        return []
+    out = []
+    entries = _SCOPE_PATTERNS.get(lang) or _SCOPE_PATTERNS["en"]
+    for m in _R5_BUDGET_MENTION_RE.finditer(nature_language):
+        raw = (m.group(1) or m.group(2)).replace(",", "").replace("，", "")
+        try:
+            amount = float(raw)
+        except ValueError:
+            continue
+        # clause = text from the previous clause boundary to the mention end
+        clause_start = 0
+        for b in _CLAUSE_BOUNDARY_RE.finditer(nature_language, 0, m.start()):
+            clause_start = b.end()
+        clause = nature_language[clause_start:m.end()]
+        if amount < 10:
+            continue  # tiny numbers near 'budget' are day/people counts
+        scopes = [name for name, rx in entries if rx.search(clause)]
+        if "total" in scopes and len(scopes) > 1:
+            scopes.remove("total")
+        if len(scopes) != 1:
+            continue  # unqualified or ambiguous: not this rule's business
+        out.append((scopes[0], amount, m.start()))
+    return out
+
+
+def _cap_matches(code, amount):
+    return any(abs(cap - amount) < 1e-6 for cap in _cost_caps(code))
+
+
+def _implements_scope(code, scope, amount):
+    """True when `code` already carries the scoped budget (any dialect)."""
+    if not isinstance(code, str) or _or_arity(code) > 0:
+        return False
+    if not _cap_matches(code, amount):
+        return False
+    if scope == "dining":
+        return bool(_MEAL_FILTER_RE.search(code)) and (
+            "activity_cost(" in code or "activity_price(" in code)
+    if scope == "accommodation":
+        return bool(_ACC_FILTER_RE.search(code)) and (
+            "activity_cost(" in code or "activity_price(" in code)
+    if scope == "attraction":
+        return bool(_ATTR_FILTER_RE.search(code)) and (
+            "activity_cost(" in code or "activity_price(" in code)
+    if scope == "intercity":
+        return bool(_INTERCITY_FILTER_RE.search(code)) and "activity_cost(" in code
+    if scope == "innercity":
+        # canonical: unfiltered sum of innercity transport cost; a type-
+        # filtered sum is the known undercount bug, NOT an implementation
+        return (
+            "innercity_transport_cost(" in code
+            and "activity_cost(" not in code
+            and not _ANY_TYPE_FILTER_RE.search(code)
+        )
+    return False
+
+
+def _is_total_shaped(code):
+    """A pure overall-cost cap: an UNFILTERED accumulation of activity costs
+    (any accumulator name).  A type-filtered accumulator is scoped by shape
+    regardless of its name (Qwen mis-names scoped accumulators total_cost)."""
+    if not _is_pure_cost_constraint(code):
+        return False
+    if _ANY_TYPE_FILTER_RE.search(code):
+        return False
+    if re.search(r"\btotal_cost\b", _STRING_LITERAL_RE.sub("", code)):
+        return True
+    return "activity_cost(" in code and "innercity_transport_cost(" in code
+
+
+def enforce_budget_scope(constraints, query, lang="en"):
+    """Rescope mis-totalized scoped budgets onto the oracle aggregation and
+    drop total-cost caps with no total-budget support in the NL."""
+    nl = query.get("nature_language") or ""
+    mentions = [
+        (scope, amount, off)
+        for scope, amount, off in scoped_budget_mentions(nl, lang)
+        if not _in_disjunction_region(nl, off)
+    ]
+    cons = list(constraints)
+    removed, added = [], []
+    scoped = [(s, a) for s, a, _ in mentions if s != "total"]
+    total_amounts = {a for s, a, _ in mentions if s == "total"}
+
+    def _implements_any_mention(code):
+        return any(_implements_scope(code, s, a) for s, a in scoped)
+
+    for scope, amount in scoped:
+        if any(_implements_scope(c, scope, amount) for c in cons):
+            continue
+        keep = []
+        for c in cons:
+            if (
+                isinstance(c, str)
+                and _or_arity(c) == 0
+                and _is_pure_cost_constraint(c)
+                and _cap_matches(c, amount)
+                and not _implements_any_mention(c)
+                and not (amount in total_amounts and _is_total_shaped(c))
+            ):
+                removed.append(c)
+                continue
+            keep.append(c)
+        cons = keep
+        new = _SCOPED_BUDGET_TMPLS[scope] % _num_token(amount)
+        if new not in cons:
+            cons.append(new)
+            added.append(new)
+
+    # total-cap enforcement: a total-shaped cap must be grounded in a
+    # total/unqualified budget mention; caps equal to a scoped amount are
+    # duplicates of the (now) scoped constraint, ungrounded caps are invented
+    nl_nums = _nl_numbers(nl)
+    people, days = query.get("people_number"), query.get("days")
+    scoped_amounts = {a for _s, a in scoped}
+    unqualified = _stated_budget(nl)
+    unqualified_ok = set()
+    if unqualified and not _BUDGET_QUALIFIER_RE.search(unqualified[1]):
+        unqualified_ok.add(unqualified[0])
+    keep = []
+    for c in cons:
+        if (
+            isinstance(c, str)
+            and _is_total_shaped(c)
+            and not _implements_any_mention(c)
+        ):
+            caps = _cost_caps(c)
+            grounded_total = any(
+                any(abs(cap - a) < 1e-6 for a in (total_amounts | unqualified_ok))
+                or (
+                    not any(abs(cap - a) < 1e-6 for a in scoped_amounts)
+                    and _grounded(cap, nl_nums, people, days)
+                )
+                for cap in caps
+            )
+            if not grounded_total:
+                removed.append(c)
+                continue
+        keep.append(c)
+    cons = keep
+    if not removed and not added:
+        return constraints, None
+    return cons, {
+        "rule": "budget_scope_canonicalized",
+        "mentions": [(s, a) for s, a, _ in mentions],
+        "removed": removed,
+        "added": added,
+    }
+
+
+# --- rule r5.2: disjunction fragment leak ----------------------------------
+# After a correct OR-translation the LLM sometimes ALSO emits one branch's
+# budget as a standalone cap (e.g. branch 'intra-city budget 60' leaked as
+# unconditional total_cost<=60 -> unsatisfiable -> empty plan).
+
+def drop_disjunction_fragments(constraints):
+    or_caps = set()
+    for c in constraints:
+        if isinstance(c, str) and _or_arity(c) > 0:
+            or_caps |= _cost_caps(c)
+    if not or_caps:
+        return constraints, None
+    out, dropped = [], []
+    for c in constraints:
+        if (
+            isinstance(c, str)
+            and _or_arity(c) == 0
+            and _is_pure_cost_constraint(c)
+            and any(
+                any(abs(cap - oc) < 1e-6 for oc in or_caps)
+                for cap in _cost_caps(c)
+            )
+        ):
+            dropped.append(c)
+            continue
+        out.append(c)
+    if not dropped:
+        return constraints, None
+    return out, {"rule": "disjunction_fragment_cap_dropped", "dropped": dropped}
+
+
+# --- rule r5.3: directional intercity transport -----------------------------
+# 'take a train to the destination / return by airplane' style requirements
+# are FIRST-LEG / LAST-LEG constraints.  The translator collapses them into
+# global mode sets or bans (often mutually contradictory).  Parse the
+# direction markers and emit the oracle first/last-leg idiom.
+
+_MODE_WORD = r"train|plane|airplane|flight|high-?speed\s+(?:rail(?:way)?|train)"
+
+
+def _canon_mode(word):
+    w = (word or "").lower()
+    if "plane" in w or "flight" in w or "fly" in w:
+        return "airplane"
+    return "train"
+
+
+_GO_RES = (
+    re.compile(
+        r"\b(?:take|taking|took)\s+(?:a\s+|an\s+|the\s+)?(?P<mode>%s)\s+"
+        r"(?:to\s+(?:get\s+to\s+)?(?:the\s+)?destination|there\b)" % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(
+        r"\bto\s+(?:the\s+)?destination\s+by\s+(?:a\s+|an\s+|the\s+)?"
+        r"(?P<mode>%s)" % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(
+        r"\b(?:travel(?:ing)?|go(?:ing)?)\s+by\s+(?P<mode>%s)\s+to\s+"
+        r"(?:the\s+)?destination" % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(r"\b(?:fly|flying)\s+to\s+(?:the\s+)?destination", re.IGNORECASE),
+)
+_BACK_RES = (
+    re.compile(
+        r"\breturn(?:ing)?\s+by\s+(?:a\s+|an\s+|the\s+)?(?P<mode>%s)"
+        % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(
+        r"\b(?:take|taking|took)\s+(?:a\s+|an\s+|the\s+)?(?P<mode>%s)\s+"
+        r"(?:back\b|home\b|for\s+the\s+return(?:\s+(?:trip|journey))?"
+        r"|to\s+return|when\s+returning|to\s+come\s+back)" % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(
+        r"\b(?:a|an|the)\s+(?P<mode>%s)\s+back\b" % _MODE_WORD, re.IGNORECASE),
+    re.compile(r"\b(?:fly|flying)\s+back\b", re.IGNORECASE),
+    re.compile(
+        r"\b(?P<mode>%s)\s+for\s+the\s+return(?:\s+(?:trip|journey))?"
+        % _MODE_WORD,
+        re.IGNORECASE),
+)
+_BOTH_RES = (
+    re.compile(
+        r"\bby\s+(?:a\s+|an\s+|the\s+)?(?P<mode>%s)\s+"
+        r"(?:both\s+ways|round\s+trip|there\s+and\s+back)" % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(
+        r"\b(?:take|taking)\s+(?:a\s+|an\s+|the\s+)?(?P<mode>%s)\s+"
+        r"(?:both\s+ways|there\s+and\s+back)" % _MODE_WORD,
+        re.IGNORECASE),
+    re.compile(r"\b(?:fly|flying)\s+both\s+ways", re.IGNORECASE),
+)
+# a go-phrase immediately followed by 'or/and back' or 'or/nor for the
+# return (trip)' applies the same (possibly negated) mode to the return leg
+_GO_BACK_SUFFIX_RE = re.compile(
+    r"^\s*(?:,\s*)?(?:or|and|nor)\s+(?:back\b|for\s+the\s+return(?:\s+trip)?)",
+    re.IGNORECASE)
+
+_GO_RES_ZH = (
+    re.compile(r"(?:坐|乘|搭乘?)(?P<mode>高铁|火车|动车|飞机)(?:前往|去|出发)"),
+    re.compile(r"(?:去程|前往时?|去的时候)[^。；;，,]{0,8}?(?P<mode>高铁|火车|动车|飞机)"),
+)
+_BACK_RES_ZH = (
+    re.compile(r"(?:坐|乘|搭乘?)(?P<mode>高铁|火车|动车|飞机)(?:返回|回来|回去|返程)"),
+    re.compile(r"(?:返程|回程|回来时?|返回时?)[^。；;，,]{0,8}?(?P<mode>高铁|火车|动车|飞机)"),
+)
+_BOTH_RES_ZH = (
+    re.compile(r"往返(?:都|均)?(?:坐|乘|搭乘?)(?P<mode>高铁|火车|动车|飞机)"),
+)
+
+
+def _canon_mode_zh(word):
+    return "airplane" if word == "飞机" else "train"
+
+
+_SEGMENT_SPLIT_RE = re.compile(r"[.;!?。！？；\n]")
+_NEG_MARK_RE = re.compile(
+    r"(?:do\s+not|don'?t|nor(?:\s+do\s+we)?|not|never|avoid|prefer\s+not)\b"
+    r"|不想|不要|不希望|不愿|不坐|不乘|别",
+    re.IGNORECASE)
+_POS_MARK_RE = re.compile(
+    r"(?:want|wish|hope|prefer|would\s+like|like|need)\s+to\b"
+    r"|希望|想要|打算",
+    re.IGNORECASE)
+
+
+def _clause_negated(segment, upto):
+    """Polarity of the leg-phrase at offset `upto` inside `segment`."""
+    head = segment[:upto]
+    last_neg = -1
+    for m in _NEG_MARK_RE.finditer(head):
+        last_neg = m.start()
+    last_pos = -1
+    for m in _POS_MARK_RE.finditer(head):
+        # 'do not want to' / 'nor do we wish to' / 'prefer not to': the
+        # positive verb belongs to the negation phrase
+        prefix = head[max(0, m.start() - 24): m.start()]
+        if re.search(
+            r"(?:do\s+not|don'?t|not|nor(?:\s+do(?:\s+we|\s+i)?)?)\s*$",
+            prefix,
+            re.IGNORECASE,
+        ):
+            continue
+        last_pos = m.start()
+    return last_neg > last_pos if last_neg >= 0 else False
+
+
+def parse_directional_transport(nature_language, lang="en"):
+    """[(leg, op, mode, offset)] parsed from directional NL phrases.
+    leg in {'go','back'}, op in {'==','!='}, mode in {'train','airplane'}."""
+    if not nature_language:
+        return []
+    if lang == "zh":
+        go_res, back_res, both_res = _GO_RES_ZH, _BACK_RES_ZH, _BOTH_RES_ZH
+        canon = _canon_mode_zh
+    else:
+        go_res, back_res, both_res = _GO_RES, _BACK_RES, _BOTH_RES
+        canon = _canon_mode
+    specs = []
+    pos = 0
+    for seg_match in list(_SEGMENT_SPLIT_RE.finditer(nature_language)) + [None]:
+        seg_end = seg_match.start() if seg_match else len(nature_language)
+        segment = nature_language[pos:seg_end]
+        seg_off = pos
+        pos = seg_match.end() if seg_match else seg_end
+
+        def _collect(res_list, legs):
+            for rx in res_list:
+                for m in rx.finditer(segment):
+                    try:
+                        mode = canon(m.group("mode"))
+                    except (IndexError, TypeError):
+                        mode = "airplane"  # fly-phrases carry no mode group
+                    op = "!=" if _clause_negated(segment, m.start()) else "=="
+                    for leg in legs:
+                        specs.append((leg, op, mode, seg_off + m.start()))
+                    if legs == ("go",) and _GO_BACK_SUFFIX_RE.match(
+                        segment[m.end():]
+                    ):
+                        specs.append(("back", op, mode, seg_off + m.start()))
+
+        _collect(go_res, ("go",))
+        _collect(back_res, ("back",))
+        _collect(both_res, ("go", "back"))
+    return specs
+
+
+def _resolve_leg_specs(specs):
+    """{leg: (op, mode)} or None on conflict."""
+    resolved = {}
+    for leg in ("go", "back"):
+        entries = {(op, mode) for lg, op, mode, _off in specs if lg == leg}
+        if not entries:
+            continue
+        eqs = {m for op, m in entries if op == "=="}
+        neqs = {m for op, m in entries if op == "!="}
+        if len(eqs) > 1:
+            return None
+        if eqs:
+            mode = eqs.pop()
+            if mode in neqs:
+                return None
+            resolved[leg] = ("==", mode)
+        else:
+            if len(neqs) > 1:
+                return None  # both modes banned: contradictory
+            resolved[leg] = ("!=", neqs.pop())
+    return resolved or None
+
+
+def _leg_clause(leg, op, mode):
+    idx = "0" if leg == "go" else "-1"
+    origin = "start_city(plan)" if leg == "go" else "target_city(plan)"
+    return (
+        "allactivities(plan)[%s]['type'] %s \"%s\" and "
+        "intercity_transport_origin(allactivities(plan)[%s])==%s"
+        % (idx, op, mode, idx, origin)
+    )
+
+
+def build_directional_constraint(resolved):
+    cond = " and ".join(
+        _leg_clause(leg, op, mode)
+        for leg in ("go", "back")
+        if leg in resolved
+        for op, mode in [resolved[leg]]
+    )
+    return (
+        "result=False\n"
+        "intercity_transport_go=''\n"
+        "intercity_transport_back=''\n"
+        "if %s:\n"
+        "  result=True" % cond
+    )
+
+
+_INTERCITY_TOKEN_RE = re.compile(
+    r"intercity_transport_(?:set|type|origin|destination)"
+    r"|activity_type\(activity\)\s*[=!]=\s*['\"](?:train|airplane)['\"]")
+_NON_INTERCITY_TOKEN_RE = re.compile(
+    r"activity_tickets|metro_tickets|taxi_cars|activity_cost|activity_price"
+    r"|activity_position|activity_(?:start_|end_)?time\("
+    r"|attraction_|restaurant_|accommodation_|room_|poi_"
+    r"|innercity_transport_(?:cost|price|distance|time)"
+    r"|inner_city_transportation_set|day_count|people_count")
+
+
+def _is_pure_intercity_mode_constraint(code):
+    if not isinstance(code, str) or _or_arity(code) > 0:
+        return False
+    stripped = _STRING_LITERAL_RE.sub("", code)
+    return bool(
+        _INTERCITY_TOKEN_RE.search(code)
+        and not _NON_INTERCITY_TOKEN_RE.search(stripped)
+    )
+
+
+_INTERCITY_SET_EQ_RE = re.compile(
+    r"intercity_transport_set\s*==\s*\{(?P<items>[^{}]*)\}"
+    r"|\{(?P<items2>[^{}]*)\}\s*==\s*intercity_transport_set")
+
+
+def enforce_directional_transport(constraints, query, lang="en"):
+    """Rewrite global mode sets/bans into the oracle first/last-leg idiom
+    whenever the NL carries direction markers."""
+    nl = query.get("nature_language") or ""
+    specs = parse_directional_transport(nl, lang)
+    if not specs:
+        return constraints, None
+    outside = [s for s in specs if not _in_disjunction_region(nl, s[3])]
+    inside = [s for s in specs if _in_disjunction_region(nl, s[3])]
+    cons = list(constraints)
+    removed, added, inlined = [], [], []
+
+    if outside:
+        resolved = _resolve_leg_specs(outside)
+        if resolved:
+            new = build_directional_constraint(resolved)
+            if new not in cons:
+                keep = []
+                for c in cons:
+                    if _is_pure_intercity_mode_constraint(c):
+                        removed.append(c)
+                        continue
+                    keep.append(c)
+                cons = keep
+                cons.append(new)
+                added.append(new)
+
+    if inside:
+        resolved = _resolve_leg_specs(inside)
+        if resolved and all(op == "==" for op, _m in resolved.values()):
+            modes = {m for _op, m in resolved.values()}
+            cond = " and ".join(
+                _leg_clause(leg, op, mode)
+                for leg in ("go", "back")
+                if leg in resolved
+                for op, mode in [resolved[leg]]
+            )
+            for i, c in enumerate(cons):
+                if not (isinstance(c, str) and _or_arity(c) > 0):
+                    continue
+                m = _INTERCITY_SET_EQ_RE.search(c)
+                if not m:
+                    continue
+                items = {
+                    x.strip().strip("'\"")
+                    for x in (m.group("items") or m.group("items2")).split(",")
+                    if x.strip()
+                }
+                if items == modes:
+                    cons[i] = c[: m.start()] + "(" + cond + ")" + c[m.end():]
+                    inlined.append(cons[i])
+
+    if not removed and not added and not inlined:
+        return constraints, None
+    return cons, {
+        "rule": "directional_transport_canonicalized",
+        "specs": [(l, o, m) for l, o, m, _ in specs],
+        "removed": removed,
+        "added": added,
+        "inlined": inlined,
+    }
+
+
+# --- rule r5.4: only-free-attractions --------------------------------------
+
+_FREE_ATTR_RES = {
+    "en": re.compile(
+        r"\bonly\b[^.;!?\n]{0,40}?\bfree\s+attractions?\b"
+        r"|\bvisit\s+only\s+free\s+attractions?\b",
+        re.IGNORECASE),
+    "zh": re.compile(r"(?:只|仅)[^。；;！？!?\n]{0,15}?免费(?:的)?景点"),
+}
+_FREE_ATTR_TMPL = (
+    "attraction_cost=0\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='attraction': "
+    "attraction_cost+=activity_cost(activity)\n"
+    "result=attraction_cost<=0"
+)
+_FREE_ATTR_PRESENT_RE = re.compile(
+    r"attraction_cost\s*<=\s*0"
+    r"|activity_(?:cost|price)\(activity\)\s*(?:>|!=)\s*0")
+
+
+def inject_free_attractions(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    rx = _FREE_ATTR_RES.get(lang, _FREE_ATTR_RES["en"])
+    m = rx.search(nl)
+    if not m or _in_disjunction_region(nl, m.start()):
+        return constraints, None
+    for c in constraints:
+        if isinstance(c, str) and _FREE_ATTR_PRESENT_RE.search(c):
+            return constraints, None
+    return constraints + [_FREE_ATTR_TMPL], {
+        "rule": "only_free_attractions_injected",
+        "added": _FREE_ATTR_TMPL,
+    }
+
+
+# --- POI-name grounding helper (public environment DB) ---------------------
+
+_POI_NAME_CACHE = {}
+
+
+def _city_all_poi_names(city, lang="en"):
+    """All POI names (attractions+restaurants+accommodations) of a city from
+    the public environment database; empty set when unavailable."""
+    canon = _canon_city(city)
+    if not canon:
+        return set()
+    key = (canon, lang)
+    if key in _POI_NAME_CACHE:
+        return _POI_NAME_CACHE[key]
+    low = canon.lower()
+    root = _db_dir(lang)
+    paths = (
+        os.path.join(root, "attractions", low, "attractions.csv"),
+        os.path.join(root, "restaurants", low, "restaurants_%s.csv" % low),
+        os.path.join(root, "accommodations", low, "accommodations.csv"),
+    )
+    names = set()
+    for path in paths:
+        try:
+            with open(path, newline="", encoding="utf-8") as fh:
+                for row in csv.DictReader(fh):
+                    if row.get("name"):
+                        names.add(row["name"].strip())
+        except OSError:
+            pass
+    _POI_NAME_CACHE[key] = names
+    return names
+
+
+def _quote(name):
+    return '"%s"' % name if "'" in name else "'%s'" % name
+
+
+_POSITION_LITERAL_RE = re.compile(
+    r"activity_position\(activity\)\s*==\s*"
+    r"(?:'((?:\\.|[^\\'])*)'|\"((?:\\.|[^\\\"])*)\")")
+
+
+def _constraint_position_names(code):
+    return [
+        (a or b).replace("\\'", "'").replace('\\"', '"')
+        for a, b in _POSITION_LITERAL_RE.findall(code)
+    ]
+
+
+# --- rule r5.5: POI arrive/leave time windows -------------------------------
+# 'arrive at X no later than T' => exists visit of X with start_time <= T;
+# 'leave X no earlier than T'   => exists visit of X with end_time >= T.
+# The translator flips start/end or emits a vacuous universal form.
+
+_TIME_RE = r"(?P<t>\d{1,2}:\d{2})"
+_ARRIVE_RES = (
+    re.compile(
+        r"arriv\w*\s+(?:at|in)\s+(?P<name>.+)\s+no\s+later\s+than\s+" + _TIME_RE,
+        re.IGNORECASE),
+)
+_LEAVE_RES = (
+    re.compile(
+        r"(?:leave|leaving)\s+(?P<name>.+)\s+no\s+earlier\s+than\s+" + _TIME_RE,
+        re.IGNORECASE),
+    re.compile(
+        r"depart(?:ure|ing)?\s+from\s+(?P<name>.+)\s+no\s+earlier\s+than\s+"
+        + _TIME_RE,
+        re.IGNORECASE),
+    re.compile(
+        r"(?:depart|leave)\s+no\s+earlier\s+than\s+"
+        + _TIME_RE
+        + r"\s+from\s+(?P<name>.+)$",
+        re.IGNORECASE),
+    re.compile(
+        r"not\s+to\s+leave\s+(?P<name>.+)\s+before\s+" + _TIME_RE,
+        re.IGNORECASE),
+)
+_ARRIVE_TMPL = (
+    "result=False\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_position(activity)==%s:\n"
+    "    if activity_start_time(activity)<='%s':\n"
+    "      result=True"
+)
+_LEAVE_TMPL = (
+    "result=False\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_position(activity)==%s:\n"
+    "    if activity_end_time(activity)>='%s':\n"
+    "      result=True"
+)
+_TIME_LITERAL_RE = re.compile(r"['\"](\d{1,2}:\d{2})['\"]")
+
+
+def _parse_time_window_events(nature_language):
+    """[(kind, name_candidate, time, offset)] from arrive/leave phrases."""
+    events = []
+    pos = 0
+    for seg_match in list(_SEGMENT_SPLIT_RE.finditer(nature_language)) + [None]:
+        seg_end = seg_match.start() if seg_match else len(nature_language)
+        segment = nature_language[pos:seg_end]
+        seg_off = pos
+        pos = seg_match.end() if seg_match else seg_end
+        for kind, res_list in (("arrive", _ARRIVE_RES), ("leave", _LEAVE_RES)):
+            for rx in res_list:
+                for m in rx.finditer(segment):
+                    name = m.group("name").strip().strip(",;:- ")
+                    events.append((kind, name, m.group("t"), seg_off + m.start()))
+    return events
+
+
+def enforce_time_windows(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if lang == "zh":
+        return constraints, None  # zh phrasing variants deferred (see notes)
+    events = _parse_time_window_events(nl)
+    if not events:
+        return constraints, None
+    cons = list(constraints)
+    changed = []
+    db_names = None
+    for kind, name_cand, t, off in events:
+        if _in_disjunction_region(nl, off):
+            continue
+        tmpl = _ARRIVE_TMPL if kind == "arrive" else _LEAVE_TMPL
+        # 1) rewrite an existing constraint that carries this time literal
+        target_idx, target_name = None, None
+        for i, c in enumerate(cons):
+            if not isinstance(c, str) or _or_arity(c) > 0:
+                continue
+            times = set(_TIME_LITERAL_RE.findall(c))
+            if times != {t}:
+                continue  # absent, or a two-ended 'between' window: skip
+            if "activity_start_time(" not in c and "activity_end_time(" not in c:
+                continue
+            names = _constraint_position_names(c)
+            if len(set(names)) == 1:
+                target_idx, target_name = i, names[0]
+                break
+        if target_idx is not None:
+            new = tmpl % (_quote(target_name), t)
+            if cons[target_idx] != new:
+                changed.append({"before": cons[target_idx], "after": new})
+                cons[target_idx] = new
+            continue
+        # 2) no carrier constraint: inject, but only with a DB-verified name
+        if db_names is None:
+            db_names = _city_all_poi_names(query.get("target_city"), lang)
+        resolved = None
+        if name_cand in db_names:
+            resolved = name_cand
+        else:
+            # translator may have used a (verbatim) name inside another
+            # constraint that the NL wraps with extra words
+            for c in cons:
+                if not isinstance(c, str):
+                    continue
+                for nm in _constraint_position_names(c):
+                    if nm and (nm in name_cand or name_cand in nm):
+                        resolved = nm
+                        break
+                if resolved:
+                    break
+        if resolved is None:
+            continue
+        new = tmpl % (_quote(resolved), t)
+        if new not in cons:
+            cons.append(new)
+            changed.append({"before": None, "after": new})
+    if not changed:
+        return constraints, None
+    return cons, {"rule": "poi_time_window_canonicalized", "changes": changed}
+
+
+# --- rule r5.6: distance-conditional taxi ----------------------------------
+
+_DIST_TAXI_RES = {
+    "en": re.compile(
+        r"distance[^.;!?\n]{0,60}?(?:exceeds?|is\s+(?:more|greater)\s+than"
+        r"|(?:is\s+)?over|above|beyond)\s+(?P<km>\d+(?:\.\d+)?)\s*"
+        r"(?:km|kilometers?|kilometres?)[^.;!?\n]{0,80}?(?:taxi|cab)",
+        re.IGNORECASE),
+    "zh": re.compile(
+        r"距离[^。；;！？!?\n]{0,20}?超过\s*(?P<km>\d+(?:\.\d+)?)\s*"
+        r"(?:公里|千米|km)[^。；;！？!?\n]{0,30}?(?:打车|出租车|的士)"),
+}
+_DIST_TAXI_TMPL = (
+    "result=True\n"
+    "for activity in allactivities(plan):\n"
+    "  if innercity_transport_type(activity_transports(activity)) != 'taxi' "
+    "and innercity_transport_distance(activity_transports(activity))>%s:\n"
+    "    result=False\n"
+    "    break"
+)
+_NUMERIC_LITERAL_RE = re.compile(r"(?<![\w.])(\d+(?:\.\d+)?)")
+
+
+def _has_numeric_near(code, value, tol=0.02):
+    stripped = _STRING_LITERAL_RE.sub("", code)
+    for tok in _NUMERIC_LITERAL_RE.findall(stripped):
+        try:
+            if abs(float(tok) - value) <= tol:
+                return True
+        except ValueError:
+            continue
+    return False
+
+
+def enforce_distance_taxi(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    rx = _DIST_TAXI_RES.get(lang, _DIST_TAXI_RES["en"])
+    m = rx.search(nl)
+    if not m or _in_disjunction_region(nl, m.start()):
+        return constraints, None
+    km_text = m.group("km")
+    km = float(km_text)
+    new = _DIST_TAXI_TMPL % km_text
+    cons, removed = [], []
+    for c in constraints:
+        if (
+            isinstance(c, str)
+            and c != new
+            and _or_arity(c) == 0
+            and "taxi" in c
+            and ("innercity_transport_distance(" in c or "poi_distance(" in c)
+            and _has_numeric_near(c, km)
+        ):
+            removed.append(c)
+            continue
+        cons.append(c)
+    already = any(
+        isinstance(c, str)
+        and "innercity_transport_distance(" in c
+        and "!= 'taxi'" in c.replace('"', "'")
+        and _has_numeric_near(c, km)
+        for c in cons
+    )
+    if already and not removed:
+        return constraints, None
+    if not already:
+        cons.append(new)
+    return cons, {
+        "rule": "distance_conditional_taxi_canonicalized",
+        "removed": removed,
+        "added": None if already else new,
+    }
+
+
+# --- rule r5.7: accommodation distance to anchor POI ------------------------
+
+_HOTEL_DIST_RES = {
+    "en": re.compile(
+        r"(?:accommodation|hotel|stay|lodging)[^.;!?\n]{0,80}?within\s+"
+        r"(?P<km>\d+(?:\.\d+)?)\s*(?:km|kilometers?|kilometres?)\s+"
+        r"(?:of|from)\s+(?P<name>[^.;!?\n]+)",
+        re.IGNORECASE),
+}
+_HOTEL_DIST_TMPL = (
+    "result=False\n"
+    "accommodation_position=''\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='accommodation': "
+    "accommodation_position=activity_position(activity)\n"
+    "result=(poi_distance(target_city(plan), %s, accommodation_position)<=%s)"
+)
+
+
+def enforce_hotel_distance(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    rx = _HOTEL_DIST_RES.get(lang)
+    if rx is None:
+        return constraints, None  # zh anchor-name segmentation deferred
+    m = rx.search(nl)
+    if not m or _in_disjunction_region(nl, m.start()):
+        return constraints, None
+    km_text = m.group("km")
+    km = float(km_text)
+    anchor = m.group("name").strip().strip(",;:- ").rstrip(".")
+    db_names = _city_all_poi_names(query.get("target_city"), lang)
+    if anchor not in db_names:
+        # accept the anchor if a generated constraint used it verbatim
+        if not any(
+            isinstance(c, str) and anchor in c for c in constraints
+        ):
+            return constraints, None
+    # already in oracle dialect?
+    for c in constraints:
+        if (
+            isinstance(c, str)
+            and "poi_distance(" in c
+            and "accommodation_position" in c
+            and _has_numeric_near(c, km)
+        ):
+            return constraints, None
+    cons, removed = [], []
+    for c in constraints:
+        if (
+            isinstance(c, str)
+            and _or_arity(c) == 0
+            and "poi_distance(" in c
+            and _ACC_FILTER_RE.search(c)
+            and _has_numeric_near(c, km)
+        ):
+            removed.append(c)
+            continue
+        cons.append(c)
+    new = _HOTEL_DIST_TMPL % (_quote(anchor), km_text)
+    cons.append(new)
+    return cons, {
+        "rule": "hotel_distance_canonicalized",
+        "anchor": anchor,
+        "removed": removed,
+        "added": new,
+    }
+
+
+# --- rule r5.8: `not EXPR == False/True` precedence tautology ----------------
+
+_TAUT_RE = re.compile(
+    r"result\s*=\s*\(\s*not\s*\((?P<expr>.*)\)\s*==\s*(?P<lit>False|True)\s*\)\s*$",
+    re.S)
+
+
+def fix_negation_tautology(constraints):
+    out, changed = [], []
+    for c in constraints:
+        if isinstance(c, str):
+            m = _TAUT_RE.search(c)
+            if m:
+                expr = m.group("expr").strip()
+                repl = (
+                    "result=(%s)" % expr
+                    if m.group("lit") == "False"
+                    else "result=not(%s)" % expr
+                )
+                c2 = c[: m.start()] + repl
+                changed.append({"before": c, "after": c2})
+                c = c2
+        out.append(c)
+    if not changed:
+        return constraints, None
+    return out, {"rule": "negation_tautology_fixed", "changes": changed}
+
+
+# --- rule r5.9: positive-NL membership polarity ------------------------------
+# 'we hope to stay at one of the following hotels: X or Y' translated as
+# result=not({X,Y}&accommodation_name_set) bans the requested hotels.
+
+_NEG_MEMBERSHIP_RE = re.compile(
+    r"result\s*=\s*\(?\s*not\s*\(\s*\{(?P<items>[^{}]*)\}\s*&\s*"
+    r"(?P<cat>attraction|restaurant|accommodation)_name_set\s*\)\s*\)?\s*$")
+_POSITIVE_VERBS = {
+    "accommodation": re.compile(
+        r"(?:hope|want|wish|like|prefer|would\s+like|plan)"
+        r"[^.;!?\n]{0,30}?to\s+(?:stay|live)|stay\s+at\s+one\s+of"
+        r"|希望(?:入住|住)|想(?:入住|住)",
+        re.IGNORECASE),
+    "restaurant": re.compile(
+        r"(?:hope|want|wish|like|prefer|would\s+like)"
+        r"[^.;!?\n]{0,30}?to\s+(?:try|eat|dine|taste)"
+        r"|希望(?:品尝|去吃)|想(?:尝|吃)",
+        re.IGNORECASE),
+    "attraction": re.compile(
+        r"(?:hope|want|wish|like|prefer|would\s+like)"
+        r"[^.;!?\n]{0,30}?to\s+(?:visit|see|go\s+to)"
+        r"|希望(?:参观|游览|去)|想(?:参观|游览|去)",
+        re.IGNORECASE),
+}
+_POLARITY_NEG_RE = re.compile(
+    r"do\s+not|don'?t|not\s+(?:want|wish|hope)|avoid|rather\s+not|nor\b"
+    r"|不想|不希望|不要|避免",
+    re.IGNORECASE)
+
+
+def fix_membership_polarity(constraints, query):
+    nl = query.get("nature_language") or ""
+    if not nl:
+        return constraints, None
+    out, changed = [], []
+    for c in constraints:
+        if isinstance(c, str) and _or_arity(c) == 0:
+            m = _NEG_MEMBERSHIP_RE.search(c)
+            if m:
+                items = [
+                    x.strip().strip("'\"").replace("\\'", "'").replace(
+                        '\\"', '"')
+                    for x in m.group("items").split(",")
+                    if x.strip()
+                ]
+                first = next((x for x in items if x and x in nl), None)
+                if first:
+                    idx = nl.find(first)
+                    # window = the whole clause before the name (from the
+                    # previous sentence boundary); a fixed char cap can cut
+                    # off a leading 'Do not want to ...'
+                    seg_start = 0
+                    for bm in _SEGMENT_SPLIT_RE.finditer(nl, 0, idx):
+                        seg_start = bm.end()
+                    window = nl[seg_start:idx]
+                    verb_rx = _POSITIVE_VERBS[m.group("cat")]
+                    if verb_rx.search(window) and not _POLARITY_NEG_RE.search(
+                        window
+                    ):
+                        c2 = c[: m.start()] + (
+                            "result=({%s}&%s_name_set)"
+                            % (m.group("items"), m.group("cat"))
+                        )
+                        changed.append({"before": c, "after": c2})
+                        c = c2
+        out.append(c)
+    if not changed:
+        return constraints, None
+    return out, {"rule": "membership_polarity_fixed", "changes": changed}
+
+
 # ---------------------------------------------------------------------------
 # driver
 # ---------------------------------------------------------------------------
@@ -793,9 +1929,13 @@ def enforce_coverage(query, lang="en"):
     """Apply all deterministic coverage / span-grounding fixes in place.
 
     Fixes are recorded under query['coverage_fixes']; report-only findings
-    under query['coverage_flags']. Safe to call repeatedly (idempotent)."""
+    under query['coverage_flags']. Safe to call repeatedly (idempotent).
+    lang=None auto-detects the query language from nature_language (used by
+    the planner's cached-translation hardening path)."""
     cons = [c for c in query.get("hard_logic_py") or [] if isinstance(c, str)]
     nl = query.get("nature_language")
+    if lang is None:
+        lang = detect_nl_lang(nl)
     fixes, flags = [], []
 
     def _apply(result):
@@ -809,8 +1949,18 @@ def enforce_coverage(query, lang="en"):
         cons = new_cons
         fixes.append(record)
 
+    _apply(inject_base_boilerplate(cons, query))
     _apply(apply_taxi_convention(cons, is_human_register(query)))
     _apply(apply_room_count_override(cons, nl))
+    _apply(fix_negation_tautology(cons))
+    _apply(fix_membership_polarity(cons, query))
+    _apply(drop_disjunction_fragments(cons))
+    _apply(enforce_budget_scope(cons, query, lang))
+    _apply(enforce_directional_transport(cons, query, lang))
+    _apply(inject_free_attractions(cons, query, lang))
+    _apply(enforce_time_windows(cons, query, lang))
+    _apply(enforce_distance_taxi(cons, query, lang))
+    _apply(enforce_hotel_distance(cons, query, lang))
     _apply(inject_local_cuisine(cons, query, lang))
     _apply(inject_airplane_transport(cons, query, lang))
     _apply(apply_category_expansion(cons, nl, lang))

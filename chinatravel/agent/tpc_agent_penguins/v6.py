@@ -552,6 +552,22 @@ class UrbanTripOptimizedV6(BaseAgent):
             if os.path.exists(_tfp):
                 with open(_tfp, "r") as _fh:
                     query = json.load(_fh)
+                # Round-5 hardening: re-run the deterministic coverage /
+                # span-grounding verifier on the CACHED translation so rules
+                # added after the cache was built (budget-scope rescoping,
+                # directional transport legs, free-attraction / time-window /
+                # distance-taxi / hotel-distance canonicalization, tautology
+                # and polarity repair) reach previously cached queries.  All
+                # rules are idempotent and NL-gated; lang=None auto-detects
+                # the query language.
+                try:
+                    from .constraint_coverage import (
+                        enforce_coverage as _enforce_cached_coverage,
+                    )
+
+                    query = _enforce_cached_coverage(query, lang=None)
+                except Exception:
+                    pass  # hardening must never break planning
                 # Open-weight translators emit a different (semantically equal)
                 # DSL dialect; canonicalize the style before the regex-based
                 # constraint extractor sees it.
