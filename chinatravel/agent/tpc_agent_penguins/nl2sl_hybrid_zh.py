@@ -162,8 +162,8 @@ functions:"""
 1. 执行器只暴露内建函数 `set`。len、bool、any、all、sum、str、int、float、map、sorted、abs、max、min 都未定义，使用会抛 NameError。非空判断写成 result=(A&B)，判空/否定写成 result=not(A&B)，子集判断用 A<=B，计数用循环内显式递增的计数变量。
 2. 输出列表中的每个字符串都会在全新的命名空间中独立执行：它必须完全自包含并给 `result` 赋值。绝不能引用另一个字符串中定义的变量。"至少满足其一 / 任选其一"类需求必须写成一条约束：在同一代码块内计算所有子条件并用 `or` 连接。
 3. 每个 POI 名称必须从请求中逐字复制为一个字符串：完整的原始子串，包括括号、'·'、分店后缀和空格。绝不在内部分隔符处拆分一个名称，绝不翻译、缩写或归一化。只有当明确的分隔符（顿号、逗号、"和"）分隔的是明显不同的场所时才拆分列表。
-4. 永远输出基础约束，形式与示例完全一致：days、people、tickets 约束（attraction/airplane/train 票数和 metro 票数 == 人数）以及 taxi_cars 约束。除非请求明确提到房间、床、床型或酒店房型要求，绝不输出 room_count/room_type 或任何住宿房间约束：任何形式的 `room_count(activity)!=N` 或 `room_type(activity)!=N` 检查都不允许，无论是单独成条还是嵌在别的循环里。
-5. 作答前自查：请求中的每个需求子句恰好映射为一条约束；除基础约束外，每条约束都能在请求中找到出处；没有出现被禁止的内建函数。
+4. 永远输出基础约束，形式与示例完全一致：days、people、tickets 约束（attraction/airplane/train 票数和 metro 票数 == 人数）。taxi_cars 约束：自由行文请求照常输出；若请求是编号需求清单（"要求：1. ... 2. ..."）且没有任何一条提到出租车，则省略 taxi_cars（若有"每次打车用 N 辆出租车"这类条目，输出 taxi_cars(activity)!=N 循环）。除非请求明确提到房间、床、床型或酒店房型要求，绝不输出 room_count/room_type 或任何住宿房间约束：任何形式的 `room_count(activity)!=N` 或 `room_type(activity)!=N` 检查都不允许，无论是单独成条还是嵌在别的循环里；"每晚住宿需预订 N 间房"属于明确的房间要求 -> 输出 room_count(activity)!=N 循环。
+5. 作答前自查：请求中的每个需求子句恰好映射为一条约束；除基础约束外，每条约束都能在请求中找到出处；没有出现被禁止的内建函数。编号需求清单（"要求："后跟 "1. ... 2. ..."）：每个编号条目恰好映射为一条约束，按原顺序输出（"行程须为 N 天"->day_count，"为 N 人规划"->people_count，"票数须与 N 人一致"->tickets 约束）；绝不合并、拆分或悄悄跳过任何编号条目——包括交通方式条目，如"市内仅使用地铁和出租车"（写成缺失方式的黑名单）与"市内不要步行"（黑名单 {'walk'}）。
 
 ### 标准写法（严格照抄这些代码形状）
 - 必须游览/就餐/入住 X：按正确的 activity 类型收集名称集合，然后 result=({'X'}<=name_set)
@@ -172,9 +172,9 @@ functions:"""
 - 市内交通方式偏好（不打车 / 不走路 / 只坐或尽量坐地铁 等）：一律把被禁止的方式写成如下黑名单形式（"只坐地铁"禁止 walk 和 taxi）：
 "inner_city_transportation_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='transportation': inner_city_transportation_set.add(activity_position(activity))\nresult=not({'walk', 'taxi'}&inner_city_transportation_set)"
 绝不要用 innercity_transport_type 或 activity_transports 表达方式偏好，也绝不要把黑名单改写成白名单。
-- "在 A 到 B 之间游览 X"：该活动必须覆盖整个时间窗，即开始不晚于 A 且结束不早于 B。只按 activity_position 匹配：
-"result=False\nfor activity in allactivities(plan):\n  if activity_position(activity)=='X':\n    if activity_start_time(activity)<='A' and activity_end_time(activity)>='B': result=True"
-不要写成 activity_start_time>='A' and activity_end_time<='B'。
+- "在 A 到 B 之间游览/用餐/入住 X"：该活动必须落在时间窗内，即开始不早于 A 且结束不晚于 B，并按动词/场所补 activity_type 守卫（游览->'attraction'；用餐->in ['breakfast', 'lunch', 'dinner']；入住->'accommodation'）：
+"result=False\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction' and activity_position(activity)=='X':\n    if activity_start_time(activity)>='A' and activity_end_time(activity)<='B': result=True"
+不要写成 activity_start_time<='A' and activity_end_time>='B'（那是"覆盖整个窗口"的倒置形式）。
 - 预算上限是分范围的——把预算名词映射到它自己的聚合，绝不映射到 total_cost 写法：餐饮/用餐预算 -> restaurant_cost 对 ['breakfast','lunch','dinner'] 累加 activity_cost；住宿/酒店预算 -> accommodation_cost 对 'accommodation' 累加 activity_cost；景点/门票预算 -> attraction_cost 对 'attraction' 累加 activity_cost；城际/跨城交通预算 -> inter_city_transportation_cost 对 ['airplane','train'] 累加 activity_cost；市内/本地交通预算 -> inner_city_transportation_cost 对所有活动（不加任何 activity_type 过滤）累加 innercity_transport_cost(activity_transports(activity))。每条以 result=(累加变量<=上限) 结束。只有明确的"总预算/总花费"才用示例中的 total_cost 写法；把分范围预算写成 total_cost 会让查询无解。
 - "只去/只参观免费景点"："attraction_cost=0\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_cost+=activity_cost(activity)\nresult=attraction_cost<=0"
 - 有方向的城际交通——"坐X去(目的地)/坐Y返回"（含否定"不想坐X去"）只约束第一个/最后一个活动，绝不约束全局交通方式集合：

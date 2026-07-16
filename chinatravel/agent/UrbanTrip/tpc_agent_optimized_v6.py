@@ -342,6 +342,10 @@ class UrbanTripOptimizedV6(BaseAgent):
         self.activities_stay_time_dict = constraints_json.get("activities_stay_time_dict", None)
         self.activities_arrive_time_dict = constraints_json.get("activities_arrive_time_dict", None)
         self.activities_leave_time_dict = constraints_json.get("activities_leave_time_dict", None)
+        # phase-2 style: {name: {"window": [A, B], "semantics": "within"|"cover",
+        # "kind": "attraction"|"meal"|"accommodation"|None}} -- see the window
+        # extractor in extract_user_constraints_by_DSL.
+        self.activities_window_dict = constraints_json.get("activities_window_dict", None)
 
         self.must_live_hotel = constraints_json.get("must_live_hotel", None)
         self.must_not_live_hotel = constraints_json.get("must_not_live_hotel", None)
@@ -362,6 +366,12 @@ class UrbanTripOptimizedV6(BaseAgent):
         self.must_return_transport = constraints_json.get("must_return_transport", None)
         self.must_not_depart_transport = constraints_json.get("must_not_depart_transport", None)
         self.must_not_return_transport = constraints_json.get("must_not_return_transport", None)
+        # 'use BOTH airplane and train' ({'airplane','train'} <= / ==
+        # intercity_transport_set): resolved to concrete legs once the
+        # timetables are known (see generate_plan_with_search).
+        self.must_intercity_transport_all = constraints_json.get(
+            "must_intercity_transport_all", None
+        )
 
         self.attraction_budget = constraints_json.get("attraction_budget", None)
         self.restaurant_budget = constraints_json.get("restaurant_budget", None)
@@ -620,6 +630,21 @@ class UrbanTripOptimizedV6(BaseAgent):
             elif plan_out is None:
                 plan_out = plan if isinstance(plan, dict) else {}
 
+        # Last resort: a 0-day itinerary zeroes out day_count/DAV for the
+        # whole query. If backtrack exhaustion left every candidate empty,
+        # ship the deterministic schema+commonsense-valid skeleton instead.
+        if not (isinstance(plan_out, dict) and plan_out.get("itinerary")):
+            try:
+                from .fallback_plan import build_fallback_plan
+
+                skeleton = build_fallback_plan(query, self.env)
+            except Exception:
+                skeleton = None
+            if skeleton is not None and skeleton.get("itinerary"):
+                skeleton["fallback_skeleton"] = True
+                plan_out = skeleton
+                succ = True
+
         if isinstance(plan_out, dict) and plan_out.get("itinerary"):
             plan_out = self._eprsafe_output_plan(query, plan_out)
             plan_out = self._postprocess_insert_missing_meals(query, plan_out)
@@ -786,6 +811,32 @@ class UrbanTripOptimizedV6(BaseAgent):
             if "train" in self.must_return_transport:
                 flight_back = pd.DataFrame()
             if "airplane" in self.must_return_transport:
+                train_back = pd.DataFrame()
+
+        # 'use BOTH airplane and train': split into concrete legs, preferring
+        # the assignment the timetable can actually serve. Only fires when no
+        # directional constraint already pinned a leg.
+        if (
+            getattr(self, "must_intercity_transport_all", None)
+            and len(set(self.must_intercity_transport_all)) == 2
+            and self.must_depart_transport is None
+            and self.must_return_transport is None
+            and self.must_not_depart_transport is None
+            and self.must_not_return_transport is None
+        ):
+            _fg = 0 if flight_go is None else flight_go.shape[0]
+            _tg = 0 if train_go is None else train_go.shape[0]
+            _fb = 0 if flight_back is None else flight_back.shape[0]
+            _tb = 0 if train_back is None else train_back.shape[0]
+            if _fg > 0 and _tb > 0:
+                self.must_depart_transport = ["airplane"]
+                self.must_return_transport = ["train"]
+                train_go = pd.DataFrame()
+                flight_back = pd.DataFrame()
+            elif _tg > 0 and _fb > 0:
+                self.must_depart_transport = ["train"]
+                self.must_return_transport = ["airplane"]
+                flight_go = pd.DataFrame()
                 train_back = pd.DataFrame()
 
         # 计算可用航班和火车的数量，如果为 None 则设为 0
@@ -2716,9 +2767,12 @@ class UrbanTripOptimizedV6(BaseAgent):
         if not arrive_info and not leave_info:
             return None
 
+        # 'early' (covering: start <= A) and 'late' (containment: start >= A)
+        # share the same ideal start A; _scheduled_poi_times then pins the
+        # visit into the extracted window for either dialect.
         desired_start = (
             arrive_info[1]
-            if arrive_info and arrive_info[0] == "early"
+            if arrive_info and arrive_info[0] in ("early", "late")
             else None
         )
         if desired_start is None:
@@ -2810,6 +2864,164 @@ class UrbanTripOptimizedV6(BaseAgent):
             cleaned.append(other)
         updated[day_idx]["activities"] = cleaned
         return updated
+
+    def _window_snap_candidates(self, itinerary, name, spec):
+        """(day_idx, act_idx) of plan activities matching a window spec, or
+        None when some matching activity already satisfies the window in its
+        own translated dialect (nothing to snap)."""
+        kind_types = {
+            "accommodation": {"accommodation"},
+            "meal": {"breakfast", "lunch", "dinner"},
+            "attraction": {"attraction"},
+        }
+        allowed = kind_types.get(
+            spec.get("kind"),
+            {"attraction", "breakfast", "lunch", "dinner", "accommodation"},
+        )
+        window_a, window_b = spec["window"]
+        within = spec.get("semantics") != "cover"
+        matches = []
+        for day_idx, day in enumerate(itinerary or []):
+            for act_idx, act in enumerate(day.get("activities", [])):
+                if self._activity_position(act) != name:
+                    continue
+                if act.get("type") not in allowed:
+                    continue
+                start = act.get("start_time")
+                end = act.get("end_time")
+                if start and end:
+                    if within and time_compare_if_earlier_equal(
+                        window_a, start
+                    ) and time_compare_if_earlier_equal(end, window_b):
+                        return None  # existential window already satisfied
+                    if not within and time_compare_if_earlier_equal(
+                        start, window_a
+                    ) and time_compare_if_earlier_equal(window_b, end):
+                        return None
+                matches.append((day_idx, act_idx))
+        return matches
+
+    def _snap_window_activities(self, query, plan):
+        """Pin windowed activities exactly onto their extracted [A, B] window.
+
+        Phase-2 queries attach time windows to attractions, restaurants,
+        HOTEL CHECK-INS and HOTEL MEALS ('Dine at <hotel> between 07:50 and
+        08:35').  The must-see replacement machinery only reaches attraction
+        and restaurant POIs, so hotel-position windows (and windowed POIs that
+        are already in the plan at the wrong clock) are snapped here.  Every
+        candidate goes through _try_accept_repair, which re-repairs the time
+        chain and accepts only strict hard-pass improvements, so this pass can
+        never regress a plan.
+        """
+        specs = getattr(self, "activities_window_dict", None) or {}
+        if not specs or not isinstance(plan, dict) or not plan.get("itinerary"):
+            return plan
+        repaired = plan
+        protected = set(self.must_see_attraction or []) | set(
+            self.must_visit_restaurant or []
+        )
+        for name, spec in specs.items():
+            window = spec.get("window") or [None, None]
+            window_a, window_b = window[0], window[1]
+            if not window_a or not window_b:
+                continue
+            matches = self._window_snap_candidates(
+                repaired.get("itinerary"), name, spec
+            )
+            if not matches:
+                continue
+            for day_idx, act_idx in matches:
+                candidate = deepcopy(repaired["itinerary"])
+                act = candidate[day_idx]["activities"][act_idx]
+                act["start_time"] = window_a
+                if act.get("type") == "accommodation":
+                    act["end_time"] = (
+                        "24:00" if window_b in ("24:00", "23:59") else window_b
+                    )
+                else:
+                    act["end_time"] = window_b
+                # drop same-day activities that overlap the pinned interval
+                # (musts and intercity legs stay; the accommodation check-in
+                # is shifted, not dropped)
+                start_min = self._time_minutes(window_a)
+                end_min = self._time_minutes(act["end_time"])
+                cleaned = []
+                for idx, other in enumerate(candidate[day_idx]["activities"]):
+                    if idx == act_idx or self._is_intercity_activity(other):
+                        cleaned.append(other)
+                        continue
+                    other_start = self._time_minutes(other.get("start_time"))
+                    other_end = self._time_minutes(other.get("end_time"))
+                    overlaps = other_start < end_min and start_min < other_end
+                    if not overlaps:
+                        cleaned.append(other)
+                        continue
+                    if other.get("type") == "accommodation":
+                        other["start_time"] = act["end_time"]
+                        cleaned.append(other)
+                        continue
+                    if self._activity_position(other) in protected:
+                        cleaned.append(other)
+                        continue
+                    # overlapping filler activity: drop it
+                candidate[day_idx]["activities"] = cleaned
+                repaired, accepted = self._try_accept_repair(
+                    query, repaired, candidate
+                )
+                if accepted:
+                    break
+        return repaired
+
+    def _plan_transport_chain_type(self, transports):
+        """The evaluator's innercity_transport_type for one transports list."""
+        if not isinstance(transports, list) or not transports:
+            return None
+        modes = {leg.get("mode") for leg in transports if isinstance(leg, dict)}
+        if "metro" in modes:
+            return "metro"
+        if "taxi" in modes:
+            return "taxi"
+        if "walk" in modes:
+            return "walk"
+        return None
+
+    def _banned_innercity_modes(self):
+        banned = set(getattr(self, "must_not_innercity_transport", None) or [])
+        whitelist = getattr(self, "must_innercity_transport", None)
+        if whitelist:
+            banned |= {"metro", "taxi", "walk"} - set(whitelist)
+        return banned
+
+    def _repair_banned_transport_chains(self, query, plan):
+        """Replace transport chains whose evaluator mode is banned.
+
+        The oracle counts a walk-only chain as 'walk'; ranking exclusion alone
+        cannot prevent the environment from degrading a metro/taxi request to
+        a walk-only chain, so finished plans may still carry banned chains.
+        Clearing them and letting repair_full_itinerary rebuild (which goes
+        through collect_innercity_transport, where banned chains are now
+        rejected) flips the mode constraint without touching POIs.
+        """
+        banned = self._banned_innercity_modes()
+        if not banned or not isinstance(plan, dict) or not plan.get("itinerary"):
+            return plan
+        candidate = deepcopy(plan["itinerary"])
+        dirty = False
+        for day in candidate:
+            for act in day.get("activities", []):
+                if self._is_intercity_activity(act):
+                    # repair_activity_edge never rebuilds intercity legs;
+                    # clearing their chains would leave the position chain
+                    # broken and sink the whole candidate
+                    continue
+                chain_type = self._plan_transport_chain_type(act.get("transports"))
+                if chain_type in banned:
+                    act["transports"] = []
+                    dirty = True
+        if not dirty:
+            return plan
+        repaired, _ = self._try_accept_repair(query, plan, candidate)
+        return repaired
 
     def _swap_order_pair_in_itinerary(self, itinerary, before_name, after_name):
         updated = deepcopy(itinerary)
@@ -2948,6 +3160,13 @@ class UrbanTripOptimizedV6(BaseAgent):
             )
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
+
+        # phase-2 style: pin windowed activities (incl. hotel check-ins and
+        # hotel meals) onto their [A, B] windows, then flush transport chains
+        # whose evaluator mode is banned. Both passes accept only strict
+        # hard-pass improvements.
+        repaired = self._snap_window_activities(query, repaired)
+        repaired = self._repair_banned_transport_chains(query, repaired)
 
         # Budget-aware trim (6a): if the plan still exceeds overall_budget, swap
         # non-must meals down toward the cheapest option to flip the budget line.
@@ -4247,13 +4466,24 @@ class UrbanTripOptimizedV6(BaseAgent):
             # 如果下一个 POI 类型是酒店
             elif poi_type == "hotel":
                 # 获取选定的酒店信息
-                hotel_sel = poi_plan["accommodation"]
-                # 获取市内交通排名
-                # transports_ranking = self.ranking_innercity_transport(current_position, hotel_sel["name"], current_day, current_time)
-                transports_ranking = self.innercity_transports_ranking
-                if self.transport_rules_by_distance is not None:
-                    temp_distance = self.calculate_distance(query, current_position, hotel_sel["name"])
-                    transports_ranking = self.get_transport_by_distance(temp_distance)
+                hotel_sel = poi_plan.get("accommodation")
+                if hotel_sel is None:
+                    # 1-day trips book no hotel, yet 'hotel' can surface as the
+                    # default next-poi type once other candidates are spent.
+                    # Fall through the (empty) mode loop instead of KeyError-ing
+                    # the whole run.
+                    self.backtrack_count += 1
+                    self._dfs_log(
+                        "no accommodation booked; hotel branch unavailable, backtrack..."
+                    )
+                    transports_ranking = []
+                else:
+                    # 获取市内交通排名
+                    # transports_ranking = self.ranking_innercity_transport(current_position, hotel_sel["name"], current_day, current_time)
+                    transports_ranking = self.innercity_transports_ranking
+                    if self.transport_rules_by_distance is not None:
+                        temp_distance = self.calculate_distance(query, current_position, hotel_sel["name"])
+                        transports_ranking = self.get_transport_by_distance(temp_distance)
                 # 遍历市内交通类型
                 for trans_type_sel in transports_ranking:
                     self.search_nodes += 1
@@ -4460,7 +4690,7 @@ class UrbanTripOptimizedV6(BaseAgent):
                     if self._is_terminal_plan_failure(plan):
                         return False, plan
                 # 如果不是最后一天且天数大于 1
-                elif query["days"] > 1 and current_day < query["days"] - 1:
+                elif query["days"] > 1 and current_day < query["days"] - 1 and "accommodation" in poi_plan:
                     # go to hotel
                     hotel_sel = poi_plan["accommodation"]  # 获取选定的酒店信息
                     self.search_nodes += 1
@@ -4565,7 +4795,14 @@ class UrbanTripOptimizedV6(BaseAgent):
                 self._dfs_log("incorrect poi type: {}".format(poi_type))
                 continue
 
-            candidates_type.remove(poi_type)
+            if poi_type in candidates_type:
+                candidates_type.remove(poi_type)
+            else:
+                # _next_poi_type falls back to 'hotel' even when it is not a
+                # candidate (e.g. 1-day trips with no accommodation); nothing
+                # left to try on this branch
+                self._dfs_log(f"default poi type {poi_type} not in candidates, backtrack...")
+                break
             self._dfs_log(f"remove: {poi_type}, candidate type: {candidates_type}")
             self._dfs_log("try another poi type, backtrack...")
 
@@ -4807,7 +5044,15 @@ class UrbanTripOptimizedV6(BaseAgent):
 
         locationA, locationB = coordinate_A, coordinate_B
 
-        distance = geodesic(locationA, locationB).kilometers
+        try:
+            distance = geodesic(locationA, locationB).kilometers
+        except (ValueError, TypeError):
+            # poi_search can hand back a non-coordinate payload (e.g. an
+            # unparseable string) for POIs it cannot resolve; geopy then
+            # raises 'Failed to create Point instance from string'. Treat it
+            # as unknown distance instead of crashing the whole run.
+            self._distance_cache[cache_key] = None
+            return None
         self._distance_cache[cache_key] = distance
         return distance
 
@@ -6188,6 +6433,9 @@ class UrbanTripOptimizedV6(BaseAgent):
             and visit_start > time_to_minutes(start_constraint[1])
         ):
             return False
+        if start_constraint and start_constraint[0] == "late":
+            # containment window: the visit cannot start before A
+            visit_start = max(visit_start, time_to_minutes(start_constraint[1]))
         visit_end_limit = close_min
         if latest_position and latest_time:
             leave_travel_min = self._estimate_intracity_travel_minutes(
@@ -6201,6 +6449,9 @@ class UrbanTripOptimizedV6(BaseAgent):
         leave_constraint = (getattr(self, "activities_leave_time_dict", None) or {}).get(name)
         if leave_constraint and leave_constraint[0] == "late":
             min_visit_end = max(min_visit_end, time_to_minutes(leave_constraint[1]))
+        if leave_constraint and leave_constraint[0] == "early":
+            # containment window: the visit must be able to END by B
+            visit_end_limit = min(visit_end_limit, time_to_minutes(leave_constraint[1]))
         return min_visit_end <= visit_end_limit
 
     def _can_reach_poi_after_arrival(self, query, go_row, poi_names, poi_df):
@@ -6703,11 +6954,28 @@ class UrbanTripOptimizedV6(BaseAgent):
         elif poi_type == "dinner" and time_compare_if_earlier_equal(start_time, "17:00"):
             start_time = "17:00"
 
+        # Containment window [A, B] (phase-2 dialect: start>=A and end<=B):
+        # wait for A when arriving early.  COVERING windows (phase-1 dialect,
+        # start<=A and end>=B) keep the legacy early-start + extend-to-B
+        # scheduling below -- pinning them onto [A, B] was validated to
+        # regress phase-1 (the later start can make placement infeasible
+        # while an early start is oracle-valid).
+        window_spec = (getattr(self, "activities_window_dict", None) or {}).get(poi_name)
+        if window_spec and window_spec.get("semantics") == "within":
+            window_start = window_spec["window"][0]
+            if time_compare_if_earlier_equal(start_time, window_start):
+                start_time = window_start
+
         arrive_info = (self.activities_arrive_time_dict or {}).get(poi_name)
         if arrive_info and arrive_info[0] == "early" and not time_compare_if_earlier_equal(
             start_time, arrive_info[1]
         ):
             return None
+        if arrive_info and arrive_info[0] == "late" and time_compare_if_earlier_equal(
+            start_time, arrive_info[1]
+        ):
+            # containment lower bound: never start before A
+            start_time = arrive_info[1]
 
         duration = self.select_poi_time(poi_name, default_minutes)
         leave_info = (self.activities_leave_time_dict or {}).get(poi_name)
@@ -6720,6 +6988,13 @@ class UrbanTripOptimizedV6(BaseAgent):
                 duration = max(duration, get_time_delta(start_time, required_end))
 
         end_time = add_time_delta(start_time, duration)
+        if leave_info and leave_info[0] == "early":
+            # containment upper bound: trim the visit so it ends by B
+            required_end = leave_info[1]
+            if not time_compare_if_earlier_equal(end_time, required_end):
+                end_time = required_end
+            if not time_compare_if_earlier_equal(start_time, end_time) or start_time == end_time:
+                return None
         # A closing time earlier than opening time denotes overnight service and
         # must not be used as a same-day upper bound.
         if (
@@ -6738,9 +7013,13 @@ class UrbanTripOptimizedV6(BaseAgent):
         # 统一转成字符串，防止 None 或非字符串类型
         dsl = query.get("hard_logic_py", "")
         if isinstance(dsl, (list, tuple)):
-            dsl = "\n".join(str(item) for item in dsl)
+            dsl_blocks = [str(item) for item in dsl]
+            dsl = "\n".join(dsl_blocks)
         elif not isinstance(dsl, str):
+            dsl_blocks = []
             dsl = str(dsl) if dsl is not None else ""
+        else:
+            dsl_blocks = [dsl] if dsl else []
 
         def _unescape_literal_text(text):
             return text.replace("\\'", "'").replace('\\"', '"')
@@ -6791,8 +7070,12 @@ class UrbanTripOptimizedV6(BaseAgent):
         activity_literal = r"(?P<name>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")"
         any_activity_literal = r"(?P<name>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")"
 
-        def extract_activity_time_pairs(dsl_str, value_pattern, converter):
-            normalized = normalize_hard_logic_constraint(dsl_str)
+        def extract_activity_time_pairs(blocks, value_pattern, converter):
+            # Match per CONSTRAINT BLOCK: the lazy `.*?` bridge otherwise
+            # crosses constraint boundaries in the joined DSL string and pairs
+            # one constraint's POI with another constraint's time literal
+            # (harmless while every window used the same comparator dialect;
+            # wrong the moment covering and containment windows coexist).
             pattern = re.compile(
                 r"if\s+activity_position\(activity\)\s*==\s*"
                 + activity_literal
@@ -6801,12 +7084,23 @@ class UrbanTripOptimizedV6(BaseAgent):
                 flags=re.S,
             )
             pairs = []
-            for match in pattern.finditer(normalized):
-                pairs.append((_literal_value(match.group("name")), converter(match)))
+            for block in blocks:
+                normalized = normalize_hard_logic_constraint(block)
+                for match in pattern.finditer(normalized):
+                    pairs.append((_literal_value(match.group("name")), converter(match)))
             return pairs
 
         def parse_single_dsl(dsl_str, query):
             """对单条 DSL 进行匹配"""
+            # Per-constraint views of this dsl (whole query -> original list;
+            # disjunction sub-dsl -> itself), carried through the SAME
+            # evaluator-canonical alias rewrite as dsl_str below so block-wise
+            # extraction sees identical literals.
+            block_texts = dsl_blocks if (dsl_str == dsl and dsl_blocks) else [dsl_str]
+            block_texts = [
+                normalize_concept_constraint_source(str(block))
+                for block in block_texts
+            ]
             # Use the same canonical concept labels and legacy quote repair as
             # the official evaluator before extracting planner constraints.
             # Otherwise names such as ``Chef's ...`` are truncated and English
@@ -7005,25 +7299,109 @@ class UrbanTripOptimizedV6(BaseAgent):
 
             # activities time
             matches = extract_activity_time_pairs(
-                dsl_str,
+                block_texts,
                 r"activity_time\(activity\)\s*>=\s*(?P<value>[0-9]+)",
                 lambda match: int(match.group("value")),
             )
             res["activities_stay_time_dict"] = {name: int(time) for name, time in matches} if matches else None
 
             matches = extract_activity_time_pairs(
-                dsl_str,
+                block_texts,
                 r"activity_start_time\(activity\)\s*<=\s*(?P<value>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")",
                 lambda match: _literal_value(match.group("value")),
             )
             res["activities_arrive_time_dict"] = {name: ["early", t] for name, t in matches} if matches else None
 
             matches = extract_activity_time_pairs(
-                dsl_str,
+                block_texts,
                 r"activity_end_time\(activity\)\s*>=\s*(?P<value>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")",
                 lambda match: _literal_value(match.group("value")),
             )
             res["activities_leave_time_dict"] = {name: ["late", t] for name, t in matches} if matches else None
+
+            # --- per-POI time WINDOWS, both dialects (phase-2 style) --------
+            # Phase-2 'Visit/Dine at/Stay at X between A and B' compiles to the
+            # CONTAINMENT pair  start>='A' and end<='B'  (optionally with an
+            # activity_type guard: attraction / meals / accommodation), while
+            # phase-1 used the COVERING pair  start<='A' and end>='B'.  The
+            # single-ended extractors above only see the covering dialect and
+            # only in the guard-less spelling, so containment windows (and any
+            # type-guarded window) were never extracted and the planner
+            # scheduled the POI at an arbitrary clock.  Scheduling the visit
+            # exactly on [A, B] satisfies BOTH dialects, so we fold every
+            # two-ended window into activities_window_dict and let
+            # _scheduled_poi_times / the window-snap repair pin the activity.
+            def extract_activity_window_specs(raw_dsl):
+                blocks = block_texts if block_texts else ([raw_dsl] if raw_dsl else [])
+                specs = {}
+                pos_line_re = re.compile(
+                    r"^(?P<line>[^\n]*activity_position\(activity\)\s*==\s*"
+                    r"(?P<name>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\")[^\n]*)$",
+                    flags=re.M,
+                )
+                time_lit = r"'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\""
+                win_re = re.compile(
+                    r"activity_start_time\(activity\)\s*(?P<op1><=|>=)\s*"
+                    r"(?P<t1>" + time_lit + r")"
+                    r"(?:\s+and\s+|\s*\n\s*(?:if\s+)?)"
+                    r"activity_end_time\(activity\)\s*(?P<op2><=|>=)\s*"
+                    r"(?P<t2>" + time_lit + r")"
+                )
+                pos_windows = []
+                for block in blocks:
+                    normalized = normalize_hard_logic_constraint(block)
+                    for pos_match in pos_line_re.finditer(normalized):
+                        # search the guard line itself, then the remainder of
+                        # this constraint block only
+                        tail = normalized[pos_match.end():]
+                        stop = re.search(r"\n(?:result\s*=|for\s+activity)", tail)
+                        if stop:
+                            tail = tail[: stop.start()]
+                        pos_windows.append((pos_match, tail))
+                for pos_match, tail in pos_windows:
+                    name = _literal_value(pos_match.group("name"))
+                    line = pos_match.group("line")
+                    window_match = win_re.search(line) or win_re.search(tail)
+                    if not window_match:
+                        continue
+                    t1 = _literal_value(window_match.group("t1"))
+                    t2 = _literal_value(window_match.group("t2"))
+                    op1, op2 = window_match.group("op1"), window_match.group("op2")
+                    if op1 == ">=" and op2 == "<=":
+                        semantics = "within"
+                    elif op1 == "<=" and op2 == ">=":
+                        semantics = "cover"
+                    else:
+                        continue
+                    if re.search(r"activity_type\(activity\)\s*==\s*['\"]accommodation['\"]", line):
+                        kind = "accommodation"
+                    elif re.search(r"activity_type\(activity\)\s*in\s*\[", line):
+                        kind = "meal"
+                    elif re.search(r"activity_type\(activity\)\s*==\s*['\"]attraction['\"]", line):
+                        kind = "attraction"
+                    else:
+                        kind = None
+                    specs.setdefault(
+                        name,
+                        {"window": [t1, t2], "semantics": semantics, "kind": kind},
+                    )
+                return specs
+
+            window_specs = extract_activity_window_specs(dsl_str)
+            res["activities_window_dict"] = window_specs or None
+            if window_specs:
+                arrive = dict(res.get("activities_arrive_time_dict") or {})
+                leave = dict(res.get("activities_leave_time_dict") or {})
+                for w_name, w_spec in window_specs.items():
+                    w_a, w_b = w_spec["window"]
+                    if w_spec["semantics"] == "within":
+                        arrive.setdefault(w_name, ["late", w_a])
+                        leave.setdefault(w_name, ["early", w_b])
+                    else:  # covering; guarded spellings were missed above
+                        arrive.setdefault(w_name, ["early", w_a])
+                        leave.setdefault(w_name, ["late", w_b])
+                res["activities_arrive_time_dict"] = arrive
+                res["activities_leave_time_dict"] = leave
 
             # restaurant
             res["must_visit_restaurant"] = _extract_set_constraints("restaurant_name_set")
@@ -7066,6 +7444,35 @@ class UrbanTripOptimizedV6(BaseAgent):
             m = re.search(r"room_count\(activity\)\s*!=\s*([0-9]+)", dsl_str)
             res["room_number"] = int(m.group(1)) if m else None
 
+            # correct-but-nonstandard ban shapes (phase-2): the type check is
+            # written inline against the accessor -- `attraction_type(...) in
+            # ['Other', 'Red tourism sites']: result=False` or `== 'Other':
+            # result=False` -- with no *_type_set variable, so the set-idiom
+            # extractor above never sees it.
+            def _merge_inline_type_bans(func_name, key):
+                # accessor calls carry one nested call: attraction_type(
+                # activity, target_city(plan))
+                pattern = re.compile(
+                    func_name
+                    + r"\(activity(?:[^()]|\([^()]*\))*\)\s*"
+                    + r"(?:in\s*\[(?P<list>[^\]]*)\]"
+                    + r"|==\s*(?P<lit>'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\"))"
+                    + r"\s*:\s*result\s*=\s*False"
+                )
+                values = []
+                for ban_match in pattern.finditer(dsl_str):
+                    if ban_match.group("list") is not None:
+                        values.extend(extract_list(ban_match.group("list")))
+                    else:
+                        values.append(_literal_value(ban_match.group("lit")))
+                if values:
+                    existing = res.get(key) or []
+                    res[key] = list(dict.fromkeys(list(existing) + values))
+
+            _merge_inline_type_bans("attraction_type", "must_not_see_attraction_type")
+            _merge_inline_type_bans("restaurant_type", "must_not_visit_restaurant_type")
+            _merge_inline_type_bans("accommodation_type", "must_not_live_hotel_feature")
+
             # innercity transport
             res["must_innercity_transport"] = None
             if res["must_innercity_transport"] is None:
@@ -7073,6 +7480,15 @@ class UrbanTripOptimizedV6(BaseAgent):
                 res["must_innercity_transport"] = extract_list(m.group(1)) if m else None
             if res["must_innercity_transport"] is None:
                 m = re.search(r"result=\(innercity_transport_set<=\s*\{([^}]*)\}\s*\)", dsl_str)
+                res["must_innercity_transport"] = extract_list(m.group(1)) if m else None
+            if res["must_innercity_transport"] is None:
+                # whitelist over the canonical/oracle set variable:
+                # 'use only metro and taxi' ->
+                #   result=(inner_city_transportation_set<={'metro', 'taxi'})
+                m = re.search(
+                    r"result=\(\s*inner_city_transportation_set\s*<=\s*\{([^}]*)\}\s*\)",
+                    dsl_str,
+                )
                 res["must_innercity_transport"] = extract_list(m.group(1)) if m else None
             if res["must_innercity_transport"] is None:
                 m = re.search(r"result=\(\s*\{([^}]*)\}\s*<=innercity_transport_set\)", dsl_str)
@@ -7105,8 +7521,43 @@ class UrbanTripOptimizedV6(BaseAgent):
                     m = re.search(r'result\s*=\s*\(\s*intercity_transport_set\s*==\s*\{([^}]*)\}\s*\)', dsl_str)
                 res["intercity transport"] = extract_list(m.group(1)) if m else None
                 if res.get("intercity transport"):
-                    res["must_depart_transport"] = res["intercity transport"]
-                    res["must_return_transport"] = res["intercity transport"]
+                    modes = [
+                        v for v in res["intercity transport"]
+                        if v in ("train", "airplane")
+                    ]
+                    if len(set(modes)) == 2:
+                        # set EQUALITY with both modes = 'use both airplane
+                        # and train across the trip'; the legacy depart/return
+                        # copy was vacuous (either mode passed each leg)
+                        res["must_intercity_transport_all"] = sorted(set(modes))
+                    else:
+                        res["must_depart_transport"] = res["intercity transport"]
+                        res["must_return_transport"] = res["intercity transport"]
+
+            if (
+                res["must_depart_transport"] is None
+                and res["must_not_depart_transport"] is None
+                and res["must_return_transport"] is None
+                and res["must_not_return_transport"] is None
+                and res.get("must_intercity_transport_all") is None
+            ):
+                # superset idiom: {'airplane','train'} <= intercity_transport_set
+                # (oracle: every listed mode must appear on some leg)
+                superset_modes = set()
+                for m in re.finditer(
+                    r"result\s*=\s*\(\s*\{([^}]*)\}\s*<=\s*intercity_transport_set\s*\)",
+                    dsl_str,
+                ):
+                    superset_modes.update(
+                        v for v in extract_list(m.group(1))
+                        if v in ("train", "airplane")
+                    )
+                if len(superset_modes) == 2:
+                    res["must_intercity_transport_all"] = sorted(superset_modes)
+                elif len(superset_modes) == 1:
+                    only = list(superset_modes)
+                    res["must_depart_transport"] = only
+                    res["must_return_transport"] = only
 
             if res["must_depart_transport"] is None and res["must_not_depart_transport"] is None and res[
                 "must_return_transport"] is None and res["must_not_return_transport"] is None:
@@ -7930,6 +8381,15 @@ class UrbanTripOptimizedV6(BaseAgent):
             info[0]["cost"] = info[0]["price"] * info[0]["cars"]
         elif info[0]["mode"] == "walk":
             info[0]["price"] = info[0]["cost"]
+
+        # Mode bans are evaluated on the CHAIN type (a walk-only chain counts
+        # as 'walk'); the environment may degrade a metro/taxi request to a
+        # walk-only chain for short hops, silently violating a walk ban even
+        # though the ranking excluded 'walk'. Reject such chains so the search
+        # falls through to a compliant mode.
+        banned = self._banned_innercity_modes()
+        if banned and self._plan_transport_chain_type(info) in banned:
+            return "No solution"
 
         return info
 

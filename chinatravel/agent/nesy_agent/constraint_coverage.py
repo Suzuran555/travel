@@ -1680,6 +1680,270 @@ def enforce_time_windows(constraints, query, lang="en"):
     return cons, {"rule": "poi_time_window_canonicalized", "changes": changed}
 
 
+# --- rule p2.1: two-ended POI windows ('Visit/Dine at/Stay at X between A
+# and B') -------------------------------------------------------------------
+# Phase-2 style attaches within-window constraints to named attractions,
+# restaurants, hotel MEALS and hotel CHECK-INS.  When the translator drops
+# the line entirely, inject the oracle-dialect containment constraint with
+# the activity-type guard implied by the verb.  Lines whose window the
+# translator did emit (either comparator dialect) are left untouched: the
+# planner pins the visit onto [A, B], which satisfies both dialects.
+
+_BETWEEN_WINDOW_RE = re.compile(
+    r"\b(?P<verb>visit|dine\s+at|eat\s+at|stay\s+at|"
+    r"have\s+(?:breakfast|lunch|dinner)\s+at)\s+"
+    r"(?P<name>.+?)\s+between\s+(?P<a>\d{1,2}:\d{2})\s+and\s+(?P<b>\d{1,2}:\d{2})",
+    re.IGNORECASE,
+)
+
+_WINDOW_GUARDS = {
+    "attraction": "activity_type(activity)=='attraction'",
+    "meal": "activity_type(activity) in ['breakfast', 'lunch', 'dinner']",
+    "accommodation": "activity_type(activity)=='accommodation'",
+}
+
+_BETWEEN_WINDOW_TMPL = (
+    "result=False\n"
+    "for activity in allactivities(plan):\n"
+    "  if %s and activity_position(activity)==%s:\n"
+    "    if activity_start_time(activity)>='%s' and activity_end_time(activity)<='%s': result=True"
+)
+
+
+def _verb_window_kind(verb):
+    verb = re.sub(r"\s+", " ", verb.strip().lower())
+    if verb == "visit":
+        return "attraction"
+    if verb == "stay at":
+        return "accommodation"
+    return "meal"
+
+
+def enforce_between_windows(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if lang == "zh" or not nl:
+        return constraints, None
+    events = []
+    for m in _BETWEEN_WINDOW_RE.finditer(nl):
+        events.append(
+            (
+                _verb_window_kind(m.group("verb")),
+                m.group("name").strip().strip(",;:- "),
+                m.group("a"),
+                m.group("b"),
+                m.start(),
+            )
+        )
+    if not events:
+        return constraints, None
+    cons = list(constraints)
+    changed = []
+    db_names = None
+    for kind, name_cand, t_a, t_b, off in events:
+        if _in_disjunction_region(nl, off):
+            continue
+        covered = False
+        for c in cons:
+            if not isinstance(c, str):
+                continue
+            times = set(_TIME_LITERAL_RE.findall(c))
+            if t_a in times and t_b in times:
+                covered = True
+                break
+            # partial emission for the same POI: leave it alone rather than
+            # stacking a second, possibly conflicting window
+            if (t_a in times or t_b in times) and (
+                "activity_start_time(" in c or "activity_end_time(" in c
+            ):
+                names = _constraint_position_names(c)
+                if any(nm and (nm in name_cand or name_cand in nm) for nm in names):
+                    covered = True
+                    break
+        if covered:
+            continue
+        if db_names is None:
+            db_names = _city_all_poi_names(query.get("target_city"), lang)
+        resolved = None
+        if name_cand in db_names:
+            resolved = name_cand
+        else:
+            for c in cons:
+                if not isinstance(c, str):
+                    continue
+                for nm in _constraint_position_names(c):
+                    if nm and (nm in name_cand or name_cand in nm):
+                        resolved = nm
+                        break
+                if resolved:
+                    break
+        if resolved is None:
+            continue
+        new = _BETWEEN_WINDOW_TMPL % (
+            _WINDOW_GUARDS[kind], _quote(resolved), t_a, t_b,
+        )
+        if new not in cons:
+            cons.append(new)
+            changed.append({"before": None, "after": new})
+    if not changed:
+        return constraints, None
+    return cons, {"rule": "poi_between_window_injected", "changes": changed}
+
+
+# --- rule p2.1b: window comparator dialect for the numbered register --------
+# Phase-2 oracles compile 'Visit/Dine at/Stay at X between A and B' as
+# CONTAINMENT (start>=A and end<=B) while our legacy prompt emitted the
+# phase-1 COVERING pair (start<=A and end>=B).  The two registers are
+# distinguishable from the NL: phase-2 queries enumerate requirements
+# ('Requirements: 1. ... 2. ...'), phase-1 uses prose.  In the numbered
+# register, flip any covering pair that carries the NL line's exact time
+# literals to the containment dialect; prose queries are never touched, so
+# phase-1 behavior is byte-identical.
+
+_COVER_START_RE_TMPL = r"(activity_start_time\(activity\)\s*)<=(\s*(['\"])%s\3)"
+_COVER_END_RE_TMPL = r"(activity_end_time\(activity\)\s*)>=(\s*(['\"])%s\3)"
+
+
+def enforce_window_containment_dialect(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if lang == "zh" or not nl:
+        return constraints, None
+    if len(_NUMBERED_LINE_RE.findall(nl)) < 4:
+        return constraints, None  # prose register: phase-1 covering semantics
+    events = [
+        (m.group("a"), m.group("b"), m.start())
+        for m in _BETWEEN_WINDOW_RE.finditer(nl)
+    ]
+    if not events:
+        return constraints, None
+    cons = list(constraints)
+    changed = []
+    for t_a, t_b, off in events:
+        if _in_disjunction_region(nl, off):
+            continue
+        start_re = re.compile(_COVER_START_RE_TMPL % re.escape(t_a))
+        end_re = re.compile(_COVER_END_RE_TMPL % re.escape(t_b))
+        for i, c in enumerate(cons):
+            if not isinstance(c, str) or _or_arity(c) > 0:
+                continue
+            if not (start_re.search(c) and end_re.search(c)):
+                continue
+            new = start_re.sub(r"\g<1>>=\g<2>", c)
+            new = end_re.sub(r"\g<1><=\g<2>", new)
+            if new != c:
+                changed.append({"before": c, "after": new})
+                cons[i] = new
+    if not changed:
+        return constraints, None
+    return cons, {"rule": "window_containment_dialect", "changes": changed}
+
+
+# --- rule p2.2: inner-city transport-mode requirement lines -----------------
+# Phase-2 style states mode restrictions as their own numbered requirement:
+#   'Do not use walking (and taxi) for transportation within the destination
+#    city.'  /  'Use only metro and taxi for transportation within the
+#    destination city.'
+# When the translation carries NO inner-city mode constraint at all, inject
+# the canonical blacklist idiom (the constraint extractor prunes the banned
+# modes from the search ranking and the planner rejects banned chains).
+
+_MODE_ONLY_LINE_RE = re.compile(
+    r"\buse\s+only\s+(?P<modes>[a-z,\s]+?)\s+for\s+(?:transportation|"
+    r"getting\s+around|travel)\s+within\s+the\s+destination\s+city",
+    re.IGNORECASE,
+)
+_MODE_BAN_LINE_RE = re.compile(
+    r"\bdo\s+not\s+use\s+(?P<modes>[a-z,\s]+?)\s+for\s+(?:transportation|"
+    r"getting\s+around|travel)\s+within\s+the\s+destination\s+city",
+    re.IGNORECASE,
+)
+_ALL_INNER_MODES = ("metro", "taxi", "walk")
+_INNER_MODE_CONS_RE = re.compile(
+    r"inner_city_transportation_set"
+    r"|innercity_transport_type"
+    r"|activity_type\(activity\)\s*==\s*['\"]transportation['\"]"
+)
+
+
+_INNER_MODE_WORDS = {
+    "walk": "walk", "walking": "walk", "foot": "walk",
+    "taxi": "taxi", "taxis": "taxi", "cab": "taxi", "cabs": "taxi",
+    "metro": "metro", "subway": "metro",
+}
+
+
+def _mode_words(text):
+    modes = set()
+    for word in re.split(r"[,\s]+", text or ""):
+        canon = _INNER_MODE_WORDS.get(word.strip().lower())
+        if canon:
+            modes.add(canon)
+    return modes
+
+
+def enforce_innercity_mode_lines(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if lang == "zh" or not nl:
+        return constraints, None
+    banned = set()
+    for m in _MODE_BAN_LINE_RE.finditer(nl):
+        if _in_disjunction_region(nl, m.start()):
+            continue
+        banned |= _mode_words(m.group("modes"))
+    for m in _MODE_ONLY_LINE_RE.finditer(nl):
+        if _in_disjunction_region(nl, m.start()):
+            continue
+        allowed = _mode_words(m.group("modes"))
+        if allowed:
+            banned |= set(_ALL_INNER_MODES) - allowed
+    banned &= set(_ALL_INNER_MODES)
+    if not banned:
+        return constraints, None
+    for c in constraints:
+        if isinstance(c, str) and _INNER_MODE_CONS_RE.search(c):
+            return constraints, None  # the translation carries a mode constraint
+    ordered = [m for m in _ALL_INNER_MODES if m in banned]
+    literal = "{" + ", ".join("'%s'" % m for m in ordered) + "}"
+    new = (
+        "inner_city_transportation_set=set()\n"
+        "for activity in allactivities(plan):\n"
+        "  if activity_type(activity)=='transportation': "
+        "inner_city_transportation_set.add(activity_position(activity))\n"
+        "result=not(%s&inner_city_transportation_set)" % literal
+    )
+    if new in constraints:
+        return constraints, None
+    return list(constraints) + [new], {
+        "rule": "innercity_mode_line_injected",
+        "changes": [{"before": None, "after": new}],
+    }
+
+
+# --- rule p2.3 (report-only): numbered-requirement coverage -----------------
+# Phase-2 queries enumerate requirements 1..N and every line maps to exactly
+# one oracle constraint. A translation with fewer constraints than numbered
+# lines has silently dropped requirements -- flag it for retranslation.
+
+_NUMBERED_LINE_RE = re.compile(r"^\s*\d+\s*[.)]\s+\S", re.M)
+
+
+def flag_numbered_requirements(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if not nl:
+        return constraints, None
+    numbered = len(_NUMBERED_LINE_RE.findall(nl))
+    if numbered < 4:  # not the numbered-requirements register
+        return constraints, None
+    n_cons = len([c for c in constraints if isinstance(c, str)])
+    if n_cons >= numbered:
+        return constraints, None
+    return constraints, {
+        "rule": "numbered_requirements_undercovered",
+        "flag_only": True,
+        "numbered_lines": numbered,
+        "constraints": n_cons,
+    }
+
+
 # --- rule r5.6: distance-conditional taxi ----------------------------------
 
 _DIST_TAXI_RES = {
@@ -1959,6 +2223,9 @@ def enforce_coverage(query, lang="en"):
     _apply(enforce_directional_transport(cons, query, lang))
     _apply(inject_free_attractions(cons, query, lang))
     _apply(enforce_time_windows(cons, query, lang))
+    _apply(enforce_window_containment_dialect(cons, query, lang))
+    _apply(enforce_between_windows(cons, query, lang))
+    _apply(enforce_innercity_mode_lines(cons, query, lang))
     _apply(enforce_distance_taxi(cons, query, lang))
     _apply(enforce_hotel_distance(cons, query, lang))
     _apply(inject_local_cuisine(cons, query, lang))
@@ -1966,6 +2233,7 @@ def enforce_coverage(query, lang="en"):
     _apply(apply_category_expansion(cons, nl, lang))
     _apply(drop_ungrounded_cost_caps(cons, query))
     _apply(inject_overall_budget(cons, query))
+    _apply(flag_numbered_requirements(cons, query, lang))
 
     if fixes:
         query["hard_logic_py"] = list(dict.fromkeys(cons))
