@@ -70,12 +70,6 @@ SET_VARIABLE_RENAMES = {
     "hotel_name_set": "accommodation_name_set",
     "hotel_types_set": "accommodation_type_set",
     "hotel_type_set": "accommodation_type_set",
-    # hotel FEATURES are the same field the verifier calls accommodation_type
-    # (featurehoteltype); Qwen sometimes names the accumulator by "feature"
-    "hotel_feature_set": "accommodation_type_set",
-    "hotel_features_set": "accommodation_type_set",
-    "accommodation_feature_set": "accommodation_type_set",
-    "accommodation_features_set": "accommodation_type_set",
 }
 
 # Canonical accumulator names used by the extractor's budget regexes.
@@ -253,37 +247,6 @@ _TRANSPORT_FUNC_RE = re.compile(
     r"|innercity_transport_end_time|metro_tickets|taxi_cars)\s*\("
 )
 
-# Body statement of the vacuous MODE-SET dialect: under the always-False
-# 'transportation' pseudo-type guard the set collects
-# ``activity_position(activity)`` -- a POI name, standing in for "the mode of
-# this (pseudo) transportation activity".  The intended (oracle) idiom is a
-# set of the plan's inner-city transport MODES, so guard and body are
-# rewritten TOGETHER:
-#   if activity_type(activity)=='transportation': S.add(activity_position(activity))
-# ->
-#   if activity_transports(activity)!=[]: S.add(innercity_transport_type(activity_transports(activity)))
-# Guard removal alone would be wrong here (a position is not a mode), which is
-# why _transport_only_lines never matches this body shape.  Left unrewritten,
-# the constraint is vacuously true (the set stays empty) and blinds every
-# generated-constraint gate: the planner's repair-accept pass-count, the final
-# self-check, and the enrichment gate.
-_MODE_SET_ADD_RE = re.compile(
-    r"^([A-Za-z_]\w*)\s*\.add\(\s*activity_position\(activity\)\s*\)$"
-)
-_MODE_SET_GUARD = "if activity_transports(activity)!=[]:"
-
-
-def _mode_set_rewrite(stmt):
-    """Canonical mode-collection statement for one vacuous-dialect body
-    statement, or None when the statement is not that shape."""
-    m = _MODE_SET_ADD_RE.match(stmt.strip())
-    if not m:
-        return None
-    return (
-        "%s.add(innercity_transport_type(activity_transports(activity)))"
-        % m.group(1)
-    )
-
 
 def _transport_only_lines(block_lines):
     """True iff every non-empty line operates on the activity's transports:
@@ -334,11 +297,6 @@ def _repair_transport_type_guards(text):
        accumulate transport quantities (transport-budget caps): the canonical
        oracle idiom sums over ALL activities' transports.
 
-    3. vacuous pseudo-type guards whose bodies collect
-       ``activity_position(activity)`` into a set (the mode-set dialect) are
-       not removed but REWRITTEN into the canonical mode-collection loop
-       (see ``_MODE_SET_ADD_RE``).
-
     See the module docstring and the regex comments above."""
     lines = text.split("\n")
     out = []
@@ -346,7 +304,6 @@ def _repair_transport_type_guards(text):
     while idx < len(lines):
         line = lines[idx]
         m = _TRANSPORT_TYPE_GUARD_RE.match(line)
-        pseudo_guard = m is not None
         body_ok = _transport_only_lines
         if not m:
             m = _ACTIVITY_TYPE_ONLY_GUARD_RE.match(line)
@@ -358,10 +315,7 @@ def _repair_transport_type_guards(text):
         guard_indent, inline_stmt = m.group(1), m.group(2)
         if inline_stmt:
             # inline form: "if activity_type(...)==...: STMT"
-            rewritten = _mode_set_rewrite(inline_stmt) if pseudo_guard else None
-            if rewritten is not None:
-                out.append(guard_indent + _MODE_SET_GUARD + " " + rewritten)
-            elif body_ok([inline_stmt]):
+            if body_ok([inline_stmt]):
                 out.append(guard_indent + inline_stmt)
             else:
                 out.append(line)
@@ -377,18 +331,7 @@ def _repair_transport_type_guards(text):
             block_end += 1
         block = lines[block_start:block_end]
         nonempty = [b for b in block if b.strip()]
-        rewrites = (
-            [_mode_set_rewrite(b) for b in nonempty] if pseudo_guard else []
-        )
-        if nonempty and pseudo_guard and all(r is not None for r in rewrites):
-            out.append(guard_indent + _MODE_SET_GUARD)
-            rew_iter = iter(rewrites)
-            for b in block:
-                if b.strip():
-                    out.append(b[: len(b) - len(b.lstrip())] + next(rew_iter))
-                else:
-                    out.append(b)
-        elif nonempty and body_ok(block):
+        if nonempty and body_ok(block):
             dedent = min(len(b) - len(b.lstrip()) for b in nonempty) - len(guard_indent)
             dedent = max(dedent, 0)
             for b in block:
@@ -400,56 +343,12 @@ def _repair_transport_type_guards(text):
     return "\n".join(out)
 
 
-# Accumulator-content -> canonical set-variable spelling.  A free local set
-# that collects one of these accessor results IS that canonical set whatever
-# the translator called it (e.g. Qwen's `hotel_feature_set` collecting
-# accommodation_type(...) is the extractor's accommodation_type_set).  This is
-# the semantic, spelling-proof complement to SET_VARIABLE_RENAMES.
-_SET_CONTENT_CANON = (
-    (re.compile(r"^attraction_type\("), "attraction_type_set"),
-    (re.compile(r"^restaurant_type\("), "restaurant_type_set"),
-    (re.compile(r"^accommodation_type\("), "accommodation_type_set"),
-    (re.compile(r"^innercity_transport_type\("), "inner_city_transportation_set"),
-)
-
-_SET_ADD_SITE_RE = re.compile(r"\b([A-Za-z_]\w*)\s*\.add\(\s*(.+?)\s*\)\s*$", re.M)
-
-
-def _canonicalize_set_accumulators(text):
-    """Rename free local set variables by WHAT they accumulate.
-
-    A variable is renamed only when it is initialised with ``set()``, every
-    one of its ``.add()`` sites collects the same canonical content, and the
-    canonical target name is not already bound in the constraint (the rename
-    helper refuses capture)."""
-    sites = {}
-    for m in _SET_ADD_SITE_RE.finditer(text):
-        var, expr = m.group(1), m.group(2)
-        canon = None
-        for pattern, target in _SET_CONTENT_CANON:
-            if pattern.match(expr):
-                canon = target
-                break
-        sites.setdefault(var, set()).add(canon)
-    for var, targets in sites.items():
-        if len(targets) != 1:
-            continue
-        target = next(iter(targets))
-        if target is None or target == var:
-            continue
-        if not re.search(r"\b%s\s*=\s*set\(\)" % re.escape(var), text):
-            continue
-        text = _rename_free_variable(text, var, target)
-    return text
-
-
 def canonicalize_hard_logic_py(constraint):
     """Canonicalize one hard_logic_py constraint string (semantics-preserving)."""
     if not isinstance(constraint, str) or not constraint:
         return constraint
     constraint = _canonicalize_set_variables(constraint)
     constraint = _repair_transport_type_guards(constraint)
-    constraint = _canonicalize_set_accumulators(constraint)
     constraint = _canonicalize_budget_accumulators(constraint)
     return constraint
 
@@ -684,13 +583,9 @@ def _rewrite_type_literals_in(text, table):
 
 
 def _type_membership_res(category):
-    """Regexes whose ENTIRE match is the literal-bearing span of a type
-    membership expression for one category (context sits in lookarounds).
-    Covers both the set-variable idiom and the inline accessor idiom
-    (``attraction_type(activity, ...) in [...]`` / ``== 'X'``) that the
-    extractor's _merge_inline_type_bans reads."""
+    """Regexes whose ENTIRE match is the literal-bearing span of a type-set
+    membership expression for one category (context sits in lookarounds)."""
     var = r"%s_type_set" % category
-    accessor = r"%s_type\(activity(?:[^()]|\([^()]*\))*\)" % category
     literal = r"'(?:\\.|[^\\'])*'|\"(?:\\.|[^\\\"])*\""
     return (
         # {...} <= / & / == var
@@ -700,18 +595,6 @@ def _type_membership_res(category):
         re.compile(r"\b" + var + r"\s*(?:<=|==|&)\s*\{[^{}]*\}"),
         # 'X' in var / 'X' not in var
         re.compile("(?:" + literal + r")(?=\s+(?:not\s+)?in\s+" + var + r"\b)"),
-        # attraction_type(activity, ...) in ['X', ...] (inline ban/require)
-        re.compile(r"\b" + accessor + r"\s*(?:not\s+)?in\s*\[[^\]]*\]"),
-        # attraction_type(activity, ...) == / != 'X'
-        re.compile(r"\b" + accessor + r"\s*[!=]=\s*(?:" + literal + r")"),
-    )
-
-
-def _constraint_mentions_category_types(constraint, category):
-    """Cheap containment guard for the membership regex sweep."""
-    return (
-        ("%s_type_set" % category) in constraint
-        or ("%s_type(" % category) in constraint
     )
 
 
@@ -734,9 +617,7 @@ def normalize_type_literals(constraints, target_city):
             continue
         try:
             for category, table in vocab.items():
-                if not table or not _constraint_mentions_category_types(
-                    constraint, category
-                ):
+                if not table or ("%s_type_set" % category) not in constraint:
                     continue
                 for pattern in _type_membership_res(category):
                     constraint = pattern.sub(
@@ -745,111 +626,6 @@ def normalize_type_literals(constraints, target_city):
                         ),
                         constraint,
                     )
-        except Exception:
-            pass
-        out.append(constraint)
-    return out
-
-
-# ---------------------------------------------------------------------------
-# NL-span grounding of TYPE literals
-#
-# LLM translators occasionally substitute a more common sibling label for a
-# rare category ("Museum/Memorial Hall" where the NL verbatim says
-# "Library/Memorial Hall").  Case-folding cannot repair a CONTENT swap, but
-# the NL request names the type literally, so the request text is an
-# authoritative witness.  A literal in a type-set membership expression is
-# replaced only under ALL of these conditions:
-#   * the emitted literal does NOT occur in the NL (case/whitespace-folded);
-#   * exactly ONE type from the target city's DB vocabulary of that category
-#     (a) occurs verbatim in the NL, (b) shares a '/'-separated component
-#     with the emitted literal (both must be slash-compound labels), and
-#     (c) is not already used by another literal of the constraint.
-# Slash-compound matching keeps this conservative: single-word labels are
-# never rewritten from incidental NL word hits.
-# ---------------------------------------------------------------------------
-
-
-def _nl_fold(text):
-    return re.sub(r"\s+", " ", str(text or "")).casefold()
-
-
-def _slash_components(label):
-    folded = _fold_type(label)
-    if "/" not in folded:
-        return set()
-    return {part.strip() for part in folded.split("/") if part.strip()}
-
-
-def _nl_ground_type_literal(raw, table, nl_folded, taken):
-    """DB type spelling to replace ``raw`` with, or None to keep it."""
-    folded = _fold_type(raw)
-    if folded in nl_folded:
-        return None  # the NL itself supports the emitted literal
-    raw_parts = _slash_components(raw)
-    if not raw_parts:
-        return None
-    hits = []
-    for cand_folded, exact in table.items():
-        if cand_folded == folded or cand_folded in taken:
-            continue
-        if cand_folded not in nl_folded:
-            continue
-        if raw_parts & _slash_components(exact):
-            hits.append(exact)
-    if len(hits) == 1:
-        return hits[0]
-    return None
-
-
-def ground_type_literals_to_nl(constraints, target_city, nature_language):
-    """Repair content-swapped type literals against the NL request (best
-    effort; only type-set membership spans are touched, and any failure
-    leaves the constraint unchanged)."""
-    if not isinstance(constraints, (list, tuple)):
-        return constraints
-    nl_folded = _nl_fold(nature_language)
-    if not nl_folded:
-        return list(constraints)
-    try:
-        vocab = _city_poi_types(target_city)
-    except Exception:
-        return list(constraints)
-    if not vocab:
-        return list(constraints)
-    out = []
-    for constraint in constraints:
-        if not isinstance(constraint, str):
-            out.append(constraint)
-            continue
-        try:
-            taken = {
-                _fold_type(a or b)
-                for a, b in _QUOTED_LITERAL_RE.findall(constraint)
-            }
-            for category, table in vocab.items():
-                if not table or not _constraint_mentions_category_types(
-                    constraint, category
-                ):
-                    continue
-
-                def _ground_span(match, _t=table, _k=taken):
-                    def _repl(lit_match):
-                        raw = (
-                            lit_match.group(1)
-                            if lit_match.group(1) is not None
-                            else lit_match.group(2)
-                        )
-                        exact = _nl_ground_type_literal(raw, _t, nl_folded, _k)
-                        if exact is None:
-                            return lit_match.group(0)
-                        quote = lit_match.group(0)[0]
-                        return f"{quote}{exact}{quote}"
-
-                    return _QUOTED_LITERAL_RE.sub(_repl, match.group(0))
-
-                for pattern in _type_membership_res(category):
-                    constraint = pattern.sub(_ground_span, constraint)
         except Exception:
             pass
         out.append(constraint)
@@ -880,9 +656,6 @@ def canonicalize_query_hard_logic(query):
         if isinstance(hl, (list, tuple)):
             hl = ground_hard_logic_entities(hl, query.get("target_city"))
             hl = normalize_type_literals(hl, query.get("target_city"))
-            hl = ground_type_literals_to_nl(
-                hl, query.get("target_city"), query.get("nature_language")
-            )
             hl = sorted(hl, key=lambda c: str(c))
         query["hard_logic_py"] = hl
     return query

@@ -340,6 +340,10 @@ class UrbanTripOptimizedV6(BaseAgent):
         # "kind": "attraction"|"meal"|"accommodation"|None}} -- see the window
         # extractor in extract_user_constraints_by_DSL.
         self.activities_window_dict = constraints_json.get("activities_window_dict", None)
+        # [[name, spec], ...] second/third windows on a name already claimed
+        # by another activity kind (e.g. dine-at + stay-at the same hotel);
+        # enforced by the window-snap repair alongside the primary dict.
+        self.activities_window_extra = constraints_json.get("activities_window_extra", None)
 
         self.must_live_hotel = constraints_json.get("must_live_hotel", None)
         self.must_not_live_hotel = constraints_json.get("must_not_live_hotel", None)
@@ -2507,26 +2511,57 @@ class UrbanTripOptimizedV6(BaseAgent):
                     total += float(tr.get("cost", 0) or 0)
         return total
 
-    def _budget_trim_repair(self, query, repaired):
-        """Downgrade the most expensive non-must meals toward the cheapest option
-        when the plan exceeds overall_budget (targets budget-fail FPRs, 6a).
+    def _plan_restaurant_cost(self, plan):
+        """Verifier-style dining total (breakfast/lunch/dinner activity costs)."""
+        total = 0.0
+        for day in plan.get("itinerary", []) or []:
+            for act in day.get("activities", []):
+                if act.get("type") in {"breakfast", "lunch", "dinner"}:
+                    total += float(act.get("cost", 0) or 0)
+        return total
 
-        Only accepted when commonsense still passes AND hard_pass_count increases
-        (getting under budget flips the budget line), so it never regresses.
-        """
-        if self.overall_budget is None:
+    def _budget_trim_repair(self, query, repaired):
+        """Downgrade the most expensive non-must meals toward the cheapest
+        option when the plan exceeds overall_budget OR the scoped restaurant
+        budget (targets budget-fail FPRs, 6a).
+
+        Must-visit meals can pin most of a dining cap by themselves; slot
+        filling may still have added an expensive discretionary meal, so the
+        trim keeps swapping until the cap holds and only then submits the
+        accumulated candidate.  Accepted only when commonsense still passes
+        AND hard_pass_count increases (getting under budget flips the budget
+        line), so it never regresses."""
+        if self.overall_budget is None and self.restaurant_budget is None:
             return repaired
         res_info = self.memory.get("restaurants")
         if res_info is None or res_info.empty:
             return repaired
+
+        def _over(plan):
+            if (
+                self.overall_budget is not None
+                and self._plan_total_cost(plan) > self.overall_budget
+            ):
+                return True
+            if (
+                self.restaurant_budget is not None
+                and self._plan_restaurant_cost(plan) > self.restaurant_budget
+            ):
+                return True
+            return False
+
+        if not _over(repaired):
+            return repaired
         protected = set(self.must_visit_restaurant or [])
         cheapest = res_info.sort_values(by=["price", "name"]).iloc[0]
         people = query["people_number"]
+        working = deepcopy(repaired)
+        swapped = False
         for _ in range(6):  # bounded passes
-            if self._plan_total_cost(repaired) <= self.overall_budget:
+            if not _over(working):
                 break
             target = None
-            for di, day in enumerate(repaired.get("itinerary", [])):
+            for di, day in enumerate(working.get("itinerary", [])):
                 for ai, act in enumerate(day.get("activities", [])):
                     if act.get("type") not in {"lunch", "dinner"}:
                         continue
@@ -2539,8 +2574,7 @@ class UrbanTripOptimizedV6(BaseAgent):
                         target = (di, ai, cost)
             if target is None:
                 break
-            candidate_itin = deepcopy(repaired["itinerary"])
-            act = candidate_itin[target[0]]["activities"][target[1]]
+            act = working["itinerary"][target[0]]["activities"][target[1]]
             sched = self._replacement_activity_times(act, cheapest, "restaurant")
             if sched is None:
                 break
@@ -2548,9 +2582,12 @@ class UrbanTripOptimizedV6(BaseAgent):
             act["price"] = int(cheapest["price"])
             act["cost"] = int(cheapest["price"]) * people
             act["start_time"], act["end_time"] = sched
-            repaired, accepted = self._try_accept_repair(query, repaired, candidate_itin)
-            if not accepted:
-                break
+            swapped = True
+        if not swapped:
+            return repaired
+        repaired, _accepted = self._try_accept_repair(
+            query, repaired, working["itinerary"]
+        )
         return repaired
 
     def _plan_innercity_cost(self, plan):
@@ -2878,6 +2915,19 @@ class UrbanTripOptimizedV6(BaseAgent):
         updated[day_idx]["activities"] = cleaned
         return updated
 
+    def _all_window_spec_items(self):
+        """(name, spec) pairs across the primary window dict AND the extras
+        (second windows on a name claimed by another activity kind)."""
+        items = list((getattr(self, "activities_window_dict", None) or {}).items())
+        for entry in getattr(self, "activities_window_extra", None) or []:
+            try:
+                name, spec = entry[0], entry[1]
+            except (TypeError, IndexError, KeyError):
+                continue
+            if isinstance(spec, dict):
+                items.append((name, spec))
+        return items
+
     def _window_snap_candidates(self, itinerary, name, spec):
         """(day_idx, act_idx) of plan activities matching a window spec, or
         None when some matching activity already satisfies the window in its
@@ -2914,6 +2964,543 @@ class UrbanTripOptimizedV6(BaseAgent):
                 matches.append((day_idx, act_idx))
         return matches
 
+    def _meal_type_for_window(self, window_a):
+        start = self._time_minutes(window_a)
+        if start < 10 * 60:
+            return "breakfast"
+        if start < 15 * 60 + 30:
+            return "lunch"
+        return "dinner"
+
+    # a 'within' window pass needs SOME positive time at the POI after the
+    # transports arrive; 10 minutes keeps late-arrival pins conservative.
+    _WINDOW_MIN_VISIT_MIN = 10
+
+    def _pinned_transport_legs(self, query, prev_act, name, window_a, window_b=None):
+        """Transport legs prev_act -> name arriving in time for the window.
+
+        Pre-building the legs matters: repair_activity_edge rebuilds missing
+        or non-connecting transports and PULLS the activity start to the
+        arrival time, which would silently un-pin a 'within' window.  With
+        connecting legs already in place that arrive in time, the repair
+        keeps them and the pinned start survives.
+
+        Arrival gate: 'within' semantics only need start>=A and end<=B, so a
+        leg arriving AFTER A is still fine as long as it leaves at least
+        _WINDOW_MIN_VISIT_MIN minutes before B (the caller then starts the
+        activity at the arrival time).  Returns [] when no transport is
+        needed and None when no mode can make the window."""
+        if prev_act is None:
+            return []
+        prev_pos = self._activity_end_position(prev_act)
+        if not prev_pos or prev_pos == name:
+            return []
+        current_time = (
+            prev_act.get("end_time") or prev_act.get("start_time") or "08:00"
+        )
+        latest = None
+        if window_b is not None:
+            latest = self._time_minutes(window_b) - self._WINDOW_MIN_VISIT_MIN
+        # Among modes that make the window, prefer the CHEAPEST: the pinned
+        # insert must not trade its window pass for an innercity-cost-cap
+        # fail (net-zero hard delta is rejected by the accept gate).
+        best = None
+        best_cost = None
+        for mode in self._postprocess_transport_modes(query, prev_pos, name):
+            transports, arrival = self._postprocess_collect_transport(
+                query, prev_pos, name, current_time, mode
+            )
+            if transports is None:
+                continue
+            if arrival and not time_compare_if_earlier_equal(arrival, window_a):
+                if latest is None or self._time_minutes(arrival) > latest:
+                    continue
+            cost = sum(float(t.get("cost", 0) or 0) for t in transports)
+            if best is None or cost < best_cost:
+                best, best_cost = transports, cost
+        return best
+
+    def _build_windowed_poi_insertion(
+        self, query, itinerary, day_idx, row, target_kind, window_a, window_b
+    ):
+        """One candidate itinerary with `row` inserted on day_idx pinned to
+        [window_a, window_b]; None when the day cannot host the window."""
+        updated = deepcopy(itinerary)
+        acts = updated[day_idx].get("activities", [])
+        start_min = self._time_minutes(window_a)
+        end_min = self._time_minutes(window_b)
+        if end_min <= start_min:
+            return None
+        protected = set(self.must_see_attraction or []) | set(
+            self.must_visit_restaurant or []
+        )
+        kept = []
+        for act in acts:
+            if self._is_intercity_activity(act):
+                # intercity legs sit at the day boundary (arrival first /
+                # departure last) and may run OVERNIGHT (end < start on the
+                # clock), so raw minute-overlap is meaningless; keep the leg
+                # and enforce the window against the boundary times below.
+                kept.append(act)
+                continue
+            other_start = self._time_minutes(act.get("start_time"))
+            other_end = self._time_minutes(act.get("end_time"))
+            if not (other_start < end_min and start_min < other_end):
+                kept.append(act)
+                continue
+            if act.get("type") == "accommodation":
+                act["start_time"] = window_b  # check-in start is movable
+                kept.append(act)
+                continue
+            if self._activity_position(act) in protected:
+                return None  # cannot displace another required stop today
+            # overlapping filler activity: drop it
+        new_act = {
+            "position": row["name"],
+            "type": (
+                "attraction"
+                if target_kind == "attraction"
+                else self._meal_type_for_window(window_a)
+            ),
+            "price": int(row["price"]),
+            "cost": int(row["price"]) * query["people_number"],
+            "start_time": window_a,
+            "end_time": window_b,
+            "transports": [],
+        }
+        if target_kind == "attraction":
+            new_act["tickets"] = query["people_number"]
+        # intercity legs are ORDERING BOUNDARIES: everything on the day sits
+        # after the arrival leg and before the departure leg.  Enforce the
+        # window against the boundary clock times (string comparison — safe
+        # for overnight arrivals whose start is the previous evening) and
+        # search insertion slots only between the boundaries.
+        lead = 0
+        while lead < len(kept) and self._is_intercity_activity(kept[lead]):
+            lead += 1
+        tail = len(kept)
+        while tail > lead and self._is_intercity_activity(kept[tail - 1]):
+            tail -= 1
+        if lead > 0:
+            arrival_end = kept[lead - 1].get("end_time")
+            if arrival_end and not time_compare_if_earlier_equal(
+                arrival_end, window_a
+            ):
+                return None  # window opens before the day's arrival
+        if tail < len(kept):
+            departure_start = kept[tail].get("start_time")
+            if departure_start and not time_compare_if_earlier_equal(
+                window_b, departure_start
+            ):
+                return None  # window closes after the departure leaves
+        insert_idx = tail
+        for idx in range(lead, tail):
+            if self._time_minutes(kept[idx].get("start_time")) >= end_min:
+                insert_idx = idx
+                break
+        prev_act = kept[insert_idx - 1] if insert_idx > 0 else None
+        if prev_act is None:
+            for d in range(day_idx - 1, -1, -1):
+                prev_acts = updated[d].get("activities", [])
+                if prev_acts:
+                    prev_act = prev_acts[-1]
+                    break
+        transports = self._pinned_transport_legs(
+            query, prev_act, row["name"], window_a, window_b
+        )
+        if transports is None:
+            return None
+        new_act["transports"] = transports
+        if transports:
+            arrival = transports[-1].get("end_time")
+            # late-but-within arrival: start at the arrival time (still >= A
+            # is NOT required by 'within'; only start>=A OR the oracle's
+            # actual check start>=A -- keep max(A, arrival) so an early
+            # arrival still pins to A).
+            if arrival and not time_compare_if_earlier_equal(arrival, window_a):
+                new_act["start_time"] = arrival
+        kept.insert(insert_idx, new_act)
+        self._reconnect_day_transports(kept)
+        if not self._rebuild_intercity_access(query, kept):
+            return None
+        updated[day_idx]["activities"] = kept
+        return updated
+
+    def _reconnect_day_transports(self, activities):
+        """Clear transport chains whose origin no longer matches the previous
+        activity (after inserts/drops re-ordered a day) so the accept-path
+        repair_full_itinerary rebuilds them from the right position.  The
+        chain of the first activity is left alone (it connects to the
+        previous day).  Intercity legs are left untouched: repair_activity_edge
+        skips them, so their access chains are rebuilt explicitly by
+        _rebuild_intercity_access instead."""
+        for idx in range(1, len(activities)):
+            act = activities[idx]
+            if self._is_intercity_activity(act):
+                continue
+            transports = act.get("transports") or []
+            if not transports:
+                continue
+            origin = transports[0].get("start")
+            prev_pos = self._activity_position(activities[idx - 1])
+            if origin and prev_pos and origin != prev_pos:
+                act["transports"] = []
+
+    def _rebuild_intercity_access(self, query, activities):
+        """Rebuild the access transports of intercity legs whose predecessor
+        changed (repair_activity_edge skips intercity activities, so a stale
+        or missing access chain would survive to the commonsense check).
+
+        Returns False when some intercity leg can no longer be reached in
+        time from its new predecessor -- the caller must discard the
+        candidate."""
+        for idx in range(1, len(activities)):
+            act = activities[idx]
+            if not self._is_intercity_activity(act):
+                continue
+            station = act.get("start")
+            if not station:
+                continue
+            prev_act = activities[idx - 1]
+            prev_pos = self._activity_end_position(prev_act)
+            if not prev_pos or prev_pos == station:
+                continue
+            transports = act.get("transports") or []
+            if transports and transports[0].get("start") == prev_pos:
+                continue
+            current_time = (
+                prev_act.get("end_time") or prev_act.get("start_time") or "08:00"
+            )
+            deadline = act.get("start_time")
+            best = None
+            best_cost = None
+            for mode in self._postprocess_transport_modes(query, prev_pos, station):
+                legs, arrival = self._postprocess_collect_transport(
+                    query, prev_pos, station, current_time, mode
+                )
+                if legs is None:
+                    continue
+                if (
+                    deadline
+                    and arrival
+                    and not time_compare_if_earlier_equal(arrival, deadline)
+                ):
+                    continue
+                cost = sum(float(t.get("cost", 0) or 0) for t in legs)
+                if best is None or cost < best_cost:
+                    best, best_cost = legs, cost
+            if best is None:
+                return False
+            act["transports"] = best
+        return True
+
+    def _droppable_filler_positions(self, itinerary):
+        """Unprotected attraction positions, most-expensive transport chain
+        first: candidates for freeing scoped transport/overall budget so a
+        REQUIRED windowed POI can fit.  Windowed names never qualify."""
+        protected = set(self.must_see_attraction or []) | set(
+            self.must_visit_restaurant or []
+        )
+        protected |= {n for n, _ in self._all_window_spec_items()}
+        scored = []
+        for day in itinerary:
+            for act in day.get("activities", []):
+                if act.get("type") != "attraction":
+                    continue
+                pos = self._activity_position(act)
+                if not pos or pos in protected:
+                    continue
+                leg_cost = sum(
+                    float(t.get("cost", 0) or 0)
+                    for t in act.get("transports") or []
+                )
+                scored.append((leg_cost, pos))
+        scored.sort(reverse=True)
+        return [pos for _, pos in scored]
+
+    def _itinerary_without_position(self, query, itinerary, position):
+        """Deep-copied itinerary with the first activity at `position`
+        removed and its day's transport chains made rebuildable; None when
+        the drop leaves an unreachable intercity leg."""
+        updated = deepcopy(itinerary)
+        for day in updated:
+            acts = day.get("activities", [])
+            for idx, act in enumerate(acts):
+                if (
+                    act.get("type") == "attraction"
+                    and self._activity_position(act) == position
+                ):
+                    del acts[idx]
+                    self._reconnect_day_transports(acts)
+                    if not self._rebuild_intercity_access(query, acts):
+                        return None
+                    return updated
+        return None
+
+    def _insert_missing_windowed_pois(self, query, plan):
+        """Insert absent REQUIRED windowed POIs as fixed appointments on
+        their 'within' window [A, B].
+
+        Search-time slot filling can drop a windowed must-see/must-dine
+        entirely: its compatible slot goes to another must POI, or the window
+        sits after the day's last activity (post-dinner evening windows).
+        Rebuild it here day by day: pin the POI exactly onto [A, B], drop
+        overlapping non-protected fillers, shift the (movable) hotel check-in,
+        pre-build transports that arrive by A.  Every candidate goes through
+        _try_accept_repair (commonsense + strict hard-pass improvement), so
+        the pass never regresses a plan and is skipped outright for queries
+        without window constraints."""
+        if not isinstance(plan, dict) or not plan.get("itinerary"):
+            return plan
+        spec_items = self._all_window_spec_items()
+        if not spec_items:
+            return plan
+        must_attr = set(self.must_see_attraction or [])
+        must_res = set(self.must_visit_restaurant or [])
+        repaired = plan
+        for name, spec in spec_items:
+            if not isinstance(spec, dict) or spec.get("semantics") == "cover":
+                continue
+            window = spec.get("window") or [None, None]
+            window_a, window_b = window[0], window[1]
+            if not window_a or not window_b:
+                continue
+            kind = spec.get("kind")
+            if name in must_attr and kind in (None, "attraction"):
+                info, target_kind = self.memory["attractions"], "attraction"
+            elif name in must_res and kind in (None, "meal"):
+                info, target_kind = self.memory["restaurants"], "restaurant"
+            else:
+                continue
+            if name in self._plan_positions(repaired.get("itinerary")):
+                continue
+            match = info[info["name"] == name]
+            if match.empty:
+                continue
+            row = match.iloc[0]
+            placed = False
+            for day_idx in range(len(repaired["itinerary"])):
+                candidate = self._build_windowed_poi_insertion(
+                    query,
+                    repaired["itinerary"],
+                    day_idx,
+                    row,
+                    target_kind,
+                    window_a,
+                    window_b,
+                )
+                if candidate is None:
+                    continue
+                repaired, accepted = self._try_accept_repair(
+                    query, repaired, candidate
+                )
+                if accepted:
+                    placed = True
+                    break
+            if placed:
+                continue
+            # Plain insertion rejected on every day -- typically the extra
+            # transport legs push a scoped innercity/overall cost cap over
+            # its limit (net-zero hard delta).  Retry with ONE unprotected
+            # filler attraction dropped (most expensive transport chain
+            # first) to free budget; the accept gate still requires a strict
+            # hard-pass improvement, so a bad drop can never land.  Variant
+            # candidates stop at the emission deadline (packaged-agent
+            # budget safety).
+            timeout_guard = getattr(self, "time_before_search", 0) + max(
+                1, getattr(self, "TIME_CUT", 300) - 5
+            )
+            for drop_pos in self._droppable_filler_positions(
+                repaired["itinerary"]
+            )[:6]:
+                if time.time() > timeout_guard:
+                    break
+                reduced = self._itinerary_without_position(
+                    query, repaired["itinerary"], drop_pos
+                )
+                if reduced is None:
+                    continue
+                for day_idx in range(len(reduced)):
+                    candidate = self._build_windowed_poi_insertion(
+                        query,
+                        reduced,
+                        day_idx,
+                        row,
+                        target_kind,
+                        window_a,
+                        window_b,
+                    )
+                    if candidate is None:
+                        continue
+                    repaired, accepted = self._try_accept_repair(
+                        query, repaired, candidate
+                    )
+                    if accepted:
+                        placed = True
+                        break
+                if placed:
+                    break
+        return repaired
+
+    def _swap_windowed_must_dine_conflict(self, query, plan):
+        """Free a windowed must-dine's only compatible meal slot.
+
+        Ordinary slot filling can hand the one meal slot compatible with a
+        windowed must_visit_restaurant to an UNWINDOWED must-dine (both are
+        protected, so replacement passes cannot touch it).  Swap instead:
+        move the unwindowed occupant into another non-required meal slot and
+        pin the windowed POI onto [A, B] in the freed slot.  Candidates go
+        through _try_accept_repair, so the swap only lands when it strictly
+        improves the hard-pass count."""
+        if not isinstance(plan, dict) or not plan.get("itinerary"):
+            return plan
+        must_res = set(self.must_visit_restaurant or [])
+        if not must_res:
+            return plan
+        windowed_names = {
+            n
+            for n, s in self._all_window_spec_items()
+            if isinstance(s, dict) and s.get("semantics") != "cover"
+        }
+        res_info = self.memory["restaurants"]
+        people = query["people_number"]
+        repaired = plan
+        for name, spec in self._all_window_spec_items():
+            if name not in must_res or not isinstance(spec, dict):
+                continue
+            if spec.get("semantics") == "cover" or spec.get("kind") not in (None, "meal"):
+                continue
+            window = spec.get("window") or [None, None]
+            window_a, window_b = window[0], window[1]
+            if not window_a or not window_b:
+                continue
+            if name in self._plan_positions(repaired.get("itinerary")):
+                continue
+            match = res_info[res_info["name"] == name]
+            if match.empty:
+                continue
+            row = match.iloc[0]
+            meal_type = self._meal_type_for_window(window_a)
+            itinerary = repaired.get("itinerary", [])
+            occupied, spare = [], []
+            for day_idx, day in enumerate(itinerary):
+                for act_idx, act in enumerate(day.get("activities", [])):
+                    act_type = act.get("type")
+                    pos = self._activity_position(act)
+                    if (
+                        act_type == meal_type
+                        and pos in must_res
+                        and pos not in windowed_names
+                    ):
+                        occupied.append((day_idx, act_idx, pos))
+                    elif act_type in {"lunch", "dinner"} and pos not in must_res:
+                        spare.append((day_idx, act_idx))
+            done = False
+            for o_day, o_idx, occupant in occupied:
+                occ_match = res_info[res_info["name"] == occupant]
+                if occ_match.empty:
+                    continue
+                occ_row = occ_match.iloc[0]
+                for s_day, s_idx in spare:
+                    candidate = deepcopy(itinerary)
+                    dest = candidate[s_day]["activities"][s_idx]
+                    sched = self._replacement_activity_times(
+                        dest, occ_row, "restaurant"
+                    )
+                    if sched is None:
+                        continue
+                    dest["position"] = occ_row["name"]
+                    dest["price"] = int(occ_row["price"])
+                    dest["cost"] = int(occ_row["price"]) * people
+                    dest["start_time"], dest["end_time"] = sched
+                    src = candidate[o_day]["activities"][o_idx]
+                    prev_act = (
+                        candidate[o_day]["activities"][o_idx - 1]
+                        if o_idx > 0
+                        else None
+                    )
+                    transports = self._pinned_transport_legs(
+                        query, prev_act, row["name"], window_a, window_b
+                    )
+                    if transports is None:
+                        continue
+                    src["position"] = row["name"]
+                    src["price"] = int(row["price"])
+                    src["cost"] = int(row["price"]) * people
+                    src["start_time"], src["end_time"] = window_a, window_b
+                    if transports:
+                        arrival = transports[-1].get("end_time")
+                        if arrival and not time_compare_if_earlier_equal(
+                            arrival, window_a
+                        ):
+                            src["start_time"] = arrival
+                    src["transports"] = transports
+                    ok = True
+                    for d in {o_day, s_day}:
+                        self._reconnect_day_transports(
+                            candidate[d]["activities"]
+                        )
+                        if not self._rebuild_intercity_access(
+                            query, candidate[d]["activities"]
+                        ):
+                            ok = False
+                            break
+                    if not ok:
+                        continue
+                    repaired, accepted = self._try_accept_repair(
+                        query, repaired, candidate
+                    )
+                    if accepted:
+                        done = True
+                        break
+                    # The swap can push an unprotected filler on a modified
+                    # day out of its opening hours (the new occupant sits at
+                    # a different location).  Retry the same swap with one
+                    # such filler dropped, trying the DIRECT SUCCESSORS of
+                    # the two modified slots first (they are the activities
+                    # whose arrival times the swap changed); the accept gate
+                    # still requires a strict hard-pass improvement.
+                    protected_drop = (
+                        set(self.must_see_attraction or [])
+                        | set(self.must_visit_restaurant or [])
+                        | {n for n, _ in self._all_window_spec_items()}
+                    )
+                    drop_order = []
+                    for d, i in ((s_day, s_idx), (o_day, o_idx)):
+                        day_acts = candidate[d]["activities"]
+                        for follow in day_acts[i + 1:]:
+                            if follow.get("type") != "attraction":
+                                continue
+                            pos = self._activity_position(follow)
+                            if pos and pos not in protected_drop:
+                                drop_order.append(pos)
+                            break
+                    for pos in self._droppable_filler_positions(candidate):
+                        if pos not in drop_order:
+                            drop_order.append(pos)
+                    timeout_guard = getattr(
+                        self, "time_before_search", 0
+                    ) + max(1, getattr(self, "TIME_CUT", 300) - 5)
+                    for drop_pos in drop_order[:6]:
+                        if time.time() > timeout_guard:
+                            break
+                        variant = self._itinerary_without_position(
+                            query, candidate, drop_pos
+                        )
+                        if variant is None:
+                            continue
+                        repaired, accepted = self._try_accept_repair(
+                            query, repaired, variant
+                        )
+                        if accepted:
+                            done = True
+                            break
+                    if done:
+                        break
+                if done:
+                    break
+        return repaired
+
     def _snap_window_activities(self, query, plan):
         """Pin windowed activities exactly onto their extracted [A, B] window.
 
@@ -2926,14 +3513,14 @@ class UrbanTripOptimizedV6(BaseAgent):
         chain and accepts only strict hard-pass improvements, so this pass can
         never regress a plan.
         """
-        specs = getattr(self, "activities_window_dict", None) or {}
-        if not specs or not isinstance(plan, dict) or not plan.get("itinerary"):
+        spec_items = self._all_window_spec_items()
+        if not spec_items or not isinstance(plan, dict) or not plan.get("itinerary"):
             return plan
         repaired = plan
         protected = set(self.must_see_attraction or []) | set(
             self.must_visit_restaurant or []
         )
-        for name, spec in specs.items():
+        for name, spec in spec_items:
             window = spec.get("window") or [None, None]
             window_a, window_b = window[0], window[1]
             if not window_a or not window_b:
@@ -3174,16 +3761,23 @@ class UrbanTripOptimizedV6(BaseAgent):
             if candidate_itinerary is not None:
                 repaired, _ = self._try_accept_repair(query, repaired, candidate_itinerary)
 
-        # phase-2 style: pin windowed activities (incl. hotel check-ins and
+        # phase-2 style: first materialize REQUIRED windowed POIs the search
+        # never placed (fixed-appointment insertion, incl. post-dinner evening
+        # windows) and resolve windowed-vs-unwindowed must-dine slot
+        # conflicts, then pin windowed activities (incl. hotel check-ins and
         # hotel meals) onto their [A, B] windows, then flush transport chains
-        # whose evaluator mode is banned. Both passes accept only strict
+        # whose evaluator mode is banned. All passes accept only strict
         # hard-pass improvements.
+        repaired = self._insert_missing_windowed_pois(query, repaired)
+        repaired = self._swap_windowed_must_dine_conflict(query, repaired)
         repaired = self._snap_window_activities(query, repaired)
         repaired = self._repair_banned_transport_chains(query, repaired)
 
-        # Budget-aware trim (6a): if the plan still exceeds overall_budget, swap
-        # non-must meals down toward the cheapest option to flip the budget line.
-        if self.enable_fallback_hard_repair:
+        # Budget-aware trim (6a): if the plan still exceeds overall_budget or
+        # its scoped dining cap, swap non-must meals down toward the cheapest
+        # option to flip the budget line.  The restaurant-scoped trim runs
+        # unconditionally (accept-gated, so it can never regress).
+        if self.enable_fallback_hard_repair or self.restaurant_budget is not None:
             repaired = self._budget_trim_repair(query, repaired)
 
         repaired["hard_pass_count"] = self._hard_pass_count(query, repaired)
@@ -7394,14 +7988,53 @@ class UrbanTripOptimizedV6(BaseAgent):
                         kind = "attraction"
                     else:
                         kind = None
-                    specs.setdefault(
-                        name,
-                        {"window": [t1, t2], "semantics": semantics, "kind": kind},
-                    )
+                    # key by (name, kind): one POI name can carry several
+                    # windows (e.g. a dine-at AND a stay-at window on the
+                    # same hotel).  Two 'within' windows on the SAME
+                    # (name, kind) must BOTH hold -> intersect them.
+                    key = (name, kind)
+                    existing = specs.get(key)
+                    if existing is None:
+                        specs[key] = {
+                            "window": [t1, t2],
+                            "semantics": semantics,
+                            "kind": kind,
+                        }
+                    elif (
+                        existing.get("semantics") == "within"
+                        and semantics == "within"
+                        and existing.get("window") != [t1, t2]
+                    ):
+                        cur_a, cur_b = existing["window"]
+                        new_a = cur_a if time_compare_if_earlier_equal(t1, cur_a) else t1
+                        new_b = cur_b if time_compare_if_earlier_equal(cur_b, t2) else t2
+                        if time_compare_if_earlier_equal(new_a, new_b):
+                            existing["window"] = [new_a, new_b]
                 return specs
 
-            window_specs = extract_activity_window_specs(dsl_str)
+            keyed_window_specs = extract_activity_window_specs(dsl_str)
+            # flatten to the name-keyed dict the scheduler consumes; extra
+            # windows on an already-claimed name (different activity kind)
+            # go to activities_window_extra so the window-snap repair can
+            # enforce them too (e.g. the stay-at window of a hotel whose
+            # dine-at window claimed the primary slot).  Placement-relevant
+            # kinds stay primary; accommodation windows are demoted to the
+            # extras (the hotel is always in the plan, so snapping suffices).
+            window_specs, window_extras = {}, []
+            for (w_name, _w_kind), w_spec in keyed_window_specs.items():
+                current = window_specs.get(w_name)
+                if current is None:
+                    window_specs[w_name] = w_spec
+                elif (
+                    current.get("kind") == "accommodation"
+                    and w_spec.get("kind") != "accommodation"
+                ):
+                    window_extras.append([w_name, current])
+                    window_specs[w_name] = w_spec
+                else:
+                    window_extras.append([w_name, w_spec])
             res["activities_window_dict"] = window_specs or None
+            res["activities_window_extra"] = window_extras or None
             if window_specs:
                 arrive = dict(res.get("activities_arrive_time_dict") or {})
                 leave = dict(res.get("activities_leave_time_dict") or {})
@@ -7555,16 +8188,23 @@ class UrbanTripOptimizedV6(BaseAgent):
                 and res.get("must_intercity_transport_all") is None
             ):
                 # superset idiom: {'airplane','train'} <= intercity_transport_set
-                # (oracle: every listed mode must appear on some leg)
+                # (oracle: every listed mode must appear on some leg).  Qwen
+                # also writes the singleton membership as a truthy
+                # INTERSECTION -- result=({'train'}&intercity_transport_set) --
+                # which is equivalent to {'train'}<=intercity_transport_set;
+                # the `result\s*=\s*(?:bool\()?\(` prefix keeps the negated ban
+                # form (result=not({...}&...)) out of this branch.
                 superset_modes = set()
-                for m in re.finditer(
+                for pattern in (
                     r"result\s*=\s*\(\s*\{([^}]*)\}\s*<=\s*intercity_transport_set\s*\)",
-                    dsl_str,
+                    r"result\s*=\s*(?:bool\s*\()?\(\s*\{([^}]*)\}\s*&\s*intercity_transport_set\s*\)",
+                    r"result\s*=\s*(?:bool\s*\()?\(\s*intercity_transport_set\s*&\s*\{([^}]*)\}\s*\)",
                 ):
-                    superset_modes.update(
-                        v for v in extract_list(m.group(1))
-                        if v in ("train", "airplane")
-                    )
+                    for m in re.finditer(pattern, dsl_str):
+                        superset_modes.update(
+                            v for v in extract_list(m.group(1))
+                            if v in ("train", "airplane")
+                        )
                 if len(superset_modes) == 2:
                     res["must_intercity_transport_all"] = sorted(superset_modes)
                 elif len(superset_modes) == 1:
