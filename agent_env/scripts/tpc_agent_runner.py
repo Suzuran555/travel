@@ -31,7 +31,6 @@ _ROOT = Path(__file__).resolve().parents[2]  # <repo root> (…/agent_env/script
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from chinatravel.agent.load_model import init_agent
 from chinatravel.environment.world_env import WorldEnv
 
 # Defaults (overridable via the [tpcagent] config section).
@@ -47,15 +46,25 @@ _STATE = {"deadline": None}    # global run deadline, set on first call
 
 
 def _package_imports():
-    """Import LLM + fallback from the installed package (submission: ``tpc_agent``),
-    falling back to the in-repo dev package name (``tpc_agent_penguins``)."""
-    try:
-        from chinatravel.agent.tpc_agent.tpc_llm import TPCLLM
-        from chinatravel.agent.tpc_agent.fallback_plan import build_fallback_plan
-    except Exception:
-        from chinatravel.agent.tpc_agent_penguins.tpc_llm import TPCLLM
-        from chinatravel.agent.tpc_agent_penguins.fallback_plan import build_fallback_plan
-    return TPCLLM, build_fallback_plan
+    """Resolve (TPCAgent, TPCLLM, build_fallback_plan) from the REAL planner
+    package. The submission installs it at ``chinatravel/agent/tpc_agent``; the
+    in-repo dev copy is ``tpc_agent_penguins`` while ``tpc_agent`` is only the
+    stock stub (no planner, empty plan). Gate on ``fallback_plan`` existing so
+    the stub is skipped in dev and the installed package is used in the
+    submission -- NOT via load_model.init_agent, which imports the stub."""
+    import importlib
+
+    last_exc = None
+    for pkg in ("tpc_agent", "tpc_agent_penguins"):
+        try:
+            base = f"chinatravel.agent.{pkg}"
+            bfp = importlib.import_module(f"{base}.fallback_plan").build_fallback_plan
+            TPCLLM = importlib.import_module(f"{base}.tpc_llm").TPCLLM
+            TPCAgent = importlib.import_module(f"{base}.tpc_agent").TPCAgent
+            return TPCAgent, TPCLLM, bfp
+        except Exception as exc:  # stub lacks fallback_plan -> try the next name
+            last_exc = exc
+    raise ImportError(f"No runnable tpc_agent package found: {last_exc!r}")
 
 
 def _apply_sglang_env(cfg):
@@ -74,26 +83,26 @@ def _apply_sglang_env(cfg):
 
 def _get_agent(lang, cache_dir, log_dir):
     if lang not in _AGENT:
-        TPCLLM, _ = _package_imports()
+        TPCAgent, TPCLLM, _ = _package_imports()
         os.makedirs(cache_dir, exist_ok=True)
         os.makedirs(log_dir, exist_ok=True)
-        _AGENT[lang] = init_agent(
-            {
-                "method": "TPCAgent",
-                "env": WorldEnv(lang=lang),
-                "backbone_llm": TPCLLM(),
-                "cache_dir": cache_dir,
-                "log_dir": log_dir,
-                "debug": False,
-                "lang": lang,
-            }
+        # Construct directly (matches init_agent's TPCAgent(**kwargs)) so we always
+        # build the REAL planner, never load_model's stub resolution.
+        _AGENT[lang] = TPCAgent(
+            method="TPCAgent",
+            env=WorldEnv(lang=lang),
+            backbone_llm=TPCLLM(),
+            cache_dir=cache_dir,
+            log_dir=log_dir,
+            debug=False,
+            lang=lang,
         )
     return _AGENT[lang]
 
 
 def _fallback(agent, query):
     try:
-        _, build_fallback_plan = _package_imports()
+        _, _, build_fallback_plan = _package_imports()
         return build_fallback_plan(query, agent.env)
     except Exception:
         traceback.print_exc()
