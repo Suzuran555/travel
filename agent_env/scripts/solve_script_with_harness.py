@@ -703,6 +703,19 @@ def solve_query(
     elif no_run_harness:
         print(f"Skipping {output_source_name(harness)} call because --no-run-harness was set.")
         return None
+    elif harness == "tpcagent":
+        # Custom in-process agent: run the team's deterministic NeSy planner.
+        from agent_env.scripts.tpc_agent_runner import run_tpc_agent
+
+        plan = run_tpc_agent(
+            uid=uid,
+            query=public_query,
+            lang=lang,
+            tpcagent_config=harness_config,
+            timeout=timeout,
+            cache_dir=str(PROJECT_ROOT / "cache" / method),
+            log_dir=str(run_dir),
+        )
     else:
         if harness == "opencode":
             completed = run_opencode(
@@ -888,8 +901,8 @@ def main() -> None:
     config = read_config(Path(args.config))
     run_config = config_section(config, "run")
     harness = str(choose(args.harness, run_config.get("harness"), "opencode"))
-    if harness not in {"opencode", "codex"}:
-        raise ValueError("Harness must be one of: opencode, codex.")
+    if harness not in {"opencode", "codex", "tpcagent"}:
+        raise ValueError("Harness must be one of: opencode, codex, tpcagent.")
     harness_config = config_section(config, harness)
     opencode_config = config_section(config, "opencode")
     codex_config = config_section(config, "codex")
@@ -900,6 +913,9 @@ def main() -> None:
     if harness == "opencode":
         harness_model_arg = choose(args.model, args.opencode_model, None)
         selected_config = opencode_config
+    elif harness == "tpcagent":
+        harness_model_arg = choose(args.model, None, None)
+        selected_config = harness_config
     else:
         harness_model_arg = choose(args.model, args.codex_model, None)
         selected_config = codex_config
