@@ -34,6 +34,16 @@ bash apply_to_teammate.sh /path/to/tpc-qwen36-official-api/harness
 - 本补丁的 `enrich_deoverlap.py` 已单独验证：对你 100 条计划做门控修复，精确复现 **6/14 → 92.19**。
 - 提交入口需符合新规范：`python agent_env/scripts/solve_script_with_harness.py`。若要接你的确定性 planner，参见我方仓库分支 `phase2/aug5-evaluator-and-deoverlap-fix` 里的 `PHASE2_HARNESS_GLUE.md` + `tpc_agent_runner.py`（自定义 `harness="tpcagent"` 接法，含 5h/100 预算与兜底）。
 
+## 关于 upstream `456b60a` 的完整同步（本补丁**不含**，建议你**跳过**）
+
+upstream 在 `764614c` 之后又到 `456b60a`，多加了 `concept_func` 归一化（+新文件 `concept_labels.py`）、更严的 schema 校验器、以及 environment tool apis 的改动。**我们在自己仓库分支已同步并验证过它，但本补丁没给你套上，原因：**
+
+1. **对评分零影响**：我们 1000 条计划在 `764614c` 与 `456b60a` 下打分**逐字节相同**（`71.16204575651886`，7 指标全同）。这组改动只影响 grounding/schema 的内部表示，不改变任何计划的判定。
+2. **和你的自定义交通代码冲突**：`456b60a` 的 `transportation/apis.py` 只新增了一个 `_find_nearest_station`（且 concept_func/评测器**并不调用**它），但**你的 `transportation/apis.py` 是你大改过的（相对 stock 有 188 行差异）**——直接覆盖会毁掉你的自定义交通逻辑。
+3. 组织方在他们统一环境里用**他们自己的**评测器评分，你 bundle 的评测器只用于生成期门控——meal/chronology（本补丁已给的 `764614c`）才是真正会改变判定的部分，grounding/schema 同步是可有可无的防御性对齐。
+
+**结论**：跳过 `456b60a` 闭包即可。若你确实想做 grounding/schema 对齐，只把 `concept_labels.py`（新增）、`concept_func.py`、`schema_constraint.py`、以及 accommodations/attractions/poi/restaurants 四个 tool apis 从最新 upstream 拷来，**唯独 `transportation/apis.py` 保留你自己的版本、或手工合并那 ~36 行 stock 改动**——但记住这不会改分。需要这几个文件我可以单独给。
+
 ## 包内容
 
 ```
