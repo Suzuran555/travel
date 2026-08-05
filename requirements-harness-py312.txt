@@ -1,0 +1,25 @@
+# Phase-2 harness dependencies — Python 3.12 (Debian 12), SGLANG-SERVED model.
+# DRAFT: the eval model (Qwen3.6-27B) is served externally by the organizers via
+# SGLang, so the harness only needs an OpenAI-compatible CLIENT plus the planner /
+# evaluator runtime deps. The heavy in-process inference stack (torch, vllm,
+# transformers, accelerate, flashinfer, modelscope) from the example's full
+# requirements.txt is NOT needed for a SGLang-API harness and is omitted here to
+# keep install fast and 3.12-clean. VERIFY on the organizer env (Py 3.12.13)
+# before submitting; add any module that import-errors during a dry run.
+
+# --- OpenAI-compatible client for the SGLang endpoint ---
+openai==1.53.0
+httpx==0.27.2
+
+# --- planner / evaluator core ---
+numpy==1.26.4
+pandas==2.2.3
+jsonschema==4.23.0
+geopy==2.4.1
+scikit-learn==1.5.2
+z3-solver==4.14.1.0
+func_timeout==4.3.5
+json_repair==0.30.0
+fuzzywuzzy==0.18.0
+tqdm==4.66.6
+packaging==24.2

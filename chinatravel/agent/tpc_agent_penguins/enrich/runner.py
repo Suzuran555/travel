@@ -23,6 +23,24 @@ from . import enrich_route as ER
 from .ctx import passes, soft_of, agent_for, qd
 
 
+def _stage_deoverlap(uid, plan):
+    """Repair base-plan chronology overlaps for the tightened Phase-2 evaluator.
+
+    Runs first: a plan that fails only on the new no-overlap / transport-timing
+    checks is rethreaded (time-only, position-preserving) so it passes, which
+    also lets the downstream soft-metric stages run on it. Gated: the repair is
+    kept only if the whole plan (schema + commonsense + generated hard logic)
+    becomes valid.
+    """
+    from . import enrich_deoverlap as M
+    if not plan.get("itinerary") or passes(uid, plan):
+        return plan
+    cand = M.repair(plan)
+    if passes(uid, cand):
+        return cand
+    return plan
+
+
 def _stage_endday(uid, plan):
     from . import enrich_endday as M
     if not plan.get("itinerary") or not passes(uid, plan):
@@ -181,7 +199,10 @@ def _stage_bfstack(uid, plan):
     r0 = M.ddr(plan)
     cand = copy.deepcopy(plan)
     b = M.add_default(cand)
-    b += M.add_stack(cand)              # run_full_pipeline.sh runs --stack
+    # --stack (add_stack) is DISABLED under the Phase-2 evaluator: it inserts a
+    # 2nd/3rd breakfast per day, which now fails the new "Repeated Meal Types in
+    # One Day" commonsense check (passes() would reject it anyway). Keep only the
+    # single legitimate hotel breakfast per breakfast-less morning.
     if b > 0 and M.ddr(cand) > r0 and passes(uid, cand):
         return cand
     return plan
@@ -257,6 +278,7 @@ def _stage_attdilute(uid, plan):
 
 
 STAGES = [
+    ("deoverlap", _stage_deoverlap),
     ("endday", _stage_endday),
     ("gapmeal", _stage_gapmeal),
     ("att", _stage_att),
