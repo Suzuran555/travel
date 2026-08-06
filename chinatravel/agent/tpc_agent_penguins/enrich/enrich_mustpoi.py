@@ -1,28 +1,34 @@
 """Required-POI repair pass (hard-logic recovery) for the Phase-2 evaluator.
 
 Parses required-POI targets from the GENERATED hard_logic_py (ctx.qd -- never
-oracle) in all dialects the live model emits ({X}<=set, 'X' in set,
-set=={X,Y}, not({X}&set)) with escaped-quote-safe extraction, and applies
-gated fixers:
+oracle) in every dialect the live model emits ({X}<=set, 'X' in set,
+set=={X,Y}, not({X}&set), not({X}&inner_city_transportation_set)) with
+escaped-quote-safe extraction, and applies gated fixers:
 
   A hotel-window / rebook : shift check-in into window, or rebook the hotel
+                            (price/room fields from DB + legs rebuilt)
   B meal-at-hotel         : insert / shift / relocate a meal at the hotel
   C named-restaurant      : relocate or insert a meal (DB price, goto legs),
                             never cannibalizing another required target
   D attraction insert     : evening-before-hotel slot OR any midday gap
-  E cuisine / attrtype    : set variants incl. forbidden-type removal
+  E cuisine / attrtype    : set variants (walk-first to spare budgets, skip
+                            already-satisfied, forbidden-type removal)
   F intercity swap        : return-leg swap to the required train/airplane
                             (skips if the requirement is already satisfied)
   G meal budget           : cheapest-relocation, then hotel-meal conversion
 
-Multi-item requirements are applied as a GROUP and gated as a whole. Every
-group is adopted only if the GENERATED-hard satisfied-count strictly improves
-and commonsense does not degrade. Measured on the DashScope live-NL
-familiar-100 (with deoverlap + fixspace): FPR 76 -> 92, C-LPR 82.7 -> 98.2,
-Overall 80.36 -> 93.08.
+Transport-mode exclusions (e.g. no-walk queries) are honored: banned modes are
+parsed from the generated constraints and every insert restricts its legs
+accordingly (metro composites contain walk segments, so banning walk bans
+metro too). Multi-item requirements are applied as a GROUP and gated as a
+whole. Every group is adopted only if the GENERATED-hard satisfied-count
+strictly improves and commonsense does not degrade. Measured on the DashScope
+live-NL familiar-100 (with deoverlap + fixspace):
+FPR 76 -> 93, C-LPR 82.7 -> 98.3, Overall 80.36 -> 93.54.
 """
 import re
 import copy
+import math
 from copy import deepcopy
 
 from . import ctx
@@ -40,6 +46,7 @@ def fmt(x):
 
 
 MEAL_WIN = {"breakfast": (360, 540), "lunch": (660, 840), "dinner": (1020, 1200)}
+ALLOWED_MODES = ("walk", "metro", "taxi")
 
 POS = r'activity_position\(activity\)==(?:"((?:\\.|[^"\\])+)"|\'((?:\\.|[^\'\\])+)\')'
 ST = r'activity_start_time\(activity\)>=[\'"]([0-9:]+)[\'"]'
@@ -140,6 +147,13 @@ def parse_targets(dsl_list):
         for it in items:
             tg.append({"kind":kindmap[setname],"poi":it,"lo":None,"hi":None,
                        "group":gid if len(items)>1 else None})
+    for c in dsl_list:
+        c1 = re.sub(r"\s+", " ", c)
+        m = re.search(r"result=not\(\{([^}]+)\}\s*&\s*inner_city_transportation_set\)", c1)
+        if not m: continue
+        items=[(a or b) for a,b in re.findall(r'"((?:\\.|[^"\\])+)"|\'((?:\\.|[^\'\\])+)\'', m.group(1))]
+        for it in items:
+            tg.append({"kind": "mode_excl", "poi": it, "lo": None, "hi": None})
     # set-membership requirements: ({...} <= xxx_set), no window
     for c in dsl_list:
         c1 = re.sub(r"\s+", " ", c)
@@ -225,7 +239,7 @@ def fix_meal_at_restaurant(plan, poi, lo, hi, city, ppl, protected=None):
                 prev_end = hm(prev["end_time"]) if prev and prev.get("end_time") else None
                 if not prev_pos or prev_end is None: continue
                 tr1 = None
-                for mode in ("metro", "taxi", "walk"):
+                for mode in ALLOWED_MODES:
                     probe = LA.goto(city, prev_pos, poi, "09:00", mode, ppl)
                     if not probe: continue
                     d1 = hm(probe[-1]["end_time"]) - hm(probe[0]["start_time"])
@@ -243,7 +257,7 @@ def fix_meal_at_restaurant(plan, poi, lo, hi, city, ppl, protected=None):
                 if nxt is not None:
                     nxt_pos = nxt.get("position") or (nxt.get("start") if nxt.get("start") else None)
                 if nxt_pos and N(nxt_pos) != N(poi):
-                    for mode in ("metro", "walk", "taxi"):
+                    for mode in ALLOWED_MODES:
                         probe = LA.goto(city, poi, nxt_pos, "09:00", mode, ppl)
                         if not probe: continue
                         d2 = hm(probe[-1]["end_time"]) - hm(probe[0]["start_time"])
@@ -297,14 +311,14 @@ def fix_attr_window(plan, poi, lo, hi, city, ppl):
         prev_pos = prev.get("position") or prev.get("end")
         prev_end = hm(prev["end_time"]) if prev.get("end_time") else None
         if not prev_pos or prev_end is None: continue
-        for mode in ("metro", "walk", "taxi"):
+        for mode in ALLOWED_MODES:
             p1 = LA.goto(city, prev_pos, poi, "09:00", mode, ppl)
             if not p1: continue
             d1 = hm(p1[-1]["end_time"]) - hm(p1[0]["start_time"])
             st = max(wl, prev_end + d1)
             ed = st + 30
             if ed > wh: continue
-            for m2 in ("metro", "walk", "taxi"):
+            for m2 in ALLOWED_MODES:
                 p2 = LA.goto(city, poi, H.get("position",""), "09:00", m2, ppl)
                 if not p2: continue
                 d2 = hm(p2[-1]["end_time"]) - hm(p2[0]["start_time"])
@@ -322,13 +336,24 @@ def fix_attr_window(plan, poi, lo, hi, city, ppl):
                 return p
     return None
 
-def fix_cuisine(plan, cuisine, city, ppl):
-    """Relocate (or insert) a meal at any restaurant of the required cuisine."""
+def fix_cuisine(plan, cuisine, city, ppl, protected=None):
+    """Relocate (or insert) a meal at any restaurant of the required cuisine.
+    Donors at protected positions are never relocated."""
     db = _rest_db(city)
+    # already satisfied? (some meal's cuisine == required)
+    cmap = dict(zip(db["name"], db["cuisine"]))
+    for day in plan.get("itinerary") or []:
+        for a in day["activities"]:
+            if a.get("type") in MEAL_WIN and cmap.get(a.get("position")) == cuisine:
+                return None
     rows = db[db["cuisine"] == cuisine].sort_values("price")
     if rows.empty: return None
+    if "walk" in ALLOWED_MODES:
+        for _, r in rows.iterrows():                # pass 1: walk-only (zero cost)
+            cand = fix_insert_meal(plan, r["name"], None, None, city, ppl, modes=("walk",))
+            if cand is not None: return cand
     for _, r in rows.iterrows():
-        cand = fix_meal_at_restaurant(plan, r["name"], None, None, city, ppl)
+        cand = fix_meal_at_restaurant(plan, r["name"], None, None, city, ppl, protected=protected)
         if cand is not None: return cand
     for _, r in rows.iterrows():
         cand = fix_insert_meal(plan, r["name"], None, None, city, ppl)
@@ -392,7 +417,8 @@ def fix_shift_meal(plan, poi, lo, hi):
             return p
     return None
 
-def fix_insert_meal(plan, poi, lo, hi, city, ppl):
+def fix_insert_meal(plan, poi, lo, hi, city, ppl, modes=None):
+    if modes is None: modes = ALLOWED_MODES
     """Insert a NEW meal at a DB restaurant into a free gap (day lacks type)."""
     db = _rest_db(city); row = db[db["name"] == poi]
     if row.empty: return None
@@ -413,7 +439,7 @@ def fix_insert_meal(plan, poi, lo, hi, city, ppl):
                 pe = hm(prev["end_time"]) if prev.get("end_time") else None
                 ns = hm(nxt["start_time"]) if nxt.get("start_time") else None
                 if pe is None or ns is None: continue
-                for m1 in ("metro","walk","taxi"):
+                for m1 in modes:
                     p1 = LA.goto(city, prev_pos, poi, "09:00", m1, ppl)
                     if not p1: continue
                     d1 = hm(p1[-1]["end_time"]) - hm(p1[0]["start_time"])
@@ -423,7 +449,7 @@ def fix_insert_meal(plan, poi, lo, hi, city, ppl):
                     if N(nxt_pos) == N(poi):
                         ok2 = ([], ns)
                     else:
-                        for m2 in ("metro","walk","taxi"):
+                        for m2 in modes:
                             p2 = LA.goto(city, poi, nxt_pos, "09:00", m2, ppl)
                             if not p2: continue
                             d2 = hm(p2[-1]["end_time"]) - hm(p2[0]["start_time"])
@@ -521,7 +547,7 @@ def fix_budget_targeted(plan, cap, city, ppl, protected):
                 if float(r["price"])*ppl >= float(a.get("cost") or 0)*0.7: break
                 if not ot_ok(r): continue
                 tr1=None
-                for mode in ("metro","taxi","walk"):
+                for mode in ALLOWED_MODES:
                     probe=LA.goto(city, prev_pos, r["name"], "09:00", mode, ppl)
                     if not probe: continue
                     d1=hm(probe[-1]["end_time"])-hm(probe[0]["start_time"])
@@ -537,7 +563,7 @@ def fix_budget_targeted(plan, cap, city, ppl, protected):
                     ns=hm(nxt["start_time"]) if nxt.get("start_time") else None
                     if nxt_pos and ns is not None and N(nxt_pos)!=N(r["name"]):
                         ok=False
-                        for m2 in ("metro","taxi","walk"):
+                        for m2 in ALLOWED_MODES:
                             p2=LA.goto(city, r["name"], nxt_pos, "09:00", m2, ppl)
                             if not p2: continue
                             d2=hm(p2[-1]["end_time"])-hm(p2[0]["start_time"])
@@ -607,7 +633,7 @@ def fix_attrtype_excl(plan, atype, city, ppl):
                     tr = None; ns = hm(nxt["start_time"]) if nxt.get("start_time") else None
                     pe = hm(prev["end_time"]) if prev.get("end_time") else None
                     if ns is not None and pe is not None:
-                        for mode in ("metro","taxi","walk"):
+                        for mode in ALLOWED_MODES:
                             probe = LA.goto(city, ppos, npos, "09:00", mode, ppl)
                             if not probe: continue
                             d1 = hm(probe[-1]["end_time"]) - hm(probe[0]["start_time"])
@@ -652,7 +678,7 @@ def fix_attr_gap(plan, poi, lo, hi, city, ppl):
             ns_dep = hm(ntrs[0]["start_time"]) if ntrs else (hm(nxt["start_time"]) if nxt.get("start_time") else None)
             if pe is None or ns_dep is None: continue
             if ns_dep - pe < 60: continue         # 空档太小
-            for m1 in ("metro","taxi","walk"):
+            for m1 in ALLOWED_MODES:
                 p1 = LA.goto(city, ppos, poi, "09:00", m1, ppl)
                 if not p1: continue
                 d1 = hm(p1[-1]["end_time"]) - hm(p1[0]["start_time"])
@@ -664,7 +690,7 @@ def fix_attr_gap(plan, poi, lo, hi, city, ppl):
                     arr = ed
                 else:
                     tr2 = None; arr = None
-                    for m2 in ("metro","taxi","walk"):
+                    for m2 in ALLOWED_MODES:
                         p2 = LA.goto(city, poi, npos, "09:00", m2, ppl)
                         if not p2: continue
                         d2 = hm(p2[-1]["end_time"]) - hm(p2[0]["start_time"])
@@ -734,6 +760,10 @@ def fix_hotel_rebook(plan, poi, lo, hi, city, ppl):
             if N(a.get("position","")) == N(poi): continue
             prev = acts[j-1] if j > 0 else None
             na = dict(a); na["position"] = poi
+            import math
+            _price=float(row.iloc[0]["price"]); _numbed=int(row.iloc[0].get("numbed",1) or 1)
+            _rooms=max(1, math.ceil(ppl/max(1,_numbed)))
+            na["price"]=_price; na["room_type"]=_numbed; na["rooms"]=_rooms; na["cost"]=_price*_rooms
             if lo is not None:
                 st = hm(a["start_time"]); na["start_time"] = fmt(max(st, lo))
             if prev is not None:
@@ -741,7 +771,7 @@ def fix_hotel_rebook(plan, poi, lo, hi, city, ppl):
                 pe = hm(prev["end_time"]) if prev.get("end_time") else None
                 if ppos and pe is not None and N(ppos) != N(poi):
                     tr=None
-                    for mode in ("metro","taxi","walk"):
+                    for mode in ALLOWED_MODES:
                         probe = LA.goto(city, ppos, poi, "09:00", mode, ppl)
                         if not probe: continue
                         d1 = hm(probe[-1]["end_time"]) - hm(probe[0]["start_time"])
@@ -758,7 +788,13 @@ def fix_hotel_rebook(plan, poi, lo, hi, city, ppl):
                 elif ppos and N(ppos) == N(poi):
                     na["transports"] = []
             acts[j] = na; changed=True
-    return p if changed else None
+    if not changed: return None
+    try:
+        from . import enrich_fixspace as _FS
+        p = _FS.repair(p, city, ppl)
+    except Exception:
+        pass
+    return p
 
 
 def hard_count(uid, plan):
@@ -775,6 +811,7 @@ def commonsense_ok(uid, plan):
 
 def repair(uid, plan):
     """Apply all fixers with group-level gating (generated constraints only)."""
+    global ALLOWED_MODES
     q = ctx.qd[uid]
     city = q["target_city"]
     ppl = int(q.get("people_number", 1) or 1)
@@ -795,57 +832,70 @@ def repair(uid, plan):
     tg = list(merged.values()) + rest
     if not tg:
         return plan
-    groups = []; seen_g = {}
-    for t in tg:
-        g = t.get("group")
-        if g:
-            if g not in seen_g:
-                seen_g[g] = []; groups.append(seen_g[g])
-            seen_g[g].append(t)
-        else:
-            groups.append([t])
-    protected = [x["poi"] for x in tg if x["kind"] == "meal_at"]
-    cur = plan
-    h0 = hard_count(uid, cur)
-    cs0 = commonsense_ok(uid, cur)
-    for gts in groups:
-        tmp = cur
-        for t in gts:
-            cand = None
-            if t["kind"] == "hotel_window":
-                cand = fix_hotel_window(tmp, t["poi"], t["lo"], t["hi"])
-                if cand is None:
-                    cand = fix_hotel_rebook(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
-            elif t["kind"] == "meal_at":
-                cand = fix_shift_meal(tmp, t["poi"], t["lo"], t["hi"])
-                if cand is None: cand = fix_meal_at_hotel(tmp, t["poi"], t["lo"], t["hi"])
-                if cand is None: cand = fix_relocate_meal_to_hotel(tmp, t["poi"], t["lo"], t["hi"])
-                if cand is None: cand = fix_meal_at_restaurant(tmp, t["poi"], t["lo"], t["hi"], city, ppl, protected=protected)
-                if cand is None: cand = fix_insert_meal(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
-            elif t["kind"] == "attr_window":
-                cand = fix_attr_window(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
-                if cand is None:
-                    cand = fix_attr_gap(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
-            elif t["kind"] == "cuisine":
-                cand = fix_cuisine(tmp, t["poi"], city, ppl)
-            elif t["kind"] == "attrtype":
-                cand = fix_attrtype(tmp, t["poi"], city, ppl)
-            elif t["kind"] == "attrtype_excl":
-                cand = fix_attrtype_excl(tmp, t["poi"], city, ppl)
-            elif t["kind"] == "intercity":
-                cand = fix_intercity(tmp, t["poi"], q["start_city"], city, city, ppl)
-            elif t["kind"] == "meal_budget":
-                cand = fix_budget_targeted(tmp, float(t["poi"]), city, ppl, protected)
-                if cand is None:
-                    cand = fix_budget_hotelize(tmp, float(t["poi"]), city, ppl, protected)
-            if cand is not None:
-                tmp = cand
-        if tmp is cur:
-            continue
-        if cs0 and not commonsense_ok(uid, tmp):
-            continue
-        h1 = hard_count(uid, tmp)
-        if h1 > h0:
-            cur, h0 = tmp, h1
-            cs0 = commonsense_ok(uid, cur)
-    return cur
+    banned = {t["poi"] for t in tg if t["kind"] == "mode_excl"}
+    allowed = [m for m in ("walk", "metro", "taxi") if m not in banned]
+    if "walk" in banned and "metro" in allowed:
+        allowed.remove("metro")     # metro composites contain walk segments
+    ALLOWED_MODES = tuple(allowed) or ("taxi",)
+    try:
+        groups = []; seen_g = {}
+        for t in tg:
+            g = t.get("group")
+            if g:
+                if g not in seen_g:
+                    seen_g[g] = []; groups.append(seen_g[g])
+                seen_g[g].append(t)
+            else:
+                groups.append([t])
+        protected = [x["poi"] for x in tg if x["kind"] == "meal_at"]
+        cur = plan
+        h0 = hard_count(uid, cur)
+        cs0 = commonsense_ok(uid, cur)
+        for gts in groups:
+            tmp = cur
+            for t in gts:
+                cand = None
+                if t["kind"] == "hotel_window":
+                    cand = fix_hotel_window(tmp, t["poi"], t["lo"], t["hi"])
+                    if cand is None:
+                        cand = fix_hotel_rebook(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
+                elif t["kind"] == "meal_at":
+                    cand = fix_shift_meal(tmp, t["poi"], t["lo"], t["hi"])
+                    if cand is None: cand = fix_meal_at_hotel(tmp, t["poi"], t["lo"], t["hi"])
+                    if cand is None: cand = fix_relocate_meal_to_hotel(tmp, t["poi"], t["lo"], t["hi"])
+                    if cand is None: cand = fix_meal_at_restaurant(tmp, t["poi"], t["lo"], t["hi"], city, ppl, protected=protected)
+                    if cand is None: cand = fix_insert_meal(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
+                elif t["kind"] == "attr_window":
+                    cand = fix_attr_window(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
+                    if cand is None:
+                        cand = fix_attr_gap(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
+                elif t["kind"] == "cuisine":
+                    _db = _rest_db(city); _cmap = dict(zip(_db["name"], _db["cuisine"]))
+                    _reqc = {x["poi"] for x in tg if x["kind"] == "cuisine"}
+                    _prot = list(protected)
+                    _prot += [a.get("position") for day in tmp.get("itinerary") or [] for a in day["activities"]
+                              if a.get("type") in ("breakfast", "lunch", "dinner") and _cmap.get(a.get("position")) in _reqc]
+                    cand = fix_cuisine(tmp, t["poi"], city, ppl, protected=_prot)
+                elif t["kind"] == "attrtype":
+                    cand = fix_attrtype(tmp, t["poi"], city, ppl)
+                elif t["kind"] == "attrtype_excl":
+                    cand = fix_attrtype_excl(tmp, t["poi"], city, ppl)
+                elif t["kind"] == "intercity":
+                    cand = fix_intercity(tmp, t["poi"], q["start_city"], city, city, ppl)
+                elif t["kind"] == "meal_budget":
+                    cand = fix_budget_targeted(tmp, float(t["poi"]), city, ppl, protected)
+                    if cand is None:
+                        cand = fix_budget_hotelize(tmp, float(t["poi"]), city, ppl, protected)
+                if cand is not None:
+                    tmp = cand
+            if tmp is cur:
+                continue
+            if cs0 and not commonsense_ok(uid, tmp):
+                continue
+            h1 = hard_count(uid, tmp)
+            if h1 > h0:
+                cur, h0 = tmp, h1
+                cs0 = commonsense_ok(uid, cur)
+        return cur
+    finally:
+        ALLOWED_MODES = ("walk", "metro", "taxi")
