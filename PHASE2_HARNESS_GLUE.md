@@ -63,6 +63,34 @@ python agent_env/scripts/solve_script_with_harness.py     # 组织方用 uv run 
    ```
    `plan` 随后走 `solve_query` 原有的公共尾部：`write_json(result_path, plan)` + `evaluate_one`。
 
+   **改动 4 — `solve_query()` guard `evaluate_one`（held-out 无 oracle 必需）：**
+   组织方澄清（2026-08-06）：正式 held-out 数据**不含任何** oracle/DSL 字段
+   （`hard_logic` / `hard_logic_py` / `hard_logic_nl` 等）。但 stock（含最新 `456b60a`）的
+   `evaluate_hard_constraints_v2` 会 `symbolic_input_dict[idx]["hard_logic_py"]` →
+   `KeyError`，而 `evaluate_one`/`solve_query`/`main` 都**没有** try 包裹，一崩就中断整个 run。
+   结果文件在 `evaluate_one` **之前**已写出（`results/<uid>.json` 才是交付物，组织方用他们自己的
+   ground-truth 分开评分），所以把这一处包起来即可：
+   ```python
+        write_json(result_path, plan)
+        print(f"Saved plan: {result_path}")
+   -    evaluation = evaluate_one(split, uid, query, plan)        # 新例子是 (..., plan, lang)
+   +    try:
+   +        evaluation = evaluate_one(split, uid, query, plan)    # 新例子是 (..., plan, lang)
+   +    except Exception as exc:
+   +        print(f"[eval] internal evaluate_one skipped ({type(exc).__name__}: {exc})")
+   +        evaluation = {"uid": uid, "split": split, "method": method, "eval_skipped": True}
+        write_json(eval_path, evaluation)
+   ```
+   已在本仓库验证：剥掉 oracle 字段后 `evaluate_one` 抛 `KeyError('hard_logic_py')`，被捕获→返回
+   `eval_skipped` stub，**run 不中断、`results/<uid>.json` 照写**。
+
+   **组织方命令与不硬编码（2026-08-06 澄清）：** 正式命令
+   `python agent_env/scripts/solve_script_with_harness.py --method <method> --split <split>`，
+   CLI 的 `--method/--split` 会覆盖 config（`choose(args.x, run_config.x, default)`）。我方 config
+   仅提供默认值、`limit=0`（=全部，不截断），**不硬编码** split / query 数 / method。**前提**：提交包里
+   必须有 `agent_env/config.toml`（`harness="tpcagent"`），因为组织方命令不带 `--harness`，
+   harness 从 `[run].harness` 读。用 `cp agent_env/config.toml.tpcagent agent_env/config.toml`。
+
 ## 运行
 
 ```bash

@@ -778,7 +778,16 @@ def solve_query(
     write_json(result_path, plan)
     print(f"Saved plan: {result_path}")
 
-    evaluation = evaluate_one(split, uid, query, plan)
+    # The formal Phase-2 held-out data carries NO oracle fields (hard_logic_py,
+    # etc.), so the harness-internal evaluate_one -> evaluate_hard_constraints_v2
+    # raises KeyError('hard_logic_py'). The result file above is the deliverable
+    # (organizers score it separately with their own ground truth), so never let
+    # internal scoring abort the run -- one bad query must not stop the other 99.
+    try:
+        evaluation = evaluate_one(split, uid, query, plan)
+    except Exception as exc:
+        print(f"[eval] internal evaluate_one skipped ({type(exc).__name__}: {exc})")
+        evaluation = {"uid": uid, "split": split, "method": method, "eval_skipped": True}
     write_json(eval_path, evaluation)
     print(f"Saved evaluation: {eval_path}")
     print(json.dumps(evaluation, ensure_ascii=False, indent=2, default=json_default))
