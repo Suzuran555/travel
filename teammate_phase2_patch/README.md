@@ -44,6 +44,24 @@ upstream 在 `764614c` 之后又到 `456b60a`，多加了 `concept_func` 归一�
 
 **结论**：跳过 `456b60a` 闭包即可。若你确实想做 grounding/schema 对齐，只把 `concept_labels.py`（新增）、`concept_func.py`、`schema_constraint.py`、以及 accommodations/attractions/poi/restaurants 四个 tool apis 从最新 upstream 拷来，**唯独 `transportation/apis.py` 保留你自己的版本、或手工合并那 ~36 行 stock 改动**——但记住这不会改分。需要这几个文件我可以单独给。
 
+## ⚠️ held-out 无 oracle 字段 + `evaluate_one` guard（**必做**，2026-08-06 组织方澄清）
+
+正式 held-out（100 题）**不含任何** oracle/DSL 字段（`hard_logic` / `hard_logic_py` / `hard_logic_nl`）。而 stock（含最新 GitHub `456b60a`）的 `evaluate_hard_constraints_v2` 会 `symbolic_input_dict[idx]["hard_logic_py"]` **无 guard** → `KeyError`，且 `evaluate_one`/`solve_query`/`main` 都没包 try，**一崩就在第 1 题后中断整个 run**。`results/<uid>.json` 在 `evaluate_one` **之前**已写（那才是交付物，组织方分开用他们的 ground-truth 评分），所以把这一处包起来即可：
+
+```python
+     write_json(result_path, plan)
+     print(f"Saved plan: {result_path}")
+-    evaluation = evaluate_one(split, uid, query, plan)      # 新例子是 (..., plan, lang)
++    try:
++        evaluation = evaluate_one(split, uid, query, plan)  # 新例子是 (..., plan, lang)
++    except Exception as exc:
++        print(f"[eval] internal evaluate_one skipped ({type(exc).__name__}: {exc})")
++        evaluation = {"uid": uid, "split": split, "method": method, "eval_skipped": True}
+     write_json(eval_path, evaluation)
+```
+
+**注意**：你的 harness zip 里**没有** `agent_env/scripts/solve_script_with_harness.py`（你用了自己的 run 脚本）。而组织方正式命令就是 `python agent_env/scripts/solve_script_with_harness.py --method <m> --split <s>`——所以你**必须把 harness 重构到最新例子**（`ChinaTravel_harness_example`，那里才有 solve_script + agent_env）。上面的 guard 就打在那个 solve_script 上。完整接入（自定义 agent 接入 solve_script 的 3 处编辑 + 这条 guard = 4 处、config、5h/100 预算+兜底）见本包 `harness_glue/PHASE2_HARNESS_GLUE.md` + `tpc_agent_runner.py` + `config.toml.tpcagent`。我们已在本机 Mac 用 Ollama 验证过这套接法端到端可跑。
+
 ## 包内容
 
 ```
@@ -54,4 +72,7 @@ files/enrich/enrich_deoverlap.py             de-overlap 模块（自包含）
 files/evaluator/symbol_verification/commonsense_constraint.py   新 meal+chronology 检查
 files/evaluator/evaluation/commonsense_constraint.py            新异常暴露
 files/evaluator/eval_tpc.py                  新 scoring（含偏好耦合修正）
+harness_glue/PHASE2_HARNESS_GLUE.md          harness 接入指南（4 处编辑，含 evaluate_one guard）
+harness_glue/tpc_agent_runner.py             自定义 agent 接入 solve_script（5h/100 预算+兜底）
+harness_glue/config.toml.tpcagent            harness="tpcagent" 配置模板
 ```
