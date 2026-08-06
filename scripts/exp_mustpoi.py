@@ -86,15 +86,32 @@ def parse_targets(dsl_list):
         k = "attrtype_excl" if m.group(2)=="attraction_type_set" else "cuisine_excl"
         for it in items:
             tg.append({"kind": k, "poi": it, "lo": None, "hi": None})
+    for c in dsl_list:
+        c1 = re.sub(r"\s+", " ", c)
+        m = re.search(r"result=\((intercity_transport_set|attraction_name_set|restaurant_name_set|restaurant_type_set|attraction_type_set)\s*==\s*\{([^}]+)\}\)", c1) \
+            or re.search(r"result=\(\{([^}]+)\}\s*==\s*(intercity_transport_set|attraction_name_set|restaurant_name_set|restaurant_type_set|attraction_type_set)\)", c1)
+        if not m: continue
+        g1,g2=m.group(1),m.group(2)
+        setname, body = (g1,g2) if "set" in g1 else (g2,g1)
+        items=[(a or b).replace("\\'","'").replace('\\"','"')
+               for a,b in re.findall(r'"((?:\\.|[^"\\])+)"|\'((?:\\.|[^\'\\])+)\'', body)]
+        kindmap={"attraction_name_set":"attr_window","restaurant_name_set":"meal_at",
+                 "restaurant_type_set":"cuisine","attraction_type_set":"attrtype",
+                 "intercity_transport_set":"intercity"}
+        gid="eq%d"%len(tg)
+        for it in items:
+            tg.append({"kind":kindmap[setname],"poi":it,"lo":None,"hi":None,
+                       "group":gid if len(items)>1 else None})
     # set-membership requirements: ({...} <= xxx_set), no window
     for c in dsl_list:
         c1 = re.sub(r"\s+", " ", c)
-        m = re.search(r"result=\(\{([^}]+)\}\s*<=\s*(attraction_name_set|restaurant_name_set|restaurant_type_set|attraction_type_set)\)", c1)
+        m = re.search(r"result=\(\{([^}]+)\}\s*<=\s*(attraction_name_set|restaurant_name_set|restaurant_type_set|attraction_type_set|intercity_transport_set)\)", c1)
         if not m: continue
         items = [ (a or b).replace("\\'","'").replace('\\"','"')
                   for a,b in re.findall(r'"((?:\\.|[^"\\])+)"|\'((?:\\.|[^\'\\])+)\'', m.group(1)) ]
         kindmap = {"attraction_name_set": "attr_window", "restaurant_name_set": "meal_at",
-                   "restaurant_type_set": "cuisine", "attraction_type_set": "attrtype"}
+                   "restaurant_type_set": "cuisine", "attraction_type_set": "attrtype",
+                   "intercity_transport_set": "intercity"}
         gid = "set%d" % len(tg)
         for it in items:
             tg.append({"kind": kindmap[m.group(2)], "poi": it, "lo": None, "hi": None,
@@ -210,14 +227,18 @@ def main():
                 cand = None
                 if t["kind"] == "hotel_window":
                     cand = fix_hotel_window(tmp, t["poi"], t["lo"], t["hi"])
+                    if cand is None:
+                        cand = fix_hotel_rebook(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
                 elif t["kind"] == "meal_at":
                     cand = fix_shift_meal(tmp, t["poi"], t["lo"], t["hi"])
                     if cand is None: cand = fix_meal_at_hotel(tmp, t["poi"], t["lo"], t["hi"])
                     if cand is None: cand = fix_relocate_meal_to_hotel(tmp, t["poi"], t["lo"], t["hi"])
-                    if cand is None: cand = fix_meal_at_restaurant(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
+                    if cand is None: cand = fix_meal_at_restaurant(tmp, t["poi"], t["lo"], t["hi"], city, ppl, protected=[x["poi"] for x in tg if x["kind"]=="meal_at"])
                     if cand is None: cand = fix_insert_meal(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
                 elif t["kind"] == "attr_window":
                     cand = fix_attr_window(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
+                    if cand is None:
+                        cand = fix_attr_gap(tmp, t["poi"], t["lo"], t["hi"], city, ppl)
                 elif t["kind"] == "cuisine":
                     cand = fix_cuisine(tmp, t["poi"], city, ppl)
                 elif t["kind"] == "attrtype":
@@ -229,6 +250,8 @@ def main():
                 elif t["kind"] == "meal_budget":
                     protected = [x["poi"] for x in tg if x["kind"] in ("meal_at",)]
                     cand = fix_budget_targeted(tmp, float(t["poi"]), city, ppl, protected)
+                    if cand is None:
+                        cand = fix_budget_hotelize(tmp, float(t["poi"]), city, ppl, protected)
                 if cand is not None: tmp = cand
             if tmp is cur: continue
             _, _, _, cp0 = evaluate_commonsense_constraints([uid], {uid: full}, {uid: cur}, verbose=False, lang="en")
@@ -265,8 +288,9 @@ def _win_type(lo, hi):
         if h - l >= 25: cands.append((ty, l, h))
     return cands
 
-def fix_meal_at_restaurant(plan, poi, lo, hi, city, ppl):
+def fix_meal_at_restaurant(plan, poi, lo, hi, city, ppl, protected=None):
     """Relocate an existing meal to the required restaurant within window."""
+    prot = {N(x) for x in (protected or [])}
     db = _rest_db(city); row = db[db["name"] == poi]
     if row.empty: return None
     price = float(row.iloc[0]["price"]); ot = hm(str(row.iloc[0]["opentime"])); et = hm(str(row.iloc[0]["endtime"]))
@@ -278,6 +302,7 @@ def fix_meal_at_restaurant(plan, poi, lo, hi, city, ppl):
             acts = day["activities"]
             for j, a in enumerate(acts):
                 if a.get("type") != ty: continue
+                if N(a.get("position","")) in prot: continue
                 prev = acts[j-1] if j > 0 else None
                 nxt = acts[j+1] if j+1 < len(acts) else None
                 prev_pos = prev.get("position") or prev.get("end") if prev else None
@@ -385,7 +410,7 @@ def fix_attr_window(plan, poi, lo, hi, city, ppl):
 def fix_cuisine(plan, cuisine, city, ppl):
     """Relocate (or insert) a meal at any restaurant of the required cuisine."""
     db = _rest_db(city)
-    rows = db[db["cuisine"] == cuisine]
+    rows = db[db["cuisine"] == cuisine].sort_values("price")
     if rows.empty: return None
     for _, r in rows.iterrows():
         cand = fix_meal_at_restaurant(plan, r["name"], None, None, city, ppl)
@@ -404,6 +429,9 @@ def fix_attrtype(plan, atype, city, ppl):
     if rows.empty: return None
     for _, r in rows.iterrows():
         cand = fix_attr_window(plan, r["name"], None, None, city, ppl)
+        if cand is not None: return cand
+    for _, r in rows.iterrows():
+        cand = fix_attr_gap(plan, r["name"], None, None, city, ppl)
         if cand is not None: return cand
     return None
 
@@ -432,11 +460,14 @@ def fix_shift_meal(plan, poi, lo, hi):
                 if trs: continue
                 nst = max(nst, hm(prev["end_time"])); ned = nst + dur
                 if ned > h: continue
-            if nxt and nxt.get("start_time") and hm(nxt["start_time"]) < ned:
-                if nxt.get("type") == "accommodation" and not (nxt.get("transports") or []):
-                    nxt2 = dict(nxt); nxt2["start_time"] = fmt(ned); acts[j+1] = nxt2
-                else:
-                    continue
+            if nxt is not None:
+                ntrs = nxt.get("transports") or []
+                ndep = hm(ntrs[0]["start_time"]) if ntrs else (hm(nxt["start_time"]) if nxt.get("start_time") else 1440)
+                if ndep < ned:
+                    if nxt.get("type") == "accommodation" and not ntrs:
+                        nxt2 = dict(nxt); nxt2["start_time"] = fmt(ned); acts[j+1] = nxt2
+                    else:
+                        continue
             na = dict(a); na["start_time"] = fmt(nst); na["end_time"] = fmt(ned)
             trs = na.get("transports") or []
             if trs:
@@ -518,6 +549,11 @@ def fix_intercity(plan, req, start_city, target_city, city, ppl):
     p = deepcopy(plan)
     days = p["itinerary"]
     if not days: return None
+    # already satisfied anywhere? (outbound OR return) -> nothing to do
+    for _day in days:
+        for _a in _day["activities"]:
+            if _a.get("type") == req:
+                return None
     acts = days[-1]["activities"]
     if not acts: return None
     row = acts[-1]
@@ -709,6 +745,151 @@ def fix_attrtype_excl(plan, atype, city, ppl):
             removed = True
             break
     return p if removed else None
+
+
+def fix_budget_hotelize(plan, cap, city, ppl, protected):
+    """Budget rescue: convert the priciest unprotected meal to a booked-hotel
+    meal (price 0) when it sits adjacent to the hotel in the itinerary."""
+    p = deepcopy(plan)
+    prot = {N(x) for x in protected}
+    hotels = {N(a.get("position","")): a.get("position") for day in p["itinerary"]
+              for a in day["activities"] if a.get("type") == "accommodation"}
+    if not hotels: return None
+    for _ in range(4):
+        meals=[(di,j,a) for di,day in enumerate(p["itinerary"]) for j,a in enumerate(day["activities"]) if a.get("type") in MEAL_WIN]
+        total=sum(float(a.get("cost") or 0) for _,_,a in meals)
+        if total <= cap: return p
+        done=False
+        for di,j,a in sorted(meals,key=lambda x:-float(x[2].get("cost") or 0)):
+            if N(a.get("position","")) in prot or float(a.get("cost") or 0)<=0: continue
+            acts=p["itinerary"][di]["activities"]
+            days=p["itinerary"]
+            # 相邻酒店: 前一活动(或前一天末)或后一活动是住宿
+            prev = acts[j-1] if j>0 else (days[di-1]["activities"][-1] if di>0 and days[di-1]["activities"] else None)
+            nxt = acts[j+1] if j+1<len(acts) else None
+            hotel=None
+            if prev is not None and prev.get("type")=="accommodation": hotel=prev.get("position")
+            elif nxt is not None and nxt.get("type")=="accommodation": hotel=nxt.get("position")
+            if not hotel: continue
+            st,ed=hm(a["start_time"]),hm(a["end_time"])
+            wl,wh=MEAL_WIN[a["type"]]
+            if not (wl<=st and ed<=wh): continue
+            na=dict(a); na.update(position=hotel, price=0, cost=0, transports=[])
+            # 与前同位置->空交通 OK; 后一活动若与酒店同位置也要清它的交通
+            nacts=list(acts); nacts[j]=na
+            if nxt is not None and N(nxt.get("position",""))==N(hotel) and (nxt.get("transports") or []):
+                nn=dict(nxt); nn["transports"]=[]; nacts[j+1]=nn
+            p["itinerary"][di]["activities"]=nacts
+            done=True; break
+        if not done: return None
+    return None
+
+
+def fix_attr_gap(plan, poi, lo, hi, city, ppl):
+    """Insert the required attraction into ANY inter-activity gap (not just the
+    evening-before-hotel slot): travel in + 30min + travel out must fit."""
+    db = _attr_db(city); row = db[db["name"] == poi]
+    if row.empty: return None
+    price = float(row.iloc[0].get("price", 0) or 0)
+    ot = hm(str(row.iloc[0]["opentime"])); et = hm(str(row.iloc[0]["endtime"]))
+    wl = max(lo if lo is not None else 0, ot); wh = min(hi if hi is not None else 1440, et)
+    if wh - wl < 30: return None
+    for day in plan["itinerary"]:
+        for a in day["activities"]:
+            if a.get("type") == "attraction" and N(a.get("position","")) == N(poi):
+                return None
+    p = deepcopy(plan)
+    for day in p["itinerary"]:
+        acts = day["activities"]
+        for j in range(1, len(acts)):
+            prev, nxt = acts[j-1], acts[j]
+            ppos = prev.get("position") or prev.get("end")
+            npos = nxt.get("position") or nxt.get("start")
+            if not ppos or not npos: continue
+            pe = hm(prev["end_time"]) if prev.get("end_time") else None
+            ntrs = nxt.get("transports") or []
+            ns_dep = hm(ntrs[0]["start_time"]) if ntrs else (hm(nxt["start_time"]) if nxt.get("start_time") else None)
+            if pe is None or ns_dep is None: continue
+            if ns_dep - pe < 60: continue         # 空档太小
+            for m1 in ("metro","taxi","walk"):
+                p1 = LA.goto(city, ppos, poi, "09:00", m1, ppl)
+                if not p1: continue
+                d1 = hm(p1[-1]["end_time"]) - hm(p1[0]["start_time"])
+                st = max(wl, pe + d1); ed = st + 30
+                if ed > wh: continue
+                if N(npos) == N(poi):
+                    tr2 = None; fits = ed <= (hm(nxt["start_time"]) if nxt.get("start_time") else 1440)
+                    if not fits: continue
+                    arr = ed
+                else:
+                    tr2 = None; arr = None
+                    for m2 in ("metro","taxi","walk"):
+                        p2 = LA.goto(city, poi, npos, "09:00", m2, ppl)
+                        if not p2: continue
+                        d2 = hm(p2[-1]["end_time"]) - hm(p2[0]["start_time"])
+                        if ed + d2 <= (hm(nxt["start_time"]) if nxt.get("start_time") else 1440):
+                            sh2 = ed - hm(p2[0]["start_time"])
+                            tr2 = [dict(l, start_time=fmt(hm(l["start_time"])+sh2), end_time=fmt(hm(l["end_time"])+sh2)) for l in p2]
+                            break
+                    if tr2 is None: continue
+                sh1 = (st - d1) - hm(p1[0]["start_time"])
+                tr1 = [dict(l, start_time=fmt(hm(l["start_time"])+sh1), end_time=fmt(hm(l["end_time"])+sh1)) for l in p1]
+                newact = {"position": poi, "type": "attraction", "price": price,
+                          "cost": price*ppl, "tickets": ppl, "start_time": fmt(st),
+                          "end_time": fmt(ed), "transports": tr1}
+                nacts = list(acts)
+                if tr2 is not None:
+                    nn = dict(nxt); nn["transports"] = tr2; nacts[j] = nn
+                day["activities"] = nacts[:j] + [newact] + nacts[j:]
+                return p
+    return None
+
+
+
+_ACC = {}
+def _acc_db(city):
+    if city not in _ACC:
+        from chinatravel.environment.tools.accommodations.apis import Accommodations
+        _ACC[city] = Accommodations(lang="en").select(city, key="name", func=lambda x: True)
+    return _ACC[city]
+
+def fix_hotel_rebook(plan, poi, lo, hi, city, ppl):
+    """Rebook every accommodation row to the required hotel; rebuild in-legs."""
+    db = _acc_db(city); row = db[db["name"] == poi]
+    if row.empty: return None
+    p = deepcopy(plan); changed=False
+    for day in p["itinerary"]:
+        acts = day["activities"]
+        for j, a in enumerate(acts):
+            if a.get("type") != "accommodation": continue
+            if N(a.get("position","")) == N(poi): continue
+            prev = acts[j-1] if j > 0 else None
+            na = dict(a); na["position"] = poi
+            if lo is not None:
+                st = hm(a["start_time"]); na["start_time"] = fmt(max(st, lo))
+            if prev is not None:
+                ppos = prev.get("position") or prev.get("end")
+                pe = hm(prev["end_time"]) if prev.get("end_time") else None
+                if ppos and pe is not None and N(ppos) != N(poi):
+                    tr=None
+                    for mode in ("metro","taxi","walk"):
+                        probe = LA.goto(city, ppos, poi, "09:00", mode, ppl)
+                        if not probe: continue
+                        d1 = hm(probe[-1]["end_time"]) - hm(probe[0]["start_time"])
+                        st2 = hm(na["start_time"])
+                        dep = max(pe, st2 - d1)
+                        if dep + d1 > st2:
+                            na["start_time"] = fmt(dep + d1)
+                            if hm(na["start_time"]) >= hm(na["end_time"]): continue
+                        sh = dep - hm(probe[0]["start_time"])
+                        tr = [dict(l, start_time=fmt(hm(l["start_time"])+sh), end_time=fmt(hm(l["end_time"])+sh)) for l in probe]
+                        break
+                    if tr is None: continue
+                    na["transports"] = tr
+                elif ppos and N(ppos) == N(poi):
+                    na["transports"] = []
+            acts[j] = na; changed=True
+    return p if changed else None
 
 if __name__ == "__main__":
     main()
