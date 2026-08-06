@@ -63,6 +63,8 @@ python agent_env/scripts/solve_script_with_harness.py     # 组织方用 uv run 
    ```
    `plan` 随后走 `solve_query` 原有的公共尾部：`write_json(result_path, plan)` + `evaluate_one`。
 
+   **改动 5(官方例子版才需要)— argparse `--harness` 的 `choices` 加 `"tpcagent"`**(travel 版无 choices;例子版 `choices=["opencode", "codex"]` 会在 CLI 显式传 `--harness tpcagent` 时拒绝)。
+
    **改动 4 — `solve_query()` guard `evaluate_one`（held-out 无 oracle 必需）：**
    组织方澄清（2026-08-06）：正式 held-out 数据**不含任何** oracle/DSL 字段
    （`hard_logic` / `hard_logic_py` / `hard_logic_nl` 等）。但 stock（含最新 `456b60a`）的
