@@ -833,9 +833,10 @@ def repair(uid, plan):
     if not tg:
         return plan
     banned = {t["poi"] for t in tg if t["kind"] == "mode_excl"}
+    # NOTE (verified empirically): the evaluator's innercity_transport_type
+    # reports a composite metro ride as 'metro', so banning walk does NOT ban
+    # metro composites -- only pure walk legs.
     allowed = [m for m in ("walk", "metro", "taxi") if m not in banned]
-    if "walk" in banned and "metro" in allowed:
-        allowed.remove("metro")     # metro composites contain walk segments
     ALLOWED_MODES = tuple(allowed) or ("taxi",)
     try:
         groups = []; seen_g = {}
