@@ -13,6 +13,7 @@ ENR="$CT/agent/tpc_agent_penguins/enrich"
 echo "[1/3] de-overlap module -> enrich/enrich_deoverlap.py"
 cp "$HERE/files/enrich/enrich_deoverlap.py" "$ENR/enrich_deoverlap.py"
 cp "$HERE/files/enrich/enrich_fixspace.py" "$ENR/enrich_fixspace.py"
+cp "$HERE/files/enrich/enrich_mustpoi.py" "$ENR/enrich_mustpoi.py"
 
 echo "[2/3] evaluator sync (new meal/chronology/scoring, 764614c)"
 cp "$HERE/files/evaluator/symbol_verification/commonsense_constraint.py" "$CT/symbol_verification/commonsense_constraint.py"

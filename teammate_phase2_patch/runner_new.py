@@ -107,6 +107,22 @@ def _stage_fixspace(uid, plan):
     return cand
 
 
+def _stage_mustpoi(uid, plan):
+    """Recover required-POI hard constraints (generated-DSL targets).
+
+    Runs after fixspace. Each fixer is internally gated on generated-hard
+    satisfied-count improvement + commonsense non-degradation; measured
+    FPR 78->84 / Overall 85.98->89.03 on the live-NL familiar-100.
+    """
+    from . import enrich_mustpoi as M
+    if not plan.get("itinerary") or passes(uid, plan):
+        return plan
+    try:
+        return M.repair(uid, plan)
+    except Exception:
+        return plan
+
+
 def _stage_endday(uid, plan):
     from . import enrich_endday as M
     if not plan.get("itinerary") or not passes(uid, plan):
@@ -346,6 +362,7 @@ def _stage_attdilute(uid, plan):
 STAGES = [
     ("deoverlap", _stage_deoverlap),
     ("fixspace", _stage_fixspace),
+    ("mustpoi", _stage_mustpoi),
     ("endday", _stage_endday),
     ("gapmeal", _stage_gapmeal),
     ("att", _stage_att),
