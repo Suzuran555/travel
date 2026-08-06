@@ -12,6 +12,7 @@ ENR="$CT/agent/tpc_agent_penguins/enrich"
 
 echo "[1/3] de-overlap module -> enrich/enrich_deoverlap.py"
 cp "$HERE/files/enrich/enrich_deoverlap.py" "$ENR/enrich_deoverlap.py"
+cp "$HERE/files/enrich/enrich_fixspace.py" "$ENR/enrich_fixspace.py"
 
 echo "[2/3] evaluator sync (new meal/chronology/scoring, 764614c)"
 cp "$HERE/files/evaluator/symbol_verification/commonsense_constraint.py" "$CT/symbol_verification/commonsense_constraint.py"
@@ -32,4 +33,5 @@ python3 -m py_compile "$ENR/enrich_deoverlap.py" "$ENR/runner.py" \
     "$CT/symbol_verification/commonsense_constraint.py" "$CT/evaluation/commonsense_constraint.py" && echo "py_compile OK"
 grep -q "Repeated Meal Types in One Day" "$CT/symbol_verification/commonsense_constraint.py" && echo "evaluator: NEW meal/chronology check present ✓"
 grep -q '"deoverlap"' "$ENR/runner.py" && echo "runner: deoverlap stage present ✓"
+grep -q '"fixspace"' "$ENR/runner.py" && echo "runner: fixspace stage present ✓"
 echo "DONE. Re-run the planner (SGLang) and re-score under the new evaluator."
