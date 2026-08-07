@@ -159,7 +159,7 @@ bundle search over intercity transport, accommodation, attractions, and
 meals with geographic anchoring, DFS memoization, budget-drop repair, and a
 travel-day timing bias (rewarding early arrival / late departure; worth
 DAV $+4.4$, DDR $+9.6$ on fresh plans in Phase 1).
-\item \textbf{Gated enrichment battery} (15 stages): every edit is kept
+\item \textbf{Gated enrichment battery} (16 stages): every edit is kept
 only if the plan still passes schema, commonsense, and the
 \emph{generated} hard constraints, and a soft metric strictly improves with
 none regressing. The gate never reads oracle fields --- which the formal
@@ -228,6 +228,15 @@ pass-rate-coupled preference scoring. Plans and strategies tuned against
 the older evaluator regress sharply: our Phase-1-style output lost $31.5\%$
 of plans to newly enforced checks. We answered with three repair passes,
 all gated on the official evaluators over generated constraints:
+
+\paragraph{\texttt{dedupmeal} --- one meal type per day.}
+End-to-end testing under the exact organizer contract surfaced a planner
+defect: tuned before the tightening, it can still emit two same-type meals
+on one day, and no stage \emph{removed} activities, so such plans failed
+commonsense forever. A removal-only first stage keeps the best duplicate
+(in-window, then real-restaurant, then earliest), stitches the neighbour
+transport chains, and is gated on strict commonsense improvement with no
+hard-verdict degradation.
 
 \paragraph{\texttt{deoverlap} --- chronology rethreading.}
 Time-only, position-preserving repair: a late-starting activity is shifted
