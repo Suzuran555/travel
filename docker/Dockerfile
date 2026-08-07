@@ -10,12 +10,12 @@
 # Push:
 #   docker login && docker push <you>/tpc2026-penguins-v2test:latest
 
-FROM lmsysorg/sglang:v0.5.10.post1
+FROM lmsysorg/sglang:v0.5.10.post1-runtime
 
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends unzip curl \
+ && apt-get install -y --no-install-recommends unzip curl python3-venv \
  && rm -rf /var/lib/apt/lists/*
 
 # --- the submission package under test (byte-identical to the upload) ------
