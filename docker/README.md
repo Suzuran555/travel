@@ -1,94 +1,107 @@
-# Docker image — organizer-equivalent test for `Antarctic penguins_v2`
+# Docker GPU test — `Antarctic penguins_v2` (two-image design)
 
-One image = SGLang 0.5.10 (organizer serving stack) + the v2 submission
-package + an isolated harness venv + a one-shot test entrypoint.
-一个镜像搞定:起服务 → 跑 100 条 held-out 模拟 → 对 oracle 打分。
+- **Serving** = the OFFICIAL `lmsysorg/sglang:v0.5.10.post1` image, untouched
+  (the organizers' stack — pulled straight from Docker Hub, never rebuilt).
+- **Harness** = a small (~2 GB) image with only the v2 submission package +
+  pinned deps: `zhanggangyi1224/tpc2026-penguins-v2test:latest`.
+- The harness container **shares the server container's network namespace**,
+  so the package's hardcoded `http://127.0.0.1:30000/v1` works with ZERO
+  config overrides. harness 容器共享 serving 容器网络命名空间,包配置零改动。
 
-Model weights are **not** in the image — mount them (60 GB+, BF16).
+Model weights are mounted from the host (~60 GB BF16, not in any image).
 
-## 1. Build & push 构建并推送(推荐直接在 A100 服务器上做)
+## 0. One-time: build & push the harness image(已由 CI 自动完成)
+
+CI builds and pushes this automatically on any `docker/**` change
+(`.github/workflows/docker-test-image.yml`). Manual equivalent:
+
+```bash
+cd travel/docker
+docker build -t zhanggangyi1224/tpc2026-penguins-v2test:latest .
+docker login && docker push zhanggangyi1224/tpc2026-penguins-v2test:latest
+```
+
+## 1. On the GPU server: get the model 下载模型
+
+```bash
+pip install -U "huggingface_hub[cli]"
+hf download Qwen/Qwen3.6-27B --local-dir /data/models/Qwen3.6-27B
+# 或 modelscope download --model Qwen/Qwen3.6-27B --local_dir /data/models/Qwen3.6-27B
+```
+
+## 2. Run the full test 一条命令跑测(2×A100 80G)
 
 ```bash
 git clone -b phase2/aug5-evaluator-and-deoverlap-fix \
     https://github.com/Suzuran555/travel.git
 cd travel/docker
-
-docker build -t <your-dockerhub-user>/tpc2026-penguins-v2test:latest .
-docker login
-docker push <your-dockerhub-user>/tpc2026-penguins-v2test:latest
+mkdir -p out
+MODEL_DIR=/data/models/Qwen3.6-27B TP=2 \
+  docker compose up --abort-on-container-exit harness
 ```
 
-Notes:
-- Build on an **amd64** machine (the server itself is perfect). From an
-  Apple-Silicon Mac you must add `--platform linux/amd64` (slow; not
-  recommended).
-- The base image (`lmsysorg/sglang:v0.5.10.post1`) is public on Docker Hub,
-  so pushing your image mostly cross-mounts those layers instead of
-  re-uploading them — only the small delta uploads.
-
-## 2. Get the model onto the server 下载模型(宿主机)
+Or without compose 不用 compose 的等价两条命令:
 
 ```bash
-pip install -U "huggingface_hub[cli]"
-hf download Qwen/Qwen3.6-27B --local-dir /data/models/Qwen3.6-27B
-# 或 modelscope:
-#   pip install -U modelscope
-#   modelscope download --model Qwen/Qwen3.6-27B --local_dir /data/models/Qwen3.6-27B
-```
-
-## 3. Run the full test 一键跑测(2×A100 80G)
-
-```bash
-mkdir -p ./out
-docker run --rm --gpus all --ipc=host --shm-size=32g \
+docker run -d --name sglang --gpus all --ipc=host --shm-size=32g \
   -v /data/models/Qwen3.6-27B:/models/Qwen3.6-27B:ro \
-  -v "$PWD/out":/output \
-  -e TP=2 \
-  <your-dockerhub-user>/tpc2026-penguins-v2test:latest test
+  lmsysorg/sglang:v0.5.10.post1 \
+  python3 -m sglang.launch_server --model-path /models/Qwen3.6-27B \
+    --served-model-name Qwen3.6-27B --host 0.0.0.0 --port 30000 --tp 2
+
+mkdir -p out
+docker run --rm --network container:sglang -v "$PWD/out":/output \
+  zhanggangyi1224/tpc2026-penguins-v2test:latest test
 ```
 
-What it does 它做什么:
-1. serve Qwen3.6-27B on `127.0.0.1:30000` (`--served-model-name Qwen3.6-27B`,
-   tp=2), waits until healthy (model load can take minutes);
+What the harness container does 流程:
+1. waits for the server (`/v1/models` must list `Qwen3.6-27B`; model load
+   takes minutes);
 2. **thinking-off smoke test** — warns loudly if `<think>` leaks;
-3. runs `solve_script_with_harness.py --split phase2_heldout_sim --limit 100`
-   (the organizer entry command; 170 s/query cap, 4 h 50 m global budget);
-4. scores against the oracle (`eval_with_oracle.py eval_tpc
-   --splits phase2_familiar --method TPCAgent_Qwen3.6-27B_en
-   --preference --lang en`);
-5. copies `results/` + score log + sglang log to `./out/`.
+3. runs the organizer entry command on the packaged held-out sim:
+   `solve_script_with_harness.py --split phase2_heldout_sim --limit 100`
+   (170 s/query cap, 4 h 50 m global budget, fallback always writes a file);
+4. scores vs the oracle: `eval_with_oracle.py eval_tpc --splits
+   phase2_familiar --method TPCAgent_Qwen3.6-27B_en --preference --lang en`;
+5. copies `results/` + `score.log` to `./out/`.
 
 Expected 预期: 100/100 result files, harness exit 0 (the final
-`Split summary skipped (oracle-less data?)` line is CORRECT behaviour),
+`Split summary skipped (oracle-less data?)` line is CORRECT), and
 **Overall ≈ 85–93**.
 
-## 4. Other modes 其他模式
+## 3. Thinking must be OFF 思考模式必须关闭
 
-```bash
-# 只起服务(想手工跑命令时):
-docker run --rm --gpus all --ipc=host --shm-size=32g \
-  -v /data/models/Qwen3.6-27B:/models/Qwen3.6-27B:ro \
-  -p 30000:30000 <image> serve
+The organizers serve with thinking disabled. If step 2's smoke test warns
+about `<think>`, add the server-side switch to the sglang command (build
+dependent), e.g.:
 
-# 进容器调试:
-docker run --rm -it --gpus all --ipc=host --shm-size=32g \
-  -v /data/models/Qwen3.6-27B:/models/Qwen3.6-27B:ro <image> bash
+```
+--chat-template-kwargs '{"enable_thinking": false}'
 ```
 
-Env knobs 环境变量: `TP` (default 2), `MODEL_PATH`
-(default `/models/Qwen3.6-27B`), `PORT` (default 30000).
+and restart. Harness-side kill switch as a last resort: add
+`-e CHINATRAVEL_LLM_THINK=0` to the harness `docker run`.
 
-## 5. Troubleshooting 排查
+## 4. Troubleshooting 排查
 
 | Symptom | Fix |
 |---|---|
-| `<think>` warning in step 2 | This SGLang build ignored the chat-template switch. Rerun with the harness-side kill switch: add `-e CHINATRAVEL_LLM_THINK=0` to `docker run`. |
-| Overall < 80 | Check `out/sglang.log` speed, per-query logs under `agent_env/runs/tpcagent/` for planner timeouts, GPU contention from other jobs. |
-| OOM on load | Confirm both GPUs visible (`--gpus all`, `TP=2`), nothing else on the cards. |
-| Score run reads 0 files | `--method` of the scorer must equal the harness results dir name (`TPCAgent_Qwen3.6-27B_en` by default). |
+| harness says server never became healthy | `docker logs sglang` — model path wrong / OOM / still loading. Confirm `--network container:sglang` (or compose `network_mode: "service:sglang"`). |
+| `<think>` warning | See §3. |
+| Overall < 80 | Check per-query logs `agent_env/runs/tpcagent/...` inside the harness container for planner timeouts; GPU contention. |
+| OOM on load | Both GPUs visible (`--gpus all`, `TP=2`), nothing else on the cards. |
+| Scorer reads 0 files | scorer `--method` must equal the harness results dir (`TPCAgent_Qwen3.6-27B_en`). |
 
-Reference score ladder (see `GPU_TEST_RUNBOOK.md` §7): Mac+API capped 71.26
-(hardware-limited, not comparable to the public leaderboard), offline
+Reference ladder (details `GPU_TEST_RUNBOOK.md` §7): Mac+API capped 71.26
+(hardware-limited; NOT comparable to the public leaderboard), offline
 uncapped 93.54, expected here 85–93.
 
-<!-- build: v2 zip md5 d051547b52b0a9d23a0f16e6ada1a5db -->
+## 5. What changed v1 → v2 (exactly 5 files)
+
+1. `enrich_dedupmeal.py` (new) — one meal type per day (E2E-discovered).
+2. `runner.py` — dedupmeal first battery stage (16 total).
+3. `enrich_mustpoi.py` — no-walk no longer bans metro.
+4. `solve_script_with_harness.py` — oracle-less aggregate eval exits 0.
+5. `contact.txt` — team-leader marking.
+
+Ranking = max(v1, v2) → v2 is pure upside.
