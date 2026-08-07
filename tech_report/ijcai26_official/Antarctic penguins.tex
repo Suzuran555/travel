@@ -70,7 +70,7 @@ preference scoring) with three gated repair passes (\texttt{deoverlap},
 under fully honest live-NL conditions (oracle fields stripped, real
 Qwen3.6-27B), these passes lift Overall from $80.36$ to $93.54$
 (FPR $76\!\to\!93$), and disclosed targeted repair plus gated soft-metric
-uplift raise the familiarization set to $\mathbf{98.93}$ with FPR and C-LPR
+uplift raise the familiarization set to $\mathbf{99.18}$ with FPR and C-LPR
 at $100$. The harness answers the organizers' fixed entry command, honors
 the 5-hour/100-query budget with per-query caps and a deterministic
 fallback, survives oracle-free held-out data by construction, and was
@@ -88,7 +88,7 @@ environment overrides.
 Setting & Overall\\
 \midrule
 Phase 1, official leaderboard (v13) & $\mathbf{100.000}$\\
-Phase 2, live-NL familiarization-100 (local) & $\mathbf{98.93}$\\
+Phase 2, live-NL familiarization-100 (local) & $\mathbf{99.18}$\\
 Phase 2, organizer-run held-out & ---\\
 \bottomrule
 \end{tabular}
@@ -124,7 +124,7 @@ $+$\texttt{mustpoi} r1     & 99.93 & 99.00 & 97.02 & 84 & 75.04 & 80.20 & 70.31 
 $+$\texttt{mustpoi} r2--r3 & 99.93 & 99.00 & 98.20 & 92 & 77.38 & 86.37 & 72.94 & 93.08\\
 $+$\texttt{mustpoi} r4     & 99.93 & 99.00 & 98.29 & 93 & 77.55 & 86.55 & 73.39 & 93.54\\
 $+$targeted repairs$^\dagger$ & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & 81.00 & 91.25 & 76.50 & 97.44\\
-$+$gated soft uplift$^\dagger$ & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & 93.40 & 95.76 & 89.36 & $\mathbf{98.93}$\\
+$+$gated soft uplift$^\dagger$ & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & 95.15 & 96.10 & 92.33 & $\mathbf{99.18}$\\
 \bottomrule
 \end{tabular}
 \caption{Phase-2 repair trajectory on the familiarization-100 under honest
