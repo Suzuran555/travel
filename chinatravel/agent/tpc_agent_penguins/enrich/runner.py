@@ -23,6 +23,57 @@ from . import enrich_route as ER
 from .ctx import passes, soft_of, agent_for, qd
 
 
+def _stage_dedupmeal(uid, plan):
+    """Drop duplicate meal-type activities (one breakfast/lunch/dinner per day).
+
+    Runs first: the tightened evaluator's per-day meal-type limit is a
+    commonsense check the planner (tuned pre-tightening) can still violate,
+    and no other stage removes activities -- without this the whole battery
+    is gate-blocked on such plans. After removal the neighbour transport
+    chains are stitched (deoverlap rethread + fixspace env-grounded rebuild).
+    Gated: commonsense micro score must strictly improve (or flip to pass)
+    and the hard verdict must not degrade.
+    """
+    from . import enrich_dedupmeal as M
+    from . import enrich_deoverlap as DO
+    from . import enrich_fixspace as FS
+    from chinatravel.evaluation.commonsense_constraint import (
+        evaluate_commonsense_constraints,
+    )
+    from chinatravel.evaluation.hard_constraint import evaluate_hard_constraints_v2
+    if not plan.get("itinerary") or passes(uid, plan):
+        return plan
+    cand = M.dedup(plan)
+    if cand is None:
+        return plan
+    def _cs(p):
+        _mac, mic, _x, cp = evaluate_commonsense_constraints(
+            [uid], qd, {uid: p}, verbose=False, lang=ctx._lang)
+        return float(mic), (uid in cp)
+    q = qd[uid]
+    cand = DO.repair(cand)
+    if not _cs(cand)[1]:
+        try:
+            c2 = FS.repair(cand, q["target_city"], int(q.get("people_number", 1) or 1))
+            if _cs(c2)[0] >= _cs(cand)[0]:
+                cand = c2
+        except Exception:
+            pass
+    mic0, ok0 = _cs(plan)
+    mic1, ok1 = _cs(cand)
+    if (ok0 and not ok1) or mic1 < mic0 - 1e-9:
+        return plan
+    if not ok1 and mic1 <= mic0 + 1e-9:
+        return plan            # no strict improvement -> keep original
+    def _hard_ok(p):
+        *_, lp = evaluate_hard_constraints_v2(
+            [uid], qd, {uid: p}, env_pass_id=[uid], verbose=False, lang=ctx._lang)
+        return uid in lp
+    if _hard_ok(plan) and not _hard_ok(cand):
+        return plan
+    return cand
+
+
 def _stage_deoverlap(uid, plan):
     """Repair base-plan chronology overlaps for the tightened Phase-2 evaluator.
 
@@ -321,6 +372,7 @@ def _stage_attdilute(uid, plan):
 
 
 STAGES = [
+    ("dedupmeal", _stage_dedupmeal),
     ("deoverlap", _stage_deoverlap),
     ("fixspace", _stage_fixspace),
     ("mustpoi", _stage_mustpoi),
