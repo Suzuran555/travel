@@ -1053,18 +1053,26 @@ def main() -> None:
     ]
     if (evaluations or skipped_completed) and not args.uid:
         summary_path = PROJECT_ROOT / work_dir / f"{split}_summary.json"
-        summary = evaluate_split(
-            split,
-            method,
-            selected_ids,
-            query_data,
-            lang,
-            parse_failure_ids=parse_failure_ids,
-        )
-        summary["skipped_completed"] = skipped_completed
-        write_json(summary_path, summary)
-        print(f"\nSaved split summary: {summary_path}")
-        print(json.dumps(summary, ensure_ascii=False, indent=2, default=json_default))
+        # Formal held-out data carries NO oracle fields (hard_logic_py etc.),
+        # so the aggregate evaluator raises KeyError. Every result file is
+        # already written above and is the actual deliverable -- internal
+        # scoring must never fail the run (a non-zero exit could be read as
+        # a failed submission by the organizers' automation).
+        try:
+            summary = evaluate_split(
+                split,
+                method,
+                selected_ids,
+                query_data,
+                lang,
+                parse_failure_ids=parse_failure_ids,
+            )
+            summary["skipped_completed"] = skipped_completed
+            write_json(summary_path, summary)
+            print(f"\nSaved split summary: {summary_path}")
+            print(json.dumps(summary, ensure_ascii=False, indent=2, default=json_default))
+        except Exception as exc:
+            print(f"\nSplit summary skipped (oracle-less data?): {exc!r}")
 
     print(f"\nParse failures: {parse_failures}")
     if resume:
