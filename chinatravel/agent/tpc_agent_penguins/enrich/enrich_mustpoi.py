@@ -19,8 +19,9 @@ escaped-quote-safe extraction, and applies gated fixers:
 
 Transport-mode exclusions (e.g. no-walk queries) are honored: banned modes are
 parsed from the generated constraints and every insert restricts its legs
-accordingly (metro composites contain walk segments, so banning walk bans
-metro too). Multi-item requirements are applied as a GROUP and gated as a
+accordingly (verified empirically: the evaluator reports a composite metro
+ride as 'metro', so banning walk bans only PURE walk legs, NOT metro
+composites). Multi-item requirements are applied as a GROUP and gated as a
 whole. Every group is adopted only if the GENERATED-hard satisfied-count
 strictly improves and commonsense does not degrade. Measured on the DashScope
 live-NL familiar-100 (with deoverlap + fixspace):
