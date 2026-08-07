@@ -90,3 +90,5 @@ Env knobs 环境变量: `TP` (default 2), `MODEL_PATH`
 Reference score ladder (see `GPU_TEST_RUNBOOK.md` §7): Mac+API capped 71.26
 (hardware-limited, not comparable to the public leaderboard), offline
 uncapped 93.54, expected here 85–93.
+
+<!-- build: v2 zip md5 d051547b52b0a9d23a0f16e6ada1a5db -->
