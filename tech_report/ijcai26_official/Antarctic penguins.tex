@@ -312,8 +312,12 @@ self-refinement~\cite{selfrefine,reflexion}: each attempt is checked
 against the \emph{generated} constraints only; a failing --- or
 suspiciously constraint-thin --- attempt triggers a freshly sampled
 translation~\cite{selfconsistency} and re-plan, keeping the best-scoring
-attempt. With the retry loop the full-contract rehearsal reaches Overall
-$95.4$ (FPR $94$) on an API-served stand-in of the same model.
+attempt. (iv)~We \emph{align} grammar with prompt: list-shaped calls
+request --- and \texttt{json\_schema}-constrain --- one exact object
+shape, removing the grammar--prompt conflict that constrained decoding
+provably amplifies~\cite{gad}. On the formal stack (TP$=$2, thinking
+off) the aligned pipeline scores Overall $83.2$ (FPR $73$) vs.\ $76.6$
+(FPR $62$) without (iv); an API-served stand-in reaches $95.4$ (FPR $94$).
 
 \section{Findings for the Community}
 \label{sec:findings}
@@ -453,6 +457,12 @@ and Yun-Nung Chen.
 \newblock Let Me Speak Freely? A Study on the Impact of Format
 Restrictions on Performance of Large Language Models.
 \newblock In \emph{EMNLP Industry Track}, arXiv:2408.02442, 2024.
+
+\bibitem[Park \emph{et al.}, 2024]{gad}
+Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, Nadia Polikarpova,
+and Loris D'Antoni.
+\newblock Grammar-Aligned Decoding.
+\newblock In \emph{NeurIPS}, arXiv:2405.21047, 2024.
 
 \bibitem[Madaan \emph{et al.}, 2023]{selfrefine}
 Aman Madaan, Niket Tandon, Prakhar Gupta, et al.
