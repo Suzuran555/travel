@@ -12,16 +12,24 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 
-MODEL_DIR="${MODEL_DIR:-/root/models/Qwen3.6-27B}"
+MODEL_DIR="${MODEL_DIR:-/root/autodl-tmp/Qwen3.6-27B}"   # AutoDL data disk
 TP="${TP:-2}"
 PORT="${PORT:-30000}"
 PIP_INDEX="${PIP_INDEX:-}"
 PIPARGS=()
 [ -n "$PIP_INDEX" ] && PIPARGS=(-i "$PIP_INDEX")
 
+echo "=== [0/5] SGLang present? (auto-install for built-in platform images) ==="
+if ! python3 -c "import sglang" 2>/dev/null; then
+  echo "sglang not found — pip-installing 0.5.10.post1 (needs a CUDA 12.x torch base," \
+       "e.g. the platform's PyTorch 2.8.0 / py3.12 / CUDA 12.8 image)"
+  pip install --no-cache-dir "${PIPARGS[@]}" "sglang[all]==0.5.10.post1"
+fi
+python3 -c "import sglang; print('sglang', sglang.__version__)"
+
 echo "=== [1/5] model weights (ModelScope, domestic-friendly) ==="
 if [ ! -f "$MODEL_DIR/config.json" ]; then
-  pip install "${PIPARGS[@]}" -U modelscope >/dev/null
+  pip install --no-cache-dir "${PIPARGS[@]}" -U modelscope >/dev/null
   modelscope download --model Qwen/Qwen3.6-27B --local_dir "$MODEL_DIR"
 fi
 echo "model at $MODEL_DIR"
@@ -37,11 +45,11 @@ echo "=== [3/5] harness venv (isolated from sglang's python) ==="
 if [ ! -x /opt/harness-venv/bin/python ]; then
   python3 -m venv /opt/harness-venv \
     || { apt-get update && apt-get install -y python3-venv && python3 -m venv /opt/harness-venv; }
-  /opt/harness-venv/bin/pip install "${PIPARGS[@]}" -U pip
-  /opt/harness-venv/bin/pip install torch==2.6.0 \
+  /opt/harness-venv/bin/pip install --no-cache-dir "${PIPARGS[@]}" -U pip
+  /opt/harness-venv/bin/pip install --no-cache-dir torch==2.6.0 \
       --index-url https://download.pytorch.org/whl/cpu \
-    || /opt/harness-venv/bin/pip install "${PIPARGS[@]}" torch==2.6.0
-  /opt/harness-venv/bin/pip install "${PIPARGS[@]}" -r /workspace/submission/requirements.txt
+    || /opt/harness-venv/bin/pip install --no-cache-dir "${PIPARGS[@]}" torch==2.6.0
+  /opt/harness-venv/bin/pip install --no-cache-dir "${PIPARGS[@]}" -r /workspace/submission/requirements.txt
 fi
 
 echo "=== [4/5] launch SGLang (served name MUST be Qwen3.6-27B) ==="
