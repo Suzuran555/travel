@@ -288,6 +288,31 @@ near-verbatim correct --- the planner \emph{knew} the constraints and
 violated them --- so the recoverable error mass had moved from translation
 to constraint-aware plan repair.
 
+\paragraph{Serving-stack hardening (formal-environment dress rehearsal).}
+We reproduced the formal serving stack (SGLang~0.5.10 on
+2$\times$A800-PCIe, no NVLink, thinking off) and ran the full organizer
+contract end-to-end. Three mechanism-level defects surfaced that no
+API-backed test had shown. (i)~A strictly grammar-constrained
+\texttt{json\_object} response format forces the model's constraint list
+into a wrapping object; a first-bracket extractor then silently keeps a
+fraction of the constraints (mean $8.0$ vs.\ $11.8$ per query). Robust
+extraction --- parse the whole reply, unwrap objects, keep the longest
+span parsing to a list of strings --- recovered FPR $33\!\to\!52$ on the
+held-out simulation. Notably, an ablation \emph{removing} the format
+restriction regressed (FPR $38$): with a robust parser, the constraint's
+formatting reliability outweighs its known reasoning cost~\cite{tam2024}.
+(ii)~A single interpreter-level crash must never lose the run: the entry
+point now supervises $N{=}\min(8,\mathrm{cpus}/2)$ crash-isolated,
+resume-sharing worker shards (per-query caps grow accordingly), restarts
+dead workers on an inherited budget clock, and force-fallbacks any query
+that repeatedly kills its worker. (iii)~The remaining budget is spent on
+an honest \emph{self-verified retry loop} in the spirit of LLM-Modulo
+generate-and-verify~\cite{llmmodulo} and iterative
+self-refinement~\cite{selfrefine,reflexion}: each attempt is checked
+against the \emph{generated} constraints only; failing attempts trigger a
+freshly sampled translation~\cite{selfconsistency} and re-plan, keeping
+the best-scoring attempt.
+
 \section{Findings for the Community}
 \label{sec:findings}
 
@@ -389,7 +414,7 @@ therefore recover partially. Translation fidelity under the organizers'
 BF16 serving may differ slightly from our local stand-ins; the pipeline's
 verifiers and the repair battery are designed to absorb such variance.
 
-\begin{thebibliography}{3}
+\begin{thebibliography}{9}
 \small
 \bibitem[LAMDA-NeSy, 2026]{tpc}
 LAMDA-NeSy.
@@ -406,6 +431,43 @@ Chinese Travel Planning.
 Qwen Team.
 \newblock Qwen3 Technical Report.
 \newblock arXiv:2505.09388, 2025.
+
+\bibitem[Xie \emph{et al.}, 2024]{travelplanner}
+Jian Xie, Kai Zhang, Jiangjie Chen, Tinghui Zhu, Renze Lou, Yuandong
+Tian, Yanghua Xiao, and Yu Su.
+\newblock TravelPlanner: A Benchmark for Real-World Planning with
+Language Agents.
+\newblock In \emph{ICML}, arXiv:2402.01622, 2024.
+
+\bibitem[Kambhampati \emph{et al.}, 2024]{llmmodulo}
+Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, et al.
+\newblock LLMs Can't Plan, But Can Help Planning in LLM-Modulo
+Frameworks.
+\newblock In \emph{ICML}, arXiv:2402.01817, 2024.
+
+\bibitem[Tam \emph{et al.}, 2024]{tam2024}
+Zhi Rui Tam, Cheng-Kuang Wu, Yi-Lin Tsai, Chieh-Yen Lin, Hung-yi Lee,
+and Yun-Nung Chen.
+\newblock Let Me Speak Freely? A Study on the Impact of Format
+Restrictions on Performance of Large Language Models.
+\newblock In \emph{EMNLP Industry Track}, arXiv:2408.02442, 2024.
+
+\bibitem[Madaan \emph{et al.}, 2023]{selfrefine}
+Aman Madaan, Niket Tandon, Prakhar Gupta, et al.
+\newblock Self-Refine: Iterative Refinement with Self-Feedback.
+\newblock In \emph{NeurIPS}, arXiv:2303.17651, 2023.
+
+\bibitem[Shinn \emph{et al.}, 2023]{reflexion}
+Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik
+Narasimhan, and Shunyu Yao.
+\newblock Reflexion: Language Agents with Verbal Reinforcement Learning.
+\newblock In \emph{NeurIPS}, arXiv:2303.11366, 2023.
+
+\bibitem[Wang \emph{et al.}, 2023]{selfconsistency}
+Xuezhi Wang, Jason Wei, Dale Schuurmans, et al.
+\newblock Self-Consistency Improves Chain of Thought Reasoning in
+Language Models.
+\newblock In \emph{ICLR}, arXiv:2203.11171, 2023.
 
 \end{thebibliography}
 

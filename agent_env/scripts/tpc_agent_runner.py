@@ -109,6 +109,75 @@ def _fallback(agent, query):
         return {"itinerary": []}
 
 
+def _self_check(uid, plan, translated, lang):
+    """Honest in-run self-verification against the GENERATED constraints only
+    (LLM-Modulo style: the model proposes, symbolic verifiers judge). Returns
+    (full_pass, cs_pass, satisfied_count) — never touches oracle fields."""
+    import io
+    import json as _json
+    from contextlib import redirect_stdout
+    from copy import deepcopy
+
+    if not isinstance(plan, dict) or not plan.get("itinerary"):
+        return (False, False, -1)
+    if not isinstance(translated, dict) or translated.get("uid") != uid:
+        return (False, False, -1)
+    gate_query = {
+        k: v for k, v in translated.items() if not str(k).startswith("_urbantrip_")
+    }
+    cons = list(gate_query.get("hard_logic_py") or [])
+    try:
+        from chinatravel.evaluation.schema_constraint import evaluate_schema_constraints
+        from chinatravel.evaluation.commonsense_constraint import (
+            evaluate_commonsense_constraints,
+        )
+        from chinatravel.evaluation.hard_constraint import evaluate_hard_constraints_v2
+        from chinatravel.evaluation.utils import load_json_file
+        from chinatravel.symbol_verification.concept_func import func_dict
+
+        plan = _json.loads(_json.dumps(plan, ensure_ascii=False, default=str))
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            schema = load_json_file("chinatravel/evaluation/output_schema.json")
+            _, _, sp = evaluate_schema_constraints([uid], {uid: plan}, schema=schema)
+            *_, cp = evaluate_commonsense_constraints(
+                [uid], {uid: gate_query}, {uid: plan}, verbose=False, lang=lang
+            )
+            *_, lp = evaluate_hard_constraints_v2(
+                [uid], {uid: gate_query}, {uid: plan},
+                env_pass_id=list(cp), verbose=False, lang=lang,
+            )
+        n_sat = 0
+        for c in cons:
+            vd = deepcopy(func_dict)
+            vd["plan"] = plan
+            try:
+                exec(c, {"__builtins__": {"set": set}}, vd)
+                if bool(vd.get("result", False)):
+                    n_sat += 1
+            except Exception:
+                pass
+        return (uid in sp and uid in cp and uid in lp, uid in cp, n_sat)
+    except Exception:
+        return (False, False, -1)
+
+
+def _purge_translation_cache(cache_dir, llm_name, uid):
+    import glob as _glob
+
+    for f in _glob.glob(
+        os.path.join(str(cache_dir), f"translation_{llm_name}_reflect", f"{uid}.json")
+    ):
+        try:
+            os.remove(f)
+        except OSError:
+            pass
+
+
+RETRY_MIN_SLACK = int(os.environ.get("PENGUINS_RETRY_MIN_SLACK", "2400"))
+RETRY_CAP = int(os.environ.get("PENGUINS_RETRY_CAP", "600"))
+
+
 def run_tpc_agent(
     *,
     uid,
@@ -119,7 +188,15 @@ def run_tpc_agent(
     cache_dir="cache/tpcagent",
     log_dir="agent_env/runs/tpcagent",
 ):
-    """Solve one query with the deterministic planner and return a plan dict."""
+    """Solve one query with the deterministic planner and return a plan dict.
+
+    Self-verified retry loop: after each attempt the plan is checked against
+    the GENERATED constraints (honest — the held-out data carries no oracle);
+    while the attempt fails its own constraints and the shard has ample
+    budget, the query is retried with a fresh translation (deterministically
+    perturbed seed) and a fresh planner pass, and the best-scoring attempt is
+    kept.
+    """
     from func_timeout import func_timeout, FunctionTimedOut
 
     cfg = tpcagent_config or {}
@@ -139,8 +216,6 @@ def run_tpc_agent(
         # sharded parallel workers each own ~1/N of the split, so the
         # per-query share of the global budget grows accordingly
         per_query = max(per_query, int(cap_env))
-    remaining = _STATE["deadline"] - time.time()
-    cap = max(_FLOOR, min(per_query, remaining - _RESERVE))
 
     agent = _get_agent(lang, str(cache_dir), str(log_dir))
 
@@ -148,23 +223,64 @@ def run_tpc_agent(
         # this query has repeatedly crashed its worker: never run the planner
         # again, emit the deterministic fallback immediately
         return _fallback(agent, query)
-    saved_stdout = sys.stdout  # agent.run redirects stdout to its per-query log
-    plan = None
-    try:
-        _succ, plan = func_timeout(
-            cap,
-            agent.run,
-            args=(query,),
-            kwargs=dict(prob_idx=uid, oralce_translation=False),  # keep organizer's spelling
-        )
-    except FunctionTimedOut:
-        plan = _fallback(agent, query)
-    except Exception:
-        traceback.print_exc()
-        plan = _fallback(agent, query)
-    finally:
-        sys.stdout = saved_stdout
 
+    def _attempt(cap_s):
+        saved_stdout = sys.stdout  # agent.run redirects stdout to its log
+        try:
+            _succ, p = func_timeout(
+                cap_s,
+                agent.run,
+                args=(query,),
+                kwargs=dict(prob_idx=uid, oralce_translation=False),  # organizer's spelling
+            )
+            return p
+        except FunctionTimedOut:
+            return None
+        except Exception:
+            traceback.print_exc()
+            return None
+        finally:
+            sys.stdout = saved_stdout
+
+    max_attempts = int(
+        os.environ.get("PENGUINS_MAX_ATTEMPTS", "3" if cap_env else "1")
+    )
+    llm = getattr(agent, "backbone_llm", None)
+    base_seed = getattr(llm, "seed", None)
+
+    best_plan, best_rank = None, (False, False, -2)
+    try:
+        for attempt in range(1, max_attempts + 1):
+            remaining = _STATE["deadline"] - time.time()
+            if attempt == 1:
+                cap = max(_FLOOR, min(per_query, remaining - _RESERVE))
+            else:
+                if best_rank[0] or remaining < RETRY_MIN_SLACK:
+                    break  # already passing, or shard budget too thin to retry
+                # deterministic variation: fresh translation + perturbed seed
+                _purge_translation_cache(
+                    cache_dir, getattr(llm, "name", "Qwen3.6-27B"), uid
+                )
+                if llm is not None and base_seed is not None:
+                    llm.seed = base_seed + 1000 * (attempt - 1)
+                cap = max(_FLOOR, min(RETRY_CAP, remaining - _RESERVE))
+            plan_i = _attempt(cap)
+            translated = getattr(agent.planner, "query", None)
+            rank_i = _self_check(uid, plan_i, translated, lang)
+            if plan_i is not None and rank_i > best_rank:
+                best_plan, best_rank = plan_i, rank_i
+            if best_rank[0]:
+                break  # generated-constraint full pass — done
+            if attempt > 1:
+                print(
+                    f"[tpc_agent] retry {attempt}: rank={rank_i} best={best_rank}",
+                    file=sys.stderr,
+                )
+    finally:
+        if llm is not None and base_seed is not None:
+            llm.seed = base_seed
+
+    plan = best_plan
     if not isinstance(plan, dict) or not plan.get("itinerary"):
         plan = _fallback(agent, query)
     return plan
