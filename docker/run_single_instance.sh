@@ -90,7 +90,7 @@ rc=$?
 echo "harness exit: $rc (0 expected; 'Split summary skipped' line is normal)"
 echo "result files: $(ls results/TPCAgent_Qwen3.6-27B_en/ 2>/dev/null | wc -l)/100"
 
-/opt/harness-venv/bin/python -u eval_with_oracle.py eval_tpc \
+/opt/harness-venv/bin/python -u eval_with_oracle.py tpc \
     --splits phase2_familiar \
     --method TPCAgent_Qwen3.6-27B_en \
     --preference --lang en | tee /workspace/score.log

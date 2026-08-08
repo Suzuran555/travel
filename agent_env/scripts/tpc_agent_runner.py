@@ -127,13 +127,27 @@ def run_tpc_agent(
 
     total_budget = int(cfg.get("total_budget_sec", DEFAULT_TOTAL_BUDGET))
     if _STATE["deadline"] is None:
-        _STATE["deadline"] = time.time() + total_budget
+        # a crash-restarted worker must inherit the ORIGINAL run clock, never
+        # a fresh budget (the supervisor exports the run's start epoch)
+        epoch = os.environ.get("PENGUINS_RUN_START_EPOCH")
+        base = float(epoch) if epoch else time.time()
+        _STATE["deadline"] = base + total_budget
 
     per_query = int(cfg.get("per_query_timeout", min(int(timeout), DEFAULT_PER_QUERY)))
+    cap_env = os.environ.get("PENGUINS_PER_QUERY_CAP")
+    if cap_env:
+        # sharded parallel workers each own ~1/N of the split, so the
+        # per-query share of the global budget grows accordingly
+        per_query = max(per_query, int(cap_env))
     remaining = _STATE["deadline"] - time.time()
     cap = max(_FLOOR, min(per_query, remaining - _RESERVE))
 
     agent = _get_agent(lang, str(cache_dir), str(log_dir))
+
+    if os.environ.get("PENGUINS_FORCE_FALLBACK_UID") == str(uid):
+        # this query has repeatedly crashed its worker: never run the planner
+        # again, emit the deterministic fallback immediately
+        return _fallback(agent, query)
     saved_stdout = sys.stdout  # agent.run redirects stdout to its per-query log
     plan = None
     try:

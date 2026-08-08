@@ -930,7 +930,146 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Parse raw JSON without requiring <output> tags.",
     )
+    parser.add_argument(
+        "--_worker",
+        dest="worker_mode",
+        action="store_true",
+        default=False,
+        help=argparse.SUPPRESS,  # internal: run one crash-isolated worker
+    )
+    parser.add_argument(
+        "--shard",
+        nargs=2,
+        type=int,
+        metavar=("K", "N"),
+        default=None,
+        help=argparse.SUPPRESS,  # internal: process queries with index %% N == K
+    )
     return parser.parse_args()
+
+
+# --- crash-isolation supervisor ------------------------------------------
+# The organizer automation runs this script once; a single interpreter-level
+# crash (segfault in a C extension, OOM kill, ...) partway through the split
+# would otherwise lose the whole run. The default entry point therefore acts
+# as a SUPERVISOR: it spawns crash-isolated worker copies of itself (one per
+# shard, sharing the work via --resume idempotency), restarts any worker that
+# dies, and force-fallbacks a query that repeatedly kills its worker.
+
+def _crashstate_path(shard_idx):
+    return PROJECT_ROOT / "agent_env" / "runs" / f"_crashstate_{shard_idx}.json"
+
+
+def _read_json(path, default):
+    try:
+        return json.loads(Path(path).read_text())
+    except Exception:
+        return default
+
+
+def _write_json(path, obj):
+    try:
+        Path(path).parent.mkdir(parents=True, exist_ok=True)
+        Path(path).write_text(json.dumps(obj))
+    except Exception:
+        pass
+
+
+def _supervise() -> int:
+    import time as _time
+
+    argv = list(sys.argv[1:])
+    start = _time.time()
+    env = dict(os.environ)
+    # workers must measure the GLOBAL budget from the ORIGINAL start, so a
+    # restarted worker never gets a fresh clock
+    env.setdefault("PENGUINS_RUN_START_EPOCH", str(int(start)))
+    workers = int(env.get("PENGUINS_WORKERS", "0") or 0)
+    if workers <= 0:
+        cpus = os.cpu_count() or 4
+        workers = max(1, min(8, cpus // 2))
+    single_uid = "--uid" in argv
+    if single_uid:
+        workers = 1
+    if workers > 1:
+        # sharded workers get a wider per-query cap: each shard holds ~1/N of
+        # the split, so the per-query share of the global budget grows ~N-fold
+        env.setdefault("PENGUINS_PER_QUERY_CAP", "900")
+    script = str(Path(__file__).resolve())
+    wall_guard = start + 18600  # never restart past ~5h10m
+    hard_deadline = start + 21000  # absolute give-up on stragglers (~5h50m)
+
+    def spawn(shard_idx):
+        cmd = [sys.executable, "-u", script] + argv + ["--_worker", "--resume"]
+        if workers > 1:
+            cmd += ["--shard", str(shard_idx), str(workers)]
+        wenv = dict(env)
+        wenv["PENGUINS_SHARD_INDEX"] = str(shard_idx)
+        # keep N workers from oversubscribing the CPU via BLAS thread pools
+        wenv.setdefault("OMP_NUM_THREADS", "2")
+        wenv.setdefault("OPENBLAS_NUM_THREADS", "2")
+        return subprocess.Popen(cmd, env=wenv)
+
+    for i in range(workers):
+        _write_json(_crashstate_path(i), {"last_uid": None, "counts": {}})
+    procs = {i: spawn(i) for i in range(workers)}
+    restarts = {i: 0 for i in range(workers)}
+    noprog = {i: 0 for i in range(workers)}
+    last_marker = {i: None for i in range(workers)}
+    done_rc = {}
+    print(f"[supervisor] {workers} worker(s), crash-isolated, resume-sharing")
+
+    while procs:
+        _time.sleep(3)
+        if _time.time() > hard_deadline:
+            print("[supervisor] hard deadline — terminating remaining workers")
+            for p in procs.values():
+                p.terminate()
+            for i in list(procs):
+                done_rc[i] = 1
+            break
+        for i, p in list(procs.items()):
+            rc = p.poll()
+            if rc is None:
+                continue
+            if rc == 0:
+                done_rc[i] = 0
+                del procs[i]
+                continue
+            cs = _read_json(_crashstate_path(i), {"last_uid": None, "counts": {}})
+            marker = cs.get("last_uid")
+            if marker:
+                cs.setdefault("counts", {})[marker] = cs["counts"].get(marker, 0) + 1
+                _write_json(_crashstate_path(i), cs)
+            progressed = marker is not None and marker != last_marker[i]
+            noprog[i] = 0 if progressed else noprog[i] + 1
+            last_marker[i] = marker
+            restarts[i] += 1
+            if marker is None and restarts[i] >= 2:
+                print(f"[supervisor] worker {i} failed twice before any query (rc={rc}) — giving up on it")
+                done_rc[i] = rc
+                del procs[i]
+                continue
+            if noprog[i] >= 4 or restarts[i] > 40 or _time.time() > wall_guard:
+                print(f"[supervisor] worker {i}: restarts={restarts[i]} no-progress={noprog[i]} rc={rc} — giving up on it")
+                done_rc[i] = rc
+                del procs[i]
+                continue
+            print(f"[supervisor] worker {i} died rc={rc} at uid={marker}; restart #{restarts[i]}")
+            procs[i] = spawn(i)
+
+    if any(rc != 0 for rc in done_rc.values()) and _time.time() < hard_deadline:
+        # mop-up pass: one serial worker sweeps every remaining query
+        # (resume skips finished ones; exhausted budget emits fast fallbacks)
+        print("[supervisor] mop-up pass for queries lost to failed workers")
+        _write_json(_crashstate_path("mop"), {"last_uid": None, "counts": {}})
+        wenv = dict(env)
+        wenv["PENGUINS_SHARD_INDEX"] = "mop"
+        cmd = [sys.executable, "-u", script] + argv + ["--_worker", "--resume"]
+        rc = subprocess.call(cmd, env=wenv)
+        print(f"[supervisor] mop-up exit {rc}")
+        return rc
+    return 0 if all(rc == 0 for rc in done_rc.values()) else max(done_rc.values())
 
 
 def main() -> None:
@@ -1009,11 +1148,23 @@ def main() -> None:
             if limit >= 1:
                 selected_ids = selected_ids[:limit]
 
+    if args.shard is not None:
+        shard_k, shard_n = int(args.shard[0]), int(args.shard[1])
+        selected_ids = [u for i, u in enumerate(selected_ids) if i % shard_n == shard_k]
+        print(f"Shard {shard_k}/{shard_n}: {len(selected_ids)} queries")
+
     print(f"Config: {Path(args.config)}")
     print(
         f"Run: split={split} lang={lang} queries={len(selected_ids)} harness={harness} method={method} "
         f"model={model or '<config default>'} resume={resume}"
     )
+
+    shard_idx = os.environ.get("PENGUINS_SHARD_INDEX")
+    crash_counts = {}
+    if shard_idx is not None:
+        crash_counts = _read_json(
+            _crashstate_path(shard_idx), {"last_uid": None, "counts": {}}
+        ).get("counts", {})
 
     evaluations = []
     skipped_completed = 0
@@ -1024,6 +1175,19 @@ def main() -> None:
             skipped_completed += 1
             print(f"Skipping completed query because result exists: {result_path}")
             continue
+        if shard_idx is not None:
+            # crash accounting: mark the query in flight so the supervisor can
+            # attribute a worker death, and force a deterministic fallback for
+            # any query that has already killed this worker twice
+            _write_json(
+                _crashstate_path(shard_idx),
+                {"last_uid": uid, "counts": crash_counts},
+            )
+            if int(crash_counts.get(uid, 0)) >= 2:
+                os.environ["PENGUINS_FORCE_FALLBACK_UID"] = str(uid)
+                print(f"crash-guard: {uid} killed the worker twice — deterministic fallback")
+            else:
+                os.environ.pop("PENGUINS_FORCE_FALLBACK_UID", None)
         evaluation = solve_query(
             harness=harness,
             split=split,
@@ -1080,8 +1244,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as exc:
-        print(f"error: {exc}", file=sys.stderr)
-        raise SystemExit(1)
+    if "--_worker" in sys.argv:
+        try:
+            main()
+        except Exception as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            raise SystemExit(1)
+    else:
+        raise SystemExit(_supervise())
