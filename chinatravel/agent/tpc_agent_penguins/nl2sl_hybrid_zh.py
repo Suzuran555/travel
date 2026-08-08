@@ -324,22 +324,66 @@ EXAMPLE_PLANS = load_example_plans()
 
 
 def get_first_list_in_str(json_str):
-    # 使用栈得到第一个合法的list
-    json_str = repair_json(json_str, ensure_ascii=False)
-    st = 0
-    # print(json_str)
-    while st < len(json_str) and json_str[st] != "[":
-        st += 1
-    json_str = json_str[st:]
-    stack = []
-    for i, c in enumerate(json_str):
+    """Extract the constraint list from an LLM reply, robustly.
+
+    Server-dependent trap: a strictly grammar-constrained ``json_object``
+    mode (e.g. SGLang) FORCES the reply to be a JSON object, so the array we
+    asked for arrives wrapped ({"constraints": [...]}); lenient servers
+    (e.g. DashScope) return the bare array. The old first-balanced-bracket
+    scan grabbed whatever '[' came first -- on wrapped/verbose replies that
+    is often a tiny python list INSIDE a constraint string, silently
+    dropping most constraints. Now: parse the whole reply when possible
+    (unwrapping dict values), otherwise consider every balanced bracket
+    span, and keep the LONGEST candidate that parses to a list of strings.
+    """
+    s = repair_json(json_str, ensure_ascii=False)
+    best = None
+
+    def consider(value):
+        nonlocal best
+        if (
+            isinstance(value, list)
+            and value
+            and all(isinstance(x, str) for x in value)
+        ):
+            if best is None or len(value) > len(best):
+                best = value
+
+    try:
+        whole = json.loads(s)
+    except Exception:
+        whole = None
+    if isinstance(whole, list):
+        consider(whole)
+    elif isinstance(whole, dict):
+        for val in whole.values():
+            consider(val)
+        # object-of-strings shape: {"1": "result=...", "2": "..."}
+        vals = list(whole.values())
+        if len(vals) >= 2 and all(isinstance(v, str) for v in vals):
+            consider(vals)
+
+    # fallback: every balanced bracket span (bad spans fail json.loads and
+    # are skipped; the longest list-of-strings wins)
+    depth = 0
+    start = None
+    for i, c in enumerate(s):
         if c == "[":
-            stack.append(i)
+            if depth == 0:
+                start = i
+            depth += 1
         elif c == "]":
-            stack.pop()
-            if not stack:
-                res = json_str[: i + 1]
-                return res
+            if depth > 0:
+                depth -= 1
+                if depth == 0 and start is not None:
+                    try:
+                        consider(json.loads(s[start : i + 1]))
+                    except Exception:
+                        pass
+                    start = None
+
+    if best is not None:
+        return json.dumps(best, ensure_ascii=False)
     return "[]"
 
 

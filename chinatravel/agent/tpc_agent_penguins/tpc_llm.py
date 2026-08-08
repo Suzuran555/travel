@@ -71,7 +71,10 @@ class TPCLLM:
         # request can never outlive the query's emission deadline (the
         # harness watchdog cannot interrupt a blocking socket read).
         self.request_deadline = None
-        self.max_tokens = int(os.environ.get("CHINATRAVEL_LLM_MAX_TOKENS", "3072"))
+        # 8192: strictly-constrained json_object servers (SGLang) format the
+        # constraint list verbosely; 3072 truncated it mid-array and silently
+        # dropped constraints after json repair
+        self.max_tokens = int(os.environ.get("CHINATRAVEL_LLM_MAX_TOKENS", "8192"))
         # determinism: greedy decoding + fixed seed unless explicitly overridden
         self.temperature = float(os.environ.get("PENGUINS_TEMPERATURE", "0.0"))
         self.seed = int(os.environ.get("PENGUINS_SEED", "20260322"))
