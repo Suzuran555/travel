@@ -86,7 +86,9 @@ class TPCAgent(BaseAgent):
             env_fix.fix_env(self.env)   # run_tpc builds WorldEnv before we load
 
         self.time_budget = float(os.environ.get("TPC_TIME_BUDGET", "290"))
-        self.enrich_reserve = float(os.environ.get("TPC_ENRICH_RESERVE", "45"))
+        # 60 (was 45): the mustpoi repair stage needs headroom on plans where
+        # the planner exhausts its slice -- exactly the plans that fail
+        self.enrich_reserve = float(os.environ.get("TPC_ENRICH_RESERVE", "60"))
         # a schema-valid plan is ALWAYS emitted this many seconds before the
         # time budget runs out (fallback plan on planner overrun)
         self.emit_margin = float(os.environ.get("TPC_EMIT_MARGIN", "15"))
@@ -192,10 +194,16 @@ class TPCAgent(BaseAgent):
         if not isinstance(translated, dict) or translated.get("uid") != query.get("uid"):
             translated = None
 
-        if (not timed_out
-                and isinstance(plan, dict) and plan.get("itinerary")
+        # Timed-out plans come from the best-effort tail where the search has
+        # already dropped constraint pruning -- they need the repair battery
+        # MOST, so timeout no longer skips it (plan repair beats replanning:
+        # the A800 align run shipped 17 plans violating their own generated
+        # constraints, all unrepaired). The deadline guard inside run_battery
+        # still bounds the extra time.
+        if (isinstance(plan, dict) and plan.get("itinerary")
                 and translated is not None
-                and translated.get("hard_logic_py") is not None):
+                and translated.get("hard_logic_py") is not None
+                and time.time() < deadline - 10):
             gate_query = {
                 k: v for k, v in translated.items()
                 if not str(k).startswith("_urbantrip_")

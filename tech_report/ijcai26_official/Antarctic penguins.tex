@@ -315,9 +315,22 @@ translation~\cite{selfconsistency} and re-plan, keeping the best-scoring
 attempt. (iv)~We \emph{align} grammar with prompt: list-shaped calls
 request --- and \texttt{json\_schema}-constrain --- one exact object
 shape, removing the grammar--prompt conflict that constrained decoding
-provably amplifies~\cite{gad}. On the formal stack (TP$=$2, thinking
-off) the aligned pipeline scores Overall $83.2$ (FPR $73$) vs.\ $76.6$
-(FPR $62$) without (iv); an API-served stand-in reaches $95.4$ (FPR $94$).
+provably amplifies~\cite{gad}: on the formal stack (TP$=$2) Overall
+$83.2$ (FPR $73$) vs.\ $76.6$ (FPR $62$) without (iv). (v)~Forensics on
+the residual failures showed \emph{blind} regenerate-retries convert
+$\approx\!0$ --- consistent with feedback-starved self-repair
+findings~\cite{selfrepair} --- and that the dominant defect is
+\emph{polarity inversion} (requirements rendered as prohibitions and
+vice versa), a known negation blindness of LLMs~\cite{negation}. Since
+the numbered-requirements register is templated, NL is the ground truth:
+a deterministic verifier cross-checks each generated constraint's
+polarity, windows and budgets against its NL clause and synthesizes the
+canonical form on mismatch, and the in-run repair follows plan-repair
+rather than replanning~\cite{planrepair} (window shifts absorb slack in
+later transport chains; hotel rebooking; leg re-moding), each repair
+adopted only if the generated-constraint pass count strictly improves.
+Measured: FPR $73\!\to\!80$ on-stack after (i--iv), $\to\!91$ (Overall
+$93.3$) with (v) under cached translations.
 
 \section{Findings for the Community}
 \label{sec:findings}
@@ -457,6 +470,23 @@ and Yun-Nung Chen.
 \newblock Let Me Speak Freely? A Study on the Impact of Format
 Restrictions on Performance of Large Language Models.
 \newblock In \emph{EMNLP Industry Track}, arXiv:2408.02442, 2024.
+
+\bibitem[Fox \emph{et al.}, 2006]{planrepair}
+Maria Fox, Alfonso Gerevini, Derek Long, and Ivan Serina.
+\newblock Plan Stability: Replanning versus Plan Repair.
+\newblock In \emph{ICAPS}, 2006.
+
+\bibitem[Olausson \emph{et al.}, 2024]{selfrepair}
+Theo X. Olausson, Jeevana Priya Inala, Chenglong Wang, Jianfeng Gao,
+and Armando Solar-Lezama.
+\newblock Is Self-Repair a Silver Bullet for Code Generation?
+\newblock In \emph{ICLR}, arXiv:2306.09896, 2024.
+
+\bibitem[Truong \emph{et al.}, 2023]{negation}
+Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, and Trevor Cohn.
+\newblock Language Models are Not Naysayers: An Analysis of Language
+Models on Negation Benchmarks.
+\newblock In \emph{*SEM}, arXiv:2306.08189, 2023.
 
 \bibitem[Park \emph{et al.}, 2024]{gad}
 Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, Nadia Polikarpova,

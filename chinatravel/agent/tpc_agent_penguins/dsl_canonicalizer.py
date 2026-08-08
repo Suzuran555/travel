@@ -443,10 +443,61 @@ def _canonicalize_set_accumulators(text):
     return text
 
 
+def _wrap_bare_expression(constraint):
+    """`people_count(plan) == 1` -> `result=(people_count(plan) == 1)`.
+
+    The official evaluator execs each constraint and reads vars()['result'];
+    a bare comparison never assigns it, so the constraint is structurally
+    always-False no matter what the plan looks like (measured on the A800
+    align run: two such constraints made full-pass unreachable for the uid).
+    """
+    if "\n" in constraint or "result" in constraint or "=" in constraint.replace(
+            "==", "").replace("!=", "").replace("<=", "").replace(">=", ""):
+        return constraint
+    try:
+        import ast as _ast
+        _ast.parse(constraint.strip(), mode="eval")
+    except SyntaxError:
+        return constraint
+    return "result=(%s)" % constraint.strip()
+
+
+_BROKEN_SQ_LITERAL_RE = re.compile(
+    r"==\s*'(?P<body>[^\n]*?)'(?=\s*(?::|\band\b|\)|$))", re.MULTILINE)
+
+
+def _requote_broken_literals(constraint):
+    """POI names with interior apostrophes ship as =='Bear Grandma's Garden'
+    -- an unterminated literal that makes the whole constraint permanently
+    False AND truncates repair-target extraction. When a constraint fails to
+    compile, greedily re-capture ==-literals up to the LAST quote before the
+    clause boundary and emit them double-quoted."""
+    try:
+        compile(constraint, "<c>", "exec")
+        return constraint
+    except SyntaxError:
+        pass
+
+    def _sub(m):
+        body = m.group("body")
+        if '"' in body:
+            return m.group(0)
+        return '=="%s"' % body
+
+    fixed = _BROKEN_SQ_LITERAL_RE.sub(_sub, constraint)
+    try:
+        compile(fixed, "<c>", "exec")
+        return fixed
+    except SyntaxError:
+        return constraint
+
+
 def canonicalize_hard_logic_py(constraint):
     """Canonicalize one hard_logic_py constraint string (semantics-preserving)."""
     if not isinstance(constraint, str) or not constraint:
         return constraint
+    constraint = _requote_broken_literals(constraint)
+    constraint = _wrap_bare_expression(constraint)
     constraint = _canonicalize_set_variables(constraint)
     constraint = _repair_transport_type_guards(constraint)
     constraint = _canonicalize_set_accumulators(constraint)

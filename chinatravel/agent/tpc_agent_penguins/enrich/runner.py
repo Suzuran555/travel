@@ -371,6 +371,10 @@ def _stage_attdilute(uid, plan):
     return plan
 
 
+# DDR stages (endday/gapmeal/travelday/bfstack) run BEFORE the attraction
+# stages: on the serving stack the battery is deadline-bounded and DDR misses
+# (39 travelday slots measured on align-v3) were starving behind the pricier
+# DAV/ATT passes.
 STAGES = [
     ("dedupmeal", _stage_dedupmeal),
     ("deoverlap", _stage_deoverlap),
@@ -378,12 +382,12 @@ STAGES = [
     ("mustpoi", _stage_mustpoi),
     ("endday", _stage_endday),
     ("gapmeal", _stage_gapmeal),
+    ("travelday", _stage_travelday),
+    ("bfstack", _stage_bfstack),
     ("att", _stage_att),
     ("gapattr", _stage_gapattr),
     ("endattr", _stage_endattr),
     ("dav2", _stage_dav2),
-    ("travelday", _stage_travelday),
-    ("bfstack", _stage_bfstack),
     ("fillerswap", _stage_fillerswap),
     ("seqswap", _stage_seqswap),
     ("lateattr", _stage_lateattr),

@@ -2125,16 +2125,19 @@ _POSITIVE_VERBS = {
     "accommodation": re.compile(
         r"(?:hope|want|wish|like|prefer|would\s+like|plan)"
         r"[^.;!?\n]{0,30}?to\s+(?:stay|live)|stay\s+at\s+one\s+of"
+        r"|stay\s+at\s+the\s+following|include\s+the\s+following"
         r"|希望(?:入住|住)|想(?:入住|住)",
         re.IGNORECASE),
     "restaurant": re.compile(
         r"(?:hope|want|wish|like|prefer|would\s+like)"
         r"[^.;!?\n]{0,30}?to\s+(?:try|eat|dine|taste)"
+        r"|dine\s+at\s+the\s+following|include\s+the\s+following"
         r"|希望(?:品尝|去吃)|想(?:尝|吃)",
         re.IGNORECASE),
     "attraction": re.compile(
         r"(?:hope|want|wish|like|prefer|would\s+like)"
         r"[^.;!?\n]{0,30}?to\s+(?:visit|see|go\s+to)"
+        r"|visit\s+the\s+following|include\s+the\s+following"
         r"|希望(?:参观|游览|去)|想(?:参观|游览|去)",
         re.IGNORECASE),
 }
@@ -2185,6 +2188,380 @@ def fix_membership_polarity(constraints, query):
     return out, {"rule": "membership_polarity_fixed", "changes": changed}
 
 
+# --- rule r5.10: existential-window polarity (A800 campaign) -----------------
+# Measured on the SGLang stack: "Visit/Dine at X between T1 and T2" gets
+# emitted as init result=True + set-False-on-hit, i.e. the requirement is
+# inverted into a prohibition (4/12 failed oracle constraints in the align
+# run; negation-blindness is a known systematic LLM defect, arXiv:2409.00105).
+# The NL clause that names the POI decides the polarity deterministically.
+
+_WINDOW_INIT_TRUE_RE = re.compile(r"^\s*result\s*=\s*True\s*\n")
+_WINDOW_POS_NAME_RE = re.compile(
+    r"activity_position\(activity\)\s*==\s*(?P<q>['\"])(?P<name>.+?)(?P=q)")
+_RESULT_ASSIGN_RE = re.compile(r"result\s*=\s*(True|False)")
+_NEG_CLAUSE_RE = re.compile(
+    r"do\s+not|don'?t|must\s+not|avoid|exclude|without|no\s+visit|never"
+    r"|不要|不得|避免|禁止", re.IGNORECASE)
+
+
+def _nl_clause_for(nl, name):
+    """The sentence/numbered line of `nl` that mentions `name` (or None)."""
+    if not nl or not name or name not in nl:
+        return None
+    idx = nl.find(name)
+    seg_start = 0
+    for bm in _SEGMENT_SPLIT_RE.finditer(nl, 0, idx):
+        seg_start = bm.end()
+    seg_end = len(nl)
+    m = _SEGMENT_SPLIT_RE.search(nl, idx)
+    if m:
+        seg_end = m.start()
+    return nl[seg_start:seg_end]
+
+
+def fix_window_existential_polarity(constraints, query):
+    nl = query.get("nature_language") or ""
+    if not nl:
+        return constraints, None
+    out, changed = [], []
+    for c in constraints:
+        ok = isinstance(c, str) and _or_arity(c) == 0
+        if ok and _WINDOW_INIT_TRUE_RE.search(c):
+            assigns = _RESULT_ASSIGN_RE.findall(c)
+            mname = _WINDOW_POS_NAME_RE.search(c)
+            clause = _nl_clause_for(nl, mname.group("name")) if mname else None
+            if clause is not None and not _NEG_CLAUSE_RE.search(clause):
+                # positive NL clause: this must be an existence requirement
+                if assigns == ["True", "False"]:
+                    # inverted: init True + set False on hit -> flip both
+                    body = _WINDOW_INIT_TRUE_RE.sub("result=False\n", c)
+                    flip = body.rfind("result=False")
+                    init = body.find("result=False")
+                    if flip > init:
+                        body = body[:flip] + "result=True" + body[flip + len("result=False"):]
+                        changed.append({"before": c, "after": body,
+                                        "mode": "inverted"})
+                        c = body
+                elif assigns == ["True", "True"]:
+                    # vacuous: init True + set True on hit -> init False
+                    body = _WINDOW_INIT_TRUE_RE.sub("result=False\n", c)
+                    changed.append({"before": c, "after": body,
+                                    "mode": "vacuous_init"})
+                    c = body
+        out.append(c)
+    if not changed:
+        return constraints, None
+    return out, {"rule": "window_existential_polarity_fixed", "changes": changed}
+
+
+# --- rule r5.11: exclusion-set polarity (A800 campaign) ----------------------
+# "Do not include any of these attraction types: X" emitted as
+# result=({'X'}&attraction_type_set) or ({'X'}<=...) -- the `not` is dropped,
+# turning an exclusion into a requirement (3/12 failed oracle constraints).
+
+_SET_TAIL_RE = re.compile(
+    r"result\s*=\s*\(\s*\{(?P<items>[^{}]*)\}\s*(?P<op><=|&)\s*"
+    r"(?P<set>(?:attraction|restaurant|accommodation)_(?:type|name)_set)"
+    r"\s*\)\s*$")
+# only-X form: SET <= {'X'} -- "Do not use walking" inverted into "use only
+# walking" (measured on the A800 align run, transport-mode class included)
+_SET_ONLY_RE = re.compile(
+    r"result\s*=\s*\(\s*(?P<set>(?:attraction|restaurant|accommodation)_(?:type|name)_set"
+    r"|inner_city_transportation_set)\s*<=\s*\{(?P<items>[^{}]*)\}\s*\)\s*$")
+_EXCL_CLAUSE_RE = re.compile(
+    r"do\s+not\s+include|do\s+not|don'?t|must\s+not|avoid|exclude|none\s+of"
+    r"|不要|不得|避免|排除", re.IGNORECASE)
+
+
+def fix_exclusion_set_polarity(constraints, query):
+    nl = query.get("nature_language") or ""
+    if not nl:
+        return constraints, None
+    out, changed = [], []
+    for c in constraints:
+        if isinstance(c, str) and _or_arity(c) == 0 and "not(" not in c.replace(" ", ""):
+            m = _SET_TAIL_RE.search(c)
+            if m:
+                items = [x.strip().strip("'\"") for x in m.group("items").split(",")
+                         if x.strip()]
+                clause = next((cl for cl in
+                               (_nl_clause_for(nl, it) for it in items)
+                               if cl is not None), None)
+                if clause is not None and _EXCL_CLAUSE_RE.search(clause):
+                    c2 = c[: m.start()] + (
+                        "result=(not({%s}&%s))" % (m.group("items"), m.group("set"))
+                    )
+                    changed.append({"before": c, "after": c2})
+                    c = c2
+            else:
+                m2 = _SET_ONLY_RE.search(c)
+                if m2:
+                    items = [x.strip().strip("'\"") for x in m2.group("items").split(",")
+                             if x.strip()]
+                    clause = next((cl for cl in
+                                   (_nl_clause_for(nl, it) for it in items)
+                                   if cl is not None), None)
+                    # mode literals ('walk') rarely appear verbatim in NL:
+                    # fall back to the walking/taxi wording of the clause
+                    if clause is None and m2.group("set") == "inner_city_transportation_set":
+                        for word in ("walking", "walk", "taxi", "metro"):
+                            if any(it in ("walk", "taxi", "metro") for it in items):
+                                clause = _nl_clause_for(nl, word)
+                                if clause is not None:
+                                    break
+                    if clause is not None and _EXCL_CLAUSE_RE.search(clause):
+                        c2 = c[: m2.start()] + (
+                            "result=(not({%s}&%s))" % (m2.group("items"), m2.group("set"))
+                        )
+                        changed.append({"before": c, "after": c2})
+                        c = c2
+        out.append(c)
+    if not changed:
+        return constraints, None
+    return out, {"rule": "exclusion_set_polarity_fixed", "changes": changed}
+
+
+# --- rule r5.12: innercity transport budget mistranslation -------------------
+# "Keep transportation within the destination city within N" must map to the
+# innercity cost-sum template; the align run showed N leaking into a bogus
+# time-window ('165' as a clock literal) or a per-leg distance check instead.
+
+_IC_BUDGET_NL_RE = re.compile(
+    r"transportation[^.\n]{0,80}?within\s+the\s+destination\s+city"
+    r"[^.\n]{0,40}?within\s+(?P<n>\d+)|"
+    r"keep\s+(?:the\s+)?(?:inner[- ]?city|city)\s+transport(?:ation)?"
+    r"[^.\n]{0,40}?within\s+(?P<n2>\d+)",
+    re.IGNORECASE)
+_IC_COST_TMPL = (
+    "inner_city_transportation_cost=0\n"
+    "for activity in allactivities(plan):\n"
+    "  inner_city_transportation_cost+="
+    "innercity_transport_cost(activity_transports(activity))\n"
+    "result=(inner_city_transportation_cost<=%s)")
+_BAD_TIME_LITERAL_RE = re.compile(
+    r"activity_(?:start|end)_time\(activity\)\s*[<>=]+\s*['\"](\d{1,4})['\"]")
+
+
+def inject_innercity_cost_budget(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    m = _IC_BUDGET_NL_RE.search(nl)
+    if not m:
+        return constraints, None
+    n = m.group("n") or m.group("n2")
+    have = any(isinstance(c, str)
+               and "inner_city_transportation_cost" in c and "+=" in c
+               for c in constraints)
+    cons = list(constraints)
+    changed = []
+    # drop constraints that compare clock fields against the bare budget number
+    kept = []
+    for c in cons:
+        bad = (isinstance(c, str)
+               and any(lit == n for lit in _BAD_TIME_LITERAL_RE.findall(c)))
+        if bad:
+            changed.append({"dropped": c, "why": "budget number used as clock"})
+        else:
+            kept.append(c)
+    cons = kept
+    if not have:
+        cons.append(_IC_COST_TMPL % n)
+        changed.append({"added": _IC_COST_TMPL % n})
+    if not changed:
+        return constraints, None
+    return cons, {"rule": "innercity_cost_budget_enforced", "changes": changed}
+
+
+# --- rule r5.13: bogus 'transportation' activity-type guard ------------------
+# activity_type(activity)=='transportation' never matches (not a valid type),
+# leaving the guarded constraint vacuous; the align run shipped a dead no-taxi
+# rule this way. Mode constraints get the guard stripped; per-leg distance
+# checks under the bogus guard are meaningless and dropped.
+
+_BOGUS_GUARD_RE = re.compile(
+    r"activity_type\(activity\)\s*==\s*['\"]transportation['\"]")
+
+
+def fix_bogus_transport_guard(constraints, query=None):
+    out, changed = [], []
+    for c in constraints:
+        if isinstance(c, str) and _BOGUS_GUARD_RE.search(c):
+            if "innercity_transport_distance" in c:
+                changed.append({"dropped": c, "why": "distance under bogus guard"})
+                continue
+            c2 = _BOGUS_GUARD_RE.sub("True", c)
+            changed.append({"before": c, "after": c2})
+            c = c2
+        out.append(c)
+    if not changed:
+        return constraints, None
+    return out, {"rule": "bogus_transport_guard_fixed", "changes": changed}
+
+
+# --- rule r5.14: NL-anchored canonical window synthesis ----------------------
+# The numbered-requirements register writes windowed visits as a fixed
+# template ('Dine at NAME between T1 and T2.' / 'Visit NAME between T1 and
+# T2.'). The serving model mis-renders these in many ways (polarity flips,
+# not()-wrapped windows, wrong activity-type guard, missing position clause,
+# swapped/garbled times). NL is the ground truth here: synthesize the
+# canonical oracle-shaped constraint from the NL line and REPLACE whatever
+# the model produced for that name/window; inject when absent.
+
+_NL_WINDOW_LINE_RE = re.compile(
+    r"\b(?P<verb>Dine at|Visit|Stay at)\s+(?P<name>.+?)\s+between\s+"
+    r"(?P<t1>\d{1,2}:\d{2})\s+and\s+(?P<t2>\d{1,2}:\d{2})",
+    re.IGNORECASE)
+_DINE_WINDOW_TMPL = (
+    "result=False\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity) in ['breakfast', 'lunch', 'dinner'] "
+    "and activity_position(activity)==\"%s\":\n"
+    "    if activity_start_time(activity)>='%s' and "
+    "activity_end_time(activity)<='%s': result=True")
+_VISIT_WINDOW_TMPL = (
+    "result=False\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='attraction' "
+    "and activity_position(activity)==\"%s\":\n"
+    "    if activity_start_time(activity)>='%s' and "
+    "activity_end_time(activity)<='%s': result=True")
+_STAY_WINDOW_TMPL = (
+    "result=False\n"
+    "for activity in allactivities(plan):\n"
+    "  if activity_type(activity)=='accommodation' "
+    "and activity_position(activity)==\"%s\":\n"
+    "    if activity_start_time(activity)>='%s' and "
+    "activity_end_time(activity)<='%s': result=True")
+
+
+def synthesize_nl_windows(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if lang == "zh" or not nl:
+        return constraints, None
+    events = []
+    for m in _NL_WINDOW_LINE_RE.finditer(nl):
+        line_start = nl.rfind("\n", 0, m.start()) + 1
+        prefix = nl[line_start:m.start()]
+        if _NEG_CLAUSE_RE.search(prefix):
+            continue
+        name = m.group("name").strip().rstrip(".")
+        if name.startswith("the following"):
+            continue  # list-form lines are handled by the set rules
+        verb = m.group("verb").lower()
+        tmpl = (_DINE_WINDOW_TMPL if verb.startswith("dine")
+                else _VISIT_WINDOW_TMPL if verb.startswith("visit")
+                else _STAY_WINDOW_TMPL)
+        events.append((name, m.group("t1"), m.group("t2"), tmpl))
+    if not events:
+        return constraints, None
+    # two-phase: first drop every model constraint that is a variant of ANY
+    # synthesized window (same time pair, or a two-ended window naming an
+    # event POI -- garbled times included), then append ALL canonicals. A
+    # per-event replace loop would swallow sibling windows of the same POI
+    # (one NL name can carry several windows).
+    canonicals = [tmpl % (name, t1, t2) for name, t1, t2, tmpl in events]
+    pairs = {frozenset((t1, t2)) for _, t1, t2, _ in events}
+    names = {n for n, _, _, _ in events}
+
+    def _is_variant(c):
+        if not isinstance(c, str) or _or_arity(c) > 0:
+            return False
+        lits = set(_TIME_LITERAL_RE.findall(c))
+        if len(lits) < 2:
+            return False
+        if any(p <= lits for p in pairs):
+            return True
+        return ("activity_position(" in c and any(
+            n in c or n.replace("'", "\\'") in c for n in names))
+
+    kept = [c for c in constraints if not _is_variant(c)]
+    dropped = [c for c in constraints if _is_variant(c)]
+    cons = list(dict.fromkeys(kept + canonicals))
+    if cons == list(constraints):
+        return constraints, None
+    changed = [{"replaced": [d[:120] for d in dropped],
+                "with": [c[:120] for c in canonicals]}]
+    return cons, {"rule": "nl_window_synthesized", "changes": changed}
+
+
+# --- rule r5.15: universal-negation requirement -> existence -----------------
+# 'Include the following restaurant types: Snacks' rendered as the universal
+# "every meal must be Snacks" (or every attraction the required type / every
+# restaurant the required name) is wrong AND makes any single-POI repair
+# un-adoptable (the group gate can never net-improve a universal). Rewrite to
+# the canonical existence form when the NL clause is positive.
+
+_UNIVERSAL_REQ_RE = re.compile(
+    r"result\s*=\s*True[\s\S]{0,240}?"
+    r"(?P<field>attraction_type\(activity[^)]*\)|restaurant_type\(activity[^)]*\)"
+    r"|activity_position\(activity\))\s*"
+    r"(?:!=|not in)\s*"
+    r"(?:(?P<q>['\"])(?P<item>.+?)(?P=q)|\[(?P<items>[^\]]+)\])"
+    r"[\s\S]{0,80}?result\s*=\s*False")
+
+
+def fix_universal_requirement(constraints, query):
+    nl = query.get("nature_language") or ""
+    if not nl:
+        return constraints, None
+    out, changed = [], []
+    for c in constraints:
+        rewritten = None
+        if isinstance(c, str) and _or_arity(c) == 0:
+            m = _UNIVERSAL_REQ_RE.search(c)
+            if m:
+                items = ([m.group("item")] if m.group("item") else
+                         [x.strip().strip("'\"") for x in
+                          (m.group("items") or "").split(",") if x.strip()])
+                clause = next((cl for cl in (_nl_clause_for(nl, it)
+                                             for it in items) if cl), None)
+                if clause is not None and not _NEG_CLAUSE_RE.search(clause) \
+                        and not _EXCL_CLAUSE_RE.search(clause):
+                    field = m.group("field")
+                    body = "', '".join(items)
+                    if field.startswith("attraction_type"):
+                        rewritten = (
+                            "attraction_type_set=set()\n"
+                            "for activity in allactivities(plan):\n"
+                            "  if activity_type(activity)=='attraction': "
+                            "attraction_type_set.add(attraction_type(activity, "
+                            "target_city(plan)))\n"
+                            "result=({'%s'}<=attraction_type_set)" % body)
+                    elif field.startswith("restaurant_type"):
+                        rewritten = (
+                            "restaurant_type_set=set()\n"
+                            "for activity in allactivities(plan):\n"
+                            "  if activity_type(activity) in ['breakfast', "
+                            "'lunch', 'dinner']: restaurant_type_set.add("
+                            "restaurant_type(activity, target_city(plan)))\n"
+                            "result=({'%s'}<=restaurant_type_set)" % body)
+                    elif "'accommodation'" not in c:
+                        # position-universal on meals/attractions: existence
+                        # over the right name set (accommodation stays
+                        # universal -- same hotel all trip is the intent)
+                        setname = ("restaurant_name_set"
+                                   if "'breakfast'" in c or "'lunch'" in c
+                                   or "'dinner'" in c else
+                                   "attraction_name_set")
+                        loop = ("if activity_type(activity) in ['breakfast', "
+                                "'lunch', 'dinner']"
+                                if setname == "restaurant_name_set" else
+                                "if activity_type(activity)=='attraction'")
+                        rewritten = (
+                            "%s=set()\n"
+                            "for activity in allactivities(plan):\n"
+                            "  %s: %s.add(activity_position(activity))\n"
+                            "result=({'%s'}<=%s)"
+                            % (setname, loop, setname, body, setname))
+        if rewritten and rewritten != c:
+            changed.append({"before": c[:120], "after": rewritten[:120]})
+            out.append(rewritten)
+        else:
+            out.append(c)
+    if not changed:
+        return constraints, None
+    return out, {"rule": "universal_requirement_fixed", "changes": changed}
+
+
 # ---------------------------------------------------------------------------
 # driver
 # ---------------------------------------------------------------------------
@@ -2218,6 +2595,12 @@ def enforce_coverage(query, lang="en"):
     _apply(apply_room_count_override(cons, nl))
     _apply(fix_negation_tautology(cons))
     _apply(fix_membership_polarity(cons, query))
+    _apply(fix_window_existential_polarity(cons, query))
+    _apply(fix_exclusion_set_polarity(cons, query))
+    _apply(inject_innercity_cost_budget(cons, query, lang))
+    _apply(fix_bogus_transport_guard(cons, query))
+    _apply(synthesize_nl_windows(cons, query, lang))
+    _apply(fix_universal_requirement(cons, query))
     _apply(drop_disjunction_fragments(cons))
     _apply(enforce_budget_scope(cons, query, lang))
     _apply(enforce_directional_transport(cons, query, lang))

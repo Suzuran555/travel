@@ -245,6 +245,10 @@ Fix rules:
 - The executor exposes ONLY the builtin `set`. len, bool, any, all, sum, str, int, float, map, sorted are NOT defined and raise NameError. Rewrite non-emptiness as result=(A&B), emptiness/negation as result=not(A&B), subset as A<=B, counts with a counter variable incremented in the loop.
 - Each code block runs independently in a fresh namespace: it must be self-contained and assign `result`; never reference a variable defined in another block. Merge 'at least one of / either' alternatives into ONE block combined with `or`.
 - Never add room_count/room_type or accommodation constraints unless the request explicitly mentions rooms or beds. Keep POI names verbatim as they appear in the request.
+- NEVER rewrite a block into any()/all()/sum()/comprehension style: that is exactly what raises NameError here. Rewrite errored blocks in PLAIN LOOP style only. Example fix:
+  errored: "result=any(activity_type(a)=='attraction' for a in allactivities(plan))"  (NameError: name 'any' is not defined)
+  correct: "result=False\\nfor activity in allactivities(plan):\\n  if activity_type(activity)=='attraction': result=True"
+- Keep each block's polarity unchanged while fixing: a requirement ('must', 'Dine at', 'Visit') stays init result=False / set True on hit; a prohibition ('Do not', 'avoid') stays init result=True / set False on violation. Never flip one into the other while repairing syntax.
 
 You must output the whole code block. Including those constraints that are correct.
 The original code block is:
@@ -1077,11 +1081,36 @@ def nl2sl_step3(query, backbone_llm, checker, max_trails=5):
         }
     )
     error_indices = set(run_error_idx + value_error_idx)
-    query["hard_logic_py"] = [
-        val
-        for idx, val in enumerate(query["hard_logic_py"])
-        if idx not in error_indices
-    ]
+    # Best-round salvage (A800 campaign): when the reflect loop cannot
+    # converge (e.g. the model keeps rewriting into any/all/sum style that the
+    # official {'set'}-only sandbox rejects), dropping every errored index of
+    # the FINAL round can collapse the set to near-nothing while an earlier
+    # round had far more valid constraints. Pick the round with the most
+    # error-free constraints instead, then drop only its errored ones.
+    best_round, best_valid = None, -1
+    for info in query.get("reflect_info", []):
+        cons_r = info.get("hard_logic_py") or []
+        errs_r = len(info.get("run_error_list") or []) + len(
+            info.get("value_error_list") or [])
+        valid_r = len(cons_r) - errs_r
+        if valid_r > best_valid:
+            best_round, best_valid = info, valid_r
+    final_valid = len(query["hard_logic_py"]) - len(error_indices)
+    if best_round is not None and best_valid > final_valid:
+        cons_r = list(best_round["hard_logic_py"])
+        _, err_idx_r, _, verr_idx_r = reflect_info(
+            {**query, "hard_logic_py": cons_r}, checker)
+        query["hard_logic_py"] = [
+            v for i, v in enumerate(cons_r)
+            if i not in set(err_idx_r) | set(verr_idx_r)
+        ]
+        query["reflect_salvaged_round"] = best_round.get("cnt")
+    else:
+        query["hard_logic_py"] = [
+            val
+            for idx, val in enumerate(query["hard_logic_py"])
+            if idx not in error_indices
+        ]
     # mechanical disjunction verifier: runs on the final surviving list so a
     # missing OR-constraint is re-requested even when the reflect loop above
     # converged without errors
