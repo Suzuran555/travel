@@ -309,9 +309,11 @@ that repeatedly kills its worker. (iii)~The remaining budget is spent on
 an honest \emph{self-verified retry loop} in the spirit of LLM-Modulo
 generate-and-verify~\cite{llmmodulo} and iterative
 self-refinement~\cite{selfrefine,reflexion}: each attempt is checked
-against the \emph{generated} constraints only; failing attempts trigger a
-freshly sampled translation~\cite{selfconsistency} and re-plan, keeping
-the best-scoring attempt.
+against the \emph{generated} constraints only; a failing --- or
+suspiciously constraint-thin --- attempt triggers a freshly sampled
+translation~\cite{selfconsistency} and re-plan, keeping the best-scoring
+attempt. With the retry loop the full-contract rehearsal reaches Overall
+$95.4$ (FPR $94$) on an API-served stand-in of the same model.
 
 \section{Findings for the Community}
 \label{sec:findings}
