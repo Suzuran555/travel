@@ -994,7 +994,7 @@ def _supervise() -> int:
     if workers > 1:
         # sharded workers get a wider per-query cap: each shard holds ~1/N of
         # the split, so the per-query share of the global budget grows ~N-fold
-        env.setdefault("PENGUINS_PER_QUERY_CAP", "900")
+        env.setdefault("PENGUINS_PER_QUERY_CAP", "1200")
     script = str(Path(__file__).resolve())
     wall_guard = start + 18600  # never restart past ~5h10m
     hard_deadline = start + 21000  # absolute give-up on stragglers (~5h50m)

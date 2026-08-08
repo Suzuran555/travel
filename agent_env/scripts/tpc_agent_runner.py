@@ -112,20 +112,29 @@ def _fallback(agent, query):
 def _self_check(uid, plan, translated, lang):
     """Honest in-run self-verification against the GENERATED constraints only
     (LLM-Modulo style: the model proposes, symbolic verifiers judge). Returns
-    (full_pass, cs_pass, satisfied_count) — never touches oracle fields."""
+    (full_pass, thick, cs_pass, satisfied_count) — never touches oracle
+    fields. `thick` ranks below full_pass: a passing plan built on a thin
+    (likely droppy) constraint set is retried and outranked by a passing
+    plan on a richer set."""
     import io
     import json as _json
     from contextlib import redirect_stdout
     from copy import deepcopy
 
     if not isinstance(plan, dict) or not plan.get("itinerary"):
-        return (False, False, -1)
+        return (False, False, False, -1)
     if not isinstance(translated, dict) or translated.get("uid") != uid:
-        return (False, False, -1)
+        return (False, False, False, -1)
     gate_query = {
         k: v for k, v in translated.items() if not str(k).startswith("_urbantrip_")
     }
     cons = list(gate_query.get("hard_logic_py") or [])
+    # recall-biased thinness flag: queries in this family average 11+
+    # constraints; a generated set this small strongly suggests silent
+    # droppage (a MISSING constraint leaves the plan unguided and fails the
+    # oracle, while a surplus wrong constraint is usually harmless), so a
+    # thin set is worth a re-translation even when the plan passes it
+    thick = len(cons) >= int(os.environ.get("PENGUINS_MIN_CONSTRAINTS", "7"))
     try:
         from chinatravel.evaluation.schema_constraint import evaluate_schema_constraints
         from chinatravel.evaluation.commonsense_constraint import (
@@ -157,9 +166,9 @@ def _self_check(uid, plan, translated, lang):
                     n_sat += 1
             except Exception:
                 pass
-        return (uid in sp and uid in cp and uid in lp, uid in cp, n_sat)
+        return (uid in sp and uid in cp and uid in lp, thick, uid in cp, n_sat)
     except Exception:
-        return (False, False, -1)
+        return (False, False, False, -1)
 
 
 def _purge_translation_cache(cache_dir, llm_name, uid):
@@ -248,15 +257,15 @@ def run_tpc_agent(
     llm = getattr(agent, "backbone_llm", None)
     base_seed = getattr(llm, "seed", None)
 
-    best_plan, best_rank = None, (False, False, -2)
+    best_plan, best_rank = None, (False, False, False, -2)
     try:
         for attempt in range(1, max_attempts + 1):
             remaining = _STATE["deadline"] - time.time()
             if attempt == 1:
                 cap = max(_FLOOR, min(per_query, remaining - _RESERVE))
             else:
-                if best_rank[0] or remaining < RETRY_MIN_SLACK:
-                    break  # already passing, or shard budget too thin to retry
+                if (best_rank[0] and best_rank[1]) or remaining < RETRY_MIN_SLACK:
+                    break  # passing on a rich set, or budget too thin to retry
                 # deterministic variation: fresh translation + perturbed seed
                 _purge_translation_cache(
                     cache_dir, getattr(llm, "name", "Qwen3.6-27B"), uid
@@ -269,8 +278,8 @@ def run_tpc_agent(
             rank_i = _self_check(uid, plan_i, translated, lang)
             if plan_i is not None and rank_i > best_rank:
                 best_plan, best_rank = plan_i, rank_i
-            if best_rank[0]:
-                break  # generated-constraint full pass — done
+            if best_rank[0] and best_rank[1]:
+                break  # full pass on a rich constraint set — done
             if attempt > 1:
                 print(
                     f"[tpc_agent] retry {attempt}: rank={rank_i} best={best_rank}",
