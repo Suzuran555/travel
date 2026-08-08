@@ -132,14 +132,40 @@ class TPCLLM:
                                      os.environ.get("CHINATRAVEL_LLM_THINK", "0") == "1"},
         }
         if json_mode and os.environ.get("CHINATRAVEL_DISABLE_JSON_FORMAT", "0") != "1":
-            # NB: strictly grammar-constrained servers (SGLang) mask the output
-            # distribution under json_object, measurably degrading constraint
-            # fidelity; the robust list extractor no longer needs server-side
-            # json mode, so this can be disabled for A/B via env
-            payload["response_format"] = {"type": "json_object"}
+            # Grammar-prompt ALIGNMENT: grammar-constrained decoding provably
+            # distorts the output distribution (Park et al. 2024, GAD), and the
+            # damage is worst when the forced grammar CONFLICTS with the
+            # prompted shape (json_object forbids the top-level array we ask
+            # for). For list-shaped calls, constrain to the exact object shape
+            # the prompt now requests; generic calls keep json_object.
+            if json_mode == "list":
+                payload["response_format"] = {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "constraints",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "constraints": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                }
+                            },
+                            "required": ["constraints"],
+                            "additionalProperties": False,
+                        },
+                    },
+                }
+            else:
+                payload["response_format"] = {"type": "json_object"}
         headers = {"Authorization": f"Bearer {self.openai_key}"}
         url = f"{self.openai_base}/chat/completions"
         resp = requests.post(url, json=payload, headers=headers, timeout=self._effective_timeout())
+        if resp.status_code == 400 and (payload.get("response_format") or {}).get("type") == "json_schema":
+            # graceful ladder: some servers lack json_schema -- fall back to
+            # json_object before stripping everything
+            payload["response_format"] = {"type": "json_object"}
+            resp = requests.post(url, json=payload, headers=headers, timeout=self._effective_timeout())
         if resp.status_code == 400:
             # server may reject non-standard extras (top_k / template kwargs /
             # response_format) -- retry with the bare standard payload

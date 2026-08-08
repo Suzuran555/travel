@@ -714,10 +714,10 @@ def reflect_disjunction(query, backbone_llm, gap, header=None, tail=None):
         + func_docs
         + tail
         + query["nature_language"]
-        + "\nanswer:\n"
+        + "\nReturn a single JSON object of the form {\"constraints\": [\"<constraint>\", ...]} and nothing else.\nanswer:\n"
     )
     messages = [{"role": "user", "content": content}]
-    res = backbone_llm(messages, one_line=False, json_mode=True)
+    res = backbone_llm(messages, one_line=False, json_mode="list")
     res = get_first_list_in_str(res)
     try:
         items = json.loads(res)
@@ -919,11 +919,11 @@ def nl2sl_step2(query, backbone_llm):
             + hard_logic
             + "\n The query is: \n"
             + query["nature_language"]
-            + "\nanswer:\n",
+            + "\nReturn a single JSON object of the form {\"constraints\": [\"<constraint>\", ...]} and nothing else.\nanswer:\n",
         }
     ]
     # print(messages[0]["content"])
-    hard_logic_py = backbone_llm(messages, one_line=False, json_mode=True)
+    hard_logic_py = backbone_llm(messages, one_line=False, json_mode="list")
     # l_ptr = hard_logic_py.find("[")
     # r_ptr = hard_logic_py.rfind("]")
     # if l_ptr != -1 and r_ptr != -1:
@@ -1000,11 +1000,11 @@ def reflect(query, backbone_llm, run_error_list, value_error_list):
         + "\n".join(value_error_list)
         + "\nThe query is: \n"
         + query["nature_language"]
-        + "\nanswer:\n"
+        + "\nReturn a single JSON object of the form {\"constraints\": [\"<constraint>\", ...]} and nothing else.\nanswer:\n"
     )
     # print(content)
     messages = [{"role": "user", "content": content}]
-    res = backbone_llm(messages, one_line=False, json_mode=True)
+    res = backbone_llm(messages, one_line=False, json_mode="list")
     # l_ptr = res.find("[")
     # r_ptr = res.rfind("]")
     # if l_ptr != -1 and r_ptr != -1:
