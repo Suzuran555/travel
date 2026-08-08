@@ -131,7 +131,11 @@ class TPCLLM:
             "chat_template_kwargs": {"enable_thinking":
                                      os.environ.get("CHINATRAVEL_LLM_THINK", "0") == "1"},
         }
-        if json_mode:
+        if json_mode and os.environ.get("CHINATRAVEL_DISABLE_JSON_FORMAT", "0") != "1":
+            # NB: strictly grammar-constrained servers (SGLang) mask the output
+            # distribution under json_object, measurably degrading constraint
+            # fidelity; the robust list extractor no longer needs server-side
+            # json mode, so this can be disabled for A/B via env
             payload["response_format"] = {"type": "json_object"}
         headers = {"Authorization": f"Bearer {self.openai_key}"}
         url = f"{self.openai_base}/chat/completions"
