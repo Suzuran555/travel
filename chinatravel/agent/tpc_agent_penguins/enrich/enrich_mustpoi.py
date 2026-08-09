@@ -1226,6 +1226,20 @@ def repair(uid, plan):
             if cs0 and not commonsense_ok(uid, tmp):
                 continue
             h1 = hard_count(uid, tmp)
+            if h1 <= h0:
+                # co-apply (A800 campaign): a meal fix that itself pushes the
+                # dining budget over its generated cap net-zeroes at the gate;
+                # give the budget reducers a shot at the SAME candidate before
+                # rejecting the group (measured blocker on 2 chronic uids)
+                caps = [float(t["poi"]) for t in tg if t["kind"] == "meal_budget"]
+                if caps:
+                    tmp2 = fix_budget_targeted(tmp, min(caps), city, ppl, protected)
+                    if tmp2 is None:
+                        tmp2 = fix_budget_hotelize(tmp, min(caps), city, ppl, protected)
+                    if tmp2 is not None and (not cs0 or commonsense_ok(uid, tmp2)):
+                        h2 = hard_count(uid, tmp2)
+                        if h2 > h0:
+                            tmp, h1 = tmp2, h2
             if h1 > h0:
                 cur, h0 = tmp, h1
                 cs0 = commonsense_ok(uid, cur)

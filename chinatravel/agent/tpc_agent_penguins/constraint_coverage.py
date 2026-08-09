@@ -2348,11 +2348,24 @@ def inject_innercity_cost_budget(constraints, query, lang="en"):
     if not m:
         return constraints, None
     n = m.group("n") or m.group("n2")
+    # the canonical accumulator has NO guards: a type-guarded or
+    # continue-skipping variant undercounts (measured: intercity-leg
+    # transports excluded via `continue` slipped a 104-cap plan through)
     have = any(isinstance(c, str)
                and "inner_city_transportation_cost" in c and "+=" in c
+               and "if " not in c and "continue" not in c
                for c in constraints)
     cons = list(constraints)
     changed = []
+    if not have:
+        kept = []
+        for c in cons:
+            if isinstance(c, str) and "inner_city_transportation_cost" in c \
+                    and "+=" in c:
+                changed.append({"dropped": c[:110], "why": "guarded ic accumulator"})
+            else:
+                kept.append(c)
+        cons = kept
     # drop constraints that compare clock fields against the bare budget number
     kept = []
     for c in cons:
@@ -2629,31 +2642,43 @@ _TOTAL_COMBINED_TMPL = (
 _ALL_MODES = ("walk", "metro", "taxi")
 
 
+def _greedy_vocab_merge(parts, sep, vocab_cf):
+    """Greedily merge adjacent parts (joined by sep) that form a vocabulary
+    entry -- POI names legally contain both commas and ' and '."""
+    out, i = [], 0
+    while i < len(parts):
+        matched = None
+        for j in range(len(parts), i, -1):
+            cand = sep.join(parts[i:j])
+            if j > i + 1 and cand.casefold() not in vocab_cf:
+                continue
+            if j == i + 1 or cand.casefold() in vocab_cf:
+                matched = (cand, j)
+                break
+        if matched:
+            out.append(matched[0]); i = matched[1]
+        else:
+            out.append(parts[i]); i += 1
+    return out
+
+
 def _seg_split_items(tail, vocab_cf):
     """Split a natural list ('A, B and C') into items; DB vocabulary decides
-    whether ' and ' is a separator or part of a name/type."""
+    whether ',' / ' and ' are separators or part of a name/type."""
     tail = tail.strip().rstrip(".")
+    segs = [s.strip() for s in tail.split(",") if s.strip()]
+    if vocab_cf:
+        segs = _greedy_vocab_merge(segs, ", ", vocab_cf)
     out = []
-    for seg in tail.split(","):
+    for seg in segs:
         seg = re.sub(r"^\s*and\s+", "", seg.strip())
         if not seg:
             continue
         if not vocab_cf or seg.casefold() in vocab_cf or " and " not in seg:
             out.append(seg)
             continue
-        parts = [p.strip() for p in seg.split(" and ")]
-        i = 0
-        while i < len(parts):
-            matched = None
-            for j in range(len(parts), i, -1):
-                cand = " and ".join(parts[i:j])
-                if cand.casefold() in vocab_cf:
-                    matched = (cand, j)
-                    break
-            if matched:
-                out.append(matched[0]); i = matched[1]
-            else:
-                out.append(parts[i]); i += 1
+        out.extend(_greedy_vocab_merge(
+            [p.strip() for p in seg.split(" and ")], " and ", vocab_cf))
     return [x for x in out if x]
 
 
@@ -2711,8 +2736,12 @@ def _drop_contradictions(cons, set_name, items, polarity, changed):
             pure_set_tail = tail.startswith("result=") and set_name in tail
             wrong = ((polarity == "excl" and not neg) or
                      (polarity == "incl" and neg))
-            if pure_set_tail and wrong and any(
-                    i.casefold() in c.casefold() for i in items):
+            # quoted-literal match only: a bare substring test lets list
+            # fragments ('Beijing') wrongly kill unrelated constraints
+            cf = c.casefold()
+            hit = any(('"%s"' % i.casefold()) in cf or ("'%s'" % i.casefold()) in cf
+                      for i in items)
+            if pure_set_tail and wrong and hit:
                 changed.append({"dropped_contradiction": c[:120]})
                 continue
         kept.append(c)
