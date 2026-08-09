@@ -74,8 +74,7 @@ uplift raise the familiarization set to $\mathbf{99.18}$ with FPR and C-LPR
 at $100$. The harness answers the organizers' fixed entry command, honors
 the 5-hour/100-query budget with per-query caps and a deterministic
 fallback, survives oracle-free held-out data by construction, and was
-verified end-to-end against a protocol-exact SGLang simulator with zero
-environment overrides.
+verified end-to-end on the formal SGLang/A800 serving stack.
 \end{abstract}
 
 \section{Results Summary}
@@ -146,11 +145,9 @@ irreplaceable; all downstream stages are deterministic:
 \begin{enumerate}
 \item \textbf{NL$\to$DSL translation} (Qwen3.6-27B via the organizers'
 SGLang endpoint, thinking disabled, temperature $0$, fixed seed). Prompts
-are hardened against failure modes measured on Qwen itself (e.g.\ a stock
-few-shot example that induced invented room constraints; fixing it alone
-moved measured translation fidelity from $46\%$ to ${\sim}89\%$).
-Mechanical verifiers and normalizers reject or repair malformed DSL with no
-oracle access.
+are hardened against failure modes measured on Qwen itself
+(Section~\ref{sec:findings}); mechanical verifiers and normalizers reject
+or repair malformed DSL with no oracle access.
 \item \textbf{DSL canonicalization}: constraint literals, aliases, and
 quoting are normalized so the symbolic layer sees a stable language
 regardless of LLM phrasing variance.
@@ -308,7 +305,7 @@ dead workers on an inherited budget clock, and force-fallbacks any query
 that repeatedly kills its worker. (iii)~The remaining budget is spent on
 an honest \emph{self-verified retry loop} in the spirit of LLM-Modulo
 generate-and-verify~\cite{llmmodulo} and iterative
-self-refinement~\cite{selfrefine,reflexion}: each attempt is checked
+self-refinement~\cite{selfrefine}: each attempt is checked
 against the \emph{generated} constraints only; a failing --- or
 suspiciously constraint-thin --- attempt triggers a freshly sampled
 translation~\cite{selfconsistency} and re-plan, keeping the best-scoring
@@ -316,22 +313,17 @@ attempt. (iv)~We \emph{align} grammar with prompt: list-shaped calls
 request --- and \texttt{json\_schema}-constrain --- one exact object
 shape, removing the grammar--prompt conflict that constrained decoding
 provably amplifies~\cite{gad}: on the formal stack (TP$=$2) Overall
-$83.2$ (FPR $73$) vs.\ $76.6$ (FPR $62$) without (iv). (v)~Forensics on
-the residual failures showed \emph{blind} regenerate-retries convert
-$\approx\!0$ --- consistent with feedback-starved self-repair
-findings~\cite{selfrepair} --- and that the dominant defect is
-\emph{polarity inversion} (requirements rendered as prohibitions and
-vice versa), a known negation blindness of LLMs~\cite{negation}. Since
-the numbered-requirements register is templated, NL is the ground truth:
-a deterministic verifier cross-checks each generated constraint's
-polarity, windows and budgets against its NL clause and synthesizes the
-canonical form on mismatch, and the in-run repair follows plan-repair
-rather than replanning~\cite{planrepair} (window shifts absorb slack in
-later transport chains; hotel rebooking; leg re-moding), each repair
-adopted only if the generated-constraint pass count strictly improves.
-Measured on-stack (fresh translations each round): FPR
-$73\!\to\!80$ after (i--iv), $\to\!93$ (Overall $94.7$, C-LPR $98.2$)
-with (v).
+$83.2$ (FPR $73$) vs.\ $76.6$ (FPR $62$) without (iv). (v)~Blind
+regenerate-retries converted $\approx\!0$ residual
+failures~\cite{selfrepair}; the dominant defect was \emph{polarity
+inversion} (requirements rendered as prohibitions), a known LLM negation
+blindness~\cite{negation}. The templated NL is the ground truth: a
+deterministic verifier checks each constraint's polarity, windows and
+budgets against its NL clause and synthesizes the canonical form on
+mismatch; in-run repair follows plan-repair over
+replanning~\cite{planrepair}, gated on the generated-constraint pass
+count. On-stack: FPR $73\!\to\!80$ after (i--iv), $\to\!93$ (Overall
+$94.7$) with (v).
 
 \section{Findings for the Community}
 \label{sec:findings}
@@ -460,54 +452,45 @@ Language Agents.
 \newblock In \emph{ICML}, arXiv:2402.01622, 2024.
 
 \bibitem[Kambhampati \emph{et al.}, 2024]{llmmodulo}
-Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, et al.
+Subbarao Kambhampati \emph{et al.}
 \newblock LLMs Can't Plan, But Can Help Planning in LLM-Modulo
 Frameworks.
 \newblock In \emph{ICML}, arXiv:2402.01817, 2024.
 
 \bibitem[Tam \emph{et al.}, 2024]{tam2024}
-Zhi Rui Tam, Cheng-Kuang Wu, Yi-Lin Tsai, Chieh-Yen Lin, Hung-yi Lee,
-and Yun-Nung Chen.
+Zhi Rui Tam \emph{et al.}
 \newblock Let Me Speak Freely? A Study on the Impact of Format
 Restrictions on Performance of Large Language Models.
 \newblock In \emph{EMNLP Industry Track}, arXiv:2408.02442, 2024.
 
 \bibitem[Fox \emph{et al.}, 2006]{planrepair}
-Maria Fox, Alfonso Gerevini, Derek Long, and Ivan Serina.
+Maria Fox \emph{et al.}
 \newblock Plan Stability: Replanning versus Plan Repair.
 \newblock In \emph{ICAPS}, 2006.
 
 \bibitem[Olausson \emph{et al.}, 2024]{selfrepair}
-Theo X. Olausson, Jeevana Priya Inala, Chenglong Wang, Jianfeng Gao,
-and Armando Solar-Lezama.
+Theo X. Olausson \emph{et al.}
 \newblock Is Self-Repair a Silver Bullet for Code Generation?
 \newblock In \emph{ICLR}, arXiv:2306.09896, 2024.
 
 \bibitem[Truong \emph{et al.}, 2023]{negation}
-Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, and Trevor Cohn.
+Thinh Hung Truong \emph{et al.}
 \newblock Language Models are Not Naysayers: An Analysis of Language
 Models on Negation Benchmarks.
 \newblock In \emph{*SEM}, arXiv:2306.08189, 2023.
 
 \bibitem[Park \emph{et al.}, 2024]{gad}
-Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, Nadia Polikarpova,
-and Loris D'Antoni.
+Kanghee Park \emph{et al.}
 \newblock Grammar-Aligned Decoding.
 \newblock In \emph{NeurIPS}, arXiv:2405.21047, 2024.
 
 \bibitem[Madaan \emph{et al.}, 2023]{selfrefine}
-Aman Madaan, Niket Tandon, Prakhar Gupta, et al.
+Aman Madaan \emph{et al.}
 \newblock Self-Refine: Iterative Refinement with Self-Feedback.
 \newblock In \emph{NeurIPS}, arXiv:2303.17651, 2023.
 
-\bibitem[Shinn \emph{et al.}, 2023]{reflexion}
-Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik
-Narasimhan, and Shunyu Yao.
-\newblock Reflexion: Language Agents with Verbal Reinforcement Learning.
-\newblock In \emph{NeurIPS}, arXiv:2303.11366, 2023.
-
 \bibitem[Wang \emph{et al.}, 2023]{selfconsistency}
-Xuezhi Wang, Jason Wei, Dale Schuurmans, et al.
+Xuezhi Wang \emph{et al.}
 \newblock Self-Consistency Improves Chain of Thought Reasoning in
 Language Models.
 \newblock In \emph{ICLR}, arXiv:2203.11171, 2023.
