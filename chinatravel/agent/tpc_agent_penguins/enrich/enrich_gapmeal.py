@@ -13,7 +13,7 @@ from . import enrich_route as ER
 
 INTER = {"train", "airplane"}
 WIN = {"lunch": (11 * 60, 14 * 60), "dinner": (17 * 60, 20 * 60), "breakfast": (6 * 60, 9 * 60)}
-DUR = 45
+DUR = 30
 
 def ddr(plan):
     days = max(1, len(plan["itinerary"]))
@@ -61,7 +61,7 @@ def insert_gap_meal(ag, query, plan, di, meal):
         xe, ys = x.get("end_time"), y.get("start_time")
         if not posX or not posY or not xe or not ys:
             continue
-        if min(hm(ys), hi) - max(hm(xe), lo) < 40:      # no usable idle window here
+        if min(hm(ys), hi) - max(hm(xe), lo) < 30:      # no usable idle window here
             continue
         for r in nearest_open(ag, query, posX, lo, hi, visited):
             name = r["name"]; ot, et = str(r.get("opentime")), str(r.get("endtime"))

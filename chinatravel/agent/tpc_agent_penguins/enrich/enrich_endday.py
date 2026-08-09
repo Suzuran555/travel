@@ -60,7 +60,7 @@ def insert_end_dinner(ag, query, plan, di):
     df = ag.memory["restaurants"]
     visited = set(actpos(x) for d in plan["itinerary"] for x in d["activities"])
     df = df[~df["name"].isin(visited)]
-    cands = on_the_way(ag, query, posA, posH, df, k=30, max_detour=10.0)
+    cands = on_the_way(ag, query, posA, posH, df, k=60, max_detour=22.0)
     ppl = int(query.get("people_number", 1))
     for r in cands:
         name = r["name"]; ot, et = str(r.get("opentime")), str(r.get("endtime"))
@@ -112,7 +112,7 @@ def insert_arrival_breakfast(ag, query, plan):
     if not acts or acts[0].get("type") not in INTER:
         return False
     arr_end = acts[0].get("end_time")
-    if not arr_end or hm(arr_end) > 8 * 60 + 30:   # too late to fit breakfast<=09:00
+    if not arr_end or hm(arr_end) > 8 * 60 + 45:   # too late to fit breakfast<=09:00
         return False
     # first POI after arrival
     if len(acts) < 2:
@@ -126,7 +126,7 @@ def insert_arrival_breakfast(ag, query, plan):
     df = ag.memory["restaurants"]
     visited = set(actpos(x) for d in plan["itinerary"] for x in d["activities"])
     df = df[~df["name"].isin(visited)]
-    cands = on_the_way(ag, query, posArr, posB, df, k=30, max_detour=10.0)
+    cands = on_the_way(ag, query, posArr, posB, df, k=60, max_detour=22.0)
     ppl = int(query.get("people_number", 1))
     for r in cands:
         name = r["name"]; ot, et = str(r.get("opentime")), str(r.get("endtime"))

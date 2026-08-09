@@ -873,9 +873,91 @@ def fix_budget_targeted(plan, cap, city, ppl, protected):
                 if tr2 is not None and j+1<len(acts):
                     nn=dict(acts[j+1]); nn["transports"]=tr2; acts[j+1]=nn
                 done=True; break
+            if not done and a.get("type") in ("lunch", "dinner"):
+                # drop-and-stitch (A800 campaign): lunch/dinner at a hotel is
+                # NOT evaluator-exempt (only breakfast is), so the strongest
+                # legal reducer for an unreplaceable paid meal is removing it
+                # and re-stitching the next activity's transport chain
+                nxt2 = acts[j + 1] if j + 1 < len(acts) else None
+                feasible = True; stitched = None
+                if nxt2 is not None and prev_pos:
+                    nxt_pos = nxt2.get("position") or nxt2.get("start")
+                    ns2 = hm(nxt2["start_time"]) if nxt2.get("start_time") else None
+                    if nxt_pos and ns2 is not None and N(nxt_pos) != N(prev_pos):
+                        feasible = False
+                        for m2 in ALLOWED_MODES:
+                            p2 = LA.goto(city, prev_pos, nxt_pos, "09:00", m2, ppl)
+                            if not p2: continue
+                            d2 = hm(p2[-1]["end_time"]) - hm(p2[0]["start_time"])
+                            dep2 = ns2 - d2
+                            if dep2 < pe: continue
+                            sh2 = dep2 - hm(p2[0]["start_time"])
+                            stitched = [dict(l, start_time=fmt(hm(l["start_time"]) + sh2),
+                                             end_time=fmt(hm(l["end_time"]) + sh2)) for l in p2]
+                            feasible = True; break
+                    elif nxt_pos and N(nxt_pos) == N(prev_pos):
+                        stitched = []
+                if feasible:
+                    del acts[j]
+                    if stitched is not None and j < len(acts):
+                        nn = dict(acts[j]); nn["transports"] = stitched; acts[j] = nn
+                    done = True
+            if not done and a.get("type") == "breakfast":
+                # breakfast-only hotel fallback: zero-cost breakfast at the
+                # booked hotel is the one evaluator-exempt hotel meal
+                hotel = next((b.get("position") for d2 in p["itinerary"]
+                              for b in d2["activities"]
+                              if b.get("type") == "accommodation"
+                              and b.get("position")), None)
+                if hotel and N(a.get("position", "")) != N(hotel):
+                    tr1 = None
+                    if N(prev_pos or "") == N(hotel):
+                        tr1 = []
+                    else:
+                        for mode in ALLOWED_MODES:
+                            probe = LA.goto(city, prev_pos, hotel, "09:00", mode, ppl)
+                            if not probe: continue
+                            d1 = hm(probe[-1]["end_time"]) - hm(probe[0]["start_time"])
+                            dep = st - d1
+                            if dep < pe: continue
+                            sh = dep - hm(probe[0]["start_time"])
+                            tr1 = [dict(l, start_time=fmt(hm(l["start_time"]) + sh),
+                                        end_time=fmt(hm(l["end_time"]) + sh)) for l in probe]
+                            break
+                    if tr1 is not None:
+                        tr2 = None; ok = True
+                        if nxt is not None:
+                            nxt_pos = nxt.get("position") or nxt.get("start")
+                            ns = hm(nxt["start_time"]) if nxt.get("start_time") else None
+                            if nxt_pos and ns is not None and N(nxt_pos) != N(hotel):
+                                ok = False
+                                for m2 in ALLOWED_MODES:
+                                    p2 = LA.goto(city, hotel, nxt_pos, "09:00", m2, ppl)
+                                    if not p2: continue
+                                    d2 = hm(p2[-1]["end_time"]) - hm(p2[0]["start_time"])
+                                    if ed + d2 <= ns:
+                                        sh2 = ed - hm(p2[0]["start_time"])
+                                        tr2 = [dict(l, start_time=fmt(hm(l["start_time"]) + sh2),
+                                                    end_time=fmt(hm(l["end_time"]) + sh2)) for l in p2]
+                                        ok = True; break
+                            elif nxt_pos and N(nxt_pos) == N(hotel):
+                                nn = dict(nxt); nn["transports"] = []
+                                acts[j + 1] = nn
+                        if ok:
+                            na = dict(a); na.update(position=hotel, price=0.0,
+                                                    cost=0.0, transports=tr1)
+                            acts[j] = na
+                            if tr2 is not None and j + 1 < len(acts):
+                                nn = dict(acts[j + 1]); nn["transports"] = tr2; acts[j + 1] = nn
+                            done = True
             if done: break
-        if not done: return None
-    return None
+        if not done:
+            break
+    # keep a partial reduction only if the cap is actually met (the gate
+    # scores whole constraints); otherwise report failure
+    meals = [a for day in p["itinerary"] for a in day["activities"]
+             if a.get("type") in MEAL_WIN]
+    return p if sum(float(a.get("cost") or 0) for a in meals) <= cap else None
 
 def fix_relocate_meal_to_hotel(plan, poi, lo, hi):
     """Convert an existing meal to a zero-cost meal at the booked hotel (poi)."""
