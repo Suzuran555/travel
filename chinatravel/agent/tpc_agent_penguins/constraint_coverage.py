@@ -2562,6 +2562,251 @@ def fix_universal_requirement(constraints, query):
     return out, {"rule": "universal_requirement_fixed", "changes": changed}
 
 
+# --- rule r5.16: numbered-register list/budget/mode synthesizer --------------
+# The remaining serving-stack translation misses are dropped LIST lines
+# ('Do not include any of these attractions: A, B and C.'), dropped
+# type-inclusion lines, the combined activity+in-city budget, and the
+# use-only-mode line. All are rigid templates in the numbered register --
+# verify each against the generated set and inject the oracle-shaped
+# canonical when missing; drop direct contradictions (wrong-polarity twins).
+
+_SET_LOOPS = {
+    "attraction_name": ("attraction_name_set",
+        "if activity_type(activity)=='attraction': "
+        "attraction_name_set.add(activity_position(activity))"),
+    "restaurant_name": ("restaurant_name_set",
+        "if activity_type(activity) in ['breakfast', 'lunch', 'dinner']: "
+        "restaurant_name_set.add(activity_position(activity))"),
+    "accommodation_name": ("accommodation_name_set",
+        "if activity_type(activity)=='accommodation': "
+        "accommodation_name_set.add(activity_position(activity))"),
+    "attraction_type": ("attraction_type_set",
+        "if activity_type(activity)=='attraction': "
+        "attraction_type_set.add(attraction_type(activity, target_city(plan)))"),
+    "restaurant_type": ("restaurant_type_set",
+        "if activity_type(activity) in ['breakfast', 'lunch', 'dinner']: "
+        "restaurant_type_set.add(restaurant_type(activity, target_city(plan)))"),
+    "accommodation_type": ("accommodation_type_set",
+        "if activity_type(activity)=='accommodation': "
+        "accommodation_type_set.add(accommodation_type(activity, target_city(plan)))"),
+    "intercity": ("intercity_transport_set",
+        "if activity_type(activity) in ['train', 'airplane']: "
+        "intercity_transport_set.add(activity_type(activity))"),
+    "mode": ("inner_city_transportation_set",
+        "if activity_transports(activity)!=[]: "
+        "inner_city_transportation_set.add("
+        "innercity_transport_type(activity_transports(activity)))"),
+}
+
+_REGISTER_LINE_RES = [
+    (re.compile(r"do\s+not\s+include\s+any\s+of\s+these\s+attraction\s+types?:\s*(?P<list>.+)", re.I), "attraction_type", "excl"),
+    (re.compile(r"do\s+not\s+include\s+any\s+of\s+these\s+restaurant\s+types?:\s*(?P<list>.+)", re.I), "restaurant_type", "excl"),
+    (re.compile(r"do\s+not\s+include\s+any\s+of\s+these\s+hotel\s+feature\s+types?:\s*(?P<list>.+)", re.I), "accommodation_type", "excl"),
+    (re.compile(r"do\s+not\s+include\s+any\s+of\s+these\s+attractions?:\s*(?P<list>.+)", re.I), "attraction_name", "excl"),
+    (re.compile(r"do\s+not\s+include\s+any\s+of\s+these\s+restaurants?:\s*(?P<list>.+)", re.I), "restaurant_name", "excl"),
+    (re.compile(r"do\s+not\s+include\s+any\s+of\s+these\s+hotels?:\s*(?P<list>.+)", re.I), "accommodation_name", "excl"),
+    (re.compile(r"include\s+the\s+following\s+attraction\s+types?:\s*(?P<list>.+)", re.I), "attraction_type", "incl"),
+    (re.compile(r"include\s+the\s+following\s+restaurant\s+types?:\s*(?P<list>.+)", re.I), "restaurant_type", "incl"),
+    (re.compile(r"visit\s+the\s+following\s+attractions?:\s*(?P<list>.+)", re.I), "attraction_name", "incl"),
+    (re.compile(r"dine\s+at\s+the\s+following\s+restaurants?:\s*(?P<list>.+)", re.I), "restaurant_name", "incl"),
+    (re.compile(r"stay\s+at\s+the\s+following\s+hotels?:\s*(?P<list>.+)", re.I), "accommodation_name", "incl"),
+]
+_MODE_ONLY_RE = re.compile(
+    r"use\s+only\s+(?P<modes>[a-z, and]+?)\s+for\s+transportation\s+within", re.I)
+_MODE_NOT_RE = re.compile(
+    r"do\s+not\s+use\s+(?P<modes>[a-z,\s]+?)\s+for\s+transportation\s+within", re.I)
+_TOTAL_COMBINED_RE = re.compile(
+    r"keep\s+the\s+total\s+activity\s+and\s+in[- ]city\s+transportation\s+cost"
+    r"\s+within\s+(?P<n>\d+(?:\.\d+)?)", re.I)
+_INTERCITY_INCL_RE = re.compile(
+    r"intercity\s+itinerary\s+must\s+include\s+(?P<modes>[a-z, and]+)", re.I)
+_TOTAL_COMBINED_TMPL = (
+    "total_cost=0\n"
+    "for activity in allactivities(plan):\n"
+    "  total_cost+=activity_cost(activity)\n"
+    "  total_cost += innercity_transport_cost(activity_transports(activity))\n"
+    "result=(total_cost<=%s)")
+_ALL_MODES = ("walk", "metro", "taxi")
+
+
+def _seg_split_items(tail, vocab_cf):
+    """Split a natural list ('A, B and C') into items; DB vocabulary decides
+    whether ' and ' is a separator or part of a name/type."""
+    tail = tail.strip().rstrip(".")
+    out = []
+    for seg in tail.split(","):
+        seg = re.sub(r"^\s*and\s+", "", seg.strip())
+        if not seg:
+            continue
+        if not vocab_cf or seg.casefold() in vocab_cf or " and " not in seg:
+            out.append(seg)
+            continue
+        parts = [p.strip() for p in seg.split(" and ")]
+        i = 0
+        while i < len(parts):
+            matched = None
+            for j in range(len(parts), i, -1):
+                cand = " and ".join(parts[i:j])
+                if cand.casefold() in vocab_cf:
+                    matched = (cand, j)
+                    break
+            if matched:
+                out.append(matched[0]); i = matched[1]
+            else:
+                out.append(parts[i]); i += 1
+    return [x for x in out if x]
+
+
+def _register_vocab(kind, query):
+    city = query.get("target_city")
+    try:
+        if kind.endswith("_name"):
+            return {n.casefold() for n in _city_all_poi_names(city)}
+        from .dsl_canonicalizer import _city_poi_types
+        vocab = _city_poi_types(city)
+        cat = kind.split("_")[0]
+        return set((vocab.get(cat) or {}).keys())
+    except Exception:
+        return set()
+
+
+def _items_literal(items):
+    return "{%s}" % ", ".join('"%s"' % i.replace('"', "'") for i in items)
+
+
+def _build_set_constraint(kind, items, polarity):
+    set_name, loop = _SET_LOOPS[kind]
+    lit = _items_literal(items)
+    tail = ("result=(not(%s&%s))" % (lit, set_name) if polarity == "excl"
+            else "result=(%s<=%s)" % (lit, set_name))
+    return "%s=set()\nfor activity in allactivities(plan):\n  %s\n%s" % (
+        set_name, loop, tail)
+
+
+def _mentions_all(c, items):
+    cf = c.casefold()
+    return all(("\"%s\"" % i.casefold()) in cf or ("'%s'" % i.casefold()) in cf
+               or i.casefold() in cf for i in items)
+
+
+def _register_covered(cons, set_name, items, polarity):
+    for c in cons:
+        if not isinstance(c, str) or set_name not in c:
+            continue
+        tail = c.strip().splitlines()[-1]
+        neg = "not(" in tail.replace(" ", "")
+        if polarity == "excl" and neg and _mentions_all(c, items):
+            return True
+        if polarity == "incl" and not neg and _mentions_all(c, items):
+            return True
+    return False
+
+
+def _drop_contradictions(cons, set_name, items, polarity, changed):
+    kept = []
+    for c in cons:
+        if isinstance(c, str) and set_name in c and _or_arity(c) == 0:
+            tail = c.strip().splitlines()[-1].replace(" ", "")
+            neg = "not(" in tail
+            pure_set_tail = tail.startswith("result=") and set_name in tail
+            wrong = ((polarity == "excl" and not neg) or
+                     (polarity == "incl" and neg))
+            if pure_set_tail and wrong and any(
+                    i.casefold() in c.casefold() for i in items):
+                changed.append({"dropped_contradiction": c[:120]})
+                continue
+        kept.append(c)
+    return kept
+
+
+def synthesize_nl_registers(constraints, query, lang="en"):
+    nl = query.get("nature_language") or ""
+    if lang == "zh" or not nl:
+        return constraints, None
+    cons = list(constraints)
+    changed = []
+    for line in nl.split("\n"):
+        line = line.strip()
+        handled = False
+        for rx, kind, polarity in _REGISTER_LINE_RES:
+            m = rx.search(line)
+            if not m:
+                continue
+            items = _seg_split_items(m.group("list"), _register_vocab(kind, query))
+            if not items:
+                break
+            set_name = _SET_LOOPS[kind][0]
+            if not _register_covered(cons, set_name, items, polarity):
+                cons = _drop_contradictions(cons, set_name, items, polarity, changed)
+                new_c = _build_set_constraint(kind, items, polarity)
+                cons.append(new_c)
+                changed.append({"line": line[:90], "injected": new_c[:110]})
+            handled = True
+            break
+        if handled:
+            continue
+        m = _MODE_ONLY_RE.search(line)
+        if m:
+            allowed = [w for w in _ALL_MODES if w in m.group("modes").lower()]
+            banned = [w for w in _ALL_MODES if w not in allowed]
+            if allowed and banned:
+                set_name = _SET_LOOPS["mode"][0]
+                whitelisted = any(isinstance(c, str) and set_name in c and
+                                  ("%s<=" % set_name) in c.replace(" ", "")
+                                  for c in cons)
+                if not whitelisted and not _register_covered(
+                        cons, set_name, banned, "excl"):
+                    new_c = _build_set_constraint("mode", banned, "excl")
+                    cons.append(new_c)
+                    changed.append({"line": line[:90], "injected": new_c[:110]})
+            continue
+        m = _MODE_NOT_RE.search(line)
+        if m:
+            banned = [w for w in _ALL_MODES
+                      if w in m.group("modes").lower().replace("walking", "walk")]
+            if banned and not _register_covered(
+                    cons, _SET_LOOPS["mode"][0], banned, "excl"):
+                new_c = _build_set_constraint("mode", banned, "excl")
+                cons.append(new_c)
+                changed.append({"line": line[:90], "injected": new_c[:110]})
+            continue
+        m = _TOTAL_COMBINED_RE.search(line)
+        if m:
+            n = m.group("n")
+            # the combined total sums EVERY activity's cost: a type-guarded
+            # accumulator (e.g. attractions only) is a mistranslation
+            have = any(isinstance(c, str) and "total_cost" in c
+                       and "innercity_transport_cost" in c
+                       and ("<=%s" % n) in c.replace(" ", "")
+                       and "if " not in c for c in cons)
+            if not have:
+                kept = []
+                for c in cons:
+                    if isinstance(c, str) and "total_cost" in c and \
+                            ("<=%s" % n) in c.replace(" ", ""):
+                        changed.append({"dropped_incomplete_total": c[:110]})
+                        continue
+                    kept.append(c)
+                cons = kept
+                new_c = _TOTAL_COMBINED_TMPL % n
+                cons.append(new_c)
+                changed.append({"line": line[:90], "injected": new_c[:110]})
+            continue
+        m = _INTERCITY_INCL_RE.search(line)
+        if m:
+            modes = [w for w in ("airplane", "train")
+                     if w in m.group("modes").lower()]
+            if modes and not _register_covered(
+                    cons, _SET_LOOPS["intercity"][0], modes, "incl"):
+                new_c = _build_set_constraint("intercity", modes, "incl")
+                cons.append(new_c)
+                changed.append({"line": line[:90], "injected": new_c[:110]})
+    if not changed:
+        return constraints, None
+    return list(dict.fromkeys(cons)), {
+        "rule": "nl_register_synthesized", "changes": changed}
+
+
 # ---------------------------------------------------------------------------
 # driver
 # ---------------------------------------------------------------------------
@@ -2601,6 +2846,7 @@ def enforce_coverage(query, lang="en"):
     _apply(fix_bogus_transport_guard(cons, query))
     _apply(synthesize_nl_windows(cons, query, lang))
     _apply(fix_universal_requirement(cons, query))
+    _apply(synthesize_nl_registers(cons, query, lang))
     _apply(drop_disjunction_fragments(cons))
     _apply(enforce_budget_scope(cons, query, lang))
     _apply(enforce_directional_transport(cons, query, lang))

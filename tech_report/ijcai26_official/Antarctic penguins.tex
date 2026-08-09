@@ -329,8 +329,9 @@ canonical form on mismatch, and the in-run repair follows plan-repair
 rather than replanning~\cite{planrepair} (window shifts absorb slack in
 later transport chains; hotel rebooking; leg re-moding), each repair
 adopted only if the generated-constraint pass count strictly improves.
-Measured: FPR $73\!\to\!80$ on-stack after (i--iv), $\to\!91$ (Overall
-$93.3$) with (v) under cached translations.
+Measured on-stack (fresh translations each round): FPR
+$73\!\to\!80$ after (i--iv), $\to\!93$ (Overall $94.7$, C-LPR $98.2$)
+with (v).
 
 \section{Findings for the Community}
 \label{sec:findings}
