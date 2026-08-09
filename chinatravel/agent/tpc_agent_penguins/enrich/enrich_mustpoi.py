@@ -768,6 +768,8 @@ def fix_mode_excl(plan, banned_mode, city, ppl):
         except Exception:
             continue
         for m2 in ALLOWED_MODES:
+            if m2 == banned_mode:
+                continue
             if _rebuild_leg(a, prev_pos, cur, day_prev_end, m2, city, ppl):
                 changed = True; break
     return p if changed else None
