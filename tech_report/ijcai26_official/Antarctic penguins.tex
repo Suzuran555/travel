@@ -119,18 +119,16 @@ requests with zero temperature and a fixed base seed. Grammar-constrained
 decoding is kept, but aligned with the prompt: list-shaped calls request
 one exact object shape and constrain decoding to that JSON schema, since a
 generic \texttt{json\_object} grammar forbids the very array the prompt
-asks for. A ladder of retries falls back to \texttt{json\_object} and then
-to a bare payload whenever the endpoint rejects an optional field. Only the generated program is
-passed downstream -- neither the model's natural-language reasoning trace
-nor any itinerary it might propose ever reaches the search stage. The
-prompts demand one-to-one coverage of explicit requirement clauses and
-disallow room or bed constraints unless the request actually licenses them;
-a deterministic filter, gated on the NL text, strips out any such
-ungrounded constraint that still slips through. All four
+asks for; constrained decoding provably shifts the output
+distribution~\cite{gad}, a cost outweighed here by parse reliability. A ladder of retries falls back to \texttt{json\_object} and then
+to a bare payload whenever the endpoint rejects an optional field. Only the generated program is passed downstream: neither the model's
+reasoning trace nor any itinerary it proposes reaches the search stage.
+The prompts demand one-to-one coverage of explicit requirement clauses and
+disallow room or bed constraints unless the request licenses them, with an
+NL-gated filter stripping any that slip through. All four
 \texttt{hard\_logic*} reference fields are stripped before translation and
-planning. Disabling the thinking mode and capping output at 8192 tokens
-both help cut down truncation-related variance. Every previously unseen
-request is translated on the fly.
+planning; thinking is disabled and output capped at 8192 tokens to cut
+truncation variance.
  
 \paragraph{Robust Extraction and Canonicalization.}
 Because a strict \texttt{json\_object} grammar can wrap the requested
@@ -138,16 +136,17 @@ constraint array inside an outer object, the extractor repairs and parses
 the full response, unwraps any list-valued field or object-of-strings, and
 otherwise scans every balanced bracket span, keeping the longest candidate
 that parses as a list of strings so that an inner list literal is never
-mistaken for the constraint list. The extracted DSL is then normalized for aliases, quote
-variants, set-variable naming, budget accumulators, transport guards, and
-database type spellings. Runtime checks on example plans and an AST checker can trigger up to five
+mistaken for the constraint list. The extracted DSL is normalized for aliases, quote variants, set-variable
+naming, budget accumulators, transport guards, and database type
+spellings. Runtime checks on example plans and an AST checker can trigger up to five
 general reflection calls; a deterministic disjunction-gap detector may
 issue up to two targeted ones. A final mechanical coverage pass then treats the request text as the
 authority for the clause families whose phrasing is templated. Each
 generated constraint is cross-checked against its source clause on
 polarity, window endpoints, and budget scope, and the canonical form is
 synthesized whenever they disagree or the clause has no counterpart at
-all: requirements rendered as prohibitions are flipped back, dropped
+all: requirements rendered as prohibitions -- a systematic failure mode of
+language models on negation~\cite{negation} -- are flipped back, dropped
 exclusion lists and type-inclusion lists are reinstalled, and a
 type-guarded cost accumulator is replaced by the unguarded one its budget
 noun implies. This recovers explicit budgets, transport modes, room
@@ -161,10 +160,10 @@ size, and city list are written back in. What comes out the other end is a stabl
 rather than a loose, free-form semantic representation.
  
 \paragraph{Literal DSL Parsing.}
-The planner pulls a search state out of the DSL using block-local regular
-expressions, scanners for quoted and set literals, named-set inlining, and
-\texttt{ast.literal\_eval}. It handles both the set-algebra dialect and the
-membership/flag dialect that Qwen tends to produce. For a disjunctive
+The planner extracts a search state from the DSL with block-local regular
+expressions, quoted- and set-literal scanners, named-set inlining, and
+\texttt{ast.literal\_eval}, handling both the set-algebra and
+membership/flag dialects Qwen produces. For a disjunctive
 request, each branch is searched on its own; candidates are then checked
 against the original, unbranched generated DSL and the first to pass is
 kept, falling back to whichever branch succeeded at the branch level. The
@@ -178,14 +177,12 @@ spans, and reference constraints are never loaded at inference time.
 \section{Constraint-Grounded Symbolic Planning}
  
 \paragraph{Bundle Enumeration.}
-UrbanTripV6 enumerates bounded triples consisting of outbound transport,
-return transport, and accommodation. Caps on the number of intercity and
-accommodation components, hotel property requirements, and single-day
-chronology all act as hard filters on these bundles. A direction-specific
-mode filter that would otherwise eliminate every available leg in one
-direction is independently relaxed back to the raw timetable, so that
-best-effort planning remains possible. Required POI names feed into hotel
-scoring, while required-POI constraints inform the reachability checks.
+UrbanTripV6 enumerates bounded (outbound, return, accommodation) triples.
+Component caps, hotel property requirements, and single-day chronology act
+as hard filters; a direction-specific mode filter that would eliminate
+every leg in one direction is relaxed back to the raw timetable so that
+best-effort planning stays possible. Required POI names feed hotel scoring
+and the reachability checks.
 Intercity and lodging costs, plus a floor for required-restaurant spend,
 form a soft overall-budget preference: bundles exceeding it are dropped
 only if another bundle satisfies it. The first pass also applies
@@ -200,13 +197,12 @@ before truncation, and the submitted configuration uses no model-based
 reranking of bundles.
  
 \paragraph{Memoized DFS.}
-For each ranked bundle, a depth-first planner lays out meals, attractions,
-hotel stays, and the grounded transport chains connecting them. A
-coarse-grained memo signature made up of
+For each ranked bundle a depth-first planner lays out meals, attractions,
+hotel stays, and the grounded transport chains between them, suppressing
+repeated states with a coarse memo signature
 $(\mathrm{day},\mathrm{time},\mathrm{position},\mathrm{uncovered\ requirements})$
-is used to suppress repeated states. Whenever required items are still
-outstanding, the normal 50-candidate search width is narrowed down to just
-eight high-priority candidates. Each expansion pulls route mode, duration, distance, cost, and endpoints
+. While required items remain outstanding the normal 50-candidate width
+narrows to eight high-priority candidates. Each expansion pulls route mode, duration, distance, cost, and endpoints
 from the travel environment; candidates are filtered before recursion by
 opening hours, remaining budget, still-needed POI types, and allowed modes.
 A hard-constraint-aware fallback repair and a budget-drop pass preserve a
@@ -214,30 +210,27 @@ usable best-effort plan when the search cannot finish in time. Given a
 fixed compiled DSL, this ordering is entirely rule-driven.
  
 \paragraph{Slack-Aware Deterministic Ranking.}
-Budget slack and time slack feed into the serial DFS through
-pressure-dependent ordering of candidates. Budget pressure is defined as
-spend divided by a binding cap; time pressure combines trip progress with
-time remaining until the return leg; pending pressure is the fraction of
-required items still uncovered. Each candidate POI gets a normalized score
-of the form
+Budget and time slack enter the serial DFS as pressure-dependent candidate
+ordering: budget pressure is spend over a binding cap, time pressure
+combines trip progress with time to the return leg, and pending pressure is
+the fraction of required items uncovered. Each candidate POI scores
 \begin{equation*}
 \begin{split}
 h={}&w_c\hat c+w_d\hat d+w_x\hat x+w_s\hat s\\
    &+w_p\hat p+w_m\hat m-w_g g+w_o b,
 \end{split}
 \end{equation*}
-where $c,d,x,s,p,m$ stand for route cost, distance, transit duration, base
-segment score, POI price, and closing-time margin, respectively; $g$
-captures required-item coverage gain and $b$ is an ordering penalty. Lower
-$h$ is better. The deterministic weighting leans on price/route pressure as budgets
+where $c,d,x,s,p,m$ are route cost, distance, transit duration, base
+segment score, POI price, and closing-time margin; $g$ is required-item
+coverage gain and $b$ an ordering penalty. Lower $h$ is better. The deterministic weighting leans on price/route pressure as budgets
 tighten and on coverage/time-margin pressure as the trip nears its end,
 with the minimum transit-time weight fixed at 3.0. Direct budget and
 time-gap checks also shape later meal and attraction insertions.
  
 \paragraph{Restricted Precomputed Segment Signal.}
-An offline step precomputes mode-specific walk, metro, and taxi route
-records for covered POI pairs, packaged as JSONL and loaded at inference
-time keyed by city, ordered endpoints, and mode. Segment-based search is
+An offline step precomputes walk, metro, and taxi route records for
+covered POI pairs, loaded at inference time keyed by city, ordered
+endpoints, and mode. Segment-based search is
 disabled for hotels and intercity travel
 (\texttt{use\_segments=False}); in its place a lazy
 \texttt{SegmentIndex(build\_tfidf=False)} returns, for intracity lookups,
@@ -278,7 +271,8 @@ distance, duration, and timestamps. Finally, \texttt{mustpoi} parses the several
 dialects that show up in the generated DSL and applies grouped repairs
 across hotels, meals, attractions, intercity travel, and budget; its main
 insertion logic respects whatever mode restrictions were parsed out.
-Repair is deliberately local rather than a rebuild: a required meal window
+Following the classical result that repairing a plan is preferable to
+replanning it~\cite{planrepair}, repair is deliberately local: a required meal window
 is reached by absorbing slack in a later transport chain, a banned
 intracity mode is re-routed leg by leg, and a paid meal that no cheaper
 venue can replace is deleted with the following chain restitched.
@@ -292,23 +286,19 @@ pass outright; \texttt{mustpoi} needs a strict increase in aggregate
 generated-constraint satisfaction. None may lose an existing pass.
  
 \paragraph{Conditional Soft Refinement.}
-Twelve further stages add, move, or reorder meals and attractions, ordered
-so that the meal-completeness stages run before the costlier attraction
-ones: \texttt{endday}, \texttt{gapmeal}, \texttt{travelday},
+Twelve further stages add, move, or reorder meals and attractions,
+meal-completeness stages first: \texttt{endday}, \texttt{gapmeal}, \texttt{travelday},
 \texttt{bfstack}, \texttt{att}, \texttt{gapattr}, \texttt{endattr},
 \texttt{dav2}, \texttt{fillerswap}, \texttt{seqswap}, \texttt{lateattr},
-and \texttt{attdilute}. Each edit is kept only if it clears a stage-specific
-non-regression check and actually improves the target metric.
-\texttt{bfstack} allows a single hotel breakfast but blocks stacking
-multiple breakfasts. Every gate in this battery relies on the generated
-DSL rather than reference constraints. Functionally, these soft stages
-cover meal completeness, attraction density, use of travel days, and local
-sequence or filler swaps. One attraction-insertion stage restricts itself
-to free POIs and walking whenever overall or local-transport budget slack
-is running low. The whole battery stops launching new stages once fewer
-than five seconds remain. Each stage operates on a copy of the plan and
-simply returns its input unchanged if it's inapplicable or hits an error,
-which limits how far any single regression can cascade.
+and \texttt{attdilute}. Each edit is kept only if it clears a stage-specific non-regression check
+and improves its target metric; \texttt{bfstack} allows one hotel breakfast
+but blocks stacking. Every gate uses the generated DSL, never reference
+constraints. Functionally the stages cover meal completeness, attraction
+density, travel-day use, and local sequence or filler swaps, with one
+attraction stage restricted to free POIs and walking when budget slack runs
+low. No new stage launches with under five seconds left, and each works on
+a copy and returns its input unchanged when inapplicable or erroring, which
+bounds cascading regressions.
  
 \paragraph{Parallel and Failure-Safe Execution.}
 The supervisor picks a worker count of
@@ -328,12 +318,12 @@ stop. All workers share one SGLang server, so sharding buys fault isolation
 and concurrent submission rather than linear throughput.
  
 \paragraph{Generated-Constraint Self-Check and Retry.}
-After each attempt the runner checks schema compliance, commonsense, and
-the generated DSL, treating a list of fewer than seven constraints as too
+After each attempt the runner checks schema compliance, commonsense, and the
+generated DSL, treating a list of fewer than seven constraints as too
 short. Multi-worker execution allows at most three attempts per query: a
 failing or too-short attempt is retried only if at least 2,400 seconds
 remain on the shared clock, clearing the translation cache, bumping the
-base seed by 1,000, and capping each retry at 600 seconds. Candidates are
+base seed by 1,000 to resample the translation, and capping each retry at 600 seconds. Candidates are
 ranked lexicographically by full-pass status, length threshold, commonsense
 pass, and satisfied-constraint count. Reference constraints and the
 official Overall score play no role in this selection.
@@ -361,12 +351,10 @@ aggregate scoring then consumes that directory.
  
 \paragraph{Oracle-Free Simulation and Deliverable.}
 The public \texttt{phase2\_heldout\_sim} split holds the same 100 requests
-as \texttt{phase2\_familiar} with the reference-constraint fields stripped.
-We run inference on this oracle-free split with a 100-query limit, save one
-JSON file per UID, and then score the completed directory against the
-familiarization references without rerunning the planner; the formal
-held-out run follows the same output contract on organizer-provided
-requests. FPR is the intersection of schema, commonsense, and logical pass
+as \texttt{phase2\_familiar} with reference fields stripped. We run
+inference on it, save one JSON per UID, and score the finished directory
+against the familiarization references without rerunning the planner; the
+formal held-out run follows the same contract on organizer requests. FPR is the intersection of schema, commonsense, and logical pass
 IDs; failing plans are assigned zero DAV/ATT/DDR before the score of
 Section~\ref{sec:scope} is computed.
  
@@ -409,11 +397,27 @@ Qwen Team.
 \newblock Qwen3 Technical Report.
 \newblock arXiv:2505.09388, 2025.
  
+\bibitem[\protect\citeauthoryear{Fox et al.}{2006}]{planrepair}
+Maria Fox, Alfonso Gerevini, Derek Long, and Ivan Serina.
+\newblock Plan Stability: Replanning versus Plan Repair.
+\newblock In \emph{ICAPS}, 2006.
+
+\bibitem[\protect\citeauthoryear{Park et al.}{2024}]{gad}
+Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, \emph{et al.}
+\newblock Grammar-Aligned Decoding.
+\newblock In \emph{NeurIPS}, arXiv:2405.21047, 2024.
+
 \bibitem[\protect\citeauthoryear{Shao et al.}{2026}]{chinatravel}
 Jie-Jing Shao, Bo-Wen Zhang, Xiao-Wen Yang, \emph{et al.}
 \newblock ChinaTravel: An Open-Ended Travel Planning Benchmark with
 Compositional Constraint Validation for Language Agents.
 \newblock In \emph{ICLR}, arXiv:2412.13682, 2026.
+\bibitem[\protect\citeauthoryear{Truong et al.}{2023}]{negation}
+Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, and Trevor Cohn.
+\newblock Language Models are Not Naysayers: An Analysis of Language Models
+on Negation Benchmarks.
+\newblock In \emph{*SEM}, arXiv:2306.08189, 2023.
+
 \end{thebibliography}
 
 \end{document}
