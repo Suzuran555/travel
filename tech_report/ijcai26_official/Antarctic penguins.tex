@@ -81,13 +81,12 @@ Because FPR and C-LPR carry most of the weight, feasibility is effectively
 the top priority.
  
 \paragraph{Architecture.}
-UrbanTripV6 is built around the four-stage neuro-symbolic pipeline shown in
-Table~\ref{tab:pipeline}. Qwen's role is confined to interpreting the request -- it neither produces
-the itinerary nor drives ranking. The symbolic stages that follow stabilize
-the model's output, build a database-grounded plan, and accept only
-independently verified changes, all wrapped in a crash-isolated execution
-layer managing shared deadlines, resumable outputs, and a database-derived
-fallback.
+UrbanTripV6 is built around the four-stage pipeline of
+Table~\ref{tab:pipeline}. Qwen only interprets the request: it neither
+produces the itinerary nor drives ranking. The symbolic stages stabilize
+its output, build a database-grounded plan, and accept only independently
+verified changes, wrapped in a crash-isolated layer managing deadlines,
+resumable outputs, and a database-derived fallback.
  
 \begin{table*}[t]
 \centering
@@ -120,7 +119,8 @@ decoding is kept, but aligned with the prompt: list-shaped calls request
 one exact object shape and constrain decoding to that JSON schema, since a
 generic \texttt{json\_object} grammar forbids the very array the prompt
 asks for; constrained decoding provably shifts the output
-distribution~\cite{gad}, a cost outweighed here by parse reliability. A ladder of retries falls back to \texttt{json\_object} and then
+distribution~\cite{gad} and the restriction carries a measured reasoning
+cost~\cite{tam2024}, both outweighed here by parse reliability. A ladder of retries falls back to \texttt{json\_object} and then
 to a bare payload whenever the endpoint rejects an optional field. Only the generated program is passed downstream: neither the model's
 reasoning trace nor any itinerary it proposes reaches the search stage.
 The prompts demand one-to-one coverage of explicit requirement clauses and
@@ -137,15 +137,14 @@ the full response, unwraps any list-valued field or object-of-strings, and
 otherwise scans every balanced bracket span, keeping the longest candidate
 that parses as a list of strings so that an inner list literal is never
 mistaken for the constraint list. The extracted DSL is normalized for aliases, quote variants, set-variable
-naming, budget accumulators, transport guards, and database type
-spellings. Runtime checks on example plans and an AST checker can trigger up to five
-general reflection calls; a deterministic disjunction-gap detector may
-issue up to two targeted ones. A final mechanical coverage pass then treats the request text as the
-authority for the clause families whose phrasing is templated. Each
-generated constraint is cross-checked against its source clause on
-polarity, window endpoints, and budget scope, and the canonical form is
-synthesized whenever they disagree or the clause has no counterpart at
-all: requirements rendered as prohibitions -- a systematic failure mode of
+naming, budget accumulators, transport guards, and database type spellings.
+Runtime checks on example plans and an AST checker trigger up to five
+general reflection calls; a disjunction-gap detector may issue two targeted
+ones. A final coverage pass treats the request text as the authority for clause
+families whose phrasing is templated: each constraint is cross-checked
+against its source clause on polarity, window endpoints, and budget scope,
+and the canonical form is synthesized whenever they disagree or the clause
+has no counterpart at all -- requirements rendered as prohibitions -- a systematic failure mode of
 language models on negation~\cite{negation} -- are flipped back, dropped
 exclusion lists and type-inclusion lists are reinstalled, and a
 type-guarded cost accumulator is replaced by the unguarded one its budget
@@ -192,9 +191,8 @@ POI-side heuristics while all generated-DSL validation stays in force.
 Surviving bundles are ranked on normalized intercity cost, hotel cost, an
 estimated geographic route, a hard-feature bonus, and travel-day utility,
 the last rewarding early arrivals and late departures so the first and last
-days keep usable activity time. Cheap and timing-extreme options are merged
-before truncation, and the submitted configuration uses no model-based
-reranking of bundles.
+days keep usable time. Cheap and timing-extreme options merge before
+truncation; no model-based reranking is used.
  
 \paragraph{Memoized DFS.}
 For each ranked bundle a depth-first planner lays out meals, attractions,
@@ -244,20 +242,19 @@ semantic retrieval.
  
 \paragraph{Planner-Side Completion.}
 V6 tracks the strongest candidates seen during search on logical,
-commonsense, and schema criteria. Before returning, it takes the best
-nonempty candidate or else assembles a database skeleton, then applies
-output normalization, missing-meal insertion, required-evening-POI repair,
-and DAV-oriented attraction insertion -- all ahead of the separate
-refinement battery described next.
+commonsense, and schema criteria. Before returning it takes the best
+nonempty candidate or assembles a database skeleton, then applies output
+normalization, missing-meal insertion, required-evening-POI repair, and
+DAV-oriented attraction insertion, all ahead of the refinement battery.
  
 \section{Verified Repair and Robust Execution}
  
 \paragraph{Phase-2 Correctness Adaptations.}
-Results that lack a matching generated \texttt{hard\_logic\_py} field skip
-refinement entirely. Plans emitted from the best-effort tail after a
-planner timeout are admitted deliberately: that tail is exactly where the
-search has already relaxed its own pruning, so those plans need repair
-most, and the battery's own deadline guard bounds the extra time.
+Results lacking a generated \texttt{hard\_logic\_py} field skip refinement.
+Plans from the best-effort tail after a planner timeout are admitted
+deliberately: that tail is where the search has already relaxed its own
+pruning, so those plans need repair most, and the battery's deadline guard
+bounds the extra time.
 The first four repair stages target the tightened Phase-2 feasibility
 checks. \texttt{dedupmeal} removes duplicate meal types, keeping entries
 that are in-window, priced, and earliest in that order, then rethreads the
@@ -276,14 +273,12 @@ replanning it~\cite{planrepair}, repair is deliberately local: a required meal w
 is reached by absorbing slack in a later transport chain, a banned
 intracity mode is re-routed leg by leg, and a paid meal that no cheaper
 venue can replace is deleted with the following chain restitched.
-Multi-item targets are repaired and gated as a group, since fixing just one
-item in isolation may not actually improve satisfaction of a set-valued
-constraint. Each stage applies its own acceptance test: \texttt{dedupmeal} needs a
-non-regressing commonsense micro-score (strictly improving while the
-candidate still fails commonsense); \texttt{fixspace} needs the commonsense
-verdict to flip fail-to-pass; \texttt{deoverlap} needs the repaired plan to
-pass outright; \texttt{mustpoi} needs a strict increase in aggregate
-generated-constraint satisfaction. None may lose an existing pass.
+Multi-item targets are repaired and gated as a group, since fixing one item
+in isolation may not improve a set-valued constraint. Acceptance tests differ per stage: \texttt{dedupmeal} needs a
+non-regressing commonsense micro-score, \texttt{fixspace} needs that
+verdict to flip fail-to-pass, \texttt{deoverlap} needs the plan to pass
+outright, and \texttt{mustpoi} needs a strict gain in generated-constraint
+satisfaction. None may lose an existing pass.
  
 \paragraph{Conditional Soft Refinement.}
 Twelve further stages add, move, or reorder meals and attractions,
@@ -301,13 +296,12 @@ a copy and returns its input unchanged when inapplicable or erroring, which
 bounds cascading regressions.
  
 \paragraph{Parallel and Failure-Safe Execution.}
-The supervisor picks a worker count of
-$N=\max(1,\min(8,\lfloor\mathrm{CPU}/2\rfloor))$ and shards queries by UID
-index modulo $N$. Workers are subprocesses of the same \texttt{tpcagent}
-invocation rather than parallel branches of the symbolic search: each keeps
-its own planner state, works its shard sequentially with DFS serial within
-a query, and reuses a single model client, while per-worker BLAS thread
-caps keep the CPU from being oversubscribed. A daemon watchdog bounds the
+The supervisor picks $N=\max(1,\min(8,\lfloor\mathrm{CPU}/2\rfloor))$
+workers and shards queries by UID index modulo $N$. Workers are
+subprocesses of the same \texttt{tpcagent} invocation, not parallel
+branches of the search: each keeps its own planner state, works its shard
+sequentially with DFS serial within a query, reuses one model client, and
+is BLAS-thread capped to avoid CPU oversubscription. A daemon watchdog bounds the
 wait and triggers the fallback at the emission deadline. Any existing
 per-UID JSON file is a resume marker; a restarted worker inherits the
 original start time and the shared soft budget of 17,400 seconds (4h50m).
@@ -318,7 +312,8 @@ stop. All workers share one SGLang server, so sharding buys fault isolation
 and concurrent submission rather than linear throughput.
  
 \paragraph{Generated-Constraint Self-Check and Retry.}
-After each attempt the runner checks schema compliance, commonsense, and the
+The runner implements a generate-and-verify loop in the sense
+of~\cite{llmmodulo}: after each attempt it checks schema compliance, commonsense, and the
 generated DSL, treating a list of fewer than seven constraints as too
 short. Multi-worker execution allows at most three attempts per query: a
 failing or too-short attempt is retried only if at least 2,400 seconds
@@ -329,25 +324,23 @@ pass, and satisfied-constraint count. Reference constraints and the
 official Overall score play no role in this selection.
  
 \paragraph{Budgeting and Deadlines.}
-Single-worker runs use a 170-second outer timeout, raised to 1,200 seconds
-under the supervisor. The wrapper works on a 290-second budget, sets V6's
-external timeout to 245 seconds and reserves 60 for refinement -- roughly a
-185-second core cutoff from the start of translation -- while the emission
-watchdog fires near 275 seconds; later-triggering supervisor guards handle
-defensive restarts and hard termination.
+Single-worker runs use a 170-second outer timeout, raised to 1,200 under
+the supervisor. The wrapper works on a 290-second budget, sets V6's
+external timeout to 245 and reserves 60 for refinement (a $\sim$185-second
+core cutoff from the start of translation), with the emission watchdog near
+275; later supervisor guards handle restarts and hard termination.
  
 \section{Phase-2 Reproduction and Results}
  
 \paragraph{Runtime Configuration.}
 The target environment is Debian 12 with Python 3.12; SGLang 0.5.10.post1
-serves Qwen3.6-27B over the OpenAI-compatible
-\texttt{/v1/chat/completions} endpoint on local port 30000, on two A800
-GPUs with tensor parallelism two and thinking disabled. The submitted
-configuration is \texttt{tpcagent} with English input, served model name
-\texttt{Qwen3.6-27B}, and local API key \texttt{EMPTY}. Evaluation runs
-\texttt{solve\_script\_with\_harness.py} for a chosen method and split,
-writing each itinerary to \path{results/<method>/<uid>.json}; oracle-based
-aggregate scoring then consumes that directory.
+serves Qwen3.6-27B over \texttt{/v1/chat/completions} on port 30000, on two
+A800 GPUs with tensor parallelism two and thinking disabled. The submitted
+configuration is \texttt{tpcagent} with English input and served model name
+\texttt{Qwen3.6-27B}. Evaluation runs
+\texttt{solve\_script\_with\_harness.py} for a method and split, writing
+each itinerary to \path{results/<method>/<uid>.json}, which oracle-based
+aggregate scoring then consumes.
  
 \paragraph{Oracle-Free Simulation and Deliverable.}
 The public \texttt{phase2\_heldout\_sim} split holds the same 100 requests
@@ -361,11 +354,10 @@ Section~\ref{sec:scope} is computed.
 \paragraph{Packaged-Configuration Rehearsal.}
 For the packaged, retry-enabled configuration (archive MD5 prefix
 \texttt{22bcd0d6}), our internally recorded 100-query result was FPR 98,
-C-LPR 99.82, both EPR terms at 100, and Overall 97.70. Inference used the
-oracle-stripped familiarization simulation on the serving stack described
-above, with translations regenerated from scratch; reference constraints
-were only reintroduced for aggregate scoring after every plan had already
-been written out. Successive stages of the constraint verifier and the
+C-LPR 99.82, both EPR terms at 100, and Overall 97.70, on the oracle-
+stripped familiarization simulation with translations regenerated from
+scratch; reference constraints were reintroduced only for aggregate scoring
+after every plan had been written out. Successive stages of the constraint verifier and the
 repair battery moved this measurement along 70.5, 83.2, 93.8, and 97.7
 Overall (FPR 52, 73, 91, 98). These are development-time measurements, not
 organizer-held-out scores -- the latter simply wasn't available at
@@ -374,14 +366,12 @@ submission time.
 \section{Limitations and Conclusion}
  
 Translation remains the biggest risk to generalization: clause-anchored
-repair recovers the templated families, but cannot guarantee that Qwen
-preserved every semantic clause of an unseen free-form request. The
-segment graph is deliberately incomplete, so uncovered routes fall back on
-a geographic estimate. Compound failures needing a whole day rebuilt may
-exceed the generic battery, the residual familiarization failures come
-from run-to-run translation variance on borderline queries and from a few
-geometrically over-constrained instances, and all workers compete for one
-served model. Overall, the design keeps language interpretation, literal
+repair recovers the templated families but cannot guarantee that Qwen
+preserved every clause of an unseen free-form request. The segment graph is
+deliberately incomplete, so uncovered routes fall back on a geographic
+estimate. Compound failures needing a whole day rebuilt may exceed the
+generic battery; the residual familiarization failures trace to run-to-run
+translation variance and a few geometrically over-constrained instances. Overall, the design keeps language interpretation, literal
 parsing and canonicalization, pressure-aware symbolic search,
 constraint-gated repair, and crash-isolated execution as distinct
 components; together they make up the Phase-2 system submitted here.
@@ -398,9 +388,14 @@ Qwen Team.
 \newblock arXiv:2505.09388, 2025.
  
 \bibitem[\protect\citeauthoryear{Fox et al.}{2006}]{planrepair}
-Maria Fox, Alfonso Gerevini, Derek Long, and Ivan Serina.
+Maria Fox, Alfonso Gerevini, Derek Long, \emph{et al.}
 \newblock Plan Stability: Replanning versus Plan Repair.
 \newblock In \emph{ICAPS}, 2006.
+
+\bibitem[\protect\citeauthoryear{Kambhampati et al.}{2024}]{llmmodulo}
+Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, \emph{et al.}
+\newblock LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks.
+\newblock In \emph{ICML}, arXiv:2402.01817, 2024.
 
 \bibitem[\protect\citeauthoryear{Park et al.}{2024}]{gad}
 Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, \emph{et al.}
@@ -412,8 +407,14 @@ Jie-Jing Shao, Bo-Wen Zhang, Xiao-Wen Yang, \emph{et al.}
 \newblock ChinaTravel: An Open-Ended Travel Planning Benchmark with
 Compositional Constraint Validation for Language Agents.
 \newblock In \emph{ICLR}, arXiv:2412.13682, 2026.
+\bibitem[\protect\citeauthoryear{Tam et al.}{2024}]{tam2024}
+Zhi Rui Tam, Cheng-Kuang Wu, Yi-Lin Tsai, \emph{et al.}
+\newblock Let Me Speak Freely? A Study on the Impact of Format Restrictions
+on Performance of Large Language Models.
+\newblock In \emph{EMNLP Industry Track}, arXiv:2408.02442, 2024.
+
 \bibitem[\protect\citeauthoryear{Truong et al.}{2023}]{negation}
-Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, and Trevor Cohn.
+Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, \emph{et al.}
 \newblock Language Models are Not Naysayers: An Analysis of Language Models
 on Negation Benchmarks.
 \newblock In \emph{*SEM}, arXiv:2306.08189, 2023.
