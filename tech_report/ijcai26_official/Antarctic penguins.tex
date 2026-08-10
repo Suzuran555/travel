@@ -54,11 +54,11 @@ zhanggangyi1224@gmail.com
 \maketitle
  
 \begin{abstract}
-This paper describes the phase-2 entry, UrbanTripV6, from team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}. The submitted configuration is designated as tpcagent. The Qwen3.6-27B checkpoint from the Qwen3 family~\cite{qwen} is used only to translate natural language into DSL. Ranging from extraction and canonicalization through grounding, planning, and repairing, all downstream steps did not use any additional embedding-based parser.
+This paper describes UrbanTripV6, the phase-2 entry of team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}, submitted as the tpcagent configuration. Qwen3.6-27B~\cite{qwen} is used only to translate natural language into DSL; every downstream step, from extraction and canonicalization through grounding, planning, and repair, is deterministic and uses no embedding-based parser.
 
-UrbanTripV6 operates by first ranking candidate bundles, then scheduling activities via memoized DFS. Its heuristic design incorporates geographic anchors, budget bounds, adaptive candidate retrieval, and a restricted intracity transit index. With support for resumable outputs, up to eight independent workers share a single SGLang endpoint. The workers handle inherited budget accounting,  checking generated constraints, deterministic retries and a fallback path derived from database.
+It ranks candidate bundles, then schedules activities by memoized DFS under geographic anchors, budget bounds, adaptive candidate retrieval, and a restricted intracity transit index. Up to eight crash-isolated workers share one SGLang endpoint with resumable outputs, inherited budget accounting, generated-constraint checking, deterministic retries, and a database-derived fallback.
 
-We ran a test of 100 queries for internal validation on an oracle-stripped familiarization simulation, executed on the formal serving stack (SGLang 0.5.10.post1, two A800 GPUs, tensor parallelism two). In this development-time measurement, the submitted configuration achieved an Overall score of 97.70, an FPR of 98, and a C-LPR of 99.82. Note that this score is not an organizer-held-out evaluation.
+On an oracle-stripped 100-query familiarization simulation run on the formal serving stack (SGLang 0.5.10.post1, two A800 GPUs, tensor parallelism two), the submitted configuration scored Overall 97.70, FPR 98, and C-LPR 99.82. This is a development-time measurement, not an organizer-held-out evaluation.
 
 
 \end{abstract}
@@ -66,10 +66,9 @@ We ran a test of 100 queries for internal validation on an oracle-stripped famil
 \section{Task and System Overview}
 \label{sec:scope}
  
-ChinaTravel asks a system to turn a natural-language request into a
-database-grounded multi-day itinerary that satisfies schema constraints,
-commonsense constraints, and personal constraints, while also optimizing
-three soft objectives. The official scoring formula is
+ChinaTravel~\cite{chinatravel} asks for a database-grounded
+multi-day itinerary satisfying schema, commonsense, and personal
+constraints while optimizing three soft objectives. The official scoring formula is
 \begin{equation*}
 \begin{split}
 S={}&.10\,\mathrm{EPR_{mic}}+.10\,\mathrm{EPR_{mac}}
@@ -77,8 +76,8 @@ S={}&.10\,\mathrm{EPR_{mic}}+.10\,\mathrm{EPR_{mac}}
   &+.05\,(\mathrm{DAV}+\mathrm{ATT}+\mathrm{DDR}).
 \end{split}
 \end{equation*}
-Because FPR and C-LPR carry most of the weight, feasibility is effectively
-the top priority.
+Because FPR and C-LPR carry most of the weight, feasibility is the top
+priority.
  
 \paragraph{Architecture.}
 UrbanTripV6 is built around the four-stage pipeline of
@@ -123,12 +122,11 @@ distribution~\cite{gad} and the restriction carries a measured reasoning
 cost~\cite{tam2024}, both outweighed here by parse reliability. A ladder of retries falls back to \texttt{json\_object} and then
 to a bare payload whenever the endpoint rejects an optional field. Only the generated program is passed downstream: neither the model's
 reasoning trace nor any itinerary it proposes reaches the search stage.
-The prompts demand one-to-one coverage of explicit requirement clauses and
-disallow room or bed constraints unless the request licenses them, with an
-NL-gated filter stripping any that slip through. All four
-\texttt{hard\_logic*} reference fields are stripped before translation and
-planning; thinking is disabled and output capped at 8192 tokens to cut
-truncation variance.
+The prompts demand one-to-one coverage of explicit clauses and disallow
+room or bed constraints unless licensed, with an NL-gated filter stripping
+any that slip through. All four \texttt{hard\_logic*} reference fields are
+stripped before translation and planning; thinking is off and output capped
+at 8192 tokens to cut truncation variance.
  
 \paragraph{Robust Extraction and Canonicalization.}
 Because a strict \texttt{json\_object} grammar can wrap the constraint
@@ -195,8 +193,8 @@ truncation; no model-based reranking is used.
  
 \paragraph{Memoized DFS.}
 For each ranked bundle a depth-first planner lays out meals, attractions,
-hotel stays, and the grounded transport chains between them, suppressing
-repeated states with a coarse memo signature
+hotel stays, and the transport chains between them, suppressing repeated
+states with a coarse memo signature
 $(\mathrm{day},\mathrm{time},\mathrm{position},\mathrm{uncovered\ requirements})$
 . While required items remain outstanding the normal 50-candidate width
 narrows to eight high-priority candidates. Each expansion pulls route mode, duration, distance, cost, and endpoints
@@ -225,14 +223,12 @@ with the minimum transit-time weight fixed at 3.0. Direct budget and
 time-gap checks also shape later meal and attraction insertions.
  
 \paragraph{Restricted Precomputed Segment Signal.}
-An offline step precomputes walk, metro, and taxi route records for
-covered POI pairs, loaded at inference time keyed by city, ordered
-endpoints, and mode. Segment-based search is
-disabled for hotels and intercity travel
-(\texttt{use\_segments=False}); in its place a lazy
-\texttt{SegmentIndex(build\_tfidf=False)} returns, for intracity lookups,
-the minimum duration across the available mode variants, falling back to a
-geodesic taxi-time estimate with a coverage penalty for uncovered pairs.
+An offline step precomputes walk, metro, and taxi route records for covered
+POI pairs, keyed by city, ordered endpoints, and mode. Segment search is
+disabled for hotels and intercity travel (\texttt{use\_segments=False}); a
+lazy \texttt{SegmentIndex(build\_tfidf=False)} instead returns the minimum
+duration across mode variants for intracity lookups, falling back to a
+geodesic taxi-time estimate with a coverage penalty.
 Segment data therefore influences only POI ranking and required-POI
 reachability, never the emitted transport chains, which stay grounded by
 the travel environment. Because no TF--IDF vectors are built at inference
@@ -243,17 +239,16 @@ semantic retrieval.
 V6 tracks the strongest candidates seen during search on logical,
 commonsense, and schema criteria. Before returning it takes the best
 nonempty candidate or assembles a database skeleton, then applies output
-normalization, missing-meal insertion, required-evening-POI repair, and
-DAV-oriented attraction insertion, all ahead of the refinement battery.
+normalization, missing-meal insertion, evening-POI repair, and DAV-oriented
+attraction insertion, ahead of the refinement battery.
  
 \section{Verified Repair and Robust Execution}
  
 \paragraph{Phase-2 Correctness Adaptations.}
 Results lacking a generated \texttt{hard\_logic\_py} field skip refinement.
-Plans from the best-effort tail after a planner timeout are admitted
-deliberately: that tail is where the search has already relaxed its own
-pruning, so those plans need repair most, and the battery's deadline guard
-bounds the extra time.
+Plans from the best-effort tail after a timeout are admitted deliberately:
+that tail is where the search has relaxed its own pruning, so those plans
+need repair most, and the battery's deadline guard bounds the extra time.
 The first four repair stages target the tightened Phase-2 feasibility
 checks. \texttt{dedupmeal} removes duplicate meal types, keeping entries
 that are in-window, priced, and earliest in that order, then rethreads the
@@ -272,11 +267,11 @@ replanning~\cite{planrepair}, repairs are local: a required meal window is
 reached by absorbing slack in a later transport chain, a banned mode is
 re-routed leg by leg, and an unreplaceable paid meal is deleted with the
 next chain restitched.
-Multi-item targets are repaired and gated as a group, since fixing one item
-in isolation may not improve a set-valued constraint. Acceptance tests differ per stage: \texttt{dedupmeal} needs a
-non-regressing commonsense micro-score, \texttt{fixspace} needs it to flip
-fail-to-pass, \texttt{deoverlap} needs an outright pass, \texttt{mustpoi} a
-strict gain in generated-constraint satisfaction; none may lose a pass.
+Multi-item targets are gated as a group, since fixing one item alone may
+not improve a set-valued constraint. Acceptance tests differ: \texttt{dedupmeal} needs a non-regressing
+commonsense micro-score, \texttt{fixspace} needs it to flip fail-to-pass,
+\texttt{deoverlap} an outright pass, \texttt{mustpoi} a strict gain in
+generated-constraint satisfaction; none may lose a pass.
  
 \paragraph{Conditional Soft Refinement.}
 Twelve further stages add, move, or reorder meals and attractions,
@@ -286,20 +281,19 @@ meal-completeness stages first: \texttt{endday}, \texttt{gapmeal}, \texttt{trave
 and \texttt{attdilute}. Each edit is kept only if it clears a stage-specific non-regression check
 and improves its target metric; \texttt{bfstack} allows one hotel breakfast
 but blocks stacking. Every gate uses the generated DSL, never reference
-constraints. Functionally the stages cover meal completeness, attraction
-density, travel-day use, and local sequence or filler swaps, with one
-attraction stage restricted to free POIs and walking when budget slack runs
-low. No new stage launches with under five seconds left, and each works on
+constraints. The stages cover meal completeness, attraction density,
+travel-day use, and local swaps, with one attraction stage restricted to
+free POIs and walking under tight budget slack. No new stage launches with under five seconds left, and each works on
 a copy and returns its input unchanged when inapplicable or erroring, which
 bounds cascading regressions.
  
 \paragraph{Parallel and Failure-Safe Execution.}
 The supervisor picks $N=\max(1,\min(8,\lfloor\mathrm{CPU}/2\rfloor))$
 workers and shards queries by UID index modulo $N$. Workers are
-subprocesses of the same \texttt{tpcagent} invocation, not parallel
-branches of the search: each keeps its own planner state, works its shard
-sequentially with DFS serial within a query, reuses one model client, and
-is BLAS-thread capped to avoid CPU oversubscription. A daemon watchdog bounds the
+subprocesses of the same \texttt{tpcagent} invocation, not parallel search
+branches: each keeps its own planner state, runs its shard sequentially
+with DFS serial per query, reuses one model client, and is BLAS-thread
+capped. A daemon watchdog bounds the
 wait and triggers the fallback at the emission deadline. Any existing
 per-UID JSON file is a resume marker; a restarted worker inherits the
 original start time and the shared soft budget of 17,400 seconds (4h50m).
@@ -318,8 +312,11 @@ failing or too-short attempt is retried only if at least 2,400 seconds
 remain on the shared clock, clearing the translation cache, bumping the
 base seed by 1,000 to resample the translation, and capping each retry at 600 seconds. Candidates are
 ranked lexicographically by full-pass status, length threshold, commonsense
-pass, and satisfied-constraint count. Reference constraints and the
-official Overall score play no role in this selection.
+pass, and satisfied-constraint count. Reference constraints and the official Overall score play no role in this
+selection. One negative result shaped this split: blind regeneration retries recovered
+almost no failing query on their own, echoing findings that feedback-poor
+self-repair is no silver bullet~\cite{selfrepair}, so the budget goes
+mainly to the clause verifier and the gated repair battery.
  
 \paragraph{Budgeting and Deadlines.}
 Single-worker runs use a 170-second outer timeout, raised to 1,200 under
@@ -355,22 +352,21 @@ For the packaged, retry-enabled configuration (archive MD5 prefix
 C-LPR 99.82, both EPR terms at 100, and Overall 97.70, on the oracle-
 stripped familiarization simulation with translations regenerated from
 scratch; reference constraints were reintroduced only for aggregate scoring
-after every plan had been written out. Successive stages of the verifier and repair battery moved this measurement
-along 70.5, 83.2, 93.8, and 97.7 Overall (FPR 52, 73, 91, 98). These are
+after every plan had been written out. Successive verifier and repair stages moved this measurement along 70.5,
+83.2, 93.8, and 97.7 Overall (FPR 52, 73, 91, 98). These are
 development-time measurements, not organizer-held-out scores.
  
 \section{Limitations and Conclusion}
  
-Translation remains the biggest risk to generalization: clause-anchored
-repair recovers the templated families but cannot guarantee that Qwen
-preserved every clause of an unseen free-form request. The segment graph is
-deliberately incomplete, so uncovered routes fall back on a geographic
-estimate. Compound failures needing a whole day rebuilt may exceed the
-generic battery; the residual familiarization failures trace to run-to-run
-translation variance and a few geometrically over-constrained instances. Overall, the design keeps language interpretation, literal
-parsing and canonicalization, pressure-aware symbolic search,
-constraint-gated repair, and crash-isolated execution as distinct
-components; together they make up the Phase-2 system submitted here.
+Translation remains the biggest generalization risk: clause-anchored repair
+recovers the templated families but cannot guarantee Qwen preserved every
+clause of an unseen free-form request. The segment graph is deliberately
+incomplete, so uncovered routes fall back on a geographic estimate. Compound failures needing a whole day rebuilt may exceed the generic
+battery; residual failures trace to translation variance and a few
+over-constrained instances. Overall the design keeps language interpretation, literal parsing and
+canonicalization, pressure-aware search, constraint-gated repair, and
+crash-isolated execution as distinct components, together making up the
+Phase-2 system submitted here.
  
 \begin{thebibliography}{}
 \bibitem[\protect\citeauthoryear{LAMDA-NeSy}{2026}]{tpc}
@@ -395,6 +391,11 @@ Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, \emph{et al.}
 \newblock Position: LLMs Can't Plan, But Can Help Planning in LLM-Modulo
 Frameworks.
 \newblock In \emph{ICML}, PMLR 235:22895--22907, arXiv:2402.01817, 2024.
+
+\bibitem[\protect\citeauthoryear{Olausson et al.}{2024}]{selfrepair}
+Theo X. Olausson, Jeevana Priya Inala, Chenglong Wang, \emph{et al.}
+\newblock Is Self-Repair a Silver Bullet for Code Generation?
+\newblock In \emph{ICLR}, arXiv:2306.09896, 2024.
 
 \bibitem[\protect\citeauthoryear{Park et al.}{2024}]{gad}
 Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, \emph{et al.}
