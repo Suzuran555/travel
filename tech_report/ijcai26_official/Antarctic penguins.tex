@@ -109,11 +109,11 @@ Verified refinement & Itinerary $\rightarrow$ final plan & Four feasibility repa
 \section{Constraint Compilation}
  
 \paragraph{Translation and Isolation.}
-Phase 2 works with English requests via the \texttt{nl2sl\_hybrid\_en}
-translation pipeline. Qwen3.6-27B first turns the request into a structured
-list of requirements, then converts that list into executable, Python-like
-DSL blocks, so that the second call concentrates purely on DSL syntax
-rather than on how the itinerary should be built. The model client issues OpenAI-compatible
+Phase 2 handles English requests via the \texttt{nl2sl\_hybrid\_en}
+pipeline: Qwen3.6-27B first turns the request into a structured requirement
+list, then converts that list into executable Python-like DSL blocks, so
+the second call concentrates on DSL syntax rather than on itinerary
+construction. The model client issues OpenAI-compatible
 requests with zero temperature and a fixed base seed. Grammar-constrained
 decoding is kept, but aligned with the prompt: list-shaped calls request
 one exact object shape and constrain decoding to that JSON schema, since a
@@ -131,12 +131,11 @@ planning; thinking is disabled and output capped at 8192 tokens to cut
 truncation variance.
  
 \paragraph{Robust Extraction and Canonicalization.}
-Because a strict \texttt{json\_object} grammar can wrap the requested
-constraint array inside an outer object, the extractor repairs and parses
-the full response, unwraps any list-valued field or object-of-strings, and
-otherwise scans every balanced bracket span, keeping the longest candidate
-that parses as a list of strings so that an inner list literal is never
-mistaken for the constraint list. The extracted DSL is normalized for aliases, quote variants, set-variable
+Because a strict \texttt{json\_object} grammar can wrap the constraint
+array inside an outer object, the extractor parses the repaired response,
+unwraps any list-valued field or object-of-strings, and otherwise scans
+every balanced bracket span, keeping the longest candidate that parses as a
+list of strings so an inner literal is never mistaken for the list. The extracted DSL is normalized for aliases, quote variants, set-variable
 naming, budget accumulators, transport guards, and database type spellings.
 Runtime checks on example plans and an AST checker trigger up to five
 general reflection calls; a disjunction-gap detector may issue two targeted
@@ -268,17 +267,16 @@ distance, duration, and timestamps. Finally, \texttt{mustpoi} parses the several
 dialects that show up in the generated DSL and applies grouped repairs
 across hotels, meals, attractions, intercity travel, and budget; its main
 insertion logic respects whatever mode restrictions were parsed out.
-Following the classical result that repairing a plan is preferable to
-replanning it~\cite{planrepair}, repair is deliberately local: a required meal window
-is reached by absorbing slack in a later transport chain, a banned
-intracity mode is re-routed leg by leg, and a paid meal that no cheaper
-venue can replace is deleted with the following chain restitched.
+Following the classical result that repair is preferable to
+replanning~\cite{planrepair}, repairs are local: a required meal window is
+reached by absorbing slack in a later transport chain, a banned mode is
+re-routed leg by leg, and an unreplaceable paid meal is deleted with the
+next chain restitched.
 Multi-item targets are repaired and gated as a group, since fixing one item
 in isolation may not improve a set-valued constraint. Acceptance tests differ per stage: \texttt{dedupmeal} needs a
-non-regressing commonsense micro-score, \texttt{fixspace} needs that
-verdict to flip fail-to-pass, \texttt{deoverlap} needs the plan to pass
-outright, and \texttt{mustpoi} needs a strict gain in generated-constraint
-satisfaction. None may lose an existing pass.
+non-regressing commonsense micro-score, \texttt{fixspace} needs it to flip
+fail-to-pass, \texttt{deoverlap} needs an outright pass, \texttt{mustpoi} a
+strict gain in generated-constraint satisfaction; none may lose a pass.
  
 \paragraph{Conditional Soft Refinement.}
 Twelve further stages add, move, or reorder meals and attractions,
@@ -357,11 +355,9 @@ For the packaged, retry-enabled configuration (archive MD5 prefix
 C-LPR 99.82, both EPR terms at 100, and Overall 97.70, on the oracle-
 stripped familiarization simulation with translations regenerated from
 scratch; reference constraints were reintroduced only for aggregate scoring
-after every plan had been written out. Successive stages of the constraint verifier and the
-repair battery moved this measurement along 70.5, 83.2, 93.8, and 97.7
-Overall (FPR 52, 73, 91, 98). These are development-time measurements, not
-organizer-held-out scores -- the latter simply wasn't available at
-submission time.
+after every plan had been written out. Successive stages of the verifier and repair battery moved this measurement
+along 70.5, 83.2, 93.8, and 97.7 Overall (FPR 52, 73, 91, 98). These are
+development-time measurements, not organizer-held-out scores.
  
 \section{Limitations and Conclusion}
  
@@ -379,11 +375,13 @@ components; together they make up the Phase-2 system submitted here.
 \begin{thebibliography}{}
 \bibitem[\protect\citeauthoryear{LAMDA-NeSy}{2026}]{tpc}
 LAMDA-NeSy.
-\newblock Travel Planning Challenge (TPC) @ IJCAI-ECAI 2026.
-\newblock \url{https://chinatravel-competition.github.io/IJCAI2026/}, 2026.
+\newblock The 2nd Travel Itinerary Planning Challenge for AI Agent
+(TPC@IJCAI2026).
+\newblock Competition at IJCAI-ECAI 2026.
+\url{https://chinatravel-competition.github.io/IJCAI2026/}, 2026.
  
-\bibitem[\protect\citeauthoryear{Qwen Team}{2025}]{qwen}
-Qwen Team.
+\bibitem[\protect\citeauthoryear{Yang et al.}{2025}]{qwen}
+An Yang, Anfeng Li, Baosong Yang, \emph{et al.}
 \newblock Qwen3 Technical Report.
 \newblock arXiv:2505.09388, 2025.
  
@@ -394,8 +392,9 @@ Maria Fox, Alfonso Gerevini, Derek Long, \emph{et al.}
 
 \bibitem[\protect\citeauthoryear{Kambhampati et al.}{2024}]{llmmodulo}
 Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, \emph{et al.}
-\newblock LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks.
-\newblock In \emph{ICML}, arXiv:2402.01817, 2024.
+\newblock Position: LLMs Can't Plan, But Can Help Planning in LLM-Modulo
+Frameworks.
+\newblock In \emph{ICML}, PMLR 235:22895--22907, arXiv:2402.01817, 2024.
 
 \bibitem[\protect\citeauthoryear{Park et al.}{2024}]{gad}
 Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, \emph{et al.}
@@ -409,9 +408,10 @@ Compositional Constraint Validation for Language Agents.
 \newblock In \emph{ICLR}, arXiv:2412.13682, 2026.
 \bibitem[\protect\citeauthoryear{Tam et al.}{2024}]{tam2024}
 Zhi Rui Tam, Cheng-Kuang Wu, Yi-Lin Tsai, \emph{et al.}
-\newblock Let Me Speak Freely? A Study on the Impact of Format Restrictions
-on Performance of Large Language Models.
-\newblock In \emph{EMNLP Industry Track}, arXiv:2408.02442, 2024.
+\newblock Let Me Speak Freely? A Study On The Impact Of Format Restrictions
+On Large Language Model Performance.
+\newblock In \emph{EMNLP Industry Track}, pages 1218--1236, arXiv:2408.02442,
+2024.
 
 \bibitem[\protect\citeauthoryear{Truong et al.}{2023}]{negation}
 Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, \emph{et al.}
