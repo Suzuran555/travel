@@ -371,25 +371,22 @@ constraints were reintroduced only for scoring, after every plan was
 written.
  
 \paragraph{Failure Taxonomy Across the Ladder.}
-We classify every failing query of each run by re-running the official
-evaluators on the emitted plan against \emph{both} the generated and the
-reference constraints. Three classes appear. TRANSL: the plan satisfies
-every generated constraint but violates a reference one, so the request was
-mistranslated. PLANNER: the plan violates a constraint the system itself
-generated, so translation was adequate but search or repair fell short.
-ENV: the plan fails schema or commonsense outright. The distribution tracks
-the components in order. At FPR 80 the residue was 15 PLANNER, 4 TRANSL and
+We classify each failing query by re-running the official evaluators on the
+emitted plan against \emph{both} the generated and the reference
+constraints. TRANSL: every generated constraint holds but a reference one
+fails, so the request was mistranslated. PLANNER: a self-generated
+constraint fails, so translation sufficed but search or repair fell short.
+ENV: schema or commonsense fails outright. The distribution tracks the
+components in order. At FPR 80 the residue was 15 PLANNER, 4 TRANSL and
 1 ENV; the clause verifier removed most of the translation defects and cut
 the planner-side residue to 5 PLANNER and 4 TRANSL; register synthesis left
 4 PLANNER, 2 TRANSL and 1 ENV; and after local plan repair the submitted
-configuration leaves 2 failures, both PLANNER. Those two are chronic across
-runs: geometrically over-constrained instances in which a tight dining cap,
-a protected named restaurant and a fixed visiting window cannot hold
-simultaneously under the database's opening hours and travel times.
+configuration leaves 2 failures, both PLANNER. Both are chronic: over-constrained instances where a tight dining cap, a
+protected named restaurant and a fixed window cannot hold together under
+the database's opening hours and travel times.
 
 \paragraph{Reproduction.}
-With the served endpoint reachable, the run and the scoring are two
-commands:
+With the endpoint reachable, run and scoring are two commands:
 \begin{quote}
 \footnotesize\ttfamily
 python agent\_env/scripts/solve\_script\_with\_harness.py\\
