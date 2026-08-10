@@ -370,6 +370,36 @@ FPR 98, C-LPR 99.82, both EPR terms at 100, Overall 97.70. Reference
 constraints were reintroduced only for scoring, after every plan was
 written.
  
+\paragraph{Failure Taxonomy Across the Ladder.}
+We classify every failing query of each run by re-running the official
+evaluators on the emitted plan against \emph{both} the generated and the
+reference constraints. Three classes appear. TRANSL: the plan satisfies
+every generated constraint but violates a reference one, so the request was
+mistranslated. PLANNER: the plan violates a constraint the system itself
+generated, so translation was adequate but search or repair fell short.
+ENV: the plan fails schema or commonsense outright. The distribution tracks
+the components in order. At FPR 80 the residue was 15 PLANNER, 4 TRANSL and
+1 ENV; the clause verifier removed most of the translation defects and cut
+the planner-side residue to 5 PLANNER and 4 TRANSL; register synthesis left
+4 PLANNER, 2 TRANSL and 1 ENV; and after local plan repair the submitted
+configuration leaves 2 failures, both PLANNER. Those two are chronic across
+runs: geometrically over-constrained instances in which a tight dining cap,
+a protected named restaurant and a fixed visiting window cannot hold
+simultaneously under the database's opening hours and travel times.
+
+\paragraph{Reproduction.}
+With the served endpoint reachable, the run and the scoring are two
+commands:
+\begin{quote}
+\footnotesize\ttfamily
+python agent\_env/scripts/solve\_script\_with\_harness.py\\
+\hspace*{1em}--split phase2\_heldout\_sim --limit 100\\[2pt]
+python eval\_with\_oracle.py tpc --splits phase2\_familiar\\
+\hspace*{1em}--method TPCAgent\_Qwen3.6-27B\_en --preference --lang en
+\end{quote}
+The first writes one plan per UID and never reads a reference field; the
+second is scoring only and does not re-plan.
+
 \section{Limitations and Conclusion}
  
 Translation remains the biggest generalization risk: clause-anchored repair
