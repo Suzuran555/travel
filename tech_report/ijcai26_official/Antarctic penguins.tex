@@ -54,7 +54,7 @@ zhanggangyi1224@gmail.com
 \maketitle
  
 \begin{abstract}
-This paper describes UrbanTripV6, the phase-2 entry of team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}, submitted as the tpcagent configuration. Qwen3.6-27B~\cite{qwen} is used only to translate natural language into DSL; every downstream step, from extraction and canonicalization through grounding, planning, and repair, is deterministic and uses no embedding-based parser.
+This paper describes UrbanTripV6, the phase-2 entry of team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}, submitted as the tpcagent configuration and built around the UrbanTripOptimizedV6 symbolic planner. Qwen3.6-27B~\cite{qwen} is used only to translate natural language into DSL; every downstream step, from extraction and canonicalization through grounding, planning, and repair, is deterministic and uses no embedding-based parser.
 
 It ranks candidate bundles, then schedules activities by memoized DFS under geographic anchors, budget bounds, adaptive candidate retrieval, and a restricted intracity transit index. Up to eight crash-isolated workers share one SGLang endpoint with resumable outputs, inherited budget accounting, generated-constraint checking, deterministic retries, and a database-derived fallback.
 
