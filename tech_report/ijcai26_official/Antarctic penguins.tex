@@ -32,7 +32,7 @@
   }
 \fi
 
-\title{UrbanTripV6: A Fault-Tolerant Neuro-Symbolic System for\\
+\title{TPCAgent: A Fault-Tolerant Neuro-Symbolic System for\\
 ChinaTravel Phase 2}
 
 \author{
@@ -54,7 +54,7 @@ zhanggangyi1224@gmail.com
 \maketitle
  
 \begin{abstract}
-This paper describes UrbanTripV6, the phase-2 entry of team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}, submitted as the tpcagent configuration and built around the UrbanTripOptimizedV6 symbolic planner. Qwen3.6-27B~\cite{qwen} is used only to translate natural language into DSL; every downstream step, from extraction and canonicalization through grounding, planning, and repair, is deterministic and uses no embedding-based parser.
+This paper describes TPCAgent, the phase-2 entry of team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}, submitted as the tpcagent configuration and built around the UrbanTripOptimizedV6 symbolic planner. Qwen3.6-27B~\cite{qwen} is used only to translate natural language into DSL; every downstream step, from extraction and canonicalization through grounding, planning, and repair, is deterministic and uses no embedding-based parser.
 
 It ranks candidate bundles, then schedules activities by memoized DFS under geographic anchors, budget bounds, adaptive candidate retrieval, and a restricted intracity transit index. Up to eight crash-isolated workers share one SGLang endpoint with resumable outputs, inherited budget accounting, generated-constraint checking, deterministic retries, and a database-derived fallback.
 
@@ -80,7 +80,7 @@ Because FPR and C-LPR carry most of the weight, feasibility is the top
 priority.
  
 \paragraph{Architecture.}
-UrbanTripV6 is built around the four-stage pipeline of
+TPCAgent is built around the four-stage pipeline of
 Table~\ref{tab:pipeline}. Qwen only interprets the request: it neither
 produces the itinerary nor drives ranking. The symbolic stages stabilize
 its output, build a database-grounded plan, and accept only independently
@@ -101,7 +101,7 @@ Symbolic planning & Constraints $\rightarrow$ itinerary & Bundle enumeration, ge
 Verified refinement & Itinerary $\rightarrow$ final plan & Four feasibility repairs and twelve soft-metric stages, gated by the generated DSL. \\
 \bottomrule
 \end{tabular}
-\caption{Four-stage architecture of UrbanTripV6.}
+\caption{Four-stage architecture of TPCAgent.}
 \label{tab:pipeline}
 \end{table*}
  
@@ -173,7 +173,7 @@ spans, and reference constraints are never loaded at inference time.
 \section{Constraint-Grounded Symbolic Planning}
  
 \paragraph{Bundle Enumeration.}
-UrbanTripV6 enumerates bounded (outbound, return, accommodation) triples.
+The planner enumerates bounded (outbound, return, accommodation) triples.
 Component caps, hotel property requirements, and single-day chronology act
 as hard filters; a direction-specific mode filter that would eliminate
 every leg in one direction is relaxed back to the raw timetable so that
