@@ -386,16 +386,13 @@ protected named restaurant and a fixed window cannot hold together under
 the database's opening hours and travel times.
 
 \paragraph{Reproduction.}
-With the endpoint reachable, run and scoring are two commands:
-\begin{quote}
-\footnotesize\ttfamily
-python agent\_env/scripts/solve\_script\_with\_harness.py\\
-\hspace*{1em}--split phase2\_heldout\_sim --limit 100\\[2pt]
-python eval\_with\_oracle.py tpc --splits phase2\_familiar\\
-\hspace*{1em}--method TPCAgent\_Qwen3.6-27B\_en --preference --lang en
-\end{quote}
-The first writes one plan per UID and never reads a reference field; the
-second is scoring only and does not re-plan.
+With the endpoint reachable, two commands suffice. Inference runs
+\texttt{solve\_script\_with\_harness.py} with
+\texttt{--split phase2\_heldout\_sim --limit 100}, writing one plan per UID
+and never reading a reference field. Scoring then runs
+\texttt{eval\_with\_oracle.py tpc} over the finished directory with
+\texttt{--splits phase2\_familiar --method TPCAgent\_Qwen3.6-27B\_en
+--preference --lang en}; it only scores, and does not re-plan.
 
 \section{Limitations and Conclusion}
  
