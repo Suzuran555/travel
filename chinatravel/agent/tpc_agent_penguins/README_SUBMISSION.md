@@ -1,82 +1,33 @@
-# Team "Antarctic penguins" — TPC 2026 Phase-2 agent
+# TPCAgent — final Phase-2 implementation
 
-Self-contained submission package for the ChinaTravel benchmark.
+This directory is the canonical implementation described in
+[the technical report](../../../tech_report/ijcai26_official/Antarctic%20penguins.tex).
+The repository's normal entry point and crash-isolated harness both import it
+directly. The planner, translation, and refinement code is preserved from
+release commit `99f59f6`.
 
-## Install
+`tpc_agent.py` wraps the vendored `v6.py` planner. Qwen3.6-27B translates
+requests into DSL; constraint stabilization, planning, and verified refinement
+are deterministic. The refinement battery contains four feasibility repairs
+and twelve subsequent soft-metric stages. The package also includes deadline
+handling and a database-derived fallback.
 
-Copy this directory into a stock ChinaTravel checkout as
-`chinatravel/agent/tpc_agent/` (replacing the stub directory, exactly as in
-the 2025 TPC format). Nothing else in the repository needs to change: the
-package uses only package-relative imports plus the stock
-`chinatravel.*` modules and databases that ship with the benchmark.
+Both translation languages, the prompts, and the intracity/intercity segment
+tables under `data/segments/en/` remain together in this package.
+The stock AST checkers, example plans, environment tools, databases, and
+evaluators remain external dependencies in `chinatravel/`.
 
-```
-rm -rf chinatravel/agent/tpc_agent
-cp -r <this dir> chinatravel/agent/tpc_agent
-```
+Use the commands in the [root README](../../../README.md).
+The formal reproduction command is `bash scripts/validate_report.sh` from
+the repository root, with Python 3.12 and a reachable Qwen3.6-27B service.
+It runs 100 oracle-stripped queries and invokes the official evaluator only
+after inference. The report's 97.70 familiarization score is not a guarantee
+for a new run.
 
-## Run
-
-```
-python run_tpc.py --splits <split> [--index <uid>] \
-    --agent TPCAgent --llm TPCLLM --lang en --timeout 300
-```
-
-## Backbone LLM configuration (environment variables)
-
-The only LLM stage is NL→DSL translation; planning and enrichment are fully
-symbolic/deterministic. `TPCLLM` talks to any OpenAI-compatible server:
-
-| Variable | Meaning |
-|---|---|
-| `CHINATRAVEL_OPENAI_BASE_URL` | e.g. `http://localhost:30000/v1` (SGLang / vLLM serving Qwen3.6-27B) |
-| `CHINATRAVEL_OPENAI_MODEL`    | served model name |
-| `CHINATRAVEL_OPENAI_API_KEY`  | default `EMPTY` (accepted by SGLang) |
-| `CHINATRAVEL_LLM_NAME`        | display name; keys the translation cache dir (default `Qwen3.6-27B`) |
-| `CHINATRAVEL_LLM_THINK`       | `1` to enable thinking mode (default off) |
-| `OLLAMA_TAG` / `OLLAMA_HOST_URL` | fallback local Ollama backend for testing (e.g. `qwen3.6:27b`) |
-
-Timing knobs (defaults fit a 300 s per-query harness timeout):
-
-| Variable | Default | Meaning |
-|---|---|---|
-| `TPC_TIME_BUDGET` | 290 | total seconds per query the agent aims for |
-| `TPC_ENRICH_RESERVE` | 45 | seconds reserved for post-planning enrichment |
-| `TPC_EMIT_MARGIN` | 15 | seconds before budget end by which SOME schema-valid plan is always returned; on planner overrun a deterministic env-DB fallback plan (intercity legs + hotel + hotel breakfasts) is emitted |
-
-The whole `run()` is wall-clocked from entry: live NL→DSL translation time is
-deducted from the search budget (`_urbantrip_search_start`), every backbone
-request is capped to the emission deadline, and the planner runs in a worker
-thread that is abandoned in favor of the prebuilt fallback plan if it misses
-the emission deadline.
-
-## What run(query) does
-
-1. Strips the oracle constraint annotations (`hard_logic*`) from the query —
-   the agent acts only on constraints it generates itself.
-2. NL→DSL translation with the backbone LLM (hardened prompts, mechanical
-   disjunction/count/coverage verifiers, DSL canonicalization + DB
-   type-literal normalization), cached under
-   `cache/translation_<name>_reflect/`.
-
-   **Bilingual routing** (`lang_router.py`): the query language is detected
-   from `nature_language` (CJK-character ratio); Chinese queries are
-   translated with the hardened Chinese prompt stack
-   (`nl2sl_hybrid_zh.py` + `prompts_zh.py`), English queries with the
-   hardened English stack (`nl2sl_hybrid_en.py` + `prompts_en.py`). The
-   runner's `--lang` is honoured as the fallback for degenerate text only;
-   the default route is `en`. (`PENGUINS_PROMPT_LANG=zh` additionally swaps
-   the en stack's instruction text for Chinese renderings — an A/B knob,
-   off by default.)
-3. `UrbanTripOptimizedV6` symbolic search (vendored planner + its search
-   stack; the intracity/intercity segment ranking tables ship inside
-   `data/segments/en/`).
-4. An in-run enrichment battery (12 regression-safe passes) that only keeps
-   an edit if the plan still passes schema + commonsense + the *generated*
-   hard logic via the stock evaluation modules, and a soft metric improved.
-
-## Dependencies
-
-Only the stock `requirements.txt` (pandas, numpy, geopy, scikit-learn,
-jsonschema, json_repair, func_timeout, requests, ...). No GPU inference is
-performed in-process; all model calls go over HTTP to the configured server.
+Runtime defaults are defined in `tpc_agent.py`,
+`agent_env/scripts/tpc_agent_runner.py`, and `agent_env/config.toml.tpcagent`.
+The wrapper budget is 290 seconds, with a 60-second refinement reserve and
+an emission deadline near 275 seconds. The supervisor uses up to eight workers
+and raises their outer per-query cap to 1,200 seconds; the shared soft budget
+is 17,400 seconds. Budget configuration remains in source, without overrides
+introduced by this cleanup.

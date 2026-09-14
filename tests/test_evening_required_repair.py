@@ -18,10 +18,8 @@ Covered behaviors:
     (soft-metric-only / budget-only failures);
   * honors must_see_attraction_type_match_any (any-of) semantics.
 
-Run directly (no pytest needed):
-    .venv/bin/python tests/test_evening_required_repair.py
-Mirror check against the package twin:
-    V6_IMPL=penguins .venv/bin/python tests/test_evening_required_repair.py
+Run directly after `conda activate chinatravel` (no pytest needed):
+    python tests/test_evening_required_repair.py
 """
 import os
 import sys
@@ -32,14 +30,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
 
-if os.environ.get("V6_IMPL") == "penguins":
-    import chinatravel.agent.tpc_agent_penguins.v6 as v6mod
-    from chinatravel.agent.tpc_agent_penguins.v6 import UrbanTripOptimizedV6
-else:
-    import chinatravel.agent.UrbanTrip.tpc_agent_optimized_v6 as v6mod
-    from chinatravel.agent.UrbanTrip.tpc_agent_optimized_v6 import UrbanTripOptimizedV6
-
-from chinatravel.agent.UrbanTrip.utils import add_time_delta, time_to_minutes
+import chinatravel.agent.tpc_agent_penguins.v6 as v6mod
+from chinatravel.agent.tpc_agent_penguins.v6 import UrbanTripOptimizedV6
+from chinatravel.agent.tpc_agent_penguins.utils import add_time_delta, time_to_minutes
 
 
 CAMPUS = "university campus"
@@ -348,6 +341,6 @@ if __name__ == "__main__":
         except AssertionError as exc:
             failed += 1
             print(f"FAIL {fn.__name__}: {exc}")
-    impl = "tpc_agent_penguins.v6" if os.environ.get("V6_IMPL") == "penguins" else "UrbanTrip.tpc_agent_optimized_v6"
+    impl = "tpc_agent_penguins.v6"
     print(f"\n{len(TESTS) - failed}/{len(TESTS)} passed against {impl}")
     sys.exit(1 if failed else 0)

@@ -6,7 +6,8 @@
   3. non-budget constraints with real type guards are NOT touched,
   4. deterministic content-keyed ordering of hard_logic_py.
 
-Run:  .venv/bin/python chinatravel/agent/tpc_agent_penguins/tests/test_dsl_canonicalizer_hardening.py
+After `conda activate chinatravel`, run:
+    python chinatravel/agent/tpc_agent_penguins/tests/test_dsl_canonicalizer_hardening.py
 """
 import os
 import sys
@@ -18,7 +19,6 @@ from chinatravel.agent.tpc_agent_penguins.dsl_canonicalizer import (   # noqa: E
     canonicalize_hard_logic_py,
     canonicalize_query_hard_logic,
 )
-from chinatravel.agent.UrbanTrip import dsl_canonicalizer as twin      # noqa: E402
 
 
 # the exact jitter-sensitive variant from uid 20250321030111150684
@@ -88,34 +88,34 @@ MEAL_BUDGET = (
 )
 
 
-def test_guard_widening(mod):
-    out = mod.canonicalize_hard_logic_py(GUARDED_BUDGET)
+def test_guard_widening():
+    out = canonicalize_hard_logic_py(GUARDED_BUDGET)
     assert out == CANONICAL_BUDGET, "partial-type budget guard not removed:\n" + out
 
-    out = mod.canonicalize_hard_logic_py(GUARDED_BUDGET_INLINE)
+    out = canonicalize_hard_logic_py(GUARDED_BUDGET_INLINE)
     assert "if activity_type" not in out, "inline single-type budget guard kept:\n" + out
     assert "cost+=innercity_transport_cost(activity_transports(activity))" in out
 
-    out = mod.canonicalize_hard_logic_py(PSEUDO_GUARD)
+    out = canonicalize_hard_logic_py(PSEUDO_GUARD)
     assert "activity_type" not in out, "pseudo-type guard not removed:\n" + out
 
-    assert mod.canonicalize_hard_logic_py(TICKETS_CONSTRAINT) == TICKETS_CONSTRAINT
-    assert mod.canonicalize_hard_logic_py(MODE_CONSTRAINT) == MODE_CONSTRAINT
-    assert mod.canonicalize_hard_logic_py(MEAL_BUDGET) == MEAL_BUDGET
+    assert canonicalize_hard_logic_py(TICKETS_CONSTRAINT) == TICKETS_CONSTRAINT
+    assert canonicalize_hard_logic_py(MODE_CONSTRAINT) == MODE_CONSTRAINT
+    assert canonicalize_hard_logic_py(MEAL_BUDGET) == MEAL_BUDGET
 
 
-def test_deterministic_order(mod):
+def test_deterministic_order():
     constraints = [
         "result=(people_count(plan)==2)",
         GUARDED_BUDGET,
         "result=(day_count(plan)==3)",
         TICKETS_CONSTRAINT,
     ]
-    q1 = mod.canonicalize_query_hard_logic(
+    q1 = canonicalize_query_hard_logic(
         {"hard_logic_py": list(constraints), "target_city": "Beijing"})
-    q2 = mod.canonicalize_query_hard_logic(
+    q2 = canonicalize_query_hard_logic(
         {"hard_logic_py": list(reversed(constraints)), "target_city": "Beijing"})
-    q3 = mod.canonicalize_query_hard_logic(
+    q3 = canonicalize_query_hard_logic(
         {"hard_logic_py": [constraints[2], constraints[0], constraints[3],
                            constraints[1]], "target_city": "Beijing"})
     assert q1["hard_logic_py"] == q2["hard_logic_py"] == q3["hard_logic_py"], \
@@ -146,8 +146,8 @@ POI_NAME_CONSTRAINT = (
 )
 
 
-def test_type_literal_db_normalization(mod):
-    q = mod.canonicalize_query_hard_logic({
+def test_type_literal_db_normalization():
+    q = canonicalize_query_hard_logic({
         "uid": "h20241029143911770965",
         "target_city": "Hangzhou",
         "hard_logic_py": [H965_TYPE_CONSTRAINT, POI_NAME_CONSTRAINT],
@@ -161,14 +161,8 @@ def test_type_literal_db_normalization(mod):
 
 
 if __name__ == "__main__":
-    import types
-    pkg_mod = types.SimpleNamespace(
-        canonicalize_hard_logic_py=canonicalize_hard_logic_py,
-        canonicalize_query_hard_logic=canonicalize_query_hard_logic,
-    )
-    for name, mod in (("package", pkg_mod), ("main-tree twin", twin)):
-        test_guard_widening(mod)
-        test_deterministic_order(mod)
-        test_type_literal_db_normalization(mod)
-        print(f"[{name}] canonicalizer hardening tests passed")
+    test_guard_widening()
+    test_deterministic_order()
+    test_type_literal_db_normalization()
+    print("[tpc_agent_penguins] canonicalizer hardening tests passed")
     print("ALL PASSED")

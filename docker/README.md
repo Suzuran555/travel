@@ -1,107 +1,88 @@
-# Docker GPU test — `Antarctic penguins_v2` (two-image design)
+# Run the technical-report configuration
 
-- **Serving** = the OFFICIAL `lmsysorg/sglang:v0.5.10.post1` image, untouched
-  (the organizers' stack — pulled straight from Docker Hub, never rebuilt).
-- **Harness** = a small (~2 GB) image with only the v2 submission package +
-  pinned deps: `zhanggangyi1224/tpc2026-penguins-v2test:latest`.
-- The harness container **shares the server container's network namespace**,
-  so the package's hardcoded `http://127.0.0.1:30000/v1` works with ZERO
-  config overrides. harness 容器共享 serving 容器网络命名空间,包配置零改动。
+These helpers run the current checkout's TPCAgent. The reference is
+`tech_report/ijcai26_official/Antarctic penguins.tex`: Qwen3.6-27B served by
+SGLang 0.5.10.post1, thinking disabled, and two A800 GPUs with tensor
+parallelism two. Its reported familiarization Overall score was 97.70;
+another machine or run is not assumed to reproduce that number.
 
-Model weights are mounted from the host (~60 GB BF16, not in any image).
+The validation entrypoint is `scripts/validate_report.sh`. It checks the
+runtime, runs all 100 `phase2_heldout_sim` requests with fresh translations,
+and scores the completed results against `phase2_familiar` through
+`eval_with_oracle.py tpc`, which invokes the unchanged `eval_tpc.py`.
+Each validation uses a new method and preserves its result snapshot.
 
-## 0. One-time: build & push the harness image(已由 CI 自动完成)
+## Existing serving endpoint
 
-CI builds and pushes this automatically on any `docker/**` change
-(`.github/workflows/docker-test-image.yml`). Manual equivalent:
+From the repository root, activate the project's harness environment:
 
 ```bash
-cd travel/docker
-docker build -t zhanggangyi1224/tpc2026-penguins-v2test:latest .
-docker login && docker push zhanggangyi1224/tpc2026-penguins-v2test:latest
+conda activate chinatravel
+bash scripts/validate_report.sh --preflight-only
+bash scripts/validate_report.sh
 ```
 
-## 1. On the GPU server: get the model 下载模型
+The default endpoint is `http://127.0.0.1:30000/v1`. The endpoint must serve
+the model under the exact name `Qwen3.6-27B`. The harness sends thinking-off
+requests. `HARNESS_PYTHON` can select a Python executable from another
+environment; it is an executable path, not a multi-word shell command.
+
+## One GPU-server instance
+
+`run_single_instance.sh` reuses a healthy local endpoint or starts SGLang
+from an already prepared serving environment and checkpoint. It checks
+GPU availability, capacity, SGLang's version and `config.json` before
+launching. It does not install packages or download model weights.
 
 ```bash
-pip install -U "huggingface_hub[cli]"
-hf download Qwen/Qwen3.6-27B --local-dir /data/models/Qwen3.6-27B
-# 或 modelscope download --model Qwen/Qwen3.6-27B --local_dir /data/models/Qwen3.6-27B
+conda activate chinatravel
+MODEL_DIR=/data/models/Qwen3.6-27B \
+  SGLANG_PYTHON=/opt/sglang/bin/python \
+  HARNESS_PYTHON="$CONDA_PREFIX/bin/python" \
+  TP=2 bash docker/run_single_instance.sh
 ```
 
-## 2. Run the full test 一条命令跑测(2×A100 80G)
+On a platform whose base image is `lmsysorg/sglang:v0.5.10.post1`, set
+`SGLANG_PYTHON` to that image's Python. The BF16 checkpoint needs about
+60 GB for weights plus runtime headroom; a single 8 GB consumer GPU is
+insufficient. `TP` changes the GPU count, not the model's precision.
+The script logs a server it starts under `/tmp/tpca-sglang.*/sglang.log`
+and stops that server when validation ends. An existing server is reused.
+
+Other settings: `PORT` defaults to 30000 and `SGLANG_START_TIMEOUT` to
+1800 seconds. `--preflight-only` delegates to the validation checks without
+starting a server. Use `--help` for the launcher options.
+
+## Docker Compose
+
+Install Docker Compose and NVIDIA Container Toolkit on a GPU host. Place
+the checkpoint in an existing host directory. The local checkout must also
+contain the benchmark databases and the two familiarization query splits;
+these are included in the harness build even though they are ignored by Git.
+
+From the repository root:
 
 ```bash
-git clone -b phase2/aug5-evaluator-and-deoverlap-fix \
-    https://github.com/Suzuran555/travel.git
-cd travel/docker
-mkdir -p out
 MODEL_DIR=/data/models/Qwen3.6-27B TP=2 \
-  docker compose up --abort-on-container-exit harness
+  docker compose -f docker/docker-compose.yml up --build \
+    --abort-on-container-exit --exit-code-from harness harness
 ```
 
-Or without compose 不用 compose 的等价两条命令:
+Compose uses the pinned SGLang image for serving and builds the harness
+image from this checkout with Python 3.12 and the current lightweight
+requirements. It waits for serving health before starting the harness.
+The harness shares the serving container's network namespace and writes
+results, evaluation artifacts, run logs, caches and `validation_runs/`
+snapshots to the corresponding host directories. It does not load an old
+submission ZIP or published harness image.
+
+Build the harness alone, without starting a model:
 
 ```bash
-docker run -d --name sglang --gpus all --ipc=host --shm-size=32g \
-  -v /data/models/Qwen3.6-27B:/models/Qwen3.6-27B:ro \
-  lmsysorg/sglang:v0.5.10.post1 \
-  python3 -m sglang.launch_server --model-path /models/Qwen3.6-27B \
-    --served-model-name Qwen3.6-27B --host 0.0.0.0 --port 30000 --tp 2
-
-mkdir -p out
-docker run --rm --network container:sglang -v "$PWD/out":/output \
-  zhanggangyi1224/tpc2026-penguins-v2test:latest test
+docker build -f docker/Dockerfile -t tpca-report-harness:local .
 ```
 
-What the harness container does 流程:
-1. waits for the server (`/v1/models` must list `Qwen3.6-27B`; model load
-   takes minutes);
-2. **thinking-off smoke test** — warns loudly if `<think>` leaks;
-3. runs the organizer entry command on the packaged held-out sim:
-   `solve_script_with_harness.py --split phase2_heldout_sim --limit 100`
-   (170 s/query cap, 4 h 50 m global budget, fallback always writes a file);
-4. scores vs the oracle: `eval_with_oracle.py eval_tpc --splits
-   phase2_familiar --method TPCAgent_Qwen3.6-27B_en --preference --lang en`;
-5. copies `results/` + `score.log` to `./out/`.
-
-Expected 预期: 100/100 result files, harness exit 0 (the final
-`Split summary skipped (oracle-less data?)` line is CORRECT), and
-**Overall ≈ 85–93**.
-
-## 3. Thinking must be OFF 思考模式必须关闭
-
-The organizers serve with thinking disabled. If step 2's smoke test warns
-about `<think>`, add the server-side switch to the sglang command (build
-dependent), e.g.:
-
-```
---chat-template-kwargs '{"enable_thinking": false}'
-```
-
-and restart. Harness-side kill switch as a last resort: add
-`-e CHINATRAVEL_LLM_THINK=0` to the harness `docker run`.
-
-## 4. Troubleshooting 排查
-
-| Symptom | Fix |
-|---|---|
-| harness says server never became healthy | `docker logs sglang` — model path wrong / OOM / still loading. Confirm `--network container:sglang` (or compose `network_mode: "service:sglang"`). |
-| `<think>` warning | See §3. |
-| Overall < 80 | Check per-query logs `agent_env/runs/tpcagent/...` inside the harness container for planner timeouts; GPU contention. |
-| OOM on load | Both GPUs visible (`--gpus all`, `TP=2`), nothing else on the cards. |
-| Scorer reads 0 files | scorer `--method` must equal the harness results dir (`TPCAgent_Qwen3.6-27B_en`). |
-
-Reference ladder (details `GPU_TEST_RUNBOOK.md` §7): Mac+API capped 71.26
-(hardware-limited; NOT comparable to the public leaderboard), offline
-uncapped 93.54, expected here 85–93.
-
-## 5. What changed v1 → v2 (exactly 5 files)
-
-1. `enrich_dedupmeal.py` (new) — one meal type per day (E2E-discovered).
-2. `runner.py` — dedupmeal first battery stage (16 total).
-3. `enrich_mustpoi.py` — no-walk no longer bans metro.
-4. `solve_script_with_harness.py` — oracle-less aggregate eval exits 0.
-5. `contact.txt` — team-leader marking.
-
-Ranking = max(v1, v2) → v2 is pure upside.
+If serving fails, inspect `docker compose -f docker/docker-compose.yml logs
+sglang`. Check the checkpoint path, available GPU memory and `TP`. A run
+that cannot translate requests because serving is unavailable does not
+validate the report's end-to-end system.

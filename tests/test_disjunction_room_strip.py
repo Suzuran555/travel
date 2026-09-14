@@ -7,15 +7,15 @@
   * strip_room_constraints / normalize_generated_constraints room guard
   * transport-mode normalizer must not rewrite mixed-domain (disjunction) blocks
 
-Run directly (no pytest needed):
-    .venv/bin/python tests/test_disjunction_room_strip.py
+Run directly after `conda activate chinatravel` (no pytest needed):
+    python tests/test_disjunction_room_strip.py
 """
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from chinatravel.agent.nesy_agent.nl2sl_hybrid_en import (
+from chinatravel.agent.tpc_agent_penguins.nl2sl_hybrid_en import (
     detect_disjunction,
     disjunction_gap,
     enforce_disjunction,

@@ -1,7 +1,7 @@
 """Unit tests for the DSL canonicalizer and the widened V6 constraint extractor.
 
-Run directly (no pytest needed):
-    .venv/bin/python tests/test_dsl_canonicalizer.py
+Run directly after `conda activate chinatravel` (no pytest needed):
+    python tests/test_dsl_canonicalizer.py
 """
 import os
 import sys
@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
 
-from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (
+from chinatravel.agent.tpc_agent_penguins.dsl_canonicalizer import (
     canonicalize_hard_logic_py,
     canonicalize_hard_logic_list,
     canonicalize_query_hard_logic,
@@ -228,7 +228,7 @@ def test_canonicalize_query_helper():
 # ---------------------------------------------------------------------------
 
 def _extract(constraints, attractions=(), restaurants=(), hotels=()):
-    from chinatravel.agent.UrbanTrip.tpc_agent_optimized_v6 import (
+    from chinatravel.agent.tpc_agent_penguins.v6 import (
         UrbanTripOptimizedV6,
     )
 
@@ -396,7 +396,7 @@ def test_extractor_reroutes_misfiled_poi():
 # (round-4 residual: uid h20241029143911770965).
 # ---------------------------------------------------------------------------
 
-from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (  # noqa: E402
+from chinatravel.agent.tpc_agent_penguins.dsl_canonicalizer import (  # noqa: E402
     normalize_type_literals,
 )
 

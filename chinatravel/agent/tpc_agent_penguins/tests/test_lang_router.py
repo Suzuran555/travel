@@ -8,7 +8,8 @@ Verifies (all offline, no LLM calls):
   3. The v6 routing decision is reproducible from the same inputs the planner
      uses (nature_language + runner lang).
 
-Run:  .venv/bin/python chinatravel/agent/tpc_agent_penguins/tests/test_lang_router.py
+After `conda activate chinatravel`, run:
+    python chinatravel/agent/tpc_agent_penguins/tests/test_lang_router.py
 """
 import os
 import sys

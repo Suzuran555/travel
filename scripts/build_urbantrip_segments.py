@@ -11,8 +11,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from chinatravel.agent.UrbanTrip.segment_must_pois import load_must_names_by_city
-from chinatravel.environment.language import CITY_NAMES, CITY_SLUGS, normalize_lang
+from scripts.segment_must_pois import DEFAULT_SEGMENT_ROOT, load_must_names_by_city
+from chinatravel.environment.language import CITY_NAMES, normalize_lang
 from chinatravel.environment.tools.accommodations.apis import Accommodations
 from chinatravel.environment.tools.attractions.apis import Attractions
 from chinatravel.environment.tools.intercity_transport.apis import IntercityTransport
@@ -347,9 +347,13 @@ def build_intracity_segments(lang, terminal_map, top_k_neighbors, must_by_city=N
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Build UrbanTrip segment JSONL indexes.")
+    parser = argparse.ArgumentParser(description="Build offline TPCAgent segment JSONL indexes.")
     parser.add_argument("--lang", choices=["en", "zh"], default="en")
-    parser.add_argument("--out", default=None)
+    parser.add_argument(
+        "--out", default=None,
+        help="Output directory (default: tpc_agent_penguins/data/segments/<lang>/). "
+             "Existing JSONL files in this directory are overwritten.",
+    )
     parser.add_argument("--top-k-neighbors", type=int, default=30)
     parser.add_argument(
         "--must-from-split",
@@ -362,9 +366,7 @@ def parse_args():
 def main():
     args = parse_args()
     lang = normalize_lang(args.lang)
-    out_dir = args.out or os.path.join(
-        PROJECT_ROOT, "chinatravel", "environment", "segments", lang
-    )
+    out_dir = args.out or os.path.join(DEFAULT_SEGMENT_ROOT, lang)
     must_by_city = None
     if args.must_from_split:
         must_by_city = load_must_names_by_city(args.must_from_split, lang=lang)

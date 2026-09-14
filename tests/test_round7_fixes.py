@@ -12,8 +12,8 @@ failure from the round-6 dress rehearsal:
   * inline-accessor type-literal spans (NL grounding reach) -- uid 00033
   * verifier-style scoped restaurant cost -- uid 00006
 
-Run directly (no pytest needed):
-    .venv/bin/python tests/test_round7_fixes.py
+Run directly after `conda activate chinatravel` (no pytest needed):
+    python tests/test_round7_fixes.py
 """
 import os
 import sys
@@ -22,10 +22,10 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
 
-from chinatravel.agent.UrbanTrip.dsl_canonicalizer import (
+from chinatravel.agent.tpc_agent_penguins.dsl_canonicalizer import (
     canonicalize_hard_logic_py,
 )
-from chinatravel.agent.UrbanTrip.tpc_agent_optimized_v6 import (
+from chinatravel.agent.tpc_agent_penguins.v6 import (
     UrbanTripOptimizedV6,
 )
 

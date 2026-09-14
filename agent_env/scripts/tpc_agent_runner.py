@@ -46,25 +46,12 @@ _STATE = {"deadline": None}    # global run deadline, set on first call
 
 
 def _package_imports():
-    """Resolve (TPCAgent, TPCLLM, build_fallback_plan) from the REAL planner
-    package. The submission installs it at ``chinatravel/agent/tpc_agent``; the
-    in-repo dev copy is ``tpc_agent_penguins`` while ``tpc_agent`` is only the
-    stock stub (no planner, empty plan). Gate on ``fallback_plan`` existing so
-    the stub is skipped in dev and the installed package is used in the
-    submission -- NOT via load_model.init_agent, which imports the stub."""
-    import importlib
+    """Load the same report package as the normal TPCAgent entry point."""
+    from chinatravel.agent.tpc_agent_penguins.fallback_plan import build_fallback_plan
+    from chinatravel.agent.tpc_agent_penguins.tpc_llm import TPCLLM
+    from chinatravel.agent.tpc_agent_penguins.tpc_agent import TPCAgent
 
-    last_exc = None
-    for pkg in ("tpc_agent", "tpc_agent_penguins"):
-        try:
-            base = f"chinatravel.agent.{pkg}"
-            bfp = importlib.import_module(f"{base}.fallback_plan").build_fallback_plan
-            TPCLLM = importlib.import_module(f"{base}.tpc_llm").TPCLLM
-            TPCAgent = importlib.import_module(f"{base}.tpc_agent").TPCAgent
-            return TPCAgent, TPCLLM, bfp
-        except Exception as exc:  # stub lacks fallback_plan -> try the next name
-            last_exc = exc
-    raise ImportError(f"No runnable tpc_agent package found: {last_exc!r}")
+    return TPCAgent, TPCLLM, build_fallback_plan
 
 
 def _apply_sglang_env(cfg):
@@ -86,8 +73,7 @@ def _get_agent(lang, cache_dir, log_dir):
         TPCAgent, TPCLLM, _ = _package_imports()
         os.makedirs(cache_dir, exist_ok=True)
         os.makedirs(log_dir, exist_ok=True)
-        # Construct directly (matches init_agent's TPCAgent(**kwargs)) so we always
-        # build the REAL planner, never load_model's stub resolution.
+        # Construct the canonical package directly, matching init_agent().
         _AGENT[lang] = TPCAgent(
             method="TPCAgent",
             env=WorldEnv(lang=lang),

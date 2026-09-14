@@ -1,18 +1,18 @@
 """Unit tests for the round-5 coverage rules
-(chinatravel.agent.nesy_agent.constraint_coverage).
+(chinatravel.agent.tpc_agent_penguins.constraint_coverage).
 
 Every positive case is the NL of a real full-1000 sweep failure; every
 negative case is a real sweep NL where the rule must NOT fire.
 
-Run directly (no pytest needed):
-    .venv/bin/python tests/test_constraint_coverage_r5.py
+Run directly after `conda activate chinatravel` (no pytest needed):
+    python tests/test_constraint_coverage_r5.py
 """
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from chinatravel.agent.nesy_agent.constraint_coverage import (
+from chinatravel.agent.tpc_agent_penguins.constraint_coverage import (
     _disjunction_region_start,
     build_directional_constraint,
     drop_disjunction_fragments,
@@ -568,7 +568,7 @@ check("negative_stay_polarity_kept", rec is None)
 
 # the zero-cap free-attraction constraint must survive the full driver
 # (drop_ungrounded_cost_caps must not treat cap 0 as an invented budget)
-from chinatravel.agent.nesy_agent.constraint_coverage import enforce_coverage
+from chinatravel.agent.tpc_agent_penguins.constraint_coverage import enforce_coverage
 
 q = {
     "nature_language": "One person traveling from Hangzhou to Shenzhen for "

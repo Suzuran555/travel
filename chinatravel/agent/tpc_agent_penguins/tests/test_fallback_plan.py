@@ -2,7 +2,8 @@
 (schema + commonsense) for three different query shapes, and check that two
 builds are byte-identical (determinism).
 
-Run:  .venv/bin/python chinatravel/agent/tpc_agent_penguins/tests/test_fallback_plan.py
+After `conda activate chinatravel`, run:
+    python chinatravel/agent/tpc_agent_penguins/tests/test_fallback_plan.py
 """
 import json
 import os

@@ -6,7 +6,8 @@
   3. planner returns normally -> its plan is kept and the wall-clock-volatile
      debug counters are stripped from the emitted plan.
 
-Run:  .venv/bin/python chinatravel/agent/tpc_agent_penguins/tests/test_emit_deadline.py
+After `conda activate chinatravel`, run:
+    python chinatravel/agent/tpc_agent_penguins/tests/test_emit_deadline.py
 """
 import json
 import os

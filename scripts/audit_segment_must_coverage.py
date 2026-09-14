@@ -10,7 +10,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from chinatravel.agent.UrbanTrip.segment_must_pois import (
+from scripts.segment_must_pois import (
+    DEFAULT_SEGMENT_ROOT,
     audit_must_coverage,
     load_must_names_by_city,
 )
@@ -23,13 +24,14 @@ def parse_args():
     )
     parser.add_argument(
         "--split",
-        default="chinatravel/evaluation/default_splits/TPC_IJCAI_2026_phase1.txt",
+        default="chinatravel/evaluation/default_splits/phase2_familiar.txt",
     )
     parser.add_argument("--lang", choices=["en", "zh"], default="en")
     parser.add_argument(
         "--segment-path",
         default=None,
-        help="Path to intracity_segments.jsonl (default: environment/segments/<lang>/)",
+        help="Path to intracity_segments.jsonl "
+             "(default: tpc_agent_penguins/data/segments/<lang>/)",
     )
     parser.add_argument("--out", default=None, help="Optional JSON output path")
     parser.add_argument(
@@ -44,10 +46,7 @@ def main():
     args = parse_args()
     lang = normalize_lang(args.lang)
     segment_path = args.segment_path or os.path.join(
-        PROJECT_ROOT,
-        "chinatravel",
-        "environment",
-        "segments",
+        DEFAULT_SEGMENT_ROOT,
         lang,
         "intracity_segments.jsonl",
     )

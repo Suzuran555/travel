@@ -55,7 +55,20 @@ def load_query_local(args, version="", verbose=False):
     if lang == "en":
         data_dir = os.path.join(data_dir, "en")
 
-    dir_list = os.listdir(data_dir)
+    # Familiarization references and oracle-stripped simulation queries share
+    # UIDs. Prefer this split's directory so sibling datasets cannot overwrite
+    # each other according to os.listdir order. Historical shard split files
+    # have no matching directory, so retain the original scan for those.
+    split_dirs = [args.splits]
+    if lang == "en":
+        split_dirs.insert(0, f"{args.splits}_EN")
+    dir_list = None
+    for split_dir in split_dirs:
+        if os.path.isdir(os.path.join(data_dir, split_dir)):
+            dir_list = [split_dir]
+            break
+    if dir_list is None:
+        dir_list = os.listdir(data_dir)
     for dir_i in dir_list:
         dir_ii = os.path.join(data_dir, dir_i)
         if os.path.isdir(dir_ii):
@@ -66,17 +79,15 @@ def load_query_local(args, version="", verbose=False):
                     continue
                 query_id = file_i.split(".")[0]
                 if query_id in query_id_list:
-                    data_i = json.load(
-                        open(os.path.join(dir_ii, file_i), encoding="utf-8")
-                    )
+                    with open(os.path.join(dir_ii, file_i), encoding="utf-8") as query_file:
+                        data_i = json.load(query_file)
 
                     if hasattr(args, 'oracle_translation') and not args.oracle_translation:
-                        if "hard_logic" in data_i:
-                            del data_i["hard_logic"]
-                        if "hard_logic_py" in data_i:
-                            del data_i["hard_logic_py"]
-                        if "hard_logic_nl" in data_i:
-                            del data_i["hard_logic_nl"]
+                        for field in (
+                            "hard_logic", "hard_logic_py", "hard_logic_nl",
+                            "hard_logic_py_nl",
+                        ):
+                            data_i.pop(field, None)
 
                     query_data[query_id] = data_i
 

@@ -1,17 +1,12 @@
 import argparse
 
-import numpy as np
-
 import sys
 import os
-import json
 from func_timeout import func_timeout, FunctionTimedOut
 
 project_root_path = os.path.dirname(os.path.abspath(__file__))
 if project_root_path not in sys.path:
     sys.path.insert(0, project_root_path)
-
-from copy import deepcopy
 
 from chinatravel.data.load_datasets import load_query, save_json_file
 from chinatravel.agent.load_model import init_agent, init_llm
@@ -20,12 +15,12 @@ from chinatravel.environment.world_env import WorldEnv
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="argparse testing")
+    parser = argparse.ArgumentParser(description="Run the report's Phase-2 TPCAgent.")
     parser.add_argument(
         "--splits",
         "-s",
         type=str,
-        default="tpc_phase1",
+        default="phase2_heldout_sim",
         help="query subset",
     )
     parser.add_argument("--index", "-id", type=str, default=None, help="query index")
@@ -36,27 +31,42 @@ if __name__ == "__main__":
         "--agent",
         "-a",
         type=str,
-        default=None,
-        choices=["TPCAgent", "UrbanTrip", "UrbanTripOptimized", "UrbanTripOptimizedV2", "UrbanTripOptimizedV3", "UrbanTripOptimizedV4", "UrbanTripOptimizedV5", "UrbanTripOptimizedV6"],
+        default="TPCAgent",
+        choices=["TPCAgent"],
     )
     parser.add_argument(
         "--llm",
         "-l",
         type=str,
-        default=None
+        default="TPCLLM",
+        choices=["TPCLLM"],
+        help="Translation model client (TPCLLM uses the configured HTTP endpoint).",
+    )
+    parser.add_argument(
+        "--method", type=str, default=None,
+        help="Result/cache directory name; defaults to agent and model display name.",
     )
     parser.add_argument(
         "--timeout",
         "-t",
         type=int,
-        default=330,
-        help="Timeout in seconds for each query",
+        default=300,
+        help="Outer timeout in seconds; the planner keeps the report package's budgets.",
     )
-    parser.add_argument("--lang", "--locale", choices=["zh", "en"], default="zh", help="Language environment to load.")
+    parser.add_argument("--lang", "--locale", choices=["zh", "en"], default="en", help="Language environment to load.")
 
-    parser.add_argument('--oracle_translation', action='store_true', help='Set this flag to enable oracle translation.')
+    # The submitted agent always generates its own constraints. The loader
+    # removes reference fields too; TPCAgent strips all four again at entry.
+    parser.set_defaults(oracle_translation=False)
 
     args = parser.parse_args()
+    if args.timeout <= 0:
+        parser.error("--timeout must be positive")
+    if args.method is not None and (
+        args.method in ("", ".", "..")
+        or os.path.basename(args.method) != args.method
+    ):
+        parser.error("--method must be a directory name, not a path")
 
     print(args)
 
@@ -66,19 +76,12 @@ if __name__ == "__main__":
     if args.index is not None:
         query_index = [args.index]
 
-    cache_dir = os.path.join(project_root_path, "cache")
-
-    method = args.agent + "_" + args.llm
-    if args.lang == "en":
+    backbone_llm = init_llm(args.llm)
+    method = args.method or args.agent + "_" + backbone_llm.name
+    if args.method is None and args.lang == "en":
         method += "_en"
-    if args.agent == "LLM-modulo":
-        method += f"_{args.refine_steps}steps"
 
-        if not args.oracle_translation:
-            raise Exception("LLM-modulo must use oracle translation")
-
-    if args.oracle_translation:
-        method = method + "_oracletranslation"
+    cache_dir = os.path.join(project_root_path, "cache", method)
 
     res_dir = os.path.join(
         project_root_path, "results", method
@@ -95,22 +98,12 @@ if __name__ == "__main__":
     kwargs = {
         "method": args.agent,
         "env": WorldEnv(lang=args.lang),
-        "backbone_llm": init_llm(args.llm),
+        "backbone_llm": backbone_llm,
         "cache_dir": cache_dir,
         "log_dir": log_dir,
-        "debug": True,
+        "debug": False,
         "lang": args.lang,
-        "external_timeout": args.timeout,
     }
-    # Optional agent-kwargs overrides via env for A/B (e.g. bundle search flags).
-    # Defaults stay off, so unset env keeps legacy behavior and reproducibility.
-    extra_kwargs_env = os.environ.get("URBANTRIP_KWARGS")
-    if extra_kwargs_env:
-        try:
-            kwargs.update(json.loads(extra_kwargs_env))
-            print("URBANTRIP_KWARGS override:", extra_kwargs_env)
-        except json.JSONDecodeError as exc:
-            print(f"Ignoring invalid URBANTRIP_KWARGS ({exc})")
     agent = init_agent(kwargs)
 
     succ_count, eval_count = 0, 0
@@ -132,21 +125,18 @@ if __name__ == "__main__":
         query_i = query_data[data_idx]
         print(query_i)
         try:
-            # succ, plan = agent.run(query_i, prob_idx=data_idx, oralce_translation=args.oracle_translation)
             succ, plan = func_timeout(
                 args.timeout,
                 agent.run,
                 args=(query_i,),
                 kwargs=dict(
-                    prob_idx=data_idx, oralce_translation=args.oracle_translation
+                    prob_idx=data_idx, oralce_translation=False
                 ),
             )
         except FunctionTimedOut:
-            # print(f"⚠️ 任务 {data_idx} 超过 {args.timeout}s 被中断。")
             succ, plan = 0, {"error": f"timeout after {args.timeout}s"}
 
         except Exception as e:
-            # print(f"❌ 执行任务 {data_idx} 出错: {e}")
             succ, plan = 0, {"error": str(e)}
 
         if succ:

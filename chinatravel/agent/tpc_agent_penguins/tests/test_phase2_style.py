@@ -11,7 +11,8 @@
   5. crash guards: geodesic on junk coordinates, hotel branch without
      accommodation (1-day trips).
 
-Run:  .venv/bin/python chinatravel/agent/tpc_agent_penguins/tests/test_phase2_style.py
+After `conda activate chinatravel`, run:
+    python chinatravel/agent/tpc_agent_penguins/tests/test_phase2_style.py
 """
 import os
 import sys

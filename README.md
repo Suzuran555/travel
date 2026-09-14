@@ -1,277 +1,78 @@
-<center>
-  <h1>ChinaTravel: A Real-World Benchmark for Language Agents in Chinese Travel Planning
-</h1>
-</center>
+# TPCAgent (UrbanTrip)
 
-Official codebase for the paper "ChinaTravel: A Real-World Benchmark for Language Agents in Chinese Travel Planning".
+Antarctic penguins' Phase-2 travel-planning agent for the ChinaTravel benchmark.
+A language model translates requests into constraints; the UrbanTrip planner
+builds database-backed, multi-day itineraries and verifies repairs.
+See the [technical report](tech_report/ijcai26_official/Antarctic%20penguins.tex).
 
-<!-- | [Webpage](https://www.lamda.nju.edu.cn/shaojj/chinatravel/) | [Paper](https://arxiv.org/abs/2412.13682) | [Dataset(Huggingface)](https://huggingface.co/datasets/LAMDA-NeSy/ChinaTravel)| -->
+## Requirements
 
-[![Webpage](https://img.shields.io/badge/Webpage-Visit-blue)](https://www.lamda.nju.edu.cn/shaojj/chinatravel/)
-[![Paper](https://img.shields.io/badge/Paper-View-red)](https://arxiv.org/abs/2412.13682)
-[![Dataset(Huggingface)](https://img.shields.io/badge/Dataset-Huggingface-yellow)](https://huggingface.co/datasets/LAMDA-NeSy/ChinaTravel)
-[![Competition(TPC@IJCAI2025)](https://img.shields.io/badge/IJCAI%20Competition-TPC@IJCAI2025-green)](https://chinatravel-competition.github.io/IJCAI2025/)
-[![Competition(TPC@AIC2025)](https://img.shields.io/badge/AIC%20Competition-TPC@AIC2025-green)](TPC@AIC2025/readme.md)
-[![Competition(TPC@IJCAI2026)](https://img.shields.io/badge/IJCAI%20Competition-TPC@IJCAI2026-green)](https://chinatravel-competition.github.io/IJCAI2026/)
+- **Software:** Linux/WSL2, Bash, Python 3.12, and `requirements.txt`.
+- **Data:** both `chinatravel/environment/database/` and `database_en/`;
+  `phase2_familiar_EN/` and `phase2_heldout_sim_EN/` under
+  `chinatravel/data/en/`, with matching files in
+  `chinatravel/evaluation/default_splits/`. These datasets are not included
+  in Git; supply them before running.
+- **Local model serving:** Qwen3.6-27B through SGLang 0.5.10.post1.
+  The report used two A800 GPUs (`TP=2`). Allow roughly 60 GB or more of GPU
+  memory for BF16 serving, depending on context and concurrency; an 8 GB GPU
+  cannot run that configuration.
+- **Planner only:** runs on CPU, with no local GPU needed when the model is
+  hosted elsewhere. A minimum system-RAM requirement has not been benchmarked.
 
+## Start
 
-<!-- 
-![Overview](images/overview.png) -->
-
-## 🏆 IJCAI 2026 Travel Planning Challenge (TPC@IJCAI)
-
-We are proud to announce that ChinaTravel has been selected as the official benchmark for the **Travel Planning Challenge (TPC) @ IJCAI 2026**!
-
-**Official Competition Website**:
-[https://chinatravel-competition.github.io/IJCAI2026/](https://chinatravel-competition.github.io/IJCAI2026/)
-
-Participants are invited to develop novel agentic system that can tackle real-world travel planning scenarios under practical requirements. This competition will showcase state-of-the-art approaches in agentic AI research.
-
-
-## 🏆 IJCAI 2025 Travel Planning Challenge (TPC@IJCAI)
-
-We are proud to announce that ChinaTravel has been selected as the official benchmark for the **Travel Planning Challenge (TPC) @ IJCAI 2025**!
-
-**Official Competition Website**:
-[https://chinatravel-competition.github.io/IJCAI2025/](https://chinatravel-competition.github.io/IJCAI2025/)
-
-Participants are invited to develop novel agents that can tackle real-world travel planning scenarios under complex constraints. This competition will showcase state-of-the-art approaches in language agent research.
-
-## 📝 ChangeLog
-
-### 2025.09
-1. Upload the champion solution of TPC@IJCAI2025 DSL track. Thanks the [@evergreenee](https://github.com/evergreenee) for their contributions.  
-
-
-### 2025.06
-
-1. Fix error collection in the evaluation code of commonsense. 
-2. Fix pure-neuro agent's pipeline
-3. Fix load_datasets from huggingface
-4. Update exception handling in syntax verification
-
-
-### 2025.05
-
-1. Update logs for the latest version.
-2. Provide the evaluation code for the TPC.
-
-### 2025.04
-
-1. Added local data loader. Users can now load custom queries locally. When specifying non-default splits_name values (e.g., "abc") for "run_exp.py", the system will automatically load corresponding files from evaluation/default_splits/abc.txt, where the TXT file contains the target query filenames.
-2. Detailed constraints classification. See detailed docs at [Evaluation README](chinatravel/symbol_verification/readme.md)
-3. Introduced LLM-modulo baseline
-   Implement the LLM-modulo pipeline with a ground-truth symbolic verifier.
-   Based on methodology from:
-   Paper: Robust Planning with Compound LLM Architectures: An LLM-Modulo Approach
-   Codebase: https://github.com/Atharva-Gundawar/LLM-Modulo-prompts
-4. Support local LLMs inference with Qwen3-8B/4B.
-
-## 🚀 Quick Start
-
-### ⚙️ Setup
-
-1. Create a conda environment and install dependencies:
+Run from the repository root:
 
 ```bash
-conda create -n chinatravel python=3.9  
-conda activate chinatravel  
-pip install -r requirements.txt  
+conda activate chinatravel
+python --version                 # must be 3.12
+python -m pip install -r requirements.txt
 ```
 
-2. Download the database and unzip it to the "chinatravel/environment/" directory
+If that environment has an older Python, switch to a Python 3.12 environment
+(such as `chinatravel312`) before installing and running.
 
-Download Links: [Google Drive](https://drive.google.com/drive/folders/1bJ7jA5cfExO_NKxKfi9qgcxEbkYeSdAU), [NJU Drive](https://box.nju.edu.cn/d/dd83e5a4a9e242ed8eb4/)
-
-3. Download the open-source LLMs (optional).
+With Qwen3.6-27B already served at `http://127.0.0.1:30000/v1`:
 
 ```bash
-bash download_llm.sh
+bash scripts/validate_report.sh
 ```
 
-4. Download the tokenizers.
+Or start SGLang and run the same workflow on a prepared GPU host:
 
 ```bash
-wget https://cdn.deepseek.com/api-docs/deepseek_v3_tokenizer.zip -P chinatravel/local_llm/
-unzip chinatravel/local_llm/deepseek_v3_tokenizer.zip -d chinatravel/local_llm/
+MODEL_DIR=/data/models/Qwen3.6-27B TP=2 bash docker/run_single_instance.sh
 ```
 
-### ▶️ Running
+The launcher requires existing model weights and a SGLang installation.
+See [GPU/Docker setup](docker/README.md) for separate serving environments.
+Validation runs all 100 simulation queries, then the official evaluator;
+plans go to `results/`, with logs and snapshots in `validation_runs/`.
 
-We support the deepseek (offical API from deepseek), gpt-4o (chatgpt-4o-latest), glm4-plus, and local inferences with Qwen (Qwen3-8B), llama, mistral (Mistral-7B-Instruct-v0.3), etc.
+## Less powerful computers
+
+**Use a remote model:** keep the planner on your computer and connect to a
+Qwen3.6-27B server. This avoids the local GPU requirement:
 
 ```bash
-export OPENAI_API_KEY=""
-
-python run_exp.py --splits easy --agent LLMNeSy --llm deepseek --oracle_translation
-python run_exp.py --splits medium --agent LLMNeSy --llm deepseek --oracle_translation
-python run_exp.py --splits human --agent LLMNeSy --llm deepseek --oracle_translation
-
-python run_exp.py --splits human --agent LLMNeSy --llm Qwen3-8B --oracle_translation
-
-
-python run_exp.py --splits human --agent LLMNeSy --llm deepseek 
-python run_exp.py --splits human --agent LLMNeSy --llm Qwen3-8B 
-
-
-python run_exp.py --splits human --agent LLM-modulo --llm deepseek --refine_steps 10 --oracle_translation
-python run_exp.py --splits human --agent LLM-modulo --llm Qwen3-8B --refine_steps 10 --oracle_translation
+CHINATRAVEL_OPENAI_BASE_URL="https://your-server.example/v1" \
+  bash scripts/validate_report.sh
 ```
 
-**Note**:
+Set `CHINATRAVEL_OPENAI_API_KEY` if the server requires authentication.
 
-- The `--oracle_translation` flag enables access to annotated ground truth including:
-
-  - `hard_logic_py`: Executable verification DSL code
-  - `hard_logic_nl`: The corrsponding constraint descriptions
-  - Example annotation structure:
-
-  ```python
-  {
-    "hard_logic_py": [
-      "
-      total_cost=0 
-      for activity in allactivities(plan):
-          total_cost+=activity_cost(activity)
-              total_cost += innercity_transport_cost(activity_transports(activity))
-      result=(total_cost<=1000)
-      ", 
-      "
-      innercity_transport_set=set()
-      for activity in allactivities(plan):
-          if activity_transports(activity)!=[]:              
-              innercity_transport_set.add(innercity_transport_type(activity_transports(activity)))
-      result=(innercity_transport_set<={'taxi'})
-      "
-    ], 
-    "hard_logic_nl": ["总预算为1800元", "市内交通选择taxi"], 
-  }
-  ```
-- LLM-modulo method **requires** oracle_translation mode for its symbolic refinement process
-
-### 📊 Evaluation
+**Try a smaller local model:** there is no separately validated Lite release,
+but the client supports Ollama. After starting Ollama and installing a model
+that fits your hardware, replace the placeholders below:
 
 ```bash
-python eval_exp.py --splits human --method LLMNeSy_deepseek_oracletranslation
-python eval_exp.py --splits human --method LLMNeSy_deepseek
-python eval_exp.py --splits human --method LLM-modulo_deepseek_10steps_oracletranslation
-python eval_exp.py --splits human --method LLM-modulo_Qwen3-8B_10steps_oracletranslation
-
+CHINATRAVEL_OPENAI_BASE_URL= OLLAMA_TAG="<installed-model-tag>" \
+CHINATRAVEL_LLM_NAME="<unique-model-label>" \
+  python run_tpc.py --index "<query-id>" --method small_model_trial_01_en
 ```
 
-In TPC@IJCAI2025, the evaluation code is provided in the `eval_tpc.py` file. You can run the evaluation code as follows:
-
-```bash
-python eval_tpc.py --splits tpc_phase1 --method YOUR_METHOD_NAME
-```
-
-## 📚 Docs
-
-[Environment](chinatravel/environment/readme.md)
-[Constraints](chinatravel/symbol_verification/readme.md)
-
-## 🛠️ Advanced Development
-
-### 1. Develop Your Own Agent Algorithm
-
-To develop your own agent algorithm, you need to inherit the `BaseAgent` class from `chinatravel/agent/base.py` and add the logic for your algorithm to the `init_agent` function in `chinatravel/agent/load_model.py`. We provide an empty agent example named `TPCAgent`.
-
-Steps:
-
-- **Inherit the `BaseAgent` class**: Create a new Python file in the `chinatravel/agent` directory and define your own agent class, inheriting from `BaseAgent`.
-
-```python:chinatravel/agent/your_agent.py
-from .base import BaseAgent
-
-class YourAgent(BaseAgent):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # Initialization logic
-
-    def act(self, observation):
-        # Implement the decision - making logic of the agent
-        pass
-```
-
-- **Add code to the init_agent function**: Open the chinatravel/agent/load_model.py file and add support for your new agent in the init_agent function.
-
-```python:
-def init_agent(kwargs):
-    # ... existing code ...
-    elif kwargs["method"] == "YourMethodName":
-        agent = YourAgent(
-            **kwargs
-        )
-    # ... existing code ...
-    return agent
-```
-
-### 2. Develop Your Own Local LLM
-
-To develop your own local large - language model (LLM), you need to inherit the AbstractLLM class from chinatravel/agent/llms.py and add the corresponding local LLM inference code in llms.py. We provide an empty LLM example named TPCLLM.
-Steps:
-
-- **Inherit the AbstractLLM class**:  Define your own LLM class in the chinatravel/agent/llms.py file, inheriting from AbstractLLM.
-
-```python
-class YourLLM(AbstractLLM):
-    def __init__(self):
-        super().__init__()
-        # Initialization logic
-        self.name = "YourLLMName"
-
-    def _get_response(self, messages, one_line, json_mode):
-        # Implement the response logic of the LLM
-        response = "Your LLM response"
-        if json_mode:
-            # Handle JSON mode
-            pass
-        elif one_line:
-            # Handle one - line mode
-            response = response.split("\n")[0]
-        return response
-```
-
-- **Add code to the init_agent function**: Open the chinatravel/agent/load_model.py file and add support for your new llm in the init_llm function.
-
-```python:
-def init_llm(kwargs):
-    # ... existing code ...
-    elif llm_name == "glm4-plus":
-        llm = YourLLM()
-    # ... existing code ...
-    return llm
-```
-
-### 3. Run Your Code Using Experiment Scripts
-
-After completing the above development, you can use the experiment scripts to run your code.
-
-Example of running:
-
-```bash
-python run_tpc.py --splits easy --agent TPCAgent --llm TPCLLM
-python run_exp.py --splits easy --agent YourMethodName --llm YourLLMName
-```
-
-The results will be saved in the `results/YourMethodName_YourLLMName_xxx` directory, e.g., `results/TPCAgent_TPCLLM`.
-
-## ✉️ Contact
-
-If you have any problems, please contact [Jie-Jing Shao](shaojj@lamda.nju.edu.cn), [Bo-Wen Zhang](221900200@smail.nju.edu.cn), [Xiao-Wen Yang](yangxw@lamda.nju.edu.cn).
-
-## 📌 Citation
-
-If our paper or related resources prove valuable to your research, we kindly ask for citation.
-
-```
-@inproceedings{
-shao2026chinatravel,
-title={ChinaTravel: An Open-Ended Travel Planning Benchmark with Compositional Constraint Validation for Language Agents},
-author={Jie-Jing Shao and Bo-Wen Zhang and Xiao-Wen Yang and Baizhi Chen and Siyu Han and Pang Jinghao and Wen-Da Wei and Guohao Cai and Zhenhua Dong and Lan-Zhe Guo and Yu-Feng Li},
-booktitle={The Fourteenth International Conference on Learning Representations},
-year={2026},
-url={https://openreview.net/forum?id=0YRVlxY9BH}
-}
-```
-# travel
+Choose an ID from `phase2_heldout_sim.txt` and a fresh method name for each
+experiment. Smaller or quantized models may change translation quality and
+runtime; this is an experimental option, not a reproduction of the report.
+The report-validation script requires Qwen3.6-27B.
