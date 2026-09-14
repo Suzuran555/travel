@@ -27,18 +27,27 @@ def default_tool_python() -> str:
     return "uv run python"
 
 
-def load_queries(split: str) -> tuple[list[str], dict[str, Any]]:
+def normalize_lang(lang: Any) -> str:
+    value = str(lang).lower()
+    if value not in {"zh", "en"}:
+        raise ValueError("ChinaTravel language must be 'zh' or 'en'.")
+    return value
+
+
+def load_queries(split: str, lang: str) -> tuple[list[str], dict[str, Any]]:
     from chinatravel.data.load_datasets import load_query
 
-    args = argparse.Namespace(splits=split, oracle_translation=True)
+    args = argparse.Namespace(splits=split, oracle_translation=True, lang=lang)
     query_ids, query_data = load_query(args)
     if not query_ids:
         raise RuntimeError(f"No queries found for split: {split}")
     return query_ids, query_data
 
 
-def load_one_query(split: str, uid: str | None) -> tuple[str, dict[str, Any]]:
-    query_ids, query_data = load_queries(split)
+def load_one_query(
+    split: str, uid: str | None, lang: str = "en"
+) -> tuple[str, dict[str, Any]]:
+    query_ids, query_data = load_queries(split, lang)
     query_uid = uid or query_ids[0]
     if query_uid not in query_data:
         raise RuntimeError(f"Query uid {query_uid!r} not found in split {split!r}")
@@ -141,8 +150,15 @@ def load_plan_from_output_txt(
     )
 
 
-def build_prompt(split: str, uid: str, query: dict[str, Any], tool_python: str) -> str:
+def build_prompt(
+    split: str,
+    uid: str,
+    query: dict[str, Any],
+    tool_python: str,
+    lang: str,
+) -> str:
     query_text = json.dumps(query, ensure_ascii=False, indent=2)
+    cli_python = f"{tool_python} -m agent_env.cli --lang {lang}"
     return f"""You are solving one ChinaTravel benchmark query.
 
 Work quietly. Do not narrate your plan, progress, or calculations. Use CLI calls only
@@ -158,12 +174,12 @@ Run CLI commands from that repository root using this Python command:
 Use this command for every `agent_env.cli` call. Do not use bare `python`.
 
 Important commands:
-- {tool_python} -m agent_env.cli tools
-- {tool_python} -m agent_env.cli call attractions_keys '{{"city":"<target_city>"}}'
-- {tool_python} -m agent_env.cli call restaurants_keys '{{"city":"<target_city>"}}'
-- {tool_python} -m agent_env.cli call accommodations_keys '{{"city":"<target_city>"}}'
-- {tool_python} -m agent_env.cli call intercity_transport_select '{{"start_city":"<start_city>","end_city":"<target_city>","intercity_type":"train","earliest_leave_time":"07:00"}}'
-- {tool_python} -m agent_env.cli call goto '{{"city":"<target_city>","start":"<exact start>","end":"<exact end>","start_time":"HH:MM","transport_type":"metro"}}'
+- {cli_python} tools
+- {cli_python} call attractions_keys '{{"city":"<target_city>"}}'
+- {cli_python} call restaurants_keys '{{"city":"<target_city>"}}'
+- {cli_python} call accommodations_keys '{{"city":"<target_city>"}}'
+- {cli_python} call intercity_transport_select '{{"start_city":"<start_city>","end_city":"<target_city>","intercity_type":"train","earliest_leave_time":"07:00"}}'
+- {cli_python} call goto '{{"city":"<target_city>","start":"<exact start>","end":"<exact end>","start_time":"HH:MM","transport_type":"metro"}}'
 
 Use exact names, prices, costs, times, distances, TrainID/FlightID values, and transport
 segments returned by the CLI. Do not invent environment facts.
@@ -436,7 +452,11 @@ def run_codex(
 
 
 def evaluate_one(
-    split: str, uid: str, query: dict[str, Any], plan: dict[str, Any]
+    split: str,
+    uid: str,
+    query: dict[str, Any],
+    plan: dict[str, Any],
+    lang: str,
 ) -> dict[str, Any]:
     from chinatravel.evaluation.commonsense_constraint import (
         evaluate_commonsense_constraints,
@@ -457,7 +477,7 @@ def evaluate_one(
     )
     macro_comm, micro_comm, common_result_agg, commonsense_pass_id = (
         evaluate_commonsense_constraints(
-            query_index, query_data, result_data, verbose=False
+            query_index, query_data, result_data, verbose=False, lang=lang
         )
     )
     (
@@ -473,6 +493,7 @@ def evaluate_one(
         result_data,
         env_pass_id=commonsense_pass_id,
         verbose=False,
+        lang=lang,
     )
 
     return {
@@ -501,6 +522,7 @@ def evaluate_split(
     method: str,
     query_ids: list[str],
     query_data: dict[str, Any],
+    lang: str,
     parse_failure_ids: list[str] | None = None,
 ) -> dict[str, Any]:
     from chinatravel.evaluation.commonsense_constraint import (
@@ -532,7 +554,7 @@ def evaluate_split(
         )
         macro_comm, micro_comm, common_result_agg, commonsense_pass_id = (
             evaluate_commonsense_constraints(
-                evaluated_ids, query_data, result_data, verbose=False
+                evaluated_ids, query_data, result_data, verbose=False, lang=lang
             )
         )
         (
@@ -548,6 +570,7 @@ def evaluate_split(
             result_data,
             env_pass_id=commonsense_pass_id,
             verbose=False,
+            lang=lang,
         )
         schema_details = schema_result_agg.to_dict(orient="records")
         commonsense_details = common_result_agg.to_dict(orient="records")
@@ -670,6 +693,7 @@ def solve_query(
     *,
     harness: str,
     split: str,
+    lang: str,
     uid: str,
     query: dict[str, Any],
     method: str,
@@ -691,7 +715,7 @@ def solve_query(
     eval_path = run_dir / "evaluation.json"
     result_path = PROJECT_ROOT / "results" / method / f"{uid}.json"
 
-    prompt = build_prompt(split, uid, public_query, tool_python)
+    prompt = build_prompt(split, uid, public_query, tool_python, lang)
     run_dir.mkdir(parents=True, exist_ok=True)
     prompt_path.write_text(prompt, encoding="utf-8")
 
@@ -703,6 +727,19 @@ def solve_query(
     elif no_run_harness:
         print(f"Skipping {output_source_name(harness)} call because --no-run-harness was set.")
         return None
+    elif harness == "tpcagent":
+        # Custom in-process agent: run the team's deterministic NeSy planner.
+        from agent_env.scripts.tpc_agent_runner import run_tpc_agent
+
+        plan = run_tpc_agent(
+            uid=uid,
+            query=public_query,
+            lang=lang,
+            tpcagent_config=harness_config,
+            timeout=timeout,
+            cache_dir=str(PROJECT_ROOT / "cache" / method),
+            log_dir=str(run_dir),
+        )
     else:
         if harness == "opencode":
             completed = run_opencode(
@@ -765,7 +802,14 @@ def solve_query(
     write_json(result_path, plan)
     print(f"Saved plan: {result_path}")
 
-    evaluation = evaluate_one(split, uid, query, plan)
+    # Formal held-out queries carry NO oracle fields; the internal evaluator
+    # would KeyError('hard_logic_py'). The result file above is the deliverable
+    # (organizers score separately), so never let internal scoring abort the run.
+    try:
+        evaluation = evaluate_one(split, uid, query, plan, lang)
+    except Exception as exc:
+        print(f"[eval] internal evaluate_one skipped ({type(exc).__name__}: {exc})")
+        evaluation = {"uid": uid, "split": split, "method": method, "eval_skipped": True}
     write_json(eval_path, evaluation)
     print(f"Saved evaluation: {eval_path}")
     print(json.dumps(evaluation, ensure_ascii=False, indent=2, default=json_default))
@@ -783,6 +827,12 @@ def parse_args() -> argparse.Namespace:
         "--split", default=None, help="ChinaTravel split name. Overrides [run].split."
     )
     parser.add_argument(
+        "--lang",
+        choices=["zh", "en"],
+        default=None,
+        help="Query and sandbox language. Overrides [run].lang.",
+    )
+    parser.add_argument(
         "--uid", default=None, help="Optional query UID. Overrides [run].uid."
     )
     parser.add_argument(
@@ -798,7 +848,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--harness",
-        choices=["opencode", "codex"],
+        choices=["opencode", "codex", "tpcagent"],
         default=None,
         help="Harness to run. Overrides [run].harness.",
     )
@@ -880,7 +930,146 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Parse raw JSON without requiring <output> tags.",
     )
+    parser.add_argument(
+        "--_worker",
+        dest="worker_mode",
+        action="store_true",
+        default=False,
+        help=argparse.SUPPRESS,  # internal: run one crash-isolated worker
+    )
+    parser.add_argument(
+        "--shard",
+        nargs=2,
+        type=int,
+        metavar=("K", "N"),
+        default=None,
+        help=argparse.SUPPRESS,  # internal: process queries with index %% N == K
+    )
     return parser.parse_args()
+
+
+# --- crash-isolation supervisor ------------------------------------------
+# The organizer automation runs this script once; a single interpreter-level
+# crash (segfault in a C extension, OOM kill, ...) partway through the split
+# would otherwise lose the whole run. The default entry point therefore acts
+# as a SUPERVISOR: it spawns crash-isolated worker copies of itself (one per
+# shard, sharing the work via --resume idempotency), restarts any worker that
+# dies, and force-fallbacks a query that repeatedly kills its worker.
+
+def _crashstate_path(shard_idx):
+    return PROJECT_ROOT / "agent_env" / "runs" / f"_crashstate_{shard_idx}.json"
+
+
+def _read_json(path, default):
+    try:
+        return json.loads(Path(path).read_text())
+    except Exception:
+        return default
+
+
+def _write_json(path, obj):
+    try:
+        Path(path).parent.mkdir(parents=True, exist_ok=True)
+        Path(path).write_text(json.dumps(obj))
+    except Exception:
+        pass
+
+
+def _supervise() -> int:
+    import time as _time
+
+    argv = list(sys.argv[1:])
+    start = _time.time()
+    env = dict(os.environ)
+    # workers must measure the GLOBAL budget from the ORIGINAL start, so a
+    # restarted worker never gets a fresh clock
+    env.setdefault("PENGUINS_RUN_START_EPOCH", str(int(start)))
+    workers = int(env.get("PENGUINS_WORKERS", "0") or 0)
+    if workers <= 0:
+        cpus = os.cpu_count() or 4
+        workers = max(1, min(8, cpus // 2))
+    single_uid = "--uid" in argv
+    if single_uid:
+        workers = 1
+    if workers > 1:
+        # sharded workers get a wider per-query cap: each shard holds ~1/N of
+        # the split, so the per-query share of the global budget grows ~N-fold
+        env.setdefault("PENGUINS_PER_QUERY_CAP", "1200")
+    script = str(Path(__file__).resolve())
+    wall_guard = start + 18600  # never restart past ~5h10m
+    hard_deadline = start + 21000  # absolute give-up on stragglers (~5h50m)
+
+    def spawn(shard_idx):
+        cmd = [sys.executable, "-u", script] + argv + ["--_worker", "--resume"]
+        if workers > 1:
+            cmd += ["--shard", str(shard_idx), str(workers)]
+        wenv = dict(env)
+        wenv["PENGUINS_SHARD_INDEX"] = str(shard_idx)
+        # keep N workers from oversubscribing the CPU via BLAS thread pools
+        wenv.setdefault("OMP_NUM_THREADS", "2")
+        wenv.setdefault("OPENBLAS_NUM_THREADS", "2")
+        return subprocess.Popen(cmd, env=wenv)
+
+    for i in range(workers):
+        _write_json(_crashstate_path(i), {"last_uid": None, "counts": {}})
+    procs = {i: spawn(i) for i in range(workers)}
+    restarts = {i: 0 for i in range(workers)}
+    noprog = {i: 0 for i in range(workers)}
+    last_marker = {i: None for i in range(workers)}
+    done_rc = {}
+    print(f"[supervisor] {workers} worker(s), crash-isolated, resume-sharing")
+
+    while procs:
+        _time.sleep(3)
+        if _time.time() > hard_deadline:
+            print("[supervisor] hard deadline — terminating remaining workers")
+            for p in procs.values():
+                p.terminate()
+            for i in list(procs):
+                done_rc[i] = 1
+            break
+        for i, p in list(procs.items()):
+            rc = p.poll()
+            if rc is None:
+                continue
+            if rc == 0:
+                done_rc[i] = 0
+                del procs[i]
+                continue
+            cs = _read_json(_crashstate_path(i), {"last_uid": None, "counts": {}})
+            marker = cs.get("last_uid")
+            if marker:
+                cs.setdefault("counts", {})[marker] = cs["counts"].get(marker, 0) + 1
+                _write_json(_crashstate_path(i), cs)
+            progressed = marker is not None and marker != last_marker[i]
+            noprog[i] = 0 if progressed else noprog[i] + 1
+            last_marker[i] = marker
+            restarts[i] += 1
+            if marker is None and restarts[i] >= 2:
+                print(f"[supervisor] worker {i} failed twice before any query (rc={rc}) — giving up on it")
+                done_rc[i] = rc
+                del procs[i]
+                continue
+            if noprog[i] >= 4 or restarts[i] > 40 or _time.time() > wall_guard:
+                print(f"[supervisor] worker {i}: restarts={restarts[i]} no-progress={noprog[i]} rc={rc} — giving up on it")
+                done_rc[i] = rc
+                del procs[i]
+                continue
+            print(f"[supervisor] worker {i} died rc={rc} at uid={marker}; restart #{restarts[i]}")
+            procs[i] = spawn(i)
+
+    if any(rc != 0 for rc in done_rc.values()) and _time.time() < hard_deadline:
+        # mop-up pass: one serial worker sweeps every remaining query
+        # (resume skips finished ones; exhausted budget emits fast fallbacks)
+        print("[supervisor] mop-up pass for queries lost to failed workers")
+        _write_json(_crashstate_path("mop"), {"last_uid": None, "counts": {}})
+        wenv = dict(env)
+        wenv["PENGUINS_SHARD_INDEX"] = "mop"
+        cmd = [sys.executable, "-u", script] + argv + ["--_worker", "--resume"]
+        rc = subprocess.call(cmd, env=wenv)
+        print(f"[supervisor] mop-up exit {rc}")
+        return rc
+    return 0 if all(rc == 0 for rc in done_rc.values()) else max(done_rc.values())
 
 
 def main() -> None:
@@ -888,18 +1077,22 @@ def main() -> None:
     config = read_config(Path(args.config))
     run_config = config_section(config, "run")
     harness = str(choose(args.harness, run_config.get("harness"), "opencode"))
-    if harness not in {"opencode", "codex"}:
-        raise ValueError("Harness must be one of: opencode, codex.")
+    if harness not in {"opencode", "codex", "tpcagent"}:
+        raise ValueError("Harness must be one of: opencode, codex, tpcagent.")
     harness_config = config_section(config, harness)
     opencode_config = config_section(config, "opencode")
     codex_config = config_section(config, "codex")
 
     split = str(choose(args.split, run_config.get("split"), "easy"))
+    lang = normalize_lang(choose(args.lang, run_config.get("lang"), "en"))
     uid = choose(args.uid, run_config.get("uid"), None)
     limit = choose(args.limit, run_config.get("limit"), None)
     if harness == "opencode":
         harness_model_arg = choose(args.model, args.opencode_model, None)
         selected_config = opencode_config
+    elif harness == "tpcagent":
+        harness_model_arg = choose(args.model, None, None)
+        selected_config = harness_config
     else:
         harness_model_arg = choose(args.model, args.codex_model, None)
         selected_config = codex_config
@@ -942,7 +1135,7 @@ def main() -> None:
         )
     )
 
-    query_ids, query_data = load_queries(split)
+    query_ids, query_data = load_queries(split, lang)
     if uid:
         uid = str(uid)
         if uid not in query_data:
@@ -955,11 +1148,23 @@ def main() -> None:
             if limit >= 1:
                 selected_ids = selected_ids[:limit]
 
+    if args.shard is not None:
+        shard_k, shard_n = int(args.shard[0]), int(args.shard[1])
+        selected_ids = [u for i, u in enumerate(selected_ids) if i % shard_n == shard_k]
+        print(f"Shard {shard_k}/{shard_n}: {len(selected_ids)} queries")
+
     print(f"Config: {Path(args.config)}")
     print(
-        f"Run: split={split} queries={len(selected_ids)} harness={harness} method={method} "
+        f"Run: split={split} lang={lang} queries={len(selected_ids)} harness={harness} method={method} "
         f"model={model or '<config default>'} resume={resume}"
     )
+
+    shard_idx = os.environ.get("PENGUINS_SHARD_INDEX")
+    crash_counts = {}
+    if shard_idx is not None:
+        crash_counts = _read_json(
+            _crashstate_path(shard_idx), {"last_uid": None, "counts": {}}
+        ).get("counts", {})
 
     evaluations = []
     skipped_completed = 0
@@ -970,9 +1175,23 @@ def main() -> None:
             skipped_completed += 1
             print(f"Skipping completed query because result exists: {result_path}")
             continue
+        if shard_idx is not None:
+            # crash accounting: mark the query in flight so the supervisor can
+            # attribute a worker death, and force a deterministic fallback for
+            # any query that has already killed this worker twice
+            _write_json(
+                _crashstate_path(shard_idx),
+                {"last_uid": uid, "counts": crash_counts},
+            )
+            if int(crash_counts.get(uid, 0)) >= 2:
+                os.environ["PENGUINS_FORCE_FALLBACK_UID"] = str(uid)
+                print(f"crash-guard: {uid} killed the worker twice — deterministic fallback")
+            else:
+                os.environ.pop("PENGUINS_FORCE_FALLBACK_UID", None)
         evaluation = solve_query(
             harness=harness,
             split=split,
+            lang=lang,
             uid=uid,
             query=query_data[uid],
             method=method,
@@ -998,13 +1217,26 @@ def main() -> None:
     ]
     if (evaluations or skipped_completed) and not args.uid:
         summary_path = PROJECT_ROOT / work_dir / f"{split}_summary.json"
-        summary = evaluate_split(
-            split, method, selected_ids, query_data, parse_failure_ids=parse_failure_ids
-        )
-        summary["skipped_completed"] = skipped_completed
-        write_json(summary_path, summary)
-        print(f"\nSaved split summary: {summary_path}")
-        print(json.dumps(summary, ensure_ascii=False, indent=2, default=json_default))
+        # Formal held-out data carries NO oracle fields (hard_logic_py etc.),
+        # so the aggregate evaluator raises KeyError. Every result file is
+        # already written above and is the actual deliverable -- internal
+        # scoring must never fail the run (a non-zero exit could be read as
+        # a failed submission by the organizers' automation).
+        try:
+            summary = evaluate_split(
+                split,
+                method,
+                selected_ids,
+                query_data,
+                lang,
+                parse_failure_ids=parse_failure_ids,
+            )
+            summary["skipped_completed"] = skipped_completed
+            write_json(summary_path, summary)
+            print(f"\nSaved split summary: {summary_path}")
+            print(json.dumps(summary, ensure_ascii=False, indent=2, default=json_default))
+        except Exception as exc:
+            print(f"\nSplit summary skipped (oracle-less data?): {exc!r}")
 
     print(f"\nParse failures: {parse_failures}")
     if resume:
@@ -1012,8 +1244,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as exc:
-        print(f"error: {exc}", file=sys.stderr)
-        raise SystemExit(1)
+    if "--_worker" in sys.argv:
+        try:
+            main()
+        except Exception as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            raise SystemExit(1)
+    else:
+        raise SystemExit(_supervise())

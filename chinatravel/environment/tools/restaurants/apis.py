@@ -8,13 +8,8 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from poi.apis import Poi
-from chinatravel.environment.language import (
-    CITY_SLUGS,
-    canonical_poi_name,
-    city_names,
-    normalize_lang,
-    relative_database_path,
-)
+from chinatravel.environment.concept_labels import normalize_concept_value
+from chinatravel.environment.language import CITY_SLUGS, city_names, normalize_lang, relative_database_path
 
 
 class Restaurants:
@@ -28,9 +23,12 @@ class Restaurants:
         for city in city_list:
             path = os.path.join(curdir, base_path, city, "restaurants_" + city + ".csv")
             self.data[city] = pd.read_csv(path)
-            self.data[city]["name"] = self.data[city]["name"].map(
-                lambda name: canonical_poi_name(name, self.lang)
-            )
+            if self.lang == "en":
+                self.data[city]["cuisine"] = self.data[city]["cuisine"].map(
+                    lambda value: normalize_concept_value(
+                        "restaurant", value, self.lang
+                    )
+                )
 
         self.key_type_tuple_list_map = {}
         for city in city_list:

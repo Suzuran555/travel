@@ -1,0 +1,63 @@
+# From the repository root:
+# MODEL_DIR=/data/models/Qwen3.6-27B docker compose \
+#   -f docker/docker-compose.yml up --build --abort-on-container-exit \
+#   --exit-code-from harness harness
+services:
+  sglang:
+    image: lmsysorg/sglang:v0.5.10.post1
+    command:
+      - python3
+      - -m
+      - sglang.launch_server
+      - --model-path
+      - /models/Qwen3.6-27B
+      - --served-model-name
+      - Qwen3.6-27B
+      - --host
+      - 0.0.0.0
+      - --port
+      - "30000"
+      - --tp
+      - "${TP:-2}"
+    volumes:
+      - type: bind
+        source: ${MODEL_DIR:?Set MODEL_DIR to existing Qwen3.6-27B weights}
+        target: /models/Qwen3.6-27B
+        read_only: true
+        bind:
+          create_host_path: false
+    shm_size: "32gb"
+    ipc: host
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:30000/v1/models"]
+      interval: 5s
+      timeout: 5s
+      start_period: 60s
+      retries: 360
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  harness:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: tpca-report-harness:local
+    network_mode: "service:sglang"
+    depends_on:
+      sglang:
+        condition: service_healthy
+    environment:
+      HARNESS_PYTHON: python
+      CHINATRAVEL_OPENAI_BASE_URL: http://127.0.0.1:30000/v1
+      CHINATRAVEL_LLM_THINK: "0"
+    volumes:
+      - ../results:/workspace/travel/results
+      - ../eval_res:/workspace/travel/eval_res
+      - ../agent_env/runs:/workspace/travel/agent_env/runs
+      - ../cache:/workspace/travel/cache
+      - ../validation_runs:/workspace/travel/validation_runs

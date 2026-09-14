@@ -1,0 +1,31 @@
+# Config for the custom deterministic planner (harness = "tpcagent").
+# Copy to agent_env/config.toml before the organizer run:
+#     cp agent_env/config.toml.tpcagent agent_env/config.toml
+# No secret here (SGLang api_key is EMPTY), so it is safe to ship.
+
+[run]
+# The organizer supplies the held-out test data. `split` names the split file /
+# data dir the harness loads; confirm the split name the organizers use, or let
+# them override with `--split`. limit = 0 means "run every query in the split".
+split = "phase2_test"
+lang = "en"
+harness = "tpcagent"
+method = "TPCAgent_Qwen3.6-27B_en"
+work_dir = "agent_env/runs/tpcagent"
+tool_python = "uv run python"
+limit = 0
+no_run_harness = false
+resume = true
+
+[tpcagent]
+# SGLang OpenAI-compatible endpoint provided by the organizers.
+model = "Qwen3.6-27B"
+base_url = "http://127.0.0.1:30000/v1"
+api_key = "EMPTY"
+# Per-query hard timeout (func_timeout). 100 * 170s = 4h43m < the 5h limit.
+per_query_timeout = 170
+# Global soft deadline for the whole 100-query run (4h50m of the 5h budget).
+# Once exceeded, remaining queries fall straight to the deterministic fallback.
+total_budget_sec = 17400
+# `timeout` mirrors per_query_timeout for the shared solve_query() plumbing.
+timeout = 170

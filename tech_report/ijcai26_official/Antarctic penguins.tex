@@ -1,0 +1,465 @@
+%%%% Phase-2 technical report for team Antarctic penguins.
+%%%% TPC @ IJCAI-ECAI 2026 Phase 2 technical report.
+%%%% Uses the unmodified official IJCAI-ECAI 2026 author kit.
+
+\typeout{TPC 2026 Phase 2 Final Technical Report -- Antarctic penguins}
+
+\documentclass{article}
+\pdfpagewidth=8.5in
+\pdfpageheight=11in
+
+\usepackage{ijcai26}
+\usepackage{times}
+\usepackage{soul}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[small]{caption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+
+\urlstyle{same}
+
+% PDF Info Is REQUIRED. (\pdfinfo is a pdfTeX primitive; emit the same
+% metadata via a \special under XeTeX so the PDF carries it either way.)
+\ifx\pdfinfo\undefined
+  \AtBeginDocument{\special{pdf:docinfo << /TemplateVersion (IJCAI.2026.0) >>}}
+\else
+  \pdfinfo{
+  /TemplateVersion (IJCAI.2026.0)
+  }
+\fi
+
+\title{TPCAgent: A Fault-Tolerant Neuro-Symbolic System for\\
+ChinaTravel Phase 2}
+
+\author{
+Gangyi Zhang$^1$\thanks{Team leader}\and
+Zhuolin Li$^{2}$\and
+Liangfei Jin$^{2}$\and
+Junyi Liu$^{2}$\And
+Qinzhe Wang$^{2}$\\
+\affiliations
+$^{1}$National University of Singapore\\
+$^{2}$University of New South Wales\\
+\emails
+zhanggangyi1224@gmail.com
+}
+
+\begin{document}
+
+ 
+\maketitle
+ 
+\begin{abstract}
+This paper describes TPCAgent, the phase-2 entry of team Antarctic penguins for the ChinaTravel Travel Planning Challenge~\cite{tpc,chinatravel}, submitted as the tpcagent configuration and built around the UrbanTripOptimizedV6 symbolic planner. Qwen3.6-27B~\cite{qwen} is used only to translate natural language into DSL; every downstream step, from extraction and canonicalization through grounding, planning, and repair, is deterministic and uses no embedding-based parser.
+
+It ranks candidate bundles, then schedules activities by memoized DFS under geographic anchors, budget bounds, adaptive candidate retrieval, and a restricted intracity transit index. Up to eight crash-isolated workers share one SGLang endpoint with resumable outputs, inherited budget accounting, generated-constraint checking, deterministic retries, and a database-derived fallback.
+
+On an oracle-stripped 100-query familiarization simulation run on the formal serving stack (SGLang 0.5.10.post1, two A800 GPUs, tensor parallelism two), the submitted configuration scored Overall 97.70, FPR 98, and C-LPR 99.82. This is a development-time measurement, not an organizer-held-out evaluation.
+
+
+\end{abstract}
+ 
+\section{Task and System Overview}
+\label{sec:scope}
+ 
+ChinaTravel~\cite{chinatravel} asks for a database-grounded
+multi-day itinerary satisfying schema, commonsense, and personal
+constraints while optimizing three soft objectives. The official scoring formula is
+\begin{equation*}
+\begin{split}
+S={}&.10\,\mathrm{EPR_{mic}}+.10\,\mathrm{EPR_{mac}}
+   +.25\,\mathrm{C\text{-}LPR}+.40\,\mathrm{FPR}\\
+  &+.05\,(\mathrm{DAV}+\mathrm{ATT}+\mathrm{DDR}).
+\end{split}
+\end{equation*}
+Because FPR and C-LPR carry most of the weight, feasibility is the top
+priority.
+ 
+\paragraph{Architecture.}
+TPCAgent is built around the four-stage pipeline of
+Table~\ref{tab:pipeline}. Qwen only interprets the request: it neither
+produces the itinerary nor drives ranking. The symbolic stages stabilize
+its output, build a database-grounded plan, and accept only independently
+verified changes, wrapped in a crash-isolated layer managing deadlines,
+resumable outputs, and a database-derived fallback.
+ 
+\begin{table*}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{@{}p{3.0cm}p{4.7cm}p{8.1cm}@{}}
+\toprule
+Stage & Transformation & Main mechanisms \\
+\midrule
+Request interpretation & Natural language $\rightarrow$ raw DSL & Two-step Qwen translation and robust extraction of the generated constraint list. \\
+Constraint stabilization & Raw DSL $\rightarrow$ grounded state & Canonicalization, executable and AST checks, targeted reflection, span-based coverage recovery, and database grounding. \\
+Symbolic planning & Constraints $\rightarrow$ itinerary & Bundle enumeration, geographic and budget bounds, memoized DFS, and transit-aware ordering. \\
+Verified refinement & Itinerary $\rightarrow$ final plan & Four feasibility repairs and twelve soft-metric stages, gated by the generated DSL. \\
+\bottomrule
+\end{tabular}
+\caption{Four-stage architecture of TPCAgent.}
+\label{tab:pipeline}
+\end{table*}
+ 
+\section{Constraint Compilation}
+ 
+\paragraph{Translation and Isolation.}
+Phase 2 handles English requests via the \texttt{nl2sl\_hybrid\_en}
+pipeline: Qwen3.6-27B first turns the request into a structured requirement
+list, then converts that list into executable Python-like DSL blocks, so
+the second call concentrates on DSL syntax rather than on itinerary
+construction. The model client issues OpenAI-compatible
+requests with zero temperature and a fixed base seed. Grammar-constrained
+decoding is kept, but aligned with the prompt: list-shaped calls request
+one exact object shape and constrain decoding to that JSON schema, since a
+generic \texttt{json\_object} grammar forbids the very array the prompt
+asks for; constrained decoding provably shifts the output
+distribution~\cite{gad} and the restriction carries a measured reasoning
+cost~\cite{tam2024}, both outweighed here by parse reliability. A ladder of retries falls back to \texttt{json\_object} and then
+to a bare payload whenever the endpoint rejects an optional field. Only the generated program is passed downstream: neither the model's
+reasoning trace nor any itinerary it proposes reaches the search stage.
+The prompts demand one-to-one coverage of explicit clauses and disallow
+room or bed constraints unless licensed, with an NL-gated filter stripping
+any that slip through. All four \texttt{hard\_logic*} reference fields are
+stripped before translation and planning; thinking is off and output capped
+at 8192 tokens to cut truncation variance.
+ 
+\paragraph{Robust Extraction and Canonicalization.}
+Because a strict \texttt{json\_object} grammar can wrap the constraint
+array inside an outer object, the extractor parses the repaired response,
+unwraps any list-valued field or object-of-strings, and otherwise scans
+every balanced bracket span, keeping the longest candidate that parses as a
+list of strings so an inner literal is never mistaken for the list. The extracted DSL is normalized for aliases, quote variants, set-variable
+naming, budget accumulators, transport guards, and database type spellings.
+Runtime checks on example plans and an AST checker trigger up to five
+general reflection calls; a disjunction-gap detector may issue two targeted
+ones. A final coverage pass treats the request text as the authority for clause
+families whose phrasing is templated: each constraint is cross-checked
+against its source clause on polarity, window endpoints, and budget scope,
+and the canonical form is synthesized whenever they disagree or the clause
+has no counterpart at all -- requirements rendered as prohibitions -- a systematic failure mode of
+language models on negation~\cite{negation} -- are flipped back, dropped
+exclusion lists and type-inclusion lists are reinstalled, and a
+type-guarded cost accumulator is replaced by the unguarded one its budget
+noun implies. This recovers explicit budgets, transport modes, room
+counts, POI types, and time windows. Checker feedback stays localized: a reflection call gets the specific
+syntax or value diagnosis that failed, and disjunction repair fires only
+when a required OR branch is missing. For clear-cut entity--category
+mismatches, required POI names are recategorized only when every name is
+absent from the generated category and present in exactly one other. After
+this deterministic cleanup the benchmark's own UID, trip length, party
+size, and city list are written back in. What comes out the other end is a stable constraint program,
+rather than a loose, free-form semantic representation.
+ 
+\paragraph{Literal DSL Parsing.}
+The planner extracts a search state from the DSL with block-local regular
+expressions, quoted- and set-literal scanners, named-set inlining, and
+\texttt{ast.literal\_eval}, handling both the set-algebra and
+membership/flag dialects Qwen produces. For a disjunctive
+request, each branch is searched on its own; candidates are then checked
+against the original, unbranched generated DSL and the first to pass is
+kept, falling back to whichever branch succeeded at the branch level. The
+quoted-literal scanner keeps bracket characters intact inside strings and
+handles escaped quotes before \texttt{ast.literal\_eval}; named set
+variables are inlined before polarity, count, transport, hotel, meal,
+attraction, and budget states get installed. No embedding similarity is
+involved anywhere: everything after generation is grounded in literal text
+spans, and reference constraints are never loaded at inference time.
+ 
+\section{Constraint-Grounded Symbolic Planning}
+ 
+\paragraph{Bundle Enumeration.}
+TPCAgent enumerates bounded (outbound, return, accommodation) triples.
+Component caps, hotel property requirements, and single-day chronology act
+as hard filters; a direction-specific mode filter that would eliminate
+every leg in one direction is relaxed back to the raw timetable so that
+best-effort planning stays possible. Required POI names feed hotel scoring
+and the reachability checks.
+Intercity and lodging costs, plus a floor for required-restaurant spend,
+form a soft overall-budget preference: bundles exceeding it are dropped
+only if another bundle satisfies it. The first pass also applies
+required-POI reachability and a metro-only late-arrival heuristic; if that
+empties the candidate set, a bounded second pass bypasses those two
+POI-side heuristics while all generated-DSL validation stays in force.
+Surviving bundles are ranked on normalized intercity cost, hotel cost, an
+estimated geographic route, a hard-feature bonus, and travel-day utility,
+the last rewarding early arrivals and late departures so the first and last
+days keep usable time. Cheap and timing-extreme options merge before
+truncation; no model-based reranking is used.
+ 
+\paragraph{Memoized DFS.}
+For each ranked bundle a depth-first planner lays out meals, attractions,
+hotel stays, and the transport chains between them, suppressing repeated
+states with a coarse memo signature
+$(\mathrm{day},\mathrm{time},\mathrm{position},\mathrm{uncovered\ requirements})$
+. While required items remain outstanding the normal 50-candidate width
+narrows to eight high-priority candidates. Each expansion pulls route mode, duration, distance, cost, and endpoints
+from the travel environment; candidates are filtered before recursion by
+opening hours, remaining budget, still-needed POI types, and allowed modes.
+A hard-constraint-aware fallback repair and a budget-drop pass preserve a
+usable best-effort plan when the search cannot finish in time. Given a
+fixed compiled DSL, this ordering is entirely rule-driven.
+ 
+\paragraph{Slack-Aware Deterministic Ranking.}
+Budget and time slack enter the serial DFS as pressure-dependent candidate
+ordering: budget pressure is spend over a binding cap, time pressure
+combines trip progress with time to the return leg, and pending pressure is
+the fraction of required items uncovered. Each candidate POI scores
+\begin{equation*}
+\begin{split}
+h={}&w_c\hat c+w_d\hat d+w_x\hat x+w_s\hat s\\
+   &+w_p\hat p+w_m\hat m-w_g g+w_o b,
+\end{split}
+\end{equation*}
+where $c,d,x,s,p,m$ are route cost, distance, transit duration, base
+segment score, POI price, and closing-time margin; $g$ is required-item
+coverage gain and $b$ an ordering penalty. Lower $h$ is better. The deterministic weighting leans on price/route pressure as budgets
+tighten and on coverage/time-margin pressure as the trip nears its end,
+with the minimum transit-time weight fixed at 3.0. Direct budget and
+time-gap checks also shape later meal and attraction insertions.
+ 
+\paragraph{Restricted Precomputed Segment Signal.}
+An offline step precomputes walk, metro, and taxi route records for covered
+POI pairs, keyed by city, ordered endpoints, and mode. Segment search is
+disabled for hotels and intercity travel (\texttt{use\_segments=False}); a
+lazy \texttt{SegmentIndex(build\_tfidf=False)} instead returns the minimum
+duration across mode variants for intracity lookups, falling back to a
+geodesic taxi-time estimate with a coverage penalty.
+Segment data therefore influences only POI ranking and required-POI
+reachability, never the emitted transport chains, which stay grounded by
+the travel environment. Because no TF--IDF vectors are built at inference
+time, the table functions purely as routing metadata rather than as
+semantic retrieval.
+ 
+\paragraph{Planner-Side Completion.}
+V6 tracks the strongest candidates seen during search on logical,
+commonsense, and schema criteria. Before returning it takes the best
+nonempty candidate or assembles a database skeleton, then applies output
+normalization, missing-meal insertion, evening-POI repair, and DAV-oriented
+attraction insertion, ahead of the refinement battery.
+ 
+\section{Verified Repair and Robust Execution}
+ 
+\paragraph{Phase-2 Correctness Adaptations.}
+Results lacking a generated \texttt{hard\_logic\_py} field skip refinement.
+Plans from the best-effort tail after a timeout are admitted deliberately:
+that tail is where the search has relaxed its own pruning, so those plans
+need repair most, and the battery's deadline guard bounds the extra time.
+The first four repair stages target the tightened Phase-2 feasibility
+checks. \texttt{dedupmeal} removes duplicate meal types, keeping entries
+that are in-window, priced, and earliest in that order, then rethreads the
+timeline. \texttt{deoverlap} shifts an overlapping activity to the previous
+end time, preserving its duration when that still fits before midnight, and
+rewrites the inbound chain without moving its endpoints; chronology is
+repaired within a day while spatial continuity is tracked across days.
+\texttt{fixspace} detects incorrect route endpoints and rebuilds the chain
+through the travel environment with database-consistent mode, cost,
+distance, duration, and timestamps. Finally, \texttt{mustpoi} parses the several set and literal
+dialects that show up in the generated DSL and applies grouped repairs
+across hotels, meals, attractions, intercity travel, and budget; its main
+insertion logic respects whatever mode restrictions were parsed out.
+Following the classical result that repair is preferable to
+replanning~\cite{planrepair}, repairs are local: a required meal window is
+reached by absorbing slack in a later transport chain, a banned mode is
+re-routed leg by leg, and an unreplaceable paid meal is deleted with the
+next chain restitched.
+Multi-item targets are gated as a group, since fixing one item alone may
+not improve a set-valued constraint. Acceptance tests differ: \texttt{dedupmeal} needs a non-regressing
+commonsense micro-score, \texttt{fixspace} needs it to flip fail-to-pass,
+\texttt{deoverlap} an outright pass, \texttt{mustpoi} a strict gain in
+generated-constraint satisfaction; none may lose a pass.
+ 
+\paragraph{Conditional Soft Refinement.}
+Twelve further stages add, move, or reorder meals and attractions,
+meal-completeness stages first: \texttt{endday}, \texttt{gapmeal}, \texttt{travelday},
+\texttt{bfstack}, \texttt{att}, \texttt{gapattr}, \texttt{endattr},
+\texttt{dav2}, \texttt{fillerswap}, \texttt{seqswap}, \texttt{lateattr},
+and \texttt{attdilute}. Each edit is kept only if it clears a stage-specific non-regression check
+and improves its target metric; \texttt{bfstack} allows one hotel breakfast
+but blocks stacking. Every gate uses the generated DSL, never reference
+constraints. The stages cover meal completeness, attraction density,
+travel-day use, and local swaps, with one attraction stage restricted to
+free POIs and walking under tight budget slack. No new stage launches with under five seconds left, and each works on
+a copy and returns its input unchanged when inapplicable or erroring, which
+bounds cascading regressions.
+ 
+\paragraph{Parallel and Failure-Safe Execution.}
+The supervisor picks $N=\max(1,\min(8,\lfloor\mathrm{CPU}/2\rfloor))$
+workers and shards queries by UID index modulo $N$. Workers are
+subprocesses of the same \texttt{tpcagent} invocation, not parallel search
+branches: each keeps its own planner state, runs its shard sequentially
+with DFS serial per query, reuses one model client, and is BLAS-thread
+capped. A daemon watchdog bounds the
+wait and triggers the fallback at the emission deadline. Any existing
+per-UID JSON file is a resume marker; a restarted worker inherits the
+original start time and the shared soft budget of 17,400 seconds (4h50m).
+After two worker crashes on one UID the system is forced onto the
+deterministic database-fallback path, and if a worker exits abnormally the
+supervisor may run a serial pass over unfinished queries before the hard
+stop. All workers share one SGLang server, so sharding buys fault isolation
+and concurrent submission rather than linear throughput.
+ 
+\paragraph{Generated-Constraint Self-Check and Retry.}
+The runner implements a generate-and-verify loop in the sense
+of~\cite{llmmodulo}: after each attempt it checks schema compliance, commonsense, and the
+generated DSL, treating a list of fewer than seven constraints as too
+short. Multi-worker execution allows at most three attempts per query: a
+failing or too-short attempt is retried only if at least 2,400 seconds
+remain on the shared clock, clearing the translation cache, bumping the
+base seed by 1,000 to resample the translation, and capping each retry at 600 seconds. Candidates are
+ranked lexicographically by full-pass status, length threshold, commonsense
+pass, and satisfied-constraint count. Reference constraints and the official Overall score play no role in this
+selection. One negative result shaped this split: blind regeneration retries recovered
+almost no failing query on their own, echoing findings that feedback-poor
+self-repair is no silver bullet~\cite{selfrepair}, so the budget goes
+mainly to the clause verifier and the gated repair battery.
+ 
+\paragraph{Budgeting and Deadlines.}
+Single-worker runs use a 170-second outer timeout, raised to 1,200 under
+the supervisor. The wrapper works on a 290-second budget, sets V6's
+external timeout to 245 and reserves 60 for refinement (a $\sim$185-second
+core cutoff from the start of translation), with the emission watchdog near
+275; later supervisor guards handle restarts and hard termination.
+ 
+\section{Phase-2 Reproduction and Results}
+ 
+\paragraph{Runtime Configuration.}
+The target environment is Debian 12 with Python 3.12; SGLang 0.5.10.post1
+serves Qwen3.6-27B over \texttt{/v1/chat/completions} on port 30000, on two
+A800 GPUs with tensor parallelism two and thinking disabled. The submitted
+configuration is \texttt{tpcagent} with English input and served model name
+\texttt{Qwen3.6-27B}. Evaluation runs
+\texttt{solve\_script\_with\_harness.py} for a method and split, writing
+each itinerary to \path{results/<method>/<uid>.json}, which oracle-based
+aggregate scoring then consumes.
+ 
+\paragraph{Oracle-Free Simulation and Deliverable.}
+The public \texttt{phase2\_heldout\_sim} split holds the same 100 requests
+as \texttt{phase2\_familiar} with reference fields stripped. We run
+inference on it, save one JSON per UID, and score the finished directory
+against the familiarization references without rerunning the planner; the
+formal held-out run follows the same contract on organizer requests. FPR is the intersection of schema, commonsense, and logical pass
+IDs; failing plans are assigned zero DAV/ATT/DDR before the score of
+Section~\ref{sec:scope} is computed.
+ 
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Configuration (cumulative) & C-LPR & FPR & Overall\\
+\midrule
+Robust extraction, 8192 tokens        & 92.16 & 62 & 76.59\\
+$+$ grammar--prompt alignment         & 95.49 & 73 & 83.20\\
+$+$ clause verifier, checked retry    & 98.83 & 91 & 93.83\\
+$+$ numbered-register synthesis       & 98.20 & 93 & 94.68\\
+$+$ local plan repair \emph{(subm.)}  & \textbf{99.82} & \textbf{98} & $\mathbf{97.70}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent Every row is a full 100-query run on the formal stack with fresh
+translations; soft metrics track FPR (a failing plan scores zero on all
+three), reaching DAV 92.67, ATT 93.19, DDR 84.96 in the last row.
+
+\paragraph{Packaged-Configuration Rehearsal.}
+The submitted archive (MD5 prefix \texttt{22bcd0d6}) is the last table row:
+FPR 98, C-LPR 99.82, both EPR terms at 100, Overall 97.70. Reference
+constraints were reintroduced only for scoring, after every plan was
+written.
+ 
+\paragraph{Failure Taxonomy Across the Ladder.}
+We classify each failing query by re-running the official evaluators on the
+emitted plan against \emph{both} the generated and the reference
+constraints. TRANSL: every generated constraint holds but a reference one
+fails, so the request was mistranslated. PLANNER: a self-generated
+constraint fails, so translation sufficed but search or repair fell short.
+ENV: schema or commonsense fails outright. The distribution tracks the
+components in order. At FPR 80 the residue was 15 PLANNER, 4 TRANSL and
+1 ENV; the clause verifier removed most of the translation defects and cut
+the planner-side residue to 5 PLANNER and 4 TRANSL; register synthesis left
+4 PLANNER, 2 TRANSL and 1 ENV; and after local plan repair the submitted
+configuration leaves 2 failures, both PLANNER. Both are chronic: over-constrained instances where a tight dining cap, a
+protected named restaurant and a fixed window cannot hold together under
+the database's opening hours and travel times.
+
+\paragraph{Reproduction.}
+With the endpoint reachable, two commands suffice. Inference runs
+\texttt{solve\_script\_with\_harness.py} with
+\texttt{--split phase2\_heldout\_sim --limit 100}, writing one plan per UID
+and never reading a reference field. Scoring then runs
+\texttt{eval\_with\_oracle.py tpc} over the finished directory with
+\texttt{--splits phase2\_familiar --method TPCAgent\_Qwen3.6-27B\_en
+--preference --lang en}; it only scores, and does not re-plan.
+
+\section{Limitations and Conclusion}
+ 
+Translation remains the biggest generalization risk: clause-anchored repair
+recovers the templated families but cannot guarantee Qwen preserved every
+clause of an unseen free-form request. The segment graph is deliberately
+incomplete, so uncovered routes fall back on a geographic estimate. Compound failures needing a whole day rebuilt may exceed the generic
+battery; residual failures trace to translation variance and a few
+over-constrained instances. Overall the design keeps language interpretation, literal parsing and
+canonicalization, pressure-aware search, constraint-gated repair, and
+crash-isolated execution as distinct components, together making up the
+Phase-2 system submitted here.
+ 
+\begin{thebibliography}{}
+\small
+\setlength{\itemsep}{0pt plus 0.2pt}
+\bibitem[\protect\citeauthoryear{LAMDA-NeSy}{2026}]{tpc}
+LAMDA-NeSy.
+\newblock The 2nd Travel Itinerary Planning Challenge for AI Agent
+(TPC@IJCAI2026).
+\newblock Competition at IJCAI-ECAI 2026.
+\url{https://chinatravel-competition.github.io/IJCAI2026/}, 2026.
+ 
+\bibitem[\protect\citeauthoryear{Yang et al.}{2025}]{qwen}
+An Yang, Anfeng Li, Baosong Yang, \emph{et al.}
+\newblock Qwen3 Technical Report.
+\newblock arXiv:2505.09388, 2025.
+ 
+\bibitem[\protect\citeauthoryear{Fox et al.}{2006}]{planrepair}
+Maria Fox, Alfonso Gerevini, Derek Long, \emph{et al.}
+\newblock Plan Stability: Replanning versus Plan Repair.
+\newblock In \emph{ICAPS}, 2006.
+
+\bibitem[\protect\citeauthoryear{Kambhampati et al.}{2024}]{llmmodulo}
+Subbarao Kambhampati, Karthik Valmeekam, Lin Guan, \emph{et al.}
+\newblock Position: LLMs Can't Plan, But Can Help Planning in LLM-Modulo
+Frameworks.
+\newblock In \emph{ICML}, PMLR 235:22895--22907, arXiv:2402.01817, 2024.
+
+\bibitem[\protect\citeauthoryear{Olausson et al.}{2024}]{selfrepair}
+Theo X. Olausson, Jeevana Priya Inala, Chenglong Wang, \emph{et al.}
+\newblock Is Self-Repair a Silver Bullet for Code Generation?
+\newblock In \emph{ICLR}, arXiv:2306.09896, 2024.
+
+\bibitem[\protect\citeauthoryear{Park et al.}{2024}]{gad}
+Kanghee Park, Jiayu Wang, Taylor Berg-Kirkpatrick, \emph{et al.}
+\newblock Grammar-Aligned Decoding.
+\newblock In \emph{NeurIPS}, arXiv:2405.21047, 2024.
+
+\bibitem[\protect\citeauthoryear{Shao et al.}{2026}]{chinatravel}
+Jie-Jing Shao, Bo-Wen Zhang, Xiao-Wen Yang, \emph{et al.}
+\newblock ChinaTravel: An Open-Ended Travel Planning Benchmark with
+Compositional Constraint Validation for Language Agents.
+\newblock In \emph{ICLR}, arXiv:2412.13682, 2026.
+\bibitem[\protect\citeauthoryear{Tam et al.}{2024}]{tam2024}
+Zhi Rui Tam, Cheng-Kuang Wu, Yi-Lin Tsai, \emph{et al.}
+\newblock Let Me Speak Freely? A Study On The Impact Of Format Restrictions
+On Large Language Model Performance.
+\newblock In \emph{EMNLP Industry Track}, pages 1218--1236, arXiv:2408.02442,
+2024.
+
+\bibitem[\protect\citeauthoryear{Truong et al.}{2023}]{negation}
+Thinh Hung Truong, Timothy Baldwin, Karin Verspoor, \emph{et al.}
+\newblock Language Models are Not Naysayers: An Analysis of Language Models
+on Negation Benchmarks.
+\newblock In \emph{*SEM}, arXiv:2306.08189, 2023.
+
+\end{thebibliography}
+
+\end{document}

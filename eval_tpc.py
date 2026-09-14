@@ -41,8 +41,11 @@ for activity in allactivities(plan):
     if transports!=[]:
         transport_count += 1
         time_cost += innercity_transport_time(transports)
-average_time_cost = time_cost / transport_count if transport_count > 0 else -1
-result= (-1/105) * average_time_cost + 8/7
+if transport_count > 0:
+    average_time_cost = time_cost / transport_count
+    result= (-1/105) * average_time_cost + 8/7
+else:
+    result=0
 """
 DEFAULT_RES_PR="""
 res_count=0
@@ -61,6 +64,12 @@ DEFAULT_PR=[
 METHOD_LIST = [
 ]
 
+
+def _method_has_en_suffix(method):
+    base_method = method.split("_oracletranslation")[0].split("_oracle_translation")[0]
+    return base_method.endswith("_en")
+
+
 from tqdm import tqdm
 from chinatravel.symbol_verification.concept_func import func_dict
 from copy import deepcopy
@@ -75,6 +84,7 @@ def cal_default_pr_score(query_index, query_data, result_data,all_pass_id):
         results = []
         if idx not in all_pass_id:
             results=np.zeros(len(DEFAULT_PR))
+            all_score.append(results)
             continue
         for constraint in DEFAULT_PR:
             vars_dict = deepcopy(func_dict)
@@ -152,7 +162,7 @@ if __name__ == "__main__":
     parser.add_argument("--preference", "-p", action="store_true", default=False)
     parser.add_argument("--lang", "--locale", choices=["zh", "en"], default="zh")
     args = parser.parse_args()
-    if args.lang == "en" and "_en" not in args.method:
+    if args.lang == "en" and not _method_has_en_suffix(args.method):
         args.method += "_en"
 
     # print(args.splits)
@@ -220,7 +230,7 @@ if __name__ == "__main__":
         scores['ATT']=pre_res[1]*100
         scores['DDR']=pre_res[2]*100
 
-        final_score=0.1*micro_comm+0.1*micro_comm+0.25*conditional_micro_logi+0.05*scores['DAV']+0.05*scores['ATT']+0.05*scores['DDR']+0.4*fpr
+        final_score=0.1*micro_comm+0.1*macro_comm+0.25*conditional_micro_logi+0.05*scores['DAV']+0.05*scores['ATT']+0.05*scores['DDR']+0.4*fpr
         print('Overall Score: ',final_score)
         scores['overall'] = final_score
         print(scores)
@@ -234,4 +244,5 @@ if __name__ == "__main__":
                 query_data,
                 result_data[method],
                 list(set(commonsense_pass_id) & set(logi_pass_id)),
+                lang=args.lang,
             )

@@ -12,11 +12,38 @@ if project_root_path not in sys.path:
 import json
 from chinatravel.environment.world_env import WorldEnv
 from chinatravel.evaluation.utils import Attractions
+from chinatravel.environment.language import CITY_NAMES, normalize_lang
+from chinatravel.symbol_verification.concept_func import set_concept_func_lang
 
 from chinatravel.symbol_verification.preference import evaluate_preference_py
 env = WorldEnv()
 attractions = Attractions()
 goto = env.transportation.goto
+_TOOLS_BY_LANG = {
+    "zh": (env, attractions, goto)
+}
+
+
+def _infer_lang(symbolic_input=None, plan_json=None):
+    city_values = set()
+    for source in (symbolic_input, plan_json):
+        if isinstance(source, dict):
+            city_values.add(source.get("start_city"))
+            city_values.add(source.get("target_city"))
+    if city_values & set(CITY_NAMES["en"]):
+        return "en"
+    return "zh"
+
+
+def _set_preference_lang(lang):
+    global env, attractions, goto
+    lang = normalize_lang(lang)
+    if lang not in _TOOLS_BY_LANG:
+        lang_env = WorldEnv(lang=lang)
+        lang_attractions = Attractions(lang=lang)
+        _TOOLS_BY_LANG[lang] = (lang_env, lang_attractions, lang_env.transportation.goto)
+    env, attractions, goto = _TOOLS_BY_LANG[lang]
+    set_concept_func_lang(lang)
 
 city_dict = {
     "北京": "beijing",
@@ -257,7 +284,8 @@ func_list = [
 ]
 
 
-def _evaluate_preference(symbolic_input, plan_json):
+def _evaluate_preference(symbolic_input, plan_json, lang=None):
+    _set_preference_lang(lang or _infer_lang(symbolic_input, plan_json))
 
     result = {}
     poi_list_str = ""
@@ -280,7 +308,7 @@ def _evaluate_preference(symbolic_input, plan_json):
     return result
 
 
-def evaluate_preference(query_index, query_data, result_data, commonsense_pass):
+def evaluate_preference(query_index, query_data, result_data, commonsense_pass, lang=None):
     result = []
     for i in range(len(query_index)):
         if query_index[i] not in commonsense_pass:
@@ -293,12 +321,12 @@ def evaluate_preference(query_index, query_data, result_data, commonsense_pass):
         # print("symbolic_input", symbolic_input, "plan_json", plan_json)
         result.append(
             {"data_id": query_index[i]}
-            | _evaluate_preference(symbolic_input, plan_json)
+            | _evaluate_preference(symbolic_input, plan_json, lang=lang)
         )
     result_df = pd.DataFrame(result)
     return result_df
 
-def evaluate_preference_v2(query_index, query_data, result_data, pass_id):
+def evaluate_preference_v2(query_index, query_data, result_data, pass_id, lang=None):
     result = []
     for i in range(len(query_index)):
         if query_index[i] not in pass_id:
@@ -311,6 +339,7 @@ def evaluate_preference_v2(query_index, query_data, result_data, pass_id):
         evaluate_preference_py
         symbolic_input = query_data[query_index[i]]
         plan_json = result_data[query_index[i]]
+        _set_preference_lang(lang or _infer_lang(symbolic_input, plan_json))
         # print("symbolic_input", symbolic_input, "plan_json", plan_json)
 
         if isinstance(symbolic_input["preference_py"], list):

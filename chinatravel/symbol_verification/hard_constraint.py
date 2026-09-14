@@ -13,6 +13,7 @@ from chinatravel.environment.language import CITY_NAMES, normalize_lang
 from chinatravel.symbol_verification.concept_func import (
     func_dict,
     normalize_concept_constraint_source,
+    normalize_poi_name,
     set_concept_func_lang,
 )
 from chinatravel.evaluation.utils import load_json_file
@@ -27,64 +28,6 @@ attractions = Attractions()
 _TOOLS_BY_LANG = {
     "zh": (accommodation, restaurants, attractions)
 }
-
-_POI_DISTANCE_ACCOMMODATION_RE = re.compile(
-    r"(poi_distance\(target_city\(plan\)\s*,\s*)(['\"])(.+)\2(\s*,\s*accommodation_position\))"
-)
-
-
-def _normalize_poi_distance_literals(constraint):
-    def replace_match(match):
-        poi_name = match.group(3).replace("\\'", "'").replace('\\"', '"')
-        return f"{match.group(1)}{poi_name!r}{match.group(4)}"
-
-    lines = []
-    for line in constraint.splitlines():
-        if "poi_distance" in line and "accommodation_position" in line:
-            line = _POI_DISTANCE_ACCOMMODATION_RE.sub(replace_match, line)
-        lines.append(line)
-    return "\n".join(lines)
-
-
-def _replace_comparison_literal(line, pattern):
-    match = re.search(pattern, line)
-    if not match:
-        return line
-    quote = match.group("quote")
-    content_start = match.end()
-    closing = None
-    for idx in range(content_start, len(line)):
-        if line[idx] != quote:
-            continue
-        if idx > content_start and line[idx - 1] == "\\":
-            continue
-        rest = line[idx + 1 :].lstrip()
-        if not rest or rest[0] in ":)]},&|":
-            closing = idx
-    if closing is None:
-        return line
-    raw_value = line[content_start:closing]
-    value = raw_value.replace("\\'", "'").replace('\\"', '"')
-    return f"{line[:match.start('quote')]}{value!r}{line[closing + 1:]}"
-
-
-def _normalize_activity_position_literals(constraint):
-    pattern = (
-        r"activity_position\(activity\)\s*(?:==|!=)\s*"
-        r"(?P<quote>['\"])"
-    )
-    return "\n".join(
-        _replace_comparison_literal(line, pattern)
-        if "activity_position(activity)" in line
-        else line
-        for line in constraint.splitlines()
-    )
-
-
-def normalize_hard_logic_constraint(constraint):
-    constraint = _normalize_poi_distance_literals(constraint)
-    constraint = _normalize_activity_position_literals(constraint)
-    return constraint
 
 
 def _infer_lang(symbolic_input):
@@ -304,6 +247,7 @@ def get_symbolic_concepts(symbolic_input, plan_json, need_ood=False):
 
             if not "position" in activity:
                 continue
+            position = normalize_poi_name(activity["position"])
 
             if (
                 activity["type"] == "breakfast"
@@ -311,11 +255,11 @@ def get_symbolic_concepts(symbolic_input, plan_json, need_ood=False):
                 or activity["type"] == "dinner"
             ):
                 select_food_type = restaurants.select(
-                    target_city, key="name", func=lambda x: x == activity["position"]
+                    target_city, key="name", func=lambda x: x == position
                 )["cuisine"]
                 if not select_food_type.empty:
                     food_type.add(select_food_type.iloc[0])
-                restaurant_names.add(activity["position"])
+                restaurant_names.add(position)
 
                 if "cost" in activity:
                     food_prices.append(activity["cost"])
@@ -325,11 +269,11 @@ def get_symbolic_concepts(symbolic_input, plan_json, need_ood=False):
 
             if activity["type"] == "accommodation":
                 select_hotel_type = accommodation.select(
-                    target_city, key="name", func=lambda x: x == activity["position"]
+                    target_city, key="name", func=lambda x: x == position
                 )["featurehoteltype"]
                 if not select_hotel_type.empty:
                     hotel_feature.add(select_hotel_type.iloc[0])
-                hotel_names.add(activity["position"])
+                hotel_names.add(position)
 
                 if "cost" in activity:
                     hotel_prices.append(activity["cost"])
@@ -345,7 +289,7 @@ def get_symbolic_concepts(symbolic_input, plan_json, need_ood=False):
 
             if activity["type"] == "attraction":
                 select_attraction_type = attractions.select(
-                    target_city, key="name", func=lambda x: x == activity["position"]
+                    target_city, key="name", func=lambda x: x == position
                 )["type"]
                 if not select_attraction_type.empty:
                     spot_type.add(select_attraction_type.iloc[0])
@@ -356,7 +300,7 @@ def get_symbolic_concepts(symbolic_input, plan_json, need_ood=False):
                     # print(ood_attractions_dataframe.loc[ood_attractions_dataframe['name'] == activity["position"]])
 
                     attraction_sel = ood_attractions_dataframe.loc[
-                        ood_attractions_dataframe["name"] == activity["position"]
+                        ood_attractions_dataframe["name"] == position
                     ]
                     if len(attraction_sel) > 0:
                         attraction_info = attraction_sel.iloc[0]
@@ -364,7 +308,7 @@ def get_symbolic_concepts(symbolic_input, plan_json, need_ood=False):
                         for ood_type in ood_type_dict:
                             if attraction_info[ood_type] == 1:
                                 spot_type.add(ood_type_dict[ood_type])
-                attraction_names.add(activity["position"])
+                attraction_names.add(position)
 
                 if "cost" in activity:
                     total_cost += activity.get("cost", 0)
@@ -552,9 +496,8 @@ for activity in allactivities(plan):
         # results.append(vars_dict.get("result", False))
         try:
             # Evaluate the constraint in a safe manner
-            constraint_to_exec = normalize_hard_logic_constraint(constraint)
             exec(
-                constraint_to_exec,
+                constraint,
                 {
                     "__builtins__": {
                         "set": set,
@@ -590,3 +533,63 @@ if __name__ == "__main__":
         symbolic_input_list, plan_json_list
     )
     print("macro: {}%, micro: {}%".format(macro_accuracy, micro_accuracy))
+
+
+# --- Backward-compat shim (planner needs normalize_hard_logic_constraint) ---
+_POI_DISTANCE_ACCOMMODATION_RE = re.compile(
+    r"(poi_distance\(target_city\(plan\)\s*,\s*)(['\"])(.+)\2(\s*,\s*accommodation_position\))"
+)
+
+
+def _normalize_poi_distance_literals(constraint):
+    def replace_match(match):
+        poi_name = match.group(3).replace("\\'", "'").replace('\\"', '"')
+        return f"{match.group(1)}{poi_name!r}{match.group(4)}"
+
+    lines = []
+    for line in constraint.splitlines():
+        if "poi_distance" in line and "accommodation_position" in line:
+            line = _POI_DISTANCE_ACCOMMODATION_RE.sub(replace_match, line)
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def _replace_comparison_literal(line, pattern):
+    match = re.search(pattern, line)
+    if not match:
+        return line
+    quote = match.group("quote")
+    content_start = match.end()
+    closing = None
+    for idx in range(content_start, len(line)):
+        if line[idx] != quote:
+            continue
+        if idx > content_start and line[idx - 1] == "\\":
+            continue
+        rest = line[idx + 1 :].lstrip()
+        if not rest or rest[0] in ":)]},&|":
+            closing = idx
+    if closing is None:
+        return line
+    raw_value = line[content_start:closing]
+    value = raw_value.replace("\\'", "'").replace('\\"', '"')
+    return f"{line[:match.start('quote')]}{value!r}{line[closing + 1:]}"
+
+
+def _normalize_activity_position_literals(constraint):
+    pattern = (
+        r"activity_position\(activity\)\s*(?:==|!=)\s*"
+        r"(?P<quote>['\"])"
+    )
+    return "\n".join(
+        _replace_comparison_literal(line, pattern)
+        if "activity_position(activity)" in line
+        else line
+        for line in constraint.splitlines()
+    )
+
+
+def normalize_hard_logic_constraint(constraint):
+    constraint = _normalize_poi_distance_literals(constraint)
+    constraint = _normalize_activity_position_literals(constraint)
+    return constraint
